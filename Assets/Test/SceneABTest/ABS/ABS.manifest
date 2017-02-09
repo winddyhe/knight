@@ -1,0 +1,9 @@
+ManifestFileVersion: 0
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: scene_1.ab
+      Dependencies: {}
+    Info_1:
+      Name: scene_2.ab
+      Dependencies: {}

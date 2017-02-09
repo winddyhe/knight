@@ -1,0 +1,15 @@
+{
+  "name": "pomelo-knight",
+  "version": "0.0.1",
+  "private": false,
+  "dependencies": {
+    "async": "^1.5.2",
+    "crc": "^3.4.0",
+    "crypto": "0.0.3",
+    "mongodb": "^2.1.7",
+    "mongoose": "^4.4.7",
+    "mongoose-auto-increment": "^5.0.1",
+    "pomelo": "1.2.2",
+    "pomelo-logger": "^0.1.7"
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "ExcelName": "Avatar.xlsx",
+    "SheetName": "Avatar",
+    "ClassName": "Game.Knight.Avatar",
+    "PrimaryKey": "ID"
+  },
+  {
+    "ExcelName": "Hero.xlsx",
+    "SheetName": "Hero",
+    "ClassName": "Game.Knight.Hero",
+    "PrimaryKey": "ID"
+  },
+  {
+    "ExcelName": "Professional.xlsx",
+    "SheetName": "Professional",
+    "ClassName": "Game.Knight.ActorProfessional",
+    "PrimaryKey": "ID"
+  },
+  {
+    "ExcelName": "StageConfig.xlsx",
+    "SheetName": "StageConfig",
+    "ClassName": "Game.Knight.StageConfig",
+    "PrimaryKey": "StageID"
+  }
+]
