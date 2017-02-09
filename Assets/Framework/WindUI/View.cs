@@ -16,22 +16,69 @@ namespace Framework.WindUI
     public class View : MonoBehaviour
     {
         /// <summary>
-        /// View的数据
+        /// View的状态，有三种状态
         /// </summary>
-        public ViewData         ViewData;
+        public enum State
+        {
+            /// <summary>
+            /// 固定的
+            /// </summary>
+            fixing,
+            /// <summary>
+            /// 叠层
+            /// </summary>
+            overlap,
+            /// <summary>
+            /// 可切换的
+            /// </summary>
+            dispatch,
+        }
+
+        /// <summary>
+        /// View的实例化GUID，用来唯一标识该View
+        /// </summary>
+        public string           GUID            = "";
+
+        /// <summary>
+        /// 该页面当前的状态
+        /// </summary>
+        public State            curState        = State.fixing;
+
+        /// <summary>
+        /// 是否为Multi的页面
+        /// </summary>
+        public bool             isMultiView     = false;
 
         /// <summary>
         /// View的控制器
         /// </summary>
-        public ViewController   ViewController;
+        public IViewController  viewController;
 
-        public void Initialize(string rViewGUID, ViewData.State rViewState)
+        /// <summary>
+        /// 该View是否被打开？
+        /// </summary>
+        protected bool          isOpened        = false;
+        public bool             IsOpened        { get { return isOpened; } set { isOpened = value; } }
+
+        /// <summary>
+        /// 该View是否被关掉
+        /// </summary>
+        protected bool          isClosed        = false;
+        public bool             IsClosed        { get { return isClosed; } set { isClosed = value; } }
+
+        /// <summary>
+        /// 是否被激活？
+        /// </summary>
+        public bool             isActived
         {
-            Type rViewDataType = Type.GetType();
-            this.ViewData = ReflectionAssist.Construct();
+            get { return this.gameObject.activeSelf; }
+            set { this.gameObject.SetActive(value); }
+        }
 
-            this.ViewData.GUID = rViewGUID;
-            this.ViewData.CurState = rViewState;
+        public void Initialize(string rViewGUID, State rViewState)
+        {
+            this.GUID = rViewGUID;
+            this.curState = rViewState;
 
             // 初始化View controller
             this.InitializeViewController();

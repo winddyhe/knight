@@ -36,6 +36,7 @@ Library
 Temp
 Assets/Assetbundles
 Server/pomelo-knight/game-server/logs
+Server/pomelo-knight/game-server/logs
 HotfixModule/KnightHotfixModule/obj
 HotfixModule/KnightHotfixModule/bin
 Server/pomelo-knight/game-server/node_modules

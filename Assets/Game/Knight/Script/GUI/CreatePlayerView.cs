@@ -23,10 +23,7 @@ namespace Game.Knight
 
         protected override void InitializeViewController()
         {
-            //this.viewController = new CreatePlayerViewController(this);
-            var rObj = HotfixManager.Instance.App.CreateInstance(
-                "KnightHotfixModule.CreatePlayerHotfixViewController", this);
-            this.viewController = rObj.ILObject.CLRInstance as IViewController;
+            this.viewController = new CreatePlayerViewController(this);
         }
 
         public void OnPlayerCreateBtn_Clicked()

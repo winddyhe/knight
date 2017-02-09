@@ -50,7 +50,7 @@ namespace Framework.WindUI
         /// <summary>
         /// 打开一个View
         /// </summary>
-        public void Open(string rViewName, ViewData.State rViewState, Action<View> rOpenCompleted = null)
+        public void Open(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
         {
             // 企图关闭当前的View
             MaybeCloseTopView(rViewState);
@@ -58,12 +58,12 @@ namespace Framework.WindUI
             this.StartCoroutine(Open_Async(rViewName, rViewState, rOpenCompleted));
         }
 
-        public Coroutine OpenAsync(string rViewName, ViewData.State rViewState, Action<View> rOpenCompleted = null)
+        public Coroutine OpenAsync(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
         {
             return this.StartCoroutine(Open_Async(rViewName, rViewState, rOpenCompleted));
         }
 
-        private IEnumerator Open_Async(string rViewName, ViewData.State rViewState, Action<View> rOpenCompleted)
+        private IEnumerator Open_Async(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
         {
             var rLoaderRequest = UILoader.Instance.LoadUI(rViewName);
             yield return rLoaderRequest.Coroutine;
@@ -189,7 +189,7 @@ namespace Framework.WindUI
         /// <summary>
         /// 企图关闭一个当前的View，当存在当前View时候，并且传入的View是需要Dispatch的。
         /// </summary>
-        private void MaybeCloseTopView(ViewData.State rViewState)
+        private void MaybeCloseTopView(View.State rViewState)
         {
             // 得到顶层结点
             KeyValuePair<string, View> rTopNode = this.curViews.Last();
@@ -199,7 +199,7 @@ namespace Framework.WindUI
     
             if (rView == null) return;
     
-            if (rViewState == ViewData.State.dispatch)
+            if (rViewState == View.State.dispatch)
             {
                 // 移除顶层结点
                 this.curViews.Remove(rViewGUID);

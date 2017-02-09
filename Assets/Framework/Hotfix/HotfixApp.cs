@@ -38,6 +38,7 @@ namespace Framework.Hotfix
         /// </summary>
         private void RegisterCrossBindingAdaptor(AppDomain rApp)
         {
+
         }
     }
 }

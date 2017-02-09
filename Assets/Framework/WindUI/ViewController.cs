@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Framework.WindUI
 {
@@ -21,13 +20,13 @@ namespace Framework.WindUI
         public virtual void OnClosed()  { }
     }
 
-    public class ViewController : IViewController
+    public class ViewController<T> : IViewController where T : View
     {
-        protected GameObject    mViewRootGo = null;
+        protected T         mView = null;
 
-        public ViewController(GameObject rViewRootGo)
+        public ViewController(T rView)
         {
-            this.mViewRootGo = rViewRootGo;
+            this.mView = rView;
         }
 
         /// <summary>
@@ -35,6 +34,7 @@ namespace Framework.WindUI
         /// </summary>
         public override void OnOpening()
         {
+            this.mView.IsOpened = true;
         }
 
         /// <summary>
@@ -63,6 +63,7 @@ namespace Framework.WindUI
         /// </summary>
         public override void OnClosing()
         {
+            this.mView.IsClosed = true;
         }
 
         /// <summary>
