@@ -16,11 +16,11 @@ public class CustomAssetPreprocess : AssetPostprocessor
         if (this.assetPath.Contains("OriginalRes/Role/") || this.assetPath.Contains("OriginalRes/Scene/"))
         {
             TextureImporter rTexImporter = this.assetImporter as TextureImporter;
-            var rPlaformSettings = rTexImporter.GetDefaultPlatformTextureSettings();
-            rPlaformSettings.maxTextureSize = 1024;
-            rPlaformSettings.textureCompression = TextureImporterCompression.CompressedHQ;
-            rPlaformSettings.crunchedCompression = true;
-            rTexImporter.SetPlatformTextureSettings(rPlaformSettings);
+
+            int nMaxTextureSize = 1024;
+            int nCompressQuality = 0;
+            TextureImporterFormat rTexFormat = TextureImporterFormat.AutomaticCompressed;
+            rTexImporter.SetPlatformTextureSettings("Standalone", nMaxTextureSize, rTexFormat, nCompressQuality, false);
         }
     }
 

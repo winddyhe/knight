@@ -9,7 +9,7 @@ namespace Test
 {
     public class NavMeshDisplay : MonoBehaviour
     {
-        public UnityEngine.AI.NavMeshTriangulation navMeshTri;
+        public UnityEngine.NavMeshTriangulation navMeshTri;
 
         public Material mat;
 
@@ -17,7 +17,7 @@ namespace Test
 
         void Start()
         {
-            navMeshTri = UnityEngine.AI.NavMesh.CalculateTriangulation();
+            navMeshTri = UnityEngine.NavMesh.CalculateTriangulation();
             this.name = "NavmeshGo";
             MeshFilter rMeshFilter = this.gameObject.AddComponent<MeshFilter>();
             Mesh rMesh = new Mesh();
