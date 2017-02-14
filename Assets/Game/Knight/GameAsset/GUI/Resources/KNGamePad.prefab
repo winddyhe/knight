@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000012797554186
 GameObject:
   m_ObjectHideFlags: 1
@@ -39,12 +39,12 @@ GameObject:
   - 114: {fileID: 114000011846103414}
   - 114: {fileID: 114000013066471768}
   m_Layer: 5
-  m_Name: 
+  m_Name: back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000013825967046
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,12 +55,12 @@ GameObject:
   - 224: {fileID: 224000013512383256}
   - 114: {fileID: 114000013979806400}
   m_Layer: 5
-  m_Name: 
+  m_Name: Joystick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000013952571254
 GameObject:
   m_ObjectHideFlags: 1
@@ -72,12 +72,12 @@ GameObject:
   - 222: {fileID: 222000011910349836}
   - 114: {fileID: 114000012969512606}
   m_Layer: 5
-  m_Name: 
+  m_Name: front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &114000010790852756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -92,7 +92,7 @@ MonoBehaviour:
   GUID: 
   curState: 0
   isMultiView: 0
-  Joystick: {fileID: 4096}
+  Joystick: {fileID: 114000013979806400}
 --- !u!114 &114000011846103414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -199,8 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a9162b2e799cd49863c083225929e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JoystickRootTrans: {fileID: 1851076473}
-  JoystickFrontTrans: {fileID: 59777824}
+  JoystickRootTrans: {fileID: 224000013512383256}
+  JoystickFrontTrans: {fileID: 224000010674719662}
   TouchObj1:
     deltaPosition: {x: 0, y: 0}
     deltaTime: 0
