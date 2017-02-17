@@ -14,31 +14,32 @@ using System.IO;
 
 namespace MemoryProfilerWindow
 {
-    public class MemoryProfilerWindow : IMemoryProfilerWindow
+    public class MemoryProfilerDiffWindow : IMemoryProfilerWindow
     {
         [NonSerialized]
         UnityEditor.MemoryProfiler.PackedMemorySnapshot _snapshot;
+        [NonSerialized]
+        UnityEditor.MemoryProfiler.PackedMemorySnapshot _snapshot_prev;
 
         [SerializeField]
-        PackedCrawlerData _packedCrawled;
+        PackedCrawlerData                               _packedCrawled;
+        [SerializeField]
+        PackedCrawlerData                               _packedCrewled_prev;
 
         [NonSerialized]
-        CrawledMemorySnapshot _unpackedCrawl;
+        CrawledMemorySnapshot                           _unpackedCrawl;
+        [NonSerialized]
+        CrawledMemorySnapshot                           _unpackedCrawl_prev;
 
         Vector2 _scrollPosition;
 
         [NonSerialized]
         private bool _registered = false;
-
-        [MenuItem("Window/MemoryProfiler")]
+        
+        [MenuItem("Window/MemoryProfilerDiff")]
         static void Create()
         {
-            EditorWindow.GetWindow<MemoryProfilerWindow>();
-        }
-
-        [MenuItem("Window/MemoryProfilerInspect")]
-        static void Inspect()
-        {
+            EditorWindow.GetWindow<MemoryProfilerDiffWindow>();
         }
 
         public void OnDisable()
@@ -70,11 +71,11 @@ namespace MemoryProfilerWindow
             Initialize();
 
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Take Snapshot"))
+            if (GUILayout.Button("Take Snapshot", GUILayout.Width(100)))
             {
                 UnityEditor.MemoryProfiler.MemorySnapshot.RequestNewSnapshot();
             }
-            if (GUILayout.Button("Save Snapshot..."))
+            if (GUILayout.Button("Save Snapshot", GUILayout.Width(100)))
             {
                 if (_snapshot != null)
                 {
@@ -93,7 +94,7 @@ namespace MemoryProfilerWindow
                     UnityEngine.Debug.LogWarning("No snapshot to save.  Try taking a snapshot first.");
                 }
             }
-            if (GUILayout.Button("Load Snapshot..."))
+            if (GUILayout.Button("Load Snapshot", GUILayout.Width(100)))
             {
                 string fileName = EditorUtility.OpenFilePanel("Load Snapshot", null, "memsnap");
                 if (!string.IsNullOrEmpty(fileName))
@@ -105,7 +106,23 @@ namespace MemoryProfilerWindow
                     }
                 }
             }
+
+            if (GUILayout.Button("Snap Diff Compare", GUILayout.Width(130)))
+            {
+                if (_snapshot_prev == null)
+                {
+                    Debug.LogError("Has not prev snap to compare..");
+                }
+            }
+            
+            if (_snapshot_prev == null)
+            {
+                GUI.color = Color.red;
+                EditorGUILayout.LabelField("Has not prev snap to compare..", GUILayout.Width(200));
+                GUI.color = Color.white;
+            }
             GUILayout.EndHorizontal();
+
             if (_treeMapView != null)
                 _treeMapView.Draw();
             if (_inspector != null)
@@ -158,6 +175,11 @@ namespace MemoryProfilerWindow
 
         void IncomingSnapshot(PackedMemorySnapshot snapshot)
         {
+            // 赋值上一次的snapshot
+            _snapshot_prev = _snapshot;
+            _packedCrewled_prev = _packedCrawled;
+            _unpackedCrawl_prev = _unpackedCrawl;
+
             _snapshot = snapshot;
 
             _packedCrawled = new Crawler().Crawl(_snapshot);

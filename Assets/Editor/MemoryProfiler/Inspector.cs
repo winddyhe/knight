@@ -15,7 +15,7 @@ namespace MemoryProfilerWindow
         private ShortestPathToRootFinder _shortestPathToRootFinder;
         private static int s_InspectorWidth = 400;
         Vector2 _scrollPosition;
-        MemoryProfilerWindow _hostWindow;
+        IMemoryProfilerWindow _hostWindow;
         CrawledMemorySnapshot _unpackedCrawl;
         PrimitiveValueReader _primitiveValueReader;
         Dictionary<ulong, ThingInMemory> objectCache = new Dictionary<ulong, ThingInMemory>();
@@ -32,7 +32,7 @@ namespace MemoryProfilerWindow
 
         GUILayoutOption labelWidth = GUILayout.Width(150);
 
-        public Inspector(MemoryProfilerWindow hostWindow, CrawledMemorySnapshot unpackedCrawl, PackedMemorySnapshot snapshot)
+        public Inspector(IMemoryProfilerWindow hostWindow, CrawledMemorySnapshot unpackedCrawl, PackedMemorySnapshot snapshot)
         {
             _unpackedCrawl = unpackedCrawl;
             _hostWindow = hostWindow;

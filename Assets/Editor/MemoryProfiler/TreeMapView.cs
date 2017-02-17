@@ -21,11 +21,11 @@ namespace MemoryProfilerWindow
         private Group _selectedGroup;
         private Item _mouseDownItem;
 
-        MemoryProfilerWindow _hostWindow;
+        IMemoryProfilerWindow _hostWindow;
 
         private Vector2 mouseTreemapPosition { get { return _ZoomArea.ViewToDrawingTransformPoint(Event.current.mousePosition); } }
 
-        public void Setup(MemoryProfilerWindow hostWindow, CrawledMemorySnapshot _unpackedCrawl)
+        public void Setup(IMemoryProfilerWindow hostWindow, CrawledMemorySnapshot _unpackedCrawl)
         {
             this._unpackedCrawl = _unpackedCrawl;
             this._hostWindow = hostWindow;
