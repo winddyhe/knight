@@ -16,9 +16,9 @@ namespace MemoryProfilerWindow
 {
     public class MemoryProfilerDiffWindow : IMemoryProfilerWindow
     {
-        [NonSerialized]
+        [SerializeField]
         UnityEditor.MemoryProfiler.PackedMemorySnapshot _snapshot;
-        [NonSerialized]
+        [SerializeField]
         UnityEditor.MemoryProfiler.PackedMemorySnapshot _snapshot_prev;
 
         [SerializeField]
@@ -31,15 +31,28 @@ namespace MemoryProfilerWindow
         [NonSerialized]
         CrawledMemorySnapshot                           _unpackedCrawl_prev;
 
+        [SerializeField]
+        string                                          _snap_time = "";
+        [SerializeField]
+        string                                          _snap_prev_time = ""; 
+
         Vector2 _scrollPosition;
 
         [NonSerialized]
         private bool _registered = false;
         
+        public CrawledMemorySnapshot                    unpackedCrawl       { get { return _unpackedCrawl;      } }
+        public CrawledMemorySnapshot                    unpackedCrawlPrev   { get { return _unpackedCrawl_prev; } }
+
         [MenuItem("Window/MemoryProfilerDiff")]
         static void Create()
         {
             EditorWindow.GetWindow<MemoryProfilerDiffWindow>();
+        }
+
+        public void OnEnable()
+        {
+            Initialize();
         }
 
         public void OnDisable()
@@ -63,7 +76,10 @@ namespace MemoryProfilerWindow
             if (_unpackedCrawl == null && _packedCrawled != null && _packedCrawled.valid)
                 Unpack();
 
-
+            if (_unpackedCrawl_prev == null && _packedCrewled_prev != null && _packedCrewled_prev.valid)
+            {
+                _unpackedCrawl_prev = CrawlDataUnpacker.Unpack(_packedCrewled_prev);
+            }
         }
 
         void OnGUI()
@@ -75,11 +91,11 @@ namespace MemoryProfilerWindow
             {
                 UnityEditor.MemoryProfiler.MemorySnapshot.RequestNewSnapshot();
             }
-            if (GUILayout.Button("Save Snapshot", GUILayout.Width(100)))
+            if (GUILayout.Button("Save Snapshot", GUILayout.Width(100))) 
             {
                 if (_snapshot != null)
                 {
-                    string fileName = EditorUtility.SaveFilePanel("Save Snapshot", null, "MemorySnapshot", "memsnap");
+                    string fileName = EditorUtility.SaveFilePanel("Save Snapshot", null, "MemorySnapshot", "memsnap"); 
                     if (!string.IsNullOrEmpty(fileName))
                     {
                         System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
@@ -112,13 +128,22 @@ namespace MemoryProfilerWindow
                 if (_snapshot_prev == null)
                 {
                     Debug.LogError("Has not prev snap to compare..");
+                    return;
                 }
+                MemorySnapDiffWindow.Create();
+                MemorySnapDiffWindow.Instance.SetSnapshot(this);
             }
-            
-            if (_snapshot_prev == null)
+
+            if (_snapshot != null)
             {
                 GUI.color = Color.red;
-                EditorGUILayout.LabelField("Has not prev snap to compare..", GUILayout.Width(200));
+                EditorGUILayout.LabelField("CurrSnap " + _snap_time, GUILayout.Width(120)); 
+                GUI.color = Color.white;
+            }
+            if (_snapshot_prev != null)
+            {
+                GUI.color = Color.red;
+                EditorGUILayout.LabelField("PrevSnap " + _snap_prev_time, GUILayout.Width(120));
                 GUI.color = Color.white;
             }
             GUILayout.EndHorizontal();
@@ -175,15 +200,23 @@ namespace MemoryProfilerWindow
 
         void IncomingSnapshot(PackedMemorySnapshot snapshot)
         {
-            // 赋值上一次的snapshot
-            _snapshot_prev = _snapshot;
-            _packedCrewled_prev = _packedCrawled;
-            _unpackedCrawl_prev = _unpackedCrawl;
+            SetPrevSnapshot(_snapshot);
 
             _snapshot = snapshot;
+            _snap_time = DateTime.Now.ToString("H:mm:ss");
 
             _packedCrawled = new Crawler().Crawl(_snapshot);
             Unpack();
+        }
+
+        void SetPrevSnapshot(PackedMemorySnapshot snapshot)
+        {
+            if (snapshot == null) return;
+
+            _snap_prev_time = _snap_time;
+            _snapshot_prev = snapshot;
+            _packedCrewled_prev = new Crawler().Crawl(_snapshot_prev);
+            _unpackedCrawl_prev = CrawlDataUnpacker.Unpack(_packedCrewled_prev); 
         }
     }
 }
