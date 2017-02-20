@@ -18,13 +18,13 @@ namespace MemoryProfilerWindow
 
         private Vector2         mScrollPos;
         private int             mResultCount = 0;
-        private bool            mSelectedAll = false;
         private string          mSearchName  = "";
         
         [MenuItem("Window/Objects search")]
         static void Create()
         {
-            EditorWindow.GetWindow<ObjectSearchWindow>();
+            var rWindow = EditorWindow.GetWindow<ObjectSearchWindow>();
+            rWindow.titleContent = new GUIContent("ObjectSearchWindow");
         }
 
         void OnGUI()
@@ -33,11 +33,20 @@ namespace MemoryProfilerWindow
             {
                 using (var scope1 = new EditorGUILayout.HorizontalScope())
                 {
-                    EditorGUIUtility.labelWidth = 40;
+                    EditorGUIUtility.labelWidth = 65;
+                    mObjectHideFlags = (HideFlags)EditorGUILayout.EnumMaskField("HideFlags: ", mObjectHideFlags, GUILayout.MaxWidth(500));
+                    EditorGUILayout.Space();
+                }
+
+                using (var scope1 = new EditorGUILayout.HorizontalScope())
+                {
+                    EditorGUIUtility.labelWidth = 65;
                     mSearchObjType = EditorGUILayout.TextField("Type: ", mSearchObjType);
                     Type rSearchType = null;
+
                     if (GUILayout.Button("Search", GUILayout.Width(80)))
                     {
+                        mSearchObjs = new List<Object>();
                         var assembies = AppDomain.CurrentDomain.GetAssemblies();
                         for (int i = 0; i < assembies.Length; i++)
                         {
@@ -45,21 +54,32 @@ namespace MemoryProfilerWindow
                             if (rSearchType != null) break;
                         }
                         if (rSearchType != null)
-                            mSearchObjs = new List<Object>(Resources.FindObjectsOfTypeAll(rSearchType));
-                    }
-                }
+                        {
+                            mSearchObjs = new List<Object>();
+                            var rResultObjs = Resources.FindObjectsOfTypeAll(rSearchType);
+                            for (int i = 0; i < rResultObjs.Length; i++)
+                            {
+                                if ((int)mObjectHideFlags != -1 && (rResultObjs[i].hideFlags & mObjectHideFlags) == mObjectHideFlags) continue;
 
-                using (var scope1 = new EditorGUILayout.HorizontalScope())
-                {
-                    EditorGUIUtility.labelWidth = 65;
-                    mObjectHideFlags = (HideFlags)EditorGUILayout.EnumPopup("HideFlags: ", mObjectHideFlags, GUILayout.MaxWidth(500));
-                    EditorGUILayout.Space();
-                    EditorGUIUtility.labelWidth = 25;
-                    mSelectedAll = EditorGUILayout.Toggle("All: ", mSelectedAll);
+                                mSearchObjs.Add(rResultObjs[i]);
+                            }
+                            rResultObjs = null;
+                        }
+                    }
                 }
 
                 EditorGUIUtility.labelWidth = 65;
                 mSearchName = EditorGUILayout.TextField("Name: ", mSearchName);
+
+                if (GUILayout.Button("Clear"))
+                {
+                    if (mSearchObjs != null)
+                        mSearchObjs.Clear();
+                }
+                if (GUILayout.Button("UnloadUnusedAssets"))
+                {
+                    Resources.UnloadUnusedAssets();
+                }
 
                 if (mSearchObjs != null)
                 {
@@ -68,13 +88,15 @@ namespace MemoryProfilerWindow
                     mResultCount = 0;
                     for (int i = 0; i < mSearchObjs.Count; i++)
                     {
-                        if (mSearchObjs[i] == null) continue;
-
-                        if (mSearchObjs[i].hideFlags != mObjectHideFlags && !mSelectedAll) continue;
-
-                        if (!mSearchObjs[i].name.ToLower().Contains(mSearchName.ToLower()) && !string.IsNullOrEmpty(mSearchName)) continue;
-
-                        EditorGUILayout.ObjectField(mSearchObjs[i], mSearchObjs[i].GetType(), true);
+                        if (mSearchObjs[i] == null)
+                        {
+                            EditorGUILayout.ObjectField(mSearchObjs[i], typeof(UnityEngine.Object), true);
+                        }
+                        else
+                        {
+                            if (!mSearchObjs[i].name.ToLower().Contains(mSearchName.ToLower()) && !string.IsNullOrEmpty(mSearchName)) continue;
+                            EditorGUILayout.ObjectField(mSearchObjs[i], mSearchObjs[i].GetType(), true);
+                        }
                         mResultCount++;
                     }
                     EditorGUILayout.EndScrollView();
