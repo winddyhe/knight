@@ -24,5 +24,28 @@ namespace Core.Editor
                 }
             }
         }
+
+        public static string ToMemorySize(long byteNum)
+        {
+            if (byteNum < 0)
+                byteNum = 0;
+
+            if (byteNum < 1024)
+            {
+                return byteNum + "B";
+            }
+            else if (byteNum < 1048576 && byteNum >= 1024) 
+            {
+                return (byteNum / 1024.0f).ToString("F2") + "KB";
+            }
+            else if (byteNum < 1073741824 && byteNum >= 1048576)
+            {
+                return (byteNum / 1048576.0f).ToString("F2") + "MB";
+            }
+            else
+            {
+                return (byteNum / 1073741824.0f).ToString("F2") + "GB";
+            }
+        }
     }
 }

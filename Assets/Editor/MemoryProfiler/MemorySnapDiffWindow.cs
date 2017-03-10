@@ -2,6 +2,7 @@
 using UnityEditor;
 using System;
 using System.Collections.Generic;
+using Core.Editor;
 
 namespace MemoryProfilerWindow
 {
@@ -62,7 +63,7 @@ namespace MemoryProfilerWindow
 
                 if (this._extraObjs != null)
                 { 
-                    EditorGUILayout.LabelField(string.Format("Result: {0}, TotalMemory: {1}", this._extraObjs.Length, ToMemorySize(this._memorySize)));
+                    EditorGUILayout.LabelField(string.Format("Result: {0}, TotalMemory: {1}", this._extraObjs.Length, EditorAssists.ToMemorySize(this._memorySize)));
                     this._scrollPosition = EditorGUILayout.BeginScrollView(this._scrollPosition);
                     for (int i = 0; i < this._extraObjs.Length; i++)
                     {
@@ -77,7 +78,7 @@ namespace MemoryProfilerWindow
         {
             using (var scope = new EditorGUILayout.HorizontalScope())
             {
-                string result = string.Format("classname:{0}, name: {1}, size: {2}", nativeObject.className, nativeObject.name, ToMemorySize(nativeObject.size));
+                string result = string.Format("classname:{0}, name: {1}, size: {2}", nativeObject.className, nativeObject.name, EditorAssists.ToMemorySize(nativeObject.size));
                 EditorGUILayout.LabelField(result, GUILayout.MaxWidth(500));
                 EditorGUILayout.Space();
                 if (GUILayout.Button("Select", GUILayout.Width(50)))
@@ -136,29 +137,6 @@ namespace MemoryProfilerWindow
                     obj1.isDontDestroyOnLoad    == obj2.isDontDestroyOnLoad &&
                     obj1.isManager              == obj2.isManager           &&
                     obj1.hideFlags              == obj2.hideFlags;
-        }
-
-        private string ToMemorySize(long byteNum)
-        {
-            if (byteNum < 0)
-                byteNum = 0;
-
-            if (byteNum < 1024)
-            {
-                return byteNum + "B";
-            }
-            else if (byteNum < 1048576 && byteNum >= 1024) 
-            {
-                return (byteNum / 1024.0f).ToString("F2") + "KB";
-            }
-            else if (byteNum < 1073741824 && byteNum >= 1048576)
-            {
-                return (byteNum / 1048576.0f).ToString("F2") + "MB";
-            }
-            else
-            {
-                return (byteNum / 1073741824.0f).ToString("F2") + "GB";
-            }
         }
     }
 }
