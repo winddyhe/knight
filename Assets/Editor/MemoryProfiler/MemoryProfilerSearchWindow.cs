@@ -140,7 +140,7 @@ namespace MemoryProfilerWindow
 
         private void SearchType_Contain()
         {
-            mSelectedType = this.mObjectTypes.FindIndex((rItem) => { return rItem.ToLower().Contains(mSearchTypeText.ToLower()); });
+            mSelectedType = this.mObjectTypes.FindIndex((rItem) => { return rItem.ToLower().Equals(mSearchTypeText.ToLower()); });
             if (mSelectedType < 0) mSelectedType = 0;
         }
 
