@@ -762,3 +762,4 @@ MonoBehaviour:
   mCubeMesh: {fileID: 544435685}
   mVecTestArray3: []
   mDestMesh: {fileID: 0}
+  mObject: {fileID: 544435682}

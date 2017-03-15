@@ -45,7 +45,7 @@ namespace Game.Knight
             GPCSkillConfig.Instance.Unload("game/skillconfig.ab");
 
             // 加载热更新代码资源
-            //yield return HotfixManager.Instance.Load("KnightHotfixModule");
+            yield return HotfixManager.Instance.Load("KnightHotfixModule");
             
             //切换到Login场景
             var rLevelRequest = Globals.Instance.LoadLevel("Login");

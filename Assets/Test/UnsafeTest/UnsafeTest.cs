@@ -91,6 +91,8 @@ namespace Test
 
         public  Mesh               mDestMesh;
 
+        public UnityEngine.Object  mObject;
+
         void Start()
         {
             mVecTestArray  = new UnsafeVector3Array(1000);

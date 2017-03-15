@@ -38,7 +38,7 @@ namespace Framework.Hotfix
         /// </summary>
         private void RegisterCrossBindingAdaptor(AppDomain rApp)
         {
-
+            mApp.RegisterCrossBindingAdaptor(new MonoBehaviourProxyAdaptor());
         }
     }
 }

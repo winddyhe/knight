@@ -75,7 +75,10 @@ namespace Core
 
         //public unsafe Vector3[] ToArray()
         //{
-
+        //    fixed (Vector3* p = mArray)
+        //    {
+        //        return &(Vector3[])(*p);
+        //    }
         //}
 
         public unsafe Vector3 Get(int nIndex)

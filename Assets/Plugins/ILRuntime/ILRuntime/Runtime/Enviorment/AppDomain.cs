@@ -15,7 +15,7 @@ using ILRuntime.Runtime.Debugger;
 using ILRuntime.Runtime.Stack;
 namespace ILRuntime.Runtime.Enviorment
 {
-    public unsafe delegate StackObject* CLRRedirectionDelegate(ILIntepreter intp, StackObject* esp, List<object> mStack, CLRMethod method);
+    public unsafe delegate StackObject* CLRRedirectionDelegate(ILIntepreter intp, StackObject* esp, List<object> mStack, CLRMethod method, bool isNewObj);
     public class AppDomain
     {
         Queue<ILIntepreter> freeIntepreters = new Queue<ILIntepreter>();
@@ -25,9 +25,8 @@ namespace ILRuntime.Runtime.Enviorment
         Dictionary<Type, IType> clrTypeMapping = new Dictionary<Type, IType>();
         Dictionary<int, IType> mapTypeToken = new Dictionary<int, IType>();
         Dictionary<int, IMethod> mapMethod = new Dictionary<int, IMethod>();
-        Dictionary<int, string> mapString = new Dictionary<int, string>();
-        Dictionary<System.Reflection.MethodInfo, CLRRedirectionDelegate> redirectMap = new Dictionary<System.Reflection.MethodInfo, CLRRedirectionDelegate>();
-        Dictionary<ConstructorInfo, CLRRedirectionDelegate> ctorRedirectMap = new Dictionary<ConstructorInfo, CLRRedirectionDelegate>();
+        Dictionary<long, string> mapString = new Dictionary<long, string>();
+        Dictionary<System.Reflection.MethodBase, CLRRedirectionDelegate> redirectMap = new Dictionary<System.Reflection.MethodBase, CLRRedirectionDelegate>();
         IType voidType, intType, longType, boolType, floatType, doubleType, objectType;
         DelegateManager dMgr;
         Assembly[] loadedAssemblies;
@@ -116,8 +115,7 @@ namespace ILRuntime.Runtime.Enviorment
         public IType ObjectType { get { return objectType; } }
 
         public Dictionary<string, IType> LoadedTypes { get { return mapType; } }
-        internal Dictionary<MethodInfo, CLRRedirectionDelegate> RedirectMap { get { return redirectMap; } }
-        internal Dictionary<ConstructorInfo, CLRRedirectionDelegate> ConstructorRedirectMap { get { return ctorRedirectMap; } }
+        internal Dictionary<MethodBase, CLRRedirectionDelegate> RedirectMap { get { return redirectMap; } }
         internal Dictionary<Type, CrossBindingAdaptor> CrossBindingAdaptors { get { return crossAdaptors; } }
         public DebugService DebugService { get { return debugService; } }
         internal Dictionary<int, ILIntepreter> Intepreters { get { return intepreters; } }
@@ -379,15 +377,10 @@ namespace ILRuntime.Runtime.Enviorment
                 return null;
         }
 
-        public void RegisterCLRMethodRedirection(MethodInfo mi, CLRRedirectionDelegate func)
+        public void RegisterCLRMethodRedirection(MethodBase mi, CLRRedirectionDelegate func)
         {
             if (!redirectMap.ContainsKey(mi))
                 redirectMap[mi] = func;
-        }
-
-        public void RegisterCLRConstructorRedirection(ConstructorInfo mi, CLRRedirectionDelegate func)
-        {
-            ctorRedirectMap[mi] = func;
         }
 
         /// <summary>
@@ -489,6 +482,7 @@ namespace ILRuntime.Runtime.Enviorment
                     mapType[res.FullName] = res;
                     mapType[t.AssemblyQualifiedName] = res;
                     clrTypeMapping[t] = res;
+                    mapTypeToken[t.GetHashCode()] = res;
                     return res;
                 }
             }
@@ -823,10 +817,16 @@ namespace ILRuntime.Runtime.Enviorment
             IType t = GetType(type);
             if (t == null)
                 return null;
-            var m = t.GetMethod(method, p != null ? p.Length : 0);
-
+            var m = t.GetMethod(method, p != null ? p.Length : 0);            
             if (m != null)
             {
+                for(int i = 0; i < m.ParameterCount; i++)
+                {
+                    if (!m.Parameters[i].TypeForCLR.IsAssignableFrom(p[i].GetType()))
+                    {
+                        throw new ArgumentException("Parameter type mismatch");
+                    }
+                }
                 return Invoke(m, instance, p);
             }
             return null;
@@ -952,6 +952,7 @@ namespace ILRuntime.Runtime.Enviorment
                 }
                 methodname = _ref.Name;
                 var typeDef = _ref.DeclaringType;
+                
                 type = GetType(typeDef, contextType, contextMethod);
                 if (type == null)
                     throw new KeyNotFoundException("Cannot find type:" + typename);
@@ -988,7 +989,18 @@ namespace ILRuntime.Runtime.Enviorment
                             genericArguments[i] = gt;
                     }
                 }
-
+                if (!invalidToken && typeDef.IsGenericInstance)
+                {
+                    GenericInstanceType gim = (GenericInstanceType)typeDef;
+                    for(int i = 0; i < gim.GenericArguments.Count; i++)
+                    {
+                        if(gim.GenericArguments[0].IsGenericParameter)
+                        {
+                            invalidToken = true;
+                            break;
+                        }
+                    }
+                }
                 paramList = _ref.GetParamList(this, contextType, contextMethod, genericArguments);
                 returnType = GetType(_ref.ReturnType, contextType, null);
             }
@@ -1004,8 +1016,6 @@ namespace ILRuntime.Runtime.Enviorment
             else
             {
                 method = type.GetMethod(methodname, paramList, genericArguments, returnType);
-                if (method != null && method.IsGenericInstance)
-                    mapMethod[method.GetHashCode()] = method;
             }
 
             if (method == null)
@@ -1023,6 +1033,8 @@ namespace ILRuntime.Runtime.Enviorment
             }
             if (!invalidToken)
                 mapMethod[hashCode] = method;
+            else
+                mapMethod[method.GetHashCode()] = method;
             return method;
         }
 
@@ -1068,13 +1080,35 @@ namespace ILRuntime.Runtime.Enviorment
             }
         }
 
-        internal void CacheString(object token)
+        internal long CacheString(object token)
         {
-            int hashCode = token.GetHashCode();
-            mapString[hashCode] = (string)token;
+            long oriHash = token.GetHashCode();
+            long hashCode = oriHash;
+            string str = (string)token;
+            lock (mapString)
+            {
+                bool isCollision = CheckStringCollision(hashCode, str);
+                long cnt = 0;
+                while (isCollision)
+                {
+                    cnt++;
+                    hashCode = cnt << 32 | oriHash;
+                    isCollision = CheckStringCollision(hashCode, str);
+                }
+                mapString[hashCode] = (string)token;
+            }
+            return hashCode;
         }
 
-        internal string GetString(int hashCode)
+        bool CheckStringCollision(long hashCode, string newStr)
+        {
+            string oldVal;
+            if (mapString.TryGetValue(hashCode, out oldVal))
+                return oldVal != newStr;
+            return false;
+        }
+
+        internal string GetString(long hashCode)
         {
             string res = null;
             if (mapString.TryGetValue(hashCode, out res))
@@ -1084,8 +1118,29 @@ namespace ILRuntime.Runtime.Enviorment
 
         public void RegisterCrossBindingAdaptor(CrossBindingAdaptor adaptor)
         {
-            if (!crossAdaptors.ContainsKey(adaptor.BaseCLRType))
+            var bType = adaptor.BaseCLRType;
+            if (bType != null)
             {
+                if (!crossAdaptors.ContainsKey(bType))
+                {
+                    var t = adaptor.AdaptorType;
+                    var res = GetType(t);
+                    if (res == null)
+                    {
+                        res = new CLRType(t, this);
+                        mapType[res.FullName] = res;
+                        mapType[t.AssemblyQualifiedName] = res;
+                        clrTypeMapping[t] = res;
+                    }
+                    adaptor.RuntimeType = res;
+                    crossAdaptors[bType] = adaptor;
+                }
+                else
+                    throw new Exception("Crossbinding Adapter for " + bType.FullName + " is already added.");
+            }
+            else
+            {
+                var bTypes = adaptor.BaseCLRTypes;
                 var t = adaptor.AdaptorType;
                 var res = GetType(t);
                 if (res == null)
@@ -1096,8 +1151,17 @@ namespace ILRuntime.Runtime.Enviorment
                     clrTypeMapping[t] = res;
                 }
                 adaptor.RuntimeType = res;
-                crossAdaptors[adaptor.BaseCLRType] = adaptor;
-            }
+
+                foreach (var i in bTypes)
+                {
+                    if (!crossAdaptors.ContainsKey(i))
+                    {
+                        crossAdaptors[i] = adaptor;
+                    }
+                    else
+                        throw new Exception("Crossbinding Adapter for " + i.FullName + " is already added.");
+                }
+            } 
         }
     }
 }

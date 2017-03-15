@@ -9,7 +9,7 @@ namespace ILRuntime.Runtime.CLRBinding
 {
     public class BindingCodeGenerator
     {
-        public static void GenerateBindingCode(List<Type> types, string outputPath, HashSet<MethodInfo> excludes = null)
+        public static void GenerateBindingCode(List<Type> types, string outputPath, HashSet<MethodBase> excludes = null)
         {
             if (!System.IO.Directory.Exists(outputPath))
                 System.IO.Directory.CreateDirectory(outputPath);
@@ -25,7 +25,7 @@ namespace ILRuntime.Runtime.CLRBinding
                 bool isByRef;
                 if (i.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length > 0)
                     continue;
-                GetClassName(i, out clsName, out realClsName, out isByRef);
+                i.GetClassName(out clsName, out realClsName, out isByRef);
                 clsNames.Add(clsName);
                 using (System.IO.StreamWriter sw = new System.IO.StreamWriter(outputPath + "/" + clsName + ".cs", false, Encoding.UTF8))
                 {
@@ -49,18 +49,25 @@ namespace ILRuntime.Runtime.Generated
         public static void Register(ILRuntime.Runtime.Enviorment.AppDomain app)
         {
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
-            MethodInfo method;
+            MethodBase method;
             Type[] args;
             Type type = typeof(");
                     sw.Write(realClsName);
                     sw.WriteLine(");");
                     MethodInfo[] methods = i.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly);
                     string registerCode = GenerateRegisterCode(i, methods, excludes);
+                    string commonCode = GenerateCommonCode(i, realClsName);
+                    ConstructorInfo[] ctors = i.GetConstructors(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly);
+                    string ctorRegisterCode = GenerateConstructorRegisterCode(i, ctors, excludes);
                     string wraperCode = GenerateWraperCode(i, methods, realClsName, excludes);
+                    string ctorWraperCode = GenerateConstructorWraperCode(i, ctors, realClsName, excludes);
                     sw.WriteLine(registerCode);
+                    sw.WriteLine(ctorRegisterCode);
                     sw.WriteLine("        }");
                     sw.WriteLine();
+                    sw.WriteLine(commonCode);
                     sw.WriteLine(wraperCode);
+                    sw.WriteLine(ctorWraperCode);
                     sw.WriteLine("    }");
                     sw.WriteLine("}");
                     sw.Flush();
@@ -95,7 +102,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static bool ShouldSkipMethod(Type type, MethodInfo i)
+        static bool ShouldSkipMethod(Type type, MethodBase i)
         {
             if (i.IsPrivate)
                 return true;
@@ -118,10 +125,16 @@ namespace ILRuntime.Runtime.Generated
             }
             if (i.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length > 0)
                 return true;
+            var param = i.GetParameters();
+            foreach(var j in param)
+            {
+                if (j.ParameterType.IsPointer)
+                    return true;
+            }
             return false;
         }
 
-        static string GenerateRegisterCode(Type type, MethodInfo[] methods, HashSet<MethodInfo> excludes)
+        static string GenerateRegisterCode(Type type, MethodInfo[] methods, HashSet<MethodBase> excludes)
         {
             StringBuilder sb = new StringBuilder();
             int idx = 0;
@@ -145,7 +158,7 @@ namespace ILRuntime.Runtime.Generated
                     sb2.Append("typeof(");
                     string tmp, clsName;
                     bool isByRef;
-                    GetClassName(j.ParameterType, out tmp, out clsName, out isByRef);
+                    j.ParameterType.GetClassName(out tmp, out clsName, out isByRef);
                     sb2.Append(clsName);
                     sb2.Append(")");
                     if (isByRef)
@@ -161,7 +174,298 @@ namespace ILRuntime.Runtime.Generated
             return sb.ToString();
         }
 
-        static string GenerateWraperCode(Type type, MethodInfo[] methods, string typeClsName, HashSet<MethodInfo> excludes)
+        static string GenerateConstructorRegisterCode(Type type, ConstructorInfo[] methods, HashSet<MethodBase> excludes)
+        {
+            StringBuilder sb = new StringBuilder();
+            int idx = 0;
+            foreach (var i in methods)
+            {
+                if (excludes != null && excludes.Contains(i))
+                    continue;
+                if (ShouldSkipMethod(type, i))
+                    continue;
+                var param = i.GetParameters();
+                StringBuilder sb2 = new StringBuilder();
+                sb2.Append("{");
+                bool first = true;
+                foreach (var j in param)
+                {
+                    if (first)
+                        first = false;
+                    else
+                        sb2.Append(", ");
+                    sb2.Append("typeof(");
+                    string tmp, clsName;
+                    bool isByRef;
+                    j.ParameterType.GetClassName(out tmp, out clsName, out isByRef);
+                    sb2.Append(clsName);
+                    sb2.Append(")");
+                    if (isByRef)
+                        sb2.Append(".MakeByRefType()");
+                }
+                sb2.Append("}");
+                sb.AppendLine(string.Format("            args = new Type[]{0};", sb2));
+                sb.AppendLine("            method = type.GetConstructor(flag, null, args, null);");
+                sb.AppendLine(string.Format("            app.RegisterCLRMethodRedirection(method, Ctor_{0});",idx));
+
+                idx++;
+            }
+            return sb.ToString();
+        }
+
+        static string GenerateCommonCode(Type type, string typeClsName)
+        {
+            if (!type.IsValueType)
+                return "";
+            StringBuilder sb = new StringBuilder();
+            if (type.IsPrimitive)
+            {
+                sb.AppendLine(string.Format("        static {0} GetInstance(ILRuntime.Runtime.Enviorment.AppDomain __domain, StackObject* ptr_of_this_method, List<object> __mStack)", typeClsName));
+                sb.AppendLine("        {");
+                if (type.IsPrimitive || type.IsValueType)
+                    sb.AppendLine("            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);");
+                sb.AppendLine(string.Format("            {0} instance_of_this_method;", typeClsName));
+                sb.Append(@"            switch(ptr_of_this_method->ObjectType)
+            {
+                case ObjectTypes.FieldReference:
+                    {
+                        var instance_of_fieldReference = __mStack[ptr_of_this_method->Value];
+                        if(instance_of_fieldReference is ILTypeInstance)
+                        {
+                            instance_of_this_method = (");
+                sb.Append(typeClsName);
+                sb.Append(")((ILTypeInstance)instance_of_fieldReference)[ptr_of_this_method->ValueLow];");
+                sb.Append(@"
+                        }
+                        else
+                        {
+                            var t = __domain.GetType(instance_of_fieldReference.GetType()) as CLRType;
+                            instance_of_this_method = (");
+                sb.Append(typeClsName);
+                sb.Append(")t.GetField(ptr_of_this_method->ValueLow).GetValue(instance_of_fieldReference);");
+                sb.Append(@"
+                        }
+                    }
+                    break;
+                case ObjectTypes.StaticFieldReference:
+                    {
+                        var t = __domain.GetType(ptr_of_this_method->Value);
+                        if(t is ILType)
+                        {
+                            instance_of_this_method = (");
+                sb.Append(typeClsName);
+                sb.Append(@")((ILType)t).StaticInstance[ptr_of_this_method->ValueLow];
+                        }
+                        else
+                        {
+                            instance_of_this_method = (");
+                sb.Append(typeClsName);
+                sb.Append(@")((CLRType)t).GetField(ptr_of_this_method->ValueLow).GetValue(null);
+                        }
+                    }
+                    break;
+                case ObjectTypes.ArrayReference:
+                    {
+                        var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as ");
+                sb.Append(typeClsName);
+                sb.AppendLine(@"[];
+                        instance_of_this_method = instance_of_arrayReference[ptr_of_this_method->ValueLow];                        
+                    }
+                    break;
+                default:");
+                sb.AppendLine(string.Format("                    instance_of_this_method = {0};", GetRetrieveValueCode(type, typeClsName)));
+                sb.AppendLine(@"                    break;
+            }
+            return instance_of_this_method;");
+                sb.AppendLine("        }");
+            }
+            if (!type.IsPrimitive && !type.IsAbstract)
+            {
+                sb.AppendLine(string.Format("        static void WriteBackInstance(ILRuntime.Runtime.Enviorment.AppDomain __domain, StackObject* ptr_of_this_method, List<object> __mStack, ref {0} instance_of_this_method)", typeClsName));
+                sb.AppendLine("        {");
+                sb.AppendLine(@"            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
+            switch(ptr_of_this_method->ObjectType)
+            {
+                case ObjectTypes.Object:
+                    {
+                        __mStack[ptr_of_this_method->Value] = instance_of_this_method;");
+                sb.Append(@"                    }
+                    break;
+                case ObjectTypes.FieldReference:
+                    {
+                        var ___obj = __mStack[ptr_of_this_method->Value];
+                        if(___obj is ILTypeInstance)
+                        {
+                            ((ILTypeInstance)___obj)[ptr_of_this_method->ValueLow] = instance_of_this_method");
+                sb.Append(@";
+                        }
+                        else
+                        {
+                            var t = __domain.GetType(___obj.GetType()) as CLRType;
+                            t.GetField(ptr_of_this_method->ValueLow).SetValue(___obj, instance_of_this_method");
+                sb.Append(@");
+                        }
+                    }
+                    break;
+                case ObjectTypes.StaticFieldReference:
+                    {
+                        var t = __domain.GetType(ptr_of_this_method->Value);
+                        if(t is ILType)
+                        {
+                            ((ILType)t).StaticInstance[ptr_of_this_method->ValueLow] = instance_of_this_method");
+                sb.Append(@";
+                        }
+                        else
+                        {
+                            ((CLRType)t).GetField(ptr_of_this_method->ValueLow).SetValue(null, instance_of_this_method");
+                sb.Append(@");
+                        }
+                    }
+                    break;
+                 case ObjectTypes.ArrayReference:
+                    {
+                        var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as ");
+                sb.Append(typeClsName);
+                sb.AppendLine(@"[];
+                        instance_of_arrayReference[ptr_of_this_method->ValueLow] = instance_of_this_method;
+                    }
+                    break;
+            }");
+                sb.AppendLine(@"        }");
+            }
+            return sb.ToString();
+        }
+
+        static string GenerateConstructorWraperCode(Type type, ConstructorInfo[] methods, string typeClsName, HashSet<MethodBase> excludes)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            int idx = 0;
+            foreach (var i in methods)
+            {
+                if (excludes != null && excludes.Contains(i))
+                    continue;
+                if (ShouldSkipMethod(type, i) || i.IsStatic)
+                    continue;
+                var param = i.GetParameters();
+                int paramCnt = param.Length;
+                sb.AppendLine(string.Format("        static StackObject* Ctor_{0}(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)", idx));
+                sb.AppendLine("        {");
+                sb.AppendLine("            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;");
+                sb.AppendLine("            StackObject* ptr_of_this_method;");
+                sb.AppendLine(string.Format("            StackObject* __ret = ILIntepreter.Minus(__esp, {0});", paramCnt));
+                for (int j = param.Length; j > 0; j--)
+                {
+                    var p = param[j - 1];
+                    sb.AppendLine(string.Format("            ptr_of_this_method = ILIntepreter.Minus(__esp, {0});", param.Length - j + 1));
+                    string tmp, clsName;
+                    bool isByRef;
+                    p.ParameterType.GetClassName(out tmp, out clsName, out isByRef);
+                    if (isByRef)
+                        sb.AppendLine("            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);");
+                    sb.AppendLine(string.Format("            {0} {1} = {2};", clsName, p.Name, GetRetrieveValueCode(p.ParameterType, clsName)));
+                    if (!isByRef && !p.ParameterType.IsPrimitive)
+                        sb.AppendLine("            __intp.Free(ptr_of_this_method);");
+                }
+                sb.AppendLine();
+                sb.Append("            var result_of_this_method = ");
+                {
+                    string tmp, clsName;
+                    bool isByRef;
+                    type.GetClassName(out tmp, out clsName, out isByRef);
+                    sb.Append(string.Format("new {0}(", clsName));
+                    AppendParameters(param, sb);
+                    sb.AppendLine(");");
+
+                }
+                sb.AppendLine();
+                if (type.IsValueType)
+                {
+                    sb.AppendLine(@"            if(!isNewObj)
+            {
+                __ret--;
+                WriteBackInstance(__domain, __ret, __mStack, ref result_of_this_method);
+                return __ret;
+            }"); 
+                }
+
+                //Ref/Out
+                for (int j = param.Length; j > 0; j--)
+                {
+                    var p = param[j - 1];
+                    if (!p.ParameterType.IsByRef)
+                        continue;
+                    string tmp, clsName;
+                    bool isByRef;
+                    p.ParameterType.GetElementType().GetClassName(out tmp, out clsName, out isByRef);
+                    sb.AppendLine(string.Format("            ptr_of_this_method = ILIntepreter.Minus(__esp, {0});", param.Length - j + 1));
+                    sb.AppendLine(@"            switch(ptr_of_this_method->ObjectType)
+            {
+                case ObjectTypes.StackObjectReference:
+                    {
+                        var ___dst = *(StackObject**)&ptr_of_this_method->Value;");
+                    GetRefWriteBackValueCode(p.ParameterType.GetElementType(), sb, p.Name);
+                    sb.Append(@"                    }
+                    break;
+                case ObjectTypes.FieldReference:
+                    {
+                        var ___obj = __mStack[ptr_of_this_method->Value];
+                        if(___obj is ILTypeInstance)
+                        {
+                            ((ILTypeInstance)___obj)[ptr_of_this_method->ValueLow] = ");
+                    sb.Append(p.Name);
+                    sb.Append(@";
+                        }
+                        else
+                        {
+                            var t = __domain.GetType(___obj.GetType()) as CLRType;
+                            t.GetField(ptr_of_this_method->ValueLow).SetValue(___obj, ");
+                    sb.Append(p.Name);
+                    sb.Append(@");
+                        }
+                    }
+                    break;
+                case ObjectTypes.StaticFieldReference:
+                    {
+                        var t = __domain.GetType(ptr_of_this_method->Value);
+                        if(t is ILType)
+                        {
+                            ((ILType)t).StaticInstance[ptr_of_this_method->ValueLow] = ");
+                    sb.Append(p.Name);
+                    sb.Append(@";
+                        }
+                        else
+                        {
+                            ((CLRType)t).GetField(ptr_of_this_method->ValueLow).SetValue(null, ");
+                    sb.Append(p.Name);
+                    sb.Append(@");
+                        }
+                    }
+                    break;
+                 case ObjectTypes.ArrayReference:
+                    {
+                        var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as ");
+                    sb.Append(clsName);
+                    sb.Append(@"[];
+                        instance_of_arrayReference[ptr_of_this_method->ValueLow] = ");
+                    sb.Append(p.Name);
+                    sb.AppendLine(@";
+                    }
+                    break;
+            }");
+                    sb.AppendLine();
+                }
+                sb.AppendLine("            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);");
+
+                sb.AppendLine("        }");
+                sb.AppendLine();
+                idx++;
+            }
+
+            return sb.ToString();
+        }
+
+        static string GenerateWraperCode(Type type, MethodInfo[] methods, string typeClsName, HashSet<MethodBase> excludes)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -177,9 +481,9 @@ namespace ILRuntime.Runtime.Generated
                 int paramCnt = param.Length;
                 if (!i.IsStatic)
                     paramCnt++;
-                sb.AppendLine(string.Format("        static StackObject* {0}_{1}(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method)", i.Name, idx));
+                sb.AppendLine(string.Format("        static StackObject* {0}_{1}(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)", i.Name, idx));
                 sb.AppendLine("        {");
-                sb.AppendLine("            ILRuntime.Runtime.Enviorment.AppDomain domain = __intp.AppDomain;");
+                sb.AppendLine("            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;");
                 sb.AppendLine("            StackObject* ptr_of_this_method;");
                 sb.AppendLine(string.Format("            StackObject* __ret = ILIntepreter.Minus(__esp, {0});", paramCnt));
                 for (int j = param.Length; j > 0; j--)
@@ -188,7 +492,7 @@ namespace ILRuntime.Runtime.Generated
                     sb.AppendLine(string.Format("            ptr_of_this_method = ILIntepreter.Minus(__esp, {0});", param.Length - j + 1));
                     string tmp, clsName;
                     bool isByRef;
-                    GetClassName(p.ParameterType, out tmp, out clsName, out isByRef);
+                    p.ParameterType.GetClassName(out tmp, out clsName, out isByRef);
                     if (isByRef)
                         sb.AppendLine("            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);");
                     sb.AppendLine(string.Format("            {0} {1} = {2};", clsName, p.Name, GetRetrieveValueCode(p.ParameterType, clsName)));
@@ -198,45 +502,17 @@ namespace ILRuntime.Runtime.Generated
                 if (!i.IsStatic)
                 {
                     sb.AppendLine(string.Format("            ptr_of_this_method = ILIntepreter.Minus(__esp, {0});", paramCnt));
-                    string tmp, clsName;
-                    bool isByRef;
-                    GetClassName(type, out tmp, out clsName, out isByRef);
-                    if (type.IsPrimitive || type.IsValueType)
-                        sb.AppendLine("            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);");
-                    sb.AppendLine(string.Format("            {0} instance_of_this_method;", clsName));
                     if (type.IsPrimitive)
-                    {
-                        sb.Append(@"            switch(ptr_of_this_method->ObjectType)
-            {
-                case ObjectTypes.FieldReference:
-                    {
-                        var instance_of_fieldReference = __mStack[ptr_of_this_method->Value];
-                        if(instance_of_fieldReference is ILTypeInstance)
-                        {
-                            instance_of_this_method = (");
-                        sb.Append(clsName);
-                        sb.Append(")((ILTypeInstance)instance_of_fieldReference)[ptr_of_this_method->ValueLow];");
-                        sb.Append(@"
-                        }
-                        else
-                        {
-                            var t = domain.GetType(instance_of_fieldReference.GetType()) as CLRType;
-                            instance_of_this_method = (");
-                        sb.Append(clsName);
-                        sb.Append(")t.Fields[ptr_of_this_method->ValueLow].GetValue(instance_of_fieldReference);");
-                        sb.AppendLine(@"
-                        }
-                    }
-                    break;
-                default:");
-                        sb.AppendLine(string.Format("                    instance_of_this_method = {0};", GetRetrieveValueCode(type, clsName)));
-                        sb.AppendLine(@"                    break;
-            }");
-                    }
+                        sb.AppendLine(string.Format("            {0} instance_of_this_method = GetInstance(__domain, ptr_of_this_method, __mStack);", typeClsName));
                     else
-                        sb.AppendLine(string.Format("            instance_of_this_method = {0};", GetRetrieveValueCode(type, clsName)));
-                    if (!type.IsValueType && !type.IsPrimitive)
-                        sb.AppendLine("            __intp.Free(ptr_of_this_method);");
+                    {
+                        if (type.IsValueType)
+                            sb.AppendLine("            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);");
+                        sb.AppendLine(string.Format("            {0} instance_of_this_method;", typeClsName));
+                        sb.AppendLine(string.Format("            instance_of_this_method = {0};", GetRetrieveValueCode(type, typeClsName)));
+                        if (!type.IsValueType)
+                            sb.AppendLine("            __intp.Free(ptr_of_this_method);");
+                    }
                 }
                 sb.AppendLine();
                 if (i.ReturnType != typeof(void))
@@ -294,6 +570,18 @@ namespace ILRuntime.Runtime.Generated
                                 case "Division":
                                     sb.AppendLine(string.Format("{0} / {1};", param[0].Name, param[1].Name));
                                     break;
+                                case "GreaterThan":
+                                    sb.AppendLine(string.Format("{0} > {1};", param[0].Name, param[1].Name));
+                                    break;
+                                case "GreaterThanOrEqual":
+                                    sb.AppendLine(string.Format("{0} >= {1};", param[0].Name, param[1].Name));
+                                    break;
+                                case "LessThan":
+                                    sb.AppendLine(string.Format("{0} < {1};", param[0].Name, param[1].Name));
+                                    break;
+                                case "LessThanOrEqual":
+                                    sb.AppendLine(string.Format("{0} <= {1};", param[0].Name, param[1].Name));
+                                    break;
                                 case "UnaryNegation":
                                     sb.AppendLine(string.Format("-{0};", param[0].Name));
                                     break;
@@ -302,7 +590,7 @@ namespace ILRuntime.Runtime.Generated
                                     {
                                         string tmp, clsName;
                                         bool isByRef;
-                                        GetClassName(i.ReturnType, out tmp, out clsName, out isByRef);
+                                        i.ReturnType.GetClassName(out tmp, out clsName, out isByRef);
                                         sb.AppendLine(string.Format("({1}){0};", param[0].Name, clsName));
                                     }
                                     break;
@@ -362,45 +650,7 @@ namespace ILRuntime.Runtime.Generated
 
                 if (!i.IsStatic && type.IsValueType && !type.IsPrimitive)//need to write back value type instance
                 {
-                    sb.AppendLine(@"            switch(ptr_of_this_method->ObjectType)
-            {
-                case ObjectTypes.Object:
-                    {
-                        __mStack[ptr_of_this_method->Value] = instance_of_this_method;");
-                    sb.Append(@"                    }
-                    break;
-                case ObjectTypes.FieldReference:
-                    {
-                        var ___obj = __mStack[ptr_of_this_method->Value];
-                        if(___obj is ILTypeInstance)
-                        {
-                            ((ILTypeInstance)___obj)[ptr_of_this_method->ValueLow] = instance_of_this_method");
-                    sb.Append(@";
-                        }
-                        else
-                        {
-                            var t = domain.GetType(___obj.GetType()) as CLRType;
-                            t.Fields[ptr_of_this_method->ValueLow].SetValue(___obj, instance_of_this_method");
-                    sb.Append(@");
-                        }
-                    }
-                    break;
-                case ObjectTypes.StaticFieldReference:
-                    {
-                        var t = domain.GetType(ptr_of_this_method->Value);
-                        if(t is ILType)
-                        {
-                            ((ILType)t).StaticInstance[ptr_of_this_method->ValueLow] = instance_of_this_method");
-                    sb.Append(@";
-                        }
-                        else
-                        {
-                            ((CLRType)t).Fields[ptr_of_this_method->ValueLow].SetValue(null, instance_of_this_method");
-                    sb.AppendLine(@");
-                        }
-                    }
-                    break;
-            }");
+                    sb.AppendLine("            WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);");
                     sb.AppendLine();
                 }
                 //Ref/Out
@@ -409,12 +659,15 @@ namespace ILRuntime.Runtime.Generated
                     var p = param[j - 1];
                     if (!p.ParameterType.IsByRef)
                         continue;
+                    string tmp, clsName;
+                    bool isByRef;
+                    p.ParameterType.GetElementType().GetClassName(out tmp, out clsName, out isByRef);
                     sb.AppendLine(string.Format("            ptr_of_this_method = ILIntepreter.Minus(__esp, {0});", param.Length - j + 1));
                     sb.AppendLine(@"            switch(ptr_of_this_method->ObjectType)
             {
                 case ObjectTypes.StackObjectReference:
                     {
-                        var dst = *(StackObject**)&ptr_of_this_method->Value;");
+                        var ___dst = *(StackObject**)&ptr_of_this_method->Value;");
                     GetRefWriteBackValueCode(p.ParameterType.GetElementType(), sb, p.Name);
                     sb.Append(@"                    }
                     break;
@@ -429,8 +682,8 @@ namespace ILRuntime.Runtime.Generated
                         }
                         else
                         {
-                            var t = domain.GetType(___obj.GetType()) as CLRType;
-                            t.Fields[ptr_of_this_method->ValueLow].SetValue(___obj, ");
+                            var t = __domain.GetType(___obj.GetType()) as CLRType;
+                            t.GetField(ptr_of_this_method->ValueLow).SetValue(___obj, ");
                     sb.Append(p.Name);
                     sb.Append(@");
                         }
@@ -438,7 +691,7 @@ namespace ILRuntime.Runtime.Generated
                     break;
                 case ObjectTypes.StaticFieldReference:
                     {
-                        var t = domain.GetType(ptr_of_this_method->Value);
+                        var t = __domain.GetType(ptr_of_this_method->Value);
                         if(t is ILType)
                         {
                             ((ILType)t).StaticInstance[ptr_of_this_method->ValueLow] = ");
@@ -447,10 +700,20 @@ namespace ILRuntime.Runtime.Generated
                         }
                         else
                         {
-                            ((CLRType)t).Fields[ptr_of_this_method->ValueLow].SetValue(null, ");
+                            ((CLRType)t).GetField(ptr_of_this_method->ValueLow).SetValue(null, ");
                     sb.Append(p.Name);
-                    sb.AppendLine(@");
+                    sb.Append(@");
                         }
+                    }
+                    break;
+                 case ObjectTypes.ArrayReference:
+                    {
+                        var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as ");
+                    sb.Append(clsName);
+                    sb.Append(@"[];
+                        instance_of_arrayReference[ptr_of_this_method->ValueLow] = ");
+                    sb.Append(p.Name);
+                    sb.AppendLine(@";
                     }
                     break;
             }");
@@ -493,74 +756,74 @@ namespace ILRuntime.Runtime.Generated
             {
                 if (type == typeof(int))
                 {
-                    sb.AppendLine("                        dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        dst->Value = " + paramName);
+                    sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
+                    sb.Append("                        ___dst->Value = " + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(long))
                 {
-                    sb.AppendLine("                        dst->ObjectType = ObjectTypes.Long;");
-                    sb.Append("                        *(long*)&dst->Value = " + paramName);
+                    sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Long;");
+                    sb.Append("                        *(long*)&___dst->Value = " + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(short))
                 {
-                    sb.AppendLine("                        dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        dst->Value = " + paramName);
+                    sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
+                    sb.Append("                        ___dst->Value = " + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(bool))
                 {
-                    sb.AppendLine("                        dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        dst->Value = " + paramName + " ? 1 : 0;");
+                    sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
+                    sb.Append("                        ___dst->Value = " + paramName + " ? 1 : 0;");
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(ushort))
                 {
-                    sb.AppendLine("                        dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        dst->Value = " + paramName);
+                    sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
+                    sb.Append("                        ___dst->Value = " + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(float))
                 {
-                    sb.AppendLine("                        dst->ObjectType = ObjectTypes.Float;");
-                    sb.Append("                        *(float*)&dst->Value = " + paramName);
+                    sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Float;");
+                    sb.Append("                        *(float*)&___dst->Value = " + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(double))
                 {
-                    sb.AppendLine("                        dst->ObjectType = ObjectTypes.Double;");
-                    sb.Append("                        *(double*)&dst->Value = " + paramName);
+                    sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Double;");
+                    sb.Append("                        *(double*)&___dst->Value = " + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(byte))
                 {
-                    sb.AppendLine("                        dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        dst->Value = " + paramName);
+                    sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
+                    sb.Append("                        ___dst->Value = " + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(sbyte))
                 {
-                    sb.AppendLine("                        dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        dst->Value = " + paramName);
+                    sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
+                    sb.Append("                        ___dst->Value = " + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(uint))
                 {
-                    sb.AppendLine("                        dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        dst->Value = (int)" + paramName);
+                    sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
+                    sb.Append("                        ___dst->Value = (int)" + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(char))
                 {
-                    sb.AppendLine("                        dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        dst->Value = (int)" + paramName);
+                    sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
+                    sb.Append("                        ___dst->Value = (int)" + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(ulong))
                 {
-                    sb.AppendLine("                        dst->ObjectType = ObjectTypes.Long;");
-                    sb.Append("                        *(ulong*)&dst->Value = " + paramName);
+                    sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Long;");
+                    sb.Append("                        *(ulong*)&___dst->Value = " + paramName);
                     sb.AppendLine(";");
                 }
                 else
@@ -576,11 +839,11 @@ namespace ILRuntime.Runtime.Generated
 
                     sb.AppendLine(@"                        if (___obj is CrossBindingAdaptorType)
                             ___obj = ((CrossBindingAdaptorType)___obj).ILInstance;
-                        __mStack[dst->Value] = ___obj; ");
+                        __mStack[___dst->Value] = ___obj; ");
                 }
                 else
                 {
-                    sb.Append("                        __mStack[dst->Value] = ");
+                    sb.Append("                        __mStack[___dst->Value] = ");
                     sb.Append(paramName);
                     sb.AppendLine(";");
                 }
@@ -729,83 +992,8 @@ namespace ILRuntime.Runtime.Generated
             }
             else
             {
-                return string.Format("({0})typeof({0}).CheckCLRTypes(domain, StackObject.ToObject(ptr_of_this_method, domain, __mStack))", realClsName);
+                return string.Format("({0})typeof({0}).CheckCLRTypes(__domain, StackObject.ToObject(ptr_of_this_method, __domain, __mStack))", realClsName);
             }
         }
-
-        static void GetClassName(Type type, out string clsName, out string realClsName, out bool isByRef, bool simpleClassName = false)
-        {
-            isByRef = type.IsByRef;
-            bool isArray = type.IsArray;
-            if (isByRef)
-                type = type.GetElementType();
-            if (isArray)
-                type = type.GetElementType();
-            string realNamespace = null;
-            if (type.IsNested)
-            {
-                string bClsName, bRealClsName;
-                bool tmp;
-                GetClassName(type.ReflectedType, out bClsName, out bRealClsName, out tmp);
-                clsName = simpleClassName ? "" : bClsName + "_";
-                realNamespace = bRealClsName + ".";
-            }
-            else
-            {
-                clsName = simpleClassName ? "" : (!string.IsNullOrEmpty(type.Namespace) ? type.Namespace.Replace(".", "_") + "_" : "");
-                realNamespace = !string.IsNullOrEmpty(type.Namespace) ? type.Namespace + "." : null;
-            }
-            clsName = clsName + type.Name.Replace(".", "_").Replace("`", "_").Replace("<", "_").Replace(">", "_");
-            bool isGeneric = false;
-            string ga = null;
-            if (type.IsGenericType)
-            {
-                isGeneric = true;
-                clsName += "_";
-                ga = "<";
-                var args = type.GetGenericArguments();
-                bool first = true;
-                foreach (var j in args)
-                {
-                    if (first)
-                        first = false;
-                    else
-                    {
-                        clsName += "_";
-                        ga += ", ";
-                    }
-                    string a, b;
-                    bool tmp;
-                    GetClassName(j, out a, out b, out tmp, true);
-                    clsName += a;
-                    ga += b;
-                }
-                ga += ">";
-            }
-            if (!simpleClassName)
-                clsName += "_Binding";
-            if (!simpleClassName && isArray)
-                clsName += "_Array";
-
-            realClsName = realNamespace;
-            if (isGeneric)
-            {
-                int idx = type.Name.IndexOf("`");
-                if (idx > 0)
-                {
-                    realClsName += type.Name.Substring(0, idx);
-                    realClsName += ga;
-                }
-                else
-                    realClsName += type.Name;
-            }
-            else
-                realClsName += type.Name;
-
-            if (isArray)
-                realClsName += "[]";
-
-        }
-
     }
 }
