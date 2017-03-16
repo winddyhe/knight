@@ -50,18 +50,17 @@ namespace Test
 
     public class CoroutineTest : MonoBehaviour
     {
-        void Start()
+        IEnumerator Start()
         {
             CoroutineManager.Instance.Initialize();
-
-            this.StartCoroutine(Start_Async());
+            yield return CoroutineManager.Instance.Start(Start_Async());
         }
 
         IEnumerator Start_Async()
         {
             CoroutineLoadTest rTest = new CoroutineLoadTest();
-            yield return this.StartCoroutine(rTest.Loading("Test1"));
-            yield return this.StartCoroutine(rTest.Loading("Test2"));
+            yield return CoroutineManager.Instance.Start(rTest.Loading("Test1"));
+            yield return CoroutineManager.Instance.Start(rTest.Loading("Test2"));
             Debug.Log("Done.");
         }
     }

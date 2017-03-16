@@ -37,24 +37,5 @@ namespace Game.Knight
             rDllMS.Dispose();
             rDllMS.Dispose();
         }
-
-        private string mHotfixDllDir = "Assets/Game/Knight/GameAsset/Hotfix/Libs/";
-        public void Load()
-        {
-            string rHotfixModuleName = "KnightHotfixModule";
-            string rDLLPath = mHotfixDllDir + rHotfixModuleName + ".bytes";
-            string rPDBPath = mHotfixDllDir + rHotfixModuleName + "_PDB.bytes";
-
-            var dllBytes = File.ReadAllBytes(Path.GetFullPath(rDLLPath));
-            var pdbBytes = File.ReadAllBytes(Path.GetFullPath(rPDBPath));
-            MemoryStream rDllMS = new MemoryStream(dllBytes);
-            MemoryStream rPDBMS = new MemoryStream(pdbBytes);
-
-            mApp = new HotfixApp();
-            mApp.Initialize(rDllMS, rPDBMS);
-
-            rDllMS.Dispose();
-            rDllMS.Dispose();
-        }
     }
 }
