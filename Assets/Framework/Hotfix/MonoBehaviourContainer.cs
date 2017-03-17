@@ -10,14 +10,18 @@ namespace Framework.Hotfix
 {
     public class MonoBehaviourContainer : MonoBehaviour
     {
-        public List<Object>         Objects;
+        [HideInInspector][SerializeField]
+        private string              mHotfixName;
+        [HideInInspector][SerializeField]
+        private List<Object>        mObjects;
 
         private HotfixObject        mMBProxyHObj;
         
         void Start()
         {
-            mMBProxyHObj = HotfixManager.Instance.App.CreateInstance("KnightHotfixModule.Test.Class1");
-            mMBProxyHObj.InvokeInstance("SetObjects", this.Objects);
+            mMBProxyHObj = HotfixManager.Instance.App.CreateInstance(this.mHotfixName);
+
+            mMBProxyHObj.InvokeInstance("SetObjects", this.mObjects);
             mMBProxyHObj.InvokeInstance("Start");
         }
         

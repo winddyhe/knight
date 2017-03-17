@@ -42,8 +42,8 @@ namespace Game.Knight
         /// </summary>
         public IEnumerator Load_Async(HotfixLoaderRequest rRequest)
         {
-            string rDLLPath = mHotfixDllDir + rRequest.hotfixModuleName + ".dll";
-            string rPDBPath = mHotfixDllDir + rRequest.hotfixModuleName + ".pdb";
+            string rDLLPath = mHotfixDllDir + rRequest.hotfixModuleName + ".bytes";
+            string rPDBPath = mHotfixDllDir + rRequest.hotfixModuleName + "_PDB.bytes";
 
             rRequest.dllBytes = File.ReadAllBytes(Path.GetFullPath(rDLLPath));
             rRequest.pdbBytes = File.ReadAllBytes(Path.GetFullPath(rPDBPath));

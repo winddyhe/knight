@@ -17,14 +17,12 @@ namespace Core
     public unsafe class UnsafeVector3Array : IDisposable
     {
         private Vector3[]   mArray;
-        private int         mArrayItemLength;
         private int         mArrayLength;
         private int         mArrayCapacity;
 
         public unsafe UnsafeVector3Array(int nCapacity)
         {
             mArray = new Vector3[nCapacity];
-            mArrayItemLength = Marshal.SizeOf(typeof(Vector3));
             mArrayLength = 0;
             mArrayCapacity = nCapacity;
         }
