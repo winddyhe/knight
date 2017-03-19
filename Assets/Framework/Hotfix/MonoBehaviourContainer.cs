@@ -54,5 +54,11 @@ namespace Framework.Hotfix
             if (mMBProxyHObj == null) return;
             mMBProxyHObj.InvokeInstance("OnDisable");
         }
+
+        public void OnUnityEvent(Object rTarget)
+        {
+            if (mMBProxyHObj == null) return;
+            mMBProxyHObj.InvokeInstance("OnUnityEvent", rTarget);
+        }
     }
 }

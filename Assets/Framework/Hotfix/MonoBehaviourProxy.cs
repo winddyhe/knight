@@ -42,5 +42,9 @@ namespace Framework.Hotfix
         public virtual void OnDisable()
         {
         }
+
+        public virtual void OnUnityEvent(Object rTarget)
+        {
+        }
     }
 }

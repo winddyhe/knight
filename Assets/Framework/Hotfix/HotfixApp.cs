@@ -23,6 +23,8 @@ namespace Framework.Hotfix
 
             // 注册重定向方法
             this.RegisterCLRMethodRedirection();
+
+            this.mApp.DelegateManager.RegisterMethodDelegate<UnityEngine.Object>();
         }
 
         public HotfixObject CreateInstance(string rTypeName, params object[] rArgs)

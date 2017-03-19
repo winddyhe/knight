@@ -58,6 +58,10 @@ namespace Framework.Hotfix
             private bool            mOnDisableGot           = false;
             private bool            mIsOnDisableInvoking    = false;
 
+            private IMethod         mOnUnityEventMethod;
+            private bool            mOnUnityEventGot        = false;
+            private bool            mIsOnUnityEventInvoking = false;
+
             //缓存这个数组来避免调用时的GC Alloc
             private object[]        mParam1                 = new object[1];
 
@@ -188,6 +192,27 @@ namespace Framework.Hotfix
                 else
                 {
                     base.OnDisable();
+                }
+            }
+
+            public override void OnUnityEvent(UnityEngine.Object rTarget)
+            {
+                if (!mOnUnityEventGot)
+                {
+                    mOnUnityEventMethod = __instance.Type.GetMethod("OnUnityEvent", 1);
+                    mOnUnityEventGot = true;
+                }
+
+                if (mOnUnityEventMethod != null && !mIsOnUnityEventInvoking)
+                {
+                    mIsOnUnityEventInvoking = true;
+                    mParam1[0] = rTarget;
+                    mAppdomain.Invoke(mOnUnityEventMethod, __instance, mParam1);
+                    mIsOnUnityEventInvoking = false;
+                }
+                else
+                {
+                    base.OnUnityEvent(rTarget);
                 }
             }
         }

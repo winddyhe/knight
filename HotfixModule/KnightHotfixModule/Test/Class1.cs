@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine;
 using Test;
 using Framework.Hotfix;
+using Core;
 
 namespace KnightHotfixModule.Test
 {
