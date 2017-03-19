@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012051554462}
-  - 114: {fileID: 114000011532252124}
+  - 114: {fileID: 114000013761014454}
   m_Layer: 0
   m_Name: HotfixTest
   m_TagString: Untagged
@@ -121,19 +121,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114000011532252124
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012374262198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20351adb1e3158e4abbb09c3806321cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mHotfixName: 
-  mObjects: []
 --- !u!114 &114000013563386544
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -145,3 +132,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad647b26ee956ec4dbf5862a98cf8434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000013761014454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012374262198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20351adb1e3158e4abbb09c3806321cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mHotfixName: KnightHotfixModule.Test.Class1
+  mObjects:
+  - {fileID: 114000013563386544}
+  mTypes:
+  - Test.HotfixMBTest
+  - UnityEngine.GameObject
+  - 
+  - 
+  - 

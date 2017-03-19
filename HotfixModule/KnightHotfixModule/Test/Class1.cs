@@ -20,8 +20,11 @@ namespace KnightHotfixModule.Test
             Debug.LogError("Start...");
             Debug.LogError(this.Objects[0].name);
 
-            GameObject rGo = this.Objects[0] as GameObject;
-            var rHotfixMBTest = rGo.GetComponent<HotfixMBTest>();
+            //GameObject rGo = this.Objects[0] as GameObject;
+            //var rHotfixMBTest = rGo.GetComponent<HotfixMBTest>();
+            //rHotfixMBTest.Test1();
+            
+            var rHotfixMBTest = this.Objects[0] as HotfixMBTest;
             rHotfixMBTest.Test1();
         }
     }

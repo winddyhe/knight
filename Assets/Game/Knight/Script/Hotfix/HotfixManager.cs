@@ -32,10 +32,20 @@ namespace Game.Knight
             MemoryStream rPDBMS = new MemoryStream(rRequest.pdbBytes);
 
             mApp = new HotfixApp();
+            this.RegisterCrossBindingAdaptor(mApp); // 注册Adaptor
             mApp.Initialize(rDllMS, rPDBMS);
+
             
             rDllMS.Dispose();
             rDllMS.Dispose();
+        }
+
+        private void RegisterCrossBindingAdaptor(HotfixApp rApp)
+        {
+            rApp.RegisterCrossBindingAdaptorEvent = () =>
+            {
+                rApp.App.RegisterCrossBindingAdaptor(new MonoBehaviourProxyAdaptor());
+            };
         }
     }
 }

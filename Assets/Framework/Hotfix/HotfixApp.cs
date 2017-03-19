@@ -1,12 +1,16 @@
 ﻿using ILRuntime.Runtime.Enviorment;
+using System.Collections.Generic;
 using System.IO;
+using ILRuntime.Runtime.Generated;
 
 namespace Framework.Hotfix
 {
     public class HotfixApp
     {
-        private AppDomain   mApp;
-        public AppDomain    App { get { return mApp; } }
+        private AppDomain                   mApp;
+        public  AppDomain                   App { get { return mApp; } }
+
+        public  System.Action               RegisterCrossBindingAdaptorEvent;
 
         public void Initialize(Stream rDLLStream, Stream rPDBStream)
         {
@@ -14,7 +18,11 @@ namespace Framework.Hotfix
             mApp.LoadAssembly(rDLLStream, rPDBStream, new Mono.Cecil.Pdb.PdbReaderProvider());
 
             // 注册代理类
-            this.RegisterCrossBindingAdaptor(mApp); 
+            if (this.RegisterCrossBindingAdaptorEvent != null)
+                this.RegisterCrossBindingAdaptorEvent();
+
+            // 注册重定向方法
+            this.RegisterCLRMethodRedirection();
         }
 
         public HotfixObject CreateInstance(string rTypeName, params object[] rArgs)
@@ -33,12 +41,9 @@ namespace Framework.Hotfix
             return mApp.Invoke(rTypeName, rMethodName, null, rArgs);
         }
 
-        /// <summary>
-        /// 注册代理类
-        /// </summary>
-        private void RegisterCrossBindingAdaptor(AppDomain rApp)
+        public unsafe void RegisterCLRMethodRedirection()
         {
-            mApp.RegisterCrossBindingAdaptor(new MonoBehaviourProxyAdaptor());
+            CLRBindings.Initialize(this.mApp);
         }
     }
 }

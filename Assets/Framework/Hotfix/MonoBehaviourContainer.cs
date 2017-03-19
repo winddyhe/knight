@@ -1,4 +1,8 @@
-﻿using Core;
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
+using Core;
 using Game.Knight;
 using System;
 using System.Collections;
@@ -14,6 +18,8 @@ namespace Framework.Hotfix
         private string              mHotfixName;
         [HideInInspector][SerializeField]
         private List<Object>        mObjects;
+        [HideInInspector][SerializeField]
+        private List<string>        mTypes;
 
         private HotfixObject        mMBProxyHObj;
         
