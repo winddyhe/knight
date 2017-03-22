@@ -1,4 +1,8 @@
-﻿using System;
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
+using System;
 using System.Collections.Generic;
 
 namespace HotfixModule.WindUI
@@ -56,7 +60,6 @@ namespace HotfixModule.WindUI
         /// 刷新页面要做的操作
         /// </summary>
         public override void OnRefresh() { }
-
 
         /// <summary>
         /// 开始关闭时候要做的操作

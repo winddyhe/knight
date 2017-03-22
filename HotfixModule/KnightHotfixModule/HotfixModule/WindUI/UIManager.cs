@@ -14,11 +14,8 @@ namespace HotfixModule.WindUI
     /// <summary>
     /// UI的管理类
     /// </summary>
-    public class UIManager : MonoBehaviour 
+    public class UIManager : TSingleton<UIManager>
     {
-        private static UIManager    __instance;
-        public  static UIManager    Instance { get { return __instance; } }
-    
         /// <summary>
         /// 存放各种动态节点的地方
         /// </summary>
@@ -34,18 +31,11 @@ namespace HotfixModule.WindUI
         /// 当前存在的固定View，每个View使用GUID来作唯一标识
         /// </summary>
         private Dict<string, View>  curFixedViews;
-    
-        void Awake()
+
+        private UIManager()
         {
-            if (__instance == null)
-            {
-                __instance = this;
-                //跨越场景时不销毁
-                GameObject.DontDestroyOnLoad(this.gameObject);
-    
-                curViews = new Dict<string, View>();
-                curFixedViews = new Dict<string, View>();
-            }
+            this.curViews = new Dict<string, View>();
+            this.curFixedViews = new Dict<string, View>();
         }
         
         /// <summary>
@@ -56,12 +46,12 @@ namespace HotfixModule.WindUI
             // 企图关闭当前的View
             MaybeCloseTopView(rViewState);
 
-            this.StartCoroutine(Open_Async(rViewName, rViewState, rOpenCompleted));
+            CoroutineManager.Instance.Start(Open_Async(rViewName, rViewState, rOpenCompleted));
         }
 
         public Coroutine OpenAsync(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
         {
-            return this.StartCoroutine(Open_Async(rViewName, rViewState, rOpenCompleted));
+            return CoroutineManager.Instance.Start(Open_Async(rViewName, rViewState, rOpenCompleted));
         }
 
         private IEnumerator Open_Async(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
@@ -92,7 +82,7 @@ namespace HotfixModule.WindUI
             // 移除顶层结点
             this.curViews.Remove(rViewGUID);
             rView.Close();
-            this.StartCoroutine(DestroyView_Async(rView, () => 
+            CoroutineManager.Instance.Start(DestroyView_Async(rView, () => 
             {
                 UtilTool.SafeExecute(rCloseComplted);
             }));
@@ -135,7 +125,7 @@ namespace HotfixModule.WindUI
     
             // 移除顶层结点
             rView.Close();
-            this.StartCoroutine(DestroyView_Async(rView, () =>
+            CoroutineManager.Instance.Start(DestroyView_Async(rView, () =>
             {
                 UtilTool.SafeExecute(rCloseCompleted);
             })); 
@@ -205,7 +195,7 @@ namespace HotfixModule.WindUI
                 // 移除顶层结点
                 this.curViews.Remove(rViewGUID);
                 rView.Close();
-                this.StartCoroutine(DestroyView_Async(rView));
+                CoroutineManager.Instance.Start(DestroyView_Async(rView));
             }
         }
     
