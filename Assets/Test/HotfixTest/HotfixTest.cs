@@ -20,7 +20,8 @@ namespace Test
 #if UNITY_EDITOR
             rTestPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath(rPrefabPath, typeof(GameObject)) as GameObject;
 #endif
-            UtilTool.CreateGameObject(rTestPrefab, this.Canvas.gameObject);
+            var rTestGo = UtilTool.CreateGameObject(rTestPrefab);
+            rTestGo.transform.SetParent(this.Canvas.transform, false);
             //GameObject.Instantiate(rTestPrefab);
         }
     }

@@ -6,9 +6,10 @@ using Core;
 using Framework.WindUI;
 
 namespace Test
-{/// <summary>
- /// 登陆的View
- /// </summary>
+{
+    /// <summary>
+    /// 登陆的View
+    /// </summary>
     class LoginView : View
     {
         public void OnNewGameButton_Clicked()
