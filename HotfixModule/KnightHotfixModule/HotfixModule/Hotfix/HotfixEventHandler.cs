@@ -51,12 +51,12 @@ namespace HotfixModule.Hotfix
             }
         }
 
-        private Dict<UnityEngine.Object, EventObject> mEvents;
-        public  Dict<UnityEngine.Object, EventObject> Events { get { return mEvents; } }
+        private Dictionary<UnityEngine.Object, EventObject> mEvents;
+        public  Dictionary<UnityEngine.Object, EventObject> Events { get { return mEvents; } }
 
         public HotfixEventHandler(List<UnityEngine.Object> mObjs)
         {
-            mEvents = new Dict<UnityEngine.Object, EventObject>();
+            mEvents = new Dictionary<UnityEngine.Object, EventObject>();
         }
 
         public void AddEventListener(UnityEngine.Object rObj, Action<UnityEngine.Object> rAction)

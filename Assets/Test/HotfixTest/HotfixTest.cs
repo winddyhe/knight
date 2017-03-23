@@ -2,6 +2,7 @@
 using System.Collections;
 using Core;
 using Game.Knight;
+using Framework.WindUI;
 
 namespace Test
 {
@@ -14,15 +15,14 @@ namespace Test
             CoroutineManager.Instance.Initialize();
             yield return HotfixManager.Instance.Load("KnightHotfixModule");
 
-            string rPrefabPath = "Assets/Test/HotfixTest/HotfixTest1.prefab";
+            string rPrefabPath = "Assets/Test/HotfixTest/HotfixTest.prefab";
             
             GameObject rTestPrefab = null;
 #if UNITY_EDITOR
             rTestPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath(rPrefabPath, typeof(GameObject)) as GameObject;
 #endif
-            var rTestGo = UtilTool.CreateGameObject(rTestPrefab);
-            rTestGo.transform.SetParent(this.Canvas.transform, false);
-            //GameObject.Instantiate(rTestPrefab);
+            //this.Canvas.transform.AddChild(rTestPrefab, "UI");
+            GameObject.Instantiate(rTestPrefab);
         }
     }
 }

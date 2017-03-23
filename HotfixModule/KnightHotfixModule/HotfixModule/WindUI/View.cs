@@ -92,7 +92,7 @@ namespace HotfixModule.WindUI
             this.isOpened = false;
 
             this.viewController.OnOpening();
-            UIManager.Instance.StartCoroutine(Open_WaitforCompleted(rOpenCompleted));
+            //UIManager.Instance.StartCoroutine(Open_WaitforCompleted(rOpenCompleted));
         }
 
         private IEnumerator Open_WaitforCompleted(Action<View> rOpenCompleted)
@@ -138,7 +138,7 @@ namespace HotfixModule.WindUI
             this.isClosed = false;
 
             this.viewController.OnClosing();
-            UIManager.Instance.StartCoroutine(Close_WaitForCompleted());
+            //UIManager.Instance.StartCoroutine(Close_WaitForCompleted());
         }
 
         private IEnumerator Close_WaitForCompleted()

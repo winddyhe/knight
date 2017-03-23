@@ -31,6 +31,16 @@ namespace KnightHotfixModule.Test
             
             var rHotfixMBTest = this.Objects[0] as HotfixMBTest;
             rHotfixMBTest.Test1();
+
+            //Dict<int, int> rDictTest = new Dict<int, int>();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    rDictTest.Add(i, i);
+            //}
+            //foreach (var rItem in rDictTest)
+            //{
+            //    Debug.LogError(rItem.Key + ", " + rItem.Value);
+            //}
         }
     }
 }
