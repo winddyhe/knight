@@ -15,25 +15,25 @@ namespace Game.Knight
 
         protected override void InitializeViewController()
         {
-            this.viewController = new GamePadViewController(this);
+            //this.viewController = new GamePadViewController(this);
         }
     }
 
-    public class GamePadViewController : ViewController<GamePadView>
+    public class GamePadViewController : ViewController
     {
         public GamePadViewController(View rView) 
-            : base(rView as GamePadView)
+            : base()
         {
         }
 
         public override void OnOpening()
         {
-            this.mView.IsOpened = true;
+            //this.mView.IsOpened = true;
         }
 
         public override void OnClosing()
         {
-            this.mView.IsClosed = true;
+            //this.mView.IsClosed = true;
         }
     }
 }

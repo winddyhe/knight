@@ -41,6 +41,11 @@ namespace Framework.Hotfix.Editor
             Instance = null;
         }
 
+        protected void DrawBaseInspectorGUI()
+        {
+            base.OnInspectorGUI();
+        }
+
         public override void OnInspectorGUI()
         {
             if (this.mHotfixName == null) return;

@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections;
 using Framework;
 using Core;
+using Framework.Hotfix;
 
 namespace Game.Knight
 {

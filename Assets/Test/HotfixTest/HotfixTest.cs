@@ -3,6 +3,7 @@ using System.Collections;
 using Core;
 using Game.Knight;
 using Framework.WindUI;
+using Framework.Hotfix;
 
 namespace Test
 {

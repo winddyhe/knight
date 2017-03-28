@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HotfixModule.Hotfix
+namespace WindHotfix.Core
 {
     public class HotfixEventHandler
     {

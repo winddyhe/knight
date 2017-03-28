@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20351adb1e3158e4abbb09c3806321cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHotfixName: KnightHotfixModule.Test.Class2
+  mHotfixName: WindHotfix.Test.Class2
   mObjects:
   - {fileID: 114000013883713198}
   - {fileID: 114000011678847158}

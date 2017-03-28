@@ -19,7 +19,7 @@ namespace Game.Knight
 
         protected override void InitializeViewController()
         {
-            this.viewController = new PlayerListViewController(this);
+           // this.viewController = new PlayerListViewController(this);
         }
 
         public void OnCreatePlayerBtn_Clicked()
@@ -56,26 +56,26 @@ namespace Game.Knight
         }
     }
 
-    public class PlayerListViewController : ViewController<PlayerListView>
+    public class PlayerListViewController : ViewController
     {
         public PlayerListViewController(PlayerListView rView)
-            : base(rView)
+            : base()
         {
         }
 
         public override void OnOpening()
         {
-            this.mView.RefreshActorList();
+            //this.mView.RefreshActorList();
 
-            this.mView.IsOpened = true;
+            //this.mView.IsOpened = true;
         }
 
         public override void OnClosing()
         {
-            this.mView.IsClosed = true;
+            //this.mView.IsClosed = true;
 
-            if (this.mView.SelectedPlayerItem != null)
-                this.mView.SelectedPlayerItem.StopLoad();
+            //if (this.mView.SelectedPlayerItem != null)
+            //    this.mView.SelectedPlayerItem.StopLoad();
         }
     }
 }

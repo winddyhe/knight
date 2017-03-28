@@ -53,16 +53,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HotfixModule\Hotfix\HotfixEventHandler.cs" />
-    <Compile Include="HotfixModule\WindUI\UIManager.cs" />
-    <Compile Include="HotfixModule\WindUI\ViewController.cs" />
-    <Compile Include="HotfixModule\WindUI\View.cs" />
+    <Compile Include="WindHotfix\Core\HotfixEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test\Class1.cs" />
-    <Compile Include="Test\Class2.cs" />
+    <Compile Include="Test\BaseFunction\Class1.cs" />
+    <Compile Include="Test\BaseFunction\Class2.cs" />
+    <Compile Include="Test\UI\UILoginTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="HotfixModule\Utility\" />
     <Folder Include="Knight\GUI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

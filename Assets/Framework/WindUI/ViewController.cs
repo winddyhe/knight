@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Framework.WindUI
 {
     public class IViewController
     {
+        public virtual void Initialize(UnityEngine.Object[] rObjs) { }
+
         public virtual void OnOpening() { }
 
         public virtual void OnOpened()  { }
@@ -20,22 +24,21 @@ namespace Framework.WindUI
         public virtual void OnClosed()  { }
     }
 
-    public class ViewController<T> : IViewController where T : View
+    public class ViewController : IViewController
     {
-        protected T         mView = null;
+        protected Object[]      mObjects;
+        public bool             IsOpened;
+        public bool             IsClosed;
 
-        public ViewController(T rView)
+        public override void Initialize(Object[] rObjs)
         {
-            this.mView = rView;
+            this.mObjects = rObjs;
         }
 
         /// <summary>
         /// 开始打开View时候要做的事情
         /// </summary>
-        public override void OnOpening()
-        {
-            this.mView.IsOpened = true;
-        }
+        public override void OnOpening() { }
 
         /// <summary>
         /// 彻底打开View时候要做的事情
@@ -57,14 +60,10 @@ namespace Framework.WindUI
         /// </summary>
         public override void OnRefresh() { }
 
-
         /// <summary>
         /// 开始关闭时候要做的操作
         /// </summary>
-        public override void OnClosing()
-        {
-            this.mView.IsClosed = true;
-        }
+        public override void OnClosing() { }
 
         /// <summary>
         /// 彻底关闭后要做的操作
