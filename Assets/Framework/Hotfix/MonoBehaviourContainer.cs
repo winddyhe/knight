@@ -21,7 +21,7 @@ namespace Framework.Hotfix
         [HideInInspector][SerializeField]
         protected List<string>      mTypes;
 
-        protected HotfixObject      mMBProxyHObj;
+        private HotfixObject        mMBProxyHObj;
 
         protected virtual void Awake()
         {
@@ -47,6 +47,8 @@ namespace Framework.Hotfix
         {
             if (mMBProxyHObj == null) return;
             mMBProxyHObj.InvokeInstance("OnDestroy");
+            mObjects.Clear();
+            mMBProxyHObj = null;
         }
 
         protected virtual void OnEnable()
@@ -61,7 +63,7 @@ namespace Framework.Hotfix
             mMBProxyHObj.InvokeInstance("OnDisable");
         }
 
-        public void OnUnityEvent(Object rTarget)
+        public virtual void OnUnityEvent(Object rTarget)
         {
             if (mMBProxyHObj == null) return;
             mMBProxyHObj.InvokeInstance("OnUnityEvent", rTarget);

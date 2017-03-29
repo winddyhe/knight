@@ -32,6 +32,12 @@ namespace Framework.Hotfix
             return this.App.Invoke(this.TypeName, rMethodName, this.ILObject, rArgs);
         }
 
+        public T CreateInstance<T>(params object[] rArgs)
+        {
+            if (this.App == null) return default(T);
+            return this.App.Instantiate<T>(this.TypeName, rArgs);
+        }
+
         public object InvokeStatic(string rMethodName, params object[] rArgs)
         {
             if (this.App == null) return null;

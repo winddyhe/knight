@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Knight\GUI\" />
+    <Folder Include="WindHotfix\UI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

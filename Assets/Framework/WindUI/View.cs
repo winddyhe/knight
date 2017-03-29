@@ -14,6 +14,7 @@ namespace Framework.WindUI
     /// <summary>
     /// 页面，由众多的系统控件以及Widget组成。
     /// PS: 限定View只绑定到Prefab的根节点上。
+    /// @TODO: 将变量 GUID CurState IsMultiView 定义到ViewController中，同时又显示到Inspector中去
     /// </summary>
     public class View : MonoBehaviourContainer
     {
@@ -40,16 +41,18 @@ namespace Framework.WindUI
         /// View的实例化GUID，用来唯一标识该View
         /// </summary>
         public string           GUID            = "";
-        
         /// <summary>
         /// 该页面当前的状态
         /// </summary>
         public State            CurState        = State.fixing;
-
         /// <summary>
         /// 是否为Multi的页面
         /// </summary>
         public bool             IsMultiView     = false;
+        /// <summary>
+        /// View控制器
+        /// </summary>
+        private ViewController  mViewContorller;
         
         /// <summary>
         /// 该View是否被打开？
@@ -58,11 +61,13 @@ namespace Framework.WindUI
         {
             get
             {
-                return true;// isOpened;
+                if (mViewContorller == null) return false;
+                return mViewContorller.IsOpened;
             }
             set
             {
-                //isOpened = value;
+                if (mViewContorller == null) return;
+                mViewContorller.IsOpened = value;
             }
         }
 
@@ -73,11 +78,13 @@ namespace Framework.WindUI
         {
             get
             {
-                return true;// isClosed;
+                if (mViewContorller == null) return false;
+                return mViewContorller.IsClosed;
             }
             set
             {
-                //isClosed = value;
+                if (mViewContorller == null) return;
+                mViewContorller.IsClosed = value;
             }
         }
         
@@ -104,8 +111,15 @@ namespace Framework.WindUI
         /// </summary>
         protected virtual void InitializeViewController()
         {
-            this.mMBProxyHObj = HotfixManager.Instance.App.CreateInstance(this.mHotfixName);
-            this.mMBProxyHObj.InvokeInstance("SetObjects", this.mObjects);
+            this.mViewContorller = HotfixManager.Instance.App.CreateInstance<ViewController>(this.mHotfixName);
+            if (this.mViewContorller == null)
+            {
+                Debug.LogErrorFormat("Create View controller <color=red>{0}</color> failed..", this.mHotfixName);
+            }
+            else
+            {
+                this.mViewContorller.Initialize(this.mObjects);
+            }
         }
 
         /// <summary>
@@ -115,8 +129,8 @@ namespace Framework.WindUI
         {
             this.IsOpened = false;
 
-            if (mMBProxyHObj != null)
-                mMBProxyHObj.InvokeInstance("OnOpening");
+            if (mViewContorller != null)
+                mViewContorller.OnOpening();
             
             UIManager.Instance.StartCoroutine(Open_WaitforCompleted(rOpenCompleted));
         }
@@ -128,8 +142,8 @@ namespace Framework.WindUI
                 yield return 0;
             }
 
-            if (mMBProxyHObj != null)
-                mMBProxyHObj.InvokeInstance("OnOpened");
+            if (mViewContorller != null)
+                mViewContorller.OnOpened();
             
             UtilTool.SafeExecute(rOpenCompleted, this);
         }
@@ -139,8 +153,8 @@ namespace Framework.WindUI
         /// </summary>
         public void Show()
         {
-            if (mMBProxyHObj != null)
-                mMBProxyHObj.InvokeInstance("OnShow");
+            if (mViewContorller != null)
+                mViewContorller.OnShow();
         }
 
         /// <summary>
@@ -148,8 +162,8 @@ namespace Framework.WindUI
         /// </summary>
         public void Hide()
         {
-            if (mMBProxyHObj != null)
-                mMBProxyHObj.InvokeInstance("OnHide");
+            if (mViewContorller != null)
+                mViewContorller.OnHide();
         }
 
         /// <summary>
@@ -157,8 +171,8 @@ namespace Framework.WindUI
         /// </summary>
         public void Refresh()
         {
-            if (mMBProxyHObj != null)
-                mMBProxyHObj.InvokeInstance("OnRefresh");
+            if (mViewContorller != null)
+                mViewContorller.OnRefresh();
         }
     
         /// <summary>
@@ -168,7 +182,9 @@ namespace Framework.WindUI
         {
             this.IsClosed = false;
 
-            mMBProxyHObj.InvokeInstance("OnClosing");
+            if (mViewContorller != null)
+                mViewContorller.OnClosing();
+
             UIManager.Instance.StartCoroutine(Close_WaitForCompleted());
         }
     
@@ -178,7 +194,18 @@ namespace Framework.WindUI
             {
                 yield return 0;
             }
-            mMBProxyHObj.InvokeInstance("OnClosed");
+
+            if (mViewContorller != null)
+                mViewContorller.OnClosed();
+
+            // 销毁引用
+            base.OnDestroy();
+        }
+
+        public override void OnUnityEvent(UnityEngine.Object rTarget)
+        {
+            if (mViewContorller != null)
+                mViewContorller.OnUnityEvent(rTarget);
         }
 
         /// <summary>

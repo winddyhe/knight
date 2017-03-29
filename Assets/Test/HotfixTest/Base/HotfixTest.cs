@@ -16,7 +16,7 @@ namespace Test
             CoroutineManager.Instance.Initialize();
             yield return HotfixManager.Instance.Load("KnightHotfixModule");
 
-            string rPrefabPath = "Assets/Test/HotfixTest/HotfixTest.prefab";
+            string rPrefabPath = "Assets/Test/HotfixTest/Base/HotfixTest.prefab";
             
             GameObject rTestPrefab = null;
 #if UNITY_EDITOR

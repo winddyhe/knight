@@ -37,6 +37,12 @@ namespace Framework.Hotfix
             return rObject;
         }
 
+        public T CreateInstance<T>(string rTypeName, params object[] rObjs)
+        {
+            if (mApp == null) return default(T);
+            return this.mApp.Instantiate<T>(rTypeName, rObjs);
+        }
+
         public object InvokeStatic(string rTypeName, string rMethodName, params object[] rArgs)
         {
             if (mApp == null) return null;

@@ -45,6 +45,7 @@ namespace Framework.Hotfix
             {
                 rApp.App.RegisterCrossBindingAdaptor(new MonoBehaviourProxyAdaptor());
                 rApp.App.RegisterCrossBindingAdaptor(new CoroutineAdapter());
+                rApp.App.RegisterCrossBindingAdaptor(new ViewControllerAdaptor());
             };
         }
     }
