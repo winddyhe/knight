@@ -124,6 +124,9 @@ namespace Core
         }
     }
 
+    /// <summary>
+    /// 暂时还没有找到办法在Hotfix端直接使用Dict模板类，该类只能在U3D端使用，在Hotfix端直接使用Dictionary
+    /// </summary>
     public class Dict<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>, IDict
     {
         public struct Enumerator : IEnumerator<KeyValuePair<TKey, TValue>>

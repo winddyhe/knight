@@ -7,9 +7,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Core;
 using System.IO;
-using Framework.Hotfix;
 
-namespace Game.Knight
+namespace Framework.Hotfix
 {
     public class HotfixManager : TSingleton<HotfixManager>
     {
@@ -45,6 +44,7 @@ namespace Game.Knight
             rApp.RegisterCrossBindingAdaptorEvent = () =>
             {
                 rApp.App.RegisterCrossBindingAdaptor(new MonoBehaviourProxyAdaptor());
+                rApp.App.RegisterCrossBindingAdaptor(new CoroutineAdapter());
             };
         }
     }

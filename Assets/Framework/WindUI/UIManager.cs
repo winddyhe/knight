@@ -15,24 +15,24 @@ namespace Framework.WindUI
     /// </summary>
     public class UIManager : MonoBehaviour 
     {
-        private static UIManager    __instance;
-        public  static UIManager    Instance { get { return __instance; } }
+        private static UIManager        __instance;
+        public  static UIManager        Instance { get { return __instance; } }
     
         /// <summary>
         /// 存放各种动态节点的地方
         /// </summary>
-        public GameObject           rootCanvas;
+        public GameObject               RootCanvas;
     
         /// <summary>
         /// 当前的UI中的Views，每个View是用GUID来作唯一标识
         /// 底层-->顶层 { 0 --> list.count }
         /// </summary>
-        private Dict<string, View>  curViews;
+        private Dict<string, View>      mCurViews;
         
         /// <summary>
         /// 当前存在的固定View，每个View使用GUID来作唯一标识
         /// </summary>
-        private Dict<string, View>  curFixedViews;
+        private Dict<string, View>      mCurFixedViews;
     
         void Awake()
         {
@@ -42,8 +42,8 @@ namespace Framework.WindUI
                 //跨越场景时不销毁
                 GameObject.DontDestroyOnLoad(this.gameObject);
     
-                curViews = new Dict<string, View>();
-                curFixedViews = new Dict<string, View>();
+                mCurViews = new Dict<string, View>();
+                mCurFixedViews = new Dict<string, View>();
             }
         }
         
@@ -77,7 +77,7 @@ namespace Framework.WindUI
         public void Pop(Action rCloseComplted = null)
         {
             // 得到顶层结点
-            KeyValuePair<string, View> rTopNode = this.curViews.Last();
+            KeyValuePair<string, View> rTopNode = this.mCurViews.Last();
     
             string rViewGUID = rTopNode.Key;
             View rView = rTopNode.Value;
@@ -89,7 +89,7 @@ namespace Framework.WindUI
             }
     
             // 移除顶层结点
-            this.curViews.Remove(rViewGUID);
+            this.mCurViews.Remove(rViewGUID);
             rView.Close();
             this.StartCoroutine(DestroyView_Async(rView, () => 
             {
@@ -106,11 +106,11 @@ namespace Framework.WindUI
             View rView = null;
     
             // 找到View
-            if (this.curFixedViews.TryGetValue(rViewGUID, out rView))
+            if (this.mCurFixedViews.TryGetValue(rViewGUID, out rView))
             {
                 isFixedView = true;
             }
-            else if (this.curViews.TryGetValue(rViewGUID, out rView))
+            else if (this.mCurViews.TryGetValue(rViewGUID, out rView))
             {
                 isFixedView = false;
             }
@@ -125,11 +125,11 @@ namespace Framework.WindUI
             // View存在
             if (isFixedView)
             {
-                this.curFixedViews.Remove(rViewGUID);
+                this.mCurFixedViews.Remove(rViewGUID);
             }
             else
             {
-                this.curViews.Remove(rViewGUID);
+                this.mCurViews.Remove(rViewGUID);
             }
     
             // 移除顶层结点
@@ -148,7 +148,7 @@ namespace Framework.WindUI
             if (rViewPrefab == null) return;
     
             //把View的GameObject结点加到rootCanvas下
-            GameObject rViewGo = this.rootCanvas.transform.AddChild(rViewPrefab, "UI");
+            GameObject rViewGo = this.RootCanvas.transform.AddChild(rViewPrefab, "UI");
     
             View rView = rViewGo.SafeGetComponent<View>();
             if (rView == null)
@@ -165,19 +165,19 @@ namespace Framework.WindUI
             rView.Initialize(rViewGUID, rViewState);
     
             //新的View的存储逻辑
-            switch (rView.curState)
+            switch (rView.CurState)
             {
                 case View.State.fixing:
-                    curFixedViews.Add(rViewGUID, rView);
+                    mCurFixedViews.Add(rViewGUID, rView);
                     break;
                 case View.State.overlap:
-                    curViews.Add(rViewGUID, rView);
+                    mCurViews.Add(rViewGUID, rView);
                     break;
                 case View.State.dispatch:
-                    if (curViews.Count == 0)
-                        curViews.Add(rViewGUID, rView);
+                    if (mCurViews.Count == 0)
+                        mCurViews.Add(rViewGUID, rView);
                     else 
-                        curViews[curViews.LastKey()] = rView;
+                        mCurViews[mCurViews.LastKey()] = rView;
                     break;
                 default:
                     break;
@@ -192,7 +192,7 @@ namespace Framework.WindUI
         private void MaybeCloseTopView(View.State rViewState)
         {
             // 得到顶层结点
-            KeyValuePair<string, View> rTopNode = this.curViews.Last();
+            KeyValuePair<string, View> rTopNode = this.mCurViews.Last();
     
             string rViewGUID = rTopNode.Key;
             View rView = rTopNode.Value;
@@ -202,7 +202,7 @@ namespace Framework.WindUI
             if (rViewState == View.State.dispatch)
             {
                 // 移除顶层结点
-                this.curViews.Remove(rViewGUID);
+                this.mCurViews.Remove(rViewGUID);
                 rView.Close();
                 this.StartCoroutine(DestroyView_Async(rView));
             }

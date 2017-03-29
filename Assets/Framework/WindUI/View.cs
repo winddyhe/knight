@@ -6,6 +6,8 @@ using UnityEngine;
 using System.Collections;
 using System;
 using Core;
+using Framework.Hotfix;
+using Game.Knight;
 
 namespace Framework.WindUI
 {
@@ -13,7 +15,7 @@ namespace Framework.WindUI
     /// 页面，由众多的系统控件以及Widget组成。
     /// PS: 限定View只绑定到Prefab的根节点上。
     /// </summary>
-    public class View : MonoBehaviour
+    public class View : MonoBehaviourContainer
     {
         /// <summary>
         /// View的状态，有三种状态
@@ -38,47 +40,60 @@ namespace Framework.WindUI
         /// View的实例化GUID，用来唯一标识该View
         /// </summary>
         public string           GUID            = "";
-
+        
         /// <summary>
         /// 该页面当前的状态
         /// </summary>
-        public State            curState        = State.fixing;
+        public State            CurState        = State.fixing;
 
         /// <summary>
         /// 是否为Multi的页面
         /// </summary>
-        public bool             isMultiView     = false;
-
-        /// <summary>
-        /// View的控制器
-        /// </summary>
-        public IViewController  viewController;
-
+        public bool             IsMultiView     = false;
+        
         /// <summary>
         /// 该View是否被打开？
         /// </summary>
-        protected bool          isOpened        = false;
-        public bool             IsOpened        { get { return isOpened; } set { isOpened = value; } }
+        public bool             IsOpened
+        {
+            get
+            {
+                return true;// isOpened;
+            }
+            set
+            {
+                //isOpened = value;
+            }
+        }
 
         /// <summary>
-        /// 该View是否被关掉
+        /// 该View是否被关掉？
         /// </summary>
-        protected bool          isClosed        = false;
-        public bool             IsClosed        { get { return isClosed; } set { isClosed = value; } }
-
+        public bool             IsClosed
+        {
+            get
+            {
+                return true;// isClosed;
+            }
+            set
+            {
+                //isClosed = value;
+            }
+        }
+        
         /// <summary>
         /// 是否被激活？
         /// </summary>
-        public bool             isActived
+        public bool             IsActived
         {
             get { return this.gameObject.activeSelf; }
-            set { this.gameObject.SetActive(value); }
+            set { this.gameObject.SetActive(value);  }
         }
 
         public void Initialize(string rViewGUID, State rViewState)
         {
             this.GUID = rViewGUID;
-            this.curState = rViewState;
+            this.CurState = rViewState;
 
             // 初始化View controller
             this.InitializeViewController();
@@ -89,7 +104,8 @@ namespace Framework.WindUI
         /// </summary>
         protected virtual void InitializeViewController()
         {
-            this.viewController = new ViewController<View>(this);
+            this.mMBProxyHObj = HotfixManager.Instance.App.CreateInstance(this.mHotfixName);
+            this.mMBProxyHObj.InvokeInstance("SetObjects", this.mObjects);
         }
 
         /// <summary>
@@ -97,20 +113,24 @@ namespace Framework.WindUI
         /// </summary>
         public void Open(Action<View> rOpenCompleted) 
         {
-            this.isOpened = false;
-    
-            this.viewController.OnOpening();
+            this.IsOpened = false;
+
+            if (mMBProxyHObj != null)
+                mMBProxyHObj.InvokeInstance("OnOpening");
+            
             UIManager.Instance.StartCoroutine(Open_WaitforCompleted(rOpenCompleted));
         }
     
         private IEnumerator Open_WaitforCompleted(Action<View> rOpenCompleted)
         {
-            while(!this.isOpened)
+            while(!this.IsOpened)
             {
                 yield return 0;
             }
-            this.viewController.OnOpened();
-    
+
+            if (mMBProxyHObj != null)
+                mMBProxyHObj.InvokeInstance("OnOpened");
+            
             UtilTool.SafeExecute(rOpenCompleted, this);
         }
 
@@ -119,7 +139,8 @@ namespace Framework.WindUI
         /// </summary>
         public void Show()
         {
-            this.viewController.OnShow();
+            if (mMBProxyHObj != null)
+                mMBProxyHObj.InvokeInstance("OnShow");
         }
 
         /// <summary>
@@ -127,7 +148,8 @@ namespace Framework.WindUI
         /// </summary>
         public void Hide()
         {
-            this.viewController.OnHide();
+            if (mMBProxyHObj != null)
+                mMBProxyHObj.InvokeInstance("OnHide");
         }
 
         /// <summary>
@@ -135,7 +157,8 @@ namespace Framework.WindUI
         /// </summary>
         public void Refresh()
         {
-            this.viewController.OnRefresh();
+            if (mMBProxyHObj != null)
+                mMBProxyHObj.InvokeInstance("OnRefresh");
         }
     
         /// <summary>
@@ -143,19 +166,44 @@ namespace Framework.WindUI
         /// </summary>
         public void Close() 
         {
-            this.isClosed = false;
-            
-            this.viewController.OnClosing();
+            this.IsClosed = false;
+
+            mMBProxyHObj.InvokeInstance("OnClosing");
             UIManager.Instance.StartCoroutine(Close_WaitForCompleted());
         }
     
         private IEnumerator Close_WaitForCompleted()
         {
-            while (!this.isClosed)
+            while (!this.IsClosed)
             {
                 yield return 0;
             }
-            this.viewController.OnClosed();
+            mMBProxyHObj.InvokeInstance("OnClosed");
         }
+
+        /// <summary>
+        /// 在View中不推荐使用MonoBehaviour本身的生命周期，还是自己控制比较好
+        /// 能够避免隔帧调用顺序、Deactive GameObject之后方法不响应等问题
+        /// </summary>
+        #region __MonoBehaviourContainer__
+        protected override void Awake()
+        {
+        }
+        protected override void Start()
+        {
+        }
+        protected override void OnDestroy()
+        {
+        }
+        protected override void OnEnable()
+        {
+        }
+        protected override void OnDisable()
+        {
+        }
+        protected override void Update()
+        {
+        }
+        #endregion
     }
 }

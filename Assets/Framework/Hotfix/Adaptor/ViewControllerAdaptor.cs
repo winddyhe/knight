@@ -11,7 +11,7 @@ using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
 
 namespace Framework.Hotfix
 {
-    public class ViewControllerHotfixAdaptor : CrossBindingAdaptor
+    public class ViewControllerAdaptor : CrossBindingAdaptor
     {
         public override Type BaseCLRType
         {

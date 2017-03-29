@@ -8,7 +8,7 @@ using UnityEngine;
 using Core;
 using System.IO;
 
-namespace Game.Knight
+namespace Framework.Hotfix
 {
     public class HotfixLoaderRequest : BaseCoroutineRequest<HotfixAssetLoader>
     {

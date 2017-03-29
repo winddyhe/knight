@@ -15,41 +15,47 @@ namespace Framework.Hotfix
     public class MonoBehaviourContainer : MonoBehaviour
     {
         [HideInInspector][SerializeField]
-        private string              mHotfixName;
+        protected string            mHotfixName;
         [HideInInspector][SerializeField]
-        private List<Object>        mObjects;
+        protected List<Object>      mObjects;
         [HideInInspector][SerializeField]
-        private List<string>        mTypes;
+        protected List<string>      mTypes;
 
-        private HotfixObject        mMBProxyHObj;
-        
-        void Start()
+        protected HotfixObject      mMBProxyHObj;
+
+        protected virtual void Awake()
         {
-            mMBProxyHObj = HotfixManager.Instance.App.CreateInstance(this.mHotfixName);
+            if (mMBProxyHObj == null)
+                mMBProxyHObj = HotfixManager.Instance.App.CreateInstance(this.mHotfixName);
 
             mMBProxyHObj.InvokeInstance("SetObjects", this.mObjects);
+        }
+
+        protected virtual void Start()
+        {
+            if (mMBProxyHObj == null) return;
             mMBProxyHObj.InvokeInstance("Start");
         }
-        
-        void Update()
+
+        protected virtual void Update()
         {
             if (mMBProxyHObj == null) return;
             mMBProxyHObj.InvokeInstance("Update");
         }
 
-        void OnDestroy()
+        protected virtual void OnDestroy()
         {
             if (mMBProxyHObj == null) return;
             mMBProxyHObj.InvokeInstance("OnDestroy");
         }
 
-        void OnEnable()
+        protected virtual void OnEnable()
         {
             if (mMBProxyHObj == null) return;
             mMBProxyHObj.InvokeInstance("OnEnable");
         }
 
-        void OnDisable()
+        protected virtual void OnDisable()
         {
             if (mMBProxyHObj == null) return;
             mMBProxyHObj.InvokeInstance("OnDisable");

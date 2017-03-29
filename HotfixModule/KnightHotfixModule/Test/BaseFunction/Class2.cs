@@ -5,10 +5,10 @@
 using Framework.Hotfix;
 using System;
 using System.Collections.Generic;
-using HotfixModule.Hotfix;
+using WindHotfix.Core;
 using UnityEngine;
 
-namespace KnightHotfixModule.Test
+namespace WindHotfix.Test
 {
     public class Class2 : MonoBehaviourProxy
     {
