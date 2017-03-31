@@ -34,9 +34,10 @@ namespace Framework.Hotfix
             this.RegisterCrossBindingAdaptor(mApp); // 注册Adaptor
             mApp.Initialize(rDllMS, rPDBMS);
 
-            
+            rDllMS.Close();
+            rPDBMS.Close();            
             rDllMS.Dispose();
-            rDllMS.Dispose();
+            rPDBMS.Dispose();
         }
 
         private void RegisterCrossBindingAdaptor(HotfixApp rApp)

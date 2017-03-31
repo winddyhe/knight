@@ -14,15 +14,15 @@ namespace KnightHotfixModule.Test.UI
     {
         private HotfixEventHandler  mEventHandler;
 
-        private InputField          mAccountInput;
-        private InputField          mPasswordInput;
+        private InputField mAccountInput;
+        private InputField mPasswordInput;
 
         public override void Initialize(List<UnityEngine.Object> rObjs)
         {
             base.Initialize(rObjs);
             Debug.LogError("UILoginTest.Initialize..." + this.mObjects.Count);
 
-            mAccountInput  = this.mObjects[0] as InputField;
+            mAccountInput = this.mObjects[0] as InputField;
             mPasswordInput = this.mObjects[1] as InputField;
 
             mEventHandler = new HotfixEventHandler(this.mObjects);
@@ -39,6 +39,9 @@ namespace KnightHotfixModule.Test.UI
         {
             base.OnClosing();
             Debug.LogError("OnClosing: " + this.mIsClosed);
+
+            mEventHandler.RemoveAll();
+            mEventHandler = null;
         }
 
         public override void OnUnityEvent(UnityEngine.Object rTarget)

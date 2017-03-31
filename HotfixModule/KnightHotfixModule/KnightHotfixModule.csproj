@@ -53,16 +53,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Knight\GameFlow\Init.cs" />
+    <Compile Include="Knight\GameFlow\Login.cs" />
+    <Compile Include="Knight\GUI\LoginView.cs" />
     <Compile Include="WindHotfix\Core\HotfixEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\BaseFunction\Class1.cs" />
     <Compile Include="Test\BaseFunction\Class2.cs" />
     <Compile Include="Test\UI\UILoginTest.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Knight\GUI\" />
-    <Folder Include="WindHotfix\UI\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

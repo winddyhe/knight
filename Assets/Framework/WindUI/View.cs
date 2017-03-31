@@ -200,6 +200,7 @@ namespace Framework.WindUI
 
             // 销毁引用
             base.OnDestroy();
+            mViewContorller = null;
         }
 
         public override void OnUnityEvent(UnityEngine.Object rTarget)

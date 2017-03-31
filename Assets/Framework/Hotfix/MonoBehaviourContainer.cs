@@ -28,7 +28,11 @@ namespace Framework.Hotfix
             if (mMBProxyHObj == null)
                 mMBProxyHObj = HotfixManager.Instance.App.CreateInstance(this.mHotfixName);
 
-            mMBProxyHObj.InvokeInstance("SetObjects", this.mObjects);
+            if (mMBProxyHObj != null)
+            {
+                mMBProxyHObj.InvokeInstance("SetObjects", this.mObjects);
+                mMBProxyHObj.InvokeInstance("Awake");
+            }
         }
 
         protected virtual void Start()
