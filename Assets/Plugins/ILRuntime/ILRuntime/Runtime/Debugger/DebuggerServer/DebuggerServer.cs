@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Debugger.Protocol;
+using System.Net;
 
 namespace ILRuntime.Runtime.Debugger
 {

@@ -4,12 +4,16 @@ using Core;
 using Game.Knight;
 using Framework.WindUI;
 using Framework.Hotfix;
+using System.Collections.Generic;
 
 namespace Test
 {
     public class HotfixTest : MonoBehaviour
     {
         public Canvas Canvas;
+
+        [SerializeField]
+        public Dictionary<int, int> l;
 
         IEnumerator Start()
         {

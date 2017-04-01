@@ -11,17 +11,50 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Framework.Hotfix
-{
+{    
     public class MonoBehaviourContainer : MonoBehaviour
     {
-        [HideInInspector][SerializeField]
-        protected string            mHotfixName;
-        [HideInInspector][SerializeField]
-        protected List<Object>      mObjects;
-        [HideInInspector][SerializeField]
-        protected List<string>      mTypes;
+        [System.Serializable]
+        public class UnityObject
+        {
+            public string Name;
+            public Object Object;
+            public string Type;
+        }
 
-        private HotfixObject        mMBProxyHObj;
+        [System.Serializable]
+        public class BaseDataObject
+        {
+            public string Name;
+            public int    IntObject;
+            public long   LongObject;
+            public float  FloatObject;
+            public double DoubleObject;
+            public string StringObject;
+            public string Type;
+        }
+
+        public enum BaseDataType
+        {
+            Int,
+            Long,
+            Float,
+            Double,
+            String,
+        }
+        
+        [HideInInspector][SerializeField]
+        protected string                        mHotfixName;
+        [HideInInspector][SerializeField]
+        protected List<UnityObject>             mObjects;
+        //[HideInInspector][SerializeField]
+        //protected List<string>                mTypes;
+        [HideInInspector][SerializeField]
+        protected List<BaseDataObject>          mBaseDatas;
+        //[HideInInspector][SerializeField]
+        //protected List<string>                mBaseTypes;
+
+        private HotfixObject                    mMBProxyHObj;
 
         protected virtual void Awake()
         {
@@ -30,7 +63,7 @@ namespace Framework.Hotfix
 
             if (mMBProxyHObj != null)
             {
-                mMBProxyHObj.InvokeInstance("SetObjects", this.mObjects);
+                mMBProxyHObj.InvokeInstance("SetObjects", this.mObjects, this.mBaseDatas);
                 mMBProxyHObj.InvokeInstance("Awake");
             }
         }

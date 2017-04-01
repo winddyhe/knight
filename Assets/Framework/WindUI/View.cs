@@ -118,7 +118,7 @@ namespace Framework.WindUI
             }
             else
             {
-                this.mViewContorller.Initialize(this.mObjects);
+                this.mViewContorller.Initialize(this.mObjects, this.mBaseDatas);
             }
         }
 

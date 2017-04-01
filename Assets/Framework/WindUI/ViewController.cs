@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using UnityObject = Framework.Hotfix.MonoBehaviourContainer.UnityObject;
+using BaseDataObject = Framework.Hotfix.MonoBehaviourContainer.BaseDataObject;
 
 namespace Framework.WindUI
 {
     public class ViewController
     {
-        protected List<Object>              mObjects;
+        protected List<UnityObject>         mObjects;
+        protected List<BaseDataObject>      mBaseDatas;
         protected bool                      mIsOpened = false;
         protected bool                      mIsClosed = false;
 
-        public virtual void Initialize(List<Object> rObjs)
+        public virtual void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
             this.mObjects = rObjs;
+            this.mBaseDatas = rBaseDatas;
         }
 
         /// <summary>

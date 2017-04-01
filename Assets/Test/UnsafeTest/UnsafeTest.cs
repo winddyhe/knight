@@ -44,7 +44,7 @@ namespace Test
 
         public static UInt16 ConciseHtons(UInt16 src)
         {
-            UInt16 dest;
+            UInt16 dest = 0;
             unsafe
             {
                 ((byte*)&dest)[0] = ((byte*)&src)[1];

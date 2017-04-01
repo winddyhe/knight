@@ -12,28 +12,30 @@ namespace Framework.Hotfix.Editor
     {
         public class ObjectType
         {
-            public SerializedProperty   Object;
-            public SerializedProperty   Type;
-            public int                  Selected;
+            public SerializedProperty Object;
+            public SerializedProperty Type;
+            public SerializedProperty Name;
+            public int Selected;
         }
 
-        public static MonoBehaviourContainerInspector   Instance;
+        public static MonoBehaviourContainerInspector Instance;
 
-        private SerializedProperty                      mHotfixName;
-        private SerializedProperty                      mObjects;
-        private SerializedProperty                      mTypes;
+        private SerializedProperty  mHotfixName;
+        private SerializedProperty  mObjects;
+        private SerializedProperty  mBaseDatas;
         
-        private List<ObjectType>                        mObjectTypes;
+        private List<ObjectType>    mObjectTypes;
+        private List<ObjectType>    mBaseDataTypes;
 
         void OnEnable()
         {
             Instance = this;
 
             this.mHotfixName = this.serializedObject.FindProperty("mHotfixName");
-            this.mObjects = this.serializedObject.FindProperty("mObjects");
-            this.mTypes = this.serializedObject.FindProperty("mTypes");
-            
-            this.mObjectTypes = this.ToObjectTypes(this.mObjects, this.mTypes);
+            this.mObjects    = this.serializedObject.FindProperty("mObjects");
+            this.mBaseDatas  = this.serializedObject.FindProperty("mBaseDatas");
+
+            this.mObjectTypes = this.ToObjectTypes(this.mObjects);
         }
 
         void OnDestroy()
@@ -52,48 +54,55 @@ namespace Framework.Hotfix.Editor
 
             using (var space = new EditorGUILayout.VerticalScope())
             {
-                this.mObjectTypes = this.ToObjectTypes(this.mObjects, this.mTypes);
-
-                EditorGUILayout.PropertyField(this.mHotfixName, new GUIContent("Hotfix Class Name: "));
-                EditorGUILayout.LabelField("Objects: ");
-                for (int i = 0; i < this.mObjectTypes.Count; i++)
-                {
-                    using (var space1 = new EditorGUILayout.HorizontalScope("TextField"))
-                    {
-                        GUILayout.Label(i.ToString()+": ", GUILayout.Width(15));
-
-                        var rElementObjProperty = this.mObjectTypes[i].Object;
-                        var rElementTypeProperty = this.mObjectTypes[i].Type;
-                        EditorGUILayout.PropertyField(rElementObjProperty, new GUIContent(""));
-                        
-                        List<string> rElemTypes = this.GetObjectComponentTypes(rElementObjProperty);
-                        this.mObjectTypes[i].Selected = EditorGUILayout.Popup(this.mObjectTypes[i].Selected, rElemTypes.ToArray());
-                        this.ChangeElementObjectBySelectedType(rElementObjProperty, rElementTypeProperty, this.mObjectTypes[i].Selected);
-
-                        if (GUILayout.Button("Del", GUILayout.Width(40)))
-                        {
-                            this.mObjects.DeleteArrayElementAtIndex(i);
-                            break;
-                        }
-                    }
-                }
-
-                if (GUILayout.Button("Add"))
-                {
-                    this.mObjects.InsertArrayElementAtIndex(this.mObjects.arraySize);
-                    this.mTypes.InsertArrayElementAtIndex(this.mTypes.arraySize);
-                    this.mObjectTypes = this.ToObjectTypes(this.mObjects, this.mTypes);
-                }
+                this.DrawUnityEngineObjects();
+                //this.DrawBaseDatas();
             }
 
             this.serializedObject.ApplyModifiedProperties();
+        }
+        
+        private void DrawUnityEngineObjects()
+        {
+            this.mObjectTypes = this.ToObjectTypes(this.mObjects);
+
+            EditorGUILayout.PropertyField(this.mHotfixName, new GUIContent("Hotfix Class Name: "));
+            EditorGUILayout.LabelField("Objects: ");
+            for (int i = 0; i < this.mObjectTypes.Count; i++)
+            {
+                using (var space1 = new EditorGUILayout.HorizontalScope("TextField"))
+                {
+                    GUILayout.Label(i.ToString() + ": ", GUILayout.Width(15));
+
+                    var rElementNameProperty = this.mObjectTypes[i].Name;
+                    var rElementObjProperty = this.mObjectTypes[i].Object;
+                    var rElementTypeProperty = this.mObjectTypes[i].Type;
+                    EditorGUILayout.PropertyField(rElementNameProperty, new GUIContent(""));
+                    EditorGUILayout.PropertyField(rElementObjProperty, new GUIContent(""));
+
+                    List<string> rElemTypes = this.GetObjectComponentTypes(rElementObjProperty);
+                    this.mObjectTypes[i].Selected = EditorGUILayout.Popup(this.mObjectTypes[i].Selected, rElemTypes.ToArray());
+                    this.ChangeElementObjectBySelectedType(rElementObjProperty, rElementTypeProperty, this.mObjectTypes[i].Selected);
+
+                    if (GUILayout.Button("Del", GUILayout.Width(40)))
+                    {
+                        this.mObjects.DeleteArrayElementAtIndex(i);
+                        break;
+                    }
+                }
+            }
+
+            if (GUILayout.Button("Add UnityEngine Objects"))
+            {
+                this.mObjects.InsertArrayElementAtIndex(this.mObjects.arraySize);
+                this.mObjectTypes = this.ToObjectTypes(this.mObjects);
+            }
         }
 
         private void ChangeElementObjectBySelectedType(SerializedProperty rObjectProp, SerializedProperty rTypeProp, int nSelected)
         {
             List<string> rElemTypes = GetObjectComponentTypes(rObjectProp);
             List<UnityEngine.Object> rElemObjs = GetObjectComponents(rObjectProp);
-            
+
             if (nSelected >= 0 && nSelected < rElemTypes.Count)
             {
                 string rRealType = rElemTypes[nSelected];
@@ -103,19 +112,23 @@ namespace Framework.Hotfix.Editor
             }
         }
 
-        private List<ObjectType> ToObjectTypes(SerializedProperty rObjects, SerializedProperty rTypes)
+        private List<ObjectType> ToObjectTypes(SerializedProperty rObjects)
         {
             var rObjectTypes = new List<ObjectType>();
             if (rObjects == null) return rObjectTypes;
 
             for (int i = 0; i < rObjects.arraySize; i++)
             {
+                SerializedProperty rElementProp = rObjects.GetArrayElementAtIndex(i);
+
                 var rObjectType = new ObjectType()
                 {
-                    Object = rObjects.GetArrayElementAtIndex(i),
-                    Type = rTypes.GetArrayElementAtIndex(i),
-                    Selected = GetSelectedTypeIndex(rObjects.GetArrayElementAtIndex(i), rTypes.GetArrayElementAtIndex(i)),
+                    Object = rElementProp.FindPropertyRelative("Object"),
+                    Type = rElementProp.FindPropertyRelative("Type"),
+                    Name = rElementProp.FindPropertyRelative("Name"),
+                    Selected = GetSelectedTypeIndex(rElementProp.FindPropertyRelative("Object"), rElementProp.FindPropertyRelative("Type")),
                 };
+                rObjectType.Name.stringValue = rObjectType.Object.objectReferenceValue.name;
                 rObjectTypes.Add(rObjectType);
             }
             return rObjectTypes;
@@ -178,10 +191,75 @@ namespace Framework.Hotfix.Editor
             }
             return rElemTypes;
         }
-
-        private List<string> GetObjectComponentTypes_Display(SerializedProperty rObjectProp)
+        
+        private void DrawBaseDatas()
         {
-            if (rObjectProp == null) return new List<string>();
+            this.mBaseDataTypes = this.ToObjectTypes(this.mBaseDatas);
+            
+            EditorGUILayout.LabelField("Objects: ");
+            for (int i = 0; i < this.mBaseDataTypes.Count; i++)
+            {
+                using (var space1 = new EditorGUILayout.HorizontalScope("TextField"))
+                {
+                    GUILayout.Label(i.ToString() + ": ", GUILayout.Width(15));
+
+                    var rElementNameProperty = this.mBaseDataTypes[i].Name;
+                    var rElementObjProperty = this.mBaseDataTypes[i].Object;
+                    var rElementTypeProperty = this.mBaseDataTypes[i].Type;
+                    EditorGUILayout.PropertyField(rElementNameProperty, new GUIContent(""));
+                    EditorGUILayout.PropertyField(rElementObjProperty, new GUIContent(""));
+
+                    List<string> rElemTypes = this.GetBaseDataTypes();
+                    this.mObjectTypes[i].Selected = EditorGUILayout.Popup(this.mBaseDataTypes[i].Selected, rElemTypes.ToArray());
+                    this.ChangeElementBaseDataBySelectedType(rElementObjProperty, rElementTypeProperty, this.mBaseDataTypes[i].Selected);
+
+                    if (GUILayout.Button("Del", GUILayout.Width(40)))
+                    {
+                        this.mObjects.DeleteArrayElementAtIndex(i);
+                        break;
+                    }
+                }
+            }
+
+            if (GUILayout.Button("Add Base Datas"))
+            {
+                this.mBaseDatas.InsertArrayElementAtIndex(this.mBaseDatas.arraySize);
+                this.mBaseDataTypes = this.ToObjectTypes(this.mBaseDatas);
+            }
+        }
+
+        private List<string> GetBaseDataTypes()
+        {
+            return new List<string>(Enum.GetNames(typeof(MonoBehaviourContainer.BaseDataType)));
+        }
+
+        private void ChangeElementBaseDataBySelectedType(SerializedProperty rObjectProp, SerializedProperty rTypeProp, int nSelected)
+        {
+            List<string> rElemTypes = GetBaseDataTypes();
+            List<object> rElemObjs = GetBaseDataComponents(rObjectProp);
+
+            if (nSelected >= 0 && nSelected < rElemTypes.Count)
+            {
+                string rRealType = rElemTypes[nSelected];
+                rTypeProp.stringValue = rRealType;
+
+                if (nSelected == 0)
+                    rObjectProp.intValue = (int)rElemObjs[nSelected];
+                else if (nSelected == 1)
+                    rObjectProp.longValue = (long)rElemObjs[nSelected];
+                else if (nSelected == 2)
+                    rObjectProp.floatValue = (float)rElemObjs[nSelected];
+                else if (nSelected == 3)
+                    rObjectProp.doubleValue = (double)rElemObjs[nSelected];
+                else if (nSelected == 4)
+                    rObjectProp.stringValue = (string)rElemObjs[nSelected];
+                return;
+            }
+        }
+
+        private List<object> GetBaseDataComponents(SerializedProperty rObjectProp)
+        {
+            if (rObjectProp == null) return new List<object>();
 
             GameObject rElementGo = rObjectProp.objectReferenceValue as GameObject;
             if (rElementGo == null)
@@ -190,17 +268,17 @@ namespace Framework.Hotfix.Editor
                 if (rTempCmp != null)
                     rElementGo = rTempCmp.gameObject;
             }
-            List<string> rElemTypes = new List<string>();
+            List<object> rElemObjs = new List<object>();
             if (rElementGo != null)
             {
-                rElemTypes.Add(rElementGo.name + " (UnityEngine.GameObject)");
+                rElemObjs.Add(rElementGo);
                 var rElemCmps = rElementGo.GetComponents<Component>();
                 for (int k = 0; k < rElemCmps.Length; k++)
                 {
-                    rElemTypes.Add(rElementGo.name + " (" + rElemCmps[k].GetType().ToString() + ")");
+                    rElemObjs.Add(rElemCmps[k]);
                 }
             }
-            return rElemTypes;
+            return rElemObjs;
         }
     }
 }

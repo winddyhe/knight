@@ -1,7 +1,7 @@
 ﻿using ILRuntime.Runtime.Enviorment;
 using System.Collections.Generic;
 using System.IO;
-using ILRuntime.Runtime.Generated;
+//using ILRuntime.Runtime.Generated;
 
 namespace Framework.Hotfix
 {
@@ -51,7 +51,7 @@ namespace Framework.Hotfix
 
         public unsafe void RegisterCLRMethodRedirection()
         {
-            CLRBindings.Initialize(this.mApp);
+            //CLRBindings.Initialize(this.mApp);
         }
     }
 }

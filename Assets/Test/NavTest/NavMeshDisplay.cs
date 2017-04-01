@@ -9,7 +9,7 @@ namespace Test
 {
     public class NavMeshDisplay : MonoBehaviour
     {
-        public UnityEngine.NavMeshTriangulation navMeshTri;
+        //public UnityEngine.NavMeshTriangulation navMeshTri;
 
         public Material mat;
 
@@ -17,16 +17,16 @@ namespace Test
 
         void Start()
         {
-            navMeshTri = UnityEngine.NavMesh.CalculateTriangulation();
-            this.name = "NavmeshGo";
-            MeshFilter rMeshFilter = this.gameObject.AddComponent<MeshFilter>();
-            Mesh rMesh = new Mesh();
-            rMesh.vertices = navMeshTri.vertices;
-            rMesh.SetIndices(navMeshTri.indices, MeshTopology.Triangles, 0);
-            rMeshFilter.sharedMesh = rMesh;
+            //navMeshTri = UnityEngine.NavMesh.CalculateTriangulation();
+            //this.name = "NavmeshGo";
+            //MeshFilter rMeshFilter = this.gameObject.AddComponent<MeshFilter>();
+            //Mesh rMesh = new Mesh();
+            //rMesh.vertices = navMeshTri.vertices;
+            //rMesh.SetIndices(navMeshTri.indices, MeshTopology.Triangles, 0);
+            //rMeshFilter.sharedMesh = rMesh;
 
-            MeshRenderer rMeshRenderer = this.gameObject.AddComponent<MeshRenderer>();
-            rMeshRenderer.sharedMaterial = mat;
+            //MeshRenderer rMeshRenderer = this.gameObject.AddComponent<MeshRenderer>();
+            //rMeshRenderer.sharedMaterial = mat;
         }
     }
 }

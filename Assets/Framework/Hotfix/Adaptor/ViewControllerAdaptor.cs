@@ -9,6 +9,8 @@ using ILRuntime.Runtime.Intepreter;
 using System;
 using System.Collections.Generic;
 using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
+using UnityObject = Framework.Hotfix.MonoBehaviourContainer.UnityObject;
+using BaseDataObject = Framework.Hotfix.MonoBehaviourContainer.BaseDataObject;
 
 namespace Framework.Hotfix
 {
@@ -72,7 +74,7 @@ namespace Framework.Hotfix
             private bool                mIsOnUnityEventInvoking = false;
             
             //缓存这个数组来避免调用时的GC Alloc
-            private object[]            mParam1                     = new object[1];
+            private object[]            mParam1                     = new object[2];
 
             public Adaptor()
             {
@@ -86,11 +88,11 @@ namespace Framework.Hotfix
 
             public ILTypeInstance       ILInstance { get { return __instance; } }
 
-            public override void Initialize(List<UnityEngine.Object> rObjs)
+            public override void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
             {
                 if (!mInitializeGot)
                 {
-                    mInitializeMethod = __instance.Type.GetMethod("Initialize", 1);
+                    mInitializeMethod = __instance.Type.GetMethod("Initialize", 2);
                     mInitializeGot = true;
                 }
 
@@ -98,11 +100,12 @@ namespace Framework.Hotfix
                 {
                     mIsInitializeInvoking = true;
                     mParam1[0] = rObjs;
+                    mParam1[1] = rBaseDatas;
                     mAppdomain.Invoke(mInitializeMethod, __instance, mParam1);
                     mIsInitializeInvoking = false;
                 }
                 else
-                    base.Initialize(rObjs);
+                    base.Initialize(rObjs, rBaseDatas);
             }
 
             public override void OnOpening()

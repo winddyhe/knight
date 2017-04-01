@@ -17,10 +17,12 @@ public class CustomAssetPreprocess : AssetPostprocessor
         {
             TextureImporter rTexImporter = this.assetImporter as TextureImporter;
 
-            int nMaxTextureSize = 1024;
-            int nCompressQuality = 0;
-            TextureImporterFormat rTexFormat = TextureImporterFormat.AutomaticCompressed;
-            rTexImporter.SetPlatformTextureSettings("Standalone", nMaxTextureSize, rTexFormat, nCompressQuality, false);
+            TextureImporterPlatformSettings rSettings = new TextureImporterPlatformSettings();
+            rSettings.name = "Standalone";
+            rSettings.maxTextureSize = 1024;
+            rSettings.compressionQuality = 0;
+            rSettings.textureCompression = TextureImporterCompression.CompressedHQ;
+            rTexImporter.SetPlatformTextureSettings(rSettings);
         }
     }
 

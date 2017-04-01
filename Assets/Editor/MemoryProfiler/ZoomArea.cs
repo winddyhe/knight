@@ -401,7 +401,7 @@ public class ZoomArea
     {
         area.x = 0;
         area.y = 0;
-        int id = GUIUtility.GetControlID(zoomableAreaHash, FocusType.Native, area);
+        int id = GUIUtility.GetControlID(zoomableAreaHash, FocusType.Passive, area);
 
         switch (Event.current.GetTypeForControl(id))
         {
