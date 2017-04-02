@@ -193,7 +193,6 @@ GameObject:
   m_Component:
   - component: {fileID: 22478132}
   - component: {fileID: 11462424}
-  - component: {fileID: 11454898}
   - component: {fileID: 114838896227710182}
   m_Layer: 5
   m_Name: Knight1
@@ -280,7 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22401370}
   - component: {fileID: 11435454}
-  - component: {fileID: 11402450}
+  - component: {fileID: 114572993214747318}
   m_Layer: 5
   m_Name: Knight2
   m_TagString: Untagged
@@ -347,7 +346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22428566}
   - component: {fileID: 11485586}
-  - component: {fileID: 11470972}
+  - component: {fileID: 114997443470522904}
   m_Layer: 5
   m_Name: Knight3
   m_TagString: Untagged
@@ -502,20 +501,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11402450
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 151758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ae5423d50ad8224b88c1cf7c6e918eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SelectedPlayer: {fileID: 11435454}
-  Parent: {fileID: 0}
-  ProfessionalID: 911
 --- !u!114 &11404242
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -758,11 +743,11 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11402450}
-        m_MethodName: OnToggleSelectedValueChanged
-        m_Mode: 1
+      - m_Target: {fileID: 114572993214747318}
+        m_MethodName: OnUnityEvent
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 11435454}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -955,20 +940,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11454898
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 138664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ae5423d50ad8224b88c1cf7c6e918eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SelectedPlayer: {fileID: 11462424}
-  Parent: {fileID: 0}
-  ProfessionalID: 911
 --- !u!114 &11460892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1104,11 +1075,11 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11454898}
-        m_MethodName: OnToggleSelectedValueChanged
-        m_Mode: 1
+      - m_Target: {fileID: 114838896227710182}
+        m_MethodName: OnUnityEvent
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 11462424}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1178,20 +1149,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u9A91\u58EB1"
---- !u!114 &11470972
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 164642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ae5423d50ad8224b88c1cf7c6e918eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SelectedPlayer: {fileID: 11485586}
-  Parent: {fileID: 0}
-  ProfessionalID: 911
 --- !u!114 &11473688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1437,11 +1394,11 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11470972}
-        m_MethodName: OnToggleSelectedValueChanged
-        m_Mode: 1
+      - m_Target: {fileID: 114997443470522904}
+        m_MethodName: OnUnityEvent
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 11485586}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2213,22 +2170,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mHotfixName: KnightHotfixModule.Knight.GUI.CreatePlayerView
   mObjects:
-  - {fileID: 11421546}
-  - {fileID: 11442446}
-  - {fileID: 11461496}
-  - {fileID: 11454898}
-  - {fileID: 11476786}
-  - {fileID: 11473688}
-  mTypes:
-  - UnityEngine.UI.ToggleGroup
-  - UnityEngine.UI.InputField
-  - UnityEngine.UI.Text
-  - Game.Knight.CreatePlayerItem
-  - UnityEngine.UI.Button
-  - UnityEngine.UI.Button
+  - Name: ProfessionSelected
+    Object: {fileID: 11421546}
+    Type: UnityEngine.UI.ToggleGroup
+  - Name: PlayerNameInputField
+    Object: {fileID: 11442446}
+    Type: UnityEngine.UI.InputField
+  - Name: ProfessionText
+    Object: {fileID: 11461496}
+    Type: UnityEngine.UI.Text
+  - Name: CurrentSelectedItem
+    Object: {fileID: 114838896227710182}
+    Type: Framework.Hotfix.MonoBehaviourContainer
+  - Name: PlayerCreateBtn
+    Object: {fileID: 11476786}
+    Type: UnityEngine.UI.Button
+  - Name: BackBtn
+    Object: {fileID: 11473688}
+    Type: UnityEngine.UI.Button
+  mBaseDatas: []
   GUID: 
   CurState: 0
   IsMultiView: 0
+--- !u!114 &114572993214747318
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 151758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20351adb1e3158e4abbb09c3806321cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mHotfixName: KnightHotfixModule.Knight.GUI.CreatePlayerItem
+  mObjects:
+  - Name: Knight2
+    Object: {fileID: 11435454}
+    Type: UnityEngine.UI.Toggle
+  - Name: CreatePlayerView
+    Object: {fileID: 114184459806170578}
+    Type: Framework.WindUI.View
+  mBaseDatas:
+  - Name: ProfessionalID
+    IntObject: 911
+    LongObject: 0
+    FloatObject: 0
+    DoubleObject: 0
+    StringObject: 
+    Type: Int
 --- !u!114 &114838896227710182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2242,8 +2232,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mHotfixName: KnightHotfixModule.Knight.GUI.CreatePlayerItem
   mObjects:
-  - {fileID: 11462424}
-  - {fileID: 114184459806170578}
-  mTypes:
-  - UnityEngine.UI.Toggle
-  - Framework.WindUI.View
+  - Name: Knight1
+    Object: {fileID: 11462424}
+    Type: UnityEngine.UI.Toggle
+  - Name: CreatePlayerView
+    Object: {fileID: 114184459806170578}
+    Type: Framework.WindUI.View
+  mBaseDatas:
+  - Name: ProfessionalID
+    IntObject: 911
+    LongObject: 0
+    FloatObject: 0
+    DoubleObject: 0
+    StringObject: 
+    Type: Int
+--- !u!114 &114997443470522904
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20351adb1e3158e4abbb09c3806321cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mHotfixName: KnightHotfixModule.Knight.GUI.CreatePlayerItem
+  mObjects:
+  - Name: Knight3
+    Object: {fileID: 11485586}
+    Type: UnityEngine.UI.Toggle
+  - Name: CreatePlayerView
+    Object: {fileID: 114184459806170578}
+    Type: Framework.WindUI.View
+  mBaseDatas:
+  - Name: ProfessionalID
+    IntObject: 911
+    LongObject: 0
+    FloatObject: 0
+    DoubleObject: 0
+    StringObject: 
+    Type: Int

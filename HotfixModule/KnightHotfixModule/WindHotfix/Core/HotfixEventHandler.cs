@@ -3,6 +3,7 @@
 //        Email: hgplan@126.com
 //======================================================================
 using Core;
+using Framework.Hotfix;
 using Framework.WindUI;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,7 @@ namespace WindHotfix.Core
         private Dictionary<UnityEngine.Object, EventObject> mEvents;
         public  Dictionary<UnityEngine.Object, EventObject> Events { get { return mEvents; } }
 
-        public HotfixEventHandler(List<UnityEngine.Object> mObjs)
+        public HotfixEventHandler()
         {
             mEvents = new Dictionary<UnityEngine.Object, EventObject>();
         }

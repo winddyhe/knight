@@ -151,11 +151,4 @@ MonoBehaviour:
   - Name: Cube
     Object: {fileID: 114000013563386544}
     Type: Test.HotfixMBTest
-  mBaseDatas:
-  - Name: 
-    IntObject: 0
-    LongObject: 0
-    FloatObject: 0
-    DoubleObject: 0
-    StringObject: 
-    Type: 
+  mBaseDatas: []

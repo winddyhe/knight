@@ -63,7 +63,8 @@ namespace Framework.Hotfix
             private bool            mIsOnUnityEventInvoking = false;
 
             //缓存这个数组来避免调用时的GC Alloc
-            private object[]        mParam1                 = new object[1];
+            private object[]        mParam1                 = new object[2];
+            private object[]        mParam2                 = new object[1];
 
             public Adaptor(ILRuntime.Runtime.Enviorment.AppDomain appdomain, ILTypeInstance instance)
             {
@@ -76,11 +77,11 @@ namespace Framework.Hotfix
                 get { return __instance; }
             }
 
-            public override void SetObjects(List<UnityEngine.Object> rObjs)
+            public override void SetObjects(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
             {
                 if (!mSetObjectsGot)
                 {
-                    mSetObjectsMethod = __instance.Type.GetMethod("SetObjects", 1);
+                    mSetObjectsMethod = __instance.Type.GetMethod("SetObjects", 2);
                     mSetObjectsGot = true;
                 }
 
@@ -88,11 +89,12 @@ namespace Framework.Hotfix
                 {
                     mIsSetObjectsInvoking = true;
                     mParam1[0] = rObjs;
+                    mParam1[1] = rBaseDatas;
                     mAppdomain.Invoke(mSetObjectsMethod, __instance, mParam1);
                     mIsSetObjectsInvoking = false;
                 }
                 else
-                    base.SetObjects(rObjs);
+                    base.SetObjects(rObjs, rBaseDatas);
             }
 
             public override void Start()
@@ -206,8 +208,8 @@ namespace Framework.Hotfix
                 if (mOnUnityEventMethod != null && !mIsOnUnityEventInvoking)
                 {
                     mIsOnUnityEventInvoking = true;
-                    mParam1[0] = rTarget;
-                    mAppdomain.Invoke(mOnUnityEventMethod, __instance, mParam1);
+                    mParam2[0] = rTarget;
+                    mAppdomain.Invoke(mOnUnityEventMethod, __instance, mParam2);
                     mIsOnUnityEventInvoking = false;
                 }
                 else

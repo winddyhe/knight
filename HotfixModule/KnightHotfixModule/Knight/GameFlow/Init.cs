@@ -20,11 +20,8 @@ namespace KnightHotfixModule.Knight.GameFlow
             GPCSkillConfig.Instance.Unload("game/skillconfig.ab");
 
             //切换到Login场景
-            var rSceneRequest = SceneAssetLoader.Instance.Load_Async(
-                "game/scene/login.ab", 
-                "Assets/Game/Knight/GameAsset/Scene/Login.unity",
-                UnityEngine.SceneManagement.LoadSceneMode.Single);
-            yield return rSceneRequest.Coroutine;
+            var rLevelRequest = Globals.Instance.LoadLevel("Login");
+            yield return rLevelRequest.Coroutine;
         }
     }
 }

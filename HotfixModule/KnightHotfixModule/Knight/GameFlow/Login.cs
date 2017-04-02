@@ -6,20 +6,27 @@ using Framework.WindUI;
 using Game.Knight;
 using Core;
 using Framework;
+using UnityEngine;
+using KnightHotfixModule.Knight.Network;
 
 namespace KnightHotfixModule.Knight.GameFlow
 {
     public class Login : MonoBehaviourProxy
     {
-        private static Login __instance;
-        public  static Login Instance { get { return __instance; } }
+        private static  Login       __instance;
+        public  static  Login       Instance { get { return __instance; } }
 
-        public string   GateHost     = "127.0.0.1";
-        public int      GatePort     = 3014;
-        public int      ServerID     = 1001;
+        private string  mGateHost    = "";
+        private int     mGatePort    = 0;
+        private int     mServerID    = 0;
 
         private string  mAccountName = "";
         private string  mPassword    = "";
+
+        public override void SetObjects(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
+        {
+            base.SetObjects(rObjs, rBaseDatas);
+        }
 
         public override void Awake()
         {
@@ -53,7 +60,7 @@ namespace KnightHotfixModule.Knight.GameFlow
             if (rMsgCode == NetworkMsgCode.Success)
             {
                 // 创建角色账户，并进入创建角色界面
-                Account.Instance.Create(rAccountID, mAccountName, ServerID);
+                Account.Instance.Create(rAccountID, mAccountName, mServerID);
                 CoroutineManager.Instance.Start(JumpToCreatePlayer(rNetActors));
             }
             else if (rMsgCode == NetworkMsgCode.FA_USER_NOT_EXIST)
@@ -73,13 +80,19 @@ namespace KnightHotfixModule.Knight.GameFlow
         /// <summary>
         /// 请求连接服务器
         /// </summary>
-        public void LoginGateServer(string rAccountName, string rAccountPassword)
+        public void LoginGateServer(string rGateHost, int nGatePort, int nServerID, string rAccountName, string rAccountPassword)
         {
             mAccountName = rAccountName;
             mPassword = rAccountPassword;
-            NetworkClient.Instance.Connect(this.GateHost, this.GatePort, () => 
+
+            mGateHost = rGateHost;
+            mGatePort = nGatePort;
+            mServerID = nServerID;
+
+            Debug.Log("LoginGateServer");
+            NetworkClient.Instance.Connect(this.mGateHost, this.mGatePort, () =>
             {
-                GamePlayProtocol.Instance.DoClientQueryGateEntryRequest(mAccountName);
+                GamePlayProtocol.DoClientQueryGateEntryRequest(mAccountName);
             });
         }
         
@@ -113,7 +126,7 @@ namespace KnightHotfixModule.Knight.GameFlow
             {
                 string rMsg = mAccountName + "|" + mPassword + "|" + DateTime.Now.Ticks;
                 string rToken = CryptoUtility.Encrypt(rMsg, UtilTool.SessionSecrect);
-                GamePlayProtocol.Instance.DoClientLoginRequest(rToken);
+                GamePlayProtocol.DoClientLoginRequest(rToken);
             });
         }
 

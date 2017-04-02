@@ -16,13 +16,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 224000014102201006}
-  - 222: {fileID: 222000013055750770}
-  - 114: {fileID: 114000012143114032}
-  - 114: {fileID: 114000013883713198}
-  - 114: {fileID: 114000010119129228}
+  - component: {fileID: 224000014102201006}
+  - component: {fileID: 222000013055750770}
+  - component: {fileID: 114000012143114032}
+  - component: {fileID: 114000013883713198}
+  - component: {fileID: 114000010119129228}
   m_Layer: 5
   m_Name: HotfixTest1
   m_TagString: Untagged
@@ -35,12 +35,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 224000010334638434}
-  - 222: {fileID: 222000013626087728}
-  - 114: {fileID: 114000011192761508}
-  - 114: {fileID: 114000011678847158}
+  - component: {fileID: 224000010334638434}
+  - component: {fileID: 222000013626087728}
+  - component: {fileID: 114000011192761508}
+  - component: {fileID: 114000011678847158}
   m_Layer: 5
   m_Name: HotfixTest1 (1)
   m_TagString: Untagged
@@ -53,11 +53,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 224000013728811004}
-  - 222: {fileID: 222000010767587186}
-  - 114: {fileID: 114000013049118914}
+  - component: {fileID: 224000013728811004}
+  - component: {fileID: 222000010767587186}
+  - component: {fileID: 114000013049118914}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -70,11 +70,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 224000011757763188}
-  - 222: {fileID: 222000013700081038}
-  - 114: {fileID: 114000013964958572}
+  - component: {fileID: 224000011757763188}
+  - component: {fileID: 222000013700081038}
+  - component: {fileID: 114000013964958572}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -95,11 +95,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mHotfixName: WindHotfix.Test.Class2
   mObjects:
-  - {fileID: 114000013883713198}
-  - {fileID: 114000011678847158}
-  mTypes:
-  - UnityEngine.UI.Button
-  - UnityEngine.UI.Button
+  - Name: HotfixTest1
+    Object: {fileID: 114000013883713198}
+    Type: UnityEngine.UI.Button
+  - Name: HotfixTest1 (1)
+    Object: {fileID: 114000011678847158}
+    Type: UnityEngine.UI.Button
+  mBaseDatas:
+  - Name: Name
+    IntObject: 0
+    LongObject: 0
+    FloatObject: 0
+    DoubleObject: 0
+    StringObject: WinddyHe
+    Type: String
 --- !u!114 &114000011192761508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -357,11 +366,11 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224000013728811004}
   m_Father: {fileID: 224000014102201006}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 263, y: 0}
@@ -376,10 +385,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 224000014102201006}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -394,10 +403,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 224000010334638434}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -412,12 +421,12 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224000011757763188}
   - {fileID: 224000010334638434}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}

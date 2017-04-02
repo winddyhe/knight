@@ -15,6 +15,7 @@ namespace Game.Knight
     /// </summary>
     internal class Init : MonoBehaviour
     {
+        public string HotfixModule = "";
         public string HotfixScript = string.Empty;
 
         IEnumerator Start()
@@ -34,7 +35,7 @@ namespace Game.Knight
             yield return AssetLoadManager.Instance.LoadManifest();
 
             // 加载热更新代码资源
-            yield return HotfixManager.Instance.Load("KnightHotfixModule");
+            yield return HotfixManager.Instance.Load(HotfixModule);
 
             // 加载Hotfix端的代码
             IEnumerator rEnum = HotfixManager.Instance.App.InvokeStatic(HotfixScript, "Start_Async") as IEnumerator;

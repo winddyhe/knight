@@ -15,21 +15,21 @@ namespace WindHotfix.Test
 {
     public class Class1 : MonoBehaviourProxy
     {
-        public override void SetObjects(List<UnityEngine.Object> rObjs)
+        public override void SetObjects(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
-            base.SetObjects(rObjs);
+            base.SetObjects(rObjs, rBaseDatas);
         }
 
         public override void Start()
         {
             Debug.LogError("Start...");
-            Debug.LogError(this.Objects[0].name);
+            Debug.LogError(this.Objects[0].Object.name);
 
             //GameObject rGo = this.Objects[0] as GameObject;
             //var rHotfixMBTest = rGo.GetComponent<HotfixMBTest>();
             //rHotfixMBTest.Test1();
             
-            var rHotfixMBTest = this.Objects[0] as HotfixMBTest;
+            var rHotfixMBTest = this.Objects[0].Object as HotfixMBTest;
             rHotfixMBTest.Test1();
 
             Dictionary<int, int> rDictTest = new Dictionary<int, int>();

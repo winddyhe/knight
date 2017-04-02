@@ -59,6 +59,7 @@
     <Compile Include="Knight\GUI\CreatePlayer\CreatePlayerItem.cs" />
     <Compile Include="Knight\GUI\CreatePlayer\CreatePlayerView.cs" />
     <Compile Include="Knight\GUI\Login\LoginView.cs" />
+    <Compile Include="Knight\Network\GamePlayProtocol.cs" />
     <Compile Include="WindHotfix\Core\HotfixEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\BaseFunction\Class1.cs" />

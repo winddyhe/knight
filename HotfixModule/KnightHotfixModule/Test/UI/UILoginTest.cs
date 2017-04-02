@@ -7,6 +7,7 @@ using Framework.WindUI;
 using UnityEngine;
 using WindHotfix.Core;
 using UnityEngine.UI;
+using Framework.Hotfix;
 
 namespace KnightHotfixModule.Test.UI
 {
@@ -17,16 +18,16 @@ namespace KnightHotfixModule.Test.UI
         private InputField mAccountInput;
         private InputField mPasswordInput;
 
-        public override void Initialize(List<UnityEngine.Object> rObjs)
+        public override void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
-            base.Initialize(rObjs);
+            base.Initialize(rObjs, rBaseDatas);
             Debug.LogError("UILoginTest.Initialize..." + this.mObjects.Count);
 
-            mAccountInput = this.mObjects[0] as InputField;
-            mPasswordInput = this.mObjects[1] as InputField;
+            mAccountInput = this.mObjects[0].Object as InputField;
+            mPasswordInput = this.mObjects[1].Object as InputField;
 
-            mEventHandler = new HotfixEventHandler(this.mObjects);
-            mEventHandler.AddEventListener(this.mObjects[2], OnButton_Clicked);
+            mEventHandler = new HotfixEventHandler();
+            mEventHandler.AddEventListener(this.mObjects[2].Object, OnButton_Clicked);
         }
 
         public override void OnOpening()

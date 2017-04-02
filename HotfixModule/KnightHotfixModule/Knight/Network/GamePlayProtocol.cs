@@ -4,23 +4,23 @@
 //======================================================================
 using UnityEngine;
 using System.Collections.Generic;
-using Core;
 using Core.WindJson;
 using Framework;
+using KnightHotfixModule.Knight.GameFlow;
+using Game.Knight;
+using WindHotfix.Core;
 
-namespace Game.Knight
+namespace KnightHotfixModule.Knight.Network
 {
     /// <summary>
     /// 游戏的协议接收发送处理
     /// </summary>
-    public class GamePlayProtocol : TSingleton<GamePlayProtocol>
+    public class GamePlayProtocol
     {
-        private GamePlayProtocol() { }
-        
         /// <summary>
         /// 查询Gate进行登陆，返回Connector的服务器
         /// </summary>
-        public void DoClientQueryGateEntryRequest(string rAccount)
+        public static void DoClientQueryGateEntryRequest(string rAccount)
         {
             JsonNode rGateMsg = new JsonClass();
             rGateMsg.Add("userName", new JsonData(rAccount));
@@ -30,7 +30,7 @@ namespace Game.Knight
         /// <summary>
         /// Gate登陆响应
         /// </summary>
-        private void OnClientQueryGateEntryResponse(JsonNode rRequestMsg, JsonNode rProtocolMsg)
+        private static void OnClientQueryGateEntryResponse(JsonNode rRequestMsg, JsonNode rProtocolMsg)
         {
             var rMsgCode = NetworkClient.Instance.GetMessageCode(rProtocolMsg);
             string rURL = rProtocolMsg["host"] != null ? rProtocolMsg["host"].AsString : "";
@@ -41,7 +41,7 @@ namespace Game.Knight
         /// <summary>
         /// 角色登录请求
         /// </summary>
-        public void DoClientLoginRequest(string rToken)
+        public static void DoClientLoginRequest(string rToken)
         {
             JsonNode rLoginMsg = new JsonClass();
             rLoginMsg.Add("token", new JsonData(rToken));
@@ -52,7 +52,7 @@ namespace Game.Knight
         /// <summary>
         /// 角色登录的响应
         /// </summary>
-        private void OnClientLoginResponse(JsonNode rRequestMsg, JsonNode rProtocolMsg)
+        private static void OnClientLoginResponse(JsonNode rRequestMsg, JsonNode rProtocolMsg)
         {
             var rMsgCode = NetworkClient.Instance.GetMessageCode(rProtocolMsg);
             JsonNode rActorsNode = rProtocolMsg["actors"];
@@ -79,7 +79,7 @@ namespace Game.Knight
         /// <summary>
         /// 创建角色的请求
         /// </summary>
-        public void DoClientCreatePlayerRequest(long rAccountID, string rActorName, int rProfessionalID, int rServerID)
+        public static void DoClientCreatePlayerRequest(long rAccountID, string rActorName, int rProfessionalID, int rServerID)
         {
             JsonNode rMsg = new JsonClass();
             rMsg.Add("accountID", new JsonData(rAccountID));
@@ -92,7 +92,7 @@ namespace Game.Knight
         /// <summary>
         /// 创建角色的响应
         /// </summary>
-        private void OnPlayerCreateResponse(JsonNode rRequestMsg, JsonNode rProtocolMsg)
+        private static void OnPlayerCreateResponse(JsonNode rRequestMsg, JsonNode rProtocolMsg)
         {
             var rMsgCode = NetworkClient.Instance.GetMessageCode(rProtocolMsg);
             CreatePlayer.Instance.OnPlayerCreateResponse(rMsgCode, rRequestMsg["playerName"].AsString, 

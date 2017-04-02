@@ -5,6 +5,7 @@ using Game.Knight;
 using UnityEngine;
 using Framework;
 using Framework.WindUI;
+using KnightHotfixModule.Knight.Network;
 
 namespace KnightHotfixModule.Knight.GameFlow
 {
@@ -53,7 +54,7 @@ namespace KnightHotfixModule.Knight.GameFlow
         /// </summary>
         public void Create(string rActorName, int rProfessionalID)
         {
-            GamePlayProtocol.Instance.DoClientCreatePlayerRequest(
+            GamePlayProtocol.DoClientCreatePlayerRequest(
                 Account.Instance.AccountID, rActorName, rProfessionalID, Account.Instance.ServerID);
         }
 

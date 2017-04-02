@@ -52,7 +52,8 @@ namespace Framework.WindUI
         /// <summary>
         /// View控制器
         /// </summary>
-        private ViewController  mViewContorller;
+        private ViewController  mViewController;
+        public  ViewController  ViewController { get { return mViewController; } }
         
         /// <summary>
         /// 该View是否被打开？
@@ -61,13 +62,13 @@ namespace Framework.WindUI
         {
             get
             {
-                if (mViewContorller == null) return false;
-                return mViewContorller.IsOpened;
+                if (mViewController == null) return false;
+                return mViewController.IsOpened;
             }
             set
             {
-                if (mViewContorller == null) return;
-                mViewContorller.IsOpened = value;
+                if (mViewController == null) return;
+                mViewController.IsOpened = value;
             }
         }
 
@@ -78,13 +79,13 @@ namespace Framework.WindUI
         {
             get
             {
-                if (mViewContorller == null) return false;
-                return mViewContorller.IsClosed;
+                if (mViewController == null) return false;
+                return mViewController.IsClosed;
             }
             set
             {
-                if (mViewContorller == null) return;
-                mViewContorller.IsClosed = value;
+                if (mViewController == null) return;
+                mViewController.IsClosed = value;
             }
         }
         
@@ -111,14 +112,14 @@ namespace Framework.WindUI
         /// </summary>
         protected virtual void InitializeViewController()
         {
-            this.mViewContorller = HotfixManager.Instance.App.CreateInstance<ViewController>(this.mHotfixName);
-            if (this.mViewContorller == null)
+            this.mViewController = HotfixManager.Instance.App.CreateInstance<ViewController>(this.mHotfixName);
+            if (this.mViewController == null)
             {
                 Debug.LogErrorFormat("Create View controller <color=red>{0}</color> failed..", this.mHotfixName);
             }
             else
             {
-                this.mViewContorller.Initialize(this.mObjects, this.mBaseDatas);
+                this.mViewController.Initialize(this.mObjects, this.ToBaseDataObjects(this.mBaseDatas));
             }
         }
 
@@ -129,8 +130,8 @@ namespace Framework.WindUI
         {
             this.IsOpened = false;
 
-            if (mViewContorller != null)
-                mViewContorller.OnOpening();
+            if (mViewController != null)
+                mViewController.OnOpening();
             
             UIManager.Instance.StartCoroutine(Open_WaitforCompleted(rOpenCompleted));
         }
@@ -142,8 +143,8 @@ namespace Framework.WindUI
                 yield return 0;
             }
 
-            if (mViewContorller != null)
-                mViewContorller.OnOpened();
+            if (mViewController != null)
+                mViewController.OnOpened();
             
             UtilTool.SafeExecute(rOpenCompleted, this);
         }
@@ -153,8 +154,8 @@ namespace Framework.WindUI
         /// </summary>
         public void Show()
         {
-            if (mViewContorller != null)
-                mViewContorller.OnShow();
+            if (mViewController != null)
+                mViewController.OnShow();
         }
 
         /// <summary>
@@ -162,8 +163,8 @@ namespace Framework.WindUI
         /// </summary>
         public void Hide()
         {
-            if (mViewContorller != null)
-                mViewContorller.OnHide();
+            if (mViewController != null)
+                mViewController.OnHide();
         }
 
         /// <summary>
@@ -171,8 +172,8 @@ namespace Framework.WindUI
         /// </summary>
         public void Refresh()
         {
-            if (mViewContorller != null)
-                mViewContorller.OnRefresh();
+            if (mViewController != null)
+                mViewController.OnRefresh();
         }
     
         /// <summary>
@@ -182,8 +183,8 @@ namespace Framework.WindUI
         {
             this.IsClosed = false;
 
-            if (mViewContorller != null)
-                mViewContorller.OnClosing();
+            if (mViewController != null)
+                mViewController.OnClosing();
 
             UIManager.Instance.StartCoroutine(Close_WaitForCompleted());
         }
@@ -195,18 +196,18 @@ namespace Framework.WindUI
                 yield return 0;
             }
 
-            if (mViewContorller != null)
-                mViewContorller.OnClosed();
+            if (mViewController != null)
+                mViewController.OnClosed();
 
             // 销毁引用
             base.OnDestroy();
-            mViewContorller = null;
+            mViewController = null;
         }
 
         public override void OnUnityEvent(UnityEngine.Object rTarget)
         {
-            if (mViewContorller != null)
-                mViewContorller.OnUnityEvent(rTarget);
+            if (mViewController != null)
+                mViewController.OnUnityEvent(rTarget);
         }
 
         /// <summary>

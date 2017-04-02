@@ -1,0 +1,3 @@
+-unsafe
+-nowarn:0168
+-nowarn:0219

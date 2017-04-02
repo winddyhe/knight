@@ -14,16 +14,19 @@ namespace WindHotfix.Test
     {
         private HotfixEventHandler mEventHandler;
         
-        public override void SetObjects(List<UnityEngine.Object> rObjs)
+        public override void SetObjects(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
-            base.SetObjects(rObjs);
+            base.SetObjects(rObjs, rBaseDatas);
         }
 
         public override void Start()
         {
-            mEventHandler = new HotfixEventHandler(this.Objects);
-            mEventHandler.AddEventListener(this.Objects[0], OnButton_Clicked);
-            mEventHandler.AddEventListener(this.Objects[1], OnButton1_Clicked);
+            mEventHandler = new HotfixEventHandler();
+            mEventHandler.AddEventListener(this.Objects[0].Object, OnButton_Clicked);
+            mEventHandler.AddEventListener(this.Objects[1].Object, OnButton1_Clicked);
+
+            string rName = (string)this.GetData("Name");
+            Debug.LogError(rName);
         }
 
         public override void OnDestroy()

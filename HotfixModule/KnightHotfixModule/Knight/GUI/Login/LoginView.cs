@@ -3,6 +3,8 @@ using Framework.WindUI;
 using WindHotfix.Core;
 using UnityEngine.UI;
 using KnightHotfixModule.Knight.GameFlow;
+using Framework.Hotfix;
+using UnityEngine;
 
 namespace KnightHotfixModule.Knight.GUI
 {
@@ -13,15 +15,23 @@ namespace KnightHotfixModule.Knight.GUI
         private InputField          mAccountInput;
         private InputField          mPasswordInput;
 
-        public override void Initialize(List<UnityEngine.Object> rObjs)
+        private string              mGateHost = "";
+        private int                 mGatePort = 0;
+        private int                 mServerID = 0;
+
+        public override void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
-            base.Initialize(rObjs);
+            base.Initialize(rObjs, rBaseDatas);
 
-            mAccountInput = this.mObjects[0] as InputField;
-            mPasswordInput = this.mObjects[1] as InputField;
+            mAccountInput  = this.mObjects[0].Object as InputField;
+            mPasswordInput = this.mObjects[1].Object as InputField;
+            
+            this.mGateHost = (string)this.GetData("GateHost");
+            this.mGatePort = (int)this.GetData("GatePort");
+            this.mServerID = (int)this.GetData("ServerID");
 
-            mEventHandler = new HotfixEventHandler(this.mObjects);
-            mEventHandler.AddEventListener(this.mObjects[2], OnButton_Clicked);
+            mEventHandler = new HotfixEventHandler();
+            mEventHandler.AddEventListener(this.mObjects[2].Object, OnButton_Clicked);
         }
 
         public override void OnUnityEvent(UnityEngine.Object rTarget)
@@ -55,7 +65,7 @@ namespace KnightHotfixModule.Knight.GUI
                 Toast.Instance.Show("密码不能为空。");
                 return;
             }
-            Login.Instance.LoginGateServer(this.mAccountInput.text, this.mPasswordInput.text);
+            Login.Instance.LoginGateServer(this.mGateHost, this.mGatePort, this.mServerID, this.mAccountInput.text, this.mPasswordInput.text);
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using ILRuntime.Runtime.Enviorment;
+﻿using Core.WindJson;
+using ILRuntime.Runtime.Enviorment;
 using System.Collections.Generic;
 using System.IO;
-//using ILRuntime.Runtime.Generated;
 
 namespace Framework.Hotfix
 {
@@ -25,6 +25,8 @@ namespace Framework.Hotfix
             this.RegisterCLRMethodRedirection();
 
             this.mApp.DelegateManager.RegisterMethodDelegate<UnityEngine.Object>();
+            this.mApp.DelegateManager.RegisterMethodDelegate<JsonNode, JsonNode>();
+            this.mApp.DelegateManager.RegisterFunctionDelegate<Framework.GameMode>();
         }
 
         public HotfixObject CreateInstance(string rTypeName, params object[] rArgs)
@@ -51,7 +53,7 @@ namespace Framework.Hotfix
 
         public unsafe void RegisterCLRMethodRedirection()
         {
-            //CLRBindings.Initialize(this.mApp);
+            ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
         }
     }
 }

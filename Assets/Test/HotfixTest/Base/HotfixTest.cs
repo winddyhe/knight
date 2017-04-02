@@ -12,22 +12,19 @@ namespace Test
     {
         public Canvas Canvas;
 
-        [SerializeField]
-        public Dictionary<int, int> l;
-
         IEnumerator Start()
         {
             CoroutineManager.Instance.Initialize();
             yield return HotfixManager.Instance.Load("KnightHotfixModule");
 
-            string rPrefabPath = "Assets/Test/HotfixTest/Base/HotfixTest.prefab";
+            string rPrefabPath = "Assets/Test/HotfixTest/Base/HotfixTest1.prefab";
             
             GameObject rTestPrefab = null;
 #if UNITY_EDITOR
             rTestPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath(rPrefabPath, typeof(GameObject)) as GameObject;
 #endif
-            //this.Canvas.transform.AddChild(rTestPrefab, "UI");
-            GameObject.Instantiate(rTestPrefab);
+            this.Canvas.transform.AddChild(rTestPrefab, "UI");
+            //GameObject.Instantiate(rTestPrefab);
         }
     }
 }

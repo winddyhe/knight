@@ -9,8 +9,6 @@ using ILRuntime.Runtime.Intepreter;
 using System;
 using System.Collections.Generic;
 using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
-using UnityObject = Framework.Hotfix.MonoBehaviourContainer.UnityObject;
-using BaseDataObject = Framework.Hotfix.MonoBehaviourContainer.BaseDataObject;
 
 namespace Framework.Hotfix
 {
@@ -75,6 +73,7 @@ namespace Framework.Hotfix
             
             //缓存这个数组来避免调用时的GC Alloc
             private object[]            mParam1                     = new object[2];
+            private object[]            mParam2                     = new object[1];
 
             public Adaptor()
             {
@@ -259,8 +258,8 @@ namespace Framework.Hotfix
                 if (mOnUnityEventMethod != null && !mIsOnUnityEventInvoking)
                 {
                     mIsOnUnityEventInvoking = true;
-                    mParam1[0] = rTarget;
-                    mAppdomain.Invoke(mOnUnityEventMethod, __instance, mParam1);
+                    mParam2[0] = rTarget;
+                    mAppdomain.Invoke(mOnUnityEventMethod, __instance, mParam2);
                     mIsOnUnityEventInvoking = false;
                 }
                 else

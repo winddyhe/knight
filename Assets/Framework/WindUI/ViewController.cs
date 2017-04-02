@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Framework.Hotfix;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using UnityObject = Framework.Hotfix.MonoBehaviourContainer.UnityObject;
-using BaseDataObject = Framework.Hotfix.MonoBehaviourContainer.BaseDataObject;
 
 namespace Framework.WindUI
 {
@@ -84,6 +83,14 @@ namespace Framework.WindUI
         /// </summary>
         public virtual void OnUnityEvent(Object rTarget)
         {
+        }
+
+        public object GetData(string rName)
+        {
+            if (this.mBaseDatas == null) return null;
+            var rBaseDataObj = this.mBaseDatas.Find((rItem) => { return rItem.Name.Equals(rName); });
+            if (rBaseDataObj == null) return null;
+            return rBaseDataObj.Object;
         }
     }
 }

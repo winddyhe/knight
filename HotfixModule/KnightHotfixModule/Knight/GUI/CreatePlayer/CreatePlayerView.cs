@@ -5,32 +5,35 @@ using UnityEngine.UI;
 using Game.Knight;
 using WindHotfix.Core;
 using UnityEngine;
+using Framework.Hotfix;
 
 namespace KnightHotfixModule.Knight.GUI
 {
     public class CreatePlayerView : ViewController
     {
-        public ToggleGroup          ProfessionSelected;
-        public InputField           PlayerName;
-        public Text                 ProfessionalDesc;
-        public CreatePlayerItem     CurrentSelectedItem;
+        public ToggleGroup              ProfessionSelected;
+        public InputField               PlayerName;
+        public Text                     ProfessionalDesc;
+        public CreatePlayerItem         CurrentSelectedItem;
 
         private HotfixEventHandler  mEventHandler;
-
-        public override void Initialize(List<UnityEngine.Object> rObjs)
+        
+        public override void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
-            base.Initialize(rObjs);
-            mEventHandler = new HotfixEventHandler(this.mObjects);
+            base.Initialize(rObjs, rBaseDatas);
+            mEventHandler = new HotfixEventHandler();
 
             // 转换变量
-            this.ProfessionSelected  = this.mObjects[0] as ToggleGroup;
-            this.PlayerName          = this.mObjects[1] as InputField;
-            this.ProfessionalDesc    = this.mObjects[2] as Text;
-            this.CurrentSelectedItem = this.mObjects[3] as CreatePlayerItem;
+            this.ProfessionSelected  = this.mObjects[0].Object as ToggleGroup;
+            this.PlayerName          = this.mObjects[1].Object as InputField;
+            this.ProfessionalDesc    = this.mObjects[2].Object as Text;
+            this.CurrentSelectedItem = (this.mObjects[3].Object as MonoBehaviourContainer).ProxyHotfixObject as CreatePlayerItem;
+
+            Debug.LogError(this.mObjects[3].Object);
 
             // 注册事件
-            mEventHandler.AddEventListener(this.mObjects[4], OnPlayerCreateBtn_Clicked);
-            mEventHandler.AddEventListener(this.mObjects[5], OnBackBtn_Clicked);
+            mEventHandler.AddEventListener(this.mObjects[4].Object, OnPlayerCreateBtn_Clicked);
+            mEventHandler.AddEventListener(this.mObjects[5].Object, OnBackBtn_Clicked);
         }
 
         public override void OnUnityEvent(UnityEngine.Object rTarget)

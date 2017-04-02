@@ -7,7 +7,13 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Game/Knight/Scene/Init.unity
+    guid: 5b6d293f7251bcf4bb501bb9808dc28d
+  - enabled: 1
+    path: Assets/Game/Knight/Scene/Login.unity
+    guid: 3851472e121d8e64c9836c25dd9238a8
   - enabled: 1
     path: Assets/Game/Knight/Scene/CreatePlayer.unity
+    guid: fac3b2ecd58217041a2b555d78422771
   - enabled: 1
     path: Assets/Game/Knight/Scene/GameTest.unity
+    guid: dc85cb545aec59348a0569119bcd6d4c
