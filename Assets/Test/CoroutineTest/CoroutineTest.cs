@@ -11,7 +11,7 @@ namespace Test
     /// <summary>
     /// 使用的部分
     /// </summary>
-    public class LoaderRequest : BaseCoroutineRequest<LoaderRequest>
+    public class LoaderRequest : CoroutineRequest<LoaderRequest>
     {
         public Object obj;
         public string path;
@@ -44,7 +44,7 @@ namespace Test
         public IEnumerator Loading(string rPath)
         {
             LoaderRequest rRequest = Load_Async(rPath);
-            yield return rRequest.Coroutine;
+            yield return rRequest;
         }
     }
 

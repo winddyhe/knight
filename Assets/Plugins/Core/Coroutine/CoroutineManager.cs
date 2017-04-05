@@ -24,30 +24,28 @@ namespace Core
             GameObject.DontDestroyOnLoad(this.mCoroutineRootObj);
         }
 
-        public CoroutineWrapper StartWrapper(IEnumerator rIEnum)
+        public CoroutineHandler StartHandler(IEnumerator rIEnum)
         {
             var rCourtineObj = UtilTool.CreateGameObject(this.mCoroutineRootObj, "coroutine");
             CoroutineHandler rHandler = rCourtineObj.ReceiveComponent<CoroutineHandler>();
-            return rHandler.StartHandler(rIEnum);
+            rHandler.StartHandler(rIEnum);
+            return rHandler;
         }
 
         public Coroutine Start(IEnumerator rIEnum)
         {
-            return this.StartWrapper(rIEnum).Coroutine;
+            return this.StartHandler(rIEnum).Coroutine;
         }
 
-        public void Stop(CoroutineWrapper rCoroutineWrapper)
+        public void Stop(CoroutineHandler rCoroutineHandler)
         {
-            if (rCoroutineWrapper != null)
+            if (rCoroutineHandler != null)
             {
-                if (rCoroutineWrapper.Handler != null)
-                {
-                    rCoroutineWrapper.Handler.StopAllCoroutines();
-                    GameObject.DestroyImmediate(rCoroutineWrapper.Handler.gameObject);
-                }
-                rCoroutineWrapper.Coroutine = null;
-                rCoroutineWrapper.Handler = null;
+                rCoroutineHandler.StopAllCoroutines();
+                GameObject.DestroyImmediate(rCoroutineHandler.gameObject);
             }
+            rCoroutineHandler.Coroutine = null;
+            rCoroutineHandler = null;
         }
     }
 }

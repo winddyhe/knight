@@ -9,7 +9,7 @@ using Framework;
 
 namespace Game.Knight
 {
-    public class AvatarLoaderRequest : BaseCoroutineRequest<AvatarLoaderRequest>
+    public class AvatarLoaderRequest : CoroutineRequest<AvatarLoaderRequest>
     {
         public Avatar       avatar;
         public GameObject   avatarGo;
@@ -35,7 +35,7 @@ namespace Game.Knight
         {
             string rAvatarABPath = rRequest.avatar.ABPath;
             var rAssetRequest = AssetLoadManager.Instance.LoadAsset(rAvatarABPath, rRequest.avatar.AssetName);
-            yield return rAssetRequest.Coroutine;
+            yield return rAssetRequest;
             if (rAssetRequest.asset != null)
             {
                 GameObject rAvatarGo = GameObject.Instantiate(rAssetRequest.asset) as GameObject;

@@ -12,7 +12,7 @@ namespace Game.Knight
 {
     public partial class Actor
     {
-        public class ActorCreateRequest : BaseCoroutineRequest<ActorCreateRequest>
+        public class ActorCreateRequest : CoroutineRequest<ActorCreateRequest>
         {
             public Actor         actor;
             public Action<Actor> loadCompleted;
@@ -63,7 +63,7 @@ namespace Game.Knight
         private static IEnumerator CreateActor_Async(ActorCreateRequest rCreateRequest)
         {
             var rAvatarRequest = AvatarAssetLoader.Instance.Load(rCreateRequest.actor.Avatar);
-            yield return rAvatarRequest.Coroutine;
+            yield return rAvatarRequest;
 
             ExhibitActor rExhibitActor = new ExhibitActor();
             rExhibitActor.Actor = rCreateRequest.actor;

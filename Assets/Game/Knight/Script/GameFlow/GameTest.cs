@@ -26,7 +26,7 @@ namespace Game.Knight
             if (JumpToInit)
             {
                 var rLevelRequest = Globals.Instance.LoadLevel("Init");
-                yield return rLevelRequest.Coroutine;
+                yield return rLevelRequest;
             }
             else
             {

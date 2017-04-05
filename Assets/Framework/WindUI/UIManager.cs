@@ -62,16 +62,16 @@ namespace Framework.WindUI
         public Coroutine OpenAsync(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
         {
             // 企图关闭当前的View
-            MaybeCloseTopView(rViewState);
             Debug.LogError("Open   " + rViewName);
+            MaybeCloseTopView(rViewState);
             return this.StartCoroutine(Open_Async(rViewName, rViewState, rOpenCompleted));
         }
 
         private IEnumerator Open_Async(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
         {
             var rLoaderRequest = UILoader.Instance.LoadUI(rViewName);
-            yield return rLoaderRequest.Coroutine;
-
+            yield return rLoaderRequest;
+            
             OpenView(rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
         }
     

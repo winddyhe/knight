@@ -25,7 +25,7 @@ namespace Framework.Hotfix
         private IEnumerator Load_Async(string rHotfixModuleName)
         {
             var rRequest = HotfixAssetLoader.Instance.Load(rHotfixModuleName);
-            yield return rRequest.Coroutine;
+            yield return rRequest;
             
             MemoryStream rDllMS = new MemoryStream(rRequest.dllBytes);
             MemoryStream rPDBMS = new MemoryStream(rRequest.pdbBytes);
@@ -45,8 +45,8 @@ namespace Framework.Hotfix
             rApp.RegisterCrossBindingAdaptorEvent = () =>
             {
                 rApp.App.RegisterCrossBindingAdaptor(new MonoBehaviourProxyAdaptor());
-                rApp.App.RegisterCrossBindingAdaptor(new CoroutineAdapter());
                 rApp.App.RegisterCrossBindingAdaptor(new ViewControllerAdaptor());
+                rApp.App.RegisterCrossBindingAdaptor(new CoroutineAdapter());
             };
         }
     }

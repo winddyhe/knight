@@ -51,7 +51,7 @@ namespace Framework
     /// </summary>
     public class AssetLoadManager : MonoBehaviour
     {
-        public class LoaderRequest : BaseCoroutineRequest<LoaderRequest>
+        public class LoaderRequest : CoroutineRequest<LoaderRequest>
         {
             public Object asset;
             public Scene  scene;
@@ -249,8 +249,7 @@ namespace Framework
                     string rDependABName = rDependABPath;
 
                     LoaderRequest rDependAssetRequest = new LoaderRequest(rDependABName, "", false);
-                    rDependAssetRequest.Start(LoadAsset_Async(rDependAssetRequest));
-                    yield return rDependAssetRequest.Coroutine;
+                    yield return rDependAssetRequest.Start(LoadAsset_Async(rDependAssetRequest));
                 }
             }
     

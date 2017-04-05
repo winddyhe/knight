@@ -14,7 +14,7 @@ namespace Game.Knight
     /// </summary>
     public class Globals : TSingleton<Globals>
     {
-        public class LevelRequest : BaseCoroutineRequest<LevelRequest>
+        public class LevelRequest : CoroutineRequest<LevelRequest>
         {
             public Scene    Level;
             public string   LevelName;

@@ -41,7 +41,7 @@ namespace Game.Knight
                     this.GameMode.StageConfig.ScenePath,
                     UnityEngine.SceneManagement.LoadSceneMode.Additive);
 
-                yield return rSceneRequest.Coroutine;
+                yield return rSceneRequest;
 
                 Debug.Log("GameStage -- Load assets complete.");
             }
@@ -66,7 +66,7 @@ namespace Game.Knight
             {
                 // 加载场景
                 var rActorRequest = Actor.CreateActor(Account.Instance.ActiveActor);
-                yield return rActorRequest.Coroutine;
+                yield return rActorRequest;
 
                 Actor rMainPlayer = rActorRequest.actor;
                 if (rMainPlayer != null)

@@ -43,7 +43,7 @@ namespace Game.Knight
 
             //切换到Login场景
             var rLevelRequest = Globals.Instance.LoadLevel("Login");
-            yield return rLevelRequest.Coroutine;
+            yield return rLevelRequest;
             
             Debug.LogError("End U3D init...");
         }

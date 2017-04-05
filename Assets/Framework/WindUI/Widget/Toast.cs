@@ -18,7 +18,7 @@ namespace Framework.WindUI
         public Text              TipText;
         public CanvasGroup       TipGroup;
                                  
-        private CoroutineWrapper mCoroutineWrapper;
+        private CoroutineHandler mCoroutineHandler;
 
         void Awake()
         {
@@ -31,12 +31,12 @@ namespace Framework.WindUI
 
         public void Show(string rTextTip, float rTimeLength = 3.0f)
         {
-            if (mCoroutineWrapper != null)
+            if (mCoroutineHandler != null)
             {
-                CoroutineManager.Instance.Stop(mCoroutineWrapper);
-                mCoroutineWrapper = null;
+                CoroutineManager.Instance.Stop(mCoroutineHandler);
+                mCoroutineHandler = null;
             }
-            mCoroutineWrapper = CoroutineManager.Instance.StartWrapper(StartAnim(rTextTip, rTimeLength));
+            mCoroutineHandler = CoroutineManager.Instance.StartHandler(StartAnim(rTextTip, rTimeLength));
         }
 
         private IEnumerator StartAnim(string rTextTip, float rTimeLength)

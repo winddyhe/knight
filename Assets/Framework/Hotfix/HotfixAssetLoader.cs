@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Framework.Hotfix
 {
-    public class HotfixLoaderRequest : BaseCoroutineRequest<HotfixAssetLoader>
+    public class HotfixLoaderRequest : CoroutineRequest<HotfixAssetLoader>
     {
         public string hotfixModuleName;
 

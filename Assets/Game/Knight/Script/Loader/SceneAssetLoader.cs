@@ -13,7 +13,7 @@ namespace Game.Knight
 {
     public class SceneAssetLoader : TSingleton<SceneAssetLoader>
     {
-        public class SceneLoaderRequest : BaseCoroutineRequest<SceneLoaderRequest>
+        public class SceneLoaderRequest : CoroutineRequest<SceneLoaderRequest>
         {
             public string        sceneABPath;
             public string        sceneAssetName;
@@ -40,7 +40,7 @@ namespace Game.Knight
         private IEnumerator Load_Async(SceneLoaderRequest rLoadRequest)
         {
             var rSceneRequest = AssetLoadManager.Instance.LoadScene(rLoadRequest.sceneABPath, rLoadRequest.sceneAssetName);
-            yield return rSceneRequest.Coroutine;
+            yield return rSceneRequest;
 
             string rSceneName = Path.GetFileNameWithoutExtension(rSceneRequest.assetName);
             var rSceneLoadRequest = SceneManager.LoadSceneAsync(rSceneName, rLoadRequest.sceneLoadMode);

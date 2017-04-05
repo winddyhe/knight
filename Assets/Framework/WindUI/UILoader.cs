@@ -13,7 +13,7 @@ namespace Framework.WindUI
     /// </summary>
     public class UILoader : MonoBehaviour
     {
-        public class LoaderRequest : BaseCoroutineRequest<LoaderRequest>
+        public class LoaderRequest : CoroutineRequest<LoaderRequest>
         {
             public GameObject   ViewPrefabGo;
             public string       ViewName;
@@ -59,7 +59,6 @@ namespace Framework.WindUI
                 Debug.LogErrorFormat("Not found UI {0}.", rLoaderRequest.ViewName);
                 yield break;
             }
-
             rLoaderRequest.ViewPrefabGo = rRequest.asset as GameObject;
         }
     }

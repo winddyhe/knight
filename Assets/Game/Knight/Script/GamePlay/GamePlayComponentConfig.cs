@@ -141,7 +141,7 @@ namespace Game.Knight
         private IEnumerator Load_Async(string rConfigABPath, string rConfigName)
         {
             var rAssetRequesst = AssetLoadManager.Instance.LoadAsset(rConfigABPath, rConfigName);
-            yield return rAssetRequesst.Coroutine;
+            yield return rAssetRequesst;
             if (rAssetRequesst.asset == null) yield break;
 
             TextAsset rConfigAsset = rAssetRequesst.asset as TextAsset;

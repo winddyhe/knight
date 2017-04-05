@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Core.MultiScene
 {
-    public class SceneTileRequest : BaseCoroutineRequest<SceneTileRequest>
+    public class SceneTileRequest : CoroutineRequest<SceneTileRequest>
     {
         public SceneTileWrapper SceneTileWrapper;
     

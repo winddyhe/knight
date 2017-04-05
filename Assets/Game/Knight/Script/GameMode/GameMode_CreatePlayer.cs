@@ -40,7 +40,7 @@ namespace Game.Knight
                     this.GameMode.StageConfig.ScenePath, 
                     UnityEngine.SceneManagement.LoadSceneMode.Additive);
 
-                yield return rSceneRequest.Coroutine;
+                yield return rSceneRequest;
                 
                 Debug.Log("GameStage -- Load assets complete.");
             }

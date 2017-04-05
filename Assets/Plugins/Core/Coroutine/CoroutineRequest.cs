@@ -5,29 +5,32 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace Core
 {
-    public class BaseCoroutineRequest<T> where T : class
+    public class CoroutineRequest<T> : CustomYieldInstruction where T : class
     {
-        private CoroutineWrapper mCoroutineWrapper;
-
-        public Coroutine Coroutine
+        public CoroutineHandler Handler;
+                
+        public override bool    keepWaiting
         {
-            get { return mCoroutineWrapper != null ? mCoroutineWrapper.Coroutine : null; }
+            get
+            {
+                bool result = (this.Handler == null || (this.Handler != null && !this.Handler.IsRunning && this.Handler.IsCompleted));
+                return !result;
+            }
         }
 
-        public void Start(IEnumerator rIEnum)
+        public CoroutineRequest<T> Start(IEnumerator rIEnum)
         {
-            mCoroutineWrapper = CoroutineManager.Instance.StartWrapper(rIEnum);
+            this.Handler = CoroutineManager.Instance.StartHandler(rIEnum);
+            return this;
         }
 
         public void Stop()
         {
-            if (mCoroutineWrapper != null)
-            {
-                CoroutineManager.Instance.Stop(mCoroutineWrapper);
-            }
+            CoroutineManager.Instance.Stop(this.Handler);
         }
     }
 }
