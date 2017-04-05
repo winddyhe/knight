@@ -10,6 +10,8 @@ namespace Framework.Hotfix.Editor
     [CustomEditor(typeof(MonoBehaviourContainer), true)]
     public class MonoBehaviourContainerInspector : UnityEditor.Editor
     {
+        public static MonoBehaviourContainerInspector Instance;
+
         public class ObjectType
         {
             public SerializedProperty   Object;
@@ -17,8 +19,6 @@ namespace Framework.Hotfix.Editor
             public SerializedProperty   Name;
             public int                  Selected;
         }
-
-        public static MonoBehaviourContainerInspector Instance;
 
         private SerializedProperty      mHotfixName;
         private SerializedProperty      mObjects;
@@ -94,7 +94,6 @@ namespace Framework.Hotfix.Editor
             if (GUILayout.Button("Add UnityEngine Objects"))
             {
                 this.mObjects.InsertArrayElementAtIndex(this.mObjects.arraySize);
-                var rNewObjProp = this.mObjects.GetArrayElementAtIndex(this.mObjects.arraySize - 1);
                 this.mObjectTypes = this.ToObjectTypes(this.mObjects);
             }
         }
