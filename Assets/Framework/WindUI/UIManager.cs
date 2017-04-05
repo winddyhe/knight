@@ -53,6 +53,7 @@ namespace Framework.WindUI
         public void Open(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
         {
             // 企图关闭当前的View
+            Debug.LogError("Open   " + rViewName);
             MaybeCloseTopView(rViewState);
 
             this.StartCoroutine(Open_Async(rViewName, rViewState, rOpenCompleted));
@@ -60,6 +61,9 @@ namespace Framework.WindUI
 
         public Coroutine OpenAsync(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
         {
+            // 企图关闭当前的View
+            MaybeCloseTopView(rViewState);
+            Debug.LogError("Open   " + rViewName);
             return this.StartCoroutine(Open_Async(rViewName, rViewState, rOpenCompleted));
         }
 
@@ -217,7 +221,8 @@ namespace Framework.WindUI
             {
                 yield return 0;
             }
-    
+
+            rView.Destroy();
             GameObject.DestroyObject(rView.gameObject);
     
             UtilTool.SafeExecute(rDestroyCompleted);

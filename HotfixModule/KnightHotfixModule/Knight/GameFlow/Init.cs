@@ -19,9 +19,7 @@ namespace KnightHotfixModule.Knight.GameFlow
             yield return GPCSkillConfig.Instance.Load("game/skillconfig.ab", "SkillConfig");
             GPCSkillConfig.Instance.Unload("game/skillconfig.ab");
 
-            //切换到Login场景
-            var rLevelRequest = Globals.Instance.LoadLevel("Login");
-            yield return rLevelRequest.Coroutine;
+            Debug.LogError("End hotfix init...");
         }
     }
 }

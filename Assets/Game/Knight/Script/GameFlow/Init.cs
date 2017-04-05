@@ -40,6 +40,12 @@ namespace Game.Knight
             // 加载Hotfix端的代码
             IEnumerator rEnum = HotfixManager.Instance.App.InvokeStatic(HotfixScript, "Start_Async") as IEnumerator;
             yield return rEnum;
+
+            //切换到Login场景
+            var rLevelRequest = Globals.Instance.LoadLevel("Login");
+            yield return rLevelRequest.Coroutine;
+            
+            Debug.LogError("End U3D init...");
         }
     }
 }

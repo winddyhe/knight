@@ -198,7 +198,10 @@ namespace Framework.WindUI
 
             if (mViewController != null)
                 mViewController.OnClosed();
+        }
 
+        public void Destroy()
+        {
             // 销毁引用
             base.OnDestroy();
             mViewController = null;
