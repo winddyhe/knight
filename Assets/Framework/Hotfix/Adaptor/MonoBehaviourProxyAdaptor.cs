@@ -81,16 +81,16 @@ namespace Framework.Hotfix
             {
                 if (!mSetObjectsGot)
                 {
-                    mSetObjectsMethod = __instance.Type.GetMethod("SetObjects", 2);
+                    mSetObjectsMethod = __instance.Type.GetMethod("SetObjects", 1);
                     mSetObjectsGot = true;
                 }
 
                 if (mSetObjectsMethod != null && !mIsSetObjectsInvoking)
                 {
                     mIsSetObjectsInvoking = true;
-                    mParam1[0] = rObjs;
-                    mParam1[1] = rBaseDatas;
-                    mAppdomain.Invoke(mSetObjectsMethod, __instance, mParam1);
+                    mParam2[0] = rObjs;
+                    //mParam1[1] = rBaseDatas;
+                    mAppdomain.Invoke(mSetObjectsMethod, __instance, mParam2);
                     mIsSetObjectsInvoking = false;
                 }
                 else

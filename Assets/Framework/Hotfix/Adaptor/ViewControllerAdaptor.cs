@@ -91,16 +91,16 @@ namespace Framework.Hotfix
             {
                 if (!mInitializeGot)
                 {
-                    mInitializeMethod = __instance.Type.GetMethod("Initialize", 2);
+                    mInitializeMethod = __instance.Type.GetMethod("Initialize", 1);
                     mInitializeGot = true;
                 }
 
                 if (mInitializeMethod != null && !mIsInitializeInvoking)
                 {
                     mIsInitializeInvoking = true;
-                    mParam1[0] = rObjs;
-                    mParam1[1] = rBaseDatas;
-                    mAppdomain.Invoke(mInitializeMethod, __instance, mParam1);
+                    mParam2[0] = rObjs;
+                    //mParam1[1] = rBaseDatas;
+                    mAppdomain.Invoke(mInitializeMethod, __instance, mParam2);
                     mIsInitializeInvoking = false;
                 }
                 else
