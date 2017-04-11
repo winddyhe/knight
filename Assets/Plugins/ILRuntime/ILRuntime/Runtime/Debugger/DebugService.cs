@@ -89,7 +89,7 @@ namespace ILRuntime.Runtime.Debugger
             return false;
         }
 
-        public string GetStackTrance(ILIntepreter intepreper)
+        internal string GetStackTrance(ILIntepreter intepreper)
         {
             StringBuilder sb = new StringBuilder();
             ILRuntime.CLR.Method.ILMethod m;
@@ -405,7 +405,7 @@ namespace ILRuntime.Runtime.Debugger
                         name = string.IsNullOrEmpty(lv.Name) ? "arg" + lv.Index : lv.Name;
                         typeName = lv.ParameterType.FullName;
                         if (v != null)
-                            v = m.Parameters[argIdx].TypeForCLR.CheckCLRTypes(intp.AppDomain, v);
+                            v = m.Parameters[argIdx].TypeForCLR.CheckCLRTypes(v);
                     }
                     else
                     {
@@ -431,7 +431,7 @@ namespace ILRuntime.Runtime.Debugger
                     if (v == null)
                         v = "null";
                     else
-                        v = intp.AppDomain.GetType(lv.VariableType, m.DeclearingType, m).TypeForCLR.CheckCLRTypes(intp.AppDomain, v);
+                        v = intp.AppDomain.GetType(lv.VariableType, m.DeclearingType, m).TypeForCLR.CheckCLRTypes(v);
                     string name = string.IsNullOrEmpty(lv.Name) ? "v" + lv.Index : lv.Name;
                     VariableInfo vinfo = new Debugger.VariableInfo();
                     vinfo.Address = (long)val;

@@ -433,6 +433,7 @@ namespace ILRuntime.Runtime.Enviorment
                     }
                     bt = bt.MakeGenericInstance(genericArguments);
                     mapType[bt.FullName] = bt;
+                    mapTypeToken[bt.GetHashCode()] = bt;
                     StringBuilder sb = new StringBuilder();
                     sb.Append(baseType);
                     sb.Append('<');
@@ -455,6 +456,7 @@ namespace ILRuntime.Runtime.Enviorment
                 {
                     bt = bt.MakeByRefType();
                     mapType[bt.FullName] = bt;
+                    mapTypeToken[bt.GetHashCode()] = bt;
                     if (!isArray)
                     {
                         mapType[fullname] = bt;
@@ -467,6 +469,7 @@ namespace ILRuntime.Runtime.Enviorment
                     res = bt.MakeArrayType();
                     mapType[fullname] = res;
                     mapType[res.FullName] = res;
+                    mapTypeToken[res.GetHashCode()] = res;
                     return res;
                 }
                 else
@@ -477,12 +480,15 @@ namespace ILRuntime.Runtime.Enviorment
                 Type t = Type.GetType(fullname);
                 if (t != null)
                 {
-                    res = new CLRType(t, this);
+                    if (!clrTypeMapping.TryGetValue(t, out res))
+                    {
+                        res = new CLRType(t, this);
+                        clrTypeMapping[t] = res;
+                    }
                     mapType[fullname] = res;
                     mapType[res.FullName] = res;
                     mapType[t.AssemblyQualifiedName] = res;
-                    clrTypeMapping[t] = res;
-                    mapTypeToken[t.GetHashCode()] = res;
+                    mapTypeToken[res.GetHashCode()] = res;
                     return res;
                 }
             }
@@ -668,6 +674,8 @@ namespace ILRuntime.Runtime.Enviorment
                         }
                         else
                             val = GetType(gType.GenericArguments[i], contextType, contextMethod);
+                        if (val != null && val.HasGenericParameter)
+                            dummyGenericInstance = true;
                         if (val != null)
                             genericArguments[i] = new KeyValuePair<string, IType>(key, val);
                         else
@@ -734,8 +742,12 @@ namespace ILRuntime.Runtime.Enviorment
                     ((ILType)res).TypeReference = (TypeReference)token;
                 }
                 if (!string.IsNullOrEmpty(res.FullName))
-                    mapType[res.FullName] = res;
+                {
+                    if (res is CLRType || !((ILType)res).TypeReference.HasGenericParameters)
+                        mapType[res.FullName] = res;
+                }
             }
+            mapTypeToken[res.GetHashCode()] = res;
             if (!dummyGenericInstance)
                 mapTypeToken[hash] = res;
             return res;
@@ -952,7 +964,7 @@ namespace ILRuntime.Runtime.Enviorment
                 }
                 methodname = _ref.Name;
                 var typeDef = _ref.DeclaringType;
-                
+
                 type = GetType(typeDef, contextType, contextMethod);
                 if (type == null)
                     throw new KeyNotFoundException("Cannot find type:" + typename);
@@ -964,7 +976,7 @@ namespace ILRuntime.Runtime.Enviorment
                 }
                 else
                     isConstructor = methodname == ".ctor";
-                
+
                 if (_ref.IsGenericInstance)
                 {
                     GenericInstanceMethod gim = (GenericInstanceMethod)_ref;
@@ -992,9 +1004,9 @@ namespace ILRuntime.Runtime.Enviorment
                 if (!invalidToken && typeDef.IsGenericInstance)
                 {
                     GenericInstanceType gim = (GenericInstanceType)typeDef;
-                    for(int i = 0; i < gim.GenericArguments.Count; i++)
+                    for (int i = 0; i < gim.GenericArguments.Count; i++)
                     {
-                        if(gim.GenericArguments[0].IsGenericParameter)
+                        if (gim.GenericArguments[0].IsGenericParameter)
                         {
                             invalidToken = true;
                             break;
@@ -1002,7 +1014,9 @@ namespace ILRuntime.Runtime.Enviorment
                     }
                 }
                 paramList = _ref.GetParamList(this, contextType, contextMethod, genericArguments);
-                returnType = GetType(_ref.ReturnType, contextType, null);
+                returnType = GetType(_ref.ReturnType, type, null);
+                if (returnType == null)
+                    returnType = GetType(_ref.ReturnType, contextType, null);
             }
             else
             {
@@ -1023,13 +1037,13 @@ namespace ILRuntime.Runtime.Enviorment
                 if (isConstructor && contextType.FirstCLRBaseType != null && contextType.FirstCLRBaseType is CrossBindingAdaptor && type.TypeForCLR == ((CrossBindingAdaptor)contextType.FirstCLRBaseType).BaseCLRType)
                 {
                     method = contextType.BaseType.GetConstructor(paramList);
-                    if(method == null)
-                        throw new KeyNotFoundException("Cannot find method:" + methodname);
+                    if (method == null)
+                        throw new KeyNotFoundException(string.Format("Cannot find method:{0} in type:{1}, token={2}", methodname, type.FullName, token));
                     invalidToken = true;
                     mapMethod[method.GetHashCode()] = method;
                 }
                 else
-                    throw new KeyNotFoundException("Cannot find method:" + methodname);
+                    throw new KeyNotFoundException(string.Format("Cannot find method:{0} in type:{1}, token={2}", methodname, type.FullName, token));
             }
             if (!invalidToken)
                 mapMethod[hashCode] = method;
@@ -1067,14 +1081,23 @@ namespace ILRuntime.Runtime.Enviorment
             {
                 var it = type as ILType;
                 int idx = it.GetFieldIndex(token);
-                long res = ((long)it.TypeReference.GetHashCode() << 32) | (uint)idx;
+                long res = 0;
+                if (it.TypeReference.HasGenericParameters)
+                {
+                    mapTypeToken[type.GetHashCode()] = it;
+                    res = ((long)type.GetHashCode() << 32) | (uint)idx;
+                }
+                else
+                {
+                    res = ((long)it.TypeReference.GetHashCode() << 32) | (uint)idx;
+                }
 
                 return res;
             }
             else
             {
                 int idx = type.GetFieldIndex(token);
-                long res = ((long)f.DeclaringType.GetHashCode() << 32) | (uint)idx;
+                long res = ((long)type.GetHashCode() << 32) | (uint)idx;
 
                 return res;
             }

@@ -30,7 +30,8 @@ namespace ILRuntime.CLR.TypeSystem
         int fieldStartIdx = -1;
         int totalFieldCnt = -1;
         KeyValuePair<string, IType>[] genericArguments;
-        IType baseType, byRefType, arrayType, enumType;
+        IType baseType, byRefType, arrayType, enumType, elementType;
+        Type arrayCLRType;
         IType[] interfaces;
         bool baseTypeInitialized = false;
         bool interfaceInitialized = false;
@@ -38,6 +39,8 @@ namespace ILRuntime.CLR.TypeSystem
         bool isDelegate;
         ILRuntimeType reflectionType;
         IType firstCLRBaseType, firstCLRInterface;
+        int hashCode = -1;
+        static int instance_id = 0x10000000;
         public TypeDefinition TypeDefinition { get { return definition; } }
 
         public TypeReference TypeReference
@@ -245,6 +248,13 @@ namespace ILRuntime.CLR.TypeSystem
             }
         }
 
+        public IType ElementType { get { return elementType; } }
+
+        public bool IsArray
+        {
+            get; private set;
+        }
+
         public bool IsValueType
         {
             get
@@ -274,6 +284,10 @@ namespace ILRuntime.CLR.TypeSystem
                     if (enumType == null)
                         InitializeFields();
                     return enumType.TypeForCLR;
+                }
+                else if (typeRef is ArrayType)
+                {
+                    return arrayCLRType;
                 }
                 else if (FirstCLRBaseType != null && FirstCLRBaseType is CrossBindingAdaptor)
                 {
@@ -522,7 +536,7 @@ namespace ILRuntime.CLR.TypeSystem
                 }
             }
 
-            if (staticConstructor != null)
+            if (staticConstructor != null && (!TypeReference.HasGenericParameters || IsGenericInstance))
             {
                 appdomain.Invoke(staticConstructor, null, null);
             }
@@ -771,21 +785,25 @@ namespace ILRuntime.CLR.TypeSystem
                 var field = fields[i];
                 if (field.IsStatic)
                 {
-                    if (staticFieldTypes == null)
+                    //It makes no sence to initialize
+                    if (!TypeReference.HasGenericParameters || IsGenericInstance)
                     {
-                        staticFieldTypes = new IType[definition.Fields.Count];
-                        staticFieldDefinitions = new FieldDefinition[definition.Fields.Count];
-                        staticFieldMapping = new Dictionary<string, int>();
+                        if (staticFieldTypes == null)
+                        {
+                            staticFieldTypes = new IType[definition.Fields.Count];
+                            staticFieldDefinitions = new FieldDefinition[definition.Fields.Count];
+                            staticFieldMapping = new Dictionary<string, int>();
+                        }
+                        staticFieldMapping[field.Name] = idxStatic;
+                        staticFieldDefinitions[idxStatic] = field;
+                        if (field.FieldType.IsGenericParameter)
+                        {
+                            staticFieldTypes[idxStatic] = FindGenericArgument(field.FieldType.Name);
+                        }
+                        else
+                            staticFieldTypes[idxStatic] = appdomain.GetType(field.FieldType, this, null);
+                        idxStatic++;
                     }
-                    staticFieldMapping[field.Name] = idxStatic;
-                    staticFieldDefinitions[idxStatic] = field;
-                    if (field.FieldType.IsGenericParameter)
-                    {
-                        staticFieldTypes[idxStatic] = FindGenericArgument(field.FieldType.Name);
-                    }
-                    else
-                        staticFieldTypes[idxStatic] = appdomain.GetType(field.FieldType, this, null);
-                    idxStatic++;
                 }
                 else
                 {
@@ -903,6 +921,9 @@ namespace ILRuntime.CLR.TypeSystem
             {
                 var def = new ArrayType(typeRef);
                 arrayType = new ILType(def, appdomain);
+                ((ILType)arrayType).IsArray = true;
+                ((ILType)arrayType).elementType = this;
+                ((ILType)arrayType).arrayCLRType = this.TypeForCLR.MakeArrayType();
             }
             return arrayType;
         }
@@ -941,6 +962,13 @@ namespace ILRuntime.CLR.TypeSystem
             }
 
             return null;
+        }
+
+        public override int GetHashCode()
+        {
+            if (hashCode == -1)
+                hashCode = System.Threading.Interlocked.Add(ref instance_id, 1);
+            return hashCode;
         }
     }
 }
