@@ -10,42 +10,6 @@ using Object = UnityEngine.Object;
 namespace Framework.Hotfix
 {
     [System.Serializable]
-    public class UnityObject
-    {
-        public string       Name;
-        public Object       Object;
-        public string       Type;
-    }
-
-    [System.Serializable]
-    public class BaseDataDisplayObject
-    {
-        public string       Name;
-        public int          IntObject;
-        public long         LongObject;
-        public float        FloatObject;
-        public double       DoubleObject;
-        public string       StringObject;
-        public string       Type;
-    }
-
-    public class BaseDataObject
-    {
-        public string       Name;
-        public object       Object;
-        public string       Type;
-    }
-
-    public enum BaseDataType
-    {
-        Int,
-        Long,
-        Float,
-        Double,
-        String,
-    }
-
-    [System.Serializable]
     public class MonoBehaviourProxy
     {
         public List<UnityObject>    Objects;
