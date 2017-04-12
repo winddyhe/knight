@@ -43,8 +43,7 @@ namespace Test
 
         public IEnumerator Loading(string rPath)
         {
-            LoaderRequest rRequest = Load_Async(rPath);
-            yield return rRequest;
+            yield return Load_Async(rPath);
         }
     }
 

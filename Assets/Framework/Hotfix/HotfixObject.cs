@@ -12,9 +12,9 @@ namespace Framework.Hotfix
         public string           TypeName;
 
         public ILTypeInstance   ILObject;
-        public AppDomain        App;
+        public HotfixApp        App;
 
-        public HotfixObject(AppDomain rApp, string rTypeName)
+        public HotfixObject(HotfixApp rApp, string rTypeName)
         {
             this.App = rApp;
             this.TypeName = rTypeName;
@@ -23,30 +23,30 @@ namespace Framework.Hotfix
         public void CreateInstance(params object[] rArgs)
         {
             if (this.App == null) return;
-            this.ILObject = this.App.Instantiate(this.TypeName, rArgs);
+            this.ILObject = this.App.App.Instantiate(this.TypeName, rArgs);
         }
 
         public object InvokeInstance(string rMethodName, params object[] rArgs)
         {
             if (this.App == null || this.ILObject == null) return null;
-            return this.App.Invoke(this.TypeName, rMethodName, this.ILObject, rArgs);
+            return this.App.App.Invoke(this.TypeName, rMethodName, this.ILObject, rArgs);
         }
 
         public T CreateInstance<T>(params object[] rArgs)
         {
             if (this.App == null) return default(T);
-            return this.App.Instantiate<T>(this.TypeName, rArgs);
+            return this.App.App.Instantiate<T>(this.TypeName, rArgs);
         }
 
         public object InvokeStatic(string rMethodName, params object[] rArgs)
         {
             if (this.App == null) return null;
-            return this.App.Invoke(this.TypeName, rMethodName, null, rArgs);
+            return this.App.App.Invoke(this.TypeName, rMethodName, null, rArgs);
         }
 
-        public static object InvokeStatic(AppDomain rApp, string rTypeName, string rMethodName, params object[] rArgs)
+        public static object InvokeStatic(HotfixApp rApp, string rTypeName, string rMethodName, params object[] rArgs)
         {
-            return rApp.Invoke(rTypeName, rMethodName, null, rArgs);
+            return rApp.App.Invoke(rTypeName, rMethodName, null, rArgs);
         }
     }
 }

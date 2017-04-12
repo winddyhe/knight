@@ -18,7 +18,7 @@ namespace Game.Knight
         public string HotfixModule = "";
         public string HotfixScript = string.Empty;
 
-        IEnumerator Start()
+        void Start()
         {
             //限帧
             Application.targetFrameRate = 60;
@@ -31,6 +31,12 @@ namespace Game.Knight
             //平台初始化
             AssetPlatformManager.Instance.Initialize();
 
+            //异步初始化代码
+            CoroutineManager.Instance.Start(Start_Async());
+        }
+
+        private IEnumerator Start_Async()
+        {
             //加载Assetbundle的Manifest
             yield return AssetLoadManager.Instance.LoadManifest();
 
@@ -38,14 +44,9 @@ namespace Game.Knight
             yield return HotfixManager.Instance.Load(HotfixModule);
 
             // 加载Hotfix端的代码
-            IEnumerator rEnum = HotfixManager.Instance.App.InvokeStatic(HotfixScript, "Start_Async") as IEnumerator;
-            yield return rEnum;
+            yield return HotfixManager.Instance.App.InvokeStatic(HotfixScript, "Start_Async") as IEnumerator;
 
-            //切换到Login场景
-            var rLevelRequest = Globals.Instance.LoadLevel("Login");
-            yield return rLevelRequest;
-            
-            Debug.LogError("End U3D init...");
+            Debug.Log("End init..");
         }
     }
 }

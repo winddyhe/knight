@@ -72,8 +72,7 @@ namespace Framework.Hotfix
             private bool                mIsOnUnityEventInvoking = false;
             
             //缓存这个数组来避免调用时的GC Alloc
-            private object[]            mParam1                     = new object[2];
-            private object[]            mParam2                     = new object[1];
+            private object[]            mParam1                     = new object[1];
 
             public Adaptor()
             {
@@ -98,9 +97,8 @@ namespace Framework.Hotfix
                 if (mInitializeMethod != null && !mIsInitializeInvoking)
                 {
                     mIsInitializeInvoking = true;
-                    mParam2[0] = rObjs;
-                    //mParam1[1] = rBaseDatas;
-                    mAppdomain.Invoke(mInitializeMethod, __instance, mParam2);
+                    mParam1[0] = rObjs;
+                    mAppdomain.Invoke(mInitializeMethod, __instance, mParam1);
                     mIsInitializeInvoking = false;
                 }
                 else
@@ -258,8 +256,8 @@ namespace Framework.Hotfix
                 if (mOnUnityEventMethod != null && !mIsOnUnityEventInvoking)
                 {
                     mIsOnUnityEventInvoking = true;
-                    mParam2[0] = rTarget;
-                    mAppdomain.Invoke(mOnUnityEventMethod, __instance, mParam2);
+                    mParam1[0] = rTarget;
+                    mAppdomain.Invoke(mOnUnityEventMethod, __instance, mParam1);
                     mIsOnUnityEventInvoking = false;
                 }
                 else

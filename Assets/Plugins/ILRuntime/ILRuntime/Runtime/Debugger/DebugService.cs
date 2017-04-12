@@ -89,7 +89,7 @@ namespace ILRuntime.Runtime.Debugger
             return false;
         }
 
-        internal string GetStackTrance(ILIntepreter intepreper)
+        public string GetStackTrance(ILIntepreter intepreper)
         {
             StringBuilder sb = new StringBuilder();
             ILRuntime.CLR.Method.ILMethod m;

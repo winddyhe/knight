@@ -53,7 +53,7 @@ namespace Framework.WindUI
         public void Open(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
         {
             // 企图关闭当前的View
-            Debug.LogError("Open   " + rViewName);
+            Debug.LogError("Open " + rViewName);
             MaybeCloseTopView(rViewState);
 
             this.StartCoroutine(Open_Async(rViewName, rViewState, rOpenCompleted));
@@ -62,7 +62,7 @@ namespace Framework.WindUI
         public Coroutine OpenAsync(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
         {
             // 企图关闭当前的View
-            Debug.LogError("Open   " + rViewName);
+            Debug.Log("Open " + rViewName);
             MaybeCloseTopView(rViewState);
             return this.StartCoroutine(Open_Async(rViewName, rViewState, rOpenCompleted));
         }

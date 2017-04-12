@@ -32,7 +32,7 @@ namespace Framework.Hotfix
         public HotfixObject CreateInstance(string rTypeName, params object[] rArgs)
         {
             if (mApp == null) return null;
-            HotfixObject rObject = new HotfixObject(mApp, rTypeName);
+            HotfixObject rObject = new HotfixObject(this, rTypeName);
             if (rObject == null) return rObject;
 
             rObject.CreateInstance(rArgs);
@@ -53,7 +53,7 @@ namespace Framework.Hotfix
 
         public unsafe void RegisterCLRMethodRedirection()
         {
-            //ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
+            ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
         }
     }
 }
