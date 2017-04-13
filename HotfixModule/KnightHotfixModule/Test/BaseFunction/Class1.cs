@@ -10,16 +10,12 @@ using UnityEngine;
 using Test;
 using Framework.Hotfix;
 using Core;
+using WindHotfix.Core;
 
 namespace WindHotfix.Test
 {
-    public class Class1 : MonoBehaviourProxy
+    public class Class1 : THotfixMonoBehaviour<Class1>
     {
-        public override void SetObjects(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
-        {
-            base.SetObjects(rObjs, rBaseDatas);
-        }
-
         public override void Start()
         {
             Debug.LogError("Start...");

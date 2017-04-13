@@ -13,7 +13,7 @@ namespace Test
             CoroutineManager.Instance.Initialize();
 
             // 加载热更新代码资源
-            yield return HotfixManager.Instance.Load("KnightHotfixModule");
+            yield return HotfixApp.Instance.Load("KnightHotfixModule");
 
             // 加载界面
             yield return UIManager.Instance.OpenAsync("HotfixLogin", View.State.dispatch);

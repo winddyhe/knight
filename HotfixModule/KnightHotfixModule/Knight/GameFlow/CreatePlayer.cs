@@ -6,10 +6,11 @@ using UnityEngine;
 using Framework;
 using Framework.WindUI;
 using KnightHotfixModule.Knight.Network;
+using WindHotfix.Core;
 
 namespace KnightHotfixModule.Knight.GameFlow
 {
-    public class CreatePlayer : MonoBehaviourProxy
+    public class CreatePlayer : THotfixMonoBehaviour<CreatePlayer>
     {
         private static CreatePlayer     __instance;
         public static CreatePlayer      Instance { get { return __instance; } }

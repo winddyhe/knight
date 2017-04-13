@@ -7,10 +7,10 @@ using Core;
 namespace Framework.Hotfix.Editor
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(MonoBehaviourContainer), true)]
-    public class MonoBehaviourContainerInspector : UnityEditor.Editor
+    [CustomEditor(typeof(HotfixMBContainer), true)]
+    public class HotfixMBContainerInspector : UnityEditor.Editor
     {
-        public static MonoBehaviourContainerInspector Instance;
+        public static HotfixMBContainerInspector Instance;
 
         public class ObjectType
         {
@@ -23,6 +23,7 @@ namespace Framework.Hotfix.Editor
         private SerializedProperty      mHotfixName;
         private SerializedProperty      mObjects;
         private SerializedProperty      mBaseDatas;
+        private SerializedProperty      mIsInheritance;
 
         private List<ObjectType>        mObjectTypes;
         private List<ObjectType>        mBaseDataTypes;
@@ -31,11 +32,12 @@ namespace Framework.Hotfix.Editor
         {
             Instance = this;
 
-            this.mHotfixName = this.serializedObject.FindProperty("mHotfixName");
-            this.mObjects = this.serializedObject.FindProperty("mObjects");
-            this.mBaseDatas = this.serializedObject.FindProperty("mBaseDatas");
+            this.mHotfixName    = this.serializedObject.FindProperty("mHotfixName");
+            this.mObjects       = this.serializedObject.FindProperty("mObjects");
+            this.mBaseDatas     = this.serializedObject.FindProperty("mBaseDatas");
+            this.mIsInheritance = this.serializedObject.FindProperty("mIsInheritance");
 
-            this.mObjectTypes = this.ToObjectTypes(this.mObjects);
+            this.mObjectTypes   = this.ToObjectTypes(this.mObjects);
         }
 
         void OnDestroy()
@@ -55,6 +57,7 @@ namespace Framework.Hotfix.Editor
             using (var space = new EditorGUILayout.VerticalScope())
             {
                 EditorGUILayout.PropertyField(this.mHotfixName, new GUIContent("Hotfix Class Name: "));
+                EditorGUILayout.PropertyField(this.mIsInheritance, new GUIContent("Is Inheritance"));
 
                 this.DrawBaseDatas();
                 this.DrawUnityEngineObjects();

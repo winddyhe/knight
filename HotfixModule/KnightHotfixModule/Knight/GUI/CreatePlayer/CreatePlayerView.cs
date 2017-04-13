@@ -11,10 +11,10 @@ namespace KnightHotfixModule.Knight.GUI
 {
     public class CreatePlayerView : ViewController
     {
-        public ToggleGroup              ProfessionSelected;
-        public InputField               PlayerName;
-        public Text                     ProfessionalDesc;
-        public CreatePlayerItem         CurrentSelectedItem;
+        public ToggleGroup                  ProfessionSelected;
+        public InputField                   PlayerName;
+        public Text                         ProfessionalDesc;
+        public HotfixMonoBehaviour          CurrentSelectedItem;
 
         private HotfixEventHandler  mEventHandler;
         
@@ -27,7 +27,7 @@ namespace KnightHotfixModule.Knight.GUI
             this.ProfessionSelected  = this.mObjects[0].Object as ToggleGroup;
             this.PlayerName          = this.mObjects[1].Object as InputField;
             this.ProfessionalDesc    = this.mObjects[2].Object as Text;
-            this.CurrentSelectedItem = (this.mObjects[3].Object as MonoBehaviourContainer).ProxyHotfixObject as CreatePlayerItem;
+            this.CurrentSelectedItem = (this.mObjects[3].Object as HotfixMonoBehaviourContainer).MBHotfixObject;
 
             Debug.LogError(this.mObjects[3].Object);
 
@@ -45,7 +45,7 @@ namespace KnightHotfixModule.Knight.GUI
         public override void OnOpening()
         {
             base.OnOpening();
-            this.CurrentSelectedItem.StartLoad();
+            //this.CurrentSelectedItem.StartLoad();
             this.mIsOpened = true;
         }
 
@@ -56,7 +56,7 @@ namespace KnightHotfixModule.Knight.GUI
             mEventHandler.RemoveAll();
             mEventHandler = null;
 
-            this.CurrentSelectedItem.StopLoad();
+            //this.CurrentSelectedItem.StopLoad();
             this.mIsClosed = true;
         }
 
@@ -67,7 +67,7 @@ namespace KnightHotfixModule.Knight.GUI
                 Toast.Instance.Show("角色名不能为空！");
                 return;
             }
-            KnightHotfixModule.Knight.GameFlow.CreatePlayer.Instance.Create(this.PlayerName.text, this.CurrentSelectedItem.ProfessionalID);
+            //KnightHotfixModule.Knight.GameFlow.CreatePlayer.Instance.Create(this.PlayerName.text, this.CurrentSelectedItem.ProfessionalID);
         }
 
         private void OnBackBtn_Clicked(UnityEngine.Object rTarget)

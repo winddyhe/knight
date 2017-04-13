@@ -9,35 +9,35 @@ using UnityEngine.UI;
 using Core;
 using UnityEngine;
 using Framework.WindUI;
+using WindHotfix.Core;
 
 namespace KnightHotfixModule.Knight.GUI
 {
-    public class CreatePlayerItem : MonoBehaviourProxy
+    public class CreatePlayerItem : THotfixMonoBehaviour<CreatePlayerItem>
     {
         public Toggle                       SelectedPlayer;
         public CreatePlayerView             Parent;
         public int                          ProfessionalID;
 
         private Actor.ActorCreateRequest    mActorCreateRequest;
-
-        public override void SetObjects(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
+        
+        public override void OnInitialize()
         {
-            base.SetObjects(rObjs, rBaseDatas);
             this.SelectedPlayer = this.Objects[0].Object as Toggle;
             this.Parent = (this.Objects[0].Object as View).ViewController as CreatePlayerView;
         }
 
         public void OnToggleSelectedValueChanged()
         {
-            if (this.SelectedPlayer.isOn && this.Parent.CurrentSelectedItem != this)
-            {
-                StartLoad();
-                this.Parent.CurrentSelectedItem = this;
-            }
-            else if (!this.SelectedPlayer.isOn)
-            {
-                StopLoad();
-            }
+            //if (this.SelectedPlayer.isOn && this.Parent.CurrentSelectedItem != this)
+            //{
+            //    StartLoad();
+            //    this.Parent.CurrentSelectedItem = this;
+            //}
+            //else if (!this.SelectedPlayer.isOn)
+            //{
+            //    StopLoad();
+            //}
         }
 
         public void StartLoad()

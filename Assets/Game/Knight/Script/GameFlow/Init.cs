@@ -41,10 +41,10 @@ namespace Game.Knight
             yield return AssetLoadManager.Instance.LoadManifest();
 
             // 加载热更新代码资源
-            yield return HotfixManager.Instance.Load(HotfixModule);
+            yield return HotfixApp.Instance.Load(HotfixModule);
 
             // 加载Hotfix端的代码
-            yield return HotfixManager.Instance.App.InvokeStatic(HotfixScript, "Start_Async") as IEnumerator;
+            yield return HotfixApp.Instance.InvokeStatic(HotfixScript, "Start_Async") as IEnumerator;
 
             Debug.Log("End init..");
         }

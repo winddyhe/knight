@@ -19,34 +19,28 @@ namespace Framework.Hotfix
             this.App = rApp;
             this.TypeName = rTypeName;
         }
-
-        public void CreateInstance(params object[] rArgs)
-        {
-            if (this.App == null) return;
-            this.ILObject = this.App.App.Instantiate(this.TypeName, rArgs);
-        }
-
-        public object InvokeInstance(string rMethodName, params object[] rArgs)
+        
+        public object Invoke(string rMethodName, params object[] rArgs)
         {
             if (this.App == null || this.ILObject == null) return null;
-            return this.App.App.Invoke(this.TypeName, rMethodName, this.ILObject, rArgs);
+            return this.App.Invoke(this, rMethodName, rArgs);
         }
 
-        public T CreateInstance<T>(params object[] rArgs)
+        public object InvokeParent(string rParentType, string rMethodName, params object[] rArgs)
         {
-            if (this.App == null) return default(T);
-            return this.App.App.Instantiate<T>(this.TypeName, rArgs);
+            if (this.App == null || this.ILObject == null) return null;
+            return this.App.InvokeParent(this, rParentType, rMethodName, rArgs);
         }
 
         public object InvokeStatic(string rMethodName, params object[] rArgs)
         {
             if (this.App == null) return null;
-            return this.App.App.Invoke(this.TypeName, rMethodName, null, rArgs);
+            return this.App.InvokeStatic(this.TypeName, rMethodName, null, rArgs);
         }
 
         public static object InvokeStatic(HotfixApp rApp, string rTypeName, string rMethodName, params object[] rArgs)
         {
-            return rApp.App.Invoke(rTypeName, rMethodName, null, rArgs);
+            return rApp.InvokeStatic(rTypeName, rMethodName, null, rArgs);
         }
     }
 }

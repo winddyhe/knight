@@ -12,66 +12,68 @@ using Object = UnityEngine.Object;
 
 namespace Framework.Hotfix
 {
-    public class MonoBehaviourContainer : MonoBehaviour
-    {        
+    public class HotfixMBContainer : MonoBehaviour
+    {
         [HideInInspector][SerializeField]
         protected string                        mHotfixName;
         [HideInInspector][SerializeField]
         protected List<UnityObject>             mObjects;
         [HideInInspector][SerializeField]
         protected List<BaseDataDisplayObject>   mBaseDatas;
-        
-        private MonoBehaviourProxy              mMBProxyHObj;
-        public  MonoBehaviourProxy              ProxyHotfixObject { get { return this.mMBProxyHObj; } }
+        [HideInInspector][SerializeField]
+        protected bool                          mIsInheritance;
+
+        private HotfixMB                        mMBHotfixObj;
+        public  HotfixMB                        MBHotfixObject { get { return this.mMBHotfixObj; } }
+
+        public  HotfixMBInherit                 mMBHotfixInheritObj;
+        public  HotfixMBInherit                 InheritObject  { get { return this.mMBHotfixInheritObj; } }
 
         protected virtual void Awake()
         {
-            if (mMBProxyHObj == null)
-                mMBProxyHObj = HotfixManager.Instance.App.CreateInstance<MonoBehaviourProxy>(this.mHotfixName);
-
-            if (mMBProxyHObj != null)
-            {
-                mMBProxyHObj.SetObjects(this.mObjects, this.ToBaseDataObjects(mBaseDatas));
-                mMBProxyHObj.Awake();
-            }
+            if (this.mIsInheritance)
+                this.InitHotfixMBInherit();
+            else
+                this.InitHotfixMB();
         }
 
         protected virtual void Start()
         {
-            if (mMBProxyHObj == null) return;
-            mMBProxyHObj.Start();
+            if (mMBHotfixObj == null) return;
+            mMBHotfixObj.Start();
         }
 
         protected virtual void Update()
         {
-            if (mMBProxyHObj == null) return;
-            mMBProxyHObj.Update();
+            if (mMBHotfixObj == null) return;
+            mMBHotfixObj.Update();
         }
 
         protected virtual void OnDestroy()
         {
-            if (mMBProxyHObj == null) return;
-            mMBProxyHObj.OnDestroy();
+            if (mMBHotfixObj == null) return;
+            mMBHotfixObj.OnDestroy();
             mObjects.Clear();
-            mMBProxyHObj = null;
+            mBaseDatas.Clear();
+            mMBHotfixObj = null;
         }
 
         protected virtual void OnEnable()
         {
-            if (mMBProxyHObj == null) return;
-            mMBProxyHObj.OnEnable();
+            if (mMBHotfixObj == null) return;
+            mMBHotfixObj.OnEnable();
         }
 
         protected virtual void OnDisable()
         {
-            if (mMBProxyHObj == null) return;
-            mMBProxyHObj.OnDisable();
+            if (mMBHotfixObj == null) return;
+            mMBHotfixObj.OnDisable();
         }
 
         public virtual void OnUnityEvent(Object rTarget)
         {
-            if (mMBProxyHObj == null) return;
-            mMBProxyHObj.OnUnityEvent(rTarget);
+            if (mMBHotfixObj == null) return;
+            mMBHotfixObj.OnUnityEvent(rTarget);
         }
 
         protected List<BaseDataObject> ToBaseDataObjects(List<BaseDataDisplayObject> rBaseDatas)
@@ -95,6 +97,28 @@ namespace Framework.Hotfix
                 rBaseDataObjects.Add(rObj);
             }
             return rBaseDataObjects;
+        }
+
+
+        private void InitHotfixMBInherit()
+        {
+            if (mMBHotfixInheritObj == null)
+                mMBHotfixInheritObj = new HotfixMBInherit(mHotfixName);
+
+            if (mMBHotfixInheritObj != null)
+                mMBHotfixInheritObj.Initialize(this.mObjects, this.ToBaseDataObjects(mBaseDatas));
+        }
+
+        private void InitHotfixMB()
+        {
+            if (mMBHotfixObj == null)
+                mMBHotfixObj = new HotfixMB(mHotfixName);
+
+            if (mMBHotfixObj != null)
+            {
+                mMBHotfixObj.Initialize(this.mObjects, this.ToBaseDataObjects(mBaseDatas));
+                mMBHotfixObj.Awake();
+            }
         }
     }
 }

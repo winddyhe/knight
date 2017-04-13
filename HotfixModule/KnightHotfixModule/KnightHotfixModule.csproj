@@ -66,6 +66,7 @@
     <Compile Include="Test\BaseFunction\Class1.cs" />
     <Compile Include="Test\BaseFunction\Class2.cs" />
     <Compile Include="Test\UI\UILoginTest.cs" />
+    <Compile Include="WindHotfix\Core\THotfixMonoBehaviour.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

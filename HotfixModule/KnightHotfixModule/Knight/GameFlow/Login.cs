@@ -8,10 +8,11 @@ using Core;
 using Framework;
 using UnityEngine;
 using KnightHotfixModule.Knight.Network;
+using WindHotfix.Core;
 
 namespace KnightHotfixModule.Knight.GameFlow
 {
-    public class Login : MonoBehaviourProxy
+    public class Login : THotfixMonoBehaviour<Login>
     {
         private static  Login       __instance;
         public  static  Login       Instance { get { return __instance; } }
@@ -22,12 +23,7 @@ namespace KnightHotfixModule.Knight.GameFlow
 
         private string  mAccountName = "";
         private string  mPassword    = "";
-
-        public override void SetObjects(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
-        {
-            base.SetObjects(rObjs, rBaseDatas);
-        }
-
+        
         public override void Awake()
         {
             if (__instance == null)

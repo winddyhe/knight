@@ -7,7 +7,7 @@ namespace Framework.WindUI.Editor
 {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(View), true)]
-    public class ViewInspector : MonoBehaviourContainerInspector
+    public class ViewInspector : HotfixMBContainerInspector
     {
         public override void OnInspectorGUI()
         {
