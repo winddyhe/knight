@@ -9,12 +9,17 @@ namespace Framework.Hotfix
 {
     public class HotfixMBInherit
     {
-        public HotfixMBInherit(string rHotfixName)
+        public List<UnityObject>        Objects;
+        public List<BaseDataObject>     BaseDatas;
+        
+        public HotfixMBInherit()
         {
         }
 
-        public void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
+        public virtual void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
+            this.Objects = rObjs;
+            this.BaseDatas = rBaseDatas;
         }
     }
 }

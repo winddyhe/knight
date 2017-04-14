@@ -103,7 +103,7 @@ namespace Framework.Hotfix
         private void InitHotfixMBInherit()
         {
             if (mMBHotfixInheritObj == null)
-                mMBHotfixInheritObj = new HotfixMBInherit(mHotfixName);
+                mMBHotfixInheritObj = HotfixApp.Instance.Instantiate<HotfixMBInherit>(this.mHotfixName);
 
             if (mMBHotfixInheritObj != null)
                 mMBHotfixInheritObj.Initialize(this.mObjects, this.ToBaseDataObjects(mBaseDatas));

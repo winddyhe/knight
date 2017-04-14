@@ -51,6 +51,7 @@ namespace Framework.Hotfix
         {
             rApp.RegisterCrossBindingAdaptorEvent = () =>
             {
+                rApp.App.RegisterCrossBindingAdaptor(new HotfixMBInheritAdaptor());
                 rApp.App.RegisterCrossBindingAdaptor(new ViewControllerAdaptor());
                 rApp.App.RegisterCrossBindingAdaptor(new CoroutineAdapter());
             };
