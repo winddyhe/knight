@@ -14,8 +14,8 @@ namespace WindHotfix.Test
     {
         public override void Start()
         {
-            mEventHandler.AddEventListener(this.Objects[0].Object, OnButton_Clicked);
-            mEventHandler.AddEventListener(this.Objects[1].Object, OnButton1_Clicked);
+            this.AddEventListener(this.Objects[0].Object, OnButton_Clicked);
+            this.AddEventListener(this.Objects[1].Object, OnButton1_Clicked);
 
             Debug.LogError("1111");
             string rName = (string)this.GetData("Name");

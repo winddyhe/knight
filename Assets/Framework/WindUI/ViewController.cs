@@ -8,15 +8,19 @@ namespace Framework.WindUI
 {
     public class ViewController
     {
-        protected List<UnityObject>         mObjects;
-        protected List<BaseDataObject>      mBaseDatas;
-        protected bool                      mIsOpened = false;
-        protected bool                      mIsClosed = false;
+        public HotfixObject HotfixObj;
+        public string       ParentType  = "WindHotfix.GUI.TViewController`1";
+        
+        public ViewController(string rHotfixName)
+        {
+            this.HotfixObj = HotfixApp.Instance.Instantiate(rHotfixName);
+            this.ParentType = string.Format("WindHotfix.GUI.TViewController`1<{0}>", rHotfixName);
+        }
 
         public virtual void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
-            this.mObjects = rObjs;
-            this.mBaseDatas = rBaseDatas;
+            if (this.HotfixObj == null) return;
+            this.HotfixObj.InvokeParent(this.ParentType, "Initialize", rObjs, rBaseDatas);
         }
 
         /// <summary>
@@ -24,8 +28,16 @@ namespace Framework.WindUI
         /// </summary>
         public bool IsOpened
         {
-            get { return this.mIsOpened;  }
-            set { this.mIsOpened = value; }
+            get
+            {
+                if (this.HotfixObj == null) return false;
+                return (bool)this.HotfixObj.InvokeParent(this.ParentType, "get_IsOpened");
+            }
+            set
+            {
+                if (this.HotfixObj == null) return;
+                this.HotfixObj.InvokeParent(this.ParentType, "set_IsOpened", value);
+            }
         }
 
         /// <summary>
@@ -33,8 +45,16 @@ namespace Framework.WindUI
         /// </summary>
         public bool IsClosed
         {
-            get { return this.mIsClosed;  }
-            set { this.mIsClosed = value; }
+            get
+            {
+                if (this.HotfixObj == null) return false;
+                return (bool)this.HotfixObj.InvokeParent(this.ParentType, "get_IsClosed");
+            }
+            set
+            {
+                if (this.HotfixObj == null) return;
+                this.HotfixObj.InvokeParent(this.ParentType, "set_IsClosed", value);
+            }
         }
 
         /// <summary>
@@ -42,55 +62,71 @@ namespace Framework.WindUI
         /// </summary>
         public virtual void OnOpening()
         {
-            this.IsOpened = true;
+            if (this.HotfixObj == null) return;
+            this.HotfixObj.InvokeParent(this.ParentType, "Opening");
         }
 
         /// <summary>
         /// 彻底打开View时候要做的事情
         /// </summary>
-        public virtual void OnOpened()     { }
+        public virtual void OnOpened()
+        {
+            if (this.HotfixObj == null) return;
+            this.HotfixObj.Invoke("OnOpened");
+        }
 
         /// <summary>
         /// 显示View要做的操作
         /// </summary>
-        public virtual void OnShow()       { }
+        public virtual void OnShow()
+        {
+            if (this.HotfixObj == null) return;
+            this.HotfixObj.Invoke("OnShow");
+        }
 
         /// <summary>
         /// 隐藏View要做的事情
         /// </summary>
-        public virtual void OnHide()       { }
+        public virtual void OnHide()
+        {
+            if (this.HotfixObj == null) return;
+            this.HotfixObj.Invoke("OnHide");
+        }
 
         /// <summary>
         /// 刷新页面要做的操作
         /// </summary>
-        public virtual void OnRefresh()    { }
+        public virtual void OnRefresh()
+        {
+            if (this.HotfixObj == null) return;
+            this.HotfixObj.Invoke("OnRefresh");
+        }
 
         /// <summary>
         /// 开始关闭时候要做的操作
         /// </summary>
         public virtual void OnClosing()
         {
-            this.IsClosed = true;
+            if (this.HotfixObj == null) return;
+            this.HotfixObj.InvokeParent(this.ParentType, "Closing");
         }
 
         /// <summary>
         /// 彻底关闭后要做的操作
         /// </summary>
-        public virtual void OnClosed()     { }
+        public virtual void OnClosed()
+        {
+            if (this.HotfixObj == null) return;
+            this.HotfixObj.InvokeParent(this.ParentType, "Closed");
+        }
 
         /// <summary>
         /// 事件传递
         /// </summary>
         public virtual void OnUnityEvent(Object rTarget)
         {
-        }
-
-        public object GetData(string rName)
-        {
-            if (this.mBaseDatas == null) return null;
-            var rBaseDataObj = this.mBaseDatas.Find((rItem) => { return rItem.Name.Equals(rName); });
-            if (rBaseDataObj == null) return null;
-            return rBaseDataObj.Object;
+            if (this.HotfixObj == null) return;
+            this.HotfixObj.InvokeParent(this.ParentType, "OnUnityEvent", rTarget);
         }
     }
 }

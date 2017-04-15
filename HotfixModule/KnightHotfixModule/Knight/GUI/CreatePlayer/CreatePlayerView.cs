@@ -6,57 +6,41 @@ using Game.Knight;
 using WindHotfix.Core;
 using UnityEngine;
 using Framework.Hotfix;
+using WindHotfix.GUI;
 
 namespace KnightHotfixModule.Knight.GUI
 {
-    public class CreatePlayerView : ViewController
+    public class CreatePlayerView : TViewController<CreatePlayerView>
     {
-        public ToggleGroup                  ProfessionSelected;
-        public InputField                   PlayerName;
-        public Text                         ProfessionalDesc;
-        public HotfixMonoBehaviour          CurrentSelectedItem;
-
-        private HotfixEventHandler  mEventHandler;
+        public ToggleGroup      ProfessionSelected;
+        public InputField       PlayerName;
+        public Text             ProfessionalDesc;
+        public CreatePlayerItem CurrentSelectedItem;
         
-        public override void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
+        public override void OnInitialize()
         {
-            base.Initialize(rObjs, rBaseDatas);
-            mEventHandler = new HotfixEventHandler();
-
             // 转换变量
-            this.ProfessionSelected  = this.mObjects[0].Object as ToggleGroup;
-            this.PlayerName          = this.mObjects[1].Object as InputField;
-            this.ProfessionalDesc    = this.mObjects[2].Object as Text;
-            this.CurrentSelectedItem = (this.mObjects[3].Object as HotfixMonoBehaviourContainer).MBHotfixObject;
+            this.ProfessionSelected  = this.Objects[0].Object as ToggleGroup;
+            this.PlayerName          = this.Objects[1].Object as InputField;
+            this.ProfessionalDesc    = this.Objects[2].Object as Text;
+            this.CurrentSelectedItem = (this.Objects[3].Object as HotfixMBContainer).InheritObject as CreatePlayerItem;
 
-            Debug.LogError(this.mObjects[3].Object);
+            Debug.LogError(this.Objects[3].Object);
 
             // 注册事件
-            mEventHandler.AddEventListener(this.mObjects[4].Object, OnPlayerCreateBtn_Clicked);
-            mEventHandler.AddEventListener(this.mObjects[5].Object, OnBackBtn_Clicked);
+            this.AddEventListener(this.Objects[4].Object, OnPlayerCreateBtn_Clicked);
+            this.AddEventListener(this.Objects[5].Object, OnBackBtn_Clicked);
         }
-
-        public override void OnUnityEvent(UnityEngine.Object rTarget)
-        {
-            if (mEventHandler == null) return;
-            mEventHandler.Handle(rTarget);
-        }
-
+        
         public override void OnOpening()
         {
-            base.OnOpening();
-            //this.CurrentSelectedItem.StartLoad();
+            this.CurrentSelectedItem.StartLoad();
             this.mIsOpened = true;
         }
 
         public override void OnClosing()
         {
-            base.OnClosing();
-
-            mEventHandler.RemoveAll();
-            mEventHandler = null;
-
-            //this.CurrentSelectedItem.StopLoad();
+            this.CurrentSelectedItem.StopLoad();
             this.mIsClosed = true;
         }
 
@@ -67,7 +51,7 @@ namespace KnightHotfixModule.Knight.GUI
                 Toast.Instance.Show("角色名不能为空！");
                 return;
             }
-            //KnightHotfixModule.Knight.GameFlow.CreatePlayer.Instance.Create(this.PlayerName.text, this.CurrentSelectedItem.ProfessionalID);
+            KnightHotfixModule.Knight.GameFlow.CreatePlayer.Instance.Create(this.PlayerName.text, this.CurrentSelectedItem.ProfessionalID);
         }
 
         private void OnBackBtn_Clicked(UnityEngine.Object rTarget)

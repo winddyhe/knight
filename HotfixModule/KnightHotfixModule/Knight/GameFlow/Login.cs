@@ -130,7 +130,7 @@ namespace KnightHotfixModule.Knight.GameFlow
         {
             UIManager.Instance.Pop();
             Account.Instance.NetActors = rNetActors;
-            GameLoading.Instance.StartLoading(1.0f, "开始创建角色！");         // 开始创建新角色
+            GameLoading.Instance.StartLoading(1.0f, "开始创建角色！");       // 开始创建新角色
             var rLevelRequest = Globals.Instance.LoadLevel("CreatePlayer"); // 切换到Login场景
             yield return rLevelRequest;
         }

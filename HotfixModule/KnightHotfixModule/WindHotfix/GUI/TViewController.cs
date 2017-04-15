@@ -1,67 +1,62 @@
 ﻿using Framework.Hotfix;
 using System;
 using System.Collections.Generic;
+using WindHotfix.Core;
 using Object = UnityEngine.Object;
 
-namespace WindHotfix.Core
+namespace WindHotfix.GUI
 {
-    public class THotfixMonoBehaviour<T> where T : class
+    public class TViewController<T> where T : class
     {
-        public List<UnityObject>        Objects;
-        public List<BaseDataObject>     BaseDatas;
+        public   List<UnityObject>      Objects;
+        public   List<BaseDataObject>   BaseDatas;
 
         protected HotfixEventHandler    mEventHandler;
+        protected bool                  mIsOpened = false;
+        protected bool                  mIsClosed = false;
 
         public void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
-            this.Objects   = rObjs;
+            this.Objects = rObjs;
             this.BaseDatas = rBaseDatas;
 
             this.mEventHandler = new HotfixEventHandler();
             this.OnInitialize();
         }
 
-        public virtual void OnInitialize()
+        public bool IsOpened
         {
+            get { return mIsOpened;  }
+            set { mIsOpened = value; }
+        }
+        
+        public bool IsClosed
+        {
+            get { return mIsClosed;  }
+            set { mIsClosed = value; }
         }
 
-        public virtual void Awake()
+        private void Opening()
         {
+            this.mIsOpened = true;
+            this.OnOpening();
         }
 
-        public virtual void Start()
+        private void Closing()
         {
+            this.mIsClosed = true;
+            this.OnClosing();
         }
 
-        public virtual void Update()
-        {
-        }
-
-        /// <summary>
-        /// @TODO: 这样子做可能有风险，无法执行到OnDestroy导致mEventHandler的引用计数不对
-        ///        等框架完善之后再做改进
-        /// </summary>
-        public void Destroy()
+        public void Closed()
         {
             if (mEventHandler != null)
                 mEventHandler.RemoveAll();
             mEventHandler = null;
 
-            this.OnDestroy();
+            this.OnClosed();
         }
-
-        public virtual void OnDestroy()
-        {
-        }
-
-        public virtual void OnEnable()
-        {
-        }
-
-        public virtual void OnDisable()
-        {
-        }
-
+        
         public void OnUnityEvent(Object rTarget)
         {
             if (mEventHandler == null) return;
@@ -76,10 +71,43 @@ namespace WindHotfix.Core
             return rBaseDataObj.Object;
         }
 
+
         public void AddEventListener(UnityEngine.Object rObj, Action<UnityEngine.Object> rAction)
         {
             if (this.mEventHandler == null) return;
             this.mEventHandler.AddEventListener(rObj, rAction);
+        }
+
+        public virtual void OnInitialize()
+        {
+        }
+
+        public virtual void OnOpening()
+        {
+        }
+
+        public virtual void OnOpened()
+        {
+        }
+
+        public virtual void OnShow()
+        {
+        }
+
+        public virtual void OnHide()
+        {
+        }
+
+        public virtual void OnRefresh()
+        {
+        }
+        
+        public virtual void OnClosing()
+        {
+        }
+        
+        public virtual void OnClosed()
+        {
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Game.Knight
     public class PlayerListViewController : ViewController
     {
         public PlayerListViewController(PlayerListView rView)
-            : base()
+            : base("")
         {
         }
 

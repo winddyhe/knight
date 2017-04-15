@@ -1,30 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Framework.Hotfix;
 using Game.Knight;
 using UnityEngine.UI;
 using Core;
 using UnityEngine;
-using Framework.WindUI;
-using WindHotfix.Core;
 
 namespace KnightHotfixModule.Knight.GUI
 {
-    public class CreatePlayerItem : THotfixMonoBehaviour<CreatePlayerItem>
+    public class CreatePlayerItem : HotfixMBInherit
     {
         public Toggle                       SelectedPlayer;
         public CreatePlayerView             Parent;
         public int                          ProfessionalID;
 
         private Actor.ActorCreateRequest    mActorCreateRequest;
-        
-        public override void OnInitialize()
+
+        public override void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
+            base.Initialize(rObjs, rBaseDatas);
+
             this.SelectedPlayer = this.Objects[0].Object as Toggle;
-            this.Parent = (this.Objects[0].Object as View).ViewController as CreatePlayerView;
+            //this.Parent = (this.Objects[0].Object as View).ViewController as CreatePlayerView;
         }
 
         public void OnToggleSelectedValueChanged()
