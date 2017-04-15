@@ -2,14 +2,11 @@
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
-using Core;
-using Framework.Hotfix;
-using Framework.WindUI;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WindHotfix.Core
+namespace Framework.Hotfix
 {
     public class HotfixEventHandler
     {

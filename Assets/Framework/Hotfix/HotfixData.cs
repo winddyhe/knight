@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace Framework.Hotfix
 {
-        [System.Serializable]
+    [System.Serializable]
     public class UnityObject
     {
         public string       Name;

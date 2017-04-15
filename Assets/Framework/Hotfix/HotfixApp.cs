@@ -25,6 +25,11 @@ namespace Framework.Hotfix
         {
         }
 
+        ~HotfixApp()
+        {
+            mApp = null;
+        }
+
         public Coroutine Load(string rHotfixModuleName)
         {
             return CoroutineManager.Instance.Start(Load_Async(rHotfixModuleName));

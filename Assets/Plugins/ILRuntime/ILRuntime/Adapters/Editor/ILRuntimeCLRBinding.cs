@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using System.Text;
 using System.Collections.Generic;
+using Core;
+
 [System.Reflection.Obfuscation(Exclude = true)]
 public class ILRuntimeCLRBinding
 {
