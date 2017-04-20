@@ -575,7 +575,7 @@ PlayerSettings:
   incrementalIl2cppBuild: {}
   additionalIl2CppArgs: 
   apiCompatibilityLevelPerPlatform:
-    Standalone: 1
+    Standalone: 2
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: knight
