@@ -351,7 +351,7 @@ namespace ILRuntime.Runtime.Enviorment
                 doubleType = GetType("System.Double");
                 objectType = GetType("System.Object");
             }
-            //module.AssemblyResolver.ResolveFailure += AssemblyResolver_ResolveFailure;
+            module.AssemblyResolver.ResolveFailure += AssemblyResolver_ResolveFailure;
 #if DEBUG
             debugService.NotifyModuleLoaded(module.Name);
 #endif
