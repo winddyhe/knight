@@ -64,6 +64,10 @@ namespace ILRuntime.Runtime.Enviorment
                 {
                     RegisterCLRMethodRedirection(i, CLRRedirections.GetType);
                 }
+                if(i.Name=="Equals" && i.GetParameters()[0].ParameterType == typeof(Type))
+                {
+                    RegisterCLRMethodRedirection(i, CLRRedirections.TypeEquals);
+                }
             }
             foreach (var i in typeof(System.Delegate).GetMethods())
             {
@@ -347,7 +351,7 @@ namespace ILRuntime.Runtime.Enviorment
                 doubleType = GetType("System.Double");
                 objectType = GetType("System.Object");
             }
-            module.AssemblyResolver.ResolveFailure += AssemblyResolver_ResolveFailure;
+            //module.AssemblyResolver.ResolveFailure += AssemblyResolver_ResolveFailure;
 #if DEBUG
             debugService.NotifyModuleLoaded(module.Name);
 #endif

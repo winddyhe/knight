@@ -77,6 +77,11 @@ namespace Framework.Hotfix
             this.mApp.DelegateManager.RegisterMethodDelegate<UnityEngine.Object>();
             this.mApp.DelegateManager.RegisterMethodDelegate<JsonNode, JsonNode>();
             this.mApp.DelegateManager.RegisterFunctionDelegate<Framework.GameMode>();
+            this.mApp.DelegateManager.RegisterMethodDelegate<IEqualityComparer<object>>();
+            this.mApp.DelegateManager.RegisterMethodDelegate<KeyValuePair<object, object>>();
+            this.mApp.DelegateManager.RegisterFunctionDelegate<object, object, bool>();
+            this.mApp.DelegateManager.RegisterFunctionDelegate<object, int>();
+
             this.mApp.DelegateManager.RegisterFunctionDelegate<Framework.Hotfix.BaseDataObject, bool>();
             this.mApp.DelegateManager.RegisterDelegateConvertor<System.Predicate<Framework.Hotfix.BaseDataObject>>((act) =>
             {

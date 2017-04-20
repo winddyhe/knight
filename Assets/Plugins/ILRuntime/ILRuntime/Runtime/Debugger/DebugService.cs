@@ -120,7 +120,7 @@ namespace ILRuntime.Runtime.Debugger
             return sb.ToString();
         }
 
-        internal unsafe string GetThisInfo(ILIntepreter intepreter)
+        public unsafe string GetThisInfo(ILIntepreter intepreter)
         {
             var topFrame = intepreter.Stack.Frames.Peek();
             var arg = Minus(topFrame.LocalVarPointer, topFrame.Method.ParameterCount);
@@ -156,7 +156,7 @@ namespace ILRuntime.Runtime.Debugger
             return sb.ToString();
         }
 
-        internal unsafe string GetLocalVariableInfo(ILIntepreter intepreter)
+        public unsafe string GetLocalVariableInfo(ILIntepreter intepreter)
         {
             StackFrame topFrame = intepreter.Stack.Frames.Peek();
             var m = topFrame.Method;
