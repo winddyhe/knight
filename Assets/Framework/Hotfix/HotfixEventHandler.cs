@@ -1,4 +1,5 @@
-﻿//======================================================================
+﻿using Core;
+//======================================================================
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
@@ -6,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WindHotfix.Core
+namespace Framework.Hotfix
 {
     public class HotfixEventHandler
     {
@@ -50,12 +51,12 @@ namespace WindHotfix.Core
             }
         }
 
-        private Dictionary<UnityEngine.Object, EventObject> mEvents;
-        public  Dictionary<UnityEngine.Object, EventObject> Events { get { return mEvents; } }
+        private Dict<UnityEngine.Object, EventObject>   mEvents;
+        public Dict<UnityEngine.Object, EventObject>    Events { get { return mEvents; } }
 
         public HotfixEventHandler()
         {
-            mEvents = new Dictionary<UnityEngine.Object, EventObject>();
+            mEvents = new Dict<UnityEngine.Object, EventObject>();
         }
 
         public void AddEventListener(UnityEngine.Object rObj, Action<UnityEngine.Object> rAction)

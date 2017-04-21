@@ -364,9 +364,7 @@ namespace ILRuntime.Runtime.Generated
             System.Object message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
-            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
-            UnityEngine.Debug.Log(message + "\n" + stacktrace);
+            UnityEngine.Debug.Log(message);
 
             return __ret;
         }
@@ -383,9 +381,7 @@ namespace ILRuntime.Runtime.Generated
             System.Object message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
-            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
-            UnityEngine.Debug.Log(message + "\n" + stacktrace, context);
+            UnityEngine.Debug.Log(message, context);
 
             return __ret;
         }
@@ -402,9 +398,7 @@ namespace ILRuntime.Runtime.Generated
             System.String format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
-            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
-            UnityEngine.Debug.LogFormat(format + "\n" + stacktrace, args);
+            UnityEngine.Debug.LogFormat(format, args);
 
             return __ret;
         }
@@ -424,9 +418,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.Object context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
-            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
-            UnityEngine.Debug.LogFormat(context, format + "\n" + stacktrace, args);
+            UnityEngine.Debug.LogFormat(context, format, args);
 
             return __ret;
         }
@@ -440,9 +432,7 @@ namespace ILRuntime.Runtime.Generated
             System.Object message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
-            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
-            UnityEngine.Debug.LogError(message + "\n" + stacktrace);
+            UnityEngine.Debug.LogError(message);
 
             return __ret;
         }
@@ -459,9 +449,7 @@ namespace ILRuntime.Runtime.Generated
             System.Object message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
-            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
-            UnityEngine.Debug.LogError(message + "\n" + stacktrace, context);
+            UnityEngine.Debug.LogError(message, context);
 
             return __ret;
         }
@@ -478,9 +466,7 @@ namespace ILRuntime.Runtime.Generated
             System.String format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
-            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
-            UnityEngine.Debug.LogErrorFormat(format + "\n" + stacktrace, args);
+            UnityEngine.Debug.LogErrorFormat(format, args);
 
             return __ret;
         }
@@ -500,9 +486,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.Object context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
-            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
-            UnityEngine.Debug.LogErrorFormat(context, format + "\n" + stacktrace, args);
+            UnityEngine.Debug.LogErrorFormat(context, format, args);
 
             return __ret;
         }

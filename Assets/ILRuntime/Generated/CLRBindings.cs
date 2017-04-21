@@ -29,6 +29,7 @@ namespace ILRuntime.Runtime.Generated
             System_Collections_Generic_List_1_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_ILTypeInstance_ILTypeInstance_Binding.Register(app);
             Core_Dict_2_ILTypeInstance_ILTypeInstance_Binding.Register(app);
+            Framework_Hotfix_HotfixEventHandler_Binding.Register(app);
         }
     }
 }

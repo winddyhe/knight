@@ -6,6 +6,7 @@ using System.Text;
 using System.Collections.Generic;
 using Core;
 using Core.WindJson;
+using Framework.Hotfix;
 
 [System.Reflection.Obfuscation(Exclude = true)]
 public class ILRuntimeCLRBinding
@@ -34,6 +35,7 @@ public class ILRuntimeCLRBinding
         types.Add(typeof(List<ILRuntime.Runtime.Intepreter.ILTypeInstance>));
         types.Add(typeof(Dictionary<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance>));
         types.Add(typeof(Dict<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance>));
+        types.Add(typeof(HotfixEventHandler));
 
         ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, "Assets/ILRuntime/Generated");
 

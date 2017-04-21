@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>KnightHotfixModule</RootNamespace>
     <AssemblyName>KnightHotfixModule</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -86,10 +86,11 @@
     <Compile Include="Test\BaseFunction\Class1.cs" />
     <Compile Include="Test\BaseFunction\Class2.cs" />
     <Compile Include="Test\UI\UILoginTest.cs" />
-    <Compile Include="WindHotfix\Core\HotfixEventHandler.cs" />
-    <Compile Include="WindHotfix\Core\THotfixMonoBehaviour.cs" />
-    <Compile Include="WindHotfix\Core\HotfixSingleton.cs" />
+    <Compile Include="WindHotfix\Core\Assist\THotfixMonoBehaviour.cs" />
+    <Compile Include="WindHotfix\Core\Assist\HotfixSingleton.cs" />
     <Compile Include="WindHotfix\GUI\TViewController.cs" />
+    <Compile Include="WindHotfix\Core\WindJson\JsonData.cs" />
+    <Compile Include="WindHotfix\Core\WindJson\JsonParser.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
