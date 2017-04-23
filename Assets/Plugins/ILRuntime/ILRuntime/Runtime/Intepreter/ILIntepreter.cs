@@ -85,8 +85,8 @@ namespace ILRuntime.Runtime.Intepreter
             if (method == null)
                 throw new NullReferenceException();
 #if UNITY_EDITOR
-            if(System.Threading.Thread.CurrentThread.ManagedThreadId == AppDomain.UnityMainThreadID)
-                UnityEngine.Profiling.Profiler.BeginSample(method.ToString());
+            //if(System.Threading.Thread.CurrentThread.ManagedThreadId == AppDomain.UnityMainThreadID)
+            //    UnityEngine.Profiling.Profiler.BeginSample(method.ToString());
 #endif
             OpCode[] body = method.Body;
             StackFrame frame;
@@ -1723,13 +1723,13 @@ namespace ILRuntime.Runtime.Intepreter
                                                         throw new NotSupportedException(cm.ToString() + " is not bound!");
 #endif
 #if UNITY_EDITOR
-                                                    if(System.Threading.Thread.CurrentThread.ManagedThreadId == AppDomain.UnityMainThreadID)
-                                                        UnityEngine.Profiling.Profiler.BeginSample(cm.ToString());
+                                                    //if(System.Threading.Thread.CurrentThread.ManagedThreadId == AppDomain.UnityMainThreadID)
+                                                    //    UnityEngine.Profiling.Profiler.BeginSample(cm.ToString());
 #endif
                                                     object result = cm.Invoke(this, esp, mStack);
 #if UNITY_EDITOR
-                                                    if(System.Threading.Thread.CurrentThread.ManagedThreadId == AppDomain.UnityMainThreadID)
-                                                        UnityEngine.Profiling.Profiler.EndSample();
+                                                    //if(System.Threading.Thread.CurrentThread.ManagedThreadId == AppDomain.UnityMainThreadID)
+                                                    //    UnityEngine.Profiling.Profiler.EndSample();
 #endif
                                                     if (result is CrossBindingAdaptorType)
                                                         result = ((CrossBindingAdaptorType)result).ILInstance;
@@ -3681,8 +3681,8 @@ namespace ILRuntime.Runtime.Intepreter
                 }
             }
 #if UNITY_EDITOR
-            if(System.Threading.Thread.CurrentThread.ManagedThreadId == AppDomain.UnityMainThreadID)
-                UnityEngine.Profiling.Profiler.EndSample();
+            //if(System.Threading.Thread.CurrentThread.ManagedThreadId == AppDomain.UnityMainThreadID)
+            //    UnityEngine.Profiling.Profiler.EndSample();
 #endif
             //ClearStack
             return stack.PopFrame(ref frame, esp, mStack);

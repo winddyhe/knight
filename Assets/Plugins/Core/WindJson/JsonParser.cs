@@ -7,14 +7,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Reflection;
-using Core;
 
 namespace Core.WindJson
 {
     /// <summary>
     /// 使用词法分析和语法分析来解析Json数据
     /// </summary>
-    public class JsonParser
+    public partial class JsonParser
     {
         public enum JsonSymbolType
         {
@@ -317,7 +316,7 @@ namespace Core.WindJson
             isValid = false;
             return null;
         }
-
+        
         /// <summary>
         /// 从对象到JsonNode
         /// </summary>
@@ -410,6 +409,16 @@ namespace Core.WindJson
             }
 
             return rRootNode;
+        }
+
+        public static object ToObject(JsonNode rJsonNode, Type rType)
+        {
+            return rJsonNode.ToObject(rType);
+        }
+
+        public static T ToObject<T>(JsonNode rJsonNode)
+        {
+            return rJsonNode.ToObject<T>();
         }
     }
 }

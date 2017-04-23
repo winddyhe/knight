@@ -214,6 +214,7 @@ namespace Core.WindJson
 
         public override object ToObject(Type rType)
         {
+            rType = rType is ILRuntime.Reflection.ILRuntimeWrapperType ? ((ILRuntime.Reflection.ILRuntimeWrapperType)rType).CLRType.TypeForCLR : rType;
             if (rType.IsArray)
             {
                 Array rObject = Array.CreateInstance(rType.GetElementType(), this.Count);
@@ -231,7 +232,9 @@ namespace Core.WindJson
                 Type[] rArgsTypes = rType.GetGenericArguments();
                 for (int i = 0; i < this.Count; i++)
                 {
-                    object rValue = this.list[i].ToObject(rArgsTypes[0]);
+                    var rElemType = rArgsTypes[0];
+                    rElemType = rElemType is ILRuntime.Reflection.ILRuntimeWrapperType ? ((ILRuntime.Reflection.ILRuntimeWrapperType)rElemType).CLRType.TypeForCLR : rElemType;
+                    object rValue = this.list[i].ToObject(rElemType);
                     rObject.Add(rValue);
                 }
                 return rObject;
@@ -366,6 +369,7 @@ namespace Core.WindJson
 
         public override object ToObject(Type rType)
         {
+            rType = rType is ILRuntime.Reflection.ILRuntimeWrapperType ? ((ILRuntime.Reflection.ILRuntimeWrapperType)rType).CLRType.TypeForCLR : rType;
             if (rType.IsGenericType && typeof(IDictionary).IsAssignableFrom(rType.GetGenericTypeDefinition()))
             {
                 // 特殊处理IDictionary<,>类型
@@ -510,6 +514,7 @@ namespace Core.WindJson
 
         public override object ToObject(Type rType)
         {
+            rType = rType is ILRuntime.Reflection.ILRuntimeWrapperType ? ((ILRuntime.Reflection.ILRuntimeWrapperType)rType).CLRType.TypeForCLR : rType;
             if (rType.IsPrimitive)
             {
                 if (rType == typeof(int))

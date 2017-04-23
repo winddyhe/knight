@@ -35,8 +35,9 @@ public class ILRuntimeCLRBinding
         types.Add(typeof(List<ILRuntime.Runtime.Intepreter.ILTypeInstance>));
         types.Add(typeof(Dictionary<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance>));
         types.Add(typeof(Dict<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance>));
-        types.Add(typeof(HotfixEventHandler));
-
+        types.Add(typeof(Dictionary<object, object>));
+        types.Add(typeof(Dict<object, object>));
+        
         ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, "Assets/ILRuntime/Generated");
 
         AssetDatabase.Refresh();
