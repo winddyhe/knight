@@ -23,7 +23,6 @@ namespace Framework.Hotfix.Editor
         private SerializedProperty      mHotfixName;
         private SerializedProperty      mObjects;
         private SerializedProperty      mBaseDatas;
-        private SerializedProperty      mIsInheritance;
 
         private List<ObjectType>        mObjectTypes;
         private List<ObjectType>        mBaseDataTypes;
@@ -35,7 +34,6 @@ namespace Framework.Hotfix.Editor
             this.mHotfixName    = this.serializedObject.FindProperty("mHotfixName");
             this.mObjects       = this.serializedObject.FindProperty("mObjects");
             this.mBaseDatas     = this.serializedObject.FindProperty("mBaseDatas");
-            this.mIsInheritance = this.serializedObject.FindProperty("mIsInheritance");
 
             this.mObjectTypes   = this.ToObjectTypes(this.mObjects);
         }
@@ -57,8 +55,7 @@ namespace Framework.Hotfix.Editor
             using (var space = new EditorGUILayout.VerticalScope())
             {
                 EditorGUILayout.PropertyField(this.mHotfixName, new GUIContent("Hotfix Class Name: "));
-                EditorGUILayout.PropertyField(this.mIsInheritance, new GUIContent("Is Inheritance"));
-
+                
                 this.DrawBaseDatas();
                 this.DrawUnityEngineObjects();
             }

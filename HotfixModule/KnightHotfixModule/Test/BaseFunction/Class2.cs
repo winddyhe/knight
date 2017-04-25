@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace WindHotfix.Test
 {
-    public class Class2 : THotfixMonoBehaviour<Class2>
+    public class Class2 : THotfixMB<Class2>
     {
         public override void Start()
         {

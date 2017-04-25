@@ -23,7 +23,7 @@ namespace KnightHotfixModule.Knight.GUI
             this.ProfessionSelected  = this.Objects[0].Object as ToggleGroup;
             this.PlayerName          = this.Objects[1].Object as InputField;
             this.ProfessionalDesc    = this.Objects[2].Object as Text;
-            this.CurrentSelectedItem = (this.Objects[3].Object as HotfixMBContainer).InheritObject as CreatePlayerItem;
+            this.CurrentSelectedItem = (this.Objects[3].Object as HotfixMBContainer).MBHotfixObject as CreatePlayerItem;
 
             Debug.LogError(this.Objects[3].Object);
 

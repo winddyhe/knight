@@ -10,7 +10,7 @@ using WindHotfix.Core;
 
 namespace KnightHotfixModule.Knight.GameFlow
 {
-    public class CreatePlayer : THotfixMonoBehaviour<CreatePlayer>
+    public class CreatePlayer : THotfixMB<CreatePlayer>
     {
         private static CreatePlayer     __instance;
         public static CreatePlayer      Instance { get { return __instance; } }

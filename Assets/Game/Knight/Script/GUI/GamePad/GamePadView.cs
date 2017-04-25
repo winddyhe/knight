@@ -22,7 +22,7 @@ namespace Game.Knight
     public class GamePadViewController : ViewController
     {
         public GamePadViewController(View rView) 
-            : base("")
+            : base()
         {
         }
 

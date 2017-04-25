@@ -20,21 +20,13 @@ namespace Framework.Hotfix
         protected List<UnityObject>             mObjects;
         [HideInInspector][SerializeField]
         protected List<BaseDataDisplayObject>   mBaseDatas;
-        [HideInInspector][SerializeField]
-        protected bool                          mIsInheritance;
-
+        
         private HotfixMB                        mMBHotfixObj;
         public  HotfixMB                        MBHotfixObject { get { return this.mMBHotfixObj; } }
 
-        public  HotfixMBInherit                 mMBHotfixInheritObj;
-        public  HotfixMBInherit                 InheritObject  { get { return this.mMBHotfixInheritObj; } }
-
         protected virtual void Awake()
         {
-            if (this.mIsInheritance)
-                this.InitHotfixMBInherit();
-            else
-                this.InitHotfixMB();
+            this.InitHotfixMB();
         }
 
         protected virtual void Start()
@@ -99,23 +91,14 @@ namespace Framework.Hotfix
             return rBaseDataObjects;
         }
 
-
-        private void InitHotfixMBInherit()
-        {
-            if (mMBHotfixInheritObj == null)
-                mMBHotfixInheritObj = HotfixApp.Instance.Instantiate<HotfixMBInherit>(this.mHotfixName);
-
-            if (mMBHotfixInheritObj != null)
-                mMBHotfixInheritObj.Initialize(this.mObjects, this.ToBaseDataObjects(mBaseDatas));
-        }
-
         private void InitHotfixMB()
         {
             if (mMBHotfixObj == null)
-                mMBHotfixObj = new HotfixMB(mHotfixName);
+                mMBHotfixObj = HotfixApp.Instance.Instantiate<HotfixMB>(mHotfixName);
 
             if (mMBHotfixObj != null)
             {
+                mMBHotfixObj.SetHotfixName(mHotfixName);
                 mMBHotfixObj.Initialize(this.mObjects, this.ToBaseDataObjects(mBaseDatas));
                 mMBHotfixObj.Awake();
             }

@@ -12,7 +12,7 @@ using WindHotfix.Core;
 
 namespace KnightHotfixModule.Knight.GameFlow
 {
-    public class Login : THotfixMonoBehaviour<Login>
+    public class Login : THotfixMB<Login>
     {
         private static  Login       __instance;
         public  static  Login       Instance { get { return __instance; } }

@@ -1,4 +1,5 @@
 ﻿using Framework.Hotfix;
+using Framework.WindUI;
 using System;
 using System.Collections.Generic;
 using WindHotfix.Core;
@@ -6,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace WindHotfix.GUI
 {
-    public class THotfixViewController<T> where T : class
+    public class THotfixViewController<T> : ViewController where T : class
     {
         public   List<UnityObject>      Objects;
         public   List<BaseDataObject>   BaseDatas;
@@ -15,7 +16,7 @@ namespace WindHotfix.GUI
         protected bool                  mIsOpened = false;
         protected bool                  mIsClosed = false;
 
-        public void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
+        public override void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
             this.Objects = rObjs;
             this.BaseDatas = rBaseDatas;
@@ -24,13 +25,13 @@ namespace WindHotfix.GUI
             this.OnInitialize();
         }
 
-        public bool IsOpened
+        public override bool IsOpened
         {
             get { return mIsOpened;  }
             set { mIsOpened = value; }
         }
-        
-        public bool IsClosed
+
+        public override bool IsClosed
         {
             get { return mIsClosed;  }
             set { mIsClosed = value; }
@@ -56,8 +57,8 @@ namespace WindHotfix.GUI
 
             this.OnClosed();
         }
-        
-        public void OnUnityEvent(Object rTarget)
+
+        public override void OnUnityEvent(Object rTarget)
         {
             if (mEventHandler == null) return;
             mEventHandler.Handle(rTarget);
@@ -79,34 +80,6 @@ namespace WindHotfix.GUI
         }
 
         public virtual void OnInitialize()
-        {
-        }
-
-        public virtual void OnOpening()
-        {
-        }
-
-        public virtual void OnOpened()
-        {
-        }
-
-        public virtual void OnShow()
-        {
-        }
-
-        public virtual void OnHide()
-        {
-        }
-
-        public virtual void OnRefresh()
-        {
-        }
-        
-        public virtual void OnClosing()
-        {
-        }
-        
-        public virtual void OnClosed()
         {
         }
     }

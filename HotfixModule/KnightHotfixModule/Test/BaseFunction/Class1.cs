@@ -14,7 +14,7 @@ using WindHotfix.Core;
 
 namespace WindHotfix.Test
 {
-    public class Class1 : THotfixMonoBehaviour<Class1>
+    public class Class1 : THotfixMB<Class1>
     {
         public override void Start()
         {

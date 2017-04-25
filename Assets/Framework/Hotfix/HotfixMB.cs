@@ -11,61 +11,49 @@ namespace Framework.Hotfix
 {
     public class HotfixMB
     {
-        public HotfixObject HotfixObj;
-        public string       ParentType = "WindHotfix.Core.THotfixMonoBehaviour`1";
+        public string   HotfixName;
+        public string   ParentType = "WindHotfix.Core.THotfixMB`1";
 
-        public HotfixMB(string rHotfixName)
+        public HotfixMB()
         {
-            this.HotfixObj = HotfixApp.Instance.Instantiate(rHotfixName);
-            this.ParentType = string.Format("WindHotfix.Core.THotfixMonoBehaviour`1<{0}>", rHotfixName);
         }
 
-        public void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
+        public void SetHotfixName(string rHotfixName)
         {
-            if (this.HotfixObj == null) return;
-            this.HotfixObj.InvokeParent(this.ParentType, "Initialize", rObjs, rBaseDatas);
+            this.HotfixName = rHotfixName;
+            this.ParentType = string.Format("WindHotfix.Core.THotfixMB`1<{0}>", rHotfixName);
         }
 
-        public void Awake()
+        public virtual void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
-            if (this.HotfixObj == null) return;
-            this.HotfixObj.Invoke("Awake");
         }
 
-        public void Start()
+        public virtual void Awake()
         {
-            if (this.HotfixObj == null) return;
-            this.HotfixObj.Invoke("Start");
         }
 
-        public void Update()
+        public virtual void Start()
         {
-            if (this.HotfixObj == null) return;
-            this.HotfixObj.Invoke("Update");
         }
 
-        public void OnDestroy()
+        public virtual void Update()
         {
-            if (this.HotfixObj == null) return;
-            this.HotfixObj.InvokeParent(this.ParentType, "Destroy");
         }
 
-        public void OnEnable()
+        public virtual void OnDestroy()
         {
-            if (this.HotfixObj == null) return;
-            this.HotfixObj.Invoke("OnEnable");
         }
 
-        public void OnDisable()
+        public virtual void OnEnable()
         {
-            if (this.HotfixObj == null) return;
-            this.HotfixObj.Invoke("OnDisable");
         }
 
-        public void OnUnityEvent(Object rTarget)
+        public virtual void OnDisable()
         {
-            if (this.HotfixObj == null) return;
-            this.HotfixObj.InvokeParent(this.ParentType, "OnUnityEvent", rTarget);
+        }
+
+        public virtual void OnUnityEvent(Object rTarget)
+        {
         }
     }
 }

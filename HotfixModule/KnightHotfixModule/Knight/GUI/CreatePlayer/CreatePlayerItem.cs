@@ -4,10 +4,13 @@ using Game.Knight;
 using UnityEngine.UI;
 using Core;
 using UnityEngine;
+using WindHotfix.Core;
+using Framework.WindUI;
+using WindHotfix.GUI;
 
 namespace KnightHotfixModule.Knight.GUI
 {
-    public class CreatePlayerItem : HotfixMBInherit
+    public class CreatePlayerItem : THotfixMB<CreatePlayerItem>
     {
         public Toggle                       SelectedPlayer;
         public CreatePlayerView             Parent;
@@ -15,25 +18,23 @@ namespace KnightHotfixModule.Knight.GUI
 
         private Actor.ActorCreateRequest    mActorCreateRequest;
 
-        public override void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
+        public override void OnInitialize()
         {
-            base.Initialize(rObjs, rBaseDatas);
-
             this.SelectedPlayer = this.Objects[0].Object as Toggle;
-            //this.Parent = (this.Objects[0].Object as View).ViewController as CreatePlayerView;
+            this.Parent = (this.Objects[0].Object as View).ViewController as CreatePlayerView;
         }
 
         public void OnToggleSelectedValueChanged()
         {
-            //if (this.SelectedPlayer.isOn && this.Parent.CurrentSelectedItem != this)
-            //{
-            //    StartLoad();
-            //    this.Parent.CurrentSelectedItem = this;
-            //}
-            //else if (!this.SelectedPlayer.isOn)
-            //{
-            //    StopLoad();
-            //}
+            if (this.SelectedPlayer.isOn && this.Parent.CurrentSelectedItem != this)
+            {
+                StartLoad();
+                this.Parent.CurrentSelectedItem = this;
+            }
+            else if (!this.SelectedPlayer.isOn)
+            {
+                StopLoad();
+            }
         }
 
         public void StartLoad()

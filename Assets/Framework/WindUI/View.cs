@@ -112,13 +112,14 @@ namespace Framework.WindUI
         /// </summary>
         protected virtual void InitializeViewController()
         {
-            this.mViewController = new ViewController(this.mHotfixName);
+            this.mViewController = HotfixApp.Instance.Instantiate<ViewController>(this.mHotfixName);
             if (this.mViewController == null)
             {
                 Debug.LogErrorFormat("Create View controller <color=red>{0}</color> failed..", this.mHotfixName);
             }
             else
             {
+                this.mViewController.SetHotfixName(this.mHotfixName);
                 this.mViewController.Initialize(this.mObjects, this.ToBaseDataObjects(this.mBaseDatas));
             }
         }
