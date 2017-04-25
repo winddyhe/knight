@@ -4,7 +4,7 @@ using WindHotfix.GUI;
 
 namespace KnightHotfixModule.Test.UI
 {
-    public class UILoginTest : TViewController<UILoginTest>
+    public class UILoginTest : THotfixViewController<UILoginTest>
     {
         private InputField mAccountInput;
         private InputField mPasswordInput;

@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace WindHotfix.GUI
 {
-    public class TViewController<T> where T : class
+    public class THotfixViewController<T> where T : class
     {
         public   List<UnityObject>      Objects;
         public   List<BaseDataObject>   BaseDatas;

@@ -43,7 +43,6 @@ namespace Framework.Hotfix
             MemoryStream rDllMS = new MemoryStream(rRequest.dllBytes);
             MemoryStream rPDBMS = new MemoryStream(rRequest.pdbBytes);
             
-            this.RegisterCrossBindingAdaptor(this); // 注册Adaptor
             this.Initialize(rDllMS, rPDBMS);
             
             rDllMS.Close();
@@ -52,30 +51,38 @@ namespace Framework.Hotfix
             rPDBMS.Dispose();
         }
 
-        private void RegisterCrossBindingAdaptor(HotfixApp rApp)
-        {
-            rApp.RegisterCrossBindingAdaptorEvent = () =>
-            {
-                rApp.App.RegisterCrossBindingAdaptor(new HotfixMBInheritAdaptor());
-                rApp.App.RegisterCrossBindingAdaptor(new CoroutineAdapter());
-                rApp.App.RegisterCrossBindingAdaptor(new IEqualityComparerAdaptor());
-                rApp.App.RegisterCrossBindingAdaptor(new IEnumerableAdaptor());
-            };
-        }
-
         public void Initialize(Stream rDLLStream, Stream rPDBStream)
         {
             mApp = new AppDomain();
             mApp.LoadAssembly(rDLLStream, rPDBStream, new Mono.Cecil.Pdb.PdbReaderProvider());
 
-            // 注册代理类
-            if (this.RegisterCrossBindingAdaptorEvent != null)
-                this.RegisterCrossBindingAdaptorEvent();
+            // 注册Adaptor
+            this.RegisterCrossBindingAdaptor();
 
             // 注册重定向方法
             this.RegisterCLRMethodRedirection();
-
+            
             // 注册委托
+            this.RegisterDelegates();
+        }
+
+        private void RegisterCrossBindingAdaptor()
+        {
+            this.mApp.RegisterCrossBindingAdaptor(new HotfixMBInheritAdaptor());
+            this.mApp.RegisterCrossBindingAdaptor(new CoroutineAdapter());
+            this.mApp.RegisterCrossBindingAdaptor(new IEqualityComparerAdaptor());
+            this.mApp.RegisterCrossBindingAdaptor(new IEnumerableAdaptor());
+
+            UtilTool.SafeExecute(this.RegisterCrossBindingAdaptorEvent);
+        }
+
+        public unsafe void RegisterCLRMethodRedirection()
+        {
+            ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
+        }
+        
+        public void RegisterDelegates()
+        {
             this.mApp.DelegateManager.RegisterMethodDelegate<UnityEngine.Object>();
             this.mApp.DelegateManager.RegisterMethodDelegate<JsonNode, JsonNode>();
             this.mApp.DelegateManager.RegisterFunctionDelegate<Framework.GameMode>();
@@ -89,11 +96,6 @@ namespace Framework.Hotfix
                     return ((Func<Framework.Hotfix.BaseDataObject, bool>)act)(obj);
                 });
             });
-        }
-
-        public unsafe void RegisterCLRMethodRedirection()
-        {
-            ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
         }
 
         public HotfixObject Instantiate(string rTypeName, params object[] rArgs)

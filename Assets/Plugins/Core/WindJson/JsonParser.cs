@@ -388,7 +388,6 @@ namespace Core.WindJson
                     rRootNode.Add(rFieldInfos[i].Name, rValueNode);
                 }
                 // TODO: 所有预定义的序列化属性的private的字段
-
             }
             else if (rType.IsPrimitive) //如果是实例
             {

@@ -88,7 +88,7 @@
     <Compile Include="WindHotfix\Core\Assist\HotfixJsonParser.cs" />
     <Compile Include="WindHotfix\Core\Assist\THotfixMonoBehaviour.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixSingleton.cs" />
-    <Compile Include="WindHotfix\GUI\TViewController.cs" />
+    <Compile Include="WindHotfix\GUI\THotfixViewController.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

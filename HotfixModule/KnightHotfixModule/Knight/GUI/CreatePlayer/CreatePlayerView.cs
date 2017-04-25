@@ -10,7 +10,7 @@ using WindHotfix.GUI;
 
 namespace KnightHotfixModule.Knight.GUI
 {
-    public class CreatePlayerView : TViewController<CreatePlayerView>
+    public class CreatePlayerView : THotfixViewController<CreatePlayerView>
     {
         public ToggleGroup      ProfessionSelected;
         public InputField       PlayerName;

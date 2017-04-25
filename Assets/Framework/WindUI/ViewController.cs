@@ -9,12 +9,12 @@ namespace Framework.WindUI
     public class ViewController
     {
         public HotfixObject HotfixObj;
-        public string       ParentType  = "WindHotfix.GUI.TViewController`1";
+        public string       ParentType  = "WindHotfix.GUI.THotfixViewController`1";
         
         public ViewController(string rHotfixName)
         {
             this.HotfixObj = HotfixApp.Instance.Instantiate(rHotfixName);
-            this.ParentType = string.Format("WindHotfix.GUI.TViewController`1<{0}>", rHotfixName);
+            this.ParentType = string.Format("WindHotfix.GUI.THotfixViewController`1<{0}>", rHotfixName);
         }
 
         public virtual void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)

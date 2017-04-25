@@ -9,7 +9,7 @@ using WindHotfix.GUI;
 
 namespace KnightHotfixModule.Knight.GUI
 {
-    public class LoginView : TViewController<LoginView>
+    public class LoginView : THotfixViewController<LoginView>
     {
         private InputField  mAccountInput;
         private InputField  mPasswordInput;

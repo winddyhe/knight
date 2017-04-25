@@ -24,13 +24,16 @@ public class ILRuntimeCLRBinding
         types.Add(typeof(Array));
         types.Add(typeof(Vector2));
         types.Add(typeof(Vector3));
+        types.Add(typeof(Vector4));
+        types.Add(typeof(Color));
+        types.Add(typeof(MonoBehaviour));
         types.Add(typeof(Quaternion));
         types.Add(typeof(GameObject));
         types.Add(typeof(UnityEngine.Object));
         types.Add(typeof(Transform));
         types.Add(typeof(RectTransform));
         types.Add(typeof(Time));
-        types.Add(typeof(Debug));
+        types.Add(typeof(UnityEngine.Debug));
         //所有DLL内的类型的真实C#类型都是ILTypeInstance
         types.Add(typeof(List<ILRuntime.Runtime.Intepreter.ILTypeInstance>));
         types.Add(typeof(Dictionary<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance>));
@@ -41,6 +44,7 @@ public class ILRuntimeCLRBinding
         types.Add(typeof(JsonArray));
         types.Add(typeof(JsonClass));
         types.Add(typeof(JsonData));
+        types.Add(typeof(HotfixEventHandler));
 
         ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, "Assets/ILRuntime/Generated");
 
