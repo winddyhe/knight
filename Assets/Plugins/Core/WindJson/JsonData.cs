@@ -217,11 +217,11 @@ namespace Core.WindJson
 
         public override object ToObject(Type rType)
         {
-            var rCLRType = rType is ILRuntime.Reflection.ILRuntimeWrapperType ? ((ILRuntime.Reflection.ILRuntimeWrapperType)rType).CLRType.TypeForCLR : rType;
-            if (rCLRType.IsArray)
+            rType = rType is ILRuntime.Reflection.ILRuntimeWrapperType ? ((ILRuntime.Reflection.ILRuntimeWrapperType)rType).CLRType.TypeForCLR : rType;
+            if (rType.IsArray)
             {
-                Array rObject = Array.CreateInstance(rCLRType.GetElementType(), this.Count);
-                Type rArrayElemType = rCLRType.GetElementType();
+                Array rObject = Array.CreateInstance(rType.GetElementType(), this.Count);
+                Type rArrayElemType = rType.GetElementType();
                 for (int i = 0; i < this.Count; i++)
                 {
                     object rValue = this.list[i].ToObject(rArrayElemType);
@@ -229,10 +229,10 @@ namespace Core.WindJson
                 }
                 return rObject;
             }
-            else if (rCLRType.IsGenericType && typeof(IList).IsAssignableFrom(rCLRType.GetGenericTypeDefinition()))  //是否为泛型
+            else if (rType.IsGenericType && typeof(IList).IsAssignableFrom(rType.GetGenericTypeDefinition()))  //是否为泛型
             {
                 IList rObject = (IList)Activator.CreateInstance(rType);
-                Type[] rArgsTypes = rCLRType.GetGenericArguments();
+                Type[] rArgsTypes = rType.GetGenericArguments();
                 for (int i = 0; i < this.Count; i++)
                 {
                     var rElemType = rArgsTypes[0];
