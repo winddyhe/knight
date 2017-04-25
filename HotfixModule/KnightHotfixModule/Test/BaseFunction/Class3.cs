@@ -4,6 +4,7 @@ using UnityEngine;
 using WindHotfix.Test1;
 using Core;
 using Core.WindJson;
+using WindHotfix.Core;
 
 namespace WindHotfix.Test1
 {
@@ -30,17 +31,26 @@ namespace WindHotfix.Test1
             //    Debug.LogError(rItem.Key + ", " + rItem.Value);
             //}
 
+            // Test JsonNode.ToObject
             //JsonNode rNode = JsonParser.Parse("{\"C\":2.345, \"B\":[2.1, 2.2] }");
             //Debug.LogError(rNode.ToString());
-            //var A1 = (A1)JsonParser.ToObject(rNode, typeof(A1));
+            //var A1 = JsonParser.ToObject<A1>(rNode);
             //Debug.LogError(A1.B[0]);
 
-            JsonNode rNode = JsonParser.Parse("[{\"C\":2.345, \"B\":[2.1, 2.2] }, {\"C\":2.346, \"B\":[2.2, 2.3] }]");
+            // Test JsonNode.ToList
+            //JsonNode rNode = JsonParser.Parse("[{\"C\":2.345, \"B\":[2.1, 2.2] }, {\"C\":2.346, \"B\":[2.2, 2.3] }]");
+            //Debug.LogError(rNode.ToString());
+            ////var A1 = JsonParser.ToList<List<A1>, A1>(rNode);
+            //var A1 = HotfixJsonParser.ToArray<A1>(rNode);
+            //Debug.LogError(A1[1].B[0]);
+
+            // Test JsonNode.ToDict
+            JsonNode rNode = JsonParser.Parse("{\"1\": {\"C\":2.345, \"B\":[2.1, 2.2] }, \"2\":{\"C\":2.346, \"B\":[2.2, 2.3] } }");
             Debug.LogError(rNode.ToString());
-            var A1 = (List<A1>)JsonParser.ToObject(rNode, typeof(List<A1>));
-            Debug.LogError(A1[1].B[0]);
-
-
+            var A1 = HotfixJsonParser.ToDict<int, A1>(rNode);
+            Debug.LogError(A1[2].B[1]);
+            Debug.LogError(A1[1].C);
+            
             //Debug.LogError("2222");
             //var A1 = JsonMapper.ToObject<A1>(new JsonReader("{\"C\":2.345 }")) as A1;
             //Debug.LogError(A1.C);

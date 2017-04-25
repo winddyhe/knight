@@ -45,10 +45,7 @@ namespace Framework.Hotfix
             
             this.RegisterCrossBindingAdaptor(this); // 注册Adaptor
             this.Initialize(rDllMS, rPDBMS);
-
-            LitJson.JsonMapper.RegisterILRuntimeCLRRedirection(this.mApp);
-            Core.WindJson.JsonParser.RegisterILRuntimeCLRRedirection(this.mApp);
-
+            
             rDllMS.Close();
             rPDBMS.Close();
             rDllMS.Dispose();

@@ -12,32 +12,35 @@ namespace Core.WindJson
 {
     public class JsonNode
     {
-        public virtual string Value { get; set; }
-        public virtual string Key   { get; set; }
-        public virtual int    Count { get; private set; }
+        public virtual string       Value                                   { get; set; }
+        public virtual string       Key                                     { get; set; }
+        public virtual int          Count                                   { get; private set; }
 
-        public virtual JsonNode this[int nIndex] { get { return null; } set { } }
-        public virtual JsonNode this[string rKey]{ get { return null; } set { } }
-        public virtual JsonNode Node             { get; set; }
+        public virtual JsonNode     this[int nIndex]                        { get { return null; } set { } }
+        public virtual JsonNode     this[string rKey]                       { get { return null; } set { } }
+        public virtual JsonNode     Node                                    { get; set; }
         
-        public virtual void Add(string rKey, JsonNode rItem) {}
-        public virtual void Add(JsonNode rItem)  {}
+        public virtual void         Add(string rKey, JsonNode rItem)        {}
+        public virtual void         Add(JsonNode rItem)                     {}
 
-        public virtual void AddHead(string rKey, JsonNode rItem) {}
-        public virtual void AddHead(JsonNode rItem) {}
+        public virtual void         AddHead(string rKey, JsonNode rItem)    {}
+        public virtual void         AddHead(JsonNode rItem)                 {}
 
-        public virtual JsonNode Remove(string rKey)    { return null;  }
-        public virtual JsonNode Remove(int nIndex)     { return null;  }
-        public virtual JsonNode Remove(JsonNode rNode) { return rNode; }
+        public virtual JsonNode     Remove(string rKey)                     { return null;  }
+        public virtual JsonNode     Remove(int nIndex)                      { return null;  }
+        public virtual JsonNode     Remove(JsonNode rNode)                  { return rNode; }
 
-        public virtual List<string> Keys                        { get { return new List<string>(); } }
-        public virtual bool         ContainsKey(string rKey)    { return false; }
+        public virtual List<string> Keys                                    { get { return new List<string>(); } }
+        public virtual bool         ContainsKey(string rKey)                { return false; }
 
-        public override string    ToString()           { return base.ToString();    }
-        public virtual object     ToObject(Type rType) { return null;               }
-        public T                  ToObject<T>()        { return (T)ToObject(typeof(T));              }
-        public List<T>            ToList<T>()          { return (List<T>)ToObject(typeof(List<T>));  }
-        public T[]                ToArray<T>()         { return (T[])ToObject(typeof(T[]));          }
+        public override string      ToString()                              { return base.ToString();    }
+        public virtual object       ToObject(Type rType)                    { return null;               }
+        public T                    ToObject<T>()                           { return (T)ToObject(typeof(T));              }
+        public List<T>              ToList<T>()                             { return (List<T>)ToObject(typeof(List<T>));  }
+        public T[]                  ToArray<T>()                            { return (T[])ToObject(typeof(T[]));          }
+
+        public virtual object       ToList(Type rListType, Type rElemType)  { return null; }
+        public virtual object       ToDict(Type rDictType, Type rKeyType, Type rValueType) { return null; }
 
         public virtual bool TryGetValue(string key, out JsonNode value)
         {
@@ -214,11 +217,11 @@ namespace Core.WindJson
 
         public override object ToObject(Type rType)
         {
-            rType = rType is ILRuntime.Reflection.ILRuntimeWrapperType ? ((ILRuntime.Reflection.ILRuntimeWrapperType)rType).CLRType.TypeForCLR : rType;
-            if (rType.IsArray)
+            var rCLRType = rType is ILRuntime.Reflection.ILRuntimeWrapperType ? ((ILRuntime.Reflection.ILRuntimeWrapperType)rType).CLRType.TypeForCLR : rType;
+            if (rCLRType.IsArray)
             {
-                Array rObject = Array.CreateInstance(rType.GetElementType(), this.Count);
-                Type rArrayElemType = rType.GetElementType();
+                Array rObject = Array.CreateInstance(rCLRType.GetElementType(), this.Count);
+                Type rArrayElemType = rCLRType.GetElementType();
                 for (int i = 0; i < this.Count; i++)
                 {
                     object rValue = this.list[i].ToObject(rArrayElemType);
@@ -226,14 +229,40 @@ namespace Core.WindJson
                 }
                 return rObject;
             }
-            else if (rType.IsGenericType && typeof(IList).IsAssignableFrom(rType.GetGenericTypeDefinition()))  //是否为泛型
+            else if (rCLRType.IsGenericType && typeof(IList).IsAssignableFrom(rCLRType.GetGenericTypeDefinition()))  //是否为泛型
             {
-                IList rObject = (IList)ReflectionAssist.CreateInstance(rType, BindingFlags.Default);
-                Type[] rArgsTypes = rType.GetGenericArguments();
+                IList rObject = (IList)Activator.CreateInstance(rType);
+                Type[] rArgsTypes = rCLRType.GetGenericArguments();
                 for (int i = 0; i < this.Count; i++)
                 {
                     var rElemType = rArgsTypes[0];
-                    rElemType = rElemType is ILRuntime.Reflection.ILRuntimeWrapperType ? ((ILRuntime.Reflection.ILRuntimeWrapperType)rElemType).CLRType.TypeForCLR : rElemType;
+                    object rValue = this.list[i].ToObject(rElemType);
+                    rObject.Add(rValue);
+                }
+                return rObject;
+            }
+            return null;
+        }
+
+        public override object ToList(Type rListType, Type rElemType)
+        {
+            var rCLRType = rListType is ILRuntime.Reflection.ILRuntimeWrapperType ? ((ILRuntime.Reflection.ILRuntimeWrapperType)rListType).CLRType.TypeForCLR : rListType;
+            if (rCLRType.IsArray)
+            {
+                Array rObject = Array.CreateInstance(rCLRType.GetElementType(), this.Count);
+                for (int i = 0; i < this.Count; i++)
+                {
+                    object rValue = this.list[i].ToObject(rElemType);
+                    rObject.SetValue(rValue, i);
+                }
+                return rObject;
+            }
+            else if (rCLRType.IsGenericType && typeof(IList).IsAssignableFrom(rCLRType.GetGenericTypeDefinition()))  //是否为泛型
+            {
+                IList rObject = (IList)Activator.CreateInstance(rListType);
+                Type[] rArgsTypes = rCLRType.GetGenericArguments();
+                for (int i = 0; i < this.Count; i++)
+                {
                     object rValue = this.list[i].ToObject(rElemType);
                     rObject.Add(rValue);
                 }
@@ -449,6 +478,36 @@ namespace Core.WindJson
                 rKey = rLongKey;
             }
             return rKey;
+        }
+
+        public override object ToDict(Type rDictType, Type rKeyType, Type rValueType)
+        {
+            rDictType = rDictType is ILRuntime.Reflection.ILRuntimeWrapperType ? ((ILRuntime.Reflection.ILRuntimeWrapperType)rDictType).CLRType.TypeForCLR : rDictType;
+            if (rDictType.IsGenericType && typeof(IDictionary).IsAssignableFrom(rDictType.GetGenericTypeDefinition()))
+            {
+                // 特殊处理IDictionary<,>类型
+                IDictionary rObject = (IDictionary)ReflectionAssist.CreateInstance(rDictType, BindingFlags.Default);
+                foreach (var rItem in this.dict)
+                {
+                    object rKey = GetKey_ByString(rKeyType, rItem.Key);
+                    object rValue = rItem.Value.ToObject(rValueType);
+                    rObject.Add(rKey, rValue);
+                }
+                return rObject;
+            }
+            else if (rDictType.IsGenericType && typeof(IDict).IsAssignableFrom(rDictType.GetGenericTypeDefinition()))
+            {
+                // 特殊处理IDict<,>的类型
+                IDict rObject = (IDict)ReflectionAssist.CreateInstance(rDictType, BindingFlags.Default);
+                foreach (var rItem in this.dict)
+                {
+                    object rKey = GetKey_ByString(rKeyType, rItem.Key);
+                    object rValue = rItem.Value.ToObject(rValueType);
+                    rObject.AddObject(rKey, rValue);
+                }
+                return rObject;
+            }
+            return null;
         }
     }
 

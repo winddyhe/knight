@@ -85,6 +85,7 @@
     <Compile Include="Test\BaseFunction\Class1.cs" />
     <Compile Include="Test\BaseFunction\Class2.cs" />
     <Compile Include="Test\UI\UILoginTest.cs" />
+    <Compile Include="WindHotfix\Core\Assist\HotfixJsonParser.cs" />
     <Compile Include="WindHotfix\Core\Assist\THotfixMonoBehaviour.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixSingleton.cs" />
     <Compile Include="WindHotfix\GUI\TViewController.cs" />

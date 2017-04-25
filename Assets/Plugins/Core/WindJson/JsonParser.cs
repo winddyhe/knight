@@ -13,11 +13,11 @@ namespace Core.WindJson
     /// <summary>
     /// 使用词法分析和语法分析来解析Json数据
     /// </summary>
-    public partial class JsonParser
+    public class JsonParser
     {
         public enum JsonSymbolType
         {
-            Unknown = 0,   // 未知
+            Unknown = 0,    // 未知
             ObjStart,       // '{'
             ObjEnd,         // '}'
             ArrayStart,     // '['
@@ -416,9 +416,14 @@ namespace Core.WindJson
             return rJsonNode.ToObject(rType);
         }
 
-        public static T ToObject<T>(JsonNode rJsonNode)
+        public static object ToList(JsonNode rJsonNode, Type rType, Type rElemType)
         {
-            return rJsonNode.ToObject<T>();
+            return rJsonNode.ToList(rType, rElemType);
+        }
+
+        public static object ToDict(JsonNode rJsonNode, Type rDictType, Type rKeyType, Type rValueType)
+        {
+            return rJsonNode.ToDict(rDictType, rKeyType, rValueType);
         }
     }
 }

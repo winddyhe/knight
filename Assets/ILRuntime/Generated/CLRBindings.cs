@@ -29,6 +29,12 @@ namespace ILRuntime.Runtime.Generated
             System_Collections_Generic_List_1_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_ILTypeInstance_ILTypeInstance_Binding.Register(app);
             Core_Dict_2_ILTypeInstance_ILTypeInstance_Binding.Register(app);
+            System_Collections_Generic_Dictionary_2_Object_Object_Binding.Register(app);
+            Core_Dict_2_Object_Object_Binding.Register(app);
+            Core_WindJson_JsonParser_Binding.Register(app);
+            Core_WindJson_JsonArray_Binding.Register(app);
+            Core_WindJson_JsonClass_Binding.Register(app);
+            Core_WindJson_JsonData_Binding.Register(app);
         }
     }
 }
