@@ -2180,8 +2180,8 @@ MonoBehaviour:
     Object: {fileID: 11461496}
     Type: UnityEngine.UI.Text
   - Name: CurrentSelectedItem
-    Object: {fileID: 138664}
-    Type: UnityEngine.GameObject
+    Object: {fileID: 114838896227710182}
+    Type: Framework.Hotfix.HotfixMBContainer
   - Name: PlayerCreateBtn
     Object: {fileID: 11476786}
     Type: UnityEngine.UI.Button
@@ -2189,7 +2189,6 @@ MonoBehaviour:
     Object: {fileID: 11473688}
     Type: UnityEngine.UI.Button
   mBaseDatas: []
-  mIsInheritance: 0
   GUID: 
   CurState: 0
   IsMultiView: 0
@@ -2220,7 +2219,6 @@ MonoBehaviour:
     DoubleObject: 0
     StringObject: 
     Type: Int
-  mIsInheritance: 1
 --- !u!114 &114838896227710182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2248,7 +2246,6 @@ MonoBehaviour:
     DoubleObject: 0
     StringObject: 
     Type: Int
-  mIsInheritance: 1
 --- !u!114 &114997443470522904
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2276,4 +2273,3 @@ MonoBehaviour:
     DoubleObject: 0
     StringObject: 
     Type: Int
-  mIsInheritance: 1

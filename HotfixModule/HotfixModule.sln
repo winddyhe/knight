@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnightHotfixModule", "Knigh
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{91226658-A3F0-40C6-91C5-4DD987BF298A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializerBinaryEditor", "Tools\SerializerBinaryEditor\SerializerBinaryEditor.csproj", "{678B53ED-F90F-4229-892B-9B6ECA9C7424}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,8 +25,19 @@ Global
 		{42AE5E3D-2228-4EEC-9E0A-A58E803D692D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{42AE5E3D-2228-4EEC-9E0A-A58E803D692D}.Release|x86.ActiveCfg = Release|x86
 		{42AE5E3D-2228-4EEC-9E0A-A58E803D692D}.Release|x86.Build.0 = Release|x86
+		{678B53ED-F90F-4229-892B-9B6ECA9C7424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{678B53ED-F90F-4229-892B-9B6ECA9C7424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{678B53ED-F90F-4229-892B-9B6ECA9C7424}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{678B53ED-F90F-4229-892B-9B6ECA9C7424}.Debug|x86.Build.0 = Debug|Any CPU
+		{678B53ED-F90F-4229-892B-9B6ECA9C7424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{678B53ED-F90F-4229-892B-9B6ECA9C7424}.Release|Any CPU.Build.0 = Release|Any CPU
+		{678B53ED-F90F-4229-892B-9B6ECA9C7424}.Release|x86.ActiveCfg = Release|Any CPU
+		{678B53ED-F90F-4229-892B-9B6ECA9C7424}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{678B53ED-F90F-4229-892B-9B6ECA9C7424} = {91226658-A3F0-40C6-91C5-4DD987BF298A}
 	EndGlobalSection
 EndGlobal

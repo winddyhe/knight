@@ -21,7 +21,7 @@ namespace KnightHotfixModule.Knight.GUI
         public override void OnInitialize()
         {
             this.SelectedPlayer = this.Objects[0].Object as Toggle;
-            this.Parent = (this.Objects[0].Object as View).ViewController as CreatePlayerView;
+            this.Parent = (this.Objects[1].Object as View).ViewController as CreatePlayerView;
         }
 
         public void OnToggleSelectedValueChanged()

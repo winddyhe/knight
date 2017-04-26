@@ -20,131 +20,131 @@ namespace ILRuntime.Runtime.Generated
             MethodBase method;
             Type[] args;
             Type type = typeof(UnityEngine.Debug);
-            args = new Type[]{};
+            args = new Type[] { };
             method = type.GetMethod("get_logger", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_logger_0);
-            args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single), typeof(System.Boolean)};
+            args = new Type[] { typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single), typeof(System.Boolean) };
             method = type.GetMethod("DrawLine", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DrawLine_1);
-            args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single)};
+            args = new Type[] { typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single) };
             method = type.GetMethod("DrawLine", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DrawLine_2);
-            args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color)};
+            args = new Type[] { typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color) };
             method = type.GetMethod("DrawLine", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DrawLine_3);
-            args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
+            args = new Type[] { typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3) };
             method = type.GetMethod("DrawLine", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DrawLine_4);
-            args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single)};
+            args = new Type[] { typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single) };
             method = type.GetMethod("DrawRay", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DrawRay_5);
-            args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color)};
+            args = new Type[] { typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color) };
             method = type.GetMethod("DrawRay", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DrawRay_6);
-            args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
+            args = new Type[] { typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3) };
             method = type.GetMethod("DrawRay", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DrawRay_7);
-            args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single), typeof(System.Boolean)};
+            args = new Type[] { typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single), typeof(System.Boolean) };
             method = type.GetMethod("DrawRay", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DrawRay_8);
-            args = new Type[]{};
+            args = new Type[] { };
             method = type.GetMethod("Break", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Break_9);
-            args = new Type[]{};
+            args = new Type[] { };
             method = type.GetMethod("DebugBreak", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DebugBreak_10);
-            args = new Type[]{typeof(System.Object)};
+            args = new Type[] { typeof(System.Object) };
             method = type.GetMethod("Log", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Log_11);
-            args = new Type[]{typeof(System.Object), typeof(UnityEngine.Object)};
+            args = new Type[] { typeof(System.Object), typeof(UnityEngine.Object) };
             method = type.GetMethod("Log", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Log_12);
-            args = new Type[]{typeof(System.String), typeof(System.Object[])};
+            args = new Type[] { typeof(System.String), typeof(System.Object[]) };
             method = type.GetMethod("LogFormat", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogFormat_13);
-            args = new Type[]{typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[])};
+            args = new Type[] { typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[]) };
             method = type.GetMethod("LogFormat", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogFormat_14);
-            args = new Type[]{typeof(System.Object)};
+            args = new Type[] { typeof(System.Object) };
             method = type.GetMethod("LogError", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogError_15);
-            args = new Type[]{typeof(System.Object), typeof(UnityEngine.Object)};
+            args = new Type[] { typeof(System.Object), typeof(UnityEngine.Object) };
             method = type.GetMethod("LogError", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogError_16);
-            args = new Type[]{typeof(System.String), typeof(System.Object[])};
+            args = new Type[] { typeof(System.String), typeof(System.Object[]) };
             method = type.GetMethod("LogErrorFormat", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogErrorFormat_17);
-            args = new Type[]{typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[])};
+            args = new Type[] { typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[]) };
             method = type.GetMethod("LogErrorFormat", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogErrorFormat_18);
-            args = new Type[]{};
+            args = new Type[] { };
             method = type.GetMethod("ClearDeveloperConsole", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, ClearDeveloperConsole_19);
-            args = new Type[]{};
+            args = new Type[] { };
             method = type.GetMethod("get_developerConsoleVisible", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_developerConsoleVisible_20);
-            args = new Type[]{typeof(System.Boolean)};
+            args = new Type[] { typeof(System.Boolean) };
             method = type.GetMethod("set_developerConsoleVisible", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, set_developerConsoleVisible_21);
-            args = new Type[]{typeof(System.Exception)};
+            args = new Type[] { typeof(System.Exception) };
             method = type.GetMethod("LogException", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogException_22);
-            args = new Type[]{typeof(System.Exception), typeof(UnityEngine.Object)};
+            args = new Type[] { typeof(System.Exception), typeof(UnityEngine.Object) };
             method = type.GetMethod("LogException", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogException_23);
-            args = new Type[]{typeof(System.Object)};
+            args = new Type[] { typeof(System.Object) };
             method = type.GetMethod("LogWarning", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogWarning_24);
-            args = new Type[]{typeof(System.Object), typeof(UnityEngine.Object)};
+            args = new Type[] { typeof(System.Object), typeof(UnityEngine.Object) };
             method = type.GetMethod("LogWarning", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogWarning_25);
-            args = new Type[]{typeof(System.String), typeof(System.Object[])};
+            args = new Type[] { typeof(System.String), typeof(System.Object[]) };
             method = type.GetMethod("LogWarningFormat", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogWarningFormat_26);
-            args = new Type[]{typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[])};
+            args = new Type[] { typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[]) };
             method = type.GetMethod("LogWarningFormat", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogWarningFormat_27);
-            args = new Type[]{typeof(System.Boolean)};
+            args = new Type[] { typeof(System.Boolean) };
             method = type.GetMethod("Assert", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Assert_28);
-            args = new Type[]{typeof(System.Boolean), typeof(UnityEngine.Object)};
+            args = new Type[] { typeof(System.Boolean), typeof(UnityEngine.Object) };
             method = type.GetMethod("Assert", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Assert_29);
-            args = new Type[]{typeof(System.Boolean), typeof(System.Object)};
+            args = new Type[] { typeof(System.Boolean), typeof(System.Object) };
             method = type.GetMethod("Assert", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Assert_30);
-            args = new Type[]{typeof(System.Boolean), typeof(System.String)};
+            args = new Type[] { typeof(System.Boolean), typeof(System.String) };
             method = type.GetMethod("Assert", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Assert_31);
-            args = new Type[]{typeof(System.Boolean), typeof(System.Object), typeof(UnityEngine.Object)};
+            args = new Type[] { typeof(System.Boolean), typeof(System.Object), typeof(UnityEngine.Object) };
             method = type.GetMethod("Assert", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Assert_32);
-            args = new Type[]{typeof(System.Boolean), typeof(System.String), typeof(UnityEngine.Object)};
+            args = new Type[] { typeof(System.Boolean), typeof(System.String), typeof(UnityEngine.Object) };
             method = type.GetMethod("Assert", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Assert_33);
-            args = new Type[]{typeof(System.Boolean), typeof(System.String), typeof(System.Object[])};
+            args = new Type[] { typeof(System.Boolean), typeof(System.String), typeof(System.Object[]) };
             method = type.GetMethod("AssertFormat", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, AssertFormat_34);
-            args = new Type[]{typeof(System.Boolean), typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[])};
+            args = new Type[] { typeof(System.Boolean), typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[]) };
             method = type.GetMethod("AssertFormat", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, AssertFormat_35);
-            args = new Type[]{typeof(System.Object)};
+            args = new Type[] { typeof(System.Object) };
             method = type.GetMethod("LogAssertion", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogAssertion_36);
-            args = new Type[]{typeof(System.Object), typeof(UnityEngine.Object)};
+            args = new Type[] { typeof(System.Object), typeof(UnityEngine.Object) };
             method = type.GetMethod("LogAssertion", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogAssertion_37);
-            args = new Type[]{typeof(System.String), typeof(System.Object[])};
+            args = new Type[] { typeof(System.String), typeof(System.Object[]) };
             method = type.GetMethod("LogAssertionFormat", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogAssertionFormat_38);
-            args = new Type[]{typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[])};
+            args = new Type[] { typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[]) };
             method = type.GetMethod("LogAssertionFormat", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogAssertionFormat_39);
-            args = new Type[]{};
+            args = new Type[] { };
             method = type.GetMethod("get_isDebugBuild", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_isDebugBuild_40);
 
-            args = new Type[]{};
+            args = new Type[] { };
             method = type.GetConstructor(flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Ctor_0);
 
@@ -160,8 +160,8 @@ namespace ILRuntime.Runtime.Generated
             var result_of_this_method = UnityEngine.Debug.logger;
 
             object obj_result_of_this_method = result_of_this_method;
-            if(obj_result_of_this_method is CrossBindingAdaptorType)
-            {    
+            if (obj_result_of_this_method is CrossBindingAdaptorType)
+            {
                 return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
             }
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
@@ -364,7 +364,9 @@ namespace ILRuntime.Runtime.Generated
             System.Object message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            UnityEngine.Debug.Log(message);
+            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
+            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
+            UnityEngine.Debug.Log(message + "\n" + stacktrace);
 
             return __ret;
         }
@@ -381,7 +383,9 @@ namespace ILRuntime.Runtime.Generated
             System.Object message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            UnityEngine.Debug.Log(message, context);
+            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
+            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
+            UnityEngine.Debug.Log(message + "\n" + stacktrace, context);
 
             return __ret;
         }
@@ -398,7 +402,9 @@ namespace ILRuntime.Runtime.Generated
             System.String format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            UnityEngine.Debug.LogFormat(format, args);
+            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
+            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
+            UnityEngine.Debug.LogFormat(format + "\n" + stacktrace, args);
 
             return __ret;
         }
@@ -418,7 +424,9 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.Object context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            UnityEngine.Debug.LogFormat(context, format, args);
+            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
+            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
+            UnityEngine.Debug.LogFormat(context, format + "\n" + stacktrace, args);
 
             return __ret;
         }
@@ -432,7 +440,9 @@ namespace ILRuntime.Runtime.Generated
             System.Object message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            UnityEngine.Debug.LogError(message);
+            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
+            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
+            UnityEngine.Debug.LogError(message + "\n" + stacktrace);
 
             return __ret;
         }
@@ -449,7 +459,9 @@ namespace ILRuntime.Runtime.Generated
             System.Object message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            UnityEngine.Debug.LogError(message, context);
+            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
+            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
+            UnityEngine.Debug.LogError(message + "\n" + stacktrace, context);
 
             return __ret;
         }
@@ -466,7 +478,9 @@ namespace ILRuntime.Runtime.Generated
             System.String format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            UnityEngine.Debug.LogErrorFormat(format, args);
+            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
+            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
+            UnityEngine.Debug.LogErrorFormat(format + "\n" + stacktrace, args);
 
             return __ret;
         }
@@ -486,7 +500,9 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.Object context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            UnityEngine.Debug.LogErrorFormat(context, format, args);
+            //在真实调用Debug.Log前，我们先获取DLL内的堆栈
+            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
+            UnityEngine.Debug.LogErrorFormat(context, format + "\n" + stacktrace, args);
 
             return __ret;
         }

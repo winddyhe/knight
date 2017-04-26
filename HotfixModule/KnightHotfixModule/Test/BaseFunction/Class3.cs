@@ -8,10 +8,13 @@ using WindHotfix.Core;
 
 namespace WindHotfix.Test1
 {
-    public class A1
+    public partial class A1
     {
         public double C;
+    }
 
+    public partial class A1
+    {
         public List<float> B;
     }
 

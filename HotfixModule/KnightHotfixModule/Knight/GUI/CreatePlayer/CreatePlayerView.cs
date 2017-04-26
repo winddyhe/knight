@@ -24,9 +24,7 @@ namespace KnightHotfixModule.Knight.GUI
             this.PlayerName          = this.Objects[1].Object as InputField;
             this.ProfessionalDesc    = this.Objects[2].Object as Text;
             this.CurrentSelectedItem = (this.Objects[3].Object as HotfixMBContainer).MBHotfixObject as CreatePlayerItem;
-
-            Debug.LogError(this.Objects[3].Object);
-
+            
             // 注册事件
             this.AddEventListener(this.Objects[4].Object, OnPlayerCreateBtn_Clicked);
             this.AddEventListener(this.Objects[5].Object, OnBackBtn_Clicked);
