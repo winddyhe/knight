@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
 using Framework.WindUI;
 using UnityEngine.UI;
-using Game.Knight;
-using WindHotfix.Core;
-using UnityEngine;
 using Framework.Hotfix;
 using WindHotfix.GUI;
 
-namespace KnightHotfixModule.Knight.GUI
+namespace KnightHotfixModule.Knight
 {
     public class CreatePlayerView : THotfixViewController<CreatePlayerView>
     {
@@ -49,7 +48,7 @@ namespace KnightHotfixModule.Knight.GUI
                 Toast.Instance.Show("角色名不能为空！");
                 return;
             }
-            KnightHotfixModule.Knight.GameFlow.CreatePlayer.Instance.Create(this.PlayerName.text, this.CurrentSelectedItem.ProfessionalID);
+            KnightHotfixModule.Knight.CreatePlayer.Instance.Create(this.PlayerName.text, this.CurrentSelectedItem.ProfessionalID);
         }
 
         private void OnBackBtn_Clicked(UnityEngine.Object rTarget)

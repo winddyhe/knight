@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
 using Framework.WindUI;
-using WindHotfix.Core;
 using UnityEngine.UI;
-using KnightHotfixModule.Knight.GameFlow;
-using Framework.Hotfix;
-using UnityEngine;
 using WindHotfix.GUI;
 
-namespace KnightHotfixModule.Knight.GUI
+namespace KnightHotfixModule.Knight
 {
     public class LoginView : THotfixViewController<LoginView>
     {

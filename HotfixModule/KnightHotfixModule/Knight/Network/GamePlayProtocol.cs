@@ -6,11 +6,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using Core.WindJson;
 using Framework;
-using KnightHotfixModule.Knight.GameFlow;
-using Game.Knight;
-using WindHotfix.Core;
 
-namespace KnightHotfixModule.Knight.Network
+namespace KnightHotfixModule.Knight
 {
     /// <summary>
     /// 游戏的协议接收发送处理

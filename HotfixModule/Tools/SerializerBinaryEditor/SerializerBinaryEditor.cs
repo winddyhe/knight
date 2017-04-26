@@ -6,21 +6,24 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
-using UnityEngine;
-using Core.Editor;
-using WindHotfix.Core;
 using Core;
+using System.IO;
+using System.Xml;
 
 namespace WindHotfix.Core.Editor
 {
     public class SerializerBinaryEditor : AutoCSGenerate
     {
-        const string GeneratePathRoot       = "Assets/Generate/SerializerBinary/";
-        const string GeneratePath           = GeneratePathRoot + "Runtime/";
+        const string GeneratePathRoot       = "../../../../KnightHotfixModule/Knight/Generate/SerializerBinary";
+        const string GeneratePath           = GeneratePathRoot + "/";
         const string CommonSerializerPath   = GeneratePath + "CommonSerializer.cs";
+        const string CsprojFile             = "../../../../KnightHotfixModule/KnightHotfixModule.csproj";
 
         public override void CSGenerateProcess(CSGenerate rGenerate)
         {
+            rGenerate.GeneratePath = GeneratePath;
+            rGenerate.CsprojFile = CsprojFile;
+
             StartGenerateCommon();
             foreach (var rType in HotfixSerializerBinaryTypes.Types)
             {
@@ -29,7 +32,7 @@ namespace WindHotfix.Core.Editor
                 rText
                     .A("using System.IO;").N()
                     .A("using Core;").N()
-                    .A("using Core.Serializer;").N()
+                    .A("using WindHotfix.Core;").N()
                     .L(2)
                     .A("/// <summary>").N()
                     .A("/// 文件自动生成无需又该！如果出现编译错误，删除文件后会自动生成").N()
@@ -161,7 +164,7 @@ namespace WindHotfix.Core.Editor
                 if(rMemberInfo.MemberType == MemberTypes.Property &&
                     (!(rMemberInfo as PropertyInfo).CanRead || !(rMemberInfo as PropertyInfo).CanWrite))
                 {
-                    Debug.LogFormat("{0}.{1} Skip Serialize!", rType.FullName, rMemberInfo.Name);
+                    System.Console.WriteLine("{0}.{1} Skip Serialize!", rType.FullName, rMemberInfo.Name);
                     continue;
                 }
 
@@ -180,7 +183,7 @@ namespace WindHotfix.Core.Editor
                 if(rMemberInfo.MemberType == MemberTypes.Property &&
                     (!(rMemberInfo as PropertyInfo).CanRead || !(rMemberInfo as PropertyInfo).CanWrite))
                 {
-                    Debug.LogFormat("{0}.{1} Skip Serialize!", rType.FullName, rMemberInfo.Name);
+                    System.Console.WriteLine("{0}.{1} Skip Serialize!", rType.FullName, rMemberInfo.Name);
                     continue;
                 }
 
@@ -225,12 +228,12 @@ namespace WindHotfix.Core.Editor
                 .A("using System.IO;").N()
                 .A("using System.Collections.Generic;").N()
                 .A("using Core;").N()
-                .A("using Core.Serializer;").N()
+                .A("using WindHotfix.Core;").N()
                 .L(2)
                 .A("/// <summary>").N()
                 .A("/// 文件自动生成无需又该！如果出现编译错误，删除文件后会自动生成").N()
                 .A("/// </summary>").N()
-                .A("namespace Game.Knight").N()
+                .A("namespace KnightHotfixModule.Knight").N()
                 .A("{").N()
                 .T(1).A("public static class CommonSerializer").N()
                 .T(1).A("{").N();
@@ -462,7 +465,8 @@ namespace WindHotfix.Core.Editor
             return false;
         }
 
-        StringBuilder   mCommonSerializer           = new StringBuilder();
+
+        StringBuilder mCommonSerializer           = new StringBuilder();
         List<Type>      mGeneratedArray             = new List<Type>();
         List<Type>      mGeneratedDynamicArray      = new List<Type>();
         List<Type>      mGeneratedList              = new List<Type>();

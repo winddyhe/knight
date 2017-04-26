@@ -73,9 +73,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Knight\Actor\ActorProfessional.cs" />
+    <Compile Include="Knight\Actor\Hero.cs" />
+    <Compile Include="Knight\Avatar\Avatar.cs" />
     <Compile Include="Knight\GameFlow\CreatePlayer.cs" />
     <Compile Include="Knight\GameFlow\Init.cs" />
     <Compile Include="Knight\GameFlow\Login.cs" />
+    <Compile Include="Knight\GameStage\StageConfig.cs" />
+    <Compile Include="Knight\Game\Account.cs" />
+    <Compile Include="Knight\Game\GameConfig.cs" />
+    <Compile Include="Knight\Game\NetActor.cs" />
     <Compile Include="Knight\GUI\CreatePlayer\CreatePlayerItem.cs" />
     <Compile Include="Knight\GUI\CreatePlayer\CreatePlayerView.cs" />
     <Compile Include="Knight\GUI\Login\LoginView.cs" />
@@ -91,6 +98,12 @@
     <Compile Include="WindHotfix\Core\Assist\HotfixTypeSearch.cs" />
     <Compile Include="WindHotfix\GUI\THotfixViewController.cs" />
     <Compile Include="WindHotfix\Core\Serializer\HotfixSerializerBinary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\CommonSerializer.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\KnightHotfixModule.Knight.ActorProfessional.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\KnightHotfixModule.Knight.Avatar.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\KnightHotfixModule.Knight.GameConfig.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\KnightHotfixModule.Knight.Hero.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\KnightHotfixModule.Knight.StageConfig.Binary.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

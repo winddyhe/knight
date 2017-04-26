@@ -4,11 +4,12 @@
 //======================================================================
 using System;
 using System.Collections.Generic;
+using WindHotfix.Core;
 
-namespace Game.Knight
+namespace KnightHotfixModule.Knight
 {
-    //[SBGroup("GameConfig")]
-    public partial class StageConfig //: SerializerBinary
+    [HotfixSBGroup("GameConfig")]
+    public partial class StageConfig : HotfixSerializerBinary
     {
         /// <summary>
         /// 关卡ID

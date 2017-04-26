@@ -1,16 +1,18 @@
-﻿using System;
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
+using System;
 using System.Collections.Generic;
-using Framework.Hotfix;
 using System.Collections;
 using Framework.WindUI;
 using Game.Knight;
 using Core;
 using Framework;
 using UnityEngine;
-using KnightHotfixModule.Knight.Network;
 using WindHotfix.Core;
 
-namespace KnightHotfixModule.Knight.GameFlow
+namespace KnightHotfixModule.Knight
 {
     public class Login : THotfixMB<Login>
     {

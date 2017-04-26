@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Framework.Hotfix;
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
 using Game.Knight;
 using UnityEngine;
 using Framework;
 using Framework.WindUI;
-using KnightHotfixModule.Knight.Network;
 using WindHotfix.Core;
 
-namespace KnightHotfixModule.Knight.GameFlow
+namespace KnightHotfixModule.Knight
 {
     public class CreatePlayer : THotfixMB<CreatePlayer>
     {
@@ -32,7 +32,7 @@ namespace KnightHotfixModule.Knight.GameFlow
         {
             // 设置当前的游戏模式
             mGameMode = new GameMode_CreatePlayer();
-            mGameMode.StageConfig = GameConfig.Instance.GetStageConfig(10001);
+            mGameMode.StageConfig = Game.Knight.GameConfig.Instance.GetStageConfig(10001);
             if (mGameMode.StageConfig == null)
             {
                 Debug.LogError("Not found stage 10001 .");

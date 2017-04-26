@@ -12,10 +12,10 @@ using Core;
 namespace WindHotfix.Core
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class HotifxTSIgnoreAttribute : Attribute {}
+    public class HotfixTSIgnoreAttribute : Attribute {}
 
     [AttributeUsage(AttributeTargets.Class, Inherited = true)]
-    public class HotfixTSIgnoreInheritedAttribute : HotifxTSIgnoreAttribute {}
+    public class HotfixTSIgnoreInheritedAttribute : HotfixTSIgnoreAttribute {}
 
 	[AttributeUsage(AttributeTargets.Field)]
 	public class HotfixTypeSearchAttribute : Attribute
@@ -189,6 +189,6 @@ namespace WindHotfix.Core
         #pragma warning restore 414
     }
 
-    public class HotfixTypeSearchDefault<TSearchType> : HotfixTypeSearchFull<TSearchType, HotifxTSIgnoreAttribute> { }
+    public class HotfixTypeSearchDefault<TSearchType> : HotfixTypeSearchFull<TSearchType, HotfixTSIgnoreAttribute> { }
 
 }

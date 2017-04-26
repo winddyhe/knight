@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
-using Framework.Hotfix;
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
 using Game.Knight;
 using UnityEngine.UI;
 using Core;
 using UnityEngine;
 using WindHotfix.Core;
 using Framework.WindUI;
-using WindHotfix.GUI;
 
-namespace KnightHotfixModule.Knight.GUI
+namespace KnightHotfixModule.Knight
 {
     public class CreatePlayerItem : THotfixMB<CreatePlayerItem>
     {

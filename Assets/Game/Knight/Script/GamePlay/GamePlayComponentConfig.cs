@@ -5,7 +5,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Core.Serializer;
 using Core;
 using System.IO;
 using Core.WindJson;
@@ -26,8 +25,8 @@ namespace Game.Knight
         Arg,            // 值类型: 整数、实数、字符串、true、false、null
     }
     
-    [SBGroup("GamePlayConfig")]
-    public partial class GPCSymbolItem : SerializerBinary
+    //[SBGroup("GamePlayConfig")]
+    public partial class GPCSymbolItem //: SerializerBinary
     {
         public string           Value;
         public GPCSymbolType    Type;
@@ -38,8 +37,8 @@ namespace Game.Knight
         }
     }
 
-    [SBGroup("GamePlayConfig")]
-    public partial class GPCSymbolElement : SerializerBinary
+    //[SBGroup("GamePlayConfig")]
+    public partial class GPCSymbolElement //: SerializerBinary
     {
         public GPCSymbolItem       Identifer;
         public List<GPCSymbolItem> Args;
@@ -75,17 +74,17 @@ namespace Game.Knight
         }
     }
 
-    [SBGroup("GamePlayConfig")]
-    public partial class GPCSymbolObject : SerializerBinary
+    //[SBGroup("GamePlayConfig")]
+    public partial class GPCSymbolObject //: SerializerBinary
     {
         public GPCSymbolElement        Head;
         public List<GPCSymbolElement>  Bodies;
     }
 
-    [SBGroup("GamePlayConfig")]
-    public partial class GPCSkillConfig : SerializerBinary
+    //[SBGroup("GamePlayConfig")]
+    public partial class GPCSkillConfig //: SerializerBinary
     {
-        [SBIgnore]
+        //[SBIgnore]
         public static GPCSkillConfig Instance { get { return Singleton<GPCSkillConfig>.GetInstance(); } }
 
         public Dict<int, List<GPCSymbolObject>> ActorSkills;
@@ -117,7 +116,7 @@ namespace Game.Knight
             {
                 using (var br = new BinaryWriter(fs))
                 {
-                    this.Serialize(br);
+                    //this.Serialize(br);
                 }
             }
         }
@@ -151,7 +150,7 @@ namespace Game.Knight
             {
                 using (var br = new BinaryReader(ms))
                 {
-                    this.Deserialize(br);
+                    //this.Deserialize(br);
                 }
             }
         }

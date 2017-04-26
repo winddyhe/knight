@@ -12,7 +12,7 @@ namespace WindHotfix.Core
     /// SerializerBinary
     ///    Public Field/Public Property(get;set)
     /// </summary>
-    [HotifxTSIgnore]
+    [HotfixTSIgnore]
     public class HotfixSerializerBinary
     {
         public virtual void Serialize(BinaryWriter rWriter) { }

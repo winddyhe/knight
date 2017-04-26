@@ -2,18 +2,16 @@
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
-using Framework;
+using WindHotfix.Core;
 
-namespace Game.Knight
+namespace KnightHotfixModule.Knight
 {
-    public partial class Hero
+    [HotfixSBGroup("GameConfig")]
+    public partial class ActorProfessional : HotfixSerializerBinary
     {
         public int      ID;
+        public int      HeroID;
         public string   Name;
-        public int      AvatarID;
-        public int      SkillID;
-        public float    Scale;
-        public float    Height;
-        public float    Radius;
+        public string   Desc;
     }
 }

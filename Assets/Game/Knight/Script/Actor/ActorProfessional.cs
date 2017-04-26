@@ -4,12 +4,10 @@
 //======================================================================
 using System;
 using System.Collections.Generic;
-using Core.Serializer;
 
 namespace Game.Knight
 {
-    [SBGroup("GameConfig")]
-    public partial class ActorProfessional : SerializerBinary
+    public partial class ActorProfessional
     {
         public int      ID;
         public int      HeroID;

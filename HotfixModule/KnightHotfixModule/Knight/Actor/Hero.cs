@@ -2,11 +2,13 @@
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
-using Framework;
 
-namespace Game.Knight
+using WindHotfix.Core;
+
+namespace KnightHotfixModule.Knight
 {
-    public partial class Hero
+    [HotfixSBGroup("GameConfig")]
+    public partial class Hero : HotfixSerializerBinary
     {
         public int      ID;
         public string   Name;

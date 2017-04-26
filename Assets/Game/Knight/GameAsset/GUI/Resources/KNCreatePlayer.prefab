@@ -2168,7 +2168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3cc3e917ad78349b520f0be9733232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHotfixName: KnightHotfixModule.Knight.GUI.CreatePlayerView
+  mHotfixName: KnightHotfixModule.Knight.CreatePlayerView
   mObjects:
   - Name: ProfessionSelected
     Object: {fileID: 11421546}

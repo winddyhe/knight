@@ -10,8 +10,9 @@ using System.Reflection;
 using Core.WindJson;
 using System.IO;
 using Framework;
+using WindHotfix.Core;
 
-namespace Game.Knight
+namespace KnightHotfixModule.Knight
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class ConfigPathAttribute : Attribute
@@ -22,10 +23,11 @@ namespace Game.Knight
             this.AssetName = rAssetName;
         }
     }
-    
-    public partial class GameConfig
+
+    [HotfixSBGroup("GameConfig")]
+    public partial class GameConfig : HotfixSerializerBinary
     {
-        public static GameConfig            Instance { get { return Singleton<GameConfig>.GetInstance(); } }
+        public static GameConfig            Instance { get { return HotfixSingleton<GameConfig>.GetInstance(); } }
 
         [ConfigPath("Avatar.json")]
         public Dict<int, Avatar>            Avatars;
@@ -77,7 +79,7 @@ namespace Game.Knight
             {
                 using (var br = new BinaryWriter(fs))
                 {
-                    //this.Serialize(br);
+                    this.Serialize(br);
                 }
             }
         }
@@ -111,7 +113,7 @@ namespace Game.Knight
             {
                 using (var br = new BinaryReader(ms))
                 {
-                    //this.Deserialize(br);
+                    this.Deserialize(br);
                 }
             }
         }

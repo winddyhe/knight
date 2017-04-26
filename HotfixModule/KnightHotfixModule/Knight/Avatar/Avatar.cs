@@ -3,14 +3,15 @@
 //        Email: hgplan@126.com
 //======================================================================
 using UnityEngine;
-using Framework;
+using WindHotfix.Core;
 
-namespace Game.Knight
+namespace KnightHotfixModule.Knight
 {
     /// <summary>
     /// 角色的Avatar配置
     /// </summary>
-    public partial class Avatar
+    [HotfixSBGroup("GameConfig")]
+    public partial class Avatar : HotfixSerializerBinary
     {
         public int      ID;
         public string   AvatarName;

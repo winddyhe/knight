@@ -3,16 +3,15 @@
 //        Email: hgplan@126.com
 //======================================================================
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using System.IO;
-using System.Linq;
 using Core;
+using System;
+using System.Xml;
 
 namespace WindHotfix.Core.Editor
 {
-    [HotifxTSIgnore]
+    [HotfixTSIgnore]
     public class AutoCSGenerate
     {
         public virtual void CSGenerateProcess(CSGenerate rGenerate) { }
@@ -58,17 +57,13 @@ namespace WindHotfix.Core.Editor
         {
             public string Text;
             public string SavePath;
-            public string MD5;
-            public string GUID;
-
-            public bool NeedReimport;
         }
-        const string CSMD5Path = "Library/CSGenerate/";
 
         public void Add(string rText, string rSavePath)
         {
             mCSInfo.Add(new CSInfo() { Text = rText, SavePath = rSavePath });
         }
+
         public void AddHead(string rText, string rSavePath)
         {
             mCSInfo.Insert(0, new CSInfo() { Text = rText, SavePath = rSavePath });
@@ -89,42 +84,85 @@ namespace WindHotfix.Core.Editor
         }
         public void UpdateCSFile(System.Action<string, float> rFeedback)
         {
-            if (!Directory.Exists(CSMD5Path))
-                Directory.CreateDirectory(CSMD5Path);
-
             for (int nIndex = 0; nIndex < mCSInfo.Count; ++nIndex)
             {
                 var rCSInfo = mCSInfo[nIndex];
 
                 if (null != rFeedback)
                     rFeedback(string.Format("Update {0}", rCSInfo.SavePath), (float)(nIndex + 1)/(float)mCSInfo.Count);
+                   
+                WriteFile(rCSInfo.Text, rCSInfo.SavePath);
+            }
 
-                rCSInfo.GUID        = AssetDatabase.AssetPathToGUID(rCSInfo.SavePath);
-                rCSInfo.MD5         = UtilTool.GetMD5String(rCSInfo.Text);
-                rCSInfo.NeedReimport= false;
-                if (string.IsNullOrEmpty(rCSInfo.GUID) || 
-                    !File.Exists(CSMD5Path + rCSInfo.GUID) ||
-                    !File.Exists(rCSInfo.SavePath) ||
-                    File.ReadAllText(CSMD5Path + rCSInfo.GUID) != rCSInfo.MD5)
+            this.GenCsproj();
+        }
+
+        /// <summary>
+        /// 在.csproj文件中导入新文件  
+        /// </summary>
+        void GenCsproj()
+        {
+            //ProtocolModel目前的cs文件列表  
+            if (!Directory.Exists(GeneratePath)) return;
+
+            var files = Directory.GetFiles(GeneratePath, "*.cs", SearchOption.AllDirectories);
+
+            List<String> currFiles = new List<String>();
+            foreach (var file in files)
+            {
+                String path = file.ToString().Replace('/', '\\');
+                path = path.Substring(path.IndexOf("Knight\\Generate\\SerializerBinary"));
+                currFiles.Add(path);
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(CsprojFile);
+            //Project节点  
+            XmlNodeList xnl = doc.ChildNodes[0].ChildNodes;
+            if (doc.ChildNodes[0].Name.ToLower() != "project")
+            {
+                xnl = doc.ChildNodes[1].ChildNodes;
+            }
+            foreach (XmlNode xn in xnl)
+            {
+                //找到包含compile的节点  
+                if (xn.ChildNodes.Count > 0 && xn.ChildNodes[0].Name.ToLower() == "compile")
                 {
-                    rCSInfo.NeedReimport = true;
-                    WriteFile(rCSInfo.Text, rCSInfo.SavePath);
+                    foreach (XmlNode cxn in xn.ChildNodes)
+                    {
+                        if (cxn.Name.ToLower() == "compile")
+                        {
+                            XmlElement xe = (XmlElement)cxn;
+                            String includeFile = xe.GetAttribute("Include");
+                            //项目中已包含的ProtocolModel  
+                            if (includeFile.StartsWith(@"Knight\Generate\SerializerBinary\"))
+                            {
+                                Console.WriteLine(includeFile);
+                                foreach (String item in currFiles)
+                                {
+                                    //将已经包含在项目中的cs文件在所有文件的列表中剔除  
+                                    //操作完之后currFiles中剩下的就是接下来需要包含到项目中的文件  
+                                    if (item.Equals(includeFile))
+                                    {
+                                        currFiles.Remove(item);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //将剩下的文件加入csproj中  
+                    foreach (String item in currFiles)
+                    {
+                        XmlElement xelKey = doc.CreateElement("Compile", doc.DocumentElement.NamespaceURI);
+                        XmlAttribute xelType = doc.CreateAttribute("Include");
+                        xelType.InnerText = item;
+                        xelKey.SetAttributeNode(xelType);
+                        xn.AppendChild(xelKey);
+                    }
                 }
             }
-            for (int nIndex = 0; nIndex < mCSInfo.Count; ++nIndex)
-            {
-                var rCSInfo = mCSInfo[nIndex];
-
-                if (null != rFeedback)
-                    rFeedback(string.Format("Import {0}", rCSInfo.SavePath), (float)(nIndex + 1)/(float)mCSInfo.Count);
-
-                if (rCSInfo.NeedReimport)
-                    AssetDatabase.ImportAsset(rCSInfo.SavePath);
-
-                rCSInfo.GUID = AssetDatabase.AssetPathToGUID(rCSInfo.SavePath);
-
-                WriteFile(rCSInfo.MD5, CSMD5Path + rCSInfo.GUID);
-            }
+            doc.Save(CsprojFile);
         }
         void WriteFile(string rText, string rSavePath)
         {
@@ -134,6 +172,9 @@ namespace WindHotfix.Core.Editor
 
             File.WriteAllText(rSavePath, rText);
         }
+
+        public string CsprojFile;
+        public string GeneratePath;
 
         List<CSInfo> mCSInfo = new List<CSInfo>();
     }

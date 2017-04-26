@@ -974,4 +974,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HotfixModule: KnightHotfixModule
-  HotfixScript: KnightHotfixModule.Knight.GameFlow.Init
+  HotfixScript: KnightHotfixModule.Knight.Init
