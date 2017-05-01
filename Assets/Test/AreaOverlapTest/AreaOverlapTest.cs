@@ -1,17 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Core.Math.AreaOverlap;
+using Core.Math;
 
 namespace  Test
 {
     public class AreaOverlapTest : MonoBehaviour
     {
-        public AreaOverlapAlgorithm AreaAlgo;
+        public AreaOverlapAlgorithm         AreaAlgo;
+
+        public AreaOverlapAlgorithm.Line    Line1;
+        public AreaOverlapAlgorithm.Line    Line2;
 
         void Awake()
         {
             this.AreaAlgo = new AreaOverlapAlgorithm();
+
+            this.Line1 = new AreaOverlapAlgorithm.Line() { Start = new Vector3(-21, 0, 30), End = new Vector3(-21, 0, -20) };
+            this.Line2 = new AreaOverlapAlgorithm.Line() { Start = new Vector3(22, 0, 20), End = new Vector3(-21, 0, 20) };
+
+            bool bIsIntersect = Line1.IsIntersect(this.Line2);
+            Debug.LogError(bIsIntersect);
+
+            Vector3 rInterPoint = Line2.CalcIntersectPoint(Line1);
+            Debug.LogError(rInterPoint);
         }
 
         void OnGUI()
@@ -41,7 +53,7 @@ namespace  Test
 
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Add Area 4"))
-                this.AreaAlgo.AddArea("Area4", 1, 4, new Vector3(-30, 0, -30), new Vector3(50, 0, 50));
+                this.AreaAlgo.AddArea("Area4", 1, 4, new Vector3(-3, 0, -3), new Vector3(50, 0, 50));
             if (GUILayout.Button("Remove Area 4"))
                 this.AreaAlgo.RemoveArea("Area4");
             GUILayout.EndHorizontal();
@@ -60,6 +72,9 @@ namespace  Test
             if (this.AreaAlgo == null) return;
             
             this.AreaAlgo.DebugDraw();
+
+            //Debug.DrawLine(Line1.Start, Line1.End, Color.red);
+            //Debug.DrawLine(Line2.Start, Line2.End, Color.blue);
         }
     }
 }
