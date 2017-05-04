@@ -16,13 +16,13 @@ namespace ILRuntime.Runtime.Enviorment
         public IMethod Method { get; private set; }
         public ILIntepreter Interpreter { get; private set; }
 
-        //internal ILContext(AppDomain domain,ILIntepreter intpreter, StackObject* esp, List<object> mStack, IMethod method)
-        //{
-        //    AppDomain = domain;
-        //    ESP = esp;
-        //    ManagedStack = mStack;
-        //    Method = method;
-        //    Interpreter = intpreter;
-        //}
+        internal ILContext(AppDomain domain, ILIntepreter intpreter, StackObject* esp, List<object> mStack, IMethod method)
+        {
+            AppDomain = domain;
+            ESP = esp;
+            ManagedStack = mStack;
+            Method = method;
+            Interpreter = intpreter;
+        }
     }
 }
