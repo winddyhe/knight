@@ -2,25 +2,25 @@
   {
     "ExcelName": "Avatar.xlsx",
     "SheetName": "Avatar",
-    "ClassName": "Game.Knight.Avatar",
+    "ClassName": "KnightHotfixModule.Knight.Avatar",
     "PrimaryKey": "ID"
   },
   {
     "ExcelName": "Hero.xlsx",
     "SheetName": "Hero",
-    "ClassName": "Game.Knight.Hero",
+    "ClassName": "KnightHotfixModule.Knight.Hero",
     "PrimaryKey": "ID"
   },
   {
     "ExcelName": "Professional.xlsx",
     "SheetName": "Professional",
-    "ClassName": "Game.Knight.ActorProfessional",
+    "ClassName": "KnightHotfixModule.Knight.ActorProfessional",
     "PrimaryKey": "ID"
   },
   {
     "ExcelName": "StageConfig.xlsx",
     "SheetName": "StageConfig",
-    "ClassName": "Game.Knight.StageConfig",
+    "ClassName": "KnightHotfixModule.Knight.StageConfig",
     "PrimaryKey": "StageID"
   }
 ]

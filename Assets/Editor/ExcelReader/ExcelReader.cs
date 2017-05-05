@@ -44,6 +44,8 @@ namespace Core.Editor
         public string ExcelFormatConfigPath = "Assets/Editor/ExcelReader/excel_format_config.json";
         public string ExcelConfigRootPath   = "Assets/Game/Knight/GameAsset/Config/GameConfig/";
 
+        public string HotfixDllPath         = "Assets/Game/Knight/GameAsset/Hotfix/Libs/KnightHotfixModule.bytes";
+
         /// <summary>
         /// Excel的表格配置
         /// </summary>
@@ -96,7 +98,8 @@ namespace Core.Editor
                 return;
             }
 
-            Type rDataType = MainAssemblyExpand.GetType(rExcelFormat.ClassName);
+            Assembly rHotfixAssembly = Assembly.LoadFile(this.HotfixDllPath);
+            Type rDataType = rHotfixAssembly.GetType(rExcelFormat.ClassName);
             if (rDataType == null)
             {
                 Debug.LogErrorFormat("Excel {0} can not find Class {1}, please check it.", rExcelFormat.ExcelName, rExcelFormat.ClassName);
@@ -114,6 +117,7 @@ namespace Core.Editor
                 rFields.Add(rTitleRow[i].ToString(), rFileInfo);
                 rKeyIDs.Add(rTitleRow[i].ToString(), i);
             }
+            rHotfixAssembly = null;
 
             JsonNode rDataJson = new JsonClass();
             for (int i = 1; i < rRows; i++)

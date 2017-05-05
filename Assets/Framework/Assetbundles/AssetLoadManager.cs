@@ -103,7 +103,7 @@ namespace Framework
         public Coroutine LoadManifest()
         {
             string rManifestUrl = AssetPlatformManager.Instance.GetAssetbundleManifestUrl();
-            return this.StartCoroutine(LoadManifest_Async(rManifestUrl));
+            return CoroutineManager.Instance.Start(LoadManifest_Async(rManifestUrl));
         }
     
         private IEnumerator LoadManifest_Async(string rManifrestUrl)
