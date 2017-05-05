@@ -37,6 +37,7 @@ Temp
 Assets/Assetbundles
 Server/pomelo-knight/game-server/logs
 Server/pomelo-knight/game-server/logs
+Server/mongodb-win32-i386-2.0.4/knight
 HotfixModule/KnightHotfixModule/obj
 HotfixModule/KnightHotfixModule/bin
 HotfixModule/Tools/SerializerBinaryEditor/bin
