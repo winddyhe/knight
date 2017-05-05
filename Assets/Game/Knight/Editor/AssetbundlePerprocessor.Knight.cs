@@ -13,7 +13,7 @@ namespace Game.Knight.Editor
     {
         public override void PreprocessAssets()
         {
-            GameConfig.Instance.Load_Local(this.Entry.abOriginalResPath);
+            //GameConfig.Instance.Load_Local(this.Entry.abOriginalResPath);
             AssetDatabase.Refresh();
         }
     }
@@ -22,7 +22,7 @@ namespace Game.Knight.Editor
     {
         public override void PreprocessAssets()
         {
-            GPCSkillConfig.Instance.Load_Local(this.Entry.abOriginalResPath);
+            //GPCSkillConfig.Instance.Load_Local(this.Entry.abOriginalResPath);
             AssetDatabase.Refresh();
         }
     }

@@ -2,10 +2,11 @@
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
+using UnityEngine;
 using System.Collections.Generic;
 using WindHotfix.Core;
 
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
     /// <summary>
     /// 角色账户

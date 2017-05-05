@@ -7,10 +7,101 @@ using WindHotfix.Core;
 /// <summary>
 /// 文件自动生成无需又该！如果出现编译错误，删除文件后会自动生成
 /// </summary>
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
 	public static class CommonSerializer
 	{
+		public static void Serialize(this BinaryWriter rWriter, List<Game.Knight.GPCSymbolItem> value)
+		{
+			var bValid = (null != value);
+			rWriter.Serialize(bValid);
+			if (!bValid)
+				return;
+			rWriter.Serialize(value.Count);
+			for (int nIndex = 0; nIndex < value.Count; ++ nIndex)
+				rWriter.Serialize(value[nIndex]);
+		}
+		public static List<Game.Knight.GPCSymbolItem> Deserialize(this BinaryReader rReader, List<Game.Knight.GPCSymbolItem> value)
+		{
+			var bValid = rReader.Deserialize(default(bool));
+			if (!bValid)
+				return null;
+			var nCount  = rReader.Deserialize(default(int));
+			var rResult = new List<Game.Knight.GPCSymbolItem>(nCount);
+			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
+				rResult.Add(rReader.Deserialize(default(Game.Knight.GPCSymbolItem)));
+			return rResult;
+		}
+		public static void Serialize(this BinaryWriter rWriter, List<Game.Knight.GPCSymbolElement> value)
+		{
+			var bValid = (null != value);
+			rWriter.Serialize(bValid);
+			if (!bValid)
+				return;
+			rWriter.Serialize(value.Count);
+			for (int nIndex = 0; nIndex < value.Count; ++ nIndex)
+				rWriter.Serialize(value[nIndex]);
+		}
+		public static List<Game.Knight.GPCSymbolElement> Deserialize(this BinaryReader rReader, List<Game.Knight.GPCSymbolElement> value)
+		{
+			var bValid = rReader.Deserialize(default(bool));
+			if (!bValid)
+				return null;
+			var nCount  = rReader.Deserialize(default(int));
+			var rResult = new List<Game.Knight.GPCSymbolElement>(nCount);
+			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
+				rResult.Add(rReader.Deserialize(default(Game.Knight.GPCSymbolElement)));
+			return rResult;
+		}
+		public static void Serialize(this BinaryWriter rWriter, Dict<int, List<Game.Knight.GPCSymbolObject>> value)
+		{
+			var bValid = (null != value);
+			rWriter.Serialize(bValid);
+			if (!bValid)
+				return;
+			rWriter.Serialize(value.Count);
+			foreach(var rPair in value)
+			{
+				rWriter.Serialize(rPair.Key);
+				rWriter.Serialize(rPair.Value);
+			}
+		}
+		public static Dict<int, List<Game.Knight.GPCSymbolObject>> Deserialize(this BinaryReader rReader, Dict<int, List<Game.Knight.GPCSymbolObject>> value)
+		{
+			var bValid = rReader.Deserialize(default(bool));
+			if (!bValid)
+				return null;
+			var nCount  = rReader.Deserialize(default(int));
+			var rResult = new Dict<int, List<Game.Knight.GPCSymbolObject>>();
+			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
+			{
+				var rKey   = rReader.Deserialize(default(int));
+				var rValue = rReader.Deserialize(default(List<Game.Knight.GPCSymbolObject>));
+				rResult.Add(rKey, rValue);
+			}
+			return rResult;
+		}
+		public static void Serialize(this BinaryWriter rWriter, List<Game.Knight.GPCSymbolObject> value)
+		{
+			var bValid = (null != value);
+			rWriter.Serialize(bValid);
+			if (!bValid)
+				return;
+			rWriter.Serialize(value.Count);
+			for (int nIndex = 0; nIndex < value.Count; ++ nIndex)
+				rWriter.Serialize(value[nIndex]);
+		}
+		public static List<Game.Knight.GPCSymbolObject> Deserialize(this BinaryReader rReader, List<Game.Knight.GPCSymbolObject> value)
+		{
+			var bValid = rReader.Deserialize(default(bool));
+			if (!bValid)
+				return null;
+			var nCount  = rReader.Deserialize(default(int));
+			var rResult = new List<Game.Knight.GPCSymbolObject>(nCount);
+			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
+				rResult.Add(rReader.Deserialize(default(Game.Knight.GPCSymbolObject)));
+			return rResult;
+		}
 		public static void Serialize(this BinaryWriter rWriter, float[] value)
 		{
 			var bValid = (null != value);
@@ -32,7 +123,7 @@ namespace KnightHotfixModule.Knight
 				rResult[nIndex] = rReader.Deserialize(default(float));
 			return rResult;
 		}
-		public static void Serialize(this BinaryWriter rWriter, Dict<int, KnightHotfixModule.Knight.Avatar> value)
+		public static void Serialize(this BinaryWriter rWriter, Dict<int, Game.Knight.Avatar> value)
 		{
 			var bValid = (null != value);
 			rWriter.Serialize(bValid);
@@ -45,22 +136,22 @@ namespace KnightHotfixModule.Knight
 				rWriter.Serialize(rPair.Value);
 			}
 		}
-		public static Dict<int, KnightHotfixModule.Knight.Avatar> Deserialize(this BinaryReader rReader, Dict<int, KnightHotfixModule.Knight.Avatar> value)
+		public static Dict<int, Game.Knight.Avatar> Deserialize(this BinaryReader rReader, Dict<int, Game.Knight.Avatar> value)
 		{
 			var bValid = rReader.Deserialize(default(bool));
 			if (!bValid)
 				return null;
 			var nCount  = rReader.Deserialize(default(int));
-			var rResult = new Dict<int, KnightHotfixModule.Knight.Avatar>();
+			var rResult = new Dict<int, Game.Knight.Avatar>();
 			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
 			{
 				var rKey   = rReader.Deserialize(default(int));
-				var rValue = rReader.Deserialize(default(KnightHotfixModule.Knight.Avatar));
+				var rValue = rReader.Deserialize(default(Game.Knight.Avatar));
 				rResult.Add(rKey, rValue);
 			}
 			return rResult;
 		}
-		public static void Serialize(this BinaryWriter rWriter, Dict<int, KnightHotfixModule.Knight.Hero> value)
+		public static void Serialize(this BinaryWriter rWriter, Dict<int, Game.Knight.Hero> value)
 		{
 			var bValid = (null != value);
 			rWriter.Serialize(bValid);
@@ -73,22 +164,22 @@ namespace KnightHotfixModule.Knight
 				rWriter.Serialize(rPair.Value);
 			}
 		}
-		public static Dict<int, KnightHotfixModule.Knight.Hero> Deserialize(this BinaryReader rReader, Dict<int, KnightHotfixModule.Knight.Hero> value)
+		public static Dict<int, Game.Knight.Hero> Deserialize(this BinaryReader rReader, Dict<int, Game.Knight.Hero> value)
 		{
 			var bValid = rReader.Deserialize(default(bool));
 			if (!bValid)
 				return null;
 			var nCount  = rReader.Deserialize(default(int));
-			var rResult = new Dict<int, KnightHotfixModule.Knight.Hero>();
+			var rResult = new Dict<int, Game.Knight.Hero>();
 			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
 			{
 				var rKey   = rReader.Deserialize(default(int));
-				var rValue = rReader.Deserialize(default(KnightHotfixModule.Knight.Hero));
+				var rValue = rReader.Deserialize(default(Game.Knight.Hero));
 				rResult.Add(rKey, rValue);
 			}
 			return rResult;
 		}
-		public static void Serialize(this BinaryWriter rWriter, Dict<int, KnightHotfixModule.Knight.ActorProfessional> value)
+		public static void Serialize(this BinaryWriter rWriter, Dict<int, Game.Knight.ActorProfessional> value)
 		{
 			var bValid = (null != value);
 			rWriter.Serialize(bValid);
@@ -101,22 +192,22 @@ namespace KnightHotfixModule.Knight
 				rWriter.Serialize(rPair.Value);
 			}
 		}
-		public static Dict<int, KnightHotfixModule.Knight.ActorProfessional> Deserialize(this BinaryReader rReader, Dict<int, KnightHotfixModule.Knight.ActorProfessional> value)
+		public static Dict<int, Game.Knight.ActorProfessional> Deserialize(this BinaryReader rReader, Dict<int, Game.Knight.ActorProfessional> value)
 		{
 			var bValid = rReader.Deserialize(default(bool));
 			if (!bValid)
 				return null;
 			var nCount  = rReader.Deserialize(default(int));
-			var rResult = new Dict<int, KnightHotfixModule.Knight.ActorProfessional>();
+			var rResult = new Dict<int, Game.Knight.ActorProfessional>();
 			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
 			{
 				var rKey   = rReader.Deserialize(default(int));
-				var rValue = rReader.Deserialize(default(KnightHotfixModule.Knight.ActorProfessional));
+				var rValue = rReader.Deserialize(default(Game.Knight.ActorProfessional));
 				rResult.Add(rKey, rValue);
 			}
 			return rResult;
 		}
-		public static void Serialize(this BinaryWriter rWriter, Dict<int, KnightHotfixModule.Knight.StageConfig> value)
+		public static void Serialize(this BinaryWriter rWriter, Dict<int, Game.Knight.StageConfig> value)
 		{
 			var bValid = (null != value);
 			rWriter.Serialize(bValid);
@@ -129,17 +220,17 @@ namespace KnightHotfixModule.Knight
 				rWriter.Serialize(rPair.Value);
 			}
 		}
-		public static Dict<int, KnightHotfixModule.Knight.StageConfig> Deserialize(this BinaryReader rReader, Dict<int, KnightHotfixModule.Knight.StageConfig> value)
+		public static Dict<int, Game.Knight.StageConfig> Deserialize(this BinaryReader rReader, Dict<int, Game.Knight.StageConfig> value)
 		{
 			var bValid = rReader.Deserialize(default(bool));
 			if (!bValid)
 				return null;
 			var nCount  = rReader.Deserialize(default(int));
-			var rResult = new Dict<int, KnightHotfixModule.Knight.StageConfig>();
+			var rResult = new Dict<int, Game.Knight.StageConfig>();
 			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
 			{
 				var rKey   = rReader.Deserialize(default(int));
-				var rValue = rReader.Deserialize(default(KnightHotfixModule.Knight.StageConfig));
+				var rValue = rReader.Deserialize(default(Game.Knight.StageConfig));
 				rResult.Add(rKey, rValue);
 			}
 			return rResult;

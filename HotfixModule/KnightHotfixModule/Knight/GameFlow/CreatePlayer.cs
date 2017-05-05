@@ -7,8 +7,9 @@ using UnityEngine;
 using Framework;
 using Framework.WindUI;
 using WindHotfix.Core;
+using WindHotfix.GameStage;
 
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
     public class CreatePlayer : THotfixMB<CreatePlayer>
     {

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using Framework.Hotfix;
 using WindHotfix.GUI;
 
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
     public class CreatePlayerView : THotfixViewController<CreatePlayerView>
     {
@@ -48,7 +48,7 @@ namespace KnightHotfixModule.Knight
                 Toast.Instance.Show("角色名不能为空！");
                 return;
             }
-            KnightHotfixModule.Knight.CreatePlayer.Instance.Create(this.PlayerName.text, this.CurrentSelectedItem.ProfessionalID);
+            Game.Knight.CreatePlayer.Instance.Create(this.PlayerName.text, this.CurrentSelectedItem.ProfessionalID);
         }
 
         private void OnBackBtn_Clicked(UnityEngine.Object rTarget)

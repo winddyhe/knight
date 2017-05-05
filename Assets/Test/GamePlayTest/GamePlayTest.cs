@@ -14,7 +14,7 @@ public class GamePlayTest : MonoBehaviour
     void Start()
     {
         string rConfigText = File.ReadAllText(this.ConfigPath);
-        GamePlayComponentParser rParser = new GamePlayComponentParser(rConfigText);
-        rParser.Parser();
+        //GamePlayComponentParser rParser = new GamePlayComponentParser(rConfigText);
+        //rParser.Parser();
     }
 }

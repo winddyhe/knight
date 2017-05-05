@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20351adb1e3158e4abbb09c3806321cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHotfixName: KnightHotfixModule.Knight.CreatePlayer
+  mHotfixName: Game.Knight.CreatePlayer
   mObjects: []
   mBaseDatas: []
 --- !u!81 &752254721

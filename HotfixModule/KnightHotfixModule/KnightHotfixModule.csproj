@@ -73,19 +73,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Knight\Actor\ActionManager.cs" />
+    <Compile Include="Knight\Actor\Actor.cs" />
+    <Compile Include="Knight\Actor\Actor.Loader.cs" />
+    <Compile Include="Knight\Actor\ActorController.cs" />
+    <Compile Include="Knight\Actor\ActorGamePlayManager.cs" />
     <Compile Include="Knight\Actor\ActorProfessional.cs" />
+    <Compile Include="Knight\Actor\ActorUserController.cs" />
     <Compile Include="Knight\Actor\Hero.cs" />
     <Compile Include="Knight\Avatar\Avatar.cs" />
     <Compile Include="Knight\GameFlow\CreatePlayer.cs" />
     <Compile Include="Knight\GameFlow\Init.cs" />
     <Compile Include="Knight\GameFlow\Login.cs" />
+    <Compile Include="Knight\GameMode\GameMode_CreatePlayer.cs" />
+    <Compile Include="Knight\GameMode\GameMode_World.cs" />
+    <Compile Include="Knight\GamePlay\GamePlayComponent.ActorSkill.cs" />
+    <Compile Include="Knight\GamePlay\GamePlayComponentConfig.cs" />
+    <Compile Include="Knight\GamePlay\GamePlayComponentParser.cs" />
+    <Compile Include="WindHotfix\GameStage\GameMode.cs" />
+    <Compile Include="WindHotfix\GameStage\GameStage.cs" />
+    <Compile Include="WindHotfix\GameStage\GameStageManager.cs" />
     <Compile Include="Knight\GameStage\StageConfig.cs" />
     <Compile Include="Knight\Game\Account.cs" />
     <Compile Include="Knight\Game\GameConfig.cs" />
     <Compile Include="Knight\Game\NetActor.cs" />
     <Compile Include="Knight\GUI\CreatePlayer\CreatePlayerItem.cs" />
     <Compile Include="Knight\GUI\CreatePlayer\CreatePlayerView.cs" />
+    <Compile Include="Knight\GUI\GamePad\GamePadView.cs" />
+    <Compile Include="Knight\GUI\GamePad\GamePadViewJoystick.cs" />
     <Compile Include="Knight\GUI\Login\LoginView.cs" />
+    <Compile Include="Knight\GUI\PlayerList\NetPlayerItem.cs" />
+    <Compile Include="Knight\GUI\PlayerList\PlayerListView.cs" />
     <Compile Include="Knight\Network\GamePlayProtocol.cs" />
     <Compile Include="Test\BaseFunction\Class3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,17 +111,22 @@
     <Compile Include="Test\BaseFunction\Class2.cs" />
     <Compile Include="Test\UI\UILoginTest.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixJsonParser.cs" />
+    <Compile Include="WindHotfix\Core\Assist\HotfixReflectAssists.cs" />
     <Compile Include="WindHotfix\Core\Assist\THotfixMB.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixSingleton.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixTypeSearch.cs" />
     <Compile Include="WindHotfix\GUI\THotfixViewController.cs" />
     <Compile Include="WindHotfix\Core\Serializer\HotfixSerializerBinary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\CommonSerializer.cs" />
-    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\KnightHotfixModule.Knight.ActorProfessional.Binary.cs" />
-    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\KnightHotfixModule.Knight.Avatar.Binary.cs" />
-    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\KnightHotfixModule.Knight.GameConfig.Binary.cs" />
-    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\KnightHotfixModule.Knight.Hero.Binary.cs" />
-    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\KnightHotfixModule.Knight.StageConfig.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.ActorProfessional.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.Avatar.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.GameConfig.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.StageConfig.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.Hero.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSkillConfig.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolElement.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolItem.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolObject.Binary.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

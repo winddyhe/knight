@@ -9,7 +9,7 @@ using UnityEngine;
 using WindHotfix.Core;
 using Framework.WindUI;
 
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
     public class CreatePlayerItem : THotfixMB<CreatePlayerItem>
     {
@@ -23,10 +23,13 @@ namespace KnightHotfixModule.Knight
         {
             this.SelectedPlayer = this.Objects[0].Object as Toggle;
             this.Parent = (this.Objects[1].Object as View).ViewController as CreatePlayerView;
+            Debug.LogError((this.Objects[1].Object as View).ViewController == null ? "null" : "not null");
+            this.AddEventListener(this.Objects[0].Object, (rTarget) => { OnToggleSelectedValueChanged(); });
         }
 
         public void OnToggleSelectedValueChanged()
         {
+            Debug.LogError("1111");
             if (this.SelectedPlayer.isOn && this.Parent.CurrentSelectedItem != this)
             {
                 StartLoad();
@@ -49,7 +52,7 @@ namespace KnightHotfixModule.Knight
         {
             if (mActorCreateRequest != null)
             {
-                UtilTool.SafeDestroy(mActorCreateRequest.actor.ExhibitActor.ActorGo);
+                UtilTool.SafeDestroy(mActorCreateRequest.Actor.ExhibitActor.ActorGo);
                 mActorCreateRequest.Stop();
             }
         }

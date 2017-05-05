@@ -12,7 +12,7 @@ using System.IO;
 using Framework;
 using WindHotfix.Core;
 
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class ConfigPathAttribute : Attribute

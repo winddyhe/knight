@@ -53,13 +53,16 @@ namespace Game.Knight
             if (rSceneConfigGo != null)
             {
                 SceneConfig rSceneConfig = rSceneConfigGo.GetComponent<SceneConfig>();
-                Camera rMainCamera = Camera.main;
-                rMainCamera.transform.position = rSceneConfig.CameraPos;
-                rMainCamera.transform.eulerAngles = rSceneConfig.CameraRotate;
-                rMainCamera.backgroundColor = rSceneConfig.CameraBGColor;
-                rMainCamera.fieldOfView = rSceneConfig.CameraFOV;
-                rMainCamera.farClipPlane = rSceneConfig.CameraFar;
-                rMainCamera.nearClipPlane = rSceneConfig.CameraNear;
+                if (rSceneConfig != null)
+                {
+                    Camera rMainCamera = Camera.main;
+                    rMainCamera.transform.position = rSceneConfig.CameraPos;
+                    rMainCamera.transform.eulerAngles = rSceneConfig.CameraRotate;
+                    rMainCamera.backgroundColor = rSceneConfig.CameraBGColor;
+                    rMainCamera.fieldOfView = rSceneConfig.CameraFOV;
+                    rMainCamera.farClipPlane = rSceneConfig.CameraFar;
+                    rMainCamera.nearClipPlane = rSceneConfig.CameraNear;
+                }
             }
             AssetLoadManager.Instance.UnloadAsset(rLoadRequest.sceneABPath);
         }

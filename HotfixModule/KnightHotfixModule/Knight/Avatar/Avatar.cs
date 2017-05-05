@@ -5,7 +5,7 @@
 using UnityEngine;
 using WindHotfix.Core;
 
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
     /// <summary>
     /// 角色的Avatar配置

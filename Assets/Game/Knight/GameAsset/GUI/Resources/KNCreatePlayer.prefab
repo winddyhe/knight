@@ -1188,11 +1188,11 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnBackBtn_Clicked
-        m_Mode: 1
+      - m_Target: {fileID: 114184459806170578}
+        m_MethodName: OnUnityEvent
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 11473688}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1240,11 +1240,11 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnPlayerCreateBtn_Clicked
-        m_Mode: 1
+      - m_Target: {fileID: 114184459806170578}
+        m_MethodName: OnUnityEvent
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 11476786}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2168,7 +2168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3cc3e917ad78349b520f0be9733232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHotfixName: KnightHotfixModule.Knight.CreatePlayerView
+  mHotfixName: Game.Knight.CreatePlayerView
   mObjects:
   - Name: ProfessionSelected
     Object: {fileID: 11421546}
@@ -2203,7 +2203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20351adb1e3158e4abbb09c3806321cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHotfixName: KnightHotfixModule.Knight.GUI.CreatePlayerItem
+  mHotfixName: Game.Knight.CreatePlayerItem
   mObjects:
   - Name: Knight2
     Object: {fileID: 11435454}
@@ -2230,7 +2230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20351adb1e3158e4abbb09c3806321cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHotfixName: KnightHotfixModule.Knight.GUI.CreatePlayerItem
+  mHotfixName: Game.Knight.CreatePlayerItem
   mObjects:
   - Name: Knight1
     Object: {fileID: 11462424}
@@ -2257,7 +2257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20351adb1e3158e4abbb09c3806321cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHotfixName: KnightHotfixModule.Knight.GUI.CreatePlayerItem
+  mHotfixName: Game.Knight.CreatePlayerItem
   mObjects:
   - Name: Knight3
     Object: {fileID: 11485586}

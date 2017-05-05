@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using WindHotfix.Core;
 
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
     [HotfixSBGroup("GameConfig")]
     public partial class StageConfig : HotfixSerializerBinary

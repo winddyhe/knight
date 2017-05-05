@@ -12,7 +12,7 @@ using Framework;
 using UnityEngine;
 using WindHotfix.Core;
 
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
     public class Login : THotfixMB<Login>
     {

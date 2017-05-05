@@ -3,7 +3,7 @@
 //        Email: hgplan@126.com
 //======================================================================
 
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
     /// <summary>
     /// 网络角色

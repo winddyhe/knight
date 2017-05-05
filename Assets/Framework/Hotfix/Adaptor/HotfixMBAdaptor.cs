@@ -36,6 +36,10 @@ namespace Framework.Hotfix
             
             private bool            mIsInitializeInvoking   = false;
 
+            private IMethod         mAwakeMethod;
+            private bool            mAwakeGot               = false;
+            private bool            mIsAwakeInvoking        = false;
+
             private IMethod         mStartMethod;
             private bool            mStartGot               = false;
             private bool            mIsStartInvoking        = false;
@@ -84,6 +88,26 @@ namespace Framework.Hotfix
                 else
                 {
                     base.Initialize(rObjs, rBaseDatas);
+                }
+            }
+
+            public override void Awake()
+            {
+                if (!mAwakeGot)
+                {
+                    mAwakeMethod = __instance.Type.GetMethod("Awake", 0);
+                    mAwakeGot = true;
+                }
+
+                if (mAwakeMethod != null && !mIsAwakeInvoking)
+                {
+                    mIsAwakeInvoking = true;
+                    mAppdomain.Invoke(mAwakeMethod, __instance);
+                    mIsAwakeInvoking = false;
+                }
+                else
+                {
+                    base.Awake();
                 }
             }
 

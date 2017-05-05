@@ -6,7 +6,7 @@ using Framework.WindUI;
 using UnityEngine.UI;
 using WindHotfix.GUI;
 
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
     public class LoginView : THotfixViewController<LoginView>
     {

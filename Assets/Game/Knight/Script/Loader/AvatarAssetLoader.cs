@@ -11,12 +11,14 @@ namespace Game.Knight
 {
     public class AvatarLoaderRequest : CoroutineRequest<AvatarLoaderRequest>
     {
-        public Avatar       avatar;
-        public GameObject   avatarGo;
+        public string       ABPath;
+        public string       AssetName;
+        public GameObject   AvatarGo;
 
-        public AvatarLoaderRequest(Avatar rAvatar)
+        public AvatarLoaderRequest(string rABPath, string rAssetName)
         {
-            this.avatar = rAvatar;
+            this.ABPath = rABPath;
+            this.AssetName = rAssetName;
         }
     }
 
@@ -24,24 +26,24 @@ namespace Game.Knight
     {
         private AvatarAssetLoader() { }
 
-        public AvatarLoaderRequest Load(Avatar rAvatar)
+        public AvatarLoaderRequest Load(string rABPath, string rAssetName)
         {
-            var rRequest = new AvatarLoaderRequest(rAvatar);
+            var rRequest = new AvatarLoaderRequest(rABPath, rAssetName);
             rRequest.Start(Load_Async(rRequest));
             return rRequest;
         }
 
         public IEnumerator Load_Async(AvatarLoaderRequest rRequest)
         {
-            string rAvatarABPath = rRequest.avatar.ABPath;
-            var rAssetRequest = AssetLoadManager.Instance.LoadAsset(rAvatarABPath, rRequest.avatar.AssetName);
+            string rAvatarABPath = rRequest.ABPath;
+            var rAssetRequest = AssetLoadManager.Instance.LoadAsset(rAvatarABPath, rRequest.AssetName);
             yield return rAssetRequest;
             if (rAssetRequest.asset != null)
             {
                 GameObject rAvatarGo = GameObject.Instantiate(rAssetRequest.asset) as GameObject;
                 rAvatarGo.name = rAssetRequest.asset.name;
                 rAvatarGo.transform.position = Vector3.zero;
-                rRequest.avatarGo = rAvatarGo;
+                rRequest.AvatarGo = rAvatarGo;
             }
             AssetLoadManager.Instance.UnloadAsset(rAvatarABPath);
         }

@@ -4,7 +4,7 @@
 //======================================================================
 using WindHotfix.Core;
 
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
     [HotfixSBGroup("GameConfig")]
     public partial class ActorProfessional : HotfixSerializerBinary

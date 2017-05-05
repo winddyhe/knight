@@ -45,6 +45,7 @@ namespace WindHotfix.Core
         public override void OnUnityEvent(Object rTarget)
         {
             if (mEventHandler == null) return;
+            UnityEngine.Debug.LogError(rTarget.name);
             mEventHandler.Handle(rTarget);
         }
 

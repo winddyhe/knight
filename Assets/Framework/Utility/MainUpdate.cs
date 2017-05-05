@@ -5,18 +5,21 @@
 using UnityEngine;
 using System.Collections;
 
-public class MainUpdate : MonoBehaviour
+namespace Framework
 {
-    private static MainUpdate __instance;
-    public  static MainUpdate Instance { get { return __instance; } }
-
-    void Awake()
+    public class MainUpdate : MonoBehaviour
     {
-        if (__instance == null)
-        {
-            __instance = this;
+        private static MainUpdate __instance;
+        public  static MainUpdate Instance { get { return __instance; } }
 
-            GameObject.DontDestroyOnLoad(this);
+        void Awake()
+        {
+            if (__instance == null)
+            {
+                __instance = this;
+
+                GameObject.DontDestroyOnLoad(this);
+            }
         }
     }
 }

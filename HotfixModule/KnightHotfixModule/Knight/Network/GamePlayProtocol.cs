@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Core.WindJson;
 using Framework;
 
-namespace KnightHotfixModule.Knight
+namespace Game.Knight
 {
     /// <summary>
     /// 游戏的协议接收发送处理

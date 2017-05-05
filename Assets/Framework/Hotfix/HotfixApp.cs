@@ -86,7 +86,6 @@ namespace Framework.Hotfix
         {
             this.mApp.DelegateManager.RegisterMethodDelegate<UnityEngine.Object>();
             this.mApp.DelegateManager.RegisterMethodDelegate<JsonNode, JsonNode>();
-            this.mApp.DelegateManager.RegisterFunctionDelegate<Framework.GameMode>();
             this.mApp.DelegateManager.RegisterMethodDelegate<IEqualityComparer>();
 
             this.mApp.DelegateManager.RegisterFunctionDelegate<Framework.Hotfix.BaseDataObject, bool>();
@@ -95,6 +94,20 @@ namespace Framework.Hotfix
                 return new System.Predicate<Framework.Hotfix.BaseDataObject>((obj) =>
                 {
                     return ((Func<Framework.Hotfix.BaseDataObject, bool>)act)(obj);
+                });
+            });
+
+            this.mApp.DelegateManager.RegisterFunctionDelegate<                System.Collections.Generic.KeyValuePair<int, ILRuntime.Runtime.Intepreter.ILTypeInstance>,
+                System.Collections.Generic.KeyValuePair<int, ILRuntime.Runtime.Intepreter.ILTypeInstance>, 
+                int>();
+            this.mApp.DelegateManager.RegisterDelegateConvertor<System.Comparison<System.Collections.Generic.KeyValuePair<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>>>((act) =>
+            {
+                return new System.Comparison<System.Collections.Generic.KeyValuePair<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>>((x, y) =>
+                {
+                    return ((Func<System.Collections.Generic.KeyValuePair<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>, 
+                                  System.Collections.Generic.KeyValuePair<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>, 
+                                  int>)
+                           act)(x, y);
                 });
             });
         }

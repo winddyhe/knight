@@ -4,7 +4,7 @@
 //======================================================================
 using System.IO;
 using System;
-using Core;
+//using Core;
 
 namespace WindHotfix.Core
 {
@@ -136,7 +136,7 @@ namespace WindHotfix.Core
             if (!bValid)
                 return null;
 
-            var rInstance = ReflectExpand.Construct<T>();
+            var rInstance = HotfixReflectAssists.Construct<T>();
             rInstance.Deserialize(rReader);
             return rInstance;
         }
@@ -148,7 +148,7 @@ namespace WindHotfix.Core
                 return null;
 
             var rFullName = rReader.Deserialize(string.Empty);
-            var rInstance = ReflectExpand.TConstruct<T>(Type.GetType(rFullName));
+            var rInstance = HotfixReflectAssists.TConstruct<T>(Type.GetType(rFullName));
             rInstance.Deserialize(rReader);
             return rInstance;
         }
