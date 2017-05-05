@@ -37,7 +37,6 @@ Temp
 Assets/Assetbundles
 Server/pomelo-knight/game-server/logs
 Server/pomelo-knight/game-server/logs
-Server/mongodb-win32-i386-2.0.4/knight
 HotfixModule/KnightHotfixModule/obj
 HotfixModule/KnightHotfixModule/bin
 HotfixModule/Tools/SerializerBinaryEditor/bin
@@ -47,3 +46,6 @@ Server/pomelo-knight/web-server/node_modules
 Server/lordofpomelo/game-server/node_modules
 Server/lordofpomelo/web-server/node_modules
 Assets/StreamingAssets.meta
+Server/mongodb-win32-i386-2.0.4/knight/knight.0
+Server/mongodb-win32-i386-2.0.4/knight/knight.ns
+Server/mongodb-win32-i386-2.0.4/knight/mongod.lock
