@@ -5,12 +5,16 @@
 using UnityEngine;
 using System.Collections;
 
-public class SceneConfig : MonoBehaviour
-{
-    public Vector3  CameraPos       = Vector3.zero;
-    public Vector3  CameraRotate    = Vector3.zero;
-    public Color    CameraBGColor   = Color.black;
-    public float    CameraFOV       = 60f;
-    public float    CameraFar       = 500f;
-    public float    CameraNear      = 0.3f;
-}
+//namespace Game.Knight
+//{
+    public class SceneConfig : MonoBehaviour
+    {
+        public Vector3  CameraPos       = Vector3.zero;
+        public Vector3  CameraRotate    = Vector3.zero;
+        public Color    CameraBGColor   = Color.black;
+        public float    CameraFOV       = 60f;
+        public float    CameraFar       = 500f;
+        public float    CameraNear      = 0.3f;
+    }
+//}
+
