@@ -132,7 +132,7 @@ namespace Framework.WindUI
             this.IsOpened = false;
 
             if (mViewController != null)
-                mViewController.OnOpening();
+                mViewController.Opening();
             
             UIManager.Instance.StartCoroutine(Open_WaitforCompleted(rOpenCompleted));
         }
@@ -185,7 +185,7 @@ namespace Framework.WindUI
             this.IsClosed = false;
 
             if (mViewController != null)
-                mViewController.OnClosing();
+                mViewController.Closing();
 
             UIManager.Instance.StartCoroutine(Close_WaitForCompleted());
         }
@@ -198,7 +198,7 @@ namespace Framework.WindUI
             }
 
             if (mViewController != null)
-                mViewController.OnClosed();
+                mViewController.Closed();
         }
 
         public void Destroy()

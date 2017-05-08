@@ -22,7 +22,6 @@ namespace Game.Knight
             this.ProfessionSelected  = this.Objects[0].Object as ToggleGroup;
             this.PlayerName          = this.Objects[1].Object as InputField;
             this.ProfessionalDesc    = this.Objects[2].Object as Text;
-            this.CurrentSelectedItem = (this.Objects[3].Object as HotfixMBContainer).MBHotfixObject as CreatePlayerItem;
             
             // 注册事件
             this.AddEventListener(this.Objects[4].Object, OnPlayerCreateBtn_Clicked);
@@ -31,7 +30,8 @@ namespace Game.Knight
         
         public override void OnOpening()
         {
-            this.CurrentSelectedItem.StartLoad();
+            this.CurrentSelectedItem = (this.Objects[3].Object as HotfixMBContainer).MBHotfixObject as CreatePlayerItem;
+            this.CurrentSelectedItem.StartLoad(this);
             this.mIsOpened = true;
         }
 

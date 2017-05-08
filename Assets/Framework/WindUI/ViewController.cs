@@ -46,7 +46,7 @@ namespace Framework.WindUI
         /// <summary>
         /// 开始打开View时候要做的事情
         /// </summary>
-        public virtual void OnOpening()
+        public virtual void Opening()
         {
         }
 
@@ -81,14 +81,14 @@ namespace Framework.WindUI
         /// <summary>
         /// 开始关闭时候要做的操作
         /// </summary>
-        public virtual void OnClosing()
+        public virtual void Closing()
         {
         }
 
         /// <summary>
         /// 彻底关闭后要做的操作
         /// </summary>
-        public virtual void OnClosed()
+        public virtual void Closed()
         {
         }
 

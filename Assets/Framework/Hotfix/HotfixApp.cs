@@ -110,6 +110,8 @@ namespace Framework.Hotfix
                            act)(x, y);
                 });
             });
+
+            this.mApp.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
         }
 
         public HotfixObject Instantiate(string rTypeName, params object[] rArgs)

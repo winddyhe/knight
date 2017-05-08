@@ -40,19 +40,19 @@ namespace WindHotfix.GUI
             set { mIsClosed = value; }
         }
 
-        private void Opening()
+        public override void Opening()
         {
             this.mIsOpened = true;
             this.OnOpening();
         }
 
-        private void Closing()
+        public override void Closing()
         {
             this.mIsClosed = true;
             this.OnClosing();
         }
 
-        public void Closed()
+        public override void Closed()
         {
             if (mEventHandler != null)
                 mEventHandler.RemoveAll();
@@ -75,7 +75,6 @@ namespace WindHotfix.GUI
             return rBaseDataObj.Object;
         }
 
-
         public void AddEventListener(UnityEngine.Object rObj, Action<UnityEngine.Object> rAction)
         {
             if (this.mEventHandler == null) return;
@@ -83,6 +82,18 @@ namespace WindHotfix.GUI
         }
 
         public virtual void OnInitialize()
+        {
+        }
+
+        public virtual void OnOpening()
+        {
+        }
+
+        public virtual void OnClosing()
+        {
+        }
+
+        public virtual void OnClosed()
         {
         }
     }

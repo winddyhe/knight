@@ -56,26 +56,25 @@ namespace Game.Knight
         }
     }
 
-    public class PlayerListViewController : ViewController
+    public class PlayerListViewController //: ViewController
     {
         public PlayerListViewController(PlayerListView rView)
             : base()
         {
         }
 
-        public override void OnOpening()
-        {
-            //this.mView.RefreshActorList();
+        //public override void OnOpening()
+        //{
+        //    //this.mView.RefreshActorList();
+        //    //this.mView.IsOpened = true;
+        //}
 
-            //this.mView.IsOpened = true;
-        }
+        //public override void OnClosing()
+        //{
+        //    //this.mView.IsClosed = true;
 
-        public override void OnClosing()
-        {
-            //this.mView.IsClosed = true;
-
-            //if (this.mView.SelectedPlayerItem != null)
-            //    this.mView.SelectedPlayerItem.StopLoad();
-        }
+        //    //if (this.mView.SelectedPlayerItem != null)
+        //    //    this.mView.SelectedPlayerItem.StopLoad();
+        //}
     }
 }

@@ -23,6 +23,9 @@ namespace Game.Knight
         {
             this.SelectedPlayer = this.Objects[0].Object as Toggle;
             this.AddEventListener(this.Objects[0].Object, (rTarget) => { OnToggleSelectedValueChanged(); });
+
+            // 获取ProfessionalID
+            this.ProfessionalID = (int)this.GetData("ProfessionalID");
         }
 
         public override void Start()
@@ -49,6 +52,13 @@ namespace Game.Knight
             ActorProfessional rProfessional = GameConfig.Instance.GetActorProfessional(this.ProfessionalID);
             this.Parent.ProfessionalDesc.text = rProfessional.Desc;
             mActorCreateRequest = Actor.CreateActor(-1, rProfessional.HeroID, ActorLoadCompleted);
+        }
+
+        public void StartLoad(CreatePlayerView rCreatePlayerView)
+        {
+            this.ProfessionalID = (int)this.GetData("ProfessionalID");
+            this.Parent = rCreatePlayerView;
+            this.StartLoad();
         }
 
         public void StopLoad()

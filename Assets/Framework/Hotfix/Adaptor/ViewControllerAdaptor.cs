@@ -43,7 +43,7 @@ namespace Framework.Hotfix
             private bool                mIsGetIsClosedInvoking      = false;
             private bool                mIsSetIsClosedInvoking      = false;
 
-            private bool                mIsTestOnOpeningInvoking    = false;
+            private bool                mIsTestOpeningInvoking      = false;
 
             private IMethod             mOnOpenedMethod;
             private bool                mOnOpenedGot                = false;
@@ -61,7 +61,7 @@ namespace Framework.Hotfix
             private bool                mOnRefreshGot               = false;
             private bool                mIsTestOnRefreshInvoking    = false;
             
-            private bool                mIsTestOnClosingInvoking    = false;
+            private bool                mIsTestClosingInvoking      = false;
 
             private IMethod             mOnClosedMethod;
             private bool                mOnClosedGot                = false;
@@ -169,17 +169,17 @@ namespace Framework.Hotfix
                 }
             }
 
-            public override void OnOpening()
+            public override void Opening()
             {
-                if (!mIsTestOnOpeningInvoking)
+                if (!mIsTestOpeningInvoking)
                 {
-                    mIsTestOnOpeningInvoking = true;
+                    mIsTestOpeningInvoking = true;
                     mAppdomain.Invoke(this.ParentType, "Opening", __instance);
-                    mIsTestOnOpeningInvoking = false;
+                    mIsTestOpeningInvoking = false;
                 }
                 else
                 {
-                    base.OnOpening();
+                    base.Opening();
                 }
             }
 
@@ -263,37 +263,31 @@ namespace Framework.Hotfix
                 }
             }
 
-            public override void OnClosing()
+            public override void Closing()
             {
-                if (!mIsTestOnClosingInvoking)
+                if (!mIsTestClosingInvoking)
                 {
-                    mIsTestOnClosingInvoking = true;
+                    mIsTestClosingInvoking = true;
                     mAppdomain.Invoke(this.ParentType, "Closing", __instance);
-                    mIsTestOnClosingInvoking = false;
+                    mIsTestClosingInvoking = false;
                 }
                 else
                 {
-                    base.OnClosing();
+                    base.Closing();
                 }
             }
 
-            public override void OnClosed()
+            public override void Closed()
             {
-                if (!mOnClosedGot)
-                {
-                    mOnClosedMethod = __instance.Type.GetMethod("OnClosed", 0);
-                    mOnClosedGot = true;
-                }
-
-                if (mOnClosedMethod != null && !mIsTestOnClosedInvoking)
+                if (!mIsTestOnClosedInvoking)
                 {
                     mIsTestOnClosedInvoking = true;
-                    mAppdomain.Invoke(mOnClosedMethod, __instance);
+                    mAppdomain.Invoke(this.ParentType, "Closed", __instance);
                     mIsTestOnClosedInvoking = false;
                 }
                 else
                 {
-                    base.OnClosed();
+                    base.Closed();
                 }
             }
 

@@ -26,12 +26,12 @@ namespace Game.Knight
         {
         }
 
-        public override void OnOpening()
+        public override void Opening()
         {
             //this.mView.IsOpened = true;
         }
 
-        public override void OnClosing()
+        public override void Closing()
         {
             //this.mView.IsClosed = true;
         }
