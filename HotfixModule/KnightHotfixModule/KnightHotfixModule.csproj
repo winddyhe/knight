@@ -90,6 +90,8 @@
     <Compile Include="Knight\GamePlay\GamePlayComponent.ActorSkill.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentConfig.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentParser.cs" />
+    <Compile Include="Test\BaseFunction\Class4.cs" />
+    <Compile Include="Test\BaseFunction\Class5.cs" />
     <Compile Include="WindHotfix\GameStage\GameMode.cs" />
     <Compile Include="WindHotfix\GameStage\GameStage.cs" />
     <Compile Include="WindHotfix\GameStage\GameStageManager.cs" />

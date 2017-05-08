@@ -22,15 +22,18 @@ namespace Game.Knight
         public override void OnInitialize()
         {
             this.SelectedPlayer = this.Objects[0].Object as Toggle;
-            this.Parent = (this.Objects[1].Object as View).ViewController as CreatePlayerView;
-            Debug.LogError((this.Objects[1].Object as View).ViewController == null ? "null" : "not null");
             this.AddEventListener(this.Objects[0].Object, (rTarget) => { OnToggleSelectedValueChanged(); });
+        }
+
+        public override void Start()
+        {
+            // 这里的调用次序的问题 必须要等待下一帧才能得到ViewController的值
+            this.Parent = (this.Objects[1].Object as View).ViewController as CreatePlayerView;
         }
 
         public void OnToggleSelectedValueChanged()
         {
-            Debug.LogError("1111");
-            if (this.SelectedPlayer.isOn && this.Parent.CurrentSelectedItem != this)
+            if (this.SelectedPlayer.isOn && this.Parent != null && this.Parent.CurrentSelectedItem != this)
             {
                 StartLoad();
                 this.Parent.CurrentSelectedItem = this;

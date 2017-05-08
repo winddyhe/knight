@@ -4,11 +4,11 @@
 //======================================================================
 using System.Collections.Generic;
 using UnityEngine;
-using WindHotfix.Test1;
+using WindHotfix.Test;
 using Core.WindJson;
 using WindHotfix.Core;
 
-namespace WindHotfix.Test1
+namespace WindHotfix.Test
 {
     public partial class A1
     {
