@@ -1,8 +1,9 @@
 # knight
 Knight是一个基于Unity5.x引擎的游戏GamePlay框架，提供一些简单易用的游戏框架接口，目的让开发者更加专注于游戏内容的开发。同时在框架基础上提供一些不同游戏类型的Demo。
 
+
 ## 主要功能
-* WindJson: 一个兼容性还算可以的Json解析库  
+* WindJson: 
     * 标准的Json格式解析
     * 方便的从object/jsonstring/jsonnode三者之间相互转化
     * 兼容重复的逗号，分号
@@ -18,24 +19,20 @@ Knight是一个基于Unity5.x引擎的游戏GamePlay框架，提供一些简单�
     * 实现类似 WWW/AssetBundleRequest等带自定义参数返回的协程对象，以简化使用协程的代码结构
 
 * Pomelo服务器集成
-    * Pomelo是一款基于Nodejs的游戏服务器，集成它的客户端模块到游戏框架中去
+    * Pomelo是一个基于Nodejs的游戏服务器，集成它的客户端模块到游戏框架中去
     * 提供服务器消息发送和接收的接口
     * 服务器登录流程
     * 数据库使用MongoDB
     * TODO: 服务器相关功能，如位置同步、伤害计算同步等等
 
-* WindUI: 一个简易的UI管理模块
+* WindUI: 
     * UI资源加载和UI对象的管理
     * 封装可复用的UI控件
 
 * ExcelReader
     * 支持Excel表格的读取，转换为Json格式的字符串
 
-* GameStage: 关卡管理
-    * 管理一个游戏关卡的加载，卸载，关卡中的内容承载等功能
-    * 支持多个关卡加载任务同时进行，并在同一个节点等待完成之后进入下一个加载任务阶段
-
-* MultiScene: 地形分块（研究性质，用处不大）
+* MultiScene: 地形分块
     * 将一个大地形资源分成小块地形
     * 根据角色位置按照一定的策略加载和卸载不同的地形块
 
@@ -48,7 +45,7 @@ Knight是一个基于Unity5.x引擎的游戏GamePlay框架，提供一些简单�
 
 ## 计划 2017.3.16
 * 使用ILRuntime做热更新，把全部的游戏逻辑放到ILRuntime端去。实现全逻辑的热更新机制。
-* 资源管理模块实现Editor和非Editor的加载接口统一，可以自由切换。
+* 整合官方的AssetbundleBrowser，实现资源管理模块Editor和非Editor的加载接口统一，可以自由切换。
 
 ## 联系方式
 Email: hgplan@126.com
