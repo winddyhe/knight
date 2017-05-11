@@ -9,15 +9,17 @@ namespace Framework.WindUI
     public class ViewController
     {
         public string HotfixName;
+        public string GUID;
         public string ParentType = "WindHotfix.GUI.THotfixViewController`1";
 
         public ViewController()
         {
         }
 
-        public void SetHotfixName(string rHotfixName)
+        public void SetHotfix(string rHotfixName, string rGUID)
         {
             this.HotfixName = rHotfixName;
+            this.GUID = rGUID;
             this.ParentType = string.Format("WindHotfix.GUI.THotfixViewController`1<{0}>", rHotfixName);
         }
 

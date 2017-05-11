@@ -121,7 +121,6 @@
     <Compile Include="Assets\Game\Knight\Script\Common\Globals.cs" />
     <Compile Include="Assets\Game\Knight\Script\GameFlow\GameTest.cs" />
     <Compile Include="Assets\Game\Knight\Script\GameFlow\Init.cs" />
-    <Compile Include="Assets\Game\Knight\Script\GameFlow\World.cs" />
     <Compile Include="Assets\Game\Knight\Script\Loader\AvatarAssetLoader.cs" />
     <Compile Include="Assets\Game\Knight\Script\Loader\SceneAssetLoader.cs" />
     <Compile Include="Assets\Game\Knight\Script\Loader\SceneConfig.cs" />
@@ -161,6 +160,7 @@
     <Compile Include="Assets\Test\AreaOverlapTest\AreaOverlapTest.cs" />
     <Compile Include="Assets\Test\CoroutineTest\CoroutineTest.cs" />
     <Compile Include="Assets\Test\GamePlayTest\GamePlayTest.cs" />
+    <Compile Include="Assets\Test\HotfixTest\Base\HofixTest4.cs" />
     <Compile Include="Assets\Test\HotfixTest\Base\HotfixMBTest.cs" />
     <Compile Include="Assets\Test\HotfixTest\Base\HotfixTest.cs" />
     <Compile Include="Assets\Test\HotfixTest\UI\HotfixUITest.cs" />

@@ -8,6 +8,7 @@ using Core;
 using UnityEngine;
 using WindHotfix.Core;
 using Framework.WindUI;
+using Framework;
 
 namespace Game.Knight
 {
@@ -67,6 +68,7 @@ namespace Game.Knight
             {
                 UtilTool.SafeDestroy(mActorCreateRequest.Actor.ExhibitActor.ActorGo);
                 mActorCreateRequest.Stop();
+                AssetLoadManager.Instance.UnloadAllLoadedAssetbundles();
             }
         }
 

@@ -62,9 +62,7 @@ namespace Framework.Hotfix
             private bool                mIsTestOnRefreshInvoking    = false;
             
             private bool                mIsTestClosingInvoking      = false;
-
-            private IMethod             mOnClosedMethod;
-            private bool                mOnClosedGot                = false;
+            
             private bool                mIsTestOnClosedInvoking     = false;
             
             private bool                mIsOnUnityEventInvoking     = false;

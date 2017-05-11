@@ -119,8 +119,15 @@ namespace Framework.WindUI
             }
             else
             {
-                this.mViewController.SetHotfixName(this.mHotfixName);
+                this.mViewController.SetHotfix(this.mHotfixName, this.GUID);
                 this.mViewController.Initialize(this.mObjects, this.ToBaseDataObjects(this.mBaseDatas));
+
+                var rMBContainers = this.gameObject.GetComponentsInChildren<HotfixMBContainer>(true);
+                for (int i = 0; i < rMBContainers.Length; i++)
+                {
+                    if (rMBContainers[i] is View || rMBContainers[i].MBHotfixObject != null) continue;
+                    rMBContainers[i].InitHotfixMB();
+                }
             }
         }
 

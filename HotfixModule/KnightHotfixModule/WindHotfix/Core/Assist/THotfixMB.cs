@@ -38,6 +38,7 @@ namespace WindHotfix.Core
             if (mEventHandler != null)
                 mEventHandler.RemoveAll();
             mEventHandler = null;
+            this.GameObject = null;
 
             this.OnDestroy();
         }

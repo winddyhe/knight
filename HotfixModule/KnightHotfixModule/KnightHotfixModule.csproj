@@ -85,6 +85,7 @@
     <Compile Include="Knight\GameFlow\CreatePlayer.cs" />
     <Compile Include="Knight\GameFlow\Init.cs" />
     <Compile Include="Knight\GameFlow\Login.cs" />
+    <Compile Include="Knight\GameFlow\World.cs" />
     <Compile Include="Knight\GameMode\GameMode_CreatePlayer.cs" />
     <Compile Include="Knight\GameMode\GameMode_World.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponent.ActorSkill.cs" />

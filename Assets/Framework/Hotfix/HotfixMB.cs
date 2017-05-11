@@ -11,16 +11,18 @@ namespace Framework.Hotfix
 {
     public class HotfixMB
     {
-        public string   HotfixName;
-        public string   ParentType = "WindHotfix.Core.THotfixMB`1";
+        public string       HotfixName;
+        public GameObject   GameObject;
+        public string       ParentType = "WindHotfix.Core.THotfixMB`1";
 
         public HotfixMB()
         {
         }
 
-        public void SetHotfixName(string rHotfixName)
+        public void SetHotfix(string rHotfixName, GameObject rGameObject)
         {
             this.HotfixName = rHotfixName;
+            this.GameObject = rGameObject;
             this.ParentType = string.Format("WindHotfix.Core.THotfixMB`1<{0}>", rHotfixName);
         }
 

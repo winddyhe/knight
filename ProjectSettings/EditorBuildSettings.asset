@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/Knight/Scene/GameTest.unity
     guid: dc85cb545aec59348a0569119bcd6d4c
+  - enabled: 1
+    path: Assets/Game/Knight/Scene/World.unity
+    guid: 00000000000000000000000000000000

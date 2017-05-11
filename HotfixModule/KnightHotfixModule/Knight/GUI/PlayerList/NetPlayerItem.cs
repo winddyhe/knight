@@ -7,21 +7,33 @@ using System.Collections;
 using Framework.WindUI;
 using UnityEngine.UI;
 using Core;
+using WindHotfix.Core;
+using Framework;
 
 namespace Game.Knight
 {
-    public class NetPlayerItem : MonoBehaviour
+    public class NetPlayerItem : THotfixMB<NetPlayerItem>
     {
-        public TextFormat       ActorProfession;
-        public TextFormat       ActorLevel;
-        public Text             ActorName;
-        public Toggle           SelectedToggle;
+        public TextFormat                   ActorProfession;
+        public TextFormat                   ActorLevel;
+        public Text                         ActorName;
+        public Toggle                       SelectedToggle;
 
-        public PlayerListView   Parent;
+        public PlayerListView               Parent;
 
         private NetActor                    mNetActor;
         private Actor.ActorCreateRequest    mActorCreateRequest;
-             
+
+        public override void OnInitialize()
+        {
+            this.ActorProfession = this.Objects[0].Object as TextFormat;
+            this.ActorLevel      = this.Objects[1].Object as TextFormat;
+            this.ActorName       = this.Objects[2].Object as Text;
+            this.SelectedToggle  = this.Objects[3].Object as Toggle;
+
+            this.AddEventListener(this.SelectedToggle, (rTarget) => { OnValueChanged(); });
+        }
+
         public void Set(NetActor rNetActor)
         {
             this.mNetActor = rNetActor;
@@ -67,6 +79,7 @@ namespace Game.Knight
                     UtilTool.SafeDestroy(mActorCreateRequest.Actor.ExhibitActor.ActorGo);
                 }
                 mActorCreateRequest.Stop();
+                AssetLoadManager.Instance.UnloadAllLoadedAssetbundles();
             }
         }
 

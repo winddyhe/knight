@@ -27,6 +27,9 @@ namespace Framework.Hotfix
         protected virtual void Awake()
         {
             this.InitHotfixMB();
+
+            if (this.mMBHotfixObj != null)
+                mMBHotfixObj.Awake();
         }
 
         protected virtual void Start()
@@ -91,16 +94,15 @@ namespace Framework.Hotfix
             return rBaseDataObjects;
         }
 
-        private void InitHotfixMB()
+        public void InitHotfixMB()
         {
             if (mMBHotfixObj == null)
                 mMBHotfixObj = HotfixApp.Instance.Instantiate<HotfixMB>(mHotfixName);
 
             if (mMBHotfixObj != null)
             {
-                mMBHotfixObj.SetHotfixName(mHotfixName);
+                mMBHotfixObj.SetHotfix(mHotfixName, this.gameObject);
                 mMBHotfixObj.Initialize(this.mObjects, this.ToBaseDataObjects(mBaseDatas));
-                mMBHotfixObj.Awake();
             }
         }
     }
