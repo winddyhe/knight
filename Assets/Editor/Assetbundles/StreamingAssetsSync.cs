@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using Core;
 using Core.Editor;
 
-namespace Framework.Editor
+namespace UnityEditor.AssetBundles
 {
     /// <summary>
     /// 同步资源到StreamingAssets的目录下

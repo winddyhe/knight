@@ -7,7 +7,7 @@ using System.Collections;
 using Core;
 using System.IO;
 
-namespace Framework
+namespace UnityEngine.AssetBundles
 {
     /// <summary>
     /// 资源管理类，主要用作不同资源平台的路径管理

@@ -11,7 +11,7 @@ using System;
 using Object = UnityEngine.Object;
 using Core;
 
-namespace Framework.Editor
+namespace UnityEditor.AssetBundles
 {
     /// <summary>
     /// 一个资源包项

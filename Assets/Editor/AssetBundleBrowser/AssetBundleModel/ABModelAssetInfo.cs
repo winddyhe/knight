@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.IMGUI.Controls;
 
-namespace UnityEngine.AssetBundles.AssetBundleModel
+namespace UnityEditor.AssetBundles.AssetBundleModel
 {
     public class AssetTreeItem : TreeViewItem
     {

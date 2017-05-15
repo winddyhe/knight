@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEditor.IMGUI.Controls;
 using System.Linq;
 using System;
+using UnityEngine;
 
 
-namespace UnityEngine.AssetBundles
+namespace UnityEditor.AssetBundles
 {
 	internal class AssetListTree : TreeView
 	{
@@ -179,7 +180,7 @@ namespace UnityEngine.AssetBundles
             var assetItem = FindItem(id, rootItem) as AssetBundleModel.AssetTreeItem;
 			if (assetItem != null)
 			{
-				Object o = AssetDatabase.LoadAssetAtPath<Object>(assetItem.asset.Name);
+                UnityEngine.Object o = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetItem.asset.Name);
 				EditorGUIUtility.PingObject(o);
 				Selection.activeObject = o;
 			}
@@ -193,7 +194,7 @@ namespace UnityEngine.AssetBundles
                 var assetItem = FindItem(id, rootItem) as AssetBundleModel.AssetTreeItem;
                 if (assetItem != null)
                 {
-                    Object o = AssetDatabase.LoadAssetAtPath<Object>(assetItem.asset.Name);
+                    UnityEngine.Object o = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetItem.asset.Name);
                     Selection.activeObject = o;
                     selectedAssets.Add(assetItem.asset);
                 }

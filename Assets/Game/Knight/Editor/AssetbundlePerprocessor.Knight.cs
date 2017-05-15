@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections;
 using Framework.Editor;
 using UnityEditor;
+using UnityEditor.AssetBundles;
 
 namespace Game.Knight.Editor
 {

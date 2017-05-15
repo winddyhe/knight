@@ -1,17 +1,17 @@
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
+using UnityEngine;
 
-namespace UnityEngine.AssetBundles
+namespace UnityEditor.AssetBundles
 {
-
     public class AssetBundleBrowserMain : EditorWindow
     {
-
         public const float kButtonWidth = 150;
 
         enum Mode
         {
             Browser,
+            Preprocessing,
             Builder,
         }
         [SerializeField]
@@ -22,6 +22,9 @@ namespace UnityEngine.AssetBundles
 
         [SerializeField]
         public AssetBundleBuildTab m_BuildTab;
+
+        [SerializeField]
+        public AssetbundlePreprocessingTab m_PreprocessingTab;
 
         private Texture2D m_RefreshTexture;
 
@@ -36,7 +39,6 @@ namespace UnityEngine.AssetBundles
         }
         private void OnEnable()
         {
-
             Rect subPos = GetSubWindowArea();
             if(m_ManageTab == null)
                 m_ManageTab = new AssetBundleManageTab();
@@ -44,6 +46,9 @@ namespace UnityEngine.AssetBundles
             if(m_BuildTab == null)
                 m_BuildTab = new AssetBundleBuildTab();
             m_BuildTab.OnEnable(subPos, this);
+            if (m_PreprocessingTab == null)
+                m_PreprocessingTab = new AssetbundlePreprocessingTab();
+            m_PreprocessingTab.OnEnable(subPos, this);
 
             m_RefreshTexture = EditorGUIUtility.FindTexture("Refresh");
         }
@@ -59,6 +64,9 @@ namespace UnityEngine.AssetBundles
         {
             switch (m_Mode)
             {
+                case Mode.Preprocessing:
+                    //m_PreprocessingTab.Update();
+                    break;
                 case Mode.Builder:
                     //m_BuildTab.Update();
                     break;
@@ -75,6 +83,9 @@ namespace UnityEngine.AssetBundles
 
             switch(m_Mode)
             {
+                case Mode.Preprocessing:
+                    m_PreprocessingTab.OnGUI(GetSubWindowArea());
+                    break;
                 case Mode.Builder:
                     m_BuildTab.OnGUI(GetSubWindowArea());
                     break;
@@ -100,12 +111,10 @@ namespace UnityEngine.AssetBundles
                 GUILayout.Space(m_RefreshTexture.width + kToolbarPadding);
             }
             float toolbarWidth = position.width - kToolbarPadding * 4 - m_RefreshTexture.width;
-            string[] labels = new string[2] { "Configure", "Build" };
+            string[] labels = new string[3] { "Configure", "Preprocessing", "Build" };
             m_Mode = (Mode)GUILayout.Toolbar((int)m_Mode, labels, "LargeButton", GUILayout.Width(toolbarWidth) );
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal(); 
         }
-
-
     }
 }

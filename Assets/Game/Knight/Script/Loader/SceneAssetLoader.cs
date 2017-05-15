@@ -8,6 +8,7 @@ using Framework;
 using Core;
 using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEngine.AssetBundles;
 
 namespace Game.Knight
 {

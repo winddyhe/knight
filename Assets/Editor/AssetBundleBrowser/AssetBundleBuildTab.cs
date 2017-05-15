@@ -2,9 +2,10 @@ using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 
 
-namespace UnityEngine.AssetBundles
+namespace UnityEditor.AssetBundles
 {
     [System.Serializable]
     public class AssetBundleBuildTab

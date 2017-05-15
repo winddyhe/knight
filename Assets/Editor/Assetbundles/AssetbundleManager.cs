@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEditor;
 using System.IO;
 
-namespace Framework.Editor
+namespace UnityEditor.AssetBundles
 {
     /// <summary>
     /// 资源统一打包工具

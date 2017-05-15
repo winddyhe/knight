@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using Core;
 using UnityEngine.SceneManagement;
 
-namespace Framework
+namespace UnityEngine.AssetBundles
 {
     /// <summary>
     /// 资源的加载信息

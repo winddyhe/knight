@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using Core.WindJson;
 using Core;
 
-namespace Framework.Editor
+namespace UnityEditor.AssetBundles
 {
     /// <summary>
     /// 资源打包的辅助类

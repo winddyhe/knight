@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEditor.IMGUI.Controls;
 using System.Linq;
 using System;
+using UnityEngine;
 
 
-namespace UnityEngine.AssetBundles
+namespace UnityEditor.AssetBundles
 {
     internal class MessageList
     {

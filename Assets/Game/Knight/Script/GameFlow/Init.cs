@@ -7,6 +7,7 @@ using System.Collections;
 using Framework;
 using Core;
 using Framework.Hotfix;
+using UnityEngine.AssetBundles;
 
 namespace Game.Knight
 {
