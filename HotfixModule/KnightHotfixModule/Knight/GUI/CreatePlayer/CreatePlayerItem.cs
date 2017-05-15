@@ -2,13 +2,12 @@
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
-using Game.Knight;
 using UnityEngine.UI;
 using Core;
 using UnityEngine;
 using WindHotfix.Core;
 using Framework.WindUI;
-using Framework;
+using UnityEngine.AssetBundles;
 
 namespace Game.Knight
 {

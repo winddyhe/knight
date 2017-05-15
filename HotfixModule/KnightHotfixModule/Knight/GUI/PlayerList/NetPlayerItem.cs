@@ -3,12 +3,11 @@
 //        Email: hgplan@126.com
 //======================================================================
 using UnityEngine;
-using System.Collections;
 using Framework.WindUI;
 using UnityEngine.UI;
 using Core;
 using WindHotfix.Core;
-using Framework;
+using UnityEngine.AssetBundles;
 
 namespace Game.Knight
 {

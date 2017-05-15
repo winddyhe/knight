@@ -5,10 +5,11 @@
 using UnityEngine;
 using Core;
 using Framework;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
-    public class ActorUserController : MonoBehaviour
+    public class ActorUserController : THotfixMB<ActorUserController>
     {
         private ActorController mCharacter;
         private Transform       mCameraTrans;
@@ -18,7 +19,7 @@ namespace Game.Knight
 
         private Vector3         mTempForword = new Vector3(1, 0, 1);
 
-        void Start()
+        public override void Start()
         {
             if (Camera.main != null) 
             {
@@ -28,10 +29,10 @@ namespace Game.Knight
             {
                 Debug.LogError("Cannot find main camera.");
             }
-            mCharacter = this.gameObject.ReceiveComponent<ActorController>();
+            mCharacter = this.GameObject.ReceiveHotfixComponent<ActorController>();
         }
-        
-        void FixedUpdate()
+
+        public override void Update()
         {
             float rHorizontalInput = InputManager.Instance.Horizontal;
             float rVerticalInput   = InputManager.Instance.Vertical;

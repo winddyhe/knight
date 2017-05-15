@@ -24,6 +24,12 @@ namespace Framework.Hotfix
         private HotfixMB                        mMBHotfixObj;
         public  HotfixMB                        MBHotfixObject { get { return this.mMBHotfixObj; } }
 
+        public  string                          HotfixName
+        {
+            get { return mHotfixName;  }
+            set { mHotfixName = value; }
+        }
+
         protected virtual void Awake()
         {
             this.InitHotfixMB();
@@ -46,11 +52,18 @@ namespace Framework.Hotfix
 
         protected virtual void OnDestroy()
         {
-            if (mMBHotfixObj == null) return;
-            mMBHotfixObj.OnDestroy();
-            mObjects.Clear();
-            mBaseDatas.Clear();
+            if (mMBHotfixObj != null)
+                mMBHotfixObj.OnDestroy();
+
+            if (mObjects != null)
+                mObjects.Clear();
+
+            if (mBaseDatas != null)
+                mBaseDatas.Clear();
+
             mMBHotfixObj = null;
+            mObjects = null;
+            mBaseDatas = null;
         }
 
         protected virtual void OnEnable()
@@ -73,6 +86,8 @@ namespace Framework.Hotfix
 
         protected List<BaseDataObject> ToBaseDataObjects(List<BaseDataDisplayObject> rBaseDatas)
         {
+            if (rBaseDatas == null) return new List<BaseDataObject>();
+
             List<BaseDataObject> rBaseDataObjects = new List<BaseDataObject>();
             for (int i = 0; i < rBaseDatas.Count; i++)
             {
@@ -96,12 +111,12 @@ namespace Framework.Hotfix
 
         public void InitHotfixMB()
         {
-            if (mMBHotfixObj == null)
-                mMBHotfixObj = HotfixApp.Instance.Instantiate<HotfixMB>(mHotfixName);
-
-            if (mMBHotfixObj != null)
+            if (mMBHotfixObj == null && !string.IsNullOrEmpty(mHotfixName))
             {
+                mMBHotfixObj = HotfixApp.Instance.Instantiate<HotfixMB>(mHotfixName);
                 mMBHotfixObj.SetHotfix(mHotfixName, this.gameObject);
+
+                if (this.mObjects == null) this.mObjects = new List<UnityObject>();
                 mMBHotfixObj.Initialize(this.mObjects, this.ToBaseDataObjects(mBaseDatas));
             }
         }

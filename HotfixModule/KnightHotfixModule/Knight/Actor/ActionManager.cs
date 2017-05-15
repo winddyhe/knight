@@ -4,22 +4,19 @@
 //======================================================================
 using UnityEngine;
 using System.Collections;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
-    public class ActionManager : MonoBehaviour
+    public class ActionManager : THotfixMB<ActionManager>
     {
         public Animator Animator;
         
-        void Start()
+        public override void Start()
         {
-            this.Animator = this.GetComponent<Animator>();
+            this.Animator = this.GameObject.GetComponent<Animator>();
         }
         
-        void Update()
-        {
-        }
-
         public void PlayMove(bool bIsMove)
         {
             this.Animator.SetBool("IsMove", bIsMove);

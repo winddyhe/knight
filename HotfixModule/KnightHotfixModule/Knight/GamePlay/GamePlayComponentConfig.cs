@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using Core;
 using System.IO;
 using Core.WindJson;
-using Framework;
 using WindHotfix.Core;
+using UnityEngine.AssetBundles;
 
 namespace Game.Knight
 {

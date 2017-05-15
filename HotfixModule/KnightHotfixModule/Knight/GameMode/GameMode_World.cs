@@ -10,6 +10,7 @@ using UnityEngine;
 using Core;
 using Framework.WindUI;
 using WindHotfix.GameStage;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
@@ -120,8 +121,8 @@ namespace Game.Knight
                 this.GameMode.MainPlayer.ActorGo.transform.position = rBornPos;
 
                 // 添加角色控制器
-                this.GameMode.MainPlayer.ActorGo.ReceiveComponent<ActorUserController>();
-                this.GameMode.MainPlayer.ActorGo.ReceiveComponent<ActorController>();
+                this.GameMode.MainPlayer.ActorGo.GetHotfixComponent<ActorUserController>();
+                this.GameMode.MainPlayer.ActorGo.GetHotfixComponent<ActorController>();
 
                 // 加载Gamepad界面
                 yield return UIManager.Instance.OpenAsync("KNGamePad", View.State.dispatch);

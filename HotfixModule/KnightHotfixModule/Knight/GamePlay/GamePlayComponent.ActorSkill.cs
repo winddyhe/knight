@@ -2,13 +2,10 @@
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
-using UnityEngine;
-using System.Collections;
 using System;
 using System.Collections.Generic;
-using Framework;
 using System.Reflection;
-using Core;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
@@ -35,15 +32,27 @@ namespace Game.Knight
             Type rType = this.GetType();
             if (rType == null) return;
 
+            //TODO: ........这里移植过来反射出来的Field的顺序有问题....和以前的不一样
             var rBindingFlags = BindingFlags.GetField | BindingFlags.SetField | BindingFlags.Public | BindingFlags.Instance;
             var rFiledInfos = rType.GetFields(rBindingFlags);
 
-            for (int i = 0; i < rFiledInfos.Length; i++)
+            int i = 0;
+            for (i = 0; i < rFiledInfos.Length-2; i++)
             {
-                var rFiledType = rFiledInfos[i].FieldType;
-                var rValue = ReflectionAssist.TypeConvert(rFiledType, mArgs[i]);
-                rFiledInfos[i].SetValue(this, rValue);
+                var rFiledType = rFiledInfos[i+2].FieldType;
+                var rValue = HotfixReflectAssists.TypeConvert(rFiledType, mArgs[i]);
+                rFiledInfos[i+2].SetValue(this, rValue);
             }
+
+            if (rFiledInfos.Length >= 2)
+            {
+                var rValue0 = HotfixReflectAssists.TypeConvert(rFiledInfos[0].FieldType, mArgs[i++]);
+                rFiledInfos[0].SetValue(this, rValue0);
+
+                var rValue1 = HotfixReflectAssists.TypeConvert(rFiledInfos[1].FieldType, mArgs[i++]);
+                rFiledInfos[1].SetValue(this, rValue1);
+            }
+
             this.mIsStartTriggered = false;
             this.mIsEndTriggered = false;
         }
@@ -147,7 +156,7 @@ namespace Game.Knight
         public override void Initialize()
         {
             base.Initialize();
-            mActionMgr = this.mGamePlayMgr.Actor.ActorGo.GetComponent<ActionManager>();
+            mActionMgr = this.mGamePlayMgr.Actor.ActorGo.GetHotfixComponent<ActionManager>();
         }
 
         protected override void OnStart()

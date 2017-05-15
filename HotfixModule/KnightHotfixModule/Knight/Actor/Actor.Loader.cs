@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Core;
 using System.Collections;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
@@ -73,12 +74,12 @@ namespace Game.Knight
             rExhibitActor.ActorGo.transform.localScale = new Vector3(rHero.Scale, rHero.Scale, rHero.Scale);
 
             // 添加角色控制器
-            //var rActorController = rActor.ActorGo.ReceiveComponent<ActorController>();
-            //rActorController.Actor = rActor;
+            var rActorController = rActor.ActorGo.ReceiveHotfixComponent<ActorController>();
+            rActorController.Actor = rActor;
 
-            //// 添加角色的技能管理器
-            //var rActorGamePlayMgr = rActor.ActorGo.ReceiveComponent<ActorGamePlayManager>();
-            //rActorGamePlayMgr.Initialize(rActor);
+            // 添加角色的技能管理器
+            var rActorGamePlayMgr = rActor.ActorGo.ReceiveHotfixComponent<ActorGamePlayManager>();
+            rActorGamePlayMgr.Initialize(rActor);
 
             UtilTool.SetLayer(rExhibitActor.ActorGo, "Actor", true);
             

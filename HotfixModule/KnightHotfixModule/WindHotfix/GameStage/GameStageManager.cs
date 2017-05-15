@@ -17,7 +17,7 @@ namespace WindHotfix.GameStage
     public class GameStageManager : THotfixMB<GameStageManager>
     {
         private static GameStageManager     __instance;
-        public static  GameStageManager     Instance { get { return __instance; } }
+        public  static GameStageManager     Instance    { get { return __instance; } }
 
         /// <summary>
         /// 关卡中的阶段, 相同Index的GameStage谁先谁后都没有关系。

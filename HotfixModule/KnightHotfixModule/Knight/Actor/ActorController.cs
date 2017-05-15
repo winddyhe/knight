@@ -5,13 +5,14 @@
 using UnityEngine;
 using System.Collections;
 using Core;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
     /// <summary>
     /// 角色控制器
     /// </summary>
-    public class ActorController : MonoBehaviour
+    public class ActorController : THotfixMB<ActorController>
     {
         /// <summary>
         /// 角色
@@ -45,7 +46,7 @@ namespace Game.Knight
         public float            gravityMultiplier = 3.0f;
 
 
-        void Start()
+        public override void Start()
         {
             var rHero = this.Actor.Hero;
             this.Collider = this.Actor.ActorGo.ReceiveComponent<CapsuleCollider>();
@@ -56,7 +57,7 @@ namespace Game.Knight
             this.Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             this.Rigidbody.isKinematic = true;
             this.Rigidbody.useGravity = false;
-            this.ActionMgr = this.Actor.ActorGo.ReceiveComponent<ActionManager>();
+            this.ActionMgr = this.Actor.ActorGo.ReceiveHotfixComponent<ActionManager>();
         }
 
         public void Move(Vector3 rMove, bool bIsRun)
@@ -65,7 +66,7 @@ namespace Game.Knight
 
             if (rMove.magnitude > 1.0f) rMove.Normalize();
 
-            rMove = this.transform.InverseTransformDirection(rMove);
+            rMove = this.GameObject.transform.InverseTransformDirection(rMove);
             CheckGroundStatus();
             rMove = Vector3.ProjectOnPlane(rMove, mGroundNormal);
             mTurnAmount = Mathf.Atan2(rMove.x, rMove.z);
@@ -76,8 +77,8 @@ namespace Game.Knight
 
             bool bIsMove = !rMove.Equals(Vector3.zero);
             
-            this.transform.Translate(rMove * 0.075f * (bIsRun ? 2 : 1));
-            this.transform.position = new Vector3(this.transform.position.x, mGroundedY, this.transform.position.z);
+            this.GameObject.transform.Translate(rMove * 0.075f * (bIsRun ? 2 : 1));
+            this.GameObject.transform.position = new Vector3(this.GameObject.transform.position.x, mGroundedY, this.GameObject.transform.position.z);
 
             // 应用角色的行走动画
             ApplyAnimation(bIsMove, bIsRun);
@@ -86,7 +87,7 @@ namespace Game.Knight
         private void CheckGroundStatus()
         {
             RaycastHit rHitInfo;
-            Vector3 rActorPos = transform.position + Vector3.up * 1.0f;
+            Vector3 rActorPos = this.GameObject.transform.position + Vector3.up * 1.0f;
 #if UNITY_EDITOR
             Debug.DrawLine(rActorPos, rActorPos + Vector3.down * groundCheckDistance);
 #endif
@@ -107,7 +108,7 @@ namespace Game.Knight
         private void ApplyExtraRatation() 
         {
             float fTurnSpeed = Mathf.Lerp(stationaryTurnSpeed, movingTurnSpeed, mForwardAmount);
-            this.transform.Rotate(0, mTurnAmount * fTurnSpeed * Time.deltaTime, 0);
+            this.GameObject.transform.Rotate(0, mTurnAmount * fTurnSpeed * Time.deltaTime, 0);
         }
 
         private void ApplyAnimation(bool bIsMove, bool bIsRun)
@@ -127,17 +128,17 @@ namespace Game.Knight
         private Vector3 Move_RayForword(Vector3 rMove)
         {
             RaycastHit rHitInfo;
-            Vector3 rActorPos = transform.position + Vector3.up * 0.2f;
+            Vector3 rActorPos = this.GameObject.transform.position + Vector3.up * 0.2f;
             float rActorRadius = this.Actor.Hero.Radius + 0.2f;
 #if UNITY_EDITOR
             Debug.DrawLine(rActorPos, rActorPos + rMove, Color.red);
             Debug.DrawLine(rActorPos, rActorPos + this.transform.forward * rActorRadius, Color.green);
 #endif
-            if (Physics.Raycast(rActorPos, this.transform.forward, out rHitInfo, rActorRadius, 1 << LayerMask.NameToLayer("Wall")))
+            if (Physics.Raycast(rActorPos, this.GameObject.transform.forward, out rHitInfo, rActorRadius, 1 << LayerMask.NameToLayer("Wall")))
             {
                 rMove = Vector3.ProjectOnPlane(rMove, rHitInfo.normal);
-                int k = Vector3.Dot(this.transform.forward, rMove) >= 0 ? 1 : -1;
-                rMove = this.transform.InverseTransformDirection(rMove) * k;
+                int k = Vector3.Dot(this.GameObject.transform.forward, rMove) >= 0 ? 1 : -1;
+                rMove = this.GameObject.transform.InverseTransformDirection(rMove) * k;
 #if UNITY_EDITOR
                 Debug.DrawLine(rActorPos, rActorPos + rMove, Color.yellow);
 #endif

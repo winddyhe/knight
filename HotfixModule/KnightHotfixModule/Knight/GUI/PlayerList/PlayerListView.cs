@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using Core;
 using WindHotfix.GUI;
 using Framework.Hotfix;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
@@ -66,17 +67,16 @@ namespace Game.Knight
                 for (int i = 0; i < rActors.Count; i++)
                 {
                     GameObject rPlayerItemObj = GameObject.Instantiate(this.NetPlayerItemTemplate.GameObject);
-                    var rMBContrainer = rPlayerItemObj.GetComponent<HotfixMBContainer>();
-                    rMBContrainer.InitHotfixMB();
-                    var rNetPlayerItem = rMBContrainer.MBHotfixObject as NetPlayerItem;
+                    rPlayerItemObj.SetActive(true);
+                    var rMBContainer = rPlayerItemObj.GetComponent<HotfixMBContainer>();
+                    var rNetPlayerItem = rMBContainer.MBHotfixObject as NetPlayerItem;
 
                     rNetPlayerItem.Parent = this;
                     rNetPlayerItem.Set(rActors[i]);
 
                     rNetPlayerItem.SetSelected(i == 0);
                     if (i == 0) this.SelectedPlayerItem.OnValueChanged();
-
-                    rPlayerItemObj.SetActive(true);
+                    
                     rPlayerItemObj.transform.SetParent(this.PlayerListContainer.transform, false);
                 }
             }

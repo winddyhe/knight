@@ -9,8 +9,8 @@ using System;
 using System.Reflection;
 using Core.WindJson;
 using System.IO;
-using Framework;
 using WindHotfix.Core;
+using UnityEngine.AssetBundles;
 
 namespace Game.Knight
 {

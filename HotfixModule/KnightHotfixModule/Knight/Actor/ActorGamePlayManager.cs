@@ -2,16 +2,12 @@
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using Framework;
-using Core;
-using System;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
-    public class ActorGamePlayManager : MonoBehaviour
+    public class ActorGamePlayManager : THotfixMB<ActorGamePlayManager>
     {
         public Actor                Actor;
         public List<GPCSkill>       Skills;
@@ -43,7 +39,7 @@ namespace Game.Knight
             mCurTime = 0.0f;
         }
 
-        void Update()
+        public override void Update()
         {
             if (!mIsPause) return;
             if (!mIsPlaying) return;
@@ -65,10 +61,9 @@ namespace Game.Knight
                 List<GamePlayComponent> rComps = new List<GamePlayComponent>();
                 for (int j = 0; j < rSymbolObjs[i].Bodies.Count; j++)
                 {
-                    var rCompType = MainAssemblyExpand.GetType("Game.Knight." + rSymbolObjs[i].Bodies[j].Identifer.Value);
-                    var rComp = ReflectionAssist.Construct(
+                    var rCompType = HotfixReflectAssists.GetType("Game.Knight." + rSymbolObjs[i].Bodies[j].Identifer.Value);
+                    var rComp = HotfixReflectAssists.Construct(
                         rCompType,
-                        new Type[] { typeof(ActorGamePlayManager), typeof(List<string>) },
                         this,
                         rSymbolObjs[i].Bodies[j].ToArgs()) as GamePlayComponent;
                     rComps.Add(rComp);

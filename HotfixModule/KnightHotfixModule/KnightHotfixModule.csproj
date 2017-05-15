@@ -93,6 +93,7 @@
     <Compile Include="Knight\GamePlay\GamePlayComponentParser.cs" />
     <Compile Include="Test\BaseFunction\Class4.cs" />
     <Compile Include="Test\BaseFunction\Class5.cs" />
+    <Compile Include="WindHotfix\Core\Assist\HotfixAssists.cs" />
     <Compile Include="WindHotfix\GameStage\GameMode.cs" />
     <Compile Include="WindHotfix\GameStage\GameStage.cs" />
     <Compile Include="WindHotfix\GameStage\GameStageManager.cs" />
