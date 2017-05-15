@@ -3,19 +3,19 @@ Knight是一个基于Unity5.x引擎的游戏GamePlay框架，提供一些简单�
 
 
 ## 主要功能
-* WindJson: 
+* WindJson Json解析库
     * 标准的Json格式解析
     * 方便的从object/jsonstring/jsonnode三者之间相互转化
     * 兼容重复的逗号，分号
     * 支持枚举类型、true/false关键字的识别
     * 支持 // /**/ 注释的识别
 
-* ILRuntime全逻辑热更新:
-    * 使用ILRuntime实现C#的全逻辑热更新
+* ILRuntime全逻辑热更新
+    * 使用ILRuntime实现C#的全逻辑热更新
    
-* 改造官方的MemoryProfiler工具:
-    * 添加对象查找的工具
-    * 添加两次内存snap的比较工具
+* 改造官方的MemoryProfiler工具
+    * 添加对象查找的工具
+    * 添加两次内存snap的比较工具
 
 * TODO: 完整的Assetbundle资源打包工具与加载模块
     * 封装Unity5.x的打包系统
