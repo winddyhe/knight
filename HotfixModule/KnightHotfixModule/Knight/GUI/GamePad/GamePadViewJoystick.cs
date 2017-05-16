@@ -3,13 +3,12 @@
 //        Email: hgplan@126.com
 //======================================================================
 using UnityEngine;
-using System.Collections;
-using Framework.WindUI;
 using Framework;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
-    public class GamePadViewJoystick : MonoBehaviour
+    public class GamePadViewJoystick : THotfixMB<GamePadViewJoystick>
     {
 #region unity_bind
 
@@ -25,13 +24,19 @@ namespace Game.Knight
 
         private Vector2         JoystickInitPos;
 
-        void Start()
+        public override void OnInitialize()
+        {
+            this.JoystickRootTrans  = this.Objects[0].Object as RectTransform;
+            this.JoystickFrontTrans = this.Objects[1].Object as RectTransform;
+        }
+
+        public override void Start()
         {
             this.JoystickInitPos = this.JoystickRootTrans.anchoredPosition;
             Joystick.Instance.Reset();
         }
 
-        void Update()
+        public override void Update()
         {
             if (TouchInput.Instance.TouchCount > 0)
             {

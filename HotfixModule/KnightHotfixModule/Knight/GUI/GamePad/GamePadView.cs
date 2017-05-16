@@ -2,38 +2,29 @@
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
-using UnityEngine;
-using System.Collections;
-using Framework.WindUI;
-using Framework;
+using Framework.Hotfix;
+using WindHotfix.GUI;
 
 namespace Game.Knight
 {
-    public class GamePadView : View
+    public class GamePadView : THotfixViewController<GamePadView>
     {
         public GamePadViewJoystick Joystick;
 
-        protected override void InitializeViewController()
+        public override void OnInitialize()
         {
-            //this.viewController = new GamePadViewController(this);
-        }
-    }
 
-    public class GamePadViewController : ViewController
-    {
-        public GamePadViewController(View rView) 
-            : base()
-        {
         }
 
-        public override void Opening()
+        public override void OnOpening()
         {
-            //this.mView.IsOpened = true;
+            this.Joystick = (this.Objects[0].Object as HotfixMBContainer).MBHotfixObject as GamePadViewJoystick;
+            this.mIsOpened = true;
         }
 
-        public override void Closing()
+        public override void OnClosing()
         {
-            //this.mView.IsClosed = true;
+            this.mIsClosed = true;
         }
     }
 }
