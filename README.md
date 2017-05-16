@@ -27,7 +27,7 @@ Knight是一个基于Unity5.x引擎的游戏GamePlay框架，提供一些简单�
     * 实现类似 WWW/AssetBundleRequest等带自定义参数返回的协程对象，以简化使用协程的代码结构
 
 * Pomelo服务器集成
-    * Pomelo是一个基于Nodejs的游戏服务器，集成它的客户端模块到游戏框架中去
+	* Pomelo是一个基于Nodejs的游戏服务器，集成它的客户端模块到游戏框架中去
     * 提供服务器消息发送和接收的接口
     * 服务器登录流程
     * 数据库使用MongoDB
