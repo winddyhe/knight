@@ -6,7 +6,7 @@
         "assetResPath": "Assets/Game/Knight/GameAsset/Scene",
         "assetSrcType": "Dir_File",
         "assetType": "t:Scene",
-		"abClassName": "Framework.Editor.ABEntryProcessor",
+		"abClassName": "UnityEditor.AssetBundles.ABEntryProcessor",
         "filerAssets": []
     },
 	
@@ -17,7 +17,7 @@
         "assetResPath": "Assets/Game/Knight/GameAsset/Actor",
         "assetSrcType": "Dir_File",
         "assetType": "t:Prefab",
-		"abClassName": "Framework.Editor.ABEntryProcessor",
+		"abClassName": "UnityEditor.AssetBundles.ABEntryProcessor",
         "filerAssets": []
     },
 

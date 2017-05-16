@@ -91,7 +91,12 @@ namespace Game.Knight
         public Dict<int, List<GPCSymbolObject>> ActorSkills;
 
         #region Loading...
-        public void Load_Local(string rLocalAssetPath)
+        public static void Load_Local(string rLocalAssetPath)
+        {
+            GPCSkillConfig.Instance.LoadLocal(rLocalAssetPath);
+        }
+
+        public void LoadLocal(string rLocalAssetPath)
         {
             string rSkillListPath = rLocalAssetPath + "/SkillList.txt";
             string rSkillListConfig = File.ReadAllText(rSkillListPath);

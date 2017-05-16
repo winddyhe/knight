@@ -196,9 +196,11 @@ namespace UnityEditor.AssetBundles
             ABEntryProcessor rEntryProcessor = null;
 
             Type rType = Type.GetType(rABEntry.abClassName);
-            if (rType == null) rEntryProcessor = new ABEntryProcessor();
+            if (rType == null) 
+                rEntryProcessor = new ABEntryProcessor();
+            else
+                rEntryProcessor = ReflectionAssist.Construct(rType) as ABEntryProcessor;
 
-            rEntryProcessor = ReflectionAssist.Construct(rType) as ABEntryProcessor;
             rEntryProcessor.Entry = rABEntry;
 
             return rEntryProcessor;

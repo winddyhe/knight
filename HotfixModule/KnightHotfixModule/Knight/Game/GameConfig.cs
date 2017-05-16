@@ -42,10 +42,16 @@ namespace Game.Knight
         public Dict<int, StageConfig>       StageConfigs;
 
         #region Loading...
+
         /// <summary>
         /// 加载本地原始资源，并导出为二进制资源
         /// </summary>
-        public void Load_Local(string rLocalAssetPath)
+        public static void Load_Local(string rLocalAssetPath)
+        {
+            GameConfig.Instance.LoadLocal(rLocalAssetPath);
+        }
+
+        public void LoadLocal(string rLocalAssetPath)
         {
             var rMemberInfos = this.GetType().GetMembers();
             foreach (var rMemberInfo in rMemberInfos)

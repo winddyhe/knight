@@ -7,23 +7,36 @@ using System.Collections;
 using Framework.Editor;
 using UnityEditor;
 using UnityEditor.AssetBundles;
+using System.Reflection;
 
 namespace Game.Knight.Editor
 {
     public class ABEntryProcessor_GameConfig : ABEntryProcessor
     {
+        public string HotfixDllPath = "Assets/Game/Knight/GameAsset/Hotfix/Libs/KnightHotfixModule.bytes";
+
         public override void PreprocessAssets()
         {
-            //GameConfig.Instance.Load_Local(this.Entry.abOriginalResPath);
+            Assembly rHotfixAssembly = Assembly.LoadFile(this.HotfixDllPath);
+            var rGameConfigType = rHotfixAssembly.GetType("Game.Knight.GameConfig");
+            rGameConfigType.InvokeMember("Load_Local", BindingFlags.Static | BindingFlags.Public | BindingFlags.InvokeMethod, null, null, new object[] { this.Entry.abOriginalResPath });
+            rHotfixAssembly = null;
+
             AssetDatabase.Refresh();
         }
     }
 
     public class ABEntryProcessor_SkillConfig : ABEntryProcessor
     {
+        public string HotfixDllPath = "Assets/Game/Knight/GameAsset/Hotfix/Libs/KnightHotfixModule.bytes";
+
         public override void PreprocessAssets()
         {
-            //GPCSkillConfig.Instance.Load_Local(this.Entry.abOriginalResPath);
+            Assembly rHotfixAssembly = Assembly.LoadFile(this.HotfixDllPath);
+            var rGameConfigType = rHotfixAssembly.GetType("Game.Knight.GPCSkillConfig");
+            rGameConfigType.InvokeMember("Load_Local", BindingFlags.Static | BindingFlags.Public | BindingFlags.InvokeMethod, null, null, new object[] { this.Entry.abOriginalResPath });
+            rHotfixAssembly = null;
+
             AssetDatabase.Refresh();
         }
     }

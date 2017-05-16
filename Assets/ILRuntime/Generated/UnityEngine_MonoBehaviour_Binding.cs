@@ -68,13 +68,14 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_useGUILayout", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, set_useGUILayout_15);
+#if UNITY_EDITOR
             args = new Type[]{};
             method = type.GetMethod("get_runInEditMode", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_runInEditMode_16);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_runInEditMode", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, set_runInEditMode_17);
-
+#endif
             args = new Type[]{};
             method = type.GetConstructor(flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Ctor_0);
@@ -368,6 +369,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
+#if UNITY_EDITOR
         static StackObject* get_runInEditMode_16(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
@@ -401,7 +403,7 @@ namespace ILRuntime.Runtime.Generated
 
             return __ret;
         }
-
+#endif
 
         static StackObject* Ctor_0(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
