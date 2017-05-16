@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{91226658
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializerBinaryEditor", "Tools\SerializerBinaryEditor\SerializerBinaryEditor.csproj", "{18B6F8A7-0539-43D1-B642-B124E5D15911}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLLInjectEditor", "Tools\DLLInjectEditor\DLLInjectEditor.csproj", "{B820B942-4A0F-4F08-9AC7-AB49CBBA1652}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,11 +33,18 @@ Global
 		{18B6F8A7-0539-43D1-B642-B124E5D15911}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18B6F8A7-0539-43D1-B642-B124E5D15911}.Release|Any CPU.Build.0 = Release|Any CPU
 		{18B6F8A7-0539-43D1-B642-B124E5D15911}.Release|x86.ActiveCfg = Release|Any CPU
+		{B820B942-4A0F-4F08-9AC7-AB49CBBA1652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B820B942-4A0F-4F08-9AC7-AB49CBBA1652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B820B942-4A0F-4F08-9AC7-AB49CBBA1652}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B820B942-4A0F-4F08-9AC7-AB49CBBA1652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B820B942-4A0F-4F08-9AC7-AB49CBBA1652}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B820B942-4A0F-4F08-9AC7-AB49CBBA1652}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{18B6F8A7-0539-43D1-B642-B124E5D15911} = {91226658-A3F0-40C6-91C5-4DD987BF298A}
+		{B820B942-4A0F-4F08-9AC7-AB49CBBA1652} = {91226658-A3F0-40C6-91C5-4DD987BF298A}
 	EndGlobalSection
 EndGlobal

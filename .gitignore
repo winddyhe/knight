@@ -41,6 +41,8 @@ HotfixModule/KnightHotfixModule/obj
 HotfixModule/KnightHotfixModule/bin
 HotfixModule/Tools/SerializerBinaryEditor/bin
 HotfixModule/Tools/SerializerBinaryEditor/obj
+HotfixModule/Tools/DLLInjectEditor/bin
+HotfixModule/Tools/DLLInjectEditor/obj
 Server/pomelo-knight/game-server/node_modules
 Server/pomelo-knight/web-server/node_modules
 Server/lordofpomelo/game-server/node_modules
