@@ -16,6 +16,7 @@ namespace UnityEditor.AssetBundles
     /// <summary>
     /// 一个资源包项
     /// </summary>
+    [System.Serializable]
     public class ABEntry
     {
         /// <summary>
@@ -179,6 +180,26 @@ namespace UnityEditor.AssetBundles
         {
         }
 
+        public void ProcessAssetBundleLabel()
+        {
+            if (this.Entry == null) return;
+
+            var rAssetbundleBuilds = this.Entry.ToABBuild();
+            for (int i = 0; i < rAssetbundleBuilds.Length; i++)
+            {
+                var rABBuild = rAssetbundleBuilds[i];
+                for (int j = 0; j < rABBuild.assetNames.Length; j++)
+                {
+                    string rAssetPath = rABBuild.assetNames[j];
+                    AssetImporter rAssetImporter = AssetImporter.GetAtPath(rAssetPath);
+                    if (rAssetImporter == null) return;
+                    
+                    rAssetImporter.SetAssetBundleNameAndVariant(rABBuild.assetBundleName, rABBuild.assetBundleVariant);
+                    AssetDatabase.WriteImportSettingsIfDirty(rAssetPath);
+                }
+            }
+        }
+        
         /// <summary>
         /// 将Entry转成能用于打包的ABB
         /// </summary>

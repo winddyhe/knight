@@ -47,5 +47,19 @@ namespace Core.Editor
                 return (byteNum / 1073741824.0f).ToString("F2") + "GB";
             }
         }
+
+        public static T ReceiveAsset<T>(string rAssetPath) where T : ScriptableObject
+        {
+            var rObj = AssetDatabase.LoadAssetAtPath<T>(rAssetPath) as T;
+            if (rObj == null)
+            {
+                rObj = ScriptableObject.CreateInstance(typeof(T)) as T;
+                AssetDatabase.CreateAsset(rObj, rAssetPath);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+                rObj = AssetDatabase.LoadAssetAtPath<T>(rAssetPath) as T;
+            }
+            return rObj;
+        }
     }
 }

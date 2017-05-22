@@ -8,6 +8,8 @@ using System.IO;
 using System.Collections.Generic;
 using Core.WindJson;
 using Core;
+using System;
+using Core.Editor;
 
 namespace UnityEditor.AssetBundles
 {
@@ -28,12 +30,13 @@ namespace UnityEditor.AssetBundles
         /// 输出的Assetbundle的目录
         /// </summary>
         public static string AssetbundlePath        = "Assets/Assetbundles";
-    
+
         /// <summary>
         /// 资源包配置文件路径
         /// </summary>
-        public static string ABEntriesConfigPath    = "Assets/Editor/Assetbundles/assetbundle_entries.txt";
-    
+        public static string ABEntryConfigPath      = "Assets/Editor/Assetbundles/Assetbundle_Settings.asset";
+
+
         /// <summary>
         /// 当前工程的平台
         /// </summary>
@@ -42,7 +45,7 @@ namespace UnityEditor.AssetBundles
         /// <summary>
         /// 资源项的配置缓存
         /// </summary>
-        public Dict<string, ABEntry> abEntries;
+        public List<ABEntry> abEntries;
     
         private AssetbundleHelper()
         {
@@ -77,25 +80,32 @@ namespace UnityEditor.AssetBundles
             if (!rDirInfo.Exists) rDirInfo.Create();
             BuildPipeline.BuildAssetBundles(rABPath, rABBList.ToArray(), BuildAssetBundleOptions.DeterministicAssetBundle, BuildTarget.StandaloneWindows);
         }
+
+        /// <summary>
+        /// 生成AB包的配置项
+        /// </summary>
+        public List<ABEntry> GenerateABEntries()
+        {
+            var rABEntryConfig = EditorAssists.ReceiveAsset<ABEntryConfig>(ABEntryConfigPath);
+            if (rABEntryConfig == null) return new List<ABEntry>();
+            return rABEntryConfig.ABEntries;
+        }
     
         /// <summary>
         /// 构建需要打包的资源的路径、包名以及包的后缀
         /// </summary>
-        private List<AssetBundleBuild> AssetbundleEntry_Building()
+        public List<AssetBundleBuild> AssetbundleEntry_Building()
         {
-            JsonNode rRootNode = JsonParser.Parse(File.ReadAllText(ABEntriesConfigPath));
-            //Debug.Log(rRootNode.ToString());
-            if (rRootNode == null) return new List<AssetBundleBuild>();
-            
-            abEntries = rRootNode.ToDict<string, ABEntry>();
-            if (abEntries == null) abEntries = new Dict<string, ABEntry>();
+            this.abEntries = this.GenerateABEntries();
+            if (abEntries == null) abEntries = new List<ABEntry>();
     
             // 资源预处理
             List<ABEntryProcessor> rABEntryProcessors = new List<ABEntryProcessor>();
-            foreach (var rEntryItem in abEntries)
+            foreach (var rEntry in abEntries)
             {
-                ABEntryProcessor rProcessor = ABEntryProcessor.Create(rEntryItem.Value);
+                ABEntryProcessor rProcessor = ABEntryProcessor.Create(rEntry);
                 rProcessor.PreprocessAssets();
+                rProcessor.ProcessAssetBundleLabel();
                 rABEntryProcessors.Add(rProcessor);
             }
             // 打包
@@ -105,6 +115,23 @@ namespace UnityEditor.AssetBundles
                 rABBList.AddRange(rProcessor.ToABBuild());
             }
             return rABBList;
+        }
+
+        public void UpdateAllAssetsABLabels(string aBEntryConfigPath)
+        {
+            this.abEntries = this.GenerateABEntries();
+            if (abEntries == null) abEntries = new List<ABEntry>();
+
+            // 资源预处理
+            List<ABEntryProcessor> rABEntryProcessors = new List<ABEntryProcessor>();
+            foreach (var rEntry in abEntries)
+            {
+                ABEntryProcessor rProcessor = ABEntryProcessor.Create(rEntry);
+                rProcessor.PreprocessAssets();
+                rProcessor.ProcessAssetBundleLabel();
+                rABEntryProcessors.Add(rProcessor);
+            }
+            AssetDatabase.RemoveUnusedAssetBundleNames();
         }
     }
 }

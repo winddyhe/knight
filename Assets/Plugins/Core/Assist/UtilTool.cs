@@ -160,7 +160,7 @@ namespace Core
                 return string.Empty;
 
             var rFirstPath = rPaths[0].Replace(rReplaceChar, rDirectoryChar);
-            if (rFirstPath[rFirstPath.Length - 1] == rDirectoryChar)
+            if (rFirstPath.Length > 0 && rFirstPath[rFirstPath.Length - 1] == rDirectoryChar)
                 rFirstPath = rFirstPath.Substring(0, rFirstPath.Length - 1);
 
             var rBuilder = new StringBuilder(rFirstPath);
