@@ -64,7 +64,7 @@ namespace UnityEditor.AssetBundles
             UtilTool.SafeExecute(rLoadCompleted, rABManifest);
         }
     
-        [MenuItem("Tools/同步StreamingAssets下的资源")]
+        [MenuItem("Tools/AssetBundle/Sync StreamingAssets Assets")]
         public static void SyncAssets()
         {
             EditorCoroutineManager.Start(SyncAssets_Async());

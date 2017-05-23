@@ -12,7 +12,7 @@ using Framework.Hotfix;
 public class ILRuntimeCLRBinding
 {
     
-    [MenuItem("Tools/ILRuntime/Generate CLR Binding Code")]
+    [MenuItem("Tools/ILRuntime/Generate CLR Binding Code", priority = 550)]
     static void GenerateCLRBinding()
     {
         List<Type> types = new List<Type>();

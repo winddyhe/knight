@@ -14,7 +14,7 @@ namespace Core.Editor
 
         private Vector2     mScrollPos = new Vector2(210, 600);
 
-        [MenuItem("Tools/导出Excel配置")]
+        [MenuItem("Tools/AssetBundle/Export Excel Config")]
         private static void Init()
         {
             var rWindow = EditorWindow.GetWindow<ExcelReaderWindow>();

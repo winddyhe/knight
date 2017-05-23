@@ -14,10 +14,10 @@ namespace UnityEditor.AssetBundles
     /// </summary>
     public class AssetbundleManager
     {
-        [MenuItem("Tools/资源统一打包")]
+        [MenuItem("Tools/AssetBundle/AssetBundle Build")]
         public static void Build()
         {
-            AssetbundleHelper.Instance.BuildAssetbundles();
+            AssetbundleHelper.Instance.BuildAssetbundles(BuildAssetBundleOptions.DeterministicAssetBundle);
             Debug.Log("资源打包完成！");
         }
     }

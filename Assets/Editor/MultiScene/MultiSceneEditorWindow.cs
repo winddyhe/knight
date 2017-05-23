@@ -17,7 +17,7 @@ namespace Core.MultiScene.Editor
         [SerializeField]
         public Terrain              mTerrain;
     
-        [MenuItem("Tools/地形生成器")]
+        [MenuItem("Tools/Other/Multi Terrain Generator", priority = 1050)]
         private static void Init()
         {
             var rMultiSceneEditorWindow = EditorWindow.GetWindow<MultiSceneEditorWindow>();

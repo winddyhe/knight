@@ -35,6 +35,7 @@ sysinfo.txt
 Library
 Temp
 Assets/Assetbundles
+Assets/StreamingAssets
 Server/pomelo-knight/game-server/logs
 Server/pomelo-knight/game-server/logs
 HotfixModule/KnightHotfixModule/obj

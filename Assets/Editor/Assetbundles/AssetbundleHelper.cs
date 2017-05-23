@@ -57,7 +57,7 @@ namespace UnityEditor.AssetBundles
         /// </summary>
         public string GetPathPrefix_Assetbundle()
         {
-            return Path.Combine(AssetbundlePath, GetManifestName());
+            return Path.Combine(AssetbundlePath, GetManifestName()).Replace("\\", "/");
         }
     
         /// <summary>
@@ -71,14 +71,15 @@ namespace UnityEditor.AssetBundles
         /// <summary>
         /// 打包资源
         /// </summary>
-        public void BuildAssetbundles()
+        public void BuildAssetbundles(BuildAssetBundleOptions rOptions)
         {
             List<AssetBundleBuild> rABBList = AssetbundleEntry_Building();
     
             string rABPath = GetPathPrefix_Assetbundle();
             DirectoryInfo rDirInfo = new DirectoryInfo(rABPath);
             if (!rDirInfo.Exists) rDirInfo.Create();
-            BuildPipeline.BuildAssetBundles(rABPath, rABBList.ToArray(), BuildAssetBundleOptions.DeterministicAssetBundle, BuildTarget.StandaloneWindows);
+            BuildPipeline.BuildAssetBundles(rABPath, rABBList.ToArray(), rOptions, (BuildTarget)curBuildPlatform);
+            Debug.Log("资源打包完成！");
         }
 
         /// <summary>
