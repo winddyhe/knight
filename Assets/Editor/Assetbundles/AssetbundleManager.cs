@@ -18,7 +18,6 @@ namespace UnityEditor.AssetBundles
         public static void Build()
         {
             AssetbundleHelper.Instance.BuildAssetbundles(BuildAssetBundleOptions.DeterministicAssetBundle);
-            Debug.Log("资源打包完成！");
         }
     }
 }
