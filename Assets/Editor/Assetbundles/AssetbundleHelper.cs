@@ -74,11 +74,16 @@ namespace UnityEditor.AssetBundles
         public void BuildAssetbundles(BuildAssetBundleOptions rOptions)
         {
             List<AssetBundleBuild> rABBList = AssetbundleEntry_Building();
-    
+            
             string rABPath = GetPathPrefix_Assetbundle();
             DirectoryInfo rDirInfo = new DirectoryInfo(rABPath);
             if (!rDirInfo.Exists) rDirInfo.Create();
-            BuildPipeline.BuildAssetBundles(rABPath, rABBList.ToArray(), rOptions, (BuildTarget)curBuildPlatform);
+
+            var rNewABManifest = BuildPipeline.BuildAssetBundles(rABPath, rABBList.ToArray(), rOptions, (BuildTarget)curBuildPlatform);
+            AssetDatabase.Refresh();
+
+            //AssetVersionEditor.CreateVersion(rABPath, );
+
             Debug.Log("资源打包完成！");
         }
 

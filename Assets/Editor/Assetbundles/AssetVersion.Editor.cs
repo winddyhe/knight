@@ -9,6 +9,11 @@ namespace UnityEditor.AssetBundles
 {
     public static class AssetVersionEditor
     {
+        public static AssetVersion Load(string rOutPath)
+        {
+            return null;
+        }
+
         public static void Save(this AssetVersion rVersion, string rOutPath)
         {
             if (rVersion == null) return;

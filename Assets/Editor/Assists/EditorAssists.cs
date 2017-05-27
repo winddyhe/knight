@@ -61,5 +61,33 @@ namespace Core.Editor
             }
             return rObj;
         }
+
+        /// <summary>
+        /// 加载Manifest
+        /// </summary>
+        public static IEnumerator LoadManifest(string rManifestURL, Action<AssetBundleManifest> rLoadCompleted)
+        {
+            WWW www = new WWW(rManifestURL);
+            yield return www;
+
+            if (www == null || !string.IsNullOrEmpty(www.error))
+            {
+                Debug.Log("加载Manifest出错: " + www.error);
+                UtilTool.SafeExecute(rLoadCompleted, null);
+                yield break;
+            }
+            var rABManifest = www.assetBundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest") as AssetBundleManifest;
+            WWWAssist.Dispose(ref www);
+            UtilTool.SafeExecute(rLoadCompleted, rABManifest);
+        }
+
+        public static AssetBundleManifest LoadManifest(string rManifestURL)
+        {
+            var rAssetBundle = AssetBundle.LoadFromFile(rManifestURL);
+            if (rAssetBundle == null) return null;
+            
+            var rABManifest = rAssetBundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest") as AssetBundleManifest;
+            return rABManifest;
+        }
     }
 }

@@ -45,25 +45,6 @@ namespace UnityEditor.AssetBundles
             public FileState    State;
         }
         
-        /// <summary>
-        /// 加载Manifest
-        /// </summary>
-        private static IEnumerator LoadManifest(string rManifestURL, Action<AssetBundleManifest> rLoadCompleted)
-        {
-            WWW www = new WWW(rManifestURL);
-            yield return www;
-    
-            if (www == null || !string.IsNullOrEmpty(www.error))
-            {
-                Debug.Log("加载Manifest出错: " + www.error);
-                UtilTool.SafeExecute(rLoadCompleted, null);
-                yield break;
-            }
-            var rABManifest = www.assetBundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest") as AssetBundleManifest;
-            WWWAssist.Dispose(ref www);
-            UtilTool.SafeExecute(rLoadCompleted, rABManifest);
-        }
-    
         [MenuItem("Tools/AssetBundle/Sync StreamingAssets Assets")]
         public static void SyncAssets()
         {
@@ -84,13 +65,13 @@ namespace UnityEditor.AssetBundles
     
             string rBuildManifestURL = "file:///" + rBuildABDir + "/" + rManifestName;
             string rStreamingManifestURL = "file:///" + rStreamingDir + "/" + rManifestName;
-    
-            yield return EditorCoroutineManager.Start(LoadManifest(rBuildManifestURL, (rABManifest) => 
+
+            yield return EditorCoroutineManager.Start(EditorAssists.LoadManifest(rBuildManifestURL, (rABManifest) => 
             {
                 rBuildManifest = rABManifest;
             }));
-    
-            yield return EditorCoroutineManager.Start(LoadManifest(rStreamingManifestURL, (rABManifest) => 
+
+            yield return EditorCoroutineManager.Start(EditorAssists.LoadManifest(rStreamingManifestURL, (rABManifest) => 
             {
                 rStreamingManifest = rABManifest;
             }));
