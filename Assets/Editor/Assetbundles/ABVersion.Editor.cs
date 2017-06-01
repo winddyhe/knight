@@ -73,10 +73,12 @@ namespace UnityEditor.AssetBundles
                 string rNewMD5 = GetMD5InManifest(rNewABManifest, rAllAssetbundles[i]);
 
                 rAVEntry.MD5 = rNewMD5;
-                if (!string.IsNullOrEmpty(rOldMD5) && rOldMD5.Equals(rNewMD5))
-                {
-                    rAVEntry.Version = rAVEntry.Version + 1;
-                }
+                
+                if (!string.IsNullOrEmpty(rOldMD5) && !rOldMD5.Equals(rNewMD5))
+                    rAVEntry.Version = GetVersionInABVersion(rOldVersion, rAVEntry.Name) + 1;
+                else
+                    rAVEntry.Version = GetVersionInABVersion(rOldVersion, rAVEntry.Name);
+
                 rAVEntry.Size = GetABSizeInManifest(rOutPath, rAllAssetbundles[i]);
                 rAVEntry.Dependencies = rNewABManifest.GetDirectDependencies(rAllAssetbundles[i]);
                 rVersion.Entries.Add(rAllAssetbundles[i], rAVEntry);
@@ -90,13 +92,22 @@ namespace UnityEditor.AssetBundles
             return rManifest.GetAssetBundleHash(rABName).ToString();
         }
 
+        public static int GetVersionInABVersion(ABVersion rVersion, string rABName)
+        {
+            if (rVersion == null) return 1;
+
+            ABVersionEntry rAVEntry = rVersion.GetEntry(rABName);
+            if (rAVEntry == null) return 1;
+            return rAVEntry.Version;
+        }
+
         public static long GetABSizeInManifest(string rOutPath, string rABName)
         {
             string rABFilePath = rOutPath + "/" + rABName;
             var rABFileInfo = new FileInfo(rABFilePath);
             if (rABFilePath != null)
             {
-                return rABFilePath.Length;
+                return rABFileInfo.Length;
             }
             return 0;
         }
