@@ -79,11 +79,22 @@ namespace UnityEditor.AssetBundles
             if (!rDirInfo.Exists) rDirInfo.Create();
 
             var rOldABVersion = ABVersionEditor.Load(rABPath);
+            var rOldMD5 = ABVersionEditor.GetMD5ForABVersion(rABPath);
+
+            // 开始打包
             var rNewABManifest = BuildPipeline.BuildAssetBundles(rABPath, rABBList.ToArray(), rOptions, (BuildTarget)CurBuildPlatform);
             
+            // 生成新的版本文件
             var rNewABVersion = ABVersionEditor.CreateVersion(rABPath, rOldABVersion, rNewABManifest);
             rNewABVersion.Save(rABPath);
 
+            var rNewMD5 = ABVersionEditor.GetMD5ForABVersion(rABPath);
+
+            // 保存历史的版本记录
+            if (!string.IsNullOrEmpty(rOldMD5) && !rOldMD5.Equals(rNewMD5))
+            {
+                rOldABVersion.SaveHistory(rABPath);
+            }
             Debug.Log("资源打包完成！");
         }
 

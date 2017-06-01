@@ -9,6 +9,7 @@ using UnityEngine.AssetBundles;
 using Core;
 using System.IO;
 using Core.WindJson;
+using System;
 
 namespace UnityEditor.AssetBundles
 {
@@ -45,10 +46,36 @@ namespace UnityEditor.AssetBundles
                     rVersion.Serialize(bw);
                 }
             }
-
             JsonNode rJsonNode = JsonParser.ToJsonNode(rVersion);
             File.WriteAllText(rVersionJsonPath, rJsonNode.ToString());
 
+            string rVersionMD5 = UtilTool.GetMD5(rVersionBinPath).ToHEXString();
+            File.WriteAllText(rVersionMD5Path, rVersionMD5);
+
+            AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets();
+        }
+
+        public static void SaveHistory(this ABVersion rVersion, string rOutPath)
+        {
+            if (rVersion == null) return;
+
+            string rHistoryDateStr = string.Format("History/{0}", DateTime.Now.ToString("yyyyMMdd_hhmmss"));
+
+            string rVersionBinPath = UtilTool.PathCombine(rOutPath, rHistoryDateStr, ABVersion.ABVersion_File_Bin);
+            string rVersionMD5Path = UtilTool.PathCombine(rOutPath, rHistoryDateStr, ABVersion.ABVersion_File_MD5);
+
+            string rDirPath = Path.GetDirectoryName(rVersionBinPath);
+            if (!Directory.Exists(rDirPath)) Directory.CreateDirectory(rDirPath);
+
+            using (FileStream fs = new FileStream(rVersionBinPath, FileMode.Create))
+            {
+                using (BinaryWriter bw = new BinaryWriter(fs))
+                {
+                    rVersion.Serialize(bw);
+                }
+            }
+            
             string rVersionMD5 = UtilTool.GetMD5(rVersionBinPath).ToHEXString();
             File.WriteAllText(rVersionMD5Path, rVersionMD5);
 
@@ -90,6 +117,14 @@ namespace UnityEditor.AssetBundles
         {
             if (rManifest == null) return string.Empty;
             return rManifest.GetAssetBundleHash(rABName).ToString();
+        }
+
+        public static string GetMD5ForABVersion(string rOutPath)
+        {
+            string rVersionMD5Path = Path.Combine(rOutPath, ABVersion.ABVersion_File_Bin);
+            if (!File.Exists(rVersionMD5Path)) return string.Empty;
+
+            return UtilTool.GetMD5(rVersionMD5Path).ToHEXString();
         }
 
         public static int GetVersionInABVersion(ABVersion rVersion, string rABName)
