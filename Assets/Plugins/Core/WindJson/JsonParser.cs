@@ -370,24 +370,31 @@ namespace Core.WindJson
             }
             else if (rType.IsClass) //如果是Class，获取Class所有的public的字段和属性
             {
-                rRootNode = new JsonClass();
-                // 所有公共的属性
-                PropertyInfo[] rPropInfos = rType.GetProperties(ReflectionAssist.flags_public);
-                for (int i = 0; i < rPropInfos.Length; i++)
+                if (rType == typeof(string))
                 {
-                    object rValueObj = rPropInfos[i].GetValue(rObject, null);
-                    JsonNode rValueNode = ToJsonNode(rValueObj);
-                    rRootNode.Add(rPropInfos[i].Name, rValueNode);
+                    rRootNode = new JsonData((string)rObject);
                 }
-                // 所有公共的字段
-                FieldInfo[] rFieldInfos = rType.GetFields(ReflectionAssist.flags_public);
-                for (int i = 0; i < rFieldInfos.Length; i++)
+                else
                 {
-                    object rValueObj = rFieldInfos[i].GetValue(rObject);
-                    JsonNode rValueNode = ToJsonNode(rValueObj);
-                    rRootNode.Add(rFieldInfos[i].Name, rValueNode);
+                    rRootNode = new JsonClass();
+                    // 所有公共的属性
+                    PropertyInfo[] rPropInfos = rType.GetProperties(ReflectionAssist.flags_public);
+                    for (int i = 0; i < rPropInfos.Length; i++)
+                    {
+                        object rValueObj = rPropInfos[i].GetValue(rObject, null);
+                        JsonNode rValueNode = ToJsonNode(rValueObj);
+                        rRootNode.Add(rPropInfos[i].Name, rValueNode);
+                    }
+                    // 所有公共的字段
+                    FieldInfo[] rFieldInfos = rType.GetFields(ReflectionAssist.flags_public);
+                    for (int i = 0; i < rFieldInfos.Length; i++)
+                    {
+                        object rValueObj = rFieldInfos[i].GetValue(rObject);
+                        JsonNode rValueNode = ToJsonNode(rValueObj);
+                        rRootNode.Add(rFieldInfos[i].Name, rValueNode);
+                    }
+                    // TODO: 所有预定义的序列化属性的private的字段
                 }
-                // TODO: 所有预定义的序列化属性的private的字段
             }
             else if (rType.IsPrimitive) //如果是实例
             {
@@ -406,7 +413,6 @@ namespace Core.WindJson
                 else
                     Debug.LogError(string.Format("Type = {0}, 不支持序列化的变量类型!", rObject.GetType()));
             }
-
             return rRootNode;
         }
 

@@ -8,6 +8,7 @@ using UnityEditor;
 using UnityEngine.AssetBundles;
 using Core;
 using System.IO;
+using Core.WindJson;
 
 namespace UnityEditor.AssetBundles
 {
@@ -15,13 +16,41 @@ namespace UnityEditor.AssetBundles
     {
         public static ABVersion Load(string rOutPath)
         {
-            return null;
+            string rVersionPath = Path.Combine(rOutPath, ABVersion.ABVersion_File_Bin);
+            if (!File.Exists(rVersionPath)) return null;
+                
+            ABVersion rABVersion = new ABVersion();
+            using (FileStream fs = new FileStream(rVersionPath, FileMode.Open))
+            {
+                using (BinaryReader br = new BinaryReader(fs))
+                {
+                    rABVersion.Deserialize(br);
+                }
+            }
+            return rABVersion;
         }
 
         public static void Save(this ABVersion rVersion, string rOutPath)
         {
             if (rVersion == null) return;
-            if (File.Exists(rOutPath)) File.Delete(rOutPath);
+            
+            string rVersionBinPath  = Path.Combine(rOutPath, ABVersion.ABVersion_File_Bin);
+            string rVersionJsonPath = Path.Combine(rOutPath, ABVersion.ABVersion_File_Json);
+            string rVersionMD5Path  = Path.Combine(rOutPath, ABVersion.ABVersion_File_MD5);
+
+            using (FileStream fs = new FileStream(rVersionBinPath, FileMode.Create))
+            {
+                using (BinaryWriter bw = new BinaryWriter(fs))
+                {
+                    rVersion.Serialize(bw);
+                }
+            }
+
+            JsonNode rJsonNode = JsonParser.ToJsonNode(rVersion);
+            File.WriteAllText(rVersionJsonPath, rJsonNode.ToString());
+
+            string rVersionMD5 = UtilTool.GetMD5(rVersionBinPath).ToHEXString();
+            File.WriteAllText(rVersionMD5Path, rVersionMD5);
 
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
@@ -38,7 +67,8 @@ namespace UnityEditor.AssetBundles
                 ABVersionEntry rAVEntry = new ABVersionEntry();
                 rAVEntry.Name = rAllAssetbundles[i];
 
-                var rOldEntry = rOldVersion.GetEntry(rAllAssetbundles[i]);
+                var rOldEntry = rOldVersion != null ? rOldVersion.GetEntry(rAllAssetbundles[i]) : null;
+
                 string rOldMD5 = rOldEntry != null ? rOldEntry.MD5 : string.Empty;
                 string rNewMD5 = GetMD5InManifest(rNewABManifest, rAllAssetbundles[i]);
 

@@ -27,7 +27,7 @@ namespace Core.Serializer.Editor
                 rText
                     .A("using System.IO;").N()
                     .A("using Core;").N()
-                    .A("using Core.Serializer;")
+                    .A("using Core.Serializer;").N()
                     .A("using Game.Serializer;").N()
                     .L(2)
                     .A("/// <summary>").N()

@@ -78,10 +78,11 @@ namespace UnityEditor.AssetBundles
             DirectoryInfo rDirInfo = new DirectoryInfo(rABPath);
             if (!rDirInfo.Exists) rDirInfo.Create();
 
+            var rOldABVersion = ABVersionEditor.Load(rABPath);
             var rNewABManifest = BuildPipeline.BuildAssetBundles(rABPath, rABBList.ToArray(), rOptions, (BuildTarget)CurBuildPlatform);
-            AssetDatabase.Refresh();
-
-            //AssetVersionEditor.CreateVersion(rABPath, );
+            
+            var rNewABVersion = ABVersionEditor.CreateVersion(rABPath, rOldABVersion, rNewABManifest);
+            rNewABVersion.Save(rABPath);
 
             Debug.Log("资源打包完成！");
         }

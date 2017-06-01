@@ -67,8 +67,8 @@ namespace UnityEngine.AssetBundles
             }
         }
 
-        private static ABLoader     __instance;
-        public  static ABLoader     Instance { get { return __instance; } }
+        private static ABLoader             __instance;
+        public  static ABLoader             Instance { get { return __instance; } }
     
         /// <summary>
         /// 所有资源的Manifest
@@ -81,7 +81,7 @@ namespace UnityEngine.AssetBundles
         /// <summary>
         /// 加载的资源信息
         /// </summary>
-        private Dict<string, ABLoadInfo> assetLoadInfos;
+        private Dict<string, ABLoadInfo>    assetLoadInfos;
 
         private List<string>                loadedAssetbundles;
 

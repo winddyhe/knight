@@ -1,6 +1,7 @@
 using System.IO;
 using Core;
-using Core.Serializer;using Game.Serializer;
+using Core.Serializer;
+using Game.Serializer;
 
 
 /// <summary>
