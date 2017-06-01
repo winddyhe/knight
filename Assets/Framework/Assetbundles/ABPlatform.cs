@@ -12,7 +12,7 @@ namespace UnityEngine.AssetBundles
     /// <summary>
     /// 资源管理类，主要用作不同资源平台的路径管理
     /// </summary>
-    public class AssetPlatformManager : TSingleton<AssetPlatformManager>
+    public class ABPlatform : TSingleton<ABPlatform>
     {
         /// <summary>
         /// 暂时选用如下平台，如需新平台再添加
@@ -111,7 +111,7 @@ namespace UnityEngine.AssetBundles
             return rRootPath + rDirInfo.Name;
         }
     
-        private AssetPlatformManager()
+        private ABPlatform()
         {
         }
     

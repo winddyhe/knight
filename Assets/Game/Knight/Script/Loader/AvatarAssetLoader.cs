@@ -37,7 +37,7 @@ namespace Game.Knight
         public IEnumerator Load_Async(AvatarLoaderRequest rRequest)
         {
             string rAvatarABPath = rRequest.ABPath;
-            var rAssetRequest = AssetLoadManager.Instance.LoadAsset(rAvatarABPath, rRequest.AssetName);
+            var rAssetRequest = ABLoader.Instance.LoadAsset(rAvatarABPath, rRequest.AssetName);
             yield return rAssetRequest;
             if (rAssetRequest.asset != null)
             {
@@ -46,7 +46,7 @@ namespace Game.Knight
                 rAvatarGo.transform.position = Vector3.zero;
                 rRequest.AvatarGo = rAvatarGo;
             }
-            AssetLoadManager.Instance.UnloadAsset(rAvatarABPath);
+            ABLoader.Instance.UnloadAsset(rAvatarABPath);
         }
     }
 }

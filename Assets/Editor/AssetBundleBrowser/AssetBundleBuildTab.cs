@@ -12,7 +12,7 @@ namespace UnityEditor.AssetBundles
     {
         const string kBuildPrefPrefix = "ABBBuild:";
         // gui vars
-        AssetbundleHelper.BuildPlatform m_buildTarget = AssetbundleHelper.BuildPlatform.Windows;
+        ABBuilder.BuildPlatform m_buildTarget = ABBuilder.BuildPlatform.Windows;
         CompressOptions m_compression = CompressOptions.StandardCompression;
         
         string m_outputPath = string.Empty;
@@ -64,7 +64,7 @@ namespace UnityEditor.AssetBundles
         }
         public void OnEnable(Rect pos, EditorWindow parent)
         {
-            m_buildTarget = AssetbundleHelper.Instance.curBuildPlatform; // (AssetbundleHelper.BuildPlatform)EditorPrefs.GetInt(kBuildPrefPrefix + "BuildTarget", (int)m_buildTarget);
+            m_buildTarget = ABBuilder.Instance.CurBuildPlatform; // (AssetbundleHelper.BuildPlatform)EditorPrefs.GetInt(kBuildPrefPrefix + "BuildTarget", (int)m_buildTarget);
             m_compression = (CompressOptions)EditorPrefs.GetInt(kBuildPrefPrefix + "Compression", (int)m_compression);
             m_toggleData = new List<ToggleData>();
             m_toggleData.Add(new ToggleData(
@@ -128,12 +128,12 @@ namespace UnityEditor.AssetBundles
             EditorGUILayout.Space();
             GUILayout.BeginVertical();
 
-            m_buildTarget = AssetbundleHelper.Instance.curBuildPlatform;
+            m_buildTarget = ABBuilder.Instance.CurBuildPlatform;
             EditorGUILayout.TextField(m_TargetContent, m_buildTarget.ToString());
                         
             EditorPrefs.SetInt(kBuildPrefPrefix + "BuildTarget", (int)m_buildTarget);
 
-            m_outputPath = AssetbundleHelper.Instance.GetPathPrefix_Assetbundle();
+            m_outputPath = ABBuilder.Instance.GetPathPrefix_Assetbundle();
             EditorUserBuildSettings.SetPlatformSettings(EditorUserBuildSettings.activeBuildTarget.ToString(), "AssetBundleOutputPath", m_outputPath);
             
             //output path
@@ -262,7 +262,7 @@ namespace UnityEditor.AssetBundles
                 if (tog.state)
                     opt |= tog.option;
             }
-            AssetbundleHelper.Instance.BuildAssetbundles(opt);
+            ABBuilder.Instance.BuildAssetbundles(opt);
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
 
             if (m_CopyToStreaming.state)

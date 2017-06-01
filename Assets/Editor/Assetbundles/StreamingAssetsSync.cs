@@ -59,8 +59,8 @@ namespace UnityEditor.AssetBundles
             AssetBundleManifest rBuildManifest = null;
             AssetBundleManifest rStreamingManifest = null;
     
-            string rManifestName = AssetbundleHelper.Instance.GetManifestName();
-            string rBuildABDir = Path.GetFullPath(AssetbundleHelper.Instance.GetPathPrefix_Assetbundle()).Replace('\\', '/');
+            string rManifestName = ABBuilder.Instance.GetManifestName();
+            string rBuildABDir = Path.GetFullPath(ABBuilder.Instance.GetPathPrefix_Assetbundle()).Replace('\\', '/');
             string rStreamingDir = Path.GetFullPath("Assets/StreamingAssets/Assetbundles/" + rManifestName).Replace('\\', '/');
     
             string rBuildManifestURL = "file:///" + rBuildABDir + "/" + rManifestName;

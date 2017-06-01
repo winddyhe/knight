@@ -16,7 +16,7 @@ namespace UnityEditor.AssetBundles
     /// <summary>
     /// 资源打包的辅助类
     /// </summary>
-    public class AssetbundleHelper : TSingleton<AssetbundleHelper>
+    public class ABBuilder : TSingleton<ABBuilder>
     {
         public enum BuildPlatform
         {
@@ -25,7 +25,7 @@ namespace UnityEditor.AssetBundles
             IOS     = BuildTarget.iOS,                      //IOS
             Android = BuildTarget.Android,                  //Android
         };
-    
+        
         /// <summary>
         /// 输出的Assetbundle的目录
         /// </summary>
@@ -36,20 +36,19 @@ namespace UnityEditor.AssetBundles
         /// </summary>
         public static string ABEntryConfigPath      = "Assets/Editor/Assetbundles/Assetbundle_Settings.asset";
 
-
         /// <summary>
         /// 当前工程的平台
         /// </summary>
-        public BuildPlatform curBuildPlatform       = BuildPlatform.Windows;
+        public BuildPlatform CurBuildPlatform       = BuildPlatform.Windows;
     
         /// <summary>
         /// 资源项的配置缓存
         /// </summary>
-        public List<ABEntry> abEntries;
+        public List<ABEntry> ABEntries;
     
-        private AssetbundleHelper()
+        private ABBuilder()
         {
-            curBuildPlatform = (BuildPlatform)EditorUserBuildSettings.activeBuildTarget;
+            CurBuildPlatform = (BuildPlatform)EditorUserBuildSettings.activeBuildTarget;
         }
     
         /// <summary>
@@ -65,7 +64,7 @@ namespace UnityEditor.AssetBundles
         /// </summary>
         public string GetManifestName()
         {
-            return curBuildPlatform.ToString() + "_Assetbundles";
+            return CurBuildPlatform.ToString() + "_Assetbundles";
         }
     
         /// <summary>
@@ -79,7 +78,7 @@ namespace UnityEditor.AssetBundles
             DirectoryInfo rDirInfo = new DirectoryInfo(rABPath);
             if (!rDirInfo.Exists) rDirInfo.Create();
 
-            var rNewABManifest = BuildPipeline.BuildAssetBundles(rABPath, rABBList.ToArray(), rOptions, (BuildTarget)curBuildPlatform);
+            var rNewABManifest = BuildPipeline.BuildAssetBundles(rABPath, rABBList.ToArray(), rOptions, (BuildTarget)CurBuildPlatform);
             AssetDatabase.Refresh();
 
             //AssetVersionEditor.CreateVersion(rABPath, );
@@ -102,12 +101,12 @@ namespace UnityEditor.AssetBundles
         /// </summary>
         public List<AssetBundleBuild> AssetbundleEntry_Building()
         {
-            this.abEntries = this.GenerateABEntries();
-            if (abEntries == null) abEntries = new List<ABEntry>();
+            this.ABEntries = this.GenerateABEntries();
+            if (ABEntries == null) ABEntries = new List<ABEntry>();
     
             // 资源预处理
             List<ABEntryProcessor> rABEntryProcessors = new List<ABEntryProcessor>();
-            foreach (var rEntry in abEntries)
+            foreach (var rEntry in ABEntries)
             {
                 ABEntryProcessor rProcessor = ABEntryProcessor.Create(rEntry);
                 rProcessor.PreprocessAssets();
@@ -125,12 +124,12 @@ namespace UnityEditor.AssetBundles
 
         public void UpdateAllAssetsABLabels(string aBEntryConfigPath)
         {
-            this.abEntries = this.GenerateABEntries();
-            if (abEntries == null) abEntries = new List<ABEntry>();
+            this.ABEntries = this.GenerateABEntries();
+            if (ABEntries == null) ABEntries = new List<ABEntry>();
 
             // 资源预处理
             List<ABEntryProcessor> rABEntryProcessors = new List<ABEntryProcessor>();
-            foreach (var rEntry in abEntries)
+            foreach (var rEntry in ABEntries)
             {
                 ABEntryProcessor rProcessor = ABEntryProcessor.Create(rEntry);
                 rProcessor.PreprocessAssets();

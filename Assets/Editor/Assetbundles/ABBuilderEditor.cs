@@ -12,12 +12,12 @@ namespace UnityEditor.AssetBundles
     /// <summary>
     /// 资源统一打包工具
     /// </summary>
-    public class AssetbundleManager
+    public class ABBuilderEditor
     {
         [MenuItem("Tools/AssetBundle/AssetBundle Build")]
         public static void Build()
         {
-            AssetbundleHelper.Instance.BuildAssetbundles(BuildAssetBundleOptions.DeterministicAssetBundle);
+            ABBuilder.Instance.BuildAssetbundles(BuildAssetBundleOptions.DeterministicAssetBundle);
         }
     }
 }

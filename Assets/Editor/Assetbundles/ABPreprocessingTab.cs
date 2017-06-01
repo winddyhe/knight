@@ -1,4 +1,8 @@
-﻿using System;
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -10,7 +14,7 @@ using Core.WindJson;
 namespace UnityEditor.AssetBundles
 {
     [System.Serializable]
-    public class AssetbundlePreprocessingTab
+    public class ABPreprocessingTab
     {
         public class EntryData
         {
@@ -29,7 +33,7 @@ namespace UnityEditor.AssetBundles
 
         public void OnEnable(UnityEngine.Rect rSubPos, EditorWindow rEditorWindow)
         {
-            mABEntryConfig = EditorAssists.ReceiveAsset<ABEntryConfig>(AssetbundleHelper.ABEntryConfigPath);
+            mABEntryConfig = EditorAssists.ReceiveAsset<ABEntryConfig>(ABBuilder.ABEntryConfigPath);
             mEntryDatas = this.ToEntryDatas(mABEntryConfig);
             mRefreshTexture = EditorGUIUtility.FindTexture("Refresh");
         }
@@ -48,10 +52,10 @@ namespace UnityEditor.AssetBundles
                 using (var space2 = new EditorGUILayout.HorizontalScope("TextField"))
                 {
                     EditorGUIUtility.labelWidth = 60;
-                    EditorGUILayout.TextField("Target: ", AssetbundleHelper.Instance.curBuildPlatform.ToString());
+                    EditorGUILayout.TextField("Target: ", ABBuilder.Instance.CurBuildPlatform.ToString());
                     if (GUILayout.Button(mRefreshTexture, GUILayout.Width(30)))
                     {
-                        mABEntryConfig = EditorAssists.ReceiveAsset<ABEntryConfig>(AssetbundleHelper.ABEntryConfigPath);
+                        mABEntryConfig = EditorAssists.ReceiveAsset<ABEntryConfig>(ABBuilder.ABEntryConfigPath);
                         mEntryDatas = this.ToEntryDatas(mABEntryConfig);
                     }
                 }
@@ -112,7 +116,7 @@ namespace UnityEditor.AssetBundles
             }
             if (GUILayout.Button("Update All Assets AB Labels"))
             {
-                AssetbundleHelper.Instance.UpdateAllAssetsABLabels(AssetbundleHelper.ABEntryConfigPath);
+                ABBuilder.Instance.UpdateAllAssetsABLabels(ABBuilder.ABEntryConfigPath);
             }
         }
 
@@ -131,7 +135,7 @@ namespace UnityEditor.AssetBundles
 
         public ABEntryConfig ToEntryConfig(List<EntryData> rEntryDatas)
         {
-            ABEntryConfig rEntryConfig = EditorAssists.ReceiveAsset<ABEntryConfig>(AssetbundleHelper.ABEntryConfigPath);
+            ABEntryConfig rEntryConfig = EditorAssists.ReceiveAsset<ABEntryConfig>(ABBuilder.ABEntryConfigPath);
             if (rEntryConfig.ABEntries == null) rEntryConfig.ABEntries = new List<ABEntry>();
             rEntryConfig.ABEntries.Clear();
             for (int i = 0; i < rEntryDatas.Count; i++)

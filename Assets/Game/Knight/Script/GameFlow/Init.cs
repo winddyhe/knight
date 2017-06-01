@@ -30,7 +30,7 @@ namespace Game.Knight
             CoroutineManager.Instance.Initialize();
 
             //平台初始化
-            AssetPlatformManager.Instance.Initialize();
+            ABPlatform.Instance.Initialize();
 
             //异步初始化代码
             CoroutineManager.Instance.Start(Start_Async());
@@ -39,7 +39,7 @@ namespace Game.Knight
         private IEnumerator Start_Async()
         {
             //加载Assetbundle的Manifest
-            yield return AssetLoadManager.Instance.LoadManifest();
+            yield return ABLoader.Instance.LoadManifest();
 
             // 加载热更新代码资源
             yield return HotfixApp.Instance.Load(HotfixModule);

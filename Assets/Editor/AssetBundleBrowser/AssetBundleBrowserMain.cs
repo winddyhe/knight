@@ -24,7 +24,7 @@ namespace UnityEditor.AssetBundles
         public AssetBundleBuildTab m_BuildTab;
 
         [SerializeField]
-        public AssetbundlePreprocessingTab m_PreprocessingTab;
+        public ABPreprocessingTab m_PreprocessingTab;
 
         private Texture2D m_RefreshTexture;
 
@@ -47,7 +47,7 @@ namespace UnityEditor.AssetBundles
                 m_BuildTab = new AssetBundleBuildTab();
             m_BuildTab.OnEnable(subPos, this);
             if (m_PreprocessingTab == null)
-                m_PreprocessingTab = new AssetbundlePreprocessingTab();
+                m_PreprocessingTab = new ABPreprocessingTab();
             m_PreprocessingTab.OnEnable(subPos, this);
 
             m_RefreshTexture = EditorGUIUtility.FindTexture("Refresh");

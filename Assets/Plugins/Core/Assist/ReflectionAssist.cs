@@ -15,12 +15,12 @@ namespace Core
     /// </summary>
     public class ReflectionAssist
     {
-        public static readonly BindingFlags flags_common    = BindingFlags.Instance |
-                                                              BindingFlags.SetField | BindingFlags.GetField |
-                                                              BindingFlags.GetProperty | BindingFlags.SetProperty;
-        public static readonly BindingFlags flags_public    = flags_common | BindingFlags.Public;
-        public static readonly BindingFlags flags_nonpublic = flags_common | BindingFlags.NonPublic;
-        public static readonly BindingFlags flags_all       = flags_common | BindingFlags.Public | BindingFlags.NonPublic;
+        public static readonly BindingFlags flags_common    = BindingFlags.Instance     |
+                                                              BindingFlags.SetField     | BindingFlags.GetField     |
+                                                              BindingFlags.GetProperty  | BindingFlags.SetProperty;
+        public static readonly BindingFlags flags_public    = flags_common              | BindingFlags.Public;
+        public static readonly BindingFlags flags_nonpublic = flags_common              | BindingFlags.NonPublic;
+        public static readonly BindingFlags flags_all       = flags_common              | BindingFlags.Public       | BindingFlags.NonPublic;
         public static readonly Type[]       empty_types     = new Type[0];
 
         public static ConstructorInfo GetConstructorInfo(BindingFlags rBindFlags, Type rType, Type[] rTypes)

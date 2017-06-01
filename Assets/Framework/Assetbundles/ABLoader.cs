@@ -14,7 +14,7 @@ namespace UnityEngine.AssetBundles
     /// <summary>
     /// 资源的加载信息
     /// </summary>
-    public class AssetLoadInfo
+    public class ABLoadInfo
     {
         /// <summary>
         /// 资源包名
@@ -49,7 +49,7 @@ namespace UnityEngine.AssetBundles
     /// <summary>
     /// 加载资源的管理类，用作资源的加载管理
     /// </summary>
-    public class AssetLoadManager : MonoBehaviour
+    public class ABLoader : MonoBehaviour
     {
         public class LoaderRequest : CoroutineRequest<LoaderRequest>
         {
@@ -67,8 +67,8 @@ namespace UnityEngine.AssetBundles
             }
         }
 
-        private static AssetLoadManager     __instance;
-        public  static AssetLoadManager     Instance { get { return __instance; } }
+        private static ABLoader     __instance;
+        public  static ABLoader     Instance { get { return __instance; } }
     
         /// <summary>
         /// 所有资源的Manifest
@@ -81,7 +81,7 @@ namespace UnityEngine.AssetBundles
         /// <summary>
         /// 加载的资源信息
         /// </summary>
-        private Dict<string, AssetLoadInfo> assetLoadInfos;
+        private Dict<string, ABLoadInfo> assetLoadInfos;
 
         private List<string>                loadedAssetbundles;
 
@@ -102,7 +102,7 @@ namespace UnityEngine.AssetBundles
     
         public Coroutine LoadManifest()
         {
-            string rManifestUrl = AssetPlatformManager.Instance.GetAssetbundleManifestUrl();
+            string rManifestUrl = ABPlatform.Instance.GetAssetbundleManifestUrl();
             return CoroutineManager.Instance.Start(LoadManifest_Async(rManifestUrl));
         }
     
@@ -123,11 +123,11 @@ namespace UnityEngine.AssetBundles
             WWWAssist.Destroy(ref www);
     
             string[] rALLAB = this.manifest.GetAllAssetBundles();
-            assetLoadInfos = new Dict<string, AssetLoadInfo>();
+            assetLoadInfos = new Dict<string, ABLoadInfo>();
             for (int i = 0; i < rALLAB.Length; i++)
             {
                 // 开始构建AssetLoadInfo
-                AssetLoadInfo rAssetLoadInfo = new AssetLoadInfo();
+                ABLoadInfo rAssetLoadInfo = new ABLoadInfo();
                 rAssetLoadInfo.abPath = rALLAB[i];
                 rAssetLoadInfo.abName = rALLAB[i];
                 string[] rDependABs = this.manifest.GetDirectDependencies(rALLAB[i]);
@@ -174,7 +174,7 @@ namespace UnityEngine.AssetBundles
     
         public void UnloadAsset(string rAssetbundleName)
         {
-            AssetLoadInfo rAssetLoadInfo = null;
+            ABLoadInfo rAssetLoadInfo = null;
             if (!assetLoadInfos.TryGetValue(rAssetbundleName, out rAssetLoadInfo))
             {
                 Debug.LogErrorFormat("找不到该资源 -- {0}", rAssetbundleName);
@@ -211,7 +211,7 @@ namespace UnityEngine.AssetBundles
                 yield return 0;
             }
     
-            AssetLoadInfo rAssetLoadInfo = null;
+            ABLoadInfo rAssetLoadInfo = null;
             if (!assetLoadInfos.TryGetValue(rRequest.path, out rAssetLoadInfo))
             {
                 Debug.LogErrorFormat("找不到该资源 -- {0}", rRequest.path);
@@ -257,7 +257,7 @@ namespace UnityEngine.AssetBundles
             rAssetLoadInfo.isLoading = true;
             rAssetLoadInfo.isLoadCompleted = false;
             
-            string rAssetLoadUrl = AssetPlatformManager.Instance.GetStreamingUrl_CurPlatform(rAssetLoadInfo.abPath);
+            string rAssetLoadUrl = ABPlatform.Instance.GetStreamingUrl_CurPlatform(rAssetLoadInfo.abPath);
             WWW www = new WWW(rAssetLoadUrl);
             yield return www;
     

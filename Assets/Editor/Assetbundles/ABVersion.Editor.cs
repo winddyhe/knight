@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
+using UnityEngine;
 using System.Collections;
 using UnityEditor;
 using UnityEngine.AssetBundles;
@@ -7,14 +11,14 @@ using System.IO;
 
 namespace UnityEditor.AssetBundles
 {
-    public static class AssetVersionEditor
+    public static class ABVersionEditor
     {
-        public static AssetVersion Load(string rOutPath)
+        public static ABVersion Load(string rOutPath)
         {
             return null;
         }
 
-        public static void Save(this AssetVersion rVersion, string rOutPath)
+        public static void Save(this ABVersion rVersion, string rOutPath)
         {
             if (rVersion == null) return;
             if (File.Exists(rOutPath)) File.Delete(rOutPath);
@@ -24,15 +28,15 @@ namespace UnityEditor.AssetBundles
             AssetDatabase.SaveAssets();
         }
 
-        public static AssetVersion CreateVersion(string rOutPath, AssetVersion rOldVersion, AssetBundleManifest rNewABManifest)
+        public static ABVersion CreateVersion(string rOutPath, ABVersion rOldVersion, AssetBundleManifest rNewABManifest)
         {
-            AssetVersion rVersion = ScriptableObject.CreateInstance<AssetVersion>();
-            rVersion.Entries = new Dict<string, AssetVersionEntry>();
+            ABVersion rVersion = ScriptableObject.CreateInstance<ABVersion>();
+            rVersion.Entries = new Dict<string, ABVersionEntry>();
 
             string[] rAllAssetbundles = rNewABManifest.GetAllAssetBundles();
             for (int i = 0; i < rAllAssetbundles.Length; i++)
             {
-                AssetVersionEntry rAVEntry = new AssetVersionEntry();
+                ABVersionEntry rAVEntry = new ABVersionEntry();
                 rAVEntry.Name = rAllAssetbundles[i];
 
                 var rOldEntry = rOldVersion.GetEntry(rAllAssetbundles[i]);

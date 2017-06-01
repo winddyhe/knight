@@ -3,11 +3,13 @@
 //        Email: hgplan@126.com
 //======================================================================
 using Core;
+using Core.Serializer;
+using System.IO;
 
 namespace UnityEngine.AssetBundles
 {
     [System.Serializable]
-    public class AssetVersionEntry
+    public class ABVersionEntry : SerializerBinary
     {
         public string   N;
         public int      V;
@@ -20,16 +22,36 @@ namespace UnityEngine.AssetBundles
         public string   MD5          { get { return M; } set { M = value; } }
         public long     Size         { get { return S; } set { S = value; } }
         public string[] Dependencies { get { return D; } set { D = value; } }
+
+        public override void Serialize(BinaryWriter rWriter)
+        {
+            base.Serialize(rWriter);
+            rWriter.Serialize(this.N);
+            rWriter.Serialize(this.V);
+            rWriter.Serialize(this.M);
+            rWriter.Serialize(this.S);
+            rWriter.Serialize(this.D);
+        }
+
+        public override void Deserialize(BinaryReader rReader)
+        {
+            base.Deserialize(rReader);
+            this.N = rReader.Deserialize(this.N);
+            this.V = rReader.Deserialize(this.V);
+            this.M = rReader.Deserialize(this.M);
+            this.S = rReader.Deserialize(this.S);
+            this.D = rReader.Deserialize(this.D);
+        }
     }
 
-    public partial class AssetVersion : ScriptableObject
+    public partial class ABVersion : ScriptableObject
     {
-        public Dict<string, AssetVersionEntry> Entries;
+        public Dict<string, ABVersionEntry> Entries;
 
-        public AssetVersionEntry GetEntry(string rABName)
+        public ABVersionEntry GetEntry(string rABName)
         {
             if (this.Entries == null) return null;
-            AssetVersionEntry rEntry = null;
+            ABVersionEntry rEntry = null;
             this.Entries.TryGetValue(rABName, out rEntry);
             return rEntry;
         }

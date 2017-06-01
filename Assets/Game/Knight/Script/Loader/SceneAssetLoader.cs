@@ -40,7 +40,7 @@ namespace Game.Knight
 
         private IEnumerator Load_Async(SceneLoaderRequest rLoadRequest)
         {
-            var rSceneRequest = AssetLoadManager.Instance.LoadScene(rLoadRequest.sceneABPath, rLoadRequest.sceneAssetName);
+            var rSceneRequest = ABLoader.Instance.LoadScene(rLoadRequest.sceneABPath, rLoadRequest.sceneAssetName);
             yield return rSceneRequest;
 
             string rSceneName = Path.GetFileNameWithoutExtension(rSceneRequest.assetName);
@@ -65,7 +65,7 @@ namespace Game.Knight
                     rMainCamera.nearClipPlane = rSceneConfig.CameraNear;
                 }
             }
-            AssetLoadManager.Instance.UnloadAsset(rLoadRequest.sceneABPath);
+            ABLoader.Instance.UnloadAsset(rLoadRequest.sceneABPath);
         }
     }
 }
