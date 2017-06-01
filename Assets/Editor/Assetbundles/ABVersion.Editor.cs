@@ -23,14 +23,13 @@ namespace UnityEditor.AssetBundles
             if (rVersion == null) return;
             if (File.Exists(rOutPath)) File.Delete(rOutPath);
 
-            AssetDatabase.CreateAsset(rVersion, rOutPath);
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
         }
 
         public static ABVersion CreateVersion(string rOutPath, ABVersion rOldVersion, AssetBundleManifest rNewABManifest)
         {
-            ABVersion rVersion = ScriptableObject.CreateInstance<ABVersion>();
+            ABVersion rVersion = new ABVersion();
             rVersion.Entries = new Dict<string, ABVersionEntry>();
 
             string[] rAllAssetbundles = rNewABManifest.GetAllAssetBundles();

@@ -67,7 +67,7 @@ namespace Game.Knight
             {
                 UtilTool.SafeDestroy(mActorCreateRequest.Actor.ExhibitActor.ActorGo);
                 mActorCreateRequest.Stop();
-                AssetLoadManager.Instance.UnloadAllLoadedAssetbundles();
+                ABLoader.Instance.UnloadAllLoadedAssetbundles();
             }
         }
 

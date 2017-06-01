@@ -9,7 +9,7 @@ using System.IO;
 namespace UnityEngine.AssetBundles
 {
     [System.Serializable]
-    public class ABVersionEntry : SerializerBinary
+    public partial class ABVersionEntry : SerializerBinary
     {
         public string   N;
         public int      V;
@@ -17,34 +17,19 @@ namespace UnityEngine.AssetBundles
         public long     S;
         public string[] D;
         
+        [SBIgnore]
         public string   Name         { get { return N; } set { N = value; } }
+        [SBIgnore]
         public int      Version      { get { return V; } set { V = value; } }
+        [SBIgnore]
         public string   MD5          { get { return M; } set { M = value; } }
+        [SBIgnore]
         public long     Size         { get { return S; } set { S = value; } }
+        [SBIgnore]
         public string[] Dependencies { get { return D; } set { D = value; } }
-
-        public override void Serialize(BinaryWriter rWriter)
-        {
-            base.Serialize(rWriter);
-            rWriter.Serialize(this.N);
-            rWriter.Serialize(this.V);
-            rWriter.Serialize(this.M);
-            rWriter.Serialize(this.S);
-            rWriter.Serialize(this.D);
-        }
-
-        public override void Deserialize(BinaryReader rReader)
-        {
-            base.Deserialize(rReader);
-            this.N = rReader.Deserialize(this.N);
-            this.V = rReader.Deserialize(this.V);
-            this.M = rReader.Deserialize(this.M);
-            this.S = rReader.Deserialize(this.S);
-            this.D = rReader.Deserialize(this.D);
-        }
     }
 
-    public partial class ABVersion : ScriptableObject
+    public partial class ABVersion : SerializerBinary
     {
         public Dict<string, ABVersionEntry> Entries;
 

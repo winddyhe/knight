@@ -140,12 +140,12 @@ namespace Game.Knight
         /// </summary>
         public void Unload(string rConfigABPath)
         {
-            AssetLoadManager.Instance.UnloadAsset(rConfigABPath);
+            ABLoader.Instance.UnloadAsset(rConfigABPath);
         }
 
         private IEnumerator Load_Async(string rConfigABPath, string rConfigName)
         {
-            var rAssetRequesst = AssetLoadManager.Instance.LoadAsset(rConfigABPath, rConfigName);
+            var rAssetRequesst = ABLoader.Instance.LoadAsset(rConfigABPath, rConfigName);
             yield return rAssetRequesst;
             if (rAssetRequesst.asset == null) yield break;
 

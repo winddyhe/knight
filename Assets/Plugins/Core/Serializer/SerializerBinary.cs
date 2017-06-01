@@ -157,28 +157,5 @@ namespace Core.Serializer
             rInstance.Deserialize(rReader);
             return rInstance;
         }
-
-        public static void Serialize(this BinaryWriter rWriter, string[] value)
-        {
-            var bValid = (null != value);
-            rWriter.Serialize(bValid);
-            if (!bValid)
-                return;
-            rWriter.Serialize(value.Length);
-            for (int nIndex = 0; nIndex < value.Length; ++nIndex)
-                rWriter.Serialize(value[nIndex]);
-        }
-
-        public static string[] Deserialize(this BinaryReader rReader, string[] value)
-        {
-            var bValid = rReader.Deserialize(default(bool));
-            if (!bValid)
-                return null;
-            var nCount = rReader.Deserialize(default(int));
-            var rResult = new string[nCount];
-            for (int nIndex = 0; nIndex < nCount; ++nIndex)
-                rResult[nIndex] = rReader.Deserialize(default(string));
-            return rResult;
-        }
     }
 }
