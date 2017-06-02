@@ -10,6 +10,7 @@ using System.IO;
 using System.Collections.Generic;
 using Core;
 using Core.Editor;
+using UnityEngine.AssetBundles;
 
 namespace UnityEditor.AssetBundles
 {
@@ -136,6 +137,10 @@ namespace UnityEditor.AssetBundles
             
             // 复制Manifest
             File.Copy(rBuildABDir + "/" + rManifestName, rStreamingDir + "/" + rManifestName, true);
+
+            // 复制版本文件和MD5文件
+            File.Copy(rBuildABDir + "/" + ABVersion.ABVersion_File_Bin, rStreamingDir + "/" + ABVersion.ABVersion_File_Bin, true);
+            File.Copy(rBuildABDir + "/" + ABVersion.ABVersion_File_MD5, rStreamingDir + "/" + ABVersion.ABVersion_File_MD5, true);
     
             AssetDatabase.Refresh();
             EditorUtility.DisplayDialog("提示", "复制完成!", "是");

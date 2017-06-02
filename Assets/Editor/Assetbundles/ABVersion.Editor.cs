@@ -60,10 +60,8 @@ namespace UnityEditor.AssetBundles
         {
             if (rVersion == null) return;
 
-            string rHistoryDateStr = string.Format("History/{0}", DateTime.Now.ToString("yyyyMMdd_hhmmss"));
-
+            string rHistoryDateStr = string.Format("History/{0}", DateTime.Now.ToString("yyyyMMdd_HHmmss"));
             string rVersionBinPath = UtilTool.PathCombine(rOutPath, rHistoryDateStr, ABVersion.ABVersion_File_Bin);
-            string rVersionMD5Path = UtilTool.PathCombine(rOutPath, rHistoryDateStr, ABVersion.ABVersion_File_MD5);
 
             string rDirPath = Path.GetDirectoryName(rVersionBinPath);
             if (!Directory.Exists(rDirPath)) Directory.CreateDirectory(rDirPath);
@@ -75,12 +73,46 @@ namespace UnityEditor.AssetBundles
                     rVersion.Serialize(bw);
                 }
             }
-            
-            string rVersionMD5 = UtilTool.GetMD5(rVersionBinPath).ToHEXString();
-            File.WriteAllText(rVersionMD5Path, rVersionMD5);
-
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
+        }
+
+        public static void SaveIncrement(this ABVersion rVersion, string rABPath, string rTargetPath)
+        {
+            if (rVersion == null) return;
+
+            // 保存增量版本文件
+            string rTargetVersionBinPath = UtilTool.PathCombine(rTargetPath, ABVersion.ABVersion_File_Bin);
+            using (FileStream fs = new FileStream(rTargetVersionBinPath, FileMode.Create))
+            {
+                using (BinaryWriter bw = new BinaryWriter(fs))
+                {
+                    rVersion.Serialize(bw);
+                }
+            }
+
+            // 复制增量AB包
+            foreach (var rVersionPair in rVersion.Entries)
+            {
+                var rAVEntry = rVersionPair.Value;
+                
+                string rSrcABPath = UtilTool.PathCombine(rABPath, rAVEntry.Name);
+                string rDistABPath = UtilTool.PathCombine(rTargetPath, rAVEntry.Name);
+                
+                string rDistDir = Path.GetDirectoryName(rDistABPath);
+                if (!Directory.Exists(rDistDir)) Directory.CreateDirectory(rDistDir);
+
+                File.Copy(rSrcABPath, rDistABPath);
+            }
+
+            // 复制MD5文件
+            string rSrcMD5Path = UtilTool.PathCombine(rABPath, ABVersion.ABVersion_File_MD5);
+            string rDistMD5Path = UtilTool.PathCombine(rTargetPath, ABVersion.ABVersion_File_MD5);
+
+            string rDistMD5Dir = Path.GetDirectoryName(rDistMD5Path);
+            if (!Directory.Exists(rDistMD5Dir)) Directory.CreateDirectory(rDistMD5Dir);
+
+            File.Copy(rSrcMD5Path, rDistMD5Path);
         }
 
         public static ABVersion CreateVersion(string rOutPath, ABVersion rOldVersion, AssetBundleManifest rNewABManifest)
