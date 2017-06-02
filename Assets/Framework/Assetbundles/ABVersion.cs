@@ -34,13 +34,12 @@ namespace UnityEngine.AssetBundles
     {
         public class LoaderRequest : CoroutineRequest<LoaderRequest>
         {
-            public string                   Text;
-            public byte[]                   Bytes;
+            public ABVersion                Version;
             public string                   Url;
 
-            public LoaderRequest(string rPath)
+            public LoaderRequest(string rURL)
             {
-                this.Url = rPath;
+                this.Url = rURL;
             }
         }
 
@@ -59,6 +58,35 @@ namespace UnityEngine.AssetBundles
             ABVersionEntry rEntry = null;
             this.Entries.TryGetValue(rABName, out rEntry);
             return rEntry;
+        }
+
+        public static LoaderRequest Load(string rURL)
+        {
+            LoaderRequest rRequest = new LoaderRequest(rURL);
+            rRequest.Start(Load_Async(rRequest));
+            return rRequest;
+        }
+
+        private static IEnumerator Load_Async(LoaderRequest rRequest)
+        {
+            string rVersionURL = rRequest.Url;
+            WWWAssist.LoaderRequest rWWWVersionRequest = WWWAssist.LoadFile(rVersionURL);
+            yield return rWWWVersionRequest;
+
+            if (rWWWVersionRequest.Bytes == null || rWWWVersionRequest.Bytes.Length == 0)
+            {
+                yield break;
+            }
+
+            ABVersion rVersion = new ABVersion();
+            using (var ms = new MemoryStream(rWWWVersionRequest.Bytes))
+            {
+                using (var br = new BinaryReader(ms))
+                {
+                    rVersion.Deserialize(br);
+                }
+            }
+            rRequest.Version = rVersion;
         }
     }
 }

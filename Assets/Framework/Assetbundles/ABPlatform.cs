@@ -140,12 +140,21 @@ namespace UnityEngine.AssetBundles
         }
 
         /// <summary>
+        /// 得到Persistent空间下的文件路径
+        /// </summary>
+        public string GetPersistentFile(Platform rPlatform)
+        {
+            int rPlatformIndex = (int)rPlatform;
+            return UtilTool.PathCombine(Application.persistentDataPath, PlatformNames[rPlatformIndex] + "_Assetbundles") + "/";
+        }
+
+        /// <summary>
         /// 得到Persistent空间下的Url路径
         /// </summary>
         public string GetPersistentUrl(Platform rPlatform)
         {
             int rPlatformIndex = (int)rPlatform;
-            return PlatformPrefixs[rPlatformIndex] + UtilTool.PathCombine(Application.persistentDataPath, PlatformNames[rPlatformIndex] + "_Assetbundles/");
+            return PlatformPrefixs[rPlatformIndex] + UtilTool.PathCombine(Application.persistentDataPath, PlatformNames[rPlatformIndex] + "_Assetbundles") + "/";
         }
 
         /// <summary>
@@ -154,6 +163,16 @@ namespace UnityEngine.AssetBundles
         public string GetPersistentUrl_CurPlatform(string rFileName)
         {
             string rPath = GetPersistentUrl(this.CurRuntimePlatform) + rFileName;
+            Debug.LogFormat("---- {0}", rPath);
+            return rPath;
+        }
+        
+        /// <summary>
+        /// 得到当前平台Persistent空间下的文件路径
+        /// </summary>
+        public string GetPersistentFile_CurPlatform(string rFileName)
+        {
+            string rPath = GetPersistentFile(this.CurRuntimePlatform) + rFileName;
             Debug.LogFormat("---- {0}", rPath);
             return rPath;
         }

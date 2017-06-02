@@ -35,8 +35,11 @@ namespace Game.Knight
 
         private IEnumerator Start_Async()
         {
-            //平台初始化
+            // 平台初始化
             yield return ABPlatform.Instance.Initialize();
+
+            // 资源下载模块初始化
+            //yield return ABUpdater.Instance.Initialize();
 
             //加载Assetbundle的Manifest
             yield return ABLoader.Instance.LoadManifest();

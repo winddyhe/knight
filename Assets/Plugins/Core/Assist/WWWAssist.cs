@@ -41,8 +41,8 @@ namespace Core
         public static void Dispose(ref WWW www, bool isUnloadAllLoadedObjects = false)
         {
             if (www == null) return;
-
-            if (www.assetBundle != null)
+            
+            if (string.IsNullOrEmpty(www.error) && www.assetBundle != null)
                 www.assetBundle.Unload(isUnloadAllLoadedObjects);
 
             www.Dispose();
@@ -56,13 +56,15 @@ namespace Core
             return rRequest;
         }
 
-        public static IEnumerator LoadFile_Async(LoaderRequest rRequest)
+        private static IEnumerator LoadFile_Async(LoaderRequest rRequest)
         {
             WWW www = WWWAssist.Load(rRequest.Url);
             yield return www;
 
             rRequest.Text = www.text;
             rRequest.Bytes = www.bytes;
+
+            WWWAssist.Dispose(ref www);
         }
     }
 }
