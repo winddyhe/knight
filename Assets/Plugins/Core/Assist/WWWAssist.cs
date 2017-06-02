@@ -12,6 +12,18 @@ namespace Core
     /// </summary> 
     public class WWWAssist
     {
+        public class LoaderRequest : CoroutineRequest<LoaderRequest>
+        {
+            public string       Text;
+            public byte[]       Bytes;
+            public string       Url;
+
+            public LoaderRequest(string rPath)
+            {
+                this.Url = rPath;
+            }
+        }
+
         public static WWW Load(string rURL)
         {
             WWW www = new WWW(rURL);
@@ -35,6 +47,22 @@ namespace Core
 
             www.Dispose();
             www = null;
+        }
+
+        public static LoaderRequest LoadFile(string rURL)
+        {
+            LoaderRequest rRequest = new LoaderRequest(rURL);
+            rRequest.Start(LoadFile_Async(rRequest));
+            return rRequest;
+        }
+
+        public static IEnumerator LoadFile_Async(LoaderRequest rRequest)
+        {
+            WWW www = WWWAssist.Load(rRequest.Url);
+            yield return www;
+
+            rRequest.Text = www.text;
+            rRequest.Bytes = www.bytes;
         }
     }
 }

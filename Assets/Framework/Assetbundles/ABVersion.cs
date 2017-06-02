@@ -5,6 +5,7 @@
 using Core;
 using Core.Serializer;
 using System.IO;
+using System.Collections;
 
 namespace UnityEngine.AssetBundles
 {
@@ -31,6 +32,18 @@ namespace UnityEngine.AssetBundles
 
     public partial class ABVersion : SerializerBinary
     {
+        public class LoaderRequest : CoroutineRequest<LoaderRequest>
+        {
+            public string                   Text;
+            public byte[]                   Bytes;
+            public string                   Url;
+
+            public LoaderRequest(string rPath)
+            {
+                this.Url = rPath;
+            }
+        }
+
         [SBIgnore]
         public static string                ABVersion_File_Json    = "ABVersion.Json";
         [SBIgnore]

@@ -29,15 +29,15 @@ namespace Game.Knight
             //初始化协程管理器
             CoroutineManager.Instance.Initialize();
 
-            //平台初始化
-            ABPlatform.Instance.Initialize();
-
             //异步初始化代码
             CoroutineManager.Instance.Start(Start_Async());
         }
 
         private IEnumerator Start_Async()
         {
+            //平台初始化
+            yield return ABPlatform.Instance.Initialize();
+
             //加载Assetbundle的Manifest
             yield return ABLoader.Instance.LoadManifest();
 

@@ -67,7 +67,7 @@ namespace UnityEditor.AssetBundles
                             {
                                 string rABOutPath = ABBuilder.Instance.GetPathPrefix_Assetbundle();
                                 rHEntry.IncVer.SaveIncrement(rABOutPath, mOpenFolderPath);
-                                Debug.LogError("Upload success!!");
+                                Debug.Log("Upload success!!");
                             }
                         }
                         EditorGUILayout.EndHorizontal();

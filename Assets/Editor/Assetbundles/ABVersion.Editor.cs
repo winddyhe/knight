@@ -102,7 +102,7 @@ namespace UnityEditor.AssetBundles
                 string rDistDir = Path.GetDirectoryName(rDistABPath);
                 if (!Directory.Exists(rDistDir)) Directory.CreateDirectory(rDistDir);
 
-                File.Copy(rSrcABPath, rDistABPath);
+                File.Copy(rSrcABPath, rDistABPath, true);
             }
 
             // 复制MD5文件
@@ -112,7 +112,7 @@ namespace UnityEditor.AssetBundles
             string rDistMD5Dir = Path.GetDirectoryName(rDistMD5Path);
             if (!Directory.Exists(rDistMD5Dir)) Directory.CreateDirectory(rDistMD5Dir);
 
-            File.Copy(rSrcMD5Path, rDistMD5Path);
+            File.Copy(rSrcMD5Path, rDistMD5Path, true);
         }
 
         public static ABVersion CreateVersion(string rOutPath, ABVersion rOldVersion, AssetBundleManifest rNewABManifest)

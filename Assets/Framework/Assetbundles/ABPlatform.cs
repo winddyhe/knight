@@ -6,9 +6,15 @@ using UnityEngine;
 using System.Collections;
 using Core;
 using System.IO;
+using Core.WindJson;
 
 namespace UnityEngine.AssetBundles
 {
+    public class ABServerURL
+    {
+        public string UpdateURL;
+    }
+
     /// <summary>
     /// 资源管理类，主要用作不同资源平台的路径管理
     /// </summary>
@@ -31,12 +37,12 @@ namespace UnityEngine.AssetBundles
         /// <summary>
         /// 当前的平台
         /// </summary>
-        public Platform runtimePlatform;
+        public Platform         CurRuntimePlatform;
     
         /// <summary>
         /// 平台名
         /// </summary>
-        public static string[] PlatformNames = 
+        public static string[]  PlatformNames = 
         {
             "OSX",
             "OSX",
@@ -49,7 +55,7 @@ namespace UnityEngine.AssetBundles
         /// <summary>
         /// 运行平台是否为Editor
         /// </summary>
-        public static bool[] PlatformIsEditor = 
+        public static bool[]    PlatformIsEditor = 
         {
             true,
             false,
@@ -59,7 +65,7 @@ namespace UnityEngine.AssetBundles
             false
         };
     
-        public static string[] PlatformPrefixs = 
+        public static string[]  PlatformPrefixs = 
         {
             "file:///",         //OSXEditor
             "file:///",         //OSXPlayer
@@ -68,20 +74,42 @@ namespace UnityEngine.AssetBundles
             "file://",          //IphonePlayer
             "",                 //Android
         };
+
+
+        /*******************************************************************************************/
+        /// <summary>
+        /// 更新服务器的配置
+        /// </summary>
+        public ABServerURL      ServerURL;
+
+        private ABPlatform()
+        {
+        }
     
+        /// <summary>
+        /// 管理器的初始化
+        /// </summary>
+        public IEnumerator Initialize()
+        {
+            CurRuntimePlatform = RuntimePlatform_To_Plaform(Application.platform);
+
+            // 加载更新服务器的地址
+            yield return LoadServerURL_Async();
+        }
+
         /// <summary>
         /// 得到StreamingAssets下的资源目录路径
         /// </summary>
         public string GetStreamingFile(Platform rPlatform)
         {
             int rPlatformIndex = (int)rPlatform;
-    
+
             bool isEditor = PlatformIsEditor[rPlatformIndex];
             string rRootDir = isEditor ? Application.dataPath : Application.streamingAssetsPath;
-    
+
             return rRootDir + "/Assetbundles/" + PlatformNames[rPlatformIndex] + "_Assetbundles/";
         }
-    
+
         /// <summary>
         /// 得到StreamingAssets下的资源目录的URL
         /// </summary>
@@ -90,39 +118,79 @@ namespace UnityEngine.AssetBundles
             int rPlatformIndex = (int)rPlatform;
             return PlatformPrefixs[rPlatformIndex] + GetStreamingFile(rPlatform);
         }
-    
+
         /// <summary>
         /// 得到当前平台的资源的URL
         /// </summary>
-        public string GetStreamingUrl_CurPlatform(string rABName)
+        public string GetStreamingUrl_CurPlatform(string rFileName)
         {
-            string rPath = GetStreamingUrl(this.runtimePlatform) + rABName;
+            string rPath = GetStreamingUrl(this.CurRuntimePlatform) + rFileName;
             Debug.LogFormat("---- {0}", rPath);
             return rPath;
         }
-    
+
         /// <summary>
         /// 得到AssetbundleManifest的Url路径
         /// </summary>
         public string GetAssetbundleManifestUrl()
         {
-            string rRootPath = GetStreamingUrl(this.runtimePlatform);
+            string rRootPath = GetStreamingUrl(this.CurRuntimePlatform);
             DirectoryInfo rDirInfo = new DirectoryInfo(rRootPath);
             return rRootPath + rDirInfo.Name;
         }
-    
-        private ABPlatform()
-        {
-        }
-    
+
         /// <summary>
-        /// 管理器的初始化
+        /// 得到Persistent空间下的Url路径
         /// </summary>
-        public void Initialize()
+        public string GetPersistentUrl(Platform rPlatform)
         {
-            runtimePlatform = RuntimePlatform_To_Plaform(Application.platform);
+            int rPlatformIndex = (int)rPlatform;
+            return PlatformPrefixs[rPlatformIndex] + UtilTool.PathCombine(Application.persistentDataPath, PlatformNames[rPlatformIndex] + "_Assetbundles/");
         }
-    
+
+        /// <summary>
+        /// 得到当前平台Persistent空间下的Url路径
+        /// </summary>
+        public string GetPersistentUrl_CurPlatform(string rFileName)
+        {
+            string rPath = GetPersistentUrl(this.CurRuntimePlatform) + rFileName;
+            Debug.LogFormat("---- {0}", rPath);
+            return rPath;
+        }
+
+        /// <summary>
+        /// 得到服务器的Url路径
+        /// </summary>
+        public string GetServerUrl(Platform rPlatform)
+        {
+            int rPlatformIndex = (int)rPlatform;
+            return this.ServerURL.UpdateURL + PlatformNames[rPlatformIndex] + "_Assetbundles/";
+        }
+
+        /// <summary>
+        /// 得到当前平台服务器的Url路径
+        /// </summary>
+        public string GetServerUrl_CurPlatform(string rFileName)
+        {
+            string rPath = GetServerUrl(this.CurRuntimePlatform) + rFileName;
+            Debug.LogFormat("---- {0}", rPath);
+            return rPath;
+        }
+
+        /// <summary>
+        /// 加载更新服务器的地址
+        /// </summary>
+        private IEnumerator LoadServerURL_Async()
+        {
+            var rResourceRequest = Resources.LoadAsync<TextAsset>("server_url_default");
+            yield return rResourceRequest;
+
+            string rServerContent = (rResourceRequest.asset as TextAsset).text;
+
+            JsonNode rJsonNode = JsonParser.Parse(rServerContent);
+            this.ServerURL = rJsonNode.ToObject<ABServerURL>();
+        }
+
         /// <summary>
         /// 平台的对应关系转换
         /// </summary>
@@ -136,7 +204,7 @@ namespace UnityEngine.AssetBundles
                 case RuntimePlatform.OSXPlayer:     return Platform.OSXPlayer;
                 case RuntimePlatform.WindowsEditor: return Platform.WindowsEditor;
                 case RuntimePlatform.WindowsPlayer: return Platform.WindowsPlayer;
-                default:                            return Platform.Unkown;
+                default: return Platform.Unkown;
             }
         }
     }
