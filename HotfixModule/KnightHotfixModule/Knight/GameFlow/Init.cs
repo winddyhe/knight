@@ -4,7 +4,7 @@
 //======================================================================
 using UnityEngine;
 using System.Collections;
-using Game.Knight;
+using Framework;
 
 namespace Game.Knight
 {
@@ -21,7 +21,7 @@ namespace Game.Knight
             GPCSkillConfig.Instance.Unload("game/skillconfig.ab");
             
             //切换到Login场景
-            yield return Globals.Instance.LoadLevel("Login");
+            yield return GameFlowLevelManager.Instance.LoadLevel("Login");
 
             Debug.Log("End hotfix init...");
         }

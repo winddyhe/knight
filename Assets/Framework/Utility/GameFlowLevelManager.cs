@@ -7,12 +7,12 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using Core;
 
-namespace Game.Knight
+namespace Framework
 {
     /// <summary>
     /// 全局数据类
     /// </summary>
-    public class Globals : TSingleton<Globals>
+    public class GameFlowLevelManager : TSingleton<GameFlowLevelManager>
     {
         public class LevelRequest : CoroutineRequest<LevelRequest>
         {
@@ -24,17 +24,8 @@ namespace Game.Knight
                 this.LevelName = rLevelName;
             }
         }
-        
-        /// <summary>
-        /// 重力
-        /// </summary>
-        public static readonly float    Gravity = -9.81f;
-        /// <summary>
-        /// 反重力
-        /// </summary>
-        public static          float    GravityRevert { get { return -Gravity; } }
-        
-        Globals() {}
+
+        GameFlowLevelManager() {}
 
         public LevelRequest LoadLevel(string rLevelName)
         {

@@ -5,6 +5,7 @@
 using Core;
 using UnityEngine;
 using System.Collections;
+using Framework;
 
 namespace Game.Knight
 {
@@ -25,7 +26,7 @@ namespace Game.Knight
         {
             if (JumpToInit)
             {
-                var rLevelRequest = Globals.Instance.LoadLevel("Init");
+                var rLevelRequest = GameFlowLevelManager.Instance.LoadLevel("Init");
                 yield return rLevelRequest;
             }
             else

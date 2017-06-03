@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using Framework.WindUI;
-using Game.Knight;
 using Core;
 using Framework;
 using UnityEngine;
@@ -133,7 +132,7 @@ namespace Game.Knight
             UIManager.Instance.Pop();
             Account.Instance.NetActors = rNetActors;
             GameLoading.Instance.StartLoading(1.0f, "开始创建角色！");       // 开始创建新角色
-            var rLevelRequest = Globals.Instance.LoadLevel("CreatePlayer"); // 切换到Login场景
+            var rLevelRequest = GameFlowLevelManager.Instance.LoadLevel("CreatePlayer"); // 切换到Login场景
             yield return rLevelRequest;
         }
     }

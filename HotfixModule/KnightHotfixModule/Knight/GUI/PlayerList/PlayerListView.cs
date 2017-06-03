@@ -6,10 +6,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using Framework.WindUI;
 using UnityEngine.UI;
-using Core;
 using WindHotfix.GUI;
 using Framework.Hotfix;
-using WindHotfix.Core;
+using Framework;
 
 namespace Game.Knight
 {
@@ -51,7 +50,7 @@ namespace Game.Knight
         {
             GameLoading.Instance.StartLoading(2.0f, "开始进入游戏世界...");
             UIManager.Instance.CloseView(this.GUID);
-            Globals.Instance.LoadLevel("World");
+            GameFlowLevelManager.Instance.LoadLevel("World");
         }
         
         public void OnCreatePlayerBtn_Clicked(Object rTarget)

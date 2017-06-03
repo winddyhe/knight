@@ -102,7 +102,7 @@ namespace Game.Knight
 
             protected override IEnumerator OnRun_Async()
             {
-                Camera rMainCamera = Globals.Instance.GetMainCamera();
+                Camera rMainCamera = GameFlowLevelManager.Instance.GetMainCamera();
                 CameraSetting rCameraSetting = new CameraSetting();
                 rCameraSetting.AngleX   = this.GameMode.StageConfig.CameraSettings[0];
                 rCameraSetting.AngleY   = this.GameMode.StageConfig.CameraSettings[1];
