@@ -53,10 +53,11 @@ Knight是一个基于Unity5.x引擎的游戏GamePlay框架，提供一些简单�
 * PomeloClient: Pomelo提供的U3D客户端插件，地址：https://github.com/NetEase/pomelo-unityclient-socket
 * ILRuntime: 一个使用C#编写的用来运行C#程序的虚拟机，用来实现热更新机制，地址：https://github.com/Ourpalm/ILRuntime
 
-## 计划 2017.3.16 【已完成】
+## 计划 
+### 2017.3.16 【已完成】
 * 使用ILRuntime做热更新，把全部的游戏逻辑放到ILRuntime端去。实现全逻辑的热更新机制。
 
-## 计划 2017.5.17 【已完成】
+### 2017.5.17 【已完成】
 * 实现完整的资源管理模块
 	* 整合官方的AssetbundleBrowser
 	* 实现资源包下载流程
