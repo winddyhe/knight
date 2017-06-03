@@ -110,9 +110,9 @@ namespace Game.Knight
         {
             var rAssetRequesst = ABLoader.Instance.LoadAsset(rConfigABPath, rConfigName);
             yield return rAssetRequesst;
-            if (rAssetRequesst.asset == null) yield break;
+            if (rAssetRequesst.Asset == null) yield break;
 
-            TextAsset rConfigAsset = rAssetRequesst.asset as TextAsset;
+            TextAsset rConfigAsset = rAssetRequesst.Asset as TextAsset;
             if (rConfigAsset == null) yield break;
 
             using (var ms = new MemoryStream(rConfigAsset.bytes))

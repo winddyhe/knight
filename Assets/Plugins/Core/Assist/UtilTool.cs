@@ -259,5 +259,26 @@ namespace Core
                 }
             }
         }
+
+        public static void WriteAllText(string rPath, string rContents)
+        {
+            string rDir = Path.GetDirectoryName(rPath);
+            if (!Directory.Exists(rDir)) Directory.CreateDirectory(rDir);
+            File.WriteAllText(rPath, rContents);
+        }
+
+        public static void WriteAllText(string rPath, string rContents, Encoding rEncoding)
+        {
+            string rDir = Path.GetDirectoryName(rPath);
+            if (!Directory.Exists(rDir)) Directory.CreateDirectory(rDir);
+            File.WriteAllText(rPath, rContents, rEncoding);
+        }
+
+        public static void WriteAllBytes(string rPath, byte[] rBytes)
+        {
+            string rDir = Path.GetDirectoryName(rPath);
+            if (!Directory.Exists(rDir)) Directory.CreateDirectory(rDir);
+            File.WriteAllBytes(rPath, rBytes);
+        }
     }
 }

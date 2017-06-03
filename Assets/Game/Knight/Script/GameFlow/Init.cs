@@ -39,11 +39,8 @@ namespace Game.Knight
             yield return ABPlatform.Instance.Initialize();
 
             // 资源下载模块初始化
-            //yield return ABUpdater.Instance.Initialize();
-
-            //加载Assetbundle的Manifest
-            yield return ABLoader.Instance.LoadManifest();
-
+            yield return ABUpdater.Instance.Initialize();
+            
             // 加载热更新代码资源
             yield return HotfixApp.Instance.Load(HotfixModule);
 

@@ -43,14 +43,14 @@ namespace Game.Knight
             var rSceneRequest = ABLoader.Instance.LoadScene(rLoadRequest.sceneABPath, rLoadRequest.sceneAssetName);
             yield return rSceneRequest;
 
-            string rSceneName = Path.GetFileNameWithoutExtension(rSceneRequest.assetName);
+            string rSceneName = Path.GetFileNameWithoutExtension(rSceneRequest.AssetName);
             var rSceneLoadRequest = SceneManager.LoadSceneAsync(rSceneName, rLoadRequest.sceneLoadMode);
             yield return rSceneLoadRequest;
 
-            rSceneRequest.scene = SceneManager.GetSceneByName(rSceneName);
-            SceneManager.SetActiveScene(rSceneRequest.scene);
+            rSceneRequest.Scene = SceneManager.GetSceneByName(rSceneName);
+            SceneManager.SetActiveScene(rSceneRequest.Scene);
 
-            GameObject rSceneConfigGo = GameObject.Find(rSceneRequest.scene.name + "_Config");
+            GameObject rSceneConfigGo = GameObject.Find(rSceneRequest.Scene.name + "_Config");
             if (rSceneConfigGo != null)
             {
                 SceneConfig rSceneConfig = rSceneConfigGo.GetComponent<SceneConfig>();

@@ -39,10 +39,10 @@ namespace Game.Knight
             string rAvatarABPath = rRequest.ABPath;
             var rAssetRequest = ABLoader.Instance.LoadAsset(rAvatarABPath, rRequest.AssetName);
             yield return rAssetRequest;
-            if (rAssetRequest.asset != null)
+            if (rAssetRequest.Asset != null)
             {
-                GameObject rAvatarGo = GameObject.Instantiate(rAssetRequest.asset) as GameObject;
-                rAvatarGo.name = rAssetRequest.asset.name;
+                GameObject rAvatarGo = GameObject.Instantiate(rAssetRequest.Asset) as GameObject;
+                rAvatarGo.name = rAssetRequest.Asset.name;
                 rAvatarGo.transform.position = Vector3.zero;
                 rRequest.AvatarGo = rAvatarGo;
             }

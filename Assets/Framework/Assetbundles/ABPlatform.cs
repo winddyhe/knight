@@ -125,7 +125,6 @@ namespace UnityEngine.AssetBundles
         public string GetStreamingUrl_CurPlatform(string rFileName)
         {
             string rPath = GetStreamingUrl(this.CurRuntimePlatform) + rFileName;
-            Debug.LogFormat("---- {0}", rPath);
             return rPath;
         }
 
@@ -163,7 +162,6 @@ namespace UnityEngine.AssetBundles
         public string GetPersistentUrl_CurPlatform(string rFileName)
         {
             string rPath = GetPersistentUrl(this.CurRuntimePlatform) + rFileName;
-            Debug.LogFormat("---- {0}", rPath);
             return rPath;
         }
         
@@ -173,7 +171,6 @@ namespace UnityEngine.AssetBundles
         public string GetPersistentFile_CurPlatform(string rFileName)
         {
             string rPath = GetPersistentFile(this.CurRuntimePlatform) + rFileName;
-            Debug.LogFormat("---- {0}", rPath);
             return rPath;
         }
 
@@ -192,7 +189,6 @@ namespace UnityEngine.AssetBundles
         public string GetServerUrl_CurPlatform(string rFileName)
         {
             string rPath = GetServerUrl(this.CurRuntimePlatform) + rFileName;
-            Debug.LogFormat("---- {0}", rPath);
             return rPath;
         }
 

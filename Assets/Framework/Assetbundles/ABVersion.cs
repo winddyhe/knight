@@ -67,6 +67,17 @@ namespace UnityEngine.AssetBundles
             return rRequest;
         }
 
+        public void Save(string rPath)
+        {
+            using (var fs = new FileStream(rPath, FileMode.Create, FileAccess.Write, FileShare.Write))
+            {
+                using (var bw = new BinaryWriter(fs))
+                {
+                    this.Serialize(bw);
+                }
+            }
+        }
+
         private static IEnumerator Load_Async(LoaderRequest rRequest)
         {
             string rVersionURL = rRequest.Url;
