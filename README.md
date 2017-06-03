@@ -18,12 +18,14 @@ Knight是一个基于Unity5.x引擎的游戏GamePlay框架，提供一些简单�
     * 添加对象查找的工具
     * 添加两次内存snap的比较工具
 
-* TODO: 完整的Assetbundle资源打包工具与加载模块
-    * 封装Unity5.x的打包系统
+* 完整的Assetbundle资源打包工具与加载模块
+	* 整合官方的AssetbundleBrowser
     * 统一资源加载接口，自动根据依赖项加载资源
-    * TODO: UI资源加入打包系统
+	* 实现资源包下载流程
+	* 实现资源管理模块Editor和非Editor的加载接口统一，可以根据不同的资源类型自由切换
 
 * Coroutine协程管理
+	* 协程使用统一管理，让携程的启动不再依赖MonoBehaviour
     * 实现类似 WWW/AssetBundleRequest等带自定义参数返回的协程对象，以简化使用协程的代码结构
 
 * Pomelo服务器集成
@@ -54,7 +56,7 @@ Knight是一个基于Unity5.x引擎的游戏GamePlay框架，提供一些简单�
 ## 计划 2017.3.16 【已完成】
 * 使用ILRuntime做热更新，把全部的游戏逻辑放到ILRuntime端去。实现全逻辑的热更新机制。
 
-## 计划 2017.5.17 【进行中】
+## 计划 2017.5.17 【已完成】
 * 实现完整的资源管理模块
 	* 整合官方的AssetbundleBrowser
 	* 实现资源包下载流程
