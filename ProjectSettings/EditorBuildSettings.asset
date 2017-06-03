@@ -15,8 +15,5 @@ EditorBuildSettings:
     path: Assets/Game/Knight/Scene/CreatePlayer.unity
     guid: fac3b2ecd58217041a2b555d78422771
   - enabled: 1
-    path: Assets/Game/Knight/Scene/GameTest.unity
-    guid: dc85cb545aec59348a0569119bcd6d4c
-  - enabled: 1
     path: Assets/Game/Knight/Scene/World.unity
-    guid: 00000000000000000000000000000000
+    guid: 0f3bd4eb4a3ea5c4d96c70a3170b4682

@@ -91,7 +91,7 @@ namespace UnityEditor.AssetBundles
                 if (rDistFiles.Contains(rSrcFiles[i]))
                 {
                     string rSrcMD5 = rBuildManifest.GetAssetBundleHash(rSrcFiles[i]).ToString();
-                    string rDistMD5 = rStreamingManifest.GetAssetBundleHash(rDistFiles[i]).ToString();
+                    string rDistMD5 = rStreamingManifest.GetAssetBundleHash(rSrcFiles[i]).ToString();
     
                     if (rSrcMD5.Equals(rDistMD5))
                         rFileVersion.State = FileState.Same;
