@@ -75,8 +75,11 @@ namespace UnityEngine.AssetBundles
             "",                 //Android
         };
 
-        public static string    IsDevelopeModeKey   = "ABPlatformEditor_IsDevelopeMode";
-        public static string    IsSimulateModeKey   = "ABPlatformEditor_IsSimulateMode";
+        public static string    IsDevelopeModeKey           = "ABPlatformEditor_IsDevelopeMode";
+        public static string    IsSimulateModeKey_Scene     = "ABPlatformEditor_IsSimulateMode_Scene";
+        public static string    IsSimulateModeKey_Avatar    = "ABPlatformEditor_IsSimulateMode_Avatar";
+        public static string    IsSimulateModeKey_Config    = "ABPlatformEditor_IsSimulateMode_Config";
+        public static string    IsSimulateModeKey_GUI       = "ABPlatformEditor_IsSimulateMode_GUI";
 
         /*******************************************************************************************/
         /// <summary>
@@ -94,7 +97,10 @@ namespace UnityEngine.AssetBundles
         public IEnumerator Initialize()
         {
             Debug.LogFormat("IsDevelopeMode: {0}", this.IsDevelopeMode());
-            Debug.LogFormat("IsSumilateMode: {0}", this.IsSumilateMode());
+            Debug.LogFormat("IsSumilateMode Scene: {0}",  this.IsSumilateMode_Scene());
+            Debug.LogFormat("IsSumilateMode Avatar: {0}", this.IsSumilateMode_Avatar());
+            Debug.LogFormat("IsSumilateMode Config: {0}", this.IsSumilateMode_Config());
+            Debug.LogFormat("IsSumilateMode GUI: {0}", this.IsSumilateMode_GUI());
 
             this.CurRuntimePlatform = RuntimePlatform_To_Plaform(Application.platform);
 
@@ -219,13 +225,49 @@ namespace UnityEngine.AssetBundles
         }
 
         /// <summary>
-        /// 是不是模拟资源模式
+        /// 场景是不是模拟资源模式
         /// </summary>
-        public bool IsSumilateMode()
+        public bool IsSumilateMode_Scene()
         {
             bool bIsSimulateMode = false;
 #if UNITY_EDITOR
-            bIsSimulateMode = UnityEditor.EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey);
+            bIsSimulateMode = UnityEditor.EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey_Scene);
+#endif
+            return bIsSimulateMode && this.IsDevelopeMode();
+        }
+        
+        /// <summary>
+        /// 角色是不是模拟资源模式
+        /// </summary>
+        public bool IsSumilateMode_Avatar()
+        {
+            bool bIsSimulateMode = false;
+#if UNITY_EDITOR
+            bIsSimulateMode = UnityEditor.EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey_Avatar);
+#endif
+            return bIsSimulateMode && this.IsDevelopeMode();
+        }
+
+        /// <summary>
+        /// 配置是不是模拟资源模式
+        /// </summary>
+        public bool IsSumilateMode_Config()
+        {
+            bool bIsSimulateMode = false;
+#if UNITY_EDITOR
+            bIsSimulateMode = UnityEditor.EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey_Config);
+#endif
+            return bIsSimulateMode && this.IsDevelopeMode();
+        }
+
+        /// <summary>
+        /// GUI是不是模拟资源模式
+        /// </summary>
+        public bool IsSumilateMode_GUI()
+        {
+            bool bIsSimulateMode = false;
+#if UNITY_EDITOR
+            bIsSimulateMode = UnityEditor.EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey_GUI);
 #endif
             return bIsSimulateMode && this.IsDevelopeMode();
         }

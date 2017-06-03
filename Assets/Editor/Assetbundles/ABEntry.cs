@@ -154,7 +154,7 @@ namespace UnityEditor.AssetBundles
                 rDirPath = rDirPath.Replace(rRootPath, "").Replace("\\", "/");
 
                 string rFileName = Path.GetFileNameWithoutExtension(rDirPath);
-                if (filerAssets.FindIndex((item) => { return rFileName.Contains(item); }) >= 0) continue;
+                if (filerAssets != null && filerAssets.FindIndex((item) => { return rFileName.Contains(item); }) >= 0) continue;
 
                 AssetBundleBuild rABB = new AssetBundleBuild();
                 rABB.assetBundleName = abName + "/" + rFileName;

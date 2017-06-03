@@ -44,3 +44,27 @@ MonoBehaviour:
     assetSrcType: 2
     abClassName: Game.Knight.Editor.ABEntryProcessor_SkillConfig
     abOriginalResPath: Assets/Game/Knight/GameAsset/Config/SkillConfig/Text
+  - abName: game/ui
+    abVariant: ab
+    assetResPath: Assets/Game/Knight/GameAsset/GUI/Prefabs
+    assetType: t:Prefab
+    filerAssets: []
+    assetSrcType: 1
+    abClassName: UnityEditor.AssetBundles.ABEntryProcessor
+    abOriginalResPath: 
+  - abName: game/ui/texture
+    abVariant: ab
+    assetResPath: Assets/Game/Knight/GameAsset/GUI/Textures
+    assetType: t:Texture2D
+    filerAssets: []
+    assetSrcType: 0
+    abClassName: UnityEditor.AssetBundles.ABEntryProcessor
+    abOriginalResPath: 
+  - abName: game/ui/font
+    abVariant: ab
+    assetResPath: Assets/Game/Knight/GameAsset/GUI/Fonts
+    assetType: t:Font
+    filerAssets: []
+    assetSrcType: 1
+    abClassName: UnityEditor.AssetBundles.ABEntryProcessor
+    abOriginalResPath: 

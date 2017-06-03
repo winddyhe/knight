@@ -11,10 +11,14 @@ namespace UnityEditor.AssetBundles
 {
     public class ABPlatformEditor
     {
-        private const  string   mSelectDevelopeModeMenuPath = "Tools/Develope Mode";
-        private const  string   mSelectSimulateModeMenuPath = "Tools/Simulate Mode";
-        
-        [MenuItem(mSelectDevelopeModeMenuPath)]
+        private const string    mSelectDevelopeModeMenuPath         = "Tools/Develope Mode";
+
+        private const string    mSelectSimulateModeMenuPath_Scene   = "Tools/Simulate Mode/Scene";
+        private const string    mSelectSimulateModeMenuPath_Avatar  = "Tools/Simulate Mode/Avatar";
+        private const string    mSelectSimulateModeMenuPath_Config  = "Tools/Simulate Mode/Config";
+        private const string    mSelectSimulateModeMenuPath_GUI     = "Tools/Simulate Mode/GUI";
+
+        [MenuItem(mSelectDevelopeModeMenuPath, priority = 1050)]
         public static void SelectDevelopeMode_Menu()
         {
             bool bSelected = Menu.GetChecked(mSelectDevelopeModeMenuPath);
@@ -29,18 +33,63 @@ namespace UnityEditor.AssetBundles
             return true;
         }
 
-        [MenuItem(mSelectSimulateModeMenuPath)]
-        public static void SelectSimulateMode_Menu()
+        [MenuItem(mSelectSimulateModeMenuPath_Scene, priority = 1000)]
+        public static void SelectSimulateMode_Scene_Menu()
         {
-            bool bSelected = Menu.GetChecked(mSelectSimulateModeMenuPath);
-            EditorPrefs.SetBool(ABPlatform.IsSimulateModeKey, !bSelected);
-            Menu.SetChecked(mSelectSimulateModeMenuPath, !bSelected);
+            bool bSelected = Menu.GetChecked(mSelectSimulateModeMenuPath_Scene);
+            EditorPrefs.SetBool(ABPlatform.IsSimulateModeKey_Scene, !bSelected);
+            Menu.SetChecked(mSelectSimulateModeMenuPath_Scene, !bSelected);
         }
 
-        [MenuItem(mSelectSimulateModeMenuPath, true)]
-        public static bool SelectSimulateMode_Check_Menu()
+        [MenuItem(mSelectSimulateModeMenuPath_Scene, true)]
+        public static bool SelectSimulateMode_Check_Scene_Menu()
         {
-            Menu.SetChecked(mSelectSimulateModeMenuPath, EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey));
+            Menu.SetChecked(mSelectSimulateModeMenuPath_Scene, EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey_Scene));
+            return true;
+        }
+
+        [MenuItem(mSelectSimulateModeMenuPath_Avatar, priority = 1000)]
+        public static void SelectSimulateMode_Avatar_Menu()
+        {
+            bool bSelected = Menu.GetChecked(mSelectSimulateModeMenuPath_Avatar);
+            EditorPrefs.SetBool(ABPlatform.IsSimulateModeKey_Avatar, !bSelected);
+            Menu.SetChecked(mSelectSimulateModeMenuPath_Avatar, !bSelected);
+        }
+
+        [MenuItem(mSelectSimulateModeMenuPath_Avatar, true)]
+        public static bool SelectSimulateMode_Check_Avatar_Menu()
+        {
+            Menu.SetChecked(mSelectSimulateModeMenuPath_Avatar, EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey_Avatar));
+            return true;
+        }
+
+        [MenuItem(mSelectSimulateModeMenuPath_Config, priority = 1000)]
+        public static void SelectSimulateMode_Config_Menu()
+        {
+            bool bSelected = Menu.GetChecked(mSelectSimulateModeMenuPath_Config);
+            EditorPrefs.SetBool(ABPlatform.IsSimulateModeKey_Config, !bSelected);
+            Menu.SetChecked(mSelectSimulateModeMenuPath_Config, !bSelected);
+        }
+
+        [MenuItem(mSelectSimulateModeMenuPath_Config, true)]
+        public static bool SelectSimulateMode_Check_Config_Menu()
+        {
+            Menu.SetChecked(mSelectSimulateModeMenuPath_Config, EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey_Config));
+            return true;
+        }
+
+        [MenuItem(mSelectSimulateModeMenuPath_GUI, priority = 1000)]
+        public static void SelectSimulateMode_GUI_Menu()
+        {
+            bool bSelected = Menu.GetChecked(mSelectSimulateModeMenuPath_GUI);
+            EditorPrefs.SetBool(ABPlatform.IsSimulateModeKey_GUI, !bSelected);
+            Menu.SetChecked(mSelectSimulateModeMenuPath_GUI, !bSelected);
+        }
+
+        [MenuItem(mSelectSimulateModeMenuPath_GUI, true)]
+        public static bool SelectSimulateMode_Check_GUI_Menu()
+        {
+            Menu.SetChecked(mSelectSimulateModeMenuPath_GUI, EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey_GUI));
             return true;
         }
     }

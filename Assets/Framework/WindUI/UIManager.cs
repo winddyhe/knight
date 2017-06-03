@@ -69,7 +69,7 @@ namespace Framework.WindUI
 
         private IEnumerator Open_Async(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
         {
-            var rLoaderRequest = UILoader.Instance.LoadUI(rViewName);
+            var rLoaderRequest = UIAssetLoader.Instance.LoadUI(rViewName);
             yield return rLoaderRequest;
             
             OpenView(rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);

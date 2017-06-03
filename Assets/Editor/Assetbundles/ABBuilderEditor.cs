@@ -14,10 +14,25 @@ namespace UnityEditor.AssetBundles
     /// </summary>
     public class ABBuilderEditor
     {
+        /// <summary>
+        /// 资源打包
+        /// </summary>
         [MenuItem("Tools/AssetBundle/AssetBundle Build")]
         public static void Build()
         {
-            ABBuilder.Instance.BuildAssetbundles(BuildAssetBundleOptions.DeterministicAssetBundle);
+            ABBuilder.Instance.BuildAssetbundles(BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression);
+        }
+
+        /// <summary>
+        /// 资源预处理
+        /// </summary>
+        [MenuItem("Tools/AssetBundle/AssetBundle Preprocess")]
+        public static void Preprocess()
+        {
+            ABBuilder.Instance.AssetbundleEntry_Building();
+            AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets();
+            Debug.Log("AssetBundle Preprocess Success!");
         }
     }
 }

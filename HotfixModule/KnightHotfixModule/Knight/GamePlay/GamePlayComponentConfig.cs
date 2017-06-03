@@ -145,7 +145,7 @@ namespace Game.Knight
 
         private IEnumerator Load_Async(string rConfigABPath, string rConfigName)
         {
-            var rAssetRequesst = ABLoader.Instance.LoadAsset(rConfigABPath, rConfigName);
+            var rAssetRequesst = ABLoader.Instance.LoadAsset(rConfigABPath, rConfigName, ABPlatform.Instance.IsSumilateMode_Config());
             yield return rAssetRequesst;
             if (rAssetRequesst.Asset == null) yield break;
 

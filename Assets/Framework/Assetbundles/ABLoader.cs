@@ -23,12 +23,14 @@ namespace UnityEngine.AssetBundles
             public string                   Path;
             public string                   AssetName;
             public bool                     IsScene;
+            public bool                     IsSimulate;
 
-            public LoaderRequest(string rPath, string rAssetName, bool bIsScene)
+            public LoaderRequest(string rPath, string rAssetName, bool bIsScene, bool bIsSimulate)
             {
                 this.Path       = rPath;
                 this.AssetName  = rAssetName;
                 this.IsScene    = bIsScene;
+                this.IsSimulate = bIsSimulate;
             }
         }
 
@@ -50,12 +52,12 @@ namespace UnityEngine.AssetBundles
             }
         }
         
-        public LoaderRequest LoadAsset(string rAssetbundleName, string rAssetName)
+        public LoaderRequest LoadAsset(string rAssetbundleName, string rAssetName, bool bIsSimulate)
         {
             if (!this.LoadedAssetbundles.Contains(rAssetbundleName))
                 this.LoadedAssetbundles.Add(rAssetbundleName);
 
-            LoaderRequest rRequest = new LoaderRequest(rAssetbundleName, rAssetName, false);
+            LoaderRequest rRequest = new LoaderRequest(rAssetbundleName, rAssetName, false, bIsSimulate);
             rRequest.Start(LoadAsset_Async(rRequest));
             return rRequest;
         }
@@ -65,7 +67,7 @@ namespace UnityEngine.AssetBundles
             if (!this.LoadedScenebundles.Contains(rAssetbundleName))
                 this.LoadedScenebundles.Add(rAssetbundleName);
             
-            LoaderRequest rSceneRequest = new LoaderRequest(rAssetbundleName, rScenePath, true);
+            LoaderRequest rSceneRequest = new LoaderRequest(rAssetbundleName, rScenePath, true, false);
             rSceneRequest.Start(LoadAsset_Async(rSceneRequest));
             return rSceneRequest;
         }
@@ -143,14 +145,14 @@ namespace UnityEngine.AssetBundles
             }
     
             // 开始加载资源依赖项
-            if (rAssetLoadEntry.ABDependNames != null && !ABPlatform.Instance.IsSumilateMode())
+            if (rAssetLoadEntry.ABDependNames != null && !rRequest.IsSimulate)
             {
                 for (int i = rAssetLoadEntry.ABDependNames.Length - 1; i >= 0; i--)
                 {
                     string rDependABPath = rAssetLoadEntry.ABDependNames[i];
                     string rDependABName = rDependABPath;
 
-                    LoaderRequest rDependAssetRequest = new LoaderRequest(rDependABName, "", false);
+                    LoaderRequest rDependAssetRequest = new LoaderRequest(rDependABName, "", false, rRequest.IsSimulate);
                     yield return rDependAssetRequest.Start(LoadAsset_Async(rDependAssetRequest));
                 }
             }
@@ -160,10 +162,10 @@ namespace UnityEngine.AssetBundles
             rAssetLoadEntry.IsLoadCompleted = false;
 
             string rAssetLoadUrl = rAssetLoadEntry.ABPath;
-            Debug.Log("--- Load ab: " + rAssetLoadUrl);
 
-            if (ABPlatform.Instance.IsSumilateMode())
+            if (rRequest.IsSimulate)
             {
+                Debug.Log("---Simulate Load ab: " + rAssetLoadUrl);
 #if UNITY_EDITOR
                 if (!string.IsNullOrEmpty(rRequest.AssetName) && !rRequest.IsScene)
                 {
@@ -180,6 +182,8 @@ namespace UnityEngine.AssetBundles
             }
             else
             {
+                Debug.Log("---Real Load ab: " + rAssetLoadUrl);
+
                 var rAssetbundleCreateRequest = AssetBundle.LoadFromFileAsync(rAssetLoadUrl);
                 yield return rAssetbundleCreateRequest;
 

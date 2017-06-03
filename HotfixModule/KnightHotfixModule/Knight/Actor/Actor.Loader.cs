@@ -8,6 +8,7 @@ using UnityEngine;
 using Core;
 using System.Collections;
 using WindHotfix.Core;
+using Framework;
 
 namespace Game.Knight
 {
