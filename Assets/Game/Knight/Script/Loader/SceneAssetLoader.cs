@@ -40,17 +40,38 @@ namespace Game.Knight
 
         private IEnumerator Load_Async(SceneLoaderRequest rLoadRequest)
         {
-            var rSceneRequest = ABLoader.Instance.LoadScene(rLoadRequest.sceneABPath, rLoadRequest.sceneAssetName);
-            yield return rSceneRequest;
+            GameObject rSceneConfigGo = null;
 
-            string rSceneName = Path.GetFileNameWithoutExtension(rSceneRequest.AssetName);
-            var rSceneLoadRequest = SceneManager.LoadSceneAsync(rSceneName, rLoadRequest.sceneLoadMode);
-            yield return rSceneLoadRequest;
+            if (ABPlatform.Instance.IsSumilateMode())
+            {
+#if UNITY_EDITOR
+                if (rLoadRequest.sceneLoadMode == LoadSceneMode.Additive)
+                    yield return UnityEditor.EditorApplication.LoadLevelAdditiveAsyncInPlayMode(rLoadRequest.sceneAssetName);
+                else
+                    yield return UnityEditor.EditorApplication.LoadLevelAsyncInPlayMode(rLoadRequest.sceneAssetName);
 
-            rSceneRequest.Scene = SceneManager.GetSceneByName(rSceneName);
-            SceneManager.SetActiveScene(rSceneRequest.Scene);
+                string rSceneName = Path.GetFileNameWithoutExtension(rLoadRequest.sceneAssetName);
+                var rScene = SceneManager.GetSceneByName(rSceneName);
+                SceneManager.SetActiveScene(rScene);
 
-            GameObject rSceneConfigGo = GameObject.Find(rSceneRequest.Scene.name + "_Config");
+                rSceneConfigGo = GameObject.Find(rScene.name + "_Config");
+#endif
+            }
+            else
+            {
+                var rSceneRequest = ABLoader.Instance.LoadScene(rLoadRequest.sceneABPath, rLoadRequest.sceneAssetName);
+                yield return rSceneRequest;
+
+                string rSceneName = Path.GetFileNameWithoutExtension(rSceneRequest.AssetName);
+                var rSceneLoadRequest = SceneManager.LoadSceneAsync(rSceneName, rLoadRequest.sceneLoadMode);
+                yield return rSceneLoadRequest;
+
+                rSceneRequest.Scene = SceneManager.GetSceneByName(rSceneName);
+                SceneManager.SetActiveScene(rSceneRequest.Scene);
+
+                rSceneConfigGo = GameObject.Find(rSceneRequest.Scene.name + "_Config");
+            }
+
             if (rSceneConfigGo != null)
             {
                 SceneConfig rSceneConfig = rSceneConfigGo.GetComponent<SceneConfig>();

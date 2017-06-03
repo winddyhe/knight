@@ -75,6 +75,8 @@ namespace UnityEngine.AssetBundles
             "",                 //Android
         };
 
+        public static string    IsDevelopeModeKey   = "ABPlatformEditor_IsDevelopeMode";
+        public static string    IsSimulateModeKey   = "ABPlatformEditor_IsSimulateMode";
 
         /*******************************************************************************************/
         /// <summary>
@@ -91,7 +93,10 @@ namespace UnityEngine.AssetBundles
         /// </summary>
         public IEnumerator Initialize()
         {
-            CurRuntimePlatform = RuntimePlatform_To_Plaform(Application.platform);
+            Debug.LogFormat("IsDevelopeMode: {0}", this.IsDevelopeMode());
+            Debug.LogFormat("IsSumilateMode: {0}", this.IsSumilateMode());
+
+            this.CurRuntimePlatform = RuntimePlatform_To_Plaform(Application.platform);
 
             // 加载更新服务器的地址
             yield return LoadServerURL_Async();
@@ -125,6 +130,15 @@ namespace UnityEngine.AssetBundles
         public string GetStreamingUrl_CurPlatform(string rFileName)
         {
             string rPath = GetStreamingUrl(this.CurRuntimePlatform) + rFileName;
+            return rPath;
+        }
+
+        /// <summary>
+        /// 得到当前平台的资源的文件路径
+        /// </summary>
+        public string GetStreamingFile_CurPlatform(string rFileName)
+        {
+            string rPath = GetStreamingFile(this.CurRuntimePlatform) + rFileName;
             return rPath;
         }
 
@@ -190,6 +204,30 @@ namespace UnityEngine.AssetBundles
         {
             string rPath = GetServerUrl(this.CurRuntimePlatform) + rFileName;
             return rPath;
+        }
+
+        /// <summary>
+        /// 是不是开发者模式
+        /// </summary>
+        public bool IsDevelopeMode()
+        {
+            bool bIsDevelopeMode = false;
+#if UNITY_EDITOR
+            bIsDevelopeMode = UnityEditor.EditorPrefs.GetBool(ABPlatform.IsDevelopeModeKey);
+#endif
+            return bIsDevelopeMode;
+        }
+
+        /// <summary>
+        /// 是不是模拟资源模式
+        /// </summary>
+        public bool IsSumilateMode()
+        {
+            bool bIsSimulateMode = false;
+#if UNITY_EDITOR
+            bIsSimulateMode = UnityEditor.EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey);
+#endif
+            return bIsSimulateMode && this.IsDevelopeMode();
         }
 
         /// <summary>

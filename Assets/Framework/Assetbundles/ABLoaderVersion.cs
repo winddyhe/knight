@@ -13,7 +13,6 @@ namespace UnityEngine.AssetBundles
     {
         Streaming,
         Persistent,
-        Server,
     }
         /// <summary>
     /// 资源的加载信息
@@ -94,13 +93,11 @@ namespace UnityEngine.AssetBundles
             switch (rLoaderSpace)
             {
                 case LoaderSpace.Streaming:
-                    return ABPlatform.Instance.GetStreamingUrl_CurPlatform(rABName);
+                    return ABPlatform.Instance.GetStreamingFile_CurPlatform(rABName);
                 case LoaderSpace.Persistent:
-                    return ABPlatform.Instance.GetPersistentUrl_CurPlatform(rABName);
-                case LoaderSpace.Server:
-                    return ABPlatform.Instance.GetServerUrl_CurPlatform(rABName);
+                    return ABPlatform.Instance.GetPersistentFile_CurPlatform(rABName);
             }
-            return ABPlatform.Instance.GetStreamingUrl_CurPlatform(rABName);
+            return ABPlatform.Instance.GetStreamingFile_CurPlatform(rABName);
         }
     }
 }

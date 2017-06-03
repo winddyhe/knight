@@ -3,12 +3,9 @@
 //        Email: hgplan@126.com
 //======================================================================
 using UnityEngine;
-using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
-using Core.WindJson;
 using Core;
-using System;
 using Core.Editor;
 
 namespace UnityEditor.AssetBundles
@@ -86,7 +83,7 @@ namespace UnityEditor.AssetBundles
             
             // 生成新的版本文件
             var rNewABVersion = ABVersionEditor.CreateVersion(rABPath, rOldABVersion, rNewABManifest);
-            rNewABVersion.Save(rABPath);
+            rNewABVersion.SaveInEditor(rABPath);
 
             var rNewMD5 = ABVersionEditor.GetMD5ForABVersion(rABPath);
 

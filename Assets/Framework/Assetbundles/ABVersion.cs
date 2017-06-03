@@ -69,7 +69,7 @@ namespace UnityEngine.AssetBundles
 
         public void Save(string rPath)
         {
-            using (var fs = new FileStream(rPath, FileMode.Create, FileAccess.Write, FileShare.Write))
+            using (var fs = new FileStream(rPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
             {
                 using (var bw = new BinaryWriter(fs))
                 {

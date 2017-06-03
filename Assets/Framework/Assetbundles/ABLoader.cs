@@ -64,7 +64,7 @@ namespace UnityEngine.AssetBundles
         {
             if (!this.LoadedScenebundles.Contains(rAssetbundleName))
                 this.LoadedScenebundles.Add(rAssetbundleName);
-
+            
             LoaderRequest rSceneRequest = new LoaderRequest(rAssetbundleName, rScenePath, true);
             rSceneRequest.Start(LoadAsset_Async(rSceneRequest));
             return rSceneRequest;
@@ -143,7 +143,7 @@ namespace UnityEngine.AssetBundles
             }
     
             // 开始加载资源依赖项
-            if (rAssetLoadEntry.ABDependNames != null)
+            if (rAssetLoadEntry.ABDependNames != null && !ABPlatform.Instance.IsSumilateMode())
             {
                 for (int i = rAssetLoadEntry.ABDependNames.Length - 1; i >= 0; i--)
                 {
@@ -161,29 +161,46 @@ namespace UnityEngine.AssetBundles
 
             string rAssetLoadUrl = rAssetLoadEntry.ABPath;
             Debug.Log("--- Load ab: " + rAssetLoadUrl);
-            WWW www = new WWW(rAssetLoadEntry.ABPath);
-            yield return www;
-    
-            // 如果是一个直接的资源，将资源的对象取出来
-            rAssetLoadEntry.CacheAsset = www.assetBundle;
-            
-            WWWAssist.Destroy(ref www);
-    
-            // 加载Object
-            if (!string.IsNullOrEmpty(rRequest.AssetName))
+
+            if (ABPlatform.Instance.IsSumilateMode())
             {
-                if (!rRequest.IsScene)
+#if UNITY_EDITOR
+                if (!string.IsNullOrEmpty(rRequest.AssetName) && !rRequest.IsScene)
                 {
-                    AssetBundleRequest rABRequest = rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
-                    yield return rABRequest;
-                    rRequest.Asset = rABRequest.asset;
+                    string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
+                    if (rAssetPaths.Length == 0)
+                    {
+                        Debug.LogError("There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                        yield break;
+                    }
+                    Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
+                    rRequest.Asset = rTargetAsset;
                 }
-                else
+#endif
+            }
+            else
+            {
+                var rAssetbundleCreateRequest = AssetBundle.LoadFromFileAsync(rAssetLoadUrl);
+                yield return rAssetbundleCreateRequest;
+
+                // 如果是一个直接的资源，将资源的对象取出来
+                rAssetLoadEntry.CacheAsset = rAssetbundleCreateRequest.assetBundle;
+                
+                // 加载Object
+                if (!string.IsNullOrEmpty(rRequest.AssetName))
                 {
-                    rAssetLoadEntry.CacheAsset.GetAllScenePaths();
+                    if (!rRequest.IsScene)
+                    {
+                        AssetBundleRequest rABRequest = rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
+                        yield return rABRequest;
+                        rRequest.Asset = rABRequest.asset;
+                    }
+                    else
+                    {
+                        rAssetLoadEntry.CacheAsset.GetAllScenePaths();
+                    }
                 }
             }
-
             rAssetLoadEntry.IsLoading = false;
             rAssetLoadEntry.IsLoadCompleted = true;
         }

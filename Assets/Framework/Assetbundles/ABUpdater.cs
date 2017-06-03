@@ -33,30 +33,32 @@ namespace UnityEngine.AssetBundles
             var rStreamingMD5Request = WWWAssist.LoadFile(ABPlatform.Instance.GetStreamingUrl_CurPlatform(ABVersion.ABVersion_File_MD5));
             yield return rStreamingMD5Request;
             mStreamingMD5 = rStreamingMD5Request.Text;
-
-            // 加载Persitent空间下的版本MD5码
-            var rPersistentMD5Request = WWWAssist.LoadFile(ABPlatform.Instance.GetPersistentUrl_CurPlatform(ABVersion.ABVersion_File_MD5));
-            yield return rPersistentMD5Request;
-            mPersistentMD5 = rPersistentMD5Request.Text;
-
-            // 加载服务器上的版本MD5码
-            var rServerMD5Request = WWWAssist.LoadFile(ABPlatform.Instance.GetServerUrl_CurPlatform(ABVersion.ABVersion_File_MD5));
-            yield return rServerMD5Request;
-            mServerMD5 = rServerMD5Request.Text;
-
             Debug.Log("--- Streaming MD5: " + mStreamingMD5);
-            Debug.Log("--- Persistent MD5: " + mPersistentMD5);
-            Debug.Log("--- Server MD5: " + mServerMD5);
 
-            // 加载Persisntent空间的版本信息文件
-            var rPersistentVersionRequest = ABVersion.Load(ABPlatform.Instance.GetPersistentUrl_CurPlatform(ABVersion.ABVersion_File_Bin));
-            yield return rPersistentVersionRequest;
-            mPersistentVersion = rPersistentVersionRequest.Version;
+            if (!ABPlatform.Instance.IsDevelopeMode())
+            {   
+                // 加载Persitent空间下的版本MD5码
+                var rPersistentMD5Request = WWWAssist.LoadFile(ABPlatform.Instance.GetPersistentUrl_CurPlatform(ABVersion.ABVersion_File_MD5));
+                yield return rPersistentMD5Request;
+                mPersistentMD5 = rPersistentMD5Request.Text;
+                Debug.Log("--- Persistent MD5: " + mPersistentMD5);
 
-            if (!string.IsNullOrEmpty(mServerMD5) && !mServerMD5.Equals(mPersistentMD5))
-            {
-                // 开始下载
-                yield return this.UpdateResource_Sync();
+                // 加载服务器上的版本MD5码
+                var rServerMD5Request = WWWAssist.LoadFile(ABPlatform.Instance.GetServerUrl_CurPlatform(ABVersion.ABVersion_File_MD5));
+                yield return rServerMD5Request;
+                mServerMD5 = rServerMD5Request.Text;
+                Debug.Log("--- Server MD5: " + mServerMD5);
+                
+                // 加载Persisntent空间的版本信息文件
+                var rPersistentVersionRequest = ABVersion.Load(ABPlatform.Instance.GetPersistentUrl_CurPlatform(ABVersion.ABVersion_File_Bin));
+                yield return rPersistentVersionRequest;
+                mPersistentVersion = rPersistentVersionRequest.Version;
+
+                if (!string.IsNullOrEmpty(mServerMD5) && !mServerMD5.Equals(mPersistentMD5))
+                {
+                    // 开始下载
+                    yield return this.UpdateResource_Sync();
+                }
             }
 
             // 加载Streaming空间的版本信息文件

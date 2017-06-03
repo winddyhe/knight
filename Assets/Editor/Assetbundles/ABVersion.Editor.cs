@@ -31,7 +31,7 @@ namespace UnityEditor.AssetBundles
             return rABVersion;
         }
 
-        public static void Save(this ABVersion rVersion, string rOutPath)
+        public static void SaveInEditor(this ABVersion rVersion, string rOutPath)
         {
             if (rVersion == null) return;
             

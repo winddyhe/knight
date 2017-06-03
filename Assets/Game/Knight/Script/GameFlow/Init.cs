@@ -22,7 +22,7 @@ namespace Game.Knight
         void Start()
         {
             //限帧
-            Application.targetFrameRate = 60;
+            Application.targetFrameRate = 30;
 
             GameLoading.Instance.StartLoading(1.0f, "游戏初始化阶段，开始加载资源...");
 
