@@ -68,3 +68,11 @@ MonoBehaviour:
     assetSrcType: 1
     abClassName: UnityEditor.AssetBundles.ABEntryProcessor
     abOriginalResPath: 
+  - abName: game/knight
+    abVariant: ab
+    assetResPath: Assets/Game/Knight/GameAsset/Hotfix/Libs
+    assetType: t:TextAsset
+    filerAssets: []
+    assetSrcType: 2
+    abClassName: UnityEditor.AssetBundles.ABEntryProcessor
+    abOriginalResPath: 

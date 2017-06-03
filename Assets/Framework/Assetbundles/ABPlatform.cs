@@ -80,6 +80,7 @@ namespace UnityEngine.AssetBundles
         public static string    IsSimulateModeKey_Avatar    = "ABPlatformEditor_IsSimulateMode_Avatar";
         public static string    IsSimulateModeKey_Config    = "ABPlatformEditor_IsSimulateMode_Config";
         public static string    IsSimulateModeKey_GUI       = "ABPlatformEditor_IsSimulateMode_GUI";
+        public static string    IsSimulateModeKey_Script    = "ABPlatformEditor_IsSimulateMode_Script";
 
         /*******************************************************************************************/
         /// <summary>
@@ -96,11 +97,12 @@ namespace UnityEngine.AssetBundles
         /// </summary>
         public IEnumerator Initialize()
         {
-            Debug.LogFormat("IsDevelopeMode: {0}", this.IsDevelopeMode());
+            Debug.LogFormat("IsDevelopeMode: {0}",        this.IsDevelopeMode());
             Debug.LogFormat("IsSumilateMode Scene: {0}",  this.IsSumilateMode_Scene());
             Debug.LogFormat("IsSumilateMode Avatar: {0}", this.IsSumilateMode_Avatar());
             Debug.LogFormat("IsSumilateMode Config: {0}", this.IsSumilateMode_Config());
-            Debug.LogFormat("IsSumilateMode GUI: {0}", this.IsSumilateMode_GUI());
+            Debug.LogFormat("IsSumilateMode GUI: {0}",    this.IsSumilateMode_GUI());
+            Debug.LogFormat("IsSumilateMode Script: {0}", this.IsSumilateMode_Script());
 
             this.CurRuntimePlatform = RuntimePlatform_To_Plaform(Application.platform);
 
@@ -268,6 +270,18 @@ namespace UnityEngine.AssetBundles
             bool bIsSimulateMode = false;
 #if UNITY_EDITOR
             bIsSimulateMode = UnityEditor.EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey_GUI);
+#endif
+            return bIsSimulateMode && this.IsDevelopeMode();
+        }
+
+        /// <summary>
+        /// Script是不是模拟资源模式
+        /// </summary>
+        public bool IsSumilateMode_Script()
+        {
+            bool bIsSimulateMode = false;
+#if UNITY_EDITOR
+            bIsSimulateMode = UnityEditor.EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey_Script);
 #endif
             return bIsSimulateMode && this.IsDevelopeMode();
         }

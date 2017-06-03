@@ -30,14 +30,14 @@ namespace Framework.Hotfix
             mApp = null;
         }
 
-        public Coroutine Load(string rHotfixModuleName)
+        public Coroutine Load(string rABPath, string rHotfixModuleName)
         {
-            return CoroutineManager.Instance.Start(Load_Async(rHotfixModuleName));
+            return CoroutineManager.Instance.Start(Load_Async(rABPath, rHotfixModuleName));
         }
 
-        private IEnumerator Load_Async(string rHotfixModuleName)
+        private IEnumerator Load_Async(string rABPath, string rHotfixModuleName)
         {
-            var rRequest = HotfixAssetLoader.Instance.Load(rHotfixModuleName);
+            var rRequest = HotfixAssetLoader.Instance.Load(rABPath, rHotfixModuleName);
             yield return rRequest;
 
             MemoryStream rDllMS = new MemoryStream(rRequest.dllBytes);

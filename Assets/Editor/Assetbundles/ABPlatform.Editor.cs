@@ -17,8 +17,9 @@ namespace UnityEditor.AssetBundles
         private const string    mSelectSimulateModeMenuPath_Avatar  = "Tools/Simulate Mode/Avatar";
         private const string    mSelectSimulateModeMenuPath_Config  = "Tools/Simulate Mode/Config";
         private const string    mSelectSimulateModeMenuPath_GUI     = "Tools/Simulate Mode/GUI";
+        private const string    mSelectSimulateModeMenuPath_Script  = "Tools/Simulate Mode/Script";
 
-        [MenuItem(mSelectDevelopeModeMenuPath, priority = 1050)]
+        [MenuItem(mSelectDevelopeModeMenuPath, priority = 1000)]
         public static void SelectDevelopeMode_Menu()
         {
             bool bSelected = Menu.GetChecked(mSelectDevelopeModeMenuPath);
@@ -33,7 +34,7 @@ namespace UnityEditor.AssetBundles
             return true;
         }
 
-        [MenuItem(mSelectSimulateModeMenuPath_Scene, priority = 1000)]
+        [MenuItem(mSelectSimulateModeMenuPath_Scene, priority = 1050)]
         public static void SelectSimulateMode_Scene_Menu()
         {
             bool bSelected = Menu.GetChecked(mSelectSimulateModeMenuPath_Scene);
@@ -48,7 +49,7 @@ namespace UnityEditor.AssetBundles
             return true;
         }
 
-        [MenuItem(mSelectSimulateModeMenuPath_Avatar, priority = 1000)]
+        [MenuItem(mSelectSimulateModeMenuPath_Avatar, priority = 1050)]
         public static void SelectSimulateMode_Avatar_Menu()
         {
             bool bSelected = Menu.GetChecked(mSelectSimulateModeMenuPath_Avatar);
@@ -63,7 +64,7 @@ namespace UnityEditor.AssetBundles
             return true;
         }
 
-        [MenuItem(mSelectSimulateModeMenuPath_Config, priority = 1000)]
+        [MenuItem(mSelectSimulateModeMenuPath_Config, priority = 1050)]
         public static void SelectSimulateMode_Config_Menu()
         {
             bool bSelected = Menu.GetChecked(mSelectSimulateModeMenuPath_Config);
@@ -78,7 +79,7 @@ namespace UnityEditor.AssetBundles
             return true;
         }
 
-        [MenuItem(mSelectSimulateModeMenuPath_GUI, priority = 1000)]
+        [MenuItem(mSelectSimulateModeMenuPath_GUI, priority = 1050)]
         public static void SelectSimulateMode_GUI_Menu()
         {
             bool bSelected = Menu.GetChecked(mSelectSimulateModeMenuPath_GUI);
@@ -90,6 +91,21 @@ namespace UnityEditor.AssetBundles
         public static bool SelectSimulateMode_Check_GUI_Menu()
         {
             Menu.SetChecked(mSelectSimulateModeMenuPath_GUI, EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey_GUI));
+            return true;
+        }
+
+        [MenuItem(mSelectSimulateModeMenuPath_Script, priority = 1050)]
+        public static void SelectSimulateMode_Script_Menu()
+        {
+            bool bSelected = Menu.GetChecked(mSelectSimulateModeMenuPath_Script);
+            EditorPrefs.SetBool(ABPlatform.IsSimulateModeKey_Script, !bSelected);
+            Menu.SetChecked(mSelectSimulateModeMenuPath_Script, !bSelected);
+        }
+
+        [MenuItem(mSelectSimulateModeMenuPath_Script, true)]
+        public static bool SelectSimulateMode_Check_Script_Menu()
+        {
+            Menu.SetChecked(mSelectSimulateModeMenuPath_Script, EditorPrefs.GetBool(ABPlatform.IsSimulateModeKey_Script));
             return true;
         }
     }

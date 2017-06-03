@@ -15,7 +15,7 @@ namespace Test
         IEnumerator Start()
         {
             CoroutineManager.Instance.Initialize();
-            yield return HotfixApp.Instance.Load("KnightHotfixModule");
+            yield return HotfixApp.Instance.Load("game/knight.ab", "KnightHotfixModule");
 
             string rPrefabPath = "Assets/Test/HotfixTest/Base/HotfixTest4.prefab";
 

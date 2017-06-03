@@ -7,19 +7,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Core;
 using System.IO;
+using UnityEngine.AssetBundles;
 
 namespace Framework.Hotfix
 {
     public class HotfixLoaderRequest : CoroutineRequest<HotfixAssetLoader>
     {
+        public string ABPath;
         public string hotfixModuleName;
 
         public byte[] dllBytes;
         public byte[] pdbBytes;
 
-        public HotfixLoaderRequest(string rHotfixModuleName)
+        public HotfixLoaderRequest(string rABName, string rHotfixModuleName)
         {
-            this.hotfixModuleName = rHotfixModuleName;
+            this.ABPath             = rABName;
+            this.hotfixModuleName   = rHotfixModuleName;
         }
     }
 
@@ -29,26 +32,48 @@ namespace Framework.Hotfix
 
         private HotfixAssetLoader() { }
 
-        public HotfixLoaderRequest Load(string rHotfixModuleName)
+        public HotfixLoaderRequest Load(string rABPath, string rHotfixModuleName)
         {
-            var rRequest = new HotfixLoaderRequest(rHotfixModuleName);
+            var rRequest = new HotfixLoaderRequest(rABPath, rHotfixModuleName);
             rRequest.Start(Load_Async(rRequest));
             return rRequest;
         }
-
-        /// <summary>
-        /// @TODO: 暂时使用读取本地文件的方式加载，后期做好完整的资源管理之后再来改为
-        ///        Assetbundle加载和本地AssetDataBase加载来回切换。
-        /// </summary>
+        
         public IEnumerator Load_Async(HotfixLoaderRequest rRequest)
         {
             string rDLLPath = mHotfixDllDir + rRequest.hotfixModuleName + ".bytes";
             string rPDBPath = mHotfixDllDir + rRequest.hotfixModuleName + "_PDB.bytes";
 
-            rRequest.dllBytes = File.ReadAllBytes(Path.GetFullPath(rDLLPath));
-            rRequest.pdbBytes = File.ReadAllBytes(Path.GetFullPath(rPDBPath));
+            if (ABPlatform.Instance.IsSumilateMode_Script())
+            {
+                Debug.Log("---Simulate load ab: " + rRequest.ABPath);
+                rRequest.dllBytes = File.ReadAllBytes(rDLLPath);
+                rRequest.pdbBytes = File.ReadAllBytes(rPDBPath);
+            }
+            else
+            {
+                var rDLLAssetRequest = ABLoader.Instance.LoadAsset(rRequest.ABPath, rDLLPath, false);
+                yield return rDLLAssetRequest;
 
-            yield return 0;
+                if (rDLLAssetRequest.Asset != null)
+                {
+                    var rTextAsset = rDLLAssetRequest.Asset as TextAsset;
+                    if (rTextAsset != null)
+                        rRequest.dllBytes = rTextAsset.bytes;
+                }
+                ABLoader.Instance.UnloadAsset(rRequest.ABPath);
+
+                var rPDBAssetRequest = ABLoader.Instance.LoadAsset(rRequest.ABPath, rPDBPath, false);
+                yield return rPDBAssetRequest;
+
+                if (rPDBAssetRequest.Asset != null)
+                {
+                    var rTextAsset = rPDBAssetRequest.Asset as TextAsset;
+                    if (rTextAsset != null)
+                        rRequest.pdbBytes = rTextAsset.bytes;
+                }
+                ABLoader.Instance.UnloadAsset(rRequest.ABPath);
+            }
         }
     }
 }

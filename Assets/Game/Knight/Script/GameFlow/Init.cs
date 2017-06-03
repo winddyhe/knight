@@ -16,6 +16,7 @@ namespace Game.Knight
     /// </summary>
     internal class Init : MonoBehaviour
     {
+        public string HotfixABPath = "";
         public string HotfixModule = "";
         public string HotfixScript = string.Empty;
 
@@ -42,10 +43,10 @@ namespace Game.Knight
             yield return ABUpdater.Instance.Initialize();
             
             // 加载热更新代码资源
-            yield return HotfixApp.Instance.Load(HotfixModule);
+            yield return HotfixApp.Instance.Load(this.HotfixABPath, this.HotfixModule);
 
             // 加载Hotfix端的代码
-            yield return HotfixApp.Instance.InvokeStatic(HotfixScript, "Start_Async") as IEnumerator;
+            yield return HotfixApp.Instance.InvokeStatic(this.HotfixScript, "Start_Async") as IEnumerator;
 
             Debug.Log("End init..");
         }

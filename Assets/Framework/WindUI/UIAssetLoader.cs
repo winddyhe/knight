@@ -7,7 +7,7 @@ using System.Collections;
 using Core;
 using UnityEngine.AssetBundles;
 
-namespace Framework
+namespace Framework.WindUI
 {
     /// <summary>
     /// UI加载器
