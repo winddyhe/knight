@@ -87,7 +87,7 @@ namespace UnityEngine.AssetBundles
             ABLoadEntry rAssetLoadEntry = null;
             if (!ABLoaderVersion.Instance.TryGetValue(rAssetbundleName, out rAssetLoadEntry))
             {
-                Debug.LogErrorFormat("找不到该资源 -- {0}", rAssetbundleName);
+                Debug.LogErrorFormat("Can not find assetbundle: -- {0}", rAssetbundleName);
                 return;
             }
     
@@ -105,7 +105,8 @@ namespace UnityEngine.AssetBundles
             {
                 if (rAssetLoadEntry.CacheAsset != null)
                 {
-                    rAssetLoadEntry.CacheAsset.Unload(false);
+                    Debug.LogFormat("-- Real unload assetbundle: {0}", rAssetbundleName);
+                    rAssetLoadEntry.CacheAsset.Unload(true);
                     rAssetLoadEntry.CacheAsset = null;
                 }
                 rAssetLoadEntry.IsLoadCompleted = false;
@@ -118,7 +119,7 @@ namespace UnityEngine.AssetBundles
             ABLoadEntry rAssetLoadEntry = null;
             if (!ABLoaderVersion.Instance.TryGetValue(rRequest.Path, out rAssetLoadEntry))
             {
-                Debug.LogErrorFormat("找不到该资源 -- {0}", rRequest.Path);
+                Debug.LogErrorFormat("Can not find assetbundle: -- {0}", rRequest.Path);
                 rRequest.Asset = null;
                 yield break;
             }

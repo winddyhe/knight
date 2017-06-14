@@ -42,6 +42,10 @@ namespace Framework.WindUI
         /// </summary>
         public string           GUID            = "";
         /// <summary>
+        /// View Name
+        /// </summary>
+        public string           ViewName        = "";
+        /// <summary>
         /// 该页面当前的状态
         /// </summary>
         public State            CurState        = State.fixing;
@@ -98,8 +102,9 @@ namespace Framework.WindUI
             set { this.gameObject.SetActive(value);  }
         }
 
-        public void Initialize(string rViewGUID, State rViewState)
+        public void Initialize(string rViewName, string rViewGUID, State rViewState)
         {
+            this.ViewName = rViewName;
             this.GUID = rViewGUID;
             this.CurState = rViewState;
 

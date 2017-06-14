@@ -38,6 +38,7 @@ namespace Game.Knight
         {
             if (this.SelectedPlayer.isOn && this.Parent != null && this.Parent.CurrentSelectedItem != this)
             {
+                StopLoad();
                 StartLoad();
                 this.Parent.CurrentSelectedItem = this;
             }
@@ -65,9 +66,14 @@ namespace Game.Knight
         {
             if (mActorCreateRequest != null)
             {
-                UtilTool.SafeDestroy(mActorCreateRequest.Actor.ExhibitActor.ActorGo);
+                if (mActorCreateRequest.Actor != null &&
+                    mActorCreateRequest.Actor.ExhibitActor != null &&
+                    mActorCreateRequest.Actor.ExhibitActor.ActorGo != null)
+                {
+                    Actor.DestoryActor(mActorCreateRequest.Actor.Hero.ID);
+                    UtilTool.SafeDestroy(mActorCreateRequest.Actor.ExhibitActor.ActorGo);
+                }
                 mActorCreateRequest.Stop();
-                ABLoader.Instance.UnloadAllLoadedAssetbundles();
             }
         }
 

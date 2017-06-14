@@ -37,6 +37,15 @@ namespace Framework.WindUI
 
             return rRequest;
         }
+
+        /// <summary>
+        /// 卸载UI资源
+        /// </summary>
+        public void UnloadUI(string rViewName)
+        {
+            string rUIABPath = "game/ui/" + rViewName.ToLower() + ".ab";
+            ABLoader.Instance.UnloadAsset(rUIABPath);
+        }
     
         /// <summary>
         /// 根据名字异步加载UI
@@ -51,7 +60,6 @@ namespace Framework.WindUI
             {
                 rRequest.ViewPrefabGo = rAssetRequest.Asset as GameObject;
             }
-            ABLoader.Instance.UnloadAsset(rUIABPath);
         }
     }
 }

@@ -60,6 +60,17 @@ namespace Game.Knight
             return rRequest;
         }
 
+        public static void DestoryActor(int rHeroID, bool bIsDelayUnload = true)
+        {
+            Hero rHero = GameConfig.Instance.GetHero(rHeroID);
+            if (rHero == null) return;
+
+            Avatar rAvatar = GameConfig.Instance.GetAvatar(rHero.AvatarID);
+            if (rAvatar == null) return;
+            
+            AvatarAssetLoader.Instance.UnloadAsset(rAvatar.ABPath, bIsDelayUnload);
+        }
+
         private static IEnumerator CreateActor_Async(Actor rActor, System.Action<Actor> rLoadCompleted)
         {
             var rAvatarRequest = AvatarAssetLoader.Instance.Load(rActor.Avatar.ABPath, rActor.Avatar.AssetName);

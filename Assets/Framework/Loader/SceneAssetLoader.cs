@@ -85,7 +85,7 @@ namespace Framework
                     rMainCamera.nearClipPlane = rSceneConfig.CameraNear;
                 }
             }
-            ABLoader.Instance.UnloadAsset(rLoadRequest.ABPath);
+            //ABLoader.Instance.UnloadAsset(rLoadRequest.ABPath);
         }
     }
 }

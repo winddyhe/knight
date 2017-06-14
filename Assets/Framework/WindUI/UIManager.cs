@@ -33,6 +33,10 @@ namespace Framework.WindUI
         /// 当前存在的固定View，每个View使用GUID来作唯一标识
         /// </summary>
         private Dict<string, View>      mCurFixedViews;
+        /// <summary>
+        /// 用来存储需要删除的View，当一个View加载完之后，要删除当前需要的不再使用的View资源
+        /// </summary>
+        private List<string>            mUnusedViews;
     
         void Awake()
         {
@@ -44,6 +48,7 @@ namespace Framework.WindUI
     
                 mCurViews = new Dict<string, View>();
                 mCurFixedViews = new Dict<string, View>();
+                mUnusedViews = new List<string>();
             }
         }
         
@@ -72,7 +77,7 @@ namespace Framework.WindUI
             var rLoaderRequest = UIAssetLoader.Instance.LoadUI(rViewName);
             yield return rLoaderRequest;
             
-            OpenView(rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
+            OpenView(rViewName, rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
         }
     
         /// <summary>
@@ -147,7 +152,7 @@ namespace Framework.WindUI
         /// <summary>
         /// 初始化View，如果是Dispatch类型的话，只对curViews顶层View进行交换
         /// </summary>
-        private void OpenView(GameObject rViewPrefab, View.State rViewState, Action<View> rOpenCompleted)
+        private void OpenView(string rViewName, GameObject rViewPrefab, View.State rViewState, Action<View> rOpenCompleted)
         {
             if (rViewPrefab == null) return;
     
@@ -166,7 +171,7 @@ namespace Framework.WindUI
             string rViewGUID = Guid.NewGuid().ToString();
     
             //为View的初始化设置
-            rView.Initialize(rViewGUID, rViewState);
+            rView.Initialize(rViewName, rViewGUID, rViewState);
     
             //新的View的存储逻辑
             switch (rView.CurState)
@@ -187,7 +192,20 @@ namespace Framework.WindUI
                     break;
             }
     
-            rView.Open(rOpenCompleted);
+            rView.Open((rNewView)=> {
+                UnloadUnusedViewAssets();
+                UtilTool.SafeExecute(rOpenCompleted, rNewView);
+            } );
+        }
+
+        private void UnloadUnusedViewAssets()
+        {
+            if (this.mUnusedViews == null) return;
+            for (int i = 0; i < this.mUnusedViews.Count; i++)
+            {
+                UIAssetLoader.Instance.UnloadUI(this.mUnusedViews[i]);
+            }
+            this.mUnusedViews.Clear();
         }
     
         /// <summary>
@@ -222,9 +240,10 @@ namespace Framework.WindUI
                 yield return 0;
             }
 
+            mUnusedViews.Add(rView.ViewName);
             rView.Destroy();
             GameObject.DestroyObject(rView.gameObject);
-    
+            rView = null;
             UtilTool.SafeExecute(rDestroyCompleted);
         }
     }

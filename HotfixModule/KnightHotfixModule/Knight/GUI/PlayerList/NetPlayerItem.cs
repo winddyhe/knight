@@ -56,12 +56,14 @@ namespace Game.Knight
         {
             if (this.SelectedToggle.isOn && this.Parent.SelectedPlayerItem != this)
             {
+                StopLoad();
                 Account.Instance.ActiveActor = this.mNetActor;
                 this.Parent.SelectedPlayerItem = this;
                 mActorCreateRequest = Actor.CreateActor(this.mNetActor.ActorID, this.mNetActor.Professional.HeroID, ActorLoadCompleted);
             }
             else if (!this.SelectedToggle.isOn)
             {
+                Actor.DestoryActor(mActorCreateRequest.Actor.Hero.ID);
                 UtilTool.SafeDestroy(mActorCreateRequest.Actor.ExhibitActor.ActorGo);
                 mActorCreateRequest.Stop();
             }
@@ -75,10 +77,10 @@ namespace Game.Knight
                     mActorCreateRequest.Actor.ExhibitActor != null && 
                     mActorCreateRequest.Actor.ExhibitActor.ActorGo != null)
                 {
+                    Actor.DestoryActor(mActorCreateRequest.Actor.Hero.ID);
                     UtilTool.SafeDestroy(mActorCreateRequest.Actor.ExhibitActor.ActorGo);
                 }
                 mActorCreateRequest.Stop();
-                ABLoader.Instance.UnloadAllLoadedAssetbundles();
             }
         }
 

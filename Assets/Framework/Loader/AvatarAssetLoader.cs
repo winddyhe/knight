@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections;
 using Core;
 using UnityEngine.AssetBundles;
+using System.Collections.Generic;
 
 namespace Framework
 {
@@ -24,13 +25,26 @@ namespace Framework
 
     public class AvatarAssetLoader : TSingleton<AvatarAssetLoader>
     {
-        private AvatarAssetLoader() { }
+        private List<string> mUnusedAvatars;
+
+        private AvatarAssetLoader()
+        {
+            mUnusedAvatars = new List<string>();
+        }
 
         public AvatarLoaderRequest Load(string rABPath, string rAssetName)
         {
             var rRequest = new AvatarLoaderRequest(rABPath, rAssetName);
             rRequest.Start(Load_Async(rRequest));
             return rRequest;
+        }
+
+        public void UnloadAsset(string rABPath, bool bIsDelayUnload = true)
+        {
+            if (bIsDelayUnload)
+                mUnusedAvatars.Add(rABPath);
+            else
+                ABLoader.Instance.UnloadAsset(rABPath);
         }
 
         public IEnumerator Load_Async(AvatarLoaderRequest rRequest)
@@ -45,7 +59,17 @@ namespace Framework
                 rAvatarGo.transform.position = Vector3.zero;
                 rRequest.AvatarGo = rAvatarGo;
             }
-            ABLoader.Instance.UnloadAsset(rAvatarABPath);
+            this.UnloadUnusedAvatarAssets();
+        }
+
+        private void UnloadUnusedAvatarAssets()
+        {
+            if (mUnusedAvatars == null) return;
+            for (int i = 0; i < mUnusedAvatars.Count; i++)
+            {
+                ABLoader.Instance.UnloadAsset(mUnusedAvatars[i]);
+            }
+            mUnusedAvatars.Clear();
         }
     }
 }
