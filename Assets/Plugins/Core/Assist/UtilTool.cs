@@ -233,7 +233,7 @@ namespace Core
             return rGo;
         }
 
-        public static void SafeDestroy(GameObject rObj)
+        public static void SafeDestroy(UnityEngine.Object rObj)
         {
             if (rObj != null)
                 GameObject.DestroyImmediate(rObj, true);
