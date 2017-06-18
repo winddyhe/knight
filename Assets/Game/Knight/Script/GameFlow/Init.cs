@@ -25,7 +25,8 @@ namespace Game.Knight
             //限帧
             Application.targetFrameRate = 30;
 
-            GameLoading.Instance.StartLoading(1.0f, "游戏初始化阶段，开始加载资源...");
+            GameLoading.Instance.LoadingView = LoadingView_Knight.Instance;
+            GameLoading.Instance.StartLoading(0.5f, "游戏初始化阶段，开始加载资源...");
 
             //初始化协程管理器
             CoroutineManager.Instance.Initialize();
@@ -38,10 +39,13 @@ namespace Game.Knight
         {
             // 平台初始化
             yield return ABPlatform.Instance.Initialize();
-
+            
             // 资源下载模块初始化
             yield return ABUpdater.Instance.Initialize();
             
+            GameLoading.Instance.Hide();
+            GameLoading.Instance.StartLoading(1.0f, "游戏初始化阶段，开始加载资源...");
+
             // 加载热更新代码资源
             yield return HotfixApp.Instance.Load(this.HotfixABPath, this.HotfixModule);
 

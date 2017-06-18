@@ -4,19 +4,18 @@
 //======================================================================
 using UnityEngine;
 using System.Collections;
-using Framework.WindUI;
 
-namespace Game.Knight
+namespace Framework
 {
     public class GameLoading : MonoBehaviour
     {
         private static GameLoading __instance;
-        public  static GameLoading Instance { get { return __instance; } }
+        public static GameLoading Instance { get { return __instance; } }
 
         /// <summary>
         /// 加载界面
         /// </summary>
-        public LoadingView         LoadingView;
+        public ILoadingView LoadingView;
 
         void Awake()
         {
@@ -34,6 +33,21 @@ namespace Game.Knight
             this.LoadingView.ShowLoading(rIntervalTime, rTextTips);
         }
 
+        public void StartLoading(string rTextTips = "")
+        {
+            this.LoadingView.ShowLoading(rTextTips);
+        }
+
+        public void SetTips(string rTextTips)
+        {
+            this.LoadingView.SetTips(rTextTips);
+        }
+
+        public void SetLoadingProgress(float fProgressValue)
+        {
+            this.LoadingView.SetLoadingProgress(fProgressValue);
+        }
+        
         public void Hide()
         {
             this.LoadingView.HideLoading();

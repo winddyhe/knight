@@ -2,26 +2,24 @@
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
-using System;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine;
 using Core;
-using Core.WindJson;
 using System.IO;
+using Framework;
 
 namespace UnityEngine.AssetBundles
 {
 
     public class ABUpdater : TSingleton<ABUpdater>
     {
-        public string       mStreamingMD5;
-        public string       mPersistentMD5;
-        public string       mServerMD5;
+        public string           mStreamingMD5;
+        public string           mPersistentMD5;
+        public string           mServerMD5;
 
-        public ABVersion    mStreamingVersion;
-        public ABVersion    mPersistentVersion;
-        public ABVersion    mServerVersion;
+        public ABVersion        mStreamingVersion;
+        public ABVersion        mPersistentVersion;
+        public ABVersion        mServerVersion;
         
         private ABUpdater()
         {
@@ -29,6 +27,8 @@ namespace UnityEngine.AssetBundles
 
         public IEnumerator Initialize()
         {
+            GameLoading.Instance.StartLoading(1.0f, "游戏初始化阶段，开始检查资源更新...");
+
             // 加载Streaming空间下的版本MD5码
             var rStreamingMD5Request = WWWAssist.LoadFile(ABPlatform.Instance.GetStreamingUrl_CurPlatform(ABVersion.ABVersion_File_MD5));
             yield return rStreamingMD5Request;
@@ -44,7 +44,7 @@ namespace UnityEngine.AssetBundles
                 Debug.Log("--- Persistent MD5: " + mPersistentMD5);
 
                 // 加载服务器上的版本MD5码
-                var rServerMD5Request = WWWAssist.LoadFile(ABPlatform.Instance.GetServerUrl_CurPlatform(ABVersion.ABVersion_File_MD5));
+                var rServerMD5Request = WebRequestAssist.DownloadFile(ABPlatform.Instance.GetServerUrl_CurPlatform(ABVersion.ABVersion_File_MD5));
                 yield return rServerMD5Request;
                 mServerMD5 = rServerMD5Request.Text;
                 Debug.Log("--- Server MD5: " + mServerMD5);
@@ -56,10 +56,14 @@ namespace UnityEngine.AssetBundles
 
                 if (!string.IsNullOrEmpty(mServerMD5) && !mServerMD5.Equals(mPersistentMD5))
                 {
+                    GameLoading.Instance.Hide();
+
                     // 开始下载
                     yield return this.UpdateResource_Sync();
                 }
             }
+
+            GameLoading.Instance.StartLoading(0.2f, "游戏初始化阶段，开始加载资源...");
 
             // 加载Streaming空间的版本信息文件
             var rStreamingVersionRequest = ABVersion.Load(ABPlatform.Instance.GetStreamingUrl_CurPlatform(ABVersion.ABVersion_File_Bin));
@@ -68,6 +72,8 @@ namespace UnityEngine.AssetBundles
 
             // 生成最终用于资源加载的版本信息
             this.GenerateCombineVersion();
+
+            GameLoading.Instance.Hide();
         }
 
         /// <summary>
@@ -75,8 +81,10 @@ namespace UnityEngine.AssetBundles
         /// </summary>
         private IEnumerator UpdateResource_Sync()
         {
+            GameLoading.Instance.StartLoading("游戏初始化阶段，开始下载更新的资源...");
+
             // 加载服务器的版本信息文件
-            var rServerVersionRequest = ABVersion.Load(ABPlatform.Instance.GetServerUrl_CurPlatform(ABVersion.ABVersion_File_Bin));
+            var rServerVersionRequest = ABVersion.Download(ABPlatform.Instance.GetServerUrl_CurPlatform(ABVersion.ABVersion_File_Bin));
             yield return rServerVersionRequest;
             mServerVersion = rServerVersionRequest.Version;
 
@@ -110,8 +118,10 @@ namespace UnityEngine.AssetBundles
 
             for (int i = 0; i < rNeedUpdateEntries.Count; i++)
             {
+                GameLoading.Instance.SetTips(string.Format("游戏初始化阶段，开始下载更新的资源[{0}/{1}]...", i + 1, rNeedUpdateEntries.Count));
+
                 // 下载文件
-                var rServerABRequest = WWWAssist.LoadFile(ABPlatform.Instance.GetServerUrl_CurPlatform(rNeedUpdateEntries[i].Name));
+                var rServerABRequest = WebRequestAssist.DownloadFile(ABPlatform.Instance.GetServerUrl_CurPlatform(rNeedUpdateEntries[i].Name), GameLoading.Instance.SetLoadingProgress);
                 yield return rServerABRequest;
 
                 // 写入文件
@@ -144,6 +154,8 @@ namespace UnityEngine.AssetBundles
             string rPersistentMD5Path = ABPlatform.Instance.GetPersistentFile_CurPlatform(ABVersion.ABVersion_File_MD5);
             UtilTool.WriteAllText(rPersistentMD5Path, mServerMD5);
             Debug.Log("--- Save md5: " + rPersistentMD5Path);
+
+            GameLoading.Instance.Hide();
         }
 
         /// <summary>

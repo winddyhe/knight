@@ -36,7 +36,7 @@ namespace UnityEngine.AssetBundles
         {
             public ABVersion                Version;
             public string                   Url;
-
+            
             public LoaderRequest(string rURL)
             {
                 this.Url = rURL;
@@ -67,6 +67,13 @@ namespace UnityEngine.AssetBundles
             return rRequest;
         }
 
+        public static LoaderRequest Download(string rURL)
+        {
+            LoaderRequest rRequest = new LoaderRequest(rURL);
+            rRequest.Start(Download_Async(rRequest));
+            return rRequest;
+        }
+
         public void Save(string rPath)
         {
             using (var fs = new FileStream(rPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
@@ -91,6 +98,28 @@ namespace UnityEngine.AssetBundles
 
             ABVersion rVersion = new ABVersion();
             using (var ms = new MemoryStream(rWWWVersionRequest.Bytes))
+            {
+                using (var br = new BinaryReader(ms))
+                {
+                    rVersion.Deserialize(br);
+                }
+            }
+            rRequest.Version = rVersion;
+        }
+
+        private static IEnumerator Download_Async(LoaderRequest rRequest)
+        {
+            string rVersionURL = rRequest.Url;
+            WebRequestAssist.LoaderRequest rWebVersionRequest = WebRequestAssist.DownloadFile(rVersionURL);
+            yield return rWebVersionRequest;
+
+            if (rWebVersionRequest.Bytes == null || rWebVersionRequest.Bytes.Length == 0)
+            {
+                yield break;
+            }
+
+            ABVersion rVersion = new ABVersion();
+            using (var ms = new MemoryStream(rWebVersionRequest.Bytes))
             {
                 using (var br = new BinaryReader(ms))
                 {
