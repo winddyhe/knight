@@ -6,6 +6,7 @@ using Core;
 using Core.Serializer;
 using System.IO;
 using System.Collections;
+using Core.WindJson;
 
 namespace UnityEngine.AssetBundles
 {
@@ -18,15 +19,15 @@ namespace UnityEngine.AssetBundles
         public long                         S;
         public string[]                     D;
         
-        [SBIgnore]
+        [SBIgnore][JsonIgnore]
         public string                       Name         { get { return N; } set { N = value; } }
-        [SBIgnore]
+        [SBIgnore][JsonIgnore]
         public int                          Version      { get { return V; } set { V = value; } }
-        [SBIgnore]
+        [SBIgnore][JsonIgnore]
         public string                       MD5          { get { return M; } set { M = value; } }
-        [SBIgnore]
+        [SBIgnore][JsonIgnore]
         public long                         Size         { get { return S; } set { S = value; } }
-        [SBIgnore]
+        [SBIgnore][JsonIgnore]
         public string[]                     Dependencies { get { return D; } set { D = value; } }
     }
 

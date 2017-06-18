@@ -10,6 +10,12 @@ using System.Reflection;
 
 namespace Core.WindJson
 {
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+    public class JsonIgnoreAttribute : Attribute { }
+
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+    public class JsonEnableAttribute : Attribute { }
+
     /// <summary>
     /// 使用词法分析和语法分析来解析Json数据
     /// </summary>
@@ -381,6 +387,9 @@ namespace Core.WindJson
                     PropertyInfo[] rPropInfos = rType.GetProperties(ReflectionAssist.flags_public);
                     for (int i = 0; i < rPropInfos.Length; i++)
                     {
+                        if (rPropInfos[i].IsDefined(typeof(JsonIgnoreAttribute), false))
+                            continue;
+
                         object rValueObj = rPropInfos[i].GetValue(rObject, null);
                         JsonNode rValueNode = ToJsonNode(rValueObj);
                         rRootNode.Add(rPropInfos[i].Name, rValueNode);
@@ -389,11 +398,35 @@ namespace Core.WindJson
                     FieldInfo[] rFieldInfos = rType.GetFields(ReflectionAssist.flags_public);
                     for (int i = 0; i < rFieldInfos.Length; i++)
                     {
+                        if (rFieldInfos[i].IsDefined(typeof(JsonIgnoreAttribute), false))
+                            continue;
+
                         object rValueObj = rFieldInfos[i].GetValue(rObject);
                         JsonNode rValueNode = ToJsonNode(rValueObj);
                         rRootNode.Add(rFieldInfos[i].Name, rValueNode);
                     }
-                    // TODO: 所有预定义的序列化属性的private的字段
+
+                    // 所有预定义的序列化属性的private的字段
+                    rPropInfos = rType.GetProperties(ReflectionAssist.flags_nonpublic);
+                    for (int i = 0; i < rPropInfos.Length; i++)
+                    {
+                        if (!rPropInfos[i].IsDefined(typeof(JsonEnableAttribute), false))
+                            continue;
+
+                        object rValueObj = rPropInfos[i].GetValue(rObject, null);
+                        JsonNode rValueNode = ToJsonNode(rValueObj);
+                        rRootNode.Add(rPropInfos[i].Name, rValueNode);
+                    }
+                    rFieldInfos = rType.GetFields(ReflectionAssist.flags_nonpublic);
+                    for (int i = 0; i < rFieldInfos.Length; i++)
+                    {
+                        if (!rFieldInfos[i].IsDefined(typeof(JsonEnableAttribute), false))
+                            continue;
+                        
+                        object rValueObj = rFieldInfos[i].GetValue(rObject);
+                        JsonNode rValueNode = ToJsonNode(rValueObj);
+                        rRootNode.Add(rFieldInfos[i].Name, rValueNode);
+                    }
                 }
             }
             else if (rType.IsPrimitive) //如果是实例
