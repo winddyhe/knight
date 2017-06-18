@@ -48,6 +48,9 @@ namespace Game.Knight
 
         public void OnStartGameBtn_Clicked(Object rTarget)
         {
+            // 卸载当前场景
+            CreatePlayer.Instance.UnloadScene();
+
             GameLoading.Instance.StartLoading(2.0f, "开始进入游戏世界...");
             UIManager.Instance.CloseView(this.GUID);
             GameFlowLevelManager.Instance.LoadLevel("World");

@@ -36,6 +36,11 @@ namespace Framework
             return rLoadRequest;
         }
 
+        public void Unload(string rABPath)
+        {
+            ABLoader.Instance.UnloadAsset(rABPath);
+        }
+
         private IEnumerator Load_Async(SceneLoaderRequest rLoadRequest)
         {
             GameObject rSceneConfigGo = null;
@@ -85,7 +90,6 @@ namespace Framework
                     rMainCamera.nearClipPlane = rSceneConfig.CameraNear;
                 }
             }
-            //ABLoader.Instance.UnloadAsset(rLoadRequest.ABPath);
         }
     }
 }

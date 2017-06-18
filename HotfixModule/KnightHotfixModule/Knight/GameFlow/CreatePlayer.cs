@@ -17,6 +17,7 @@ namespace Game.Knight
         public static CreatePlayer      Instance { get { return __instance; } }
 
         private GameMode_CreatePlayer   mGameMode;
+        private string                  mSceneABPath;
 
         public override void Awake()
         {
@@ -39,6 +40,9 @@ namespace Game.Knight
                 Debug.LogError("Not found stage 10001 .");
                 return;
             }
+
+            // 记录场景的路径
+            mSceneABPath = mGameMode.StageConfig.SceneABPath;
 
             GameMode.GetCurrentMode = (() =>
             {
@@ -74,6 +78,14 @@ namespace Game.Knight
             {
                 Toast.Instance.Show("角色名已经存在！");
             }
+        }
+
+        /// <summary>
+        /// 卸载场景
+        /// </summary>
+        public void UnloadScene()
+        {
+            SceneAssetLoader.Instance.Unload(mSceneABPath);
         }
     }
 }
