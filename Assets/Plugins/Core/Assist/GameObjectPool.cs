@@ -17,61 +17,67 @@ namespace Core
         /// <summary>
         /// 缓存，这个和rootGo节点下的对象个数一一对应
         /// </summary>
-        private Stack<GameObject>   objectsCache;
+        private TObjectPool<GameObject> mObjectPool;
         /// <summary>
         /// 对象池的根节点
         /// </summary>
-        private GameObject          rootGo;
+        private GameObject              mRootGo;
         /// <summary>
         /// 对象池的模板对象，通常是从资源包取出来的预制件对象
         /// </summary>
-        private GameObject          templateGo;
+        private GameObject              mTemplateGo;
 
         public GameObjectPool(string rPoolName, GameObject rTemplateObj, int rInitCount = 0)
         {
-            this.objectsCache = new Stack<GameObject>();
+            this.mObjectPool = new TObjectPool<GameObject>(OnAlloc, OnFree, OnDestroy);
 
-            this.rootGo = UtilTool.CreateGameObject(rPoolName);
-            this.rootGo.SetActive(false);
-            this.rootGo.transform.position = new Vector3(0, 1000, 0);
+            this.mRootGo = UtilTool.CreateGameObject(rPoolName);
+            this.mRootGo.SetActive(false);
+            this.mRootGo.transform.position = new Vector3(0, 1000, 0);
 
-            this.templateGo = rTemplateObj;
+            this.mTemplateGo = rTemplateObj;
 
             for (int i = 0; i < rInitCount; i++)
             {
-                GameObject rGo = UtilTool.CreateGameObject(this.templateGo, this.rootGo);
-                this.objectsCache.Push(rGo);
+                GameObject rGo = UtilTool.CreateGameObject(this.mTemplateGo, this.mRootGo);
+                this.mObjectPool.Alloc();
             }
         }
 
         public GameObject Alloc()
         {
-            if (this.objectsCache.Count == 0)
-            {
-                return UtilTool.CreateGameObject(this.templateGo);
-            }
-            GameObject rGo = this.objectsCache.Pop();
-            rGo.transform.parent = null;
-            return rGo;
+            return this.mObjectPool.Alloc();
         }
 
         public void Free(GameObject rGo)
         {
             if (rGo == null) return;
-
-            rGo.transform.parent = this.rootGo.transform;
-            rGo.transform.localPosition = Vector3.zero;
-            rGo.transform.localRotation = Quaternion.identity;
-            rGo.transform.localScale = Vector3.one;
-
-            this.objectsCache.Push(rGo);
+            this.mObjectPool.Free(rGo);
         }
 
         public void Destroy()
         {
-            UtilTool.SafeDestroy(this.templateGo);
-            UtilTool.SafeDestroy(this.rootGo);
-            this.objectsCache.Clear();
+            this.mObjectPool.Destroy();
+            UtilTool.SafeDestroy(this.mTemplateGo);
+            UtilTool.SafeDestroy(this.mRootGo);
+        }
+
+        private void OnAlloc(GameObject rGo)
+        {
+            rGo.transform.parent = null;
+        }
+
+        private void OnFree(GameObject rGo)
+        {
+            rGo.transform.parent = this.mRootGo.transform;
+            rGo.transform.localPosition = Vector3.zero;
+            rGo.transform.localRotation = Quaternion.identity;
+            rGo.transform.localScale = Vector3.one;
+        }
+
+        private void OnDestroy(GameObject rGo)
+        {
+            UtilTool.SafeDestroy(rGo);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Framework.Graphics
 {
     [ExecuteInEditMode]
-    public class Image3DRenderer : MonoBehaviour
+    public class Image3DRenderer : TEditorUpdateMB<Image3DRenderer>
     {
         public Sprite           Sprite;
         public Color            Color;
@@ -26,13 +26,13 @@ namespace Framework.Graphics
         private List<Vector2>   mUVs;
         private List<int>       mIndices;
 
-        void Awake()
+        protected override void AwakeCustom()
         {
             this.CreateMaterial();
             this.CreateGeometry();
         }
 
-        void OnDestroy()
+        protected override void DestroyCustom()
         {
             UtilTool.SafeDestroy(this.Mesh);
         }
@@ -95,7 +95,6 @@ namespace Framework.Graphics
                 };
                 this.mIndices = new List<int>() { 0, 1, 2, 0, 2, 3 };
             }
-
 
             this.Mesh.SetVertices(this.mVertices);
             this.Mesh.SetUVs(0, this.mUVs);
