@@ -52,5 +52,17 @@ namespace Framework.Graphics
            this.Indices.Add(nIndex1);
            this.Indices.Add(nIndex2);
         }
+
+        public void SetMeshVertices(Mesh rMesh)
+        {
+            rMesh.SetVertices(this.Vertices);
+            rMesh.SetUVs(0, this.UVs);
+            rMesh.SetColors(this.Colors);
+        }
+
+        public void SetMeshIndices(Mesh rMesh)
+        {
+            rMesh.SetIndices(this.Indices.ToArray(), MeshTopology.Triangles, 0);
+        }
     }
 }

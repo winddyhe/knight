@@ -6,6 +6,7 @@ using UnityEditor;
 
 namespace Core
 {
+    [ExecuteInEditMode]
     public class TEditorUpdateMB<T> : MonoBehaviour where T : MonoBehaviour
     {
         void Awake()

@@ -9,9 +9,7 @@ namespace Framework.Graphics
     public class Image3DRenderer : TEditorUpdateMB<Image3DRenderer>
     {
         public Sprite           Sprite;
-        public Color            Color;
-        public float            Width;
-        public float            Height;
+        public ImageLayout      ImageLayout;
 
         public Material         Mat;
 
@@ -21,10 +19,6 @@ namespace Framework.Graphics
         public MeshFilter       MeshFilter;
         [HideInInspector]
         public Mesh             Mesh;
-
-        private List<Vector3>   mVertices;
-        private List<Vector2>   mUVs;
-        private List<int>       mIndices;
 
         protected override void AwakeCustom()
         {
@@ -48,7 +42,7 @@ namespace Framework.Graphics
 
             if (this.Mat != null)
             {
-                this.Mat.SetColor("_Color", this.Color);
+                this.Mat.SetColor("_Color", this.ImageLayout.Color);
                 this.Mat.SetTexture("_MainTex", this.Sprite.texture);
             }
         }
@@ -60,45 +54,11 @@ namespace Framework.Graphics
             this.Mesh = new Mesh();
             this.MeshFilter.sharedMesh = this.Mesh;
 
-            float fHalfWidth = this.Width / 2;
-            float fHalfHeight = this.Height / 2;
-            if (this.Sprite != null)
-            {
-                this.mVertices = new List<Vector3>();
-                for (int i = 0; i < this.Sprite.vertices.Length; i++)
-                {
-                    this.mVertices.Add(new Vector3(this.Sprite.vertices[i].x*this.Width, this.Sprite.vertices[i].y*this.Height, 0.0f));
-                }
-                this.mUVs = new List<Vector2>(this.Sprite.uv);
-                this.mIndices = new List<int>();
-                for (int i = 0; i < this.Sprite.triangles.Length; i++)
-                {
-                    this.mIndices.Add(this.Sprite.triangles[i]);
-                }
-            }
-            else
-            {
-                this.mVertices = new List<Vector3>()
-                {
-                    new Vector3(-fHalfWidth, -fHalfHeight, 0),
-                    new Vector3( fHalfWidth, -fHalfHeight, 0),
-                    new Vector3( fHalfWidth,  fHalfHeight, 0),
-                    new Vector3(-fHalfWidth,  fHalfHeight, 0),
-                };
+            this.ImageLayout.GenerateSprite(this.Sprite);
 
-                this.mUVs = new List<Vector2>()
-                {
-                    new Vector2(0, 0),
-                    new Vector2(0, 1),
-                    new Vector2(1, 1),
-                    new Vector2(1, 0),
-                };
-                this.mIndices = new List<int>() { 0, 1, 2, 0, 2, 3 };
-            }
+            this.ImageLayout.SetMeshVertices(this.Mesh);
+            this.ImageLayout.SetMeshIndices(this.Mesh);
 
-            this.Mesh.SetVertices(this.mVertices);
-            this.Mesh.SetUVs(0, this.mUVs);
-            this.Mesh.SetIndices(this.mIndices.ToArray(), MeshTopology.Triangles, 0);
             this.Mesh.MarkDynamic();
         }
     }
