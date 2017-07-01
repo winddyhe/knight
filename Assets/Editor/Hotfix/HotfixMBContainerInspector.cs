@@ -10,8 +10,6 @@ namespace Framework.Hotfix.Editor
     [CustomEditor(typeof(HotfixMBContainer), true)]
     public class HotfixMBContainerInspector : UnityEditor.Editor
     {
-        public static HotfixMBContainerInspector Instance;
-
         public class ObjectType
         {
             public SerializedProperty   Object;
@@ -29,8 +27,6 @@ namespace Framework.Hotfix.Editor
 
         void OnEnable()
         {
-            Instance = this;
-
             this.mHotfixName    = this.serializedObject.FindProperty("mHotfixName");
             this.mObjects       = this.serializedObject.FindProperty("mObjects");
             this.mBaseDatas     = this.serializedObject.FindProperty("mBaseDatas");
@@ -40,7 +36,6 @@ namespace Framework.Hotfix.Editor
 
         void OnDestroy()
         {
-            Instance = null;
         }
 
         protected void DrawBaseInspectorGUI()

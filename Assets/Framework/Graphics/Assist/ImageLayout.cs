@@ -79,6 +79,7 @@ namespace Framework.Graphics
 
         public bool             IsPreserveAspect;
         public bool             IsFillCenter;
+        [Range(0, 1)]
         public float            FillAmount;
         public bool             IsClockwise;
         public int              FillOrigin;
@@ -92,6 +93,8 @@ namespace Framework.Graphics
 
         public void GenerateSprite(Sprite rSprite)
         {
+            if (rSprite == null) return;
+
             switch (this.ImageType)
             {
                 case Type.Simple:
