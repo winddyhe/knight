@@ -1,4 +1,8 @@
-﻿Shader "WindShaderLab/3DUI"
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
+Shader "WindShaderLab/UI/3DUI"
 {
 	Properties
 	{
