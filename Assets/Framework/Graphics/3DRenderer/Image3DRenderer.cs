@@ -12,18 +12,18 @@ namespace Framework.Graphics
     [ExecuteInEditMode]
     public class Image3DRenderer : TEditorUpdateMB<Image3DRenderer>
     {
-        public Sprite Sprite;
-        public ImageLayout ImageLayout;
+        public Sprite               Sprite;
+        public ImageLayout          ImageLayout;
 
-        public Color ImageColor = Color.white;
-        public Material Mat;
+        public Color                ImageColor = Color.white;
+        public Material             Mat;
 
         [HideInInspector]
-        public MeshRenderer MeshRenderer;
+        public MeshRenderer         MeshRenderer;
         [HideInInspector]
-        public MeshFilter MeshFilter;
+        public MeshFilter           MeshFilter;
         [HideInInspector]
-        public Mesh Mesh;
+        public Mesh                 Mesh;
 
         public bool HasBorder()
         {
