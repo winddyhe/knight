@@ -18,7 +18,6 @@ namespace Framework.Graphics.Editor
         private SerializedProperty mImageLayoutProp;
         private SerializedProperty mMaterialProp;
         private SerializedProperty mSpriteProp;
-        private SerializedProperty mImageColorProp;
 
         private SerializedProperty mWidthProp;
         private SerializedProperty mHeightProp;
@@ -44,7 +43,6 @@ namespace Framework.Graphics.Editor
             mImageLayoutProp = this.serializedObject.FindProperty("ImageLayout");
             mSpriteProp = this.serializedObject.FindProperty("Sprite");
             mMaterialProp = this.serializedObject.FindProperty("Mat");
-            mImageColorProp = this.serializedObject.FindProperty("ImageColor");
 
             mWidthProp = this.mImageLayoutProp.FindPropertyRelative("Width");
             mHeightProp = this.mImageLayoutProp.FindPropertyRelative("Height");
