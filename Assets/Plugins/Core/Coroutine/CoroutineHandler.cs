@@ -28,6 +28,9 @@ namespace Core
             this.IsRunning = false;
             this.IsCompleted = true;
 
+            // 要等一帧才能把自己删掉，要不然会崩溃
+            yield return 0;
+
             // 自己把自己删掉，并将对应的数据都清空
             CoroutineManager.Instance.Stop(this);
         }
