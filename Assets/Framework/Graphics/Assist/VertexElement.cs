@@ -1,4 +1,8 @@
-﻿using System;
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +28,7 @@ namespace Framework.Graphics
             this.Vertices.Clear();
             this.UVs.Clear();
             this.Colors.Clear();
+            this.Indices.Clear();
         }
 
         public void AddVert(Vector3 rPosition, Color32 rColor, Vector2 rUV0)

@@ -10,7 +10,7 @@ using Core;
 namespace Framework.Graphics
 {
     [ExecuteInEditMode]
-    public class Text3DRenderer : MonoBehaviour
+    public class Text3DRenderer : TEditorUpdateMB<Text3DRenderer>
     {
         public string       Text;
         public Color        Color;
@@ -28,13 +28,13 @@ namespace Framework.Graphics
         [HideInInspector]
         public Mesh         Mesh;
 
-        void Awake()
+        protected override void AwakeCustom()
         {
             this.CreateMaterial();
             this.CreateGeometry();
         }
 
-        void OnDestroy()
+        protected override void DestroyCustom()
         {
             UtilTool.SafeDestroy(this.Mesh);
         }
