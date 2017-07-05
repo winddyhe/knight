@@ -119,8 +119,11 @@ namespace UnityEngine.AssetBundles
 
             bool isEditor = PlatformIsEditor[rPlatformIndex];
             string rRootDir = isEditor ? Application.dataPath : Application.streamingAssetsPath;
-
-            return rRootDir + "/Assetbundles/" + PlatformNames[rPlatformIndex] + "_Assetbundles/";
+            string rPlatformName = PlatformNames[rPlatformIndex];
+#if UNITY_ANDROID && UNITY_EDITOR
+            rPlatformName = "Android";
+#endif
+            return rRootDir + "/Assetbundles/" + rPlatformName + "_Assetbundles/";
         }
 
         /// <summary>
