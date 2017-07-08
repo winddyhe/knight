@@ -12,13 +12,9 @@ namespace Framework.Graphics
     [ExecuteInEditMode]
     public class Text3DRenderer : TEditorUpdateMB<Text3DRenderer>
     {
-        public string       Text;
-        public Color        Color;
-
-        public Font         Font;
-        public FontStyle    FontStyle;
-        public int          FontSize;
-
+        public TextLayout   TextLayout;
+        
+        public Color        Color;        
         public Material     Mat;
 
         [HideInInspector]
@@ -51,7 +47,7 @@ namespace Framework.Graphics
             if (this.Mat != null)
             {
                 this.Mat.SetColor("_Color", this.Color);
-                this.Mat.SetTexture("_MainTex", this.Font.material.GetTexture("_MainTex"));
+                this.Mat.SetTexture("_MainTex", this.TextLayout.FontData.font.material.GetTexture("_MainTex"));
             }
         }
 
@@ -61,6 +57,13 @@ namespace Framework.Graphics
             UtilTool.SafeDestroy(this.Mesh);
             this.Mesh = new Mesh();
             this.MeshFilter.sharedMesh = this.Mesh;
+
+            this.TextLayout.GeneratorText();
+
+            this.TextLayout.SetMeshVertices(this.Mesh);
+            this.TextLayout.SetMeshIndices(this.Mesh);
+
+            this.Mesh.MarkDynamic();
         }
     }
 }
