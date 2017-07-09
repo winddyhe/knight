@@ -11,6 +11,7 @@
 	SubShader 
 	{
 		Tags { "RenderType"="Opaque" }
+		Fog  { Color(1.0, 1.0, 1.0, 1.0) }
 
 		Cull[_Cull]
 		
