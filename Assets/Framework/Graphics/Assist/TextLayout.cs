@@ -4,7 +4,6 @@
 //======================================================================
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 
 namespace Framework.Graphics
 {
@@ -31,7 +30,8 @@ namespace Framework.Graphics
         {
             this.GetGenerationSettings();
 
-            this.TextGenerator = this.TextGenerator ?? (this.Text.Length != 0 ? new TextGenerator(this.Text.Length) : new TextGenerator());
+            this.TextGenerator = this.TextGenerator ?? (!string.IsNullOrEmpty(this.Text) && this.Text.Length != 0 ? new TextGenerator(this.Text.Length) : new TextGenerator());
+            this.TextGenerator.Invalidate();
             this.TextGenerator.Populate(this.Text, mTextGeneratorSettings);
 
             this.VertexElement.Clear();
