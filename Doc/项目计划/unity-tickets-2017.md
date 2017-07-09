@@ -1,8 +1,8 @@
-## 2017年项目计划Ticket
+﻿## 2017年项目计划Ticket
 ### 2017/06/29 【进行中】
 * 图形渲染模块
-	* 实现一个3D的Text和Image渲染，自定义渲染管理，使得渲染效率达到最优。		OK
-	* 优化Standard Shader的复杂度，实现手机上PBR渲染。
+	* 实现一个3D的Text和Image渲染，自定义渲染管理，使得渲染效率达到最优。  已完成
+	* 优化Standard Shader的复杂度，实现手机上PBR渲染。   开始
 	* 实现一些通用的、高效率的Shader效果。
 		* Texture
 			* VertexColor + Color + Opaque + Cull切换 + ZWrite切换
@@ -10,7 +10,7 @@
 			* VertexColor + Color + Texture + Opaque + Cull切换 + ZWrite切换
 			* VertexColor + Color + Texture + Transparent + Cull切换 + ZWrite切换 + Blend切换
 		
-		* Diffuse
+		* Diffuse		已完成
 			* 把Mobile/Diffuse下的Shader移植出来
 			* 有Transparent、Cut off、Opaque、带Fog、带Color
 			* ColorBlend: lerp color and maintexture color
@@ -51,9 +51,6 @@
 	* 完善UI框架，回退记录功能
 	* 重新设计UI的层级结构，以实现 渲染和顶点更新的效率达到最优
 	* 编写UI通用控件
-	
-* 配置文件模块
-	* 使用Sqlite来存储配置文件，已解决Mono内存问题
 
 * NativeDialog 本地对话框
 	* 找一个NativeDialog插件、开源的进行改造。
