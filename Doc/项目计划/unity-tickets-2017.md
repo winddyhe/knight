@@ -4,7 +4,7 @@
 	* 实现一个3D的Text和Image渲染，自定义渲染管理，使得渲染效率达到最优。  已完成
 	* 优化Standard Shader的复杂度，实现手机上PBR渲染。   开始
 	* 实现一些通用的、高效率的Shader效果。
-		* Texture
+		* Texture						已完成
 			* VertexColor + Color + Opaque + Cull切换 + ZWrite切换
 			* VertexColor + Color + Transparent + Cull切换 + ZWrite切换 + Blend切换
 			* VertexColor + Color + Texture + Opaque + Cull切换 + ZWrite切换
