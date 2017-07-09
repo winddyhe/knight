@@ -19,7 +19,7 @@ Shader "WindShaderLab/Diffuse/ColorBlendAlpha"
 		Tags { "Queue"="Transparent" "RenderType" = "Transparent" }
 		Fog  { Color(1.0, 1.0, 1.0, 1.0) }
 
-		Blend[_BlendSrc][_BlendDes]
+		Blend [_BlendSrc][_BlendDes]
 		Cull  [_CullMode]
 		
 		Pass

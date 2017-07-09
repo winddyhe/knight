@@ -1,9 +1,10 @@
 
 #include"UnityCG.cginc"
 
-sampler2D _MainTex;
-fixed4 _Color;
-uniform float _CutOff;
+sampler2D	_MainTex;
+
+fixed4		_Color;
+float		_CutOff;
 
 struct Input
 {
@@ -17,6 +18,7 @@ inline void SimpleDiffuse(Input IN, inout SurfaceOutputStandard o)
 	o.Albedo =col.rgb;
 	o.Alpha=col.a;
 }
+
 inline void SimpleDiffuseCutOff(Input IN, inout SurfaceOutputStandard o)
 {
 	fixed4 mainCol = tex2D(_MainTex, IN.uv_MainTex);
