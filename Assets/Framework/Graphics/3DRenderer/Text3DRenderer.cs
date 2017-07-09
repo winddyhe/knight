@@ -12,18 +12,65 @@ namespace Framework.Graphics
     [ExecuteInEditMode]
     public class Text3DRenderer : TEditorUpdateMB<Text3DRenderer>
     {
-        public TextLayout   TextLayout;
+        public TextLayout           TextLayout;
+        public Material             Mat;
+
+        [HideInInspector]
+        public MeshRenderer         MeshRenderer;
+        [HideInInspector]
+        public MeshFilter           MeshFilter;
+        [HideInInspector]
+        public Mesh                 Mesh;
+
+        public Font                 Font
+        {
+            get
+            {
+                if (this.TextLayout == null || this.TextLayout.FontData == null) return null;
+                return this.TextLayout.FontData.font;
+            }
+        }
+
+        public TextAnchor Alignment
+        {
+            get
+            {
+                if (this.TextLayout == null || this.TextLayout.FontData == null) return TextAnchor.MiddleCenter;
+                return this.TextLayout.FontData.alignment;
+            }
+            set
+            {
+                if (this.TextLayout == null || this.TextLayout.FontData == null) return;
+                this.TextLayout.FontData.alignment = value;
+            }
+        }
         
-        public Color        Color;        
-        public Material     Mat;
+        public void RebuildGemotry()
+        {
+            this.Mesh.Clear();
 
-        [HideInInspector]
-        public MeshRenderer MeshRenderer;
-        [HideInInspector]
-        public MeshFilter   MeshFilter;
-        [HideInInspector]
-        public Mesh         Mesh;
+            this.TextLayout.GeneratorText();
 
+            this.TextLayout.SetMeshVertices(this.Mesh);
+            this.TextLayout.SetMeshIndices(this.Mesh);
+        }
+
+        public void RebuildMaterial()
+        {
+            this.MeshRenderer.sharedMaterial = this.Mat;
+            if (this.Mat != null)
+            {
+                if (this.Font != null)
+                    this.Mat.SetTexture("_MainTex", this.Font.material.mainTexture);
+            }
+        }
+
+        public void RebuildText()
+        {
+            this.RebuildMaterial();
+            this.RebuildGemotry();
+        }
+        
         protected override void AwakeCustom()
         {
             this.CreateMaterial();
@@ -34,6 +81,29 @@ namespace Framework.Graphics
         {
             UtilTool.SafeDestroy(this.Mesh);
         }
+
+        void OnEnable()
+        {
+            Font.textureRebuilt += RebuildByFont;
+        }
+
+        void OnDisable()
+        {
+            Font.textureRebuilt -= RebuildByFont;
+        }
+
+#if UNITY_EDITOR
+        static Vector3[] rectVertices = new Vector3[2];
+        void OnDrawGizmos()
+        {
+            if (this.TextLayout == null) return;
+
+            rectVertices[0] = this.transform.position + new Vector3(this.TextLayout.Extents.x / 2.0f, this.TextLayout.Extents.y / 2.0f, 0.0f);
+            rectVertices[1] = new Vector3(this.TextLayout.Extents.x, this.TextLayout.Extents.y, 0.0f);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireCube(rectVertices[0], rectVertices[1]);
+        }
+#endif
 
         private void CreateMaterial()
         {
@@ -46,7 +116,6 @@ namespace Framework.Graphics
 
             if (this.Mat != null)
             {
-                this.Mat.SetColor("_Color", this.Color);
                 this.Mat.SetTexture("_MainTex", this.TextLayout.FontData.font.material.GetTexture("_MainTex"));
             }
         }
@@ -58,12 +127,25 @@ namespace Framework.Graphics
             this.Mesh = new Mesh();
             this.MeshFilter.sharedMesh = this.Mesh;
 
+            this.TextLayout = this.TextLayout ?? new TextLayout();
             this.TextLayout.GeneratorText();
 
             this.TextLayout.SetMeshVertices(this.Mesh);
             this.TextLayout.SetMeshIndices(this.Mesh);
 
             this.Mesh.MarkDynamic();
+        }
+
+
+        private void RebuildByFont(Font rFont)
+        {
+            if (this.TextLayout == null || this.TextLayout.FontData == null) return;
+
+            Font rOriginFont = this.TextLayout.FontData.font;
+            if (rOriginFont != null && rOriginFont == rFont)
+            {
+                this.RebuildText();
+            }
         }
     }
 }

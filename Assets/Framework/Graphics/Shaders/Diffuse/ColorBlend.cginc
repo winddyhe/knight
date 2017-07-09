@@ -1,4 +1,8 @@
-﻿struct appdata
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
+struct appdata
 {
 	float4 vertex	: POSITION;
 	half2  uv		: TEXCOORD0;
