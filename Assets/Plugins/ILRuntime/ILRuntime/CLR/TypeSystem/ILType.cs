@@ -31,7 +31,7 @@ namespace ILRuntime.CLR.TypeSystem
         int totalFieldCnt = -1;
         KeyValuePair<string, IType>[] genericArguments;
         IType baseType, byRefType, arrayType, enumType, elementType;
-        Type arrayCLRType;
+        Type arrayCLRType, byRefCLRType;
         IType[] interfaces;
         bool baseTypeInitialized = false;
         bool interfaceInitialized = false;
@@ -255,11 +255,16 @@ namespace ILRuntime.CLR.TypeSystem
             get; private set;
         }
 
+        private bool? isValueType;
+
         public bool IsValueType
         {
             get
             {
-                return definition.IsValueType;
+                if (isValueType == null)
+                    isValueType = definition.IsValueType;
+
+                return isValueType.Value;
             }
         }
 
@@ -288,6 +293,10 @@ namespace ILRuntime.CLR.TypeSystem
                 else if (typeRef is ArrayType)
                 {
                     return arrayCLRType;
+                }
+                else if (typeRef is ByReferenceType)
+                {
+                    return byRefCLRType;
                 }
                 else if (FirstCLRBaseType != null && FirstCLRBaseType is CrossBindingAdaptor)
                 {
@@ -440,7 +449,9 @@ namespace ILRuntime.CLR.TypeSystem
                         }
                     }
                     if (baseType == null)
+                    {
                         throw new TypeLoadException("Cannot find Adaptor for:" + definition.BaseType.FullName);
+                    }
                 }
                 else
                 {
@@ -545,14 +556,18 @@ namespace ILRuntime.CLR.TypeSystem
         public IMethod GetVirtualMethod(IMethod method)
         {
             IType[] genericArguments = null;
-            if (method is ILMethod)
+            if (method.IsGenericInstance)
             {
-                genericArguments = ((ILMethod)method).GenericArugmentsArray;
+                if (method is ILMethod)
+                {
+                    genericArguments = ((ILMethod)method).GenericArugmentsArray;
+                }
+                else
+                {
+                    genericArguments = ((CLRMethod)method).GenericArguments;
+                }
             }
-            else
-            {
-                genericArguments = ((CLRMethod)method).GenericArguments;
-            }
+
             var m = GetMethod(method.Name, method.Parameters, genericArguments, method.ReturnType);
             if (m == null)
             {
@@ -577,8 +592,9 @@ namespace ILRuntime.CLR.TypeSystem
             IMethod genericMethod = null;
             if (methods.TryGetValue(name, out lst))
             {
-                foreach (var i in lst)
+                for (var idx = 0; idx < lst.Count; idx++)
                 {
+                    var i = lst[idx];
                     int pCnt = param != null ? param.Count : 0;
                     if (i.ParameterCount == pCnt)
                     {
@@ -848,23 +864,30 @@ namespace ILRuntime.CLR.TypeSystem
 
         public bool CanAssignTo(IType type)
         {
+            bool res = false;
             if (this == type)
             {
                 return true;
             }
-            else if (BaseType != null)
-                return BaseType.CanAssignTo(type);
-            else if (Implements != null)
+
+            if (BaseType != null)
+            {
+                res = BaseType.CanAssignTo(type);
+
+                if (res) return true;
+            }
+
+            if (Implements != null)
             {
                 for (int i = 0; i < interfaces.Length; i++)
                 {
                     var im = interfaces[i];
-                    bool res = im.CanAssignTo(type);
+                    res = im.CanAssignTo(type);
                     if (res)
                         return true;
                 }
             }
-            return false;
+            return res;
         }
 
         public ILTypeInstance Instantiate(bool callDefaultConstructor = true)
@@ -911,6 +934,8 @@ namespace ILRuntime.CLR.TypeSystem
             {
                 var def = new ByReferenceType(typeRef);
                 byRefType = new ILType(def, appdomain);
+                ((ILType)byRefType).elementType = this;
+                ((ILType)byRefType).byRefCLRType = this.TypeForCLR.MakeByRefType();
             }
             return byRefType;
         }

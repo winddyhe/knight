@@ -69,7 +69,21 @@ namespace ILRuntime.Runtime.Enviorment
 
         public bool CanAssignTo(IType type)
         {
-            return type.CanAssignTo(type);
+            bool res = false;
+            if (BaseType != null)
+                res = BaseType.CanAssignTo(type);
+            var interfaces = Implements;
+            if (!res && interfaces != null)
+            {
+                for (int i = 0; i < interfaces.Length; i++)
+                {
+                    var im = interfaces[i];
+                    res = im.CanAssignTo(type);
+                    if (res)
+                        return true;
+                }
+            }
+            return res;
         }
 
         public IType MakeGenericInstance(KeyValuePair<string, IType>[] genericArguments)
@@ -195,6 +209,14 @@ namespace ILRuntime.Runtime.Enviorment
             get
             {
                 return type.BaseType;
+            }
+        }
+
+        public IType[] Implements
+        {
+            get
+            {
+                return type.Implements;
             }
         }
 

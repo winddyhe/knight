@@ -135,6 +135,19 @@ namespace ILRuntime.CLR.Method
             }
         }
 
+        public void RetryCLRRedirection()
+        {
+            if (def != null)
+            {
+                if (def.IsGenericMethod && !def.IsGenericMethodDefinition)
+                {
+                    appdomain.RedirectMap.TryGetValue(def.GetGenericMethodDefinition(), out redirect);
+                }
+                else
+                    appdomain.RedirectMap.TryGetValue(def, out redirect);
+            }
+        }
+
         public int ParameterCount
         {
             get
@@ -207,7 +220,7 @@ namespace ILRuntime.CLR.Method
             return (StackObject*)((long)a - sizeof(StackObject) * b);
         }
 
-        public unsafe object Invoke(Runtime.Intepreter.ILIntepreter intepreter, StackObject* esp, List<object> mStack, bool isNewObj = false)
+        public unsafe object Invoke(Runtime.Intepreter.ILIntepreter intepreter, StackObject* esp, IList<object> mStack, bool isNewObj = false)
         {
             if (parameters == null)
             {
@@ -276,7 +289,7 @@ namespace ILRuntime.CLR.Method
             }
         }
 
-        unsafe void FixReference(int paramCount, StackObject* esp, object[] param, List<object> mStack)
+        unsafe void FixReference(int paramCount, StackObject* esp, object[] param, IList<object> mStack)
         {
             for (int i = paramCount; i >= 1; i--)
             {
@@ -323,7 +336,7 @@ namespace ILRuntime.CLR.Method
                             }
                             else
                             {
-                                ((CLRType)t).GetField(p->ValueLow).SetValue(null, val);
+                                ((CLRType)t).SetStaticFieldValue(p->ValueLow, val);
                             }
                         }
                         break;

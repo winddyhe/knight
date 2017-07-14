@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,20 +13,32 @@ using ILRuntime.CLR.Utils;
 using ILRuntime.Runtime.Intepreter;
 using ILRuntime.Runtime.Debugger;
 using ILRuntime.Runtime.Stack;
+using ILRuntime.Other;
 namespace ILRuntime.Runtime.Enviorment
 {
-    public unsafe delegate StackObject* CLRRedirectionDelegate(ILIntepreter intp, StackObject* esp, List<object> mStack, CLRMethod method, bool isNewObj);
+    public unsafe delegate StackObject* CLRRedirectionDelegate(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isNewObj);
+    public delegate object CLRFieldGetterDelegate(ref object target);
+    public delegate void CLRFieldSetterDelegate(ref object target, object value);
+    public delegate object CLRMemberwiseCloneDelegate(ref object target);
+    public delegate object CLRCreateDefaultInstanceDelegate();
+    public delegate object CLRCreateArrayInstanceDelegate(int size);
+
     public class AppDomain
     {
         Queue<ILIntepreter> freeIntepreters = new Queue<ILIntepreter>();
         Dictionary<int, ILIntepreter> intepreters = new Dictionary<int, ILIntepreter>();
-        Dictionary<Type, CrossBindingAdaptor> crossAdaptors = new Dictionary<Type, CrossBindingAdaptor>();
+        Dictionary<Type, CrossBindingAdaptor> crossAdaptors = new Dictionary<Type, CrossBindingAdaptor>(new ByReferenceKeyComparer<Type>());
         Dictionary<string, IType> mapType = new Dictionary<string, IType>();
-        Dictionary<Type, IType> clrTypeMapping = new Dictionary<Type, IType>();
+        Dictionary<Type, IType> clrTypeMapping = new Dictionary<Type, IType>(new ByReferenceKeyComparer<Type>());
         Dictionary<int, IType> mapTypeToken = new Dictionary<int, IType>();
         Dictionary<int, IMethod> mapMethod = new Dictionary<int, IMethod>();
         Dictionary<long, string> mapString = new Dictionary<long, string>();
         Dictionary<System.Reflection.MethodBase, CLRRedirectionDelegate> redirectMap = new Dictionary<System.Reflection.MethodBase, CLRRedirectionDelegate>();
+        Dictionary<System.Reflection.FieldInfo, CLRFieldGetterDelegate> fieldGetterMap = new Dictionary<System.Reflection.FieldInfo, CLRFieldGetterDelegate>();
+        Dictionary<System.Reflection.FieldInfo, CLRFieldSetterDelegate> fieldSetterMap = new Dictionary<System.Reflection.FieldInfo, CLRFieldSetterDelegate>();
+        Dictionary<Type, CLRMemberwiseCloneDelegate> memberwiseCloneMap = new Dictionary<Type, CLRMemberwiseCloneDelegate>(new ByReferenceKeyComparer<Type>());
+        Dictionary<Type, CLRCreateDefaultInstanceDelegate> createDefaultInstanceMap = new Dictionary<Type, CLRCreateDefaultInstanceDelegate>(new ByReferenceKeyComparer<Type>());
+        Dictionary<Type, CLRCreateArrayInstanceDelegate> createArrayInstanceMap = new Dictionary<Type, CLRCreateArrayInstanceDelegate>(new ByReferenceKeyComparer<Type>());
         IType voidType, intType, longType, boolType, floatType, doubleType, objectType;
         DelegateManager dMgr;
         Assembly[] loadedAssemblies;
@@ -120,6 +132,11 @@ namespace ILRuntime.Runtime.Enviorment
 
         public Dictionary<string, IType> LoadedTypes { get { return mapType; } }
         internal Dictionary<MethodBase, CLRRedirectionDelegate> RedirectMap { get { return redirectMap; } }
+        internal Dictionary<FieldInfo, CLRFieldGetterDelegate> FieldGetterMap { get { return fieldGetterMap; } }
+        internal Dictionary<FieldInfo, CLRFieldSetterDelegate> FieldSetterMap { get { return fieldSetterMap; } }
+        internal Dictionary<Type, CLRMemberwiseCloneDelegate> MemberwiseCloneMap { get { return memberwiseCloneMap; } }
+        internal Dictionary<Type, CLRCreateDefaultInstanceDelegate> CreateDefaultInstanceMap { get { return createDefaultInstanceMap; } }
+        internal Dictionary<Type, CLRCreateArrayInstanceDelegate> CreateArrayInstanceMap { get { return createArrayInstanceMap; } }
         internal Dictionary<Type, CrossBindingAdaptor> CrossBindingAdaptors { get { return crossAdaptors; } }
         public DebugService DebugService { get { return debugService; } }
         internal Dictionary<int, ILIntepreter> Intepreters { get { return intepreters; } }
@@ -387,6 +404,36 @@ namespace ILRuntime.Runtime.Enviorment
                 redirectMap[mi] = func;
         }
 
+        public void RegisterCLRFieldGetter(FieldInfo f, CLRFieldGetterDelegate getter)
+        {
+            if (!fieldGetterMap.ContainsKey(f))
+                fieldGetterMap[f] = getter;
+        }
+
+        public void RegisterCLRFieldSetter(FieldInfo f, CLRFieldSetterDelegate setter)
+        {
+            if (!fieldSetterMap.ContainsKey(f))
+                fieldSetterMap[f] = setter;
+        }
+
+        public void RegisterCLRMemberwiseClone(Type t, CLRMemberwiseCloneDelegate memberwiseClone)
+        {
+            if (!memberwiseCloneMap.ContainsKey(t))
+                memberwiseCloneMap[t] = memberwiseClone;
+        }
+
+        public void RegisterCLRCreateDefaultInstance(Type t, CLRCreateDefaultInstanceDelegate createDefaultInstance)
+        {
+            if (!createDefaultInstanceMap.ContainsKey(t))
+                createDefaultInstanceMap[t] = createDefaultInstance;
+        }
+
+        public void RegisterCLRCreateArrayInstance(Type t, CLRCreateArrayInstanceDelegate createArray)
+        {
+            if (!createArrayInstanceMap.ContainsKey(t))
+                createArrayInstanceMap[t] = createArray;
+        }
+
         /// <summary>
         /// 更近类型名称返回类型
         /// </summary>
@@ -456,21 +503,20 @@ namespace ILRuntime.Runtime.Enviorment
                         mapType[asmName] = bt;
                 }
 
-                if (isByRef)
+                if (isArray)
                 {
-                    bt = bt.MakeByRefType();
+                    bt = bt.MakeArrayType();
                     mapType[bt.FullName] = bt;
                     mapTypeToken[bt.GetHashCode()] = bt;
-                    if (!isArray)
+                    if (!isByRef)
                     {
-                        mapType[fullname] = bt;
                         return bt;
                     }
                 }
 
-                if (isArray)
+                if (isByRef)
                 {
-                    res = bt.MakeArrayType();
+                    res = bt.MakeByRefType();
                     mapType[fullname] = res;
                     mapType[res.FullName] = res;
                     mapTypeToken[res.GetHashCode()] = res;
@@ -616,16 +662,19 @@ namespace ILRuntime.Runtime.Enviorment
                 }
                 if (_ref.IsByReference)
                 {
-                    var t = GetType(_ref.GetElementType(), contextType, contextMethod);
+                    var et = _ref.GetElementType();
+                    bool valid = !et.IsGenericParameter;
+                    var t = GetType(et, contextType, contextMethod);
                     if (t != null)
                     {
                         res = t.MakeByRefType();
-                        if (res is ILType)
+                        if (res is ILType && valid)
                         {
                             ///Unify the TypeReference
                             ((ILType)res).TypeReference = _ref;
                         }
-                        mapTypeToken[hash] = res;
+                        if (valid)
+                            mapTypeToken[hash] = res;
                         if (!string.IsNullOrEmpty(res.FullName))
                             mapType[res.FullName] = res;
                         return res;
@@ -838,6 +887,8 @@ namespace ILRuntime.Runtime.Enviorment
             {
                 for(int i = 0; i < m.ParameterCount; i++)
                 {
+                    if (p[i] == null)
+                        continue;
                     if (!m.Parameters[i].TypeForCLR.IsAssignableFrom(p[i].GetType()))
                     {
                         throw new ArgumentException("Parameter type mismatch");
@@ -1063,17 +1114,6 @@ namespace ILRuntime.Runtime.Enviorment
                 return res;
 
             return null;
-        }
-
-        internal int GetFieldIndex(object token, IType contextType, IMethod contextMethod)
-        {
-            FieldReference f = token as FieldReference;
-            var type = GetType(f.DeclaringType, contextType, contextMethod);
-            if(type != null)
-            {
-                return type.GetFieldIndex(token);
-            }
-            throw new KeyNotFoundException();
         }
 
         internal long GetStaticFieldIndex(object token, IType contextType, IMethod contextMethod)

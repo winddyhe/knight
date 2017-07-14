@@ -79,7 +79,7 @@ namespace Framework.Hotfix
 
         public unsafe void RegisterCLRMethodRedirection()
         {
-            ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
+            //ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
         }
         
         public void RegisterDelegates()
