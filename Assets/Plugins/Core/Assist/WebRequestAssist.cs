@@ -40,7 +40,7 @@ namespace Core
             CoroutineManager.Instance.Start(Record_DownloadProgress_Async(rRequest, rWebRequest));
             yield return rWebRequest.Send();
 
-            if (rWebRequest.isError)
+            if (rWebRequest.isNetworkError)
             {
                 Debug.Log(rWebRequest.error);
                 rWebRequest.Dispose();

@@ -101,84 +101,93 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("Angle", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Angle_26);
+            args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
+            method = type.GetMethod("SignedAngle", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, SignedAngle_27);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("Distance", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Distance_27);
+            app.RegisterCLRMethodRedirection(method, Distance_28);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(System.Single)};
             method = type.GetMethod("ClampMagnitude", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ClampMagnitude_28);
+            app.RegisterCLRMethodRedirection(method, ClampMagnitude_29);
             args = new Type[]{typeof(UnityEngine.Vector3)};
             method = type.GetMethod("Magnitude", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Magnitude_29);
+            app.RegisterCLRMethodRedirection(method, Magnitude_30);
             args = new Type[]{};
             method = type.GetMethod("get_magnitude", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_magnitude_30);
+            app.RegisterCLRMethodRedirection(method, get_magnitude_31);
             args = new Type[]{typeof(UnityEngine.Vector3)};
             method = type.GetMethod("SqrMagnitude", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SqrMagnitude_31);
+            app.RegisterCLRMethodRedirection(method, SqrMagnitude_32);
             args = new Type[]{};
             method = type.GetMethod("get_sqrMagnitude", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_sqrMagnitude_32);
+            app.RegisterCLRMethodRedirection(method, get_sqrMagnitude_33);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("Min", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Min_33);
+            app.RegisterCLRMethodRedirection(method, Min_34);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("Max", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Max_34);
+            app.RegisterCLRMethodRedirection(method, Max_35);
             args = new Type[]{};
             method = type.GetMethod("get_zero", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_zero_35);
+            app.RegisterCLRMethodRedirection(method, get_zero_36);
             args = new Type[]{};
             method = type.GetMethod("get_one", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_one_36);
+            app.RegisterCLRMethodRedirection(method, get_one_37);
             args = new Type[]{};
             method = type.GetMethod("get_forward", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_forward_37);
+            app.RegisterCLRMethodRedirection(method, get_forward_38);
             args = new Type[]{};
             method = type.GetMethod("get_back", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_back_38);
+            app.RegisterCLRMethodRedirection(method, get_back_39);
             args = new Type[]{};
             method = type.GetMethod("get_up", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_up_39);
+            app.RegisterCLRMethodRedirection(method, get_up_40);
             args = new Type[]{};
             method = type.GetMethod("get_down", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_down_40);
+            app.RegisterCLRMethodRedirection(method, get_down_41);
             args = new Type[]{};
             method = type.GetMethod("get_left", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_left_41);
+            app.RegisterCLRMethodRedirection(method, get_left_42);
             args = new Type[]{};
             method = type.GetMethod("get_right", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_right_42);
+            app.RegisterCLRMethodRedirection(method, get_right_43);
+            args = new Type[]{};
+            method = type.GetMethod("get_positiveInfinity", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_positiveInfinity_44);
+            args = new Type[]{};
+            method = type.GetMethod("get_negativeInfinity", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_negativeInfinity_45);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("op_Addition", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, op_Addition_43);
+            app.RegisterCLRMethodRedirection(method, op_Addition_46);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("op_Subtraction", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, op_Subtraction_44);
+            app.RegisterCLRMethodRedirection(method, op_Subtraction_47);
             args = new Type[]{typeof(UnityEngine.Vector3)};
             method = type.GetMethod("op_UnaryNegation", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, op_UnaryNegation_45);
+            app.RegisterCLRMethodRedirection(method, op_UnaryNegation_48);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(System.Single)};
             method = type.GetMethod("op_Multiply", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, op_Multiply_46);
+            app.RegisterCLRMethodRedirection(method, op_Multiply_49);
             args = new Type[]{typeof(System.Single), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("op_Multiply", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, op_Multiply_47);
+            app.RegisterCLRMethodRedirection(method, op_Multiply_50);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(System.Single)};
             method = type.GetMethod("op_Division", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, op_Division_48);
+            app.RegisterCLRMethodRedirection(method, op_Division_51);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("op_Equality", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, op_Equality_49);
+            app.RegisterCLRMethodRedirection(method, op_Equality_52);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("op_Inequality", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, op_Inequality_50);
+            app.RegisterCLRMethodRedirection(method, op_Inequality_53);
             args = new Type[]{};
             method = type.GetMethod("ToString", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ToString_51);
+            app.RegisterCLRMethodRedirection(method, ToString_54);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("ToString", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ToString_52);
+            app.RegisterCLRMethodRedirection(method, ToString_55);
 
             args = new Type[]{typeof(System.Single), typeof(System.Single), typeof(System.Single)};
             method = type.GetConstructor(flag, null, args, null);
@@ -860,17 +869,17 @@ namespace ILRuntime.Runtime.Generated
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 4);
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Single new_z = *(float*)&ptr_of_this_method->Value;
+            System.Single newZ = *(float*)&ptr_of_this_method->Value;
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Single new_y = *(float*)&ptr_of_this_method->Value;
+            System.Single newY = *(float*)&ptr_of_this_method->Value;
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            System.Single new_x = *(float*)&ptr_of_this_method->Value;
+            System.Single newX = *(float*)&ptr_of_this_method->Value;
             ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
             ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
             UnityEngine.Vector3 instance_of_this_method;
             instance_of_this_method = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
 
-            instance_of_this_method.Set(new_x, new_y, new_z);
+            instance_of_this_method.Set(newX, newY, newZ);
 
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
@@ -1109,7 +1118,29 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Distance_27(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SignedAngle_27(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Vector3 axis = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Vector3 to = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            UnityEngine.Vector3 from = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = UnityEngine.Vector3.SignedAngle(from, to, axis);
+
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* Distance_28(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1128,7 +1159,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* ClampMagnitude_28(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* ClampMagnitude_29(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1144,23 +1175,23 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* Magnitude_29(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Magnitude_30(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Vector3 a = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Vector3 vector = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = UnityEngine.Vector3.Magnitude(a);
+            var result_of_this_method = UnityEngine.Vector3.Magnitude(vector);
 
             __ret->ObjectType = ObjectTypes.Float;
             *(float*)&__ret->Value = result_of_this_method;
             return __ret + 1;
         }
 
-        static StackObject* get_magnitude_30(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_magnitude_31(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1179,23 +1210,23 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* SqrMagnitude_31(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SqrMagnitude_32(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Vector3 a = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Vector3 vector = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = UnityEngine.Vector3.SqrMagnitude(a);
+            var result_of_this_method = UnityEngine.Vector3.SqrMagnitude(vector);
 
             __ret->ObjectType = ObjectTypes.Float;
             *(float*)&__ret->Value = result_of_this_method;
             return __ret + 1;
         }
 
-        static StackObject* get_sqrMagnitude_32(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_sqrMagnitude_33(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1214,7 +1245,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Min_33(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Min_34(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1231,7 +1262,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* Max_34(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Max_35(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1248,7 +1279,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_zero_35(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_zero_36(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1259,7 +1290,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_one_36(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_one_37(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1270,7 +1301,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_forward_37(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_forward_38(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1281,7 +1312,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_back_38(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_back_39(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1292,7 +1323,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_up_39(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_up_40(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1303,7 +1334,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_down_40(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_down_41(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1314,7 +1345,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_left_41(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_left_42(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1325,7 +1356,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_right_42(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_right_43(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1336,7 +1367,29 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* op_Addition_43(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_positiveInfinity_44(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+            var result_of_this_method = UnityEngine.Vector3.positiveInfinity;
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* get_negativeInfinity_45(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+            var result_of_this_method = UnityEngine.Vector3.negativeInfinity;
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* op_Addition_46(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1353,7 +1406,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* op_Subtraction_44(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* op_Subtraction_47(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1370,7 +1423,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* op_UnaryNegation_45(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* op_UnaryNegation_48(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1384,7 +1437,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* op_Multiply_46(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* op_Multiply_49(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1400,7 +1453,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* op_Multiply_47(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* op_Multiply_50(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1416,7 +1469,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* op_Division_48(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* op_Division_51(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1432,7 +1485,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* op_Equality_49(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* op_Equality_52(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1451,7 +1504,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* op_Inequality_50(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* op_Inequality_53(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1470,7 +1523,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* ToString_51(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* ToString_54(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1487,7 +1540,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* ToString_52(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* ToString_55(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

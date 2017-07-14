@@ -224,24 +224,21 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_hasChanged", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, set_hasChanged_67);
-            args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("FindChild", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, FindChild_68);
             args = new Type[]{};
             method = type.GetMethod("GetEnumerator", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetEnumerator_69);
+            app.RegisterCLRMethodRedirection(method, GetEnumerator_68);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetChild", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetChild_70);
+            app.RegisterCLRMethodRedirection(method, GetChild_69);
             args = new Type[]{};
             method = type.GetMethod("get_hierarchyCapacity", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_hierarchyCapacity_71);
+            app.RegisterCLRMethodRedirection(method, get_hierarchyCapacity_70);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("set_hierarchyCapacity", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_hierarchyCapacity_72);
+            app.RegisterCLRMethodRedirection(method, set_hierarchyCapacity_71);
             args = new Type[]{};
             method = type.GetMethod("get_hierarchyCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_hierarchyCount_73);
+            app.RegisterCLRMethodRedirection(method, get_hierarchyCount_72);
 
 
         }
@@ -1503,30 +1500,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* FindChild_68(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.String name = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.Transform instance_of_this_method;
-            instance_of_this_method = (UnityEngine.Transform)typeof(UnityEngine.Transform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.FindChild(name);
-
-            object obj_result_of_this_method = result_of_this_method;
-            if(obj_result_of_this_method is CrossBindingAdaptorType)
-            {    
-                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
-            }
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* GetEnumerator_69(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetEnumerator_68(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1546,7 +1520,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetChild_70(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetChild_69(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1568,7 +1542,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_hierarchyCapacity_71(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_hierarchyCapacity_70(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1585,7 +1559,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_hierarchyCapacity_72(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_hierarchyCapacity_71(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1602,7 +1576,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_hierarchyCount_73(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_hierarchyCount_72(ILIntepreter __intp, StackObject* __esp, List<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

@@ -593,19 +593,19 @@ namespace ILRuntime.Runtime.Generated
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 5);
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Single new_w = *(float*)&ptr_of_this_method->Value;
+            System.Single newW = *(float*)&ptr_of_this_method->Value;
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Single new_z = *(float*)&ptr_of_this_method->Value;
+            System.Single newZ = *(float*)&ptr_of_this_method->Value;
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            System.Single new_y = *(float*)&ptr_of_this_method->Value;
+            System.Single newY = *(float*)&ptr_of_this_method->Value;
             ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
-            System.Single new_x = *(float*)&ptr_of_this_method->Value;
+            System.Single newX = *(float*)&ptr_of_this_method->Value;
             ptr_of_this_method = ILIntepreter.Minus(__esp, 5);
             ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
             UnityEngine.Quaternion instance_of_this_method;
             instance_of_this_method = (UnityEngine.Quaternion)typeof(UnityEngine.Quaternion).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
 
-            instance_of_this_method.Set(new_x, new_y, new_z, new_w);
+            instance_of_this_method.Set(newX, newY, newZ, newW);
 
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
