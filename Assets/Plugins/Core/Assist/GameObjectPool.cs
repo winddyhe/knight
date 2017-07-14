@@ -23,23 +23,20 @@ namespace Core
         /// </summary>
         private GameObject              mRootGo;
         /// <summary>
-        /// 对象池的模板对象，通常是从资源包取出来的预制件对象
+        /// 对象池的根节点
         /// </summary>
-        private GameObject              mTemplateGo;
+        public  GameObject              RootGo          { get { return mRootGo; } }
 
-        public GameObjectPool(string rPoolName, GameObject rTemplateObj, int rInitCount = 0)
+        public GameObjectPool(string rPoolName, int rInitCount = 0)
         {
             this.mObjectPool = new TObjectPool<GameObject>(OnAlloc, OnFree, OnDestroy);
 
             this.mRootGo = UtilTool.CreateGameObject(rPoolName);
             this.mRootGo.SetActive(false);
             this.mRootGo.transform.position = new Vector3(0, 1000, 0);
-
-            this.mTemplateGo = rTemplateObj;
-
+            
             for (int i = 0; i < rInitCount; i++)
             {
-                GameObject rGo = UtilTool.CreateGameObject(this.mTemplateGo, this.mRootGo);
                 this.mObjectPool.Alloc();
             }
         }
@@ -58,7 +55,6 @@ namespace Core
         public void Destroy()
         {
             this.mObjectPool.Destroy();
-            UtilTool.SafeDestroy(this.mTemplateGo);
             UtilTool.SafeDestroy(this.mRootGo);
         }
 
