@@ -19,8 +19,9 @@
 			* UI + Mask切换 + Gray切换
 		
 		* Normal Effect
-			* Texture + RotateUV + Color + 上下翻转UV + 左右翻转UV + Overlay(Additive, Multiply, AlphaBlend)
-			* Texture + RotateUV1 + Color1 + RotateUV2 + Color2 + 上下翻转UV + 左右翻转UV  + Overlay(Additive, Multiply, AlphaBlend)
+			* Texture + RotateUV + Color + 上下翻转UV + 左右翻转UV
+			* 2 Texture + RotateUV1 + Color1 + RotateUV2 + Color2 + 上下翻转UV + 左右翻转UV  + Overlay(Additive, Multiply, AlphaBlend)
+			* 3 Texture + RotateUV1 + Color1 + RotateUV2 + Color2 + RotateUV3 + 上下翻转UV + 左右翻转UV  + Overlay(Additive, Multiply, AlphaBlend)
 			
 		* Post Effect
 			* Bloom
