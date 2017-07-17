@@ -88,12 +88,16 @@
     <Compile Include="Knight\GameFlow\World.cs" />
     <Compile Include="Knight\GameMode\GameMode_CreatePlayer.cs" />
     <Compile Include="Knight\GameMode\GameMode_World.cs" />
+    <Compile Include="Knight\GamePlay\Component\AssetComponent.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponent.ActorSkill.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentConfig.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentParser.cs" />
     <Compile Include="Test\BaseFunction\Class4.cs" />
     <Compile Include="Test\BaseFunction\Class5.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixAssists.cs" />
+    <Compile Include="WindHotfix\GamePlay\Component.cs" />
+    <Compile Include="WindHotfix\GamePlay\Entity.cs" />
+    <Compile Include="WindHotfix\GamePlay\SubSystem.cs" />
     <Compile Include="WindHotfix\GameStage\GameMode.cs" />
     <Compile Include="WindHotfix\GameStage\GameStage.cs" />
     <Compile Include="WindHotfix\GameStage\GameStageManager.cs" />
@@ -132,7 +136,9 @@
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolItem.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolObject.Binary.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Knight\GamePlay\System\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
