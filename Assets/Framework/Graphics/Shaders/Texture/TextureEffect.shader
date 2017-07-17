@@ -6,13 +6,15 @@
 		_Color("MianColor", COLOR) = (1,1,1,1)
 		_Speed("Speed", float)	   = 0.5
 
-		[Toggle]_FlipUpDown("FlipUpDown",float)		  = 0
-		[Toggle]_FilpLeftRight("FlipLeftRight",float) = 0
+		[Toggle] FLIP_UPDOWN("FLIP_UPDOWN",float)	   = 0
+		[Toggle] FLIP_LEFTRIGHT("FlipLeftRight",float) = 0
 	}
 
 	SubShader
 	{
 		Tags{"RenderType"="Opaque"}
+		Cull Off
+
 		Pass
 		{
 			CGPROGRAM
@@ -20,8 +22,8 @@
 			#pragma vertex   vert
 			#pragma fragment frag
 
-			#pragma multi_compile _FlipUpDown_OFF	 _FlipUpDwon_ON 
-			#pragma multi_compile _FilpLeftRight_OFF _FilpLeftRight_ON 
+			#pragma multi_compile FLIP_UPDOWN_OFF	 FLIP_UPDOWN_ON 
+			#pragma multi_compile FLIP_LEFTRIGHT_OFF FLIP_LEFTRIGHT_ON 
 			
 			#include "UnityCG.cginc"
 
@@ -55,10 +57,10 @@
 			{
 				float uvX=v.uv.x+_Time*_Speed;
 				float uvY=v.uv.y;
-				#ifdef _FlipUpDwon_ON
+				#ifdef FLIP_UPDOWN_ON
 					uvY=v.uv.y>0.5?v.uv.y-0.5:v.uv.y+0.5;
 				#endif
-				#ifdef Flip_Left_Right
+				#ifdef FLIP_LEFTRIGHT_ON
 					uvX=uvX>0.5?uvX-0.5:uvX+0.5;
 				#endif
 				fixed2 uv=fixed2(uvX,uvY);
@@ -68,5 +70,4 @@
 			ENDCG
 		}
 	}
-	FallBack "Diffuse"
 }
