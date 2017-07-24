@@ -280,5 +280,20 @@ namespace Core
             if (!Directory.Exists(rDir)) Directory.CreateDirectory(rDir);
             File.WriteAllBytes(rPath, rBytes);
         }
+
+        public static string GetTransformPath(Transform rTrans)
+        {
+            string rPath = "";
+            GetTransformPath(rTrans, ref rPath);
+            return rPath;
+        }
+
+        public static void GetTransformPath(Transform rTrans, ref string rPath)
+        {
+            if (rTrans == null || rTrans.parent == null) return;
+
+            rPath = rTrans.name + (string.IsNullOrEmpty(rPath) ? rPath : "/" + rPath);
+            GetTransformPath(rTrans.parent, ref rPath);
+        }
     }
 }
