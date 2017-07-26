@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: TextureEffet
-  m_Shader: {fileID: 4800000, guid: 4383badf0c553224590f72e3b319a97f, type: 3}
-  m_ShaderKeywords: ADDITIVI_COLOR_OFF_ON FILPLEFTRIGHT_ON FLIPUPDOWN_ON _FILPLEFTRIGHT_ON
+  m_Name: ThirdTexturEffect
+  m_Shader: {fileID: 4800000, guid: adee9c101baf18346a5986e6d9ad6ca6, type: 3}
+  m_ShaderKeywords: THIRD_FLIP_LEFTRIGHT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -39,11 +39,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FirstTex:
-        m_Texture: {fileID: 2800000, guid: ce3f9554414c9c34db5662cad64ab0ea, type: 3}
+        m_Texture: {fileID: 2800000, guid: 80c40895dc6a0e44983c4518aa5a0790, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 5eeeb159c6d03624b8ae9428d4d21e58, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -59,25 +59,28 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SecondTex:
-        m_Texture: {fileID: 2800000, guid: 80c40895dc6a0e44983c4518aa5a0790, type: 3}
+        m_Texture: {fileID: 2800000, guid: ce3f9554414c9c34db5662cad64ab0ea, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ThirdTex:
+        m_Texture: {fileID: 2800000, guid: f84f3c270d2c4894eaa4339e708f9dbc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - ADDITIVI_COLOR_OFF: 1
+    - ADDITIVI_COLOR: 0
     - FLIP_LEFTRIGHT: 0
     - FLIP_UPDOWN: 0
-    - FilpLeftRight: 1
-    - FlipUpDown: 1
-    - _Angel: 30
+    - SECOND_FLIP_LEFTRIGHT: 0
+    - SECOND_FLIP_UPDOWN: 0
+    - Third_FLIP_LEFTRIGHT: 1
+    - Third_FLIP_UPDOWN: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DesBlend: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FilpLeftRight: 1
     - _FirstAngel: 30
     - _FirstSpeed: 0.5
-    - _FlipUpDown: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -85,18 +88,18 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _SecondAngel: 30
-    - _SecondSpeed: 1
-    - _SecondTex: 30
+    - _SecondAngel: 60
+    - _SecondSpeed: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 1
     - _SrcBlend: 1
+    - _ThirdAngel: 30
+    - _ThirdSpeed: 0.5
     - _UVSec: 0
     - _ZWrite: 1
-    - __FirstSpeed: 1.92
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FirstColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SecondColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FirstColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SecondColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ThirdColor: {r: 1, g: 1, b: 1, a: 1}
