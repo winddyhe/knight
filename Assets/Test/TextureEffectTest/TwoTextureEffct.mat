@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: TwoTextureEffct
   m_Shader: {fileID: 4800000, guid: 0f490bd980a188f45b86372ea108906a, type: 3}
-  m_ShaderKeywords: ADDITIVI_COLOR_ON
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -63,7 +63,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - ADDITIVI_COLOR: 1
+    - ADDITIVI_COLOR: 0
     - ADDITIVI_COLOR_OFF: 0
     - FLIP_LEFTRIGHT: 0
     - FLIP_UPDOWN: 0
@@ -71,7 +71,7 @@ Material:
     - SECOND_FLIP_UPDOWN: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DesBlend: 0
+    - _DesBlend: 10
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FirstAngel: 30
@@ -93,5 +93,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FirstColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FirstColor: {r: 0.44117647, g: 0.3925173, b: 0.3925173, a: 1}
     - _SecondColor: {r: 1, g: 1, b: 1, a: 1}

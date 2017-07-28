@@ -2,49 +2,51 @@
 
 #include"UnityCG.cginc"
 
-sampler2D _FirstTex;
-sampler2D _SecondTex;
-sampler2D _ThirdTex;
-uniform half4 _FirstColor;
-uniform half4 _SecondColor;
-uniform half4 _ThirdColor;
-uniform float4 _FirstTex_ST;
-uniform float4 _SecondTex_ST;
-uniform float4 _ThirdTex_ST;
-uniform float _FirstSpeed;
-uniform float _FirstAngel;
-uniform float _SecondSpeed;
-uniform float _SecondAngel;
-uniform float _ThirdSpeed;
-uniform float _ThirdAngel;
-uniform fixed4 _Color;
+sampler2D		_FirstTex;
+sampler2D		_SecondTex;
+sampler2D		_ThirdTex;
+uniform half4	_FirstColor;
+uniform half4	_SecondColor;
+uniform half4	_ThirdColor;
+uniform float4	_FirstTex_ST;
+uniform float4	_SecondTex_ST;
+uniform float4	_ThirdTex_ST;
+uniform float	_FirstSpeed;
+uniform float	_FirstAngel;
+uniform float	_SecondSpeed;
+uniform float	_SecondAngel;
+uniform float	_ThirdSpeed;
+uniform float	_ThirdAngel;
+uniform fixed4	_Color;
 
 struct Input
 {
-	float4 vert:POSITION;
-	half4 uv1:TEXCOORD0;
+	float4 vert	:POSITION;
+	half4 uv1	:TEXCOORD0;
 };
 struct v2f
 {
-	float4 vert:POSITION;
-	half2 uv1:TEXCOORD0;
-	half2 uv2:TEXCOORD1;
-	half2 uv3:TEXCOORD2;
+	float4 vert	:POSITION;
+	half2 uv1	:TEXCOORD0;
+	half2 uv2	:TEXCOORD1;
+	half2 uv3	:TEXCOORD2;
 };
 half2 TexMulRotate(float angel,float speed,half2 uv)
 {
-	float totalAngel=angel*speed;
-	fixed2x2 rotateMatrix=fixed2x2(cos(totalAngel),-sin(totalAngel),sin(totalAngel),cos(totalAngel));
-	half2 texUV=mul(uv-fixed2(0.5,0.5),rotateMatrix)+fixed2(0.5,0.5); 
+	float totalAngel		=angel*speed;
+	fixed2x2 rotateMatrix	=fixed2x2(cos(totalAngel),-sin(totalAngel),sin(totalAngel),cos(totalAngel));
+	half2 texUV				=mul(uv-fixed2(0.5,0.5),rotateMatrix)+fixed2(0.5,0.5); 
+
 	return texUV;
 }
 v2f SetFirstTexUV(Input IN)
 {
 	v2f o;
-	o.vert=UnityObjectToClipPos(IN.vert);
-	o.uv1=TRANSFORM_TEX(IN.uv1,_FirstTex);
-	o.uv2=TRANSFORM_TEX(IN.uv1,_SecondTex);
-	o.uv3=TRANSFORM_TEX(IN.uv1,_ThirdTex);
+	o.vert	=UnityObjectToClipPos(IN.vert);
+	o.uv1	=TRANSFORM_TEX(IN.uv1,_FirstTex);
+	o.uv2	=TRANSFORM_TEX(IN.uv1,_SecondTex);
+	o.uv3	=TRANSFORM_TEX(IN.uv1,_ThirdTex);
+
 	#ifdef FLIP_UPDOWN_OFF
 		o.uv1.y=o.uv1.y;
 	#else
@@ -112,7 +114,7 @@ fixed4 Firstfrag(v2f v):COLOR
 fixed4 Secondfrag(v2f v):COLOR
 {
 	#ifdef ADDITIVI_COLOR_OFF
-		return tex2D(_FirstTex,v.uv1)+_FirstColor+tex2D(_SecondTex,v.uv2)+_SecondColor;
+		return tex2D(_FirstTex,v.uv1)*_FirstColor+tex2D(_SecondTex,v.uv2)*_SecondColor;
 	#else
 		return tex2D(_FirstTex,v.uv1)*_FirstColor*tex2D(_SecondTex,v.uv2)*_SecondColor;
 	#endif
