@@ -17,10 +17,10 @@ namespace UnityEditor.AssetBundles
     {
         public enum BuildPlatform
         {
-            Windows = BuildTarget.StandaloneWindows,        //Windows
-            OSX     = BuildTarget.StandaloneOSXIntel,       //OSX
-            IOS     = BuildTarget.iOS,                      //IOS
-            Android = BuildTarget.Android,                  //Android
+            Windows     = BuildTarget.StandaloneWindows,        //Windows
+            OSX         = BuildTarget.StandaloneOSXIntel,       //OSX
+            IOS         = BuildTarget.iOS,                      //IOS
+            Android     = BuildTarget.Android,                  //Android
         };
         
         /// <summary>
@@ -45,7 +45,7 @@ namespace UnityEditor.AssetBundles
     
         private ABBuilder()
         {
-            CurBuildPlatform = (BuildPlatform)EditorUserBuildSettings.activeBuildTarget;
+            CurBuildPlatform = GetCurrentBuildPlatform();
         }
     
         /// <summary>
@@ -146,6 +146,17 @@ namespace UnityEditor.AssetBundles
                 rABEntryProcessors.Add(rProcessor);
             }
             AssetDatabase.RemoveUnusedAssetBundleNames();
+        }
+        
+        public static BuildPlatform GetCurrentBuildPlatform()
+        {
+            var rCurBuildPlatform = (BuildPlatform)EditorUserBuildSettings.activeBuildTarget;
+            // 修复64位windows带来的资源打包的错误
+            if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneWindows64)
+            {
+                rCurBuildPlatform = (BuildPlatform)BuildTarget.StandaloneWindows;
+            }
+            return rCurBuildPlatform;
         }
     }
 }
