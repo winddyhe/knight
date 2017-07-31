@@ -2,12 +2,13 @@
 {
 	Properties
 	{
-		_FirstTex("第一张贴图", 2D)	   = "white"{}
-		_Color("MianColor", COLOR) = (1,1,1,1)
-		_FirstSpeed("旋转速度",float)=0.5
-		_FirstAngel("第一张图旋转角度",Range(0,360))=30
-		[Toggle] FLIP_UPDOWN("上下翻转",float)	   = 0
-		[Toggle] FLIP_LEFTRIGHT("左右翻转",float) = 0
+		_FirstTex("第一张贴图", 2D)					= "white"{}
+		_Color("MianColor", COLOR)					= (1,1,1,1)
+		_FirstSpeed("旋转速度",float)				=0.5
+		_FirstAngel("第一张图旋转角度",Range(0,360))	=30
+
+		[Toggle] FLIP_UPDOWN("上下翻转",float)		= 0
+		[Toggle] FLIP_LEFTRIGHT("左右翻转",float)	= 0
 	}
 
 	SubShader
