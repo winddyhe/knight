@@ -138,7 +138,8 @@ namespace Framework.Graphics
         }
 
         void ISerializationCallbackReceiver.OnBeforeSerialize()
-        { }
+        { 
+        }
 
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
