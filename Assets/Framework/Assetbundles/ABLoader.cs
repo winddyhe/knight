@@ -132,19 +132,7 @@ namespace UnityEngine.AssetBundles
     
             //引用计数加1
             rAssetLoadEntry.RefCount++;
-    
-            // 如果该资源加载完成了
-            if (!rAssetLoadEntry.IsLoading && rAssetLoadEntry.IsLoadCompleted)
-            {
-                if (!string.IsNullOrEmpty(rRequest.AssetName))
-                {
-                    AssetBundleRequest rABRequest = rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
-                    yield return rABRequest;
-                    rRequest.Asset = rABRequest.asset;
-                }
-                yield break;
-            }
-    
+            
             // 开始加载资源依赖项
             if (rAssetLoadEntry.ABDependNames != null && !rRequest.IsSimulate)
             {
@@ -156,6 +144,18 @@ namespace UnityEngine.AssetBundles
                     LoaderRequest rDependAssetRequest = new LoaderRequest(rDependABName, "", false, rRequest.IsSimulate);
                     yield return rDependAssetRequest.Start(LoadAsset_Async(rDependAssetRequest));
                 }
+            }
+
+            // 如果该资源加载完成了
+            if (!rAssetLoadEntry.IsLoading && rAssetLoadEntry.IsLoadCompleted)
+            {
+                if (!string.IsNullOrEmpty(rRequest.AssetName))
+                {
+                    AssetBundleRequest rABRequest = rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
+                    yield return rABRequest;
+                    rRequest.Asset = rABRequest.asset;
+                }
+                yield break;
             }
     
             //开始加载当前的资源包

@@ -8,6 +8,7 @@ using Framework.Editor;
 using UnityEditor;
 using UnityEditor.AssetBundles;
 using System.Reflection;
+using System.IO;
 
 namespace Game.Knight.Editor
 {
@@ -17,7 +18,9 @@ namespace Game.Knight.Editor
 
         public override void PreprocessAssets()
         {
-            Assembly rHotfixAssembly = Assembly.LoadFile(this.HotfixDllPath);
+            byte[] rBytes = File.ReadAllBytes(this.HotfixDllPath);
+            Assembly rHotfixAssembly = Assembly.Load(rBytes);
+
             var rGameConfigType = rHotfixAssembly.GetType("Game.Knight.GameConfig");
             rGameConfigType.InvokeMember("Load_Local", BindingFlags.Static | BindingFlags.Public | BindingFlags.InvokeMethod, null, null, new object[] { this.Entry.abOriginalResPath });
             rHotfixAssembly = null;
@@ -32,7 +35,9 @@ namespace Game.Knight.Editor
 
         public override void PreprocessAssets()
         {
-            Assembly rHotfixAssembly = Assembly.LoadFile(this.HotfixDllPath);
+            byte[] rBytes = File.ReadAllBytes(this.HotfixDllPath);
+            Assembly rHotfixAssembly = Assembly.Load(rBytes);
+
             var rGameConfigType = rHotfixAssembly.GetType("Game.Knight.GPCSkillConfig");
             rGameConfigType.InvokeMember("Load_Local", BindingFlags.Static | BindingFlags.Public | BindingFlags.InvokeMethod, null, null, new object[] { this.Entry.abOriginalResPath });
             rHotfixAssembly = null;
