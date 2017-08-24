@@ -27,10 +27,10 @@ namespace UnityEngine.AssetBundles
 
             public LoaderRequest(string rPath, string rAssetName, bool bIsScene, bool bIsSimulate)
             {
-                this.Path       = rPath;
-                this.AssetName  = rAssetName;
-                this.IsScene    = bIsScene;
-                this.IsSimulate = bIsSimulate;
+                this.Path                   = rPath;
+                this.AssetName              = rAssetName;
+                this.IsScene                = bIsScene;
+                this.IsSimulate             = bIsSimulate;
             }
         }
 
@@ -99,7 +99,7 @@ namespace UnityEngine.AssetBundles
     
             // 引用计数减1
             rAssetLoadEntry.RefCount--;
-    
+            
             //确定该Info的引用计数是否为0，如果为0则删除它
             if (rAssetLoadEntry.RefCount == 0)
             {
@@ -124,7 +124,7 @@ namespace UnityEngine.AssetBundles
                 yield break;
             }
             
-            // 确认该资源是否已经加载完成或者正在被加载
+            // 确认未加载完成并且正在被加载、一直等待其加载完成
             while (rAssetLoadEntry.IsLoading && !rAssetLoadEntry.IsLoadCompleted)
             {
                 yield return 0;
@@ -132,19 +132,50 @@ namespace UnityEngine.AssetBundles
     
             //引用计数加1
             rAssetLoadEntry.RefCount++;
-    
+            string rAssetLoadUrl = rAssetLoadEntry.ABPath;
+
             // 如果该资源加载完成了
             if (!rAssetLoadEntry.IsLoading && rAssetLoadEntry.IsLoadCompleted)
             {
-                if (!string.IsNullOrEmpty(rRequest.AssetName))
+                if (rRequest.IsSimulate)
                 {
-                    AssetBundleRequest rABRequest = rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
-                    yield return rABRequest;
-                    rRequest.Asset = rABRequest.asset;
+                    Debug.Log("---Simulate Load ab: " + rAssetLoadUrl);
+#if UNITY_EDITOR
+                    if (!string.IsNullOrEmpty(rRequest.AssetName) && !rRequest.IsScene)
+                    {
+                        string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
+                        if (rAssetPaths.Length == 0)
+                        {
+                            Debug.LogError("There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                            yield break;
+                        }
+                        Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
+                        rRequest.Asset = rTargetAsset;
+                    }
+#endif
+                }
+                else
+                {
+                    Debug.Log("---Load asset: " + rAssetLoadUrl);
+
+                    // 加载Object
+                    if (!string.IsNullOrEmpty(rRequest.AssetName))
+                    {
+                        if (!rRequest.IsScene)
+                        {
+                            AssetBundleRequest rABRequest = rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
+                            yield return rABRequest;
+                            rRequest.Asset = rABRequest.asset;
+                        }
+                        else
+                        {
+                            rAssetLoadEntry.CacheAsset.GetAllScenePaths();
+                        }
+                    }
                 }
                 yield break;
             }
-    
+            
             // 开始加载资源依赖项
             if (rAssetLoadEntry.ABDependNames != null && !rRequest.IsSimulate)
             {
@@ -157,12 +188,10 @@ namespace UnityEngine.AssetBundles
                     yield return rDependAssetRequest.Start(LoadAsset_Async(rDependAssetRequest));
                 }
             }
-    
+
             //开始加载当前的资源包
             rAssetLoadEntry.IsLoading = true;
             rAssetLoadEntry.IsLoadCompleted = false;
-
-            string rAssetLoadUrl = rAssetLoadEntry.ABPath;
 
             if (rRequest.IsSimulate)
             {
