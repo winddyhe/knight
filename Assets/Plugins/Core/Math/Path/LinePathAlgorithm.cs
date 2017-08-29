@@ -68,48 +68,6 @@ namespace Core.Math
                 float rVDist = this.VerticalPlane.GetDistanceToPoint(rPoint);
                 return rPoint - rVDist * this.OBB.ZAxis;
             }
-
-            public void DrawGizmos()
-            {
-                Gizmos.color = Color.blue;
-
-                Gizmos.DrawLine(this.OBB.Center + this.OBB.XAxis * this.OBB.Extends.x + this.OBB.YAxis * this.OBB.Extends.y + this.OBB.ZAxis * this.OBB.Extends.z,
-                                this.OBB.Center - this.OBB.XAxis * this.OBB.Extends.x + this.OBB.YAxis * this.OBB.Extends.y + this.OBB.ZAxis * this.OBB.Extends.z);
-
-                Gizmos.DrawLine(this.OBB.Center + this.OBB.XAxis * this.OBB.Extends.x + this.OBB.YAxis * this.OBB.Extends.y + this.OBB.ZAxis * this.OBB.Extends.z,
-                                this.OBB.Center + this.OBB.XAxis * this.OBB.Extends.x - this.OBB.YAxis * this.OBB.Extends.y + this.OBB.ZAxis * this.OBB.Extends.z);
-
-                Gizmos.DrawLine(this.OBB.Center + this.OBB.XAxis * this.OBB.Extends.x + this.OBB.YAxis * this.OBB.Extends.y + this.OBB.ZAxis * this.OBB.Extends.z,
-                                this.OBB.Center + this.OBB.XAxis * this.OBB.Extends.x + this.OBB.YAxis * this.OBB.Extends.y - this.OBB.ZAxis * this.OBB.Extends.z);
-
-                Gizmos.DrawLine(this.OBB.Center + this.OBB.XAxis * this.OBB.Extends.x + this.OBB.YAxis * this.OBB.Extends.y + this.OBB.ZAxis * this.OBB.Extends.z,
-                                this.OBB.Center - this.OBB.XAxis * this.OBB.Extends.x - this.OBB.YAxis * this.OBB.Extends.y + this.OBB.ZAxis * this.OBB.Extends.z);
-
-                Gizmos.DrawLine(this.OBB.Center + this.OBB.XAxis * this.OBB.Extends.x + this.OBB.YAxis * this.OBB.Extends.y + this.OBB.ZAxis * this.OBB.Extends.z,
-                                this.OBB.Center - this.OBB.XAxis * this.OBB.Extends.x + this.OBB.YAxis * this.OBB.Extends.y - this.OBB.ZAxis * this.OBB.Extends.z);
-
-                Gizmos.DrawLine(this.OBB.Center + this.OBB.XAxis * this.OBB.Extends.x + this.OBB.YAxis * this.OBB.Extends.y + this.OBB.ZAxis * this.OBB.Extends.z,
-                                this.OBB.Center + this.OBB.XAxis * this.OBB.Extends.x - this.OBB.YAxis * this.OBB.Extends.y - this.OBB.ZAxis * this.OBB.Extends.z);
-
-                Gizmos.DrawLine(this.OBB.Center - this.OBB.XAxis * this.OBB.Extends.x - this.OBB.YAxis * this.OBB.Extends.y - this.OBB.ZAxis * this.OBB.Extends.z,
-                                this.OBB.Center - this.OBB.XAxis * this.OBB.Extends.x + this.OBB.YAxis * this.OBB.Extends.y + this.OBB.ZAxis * this.OBB.Extends.z);
-
-                Gizmos.DrawLine(this.OBB.Center - this.OBB.XAxis * this.OBB.Extends.x - this.OBB.YAxis * this.OBB.Extends.y - this.OBB.ZAxis * this.OBB.Extends.z,
-                                this.OBB.Center + this.OBB.XAxis * this.OBB.Extends.x - this.OBB.YAxis * this.OBB.Extends.y + this.OBB.ZAxis * this.OBB.Extends.z);
-
-                Gizmos.DrawLine(this.OBB.Center - this.OBB.XAxis * this.OBB.Extends.x - this.OBB.YAxis * this.OBB.Extends.y - this.OBB.ZAxis * this.OBB.Extends.z,
-                                this.OBB.Center + this.OBB.XAxis * this.OBB.Extends.x + this.OBB.YAxis * this.OBB.Extends.y - this.OBB.ZAxis * this.OBB.Extends.z);
-
-                Gizmos.DrawLine(this.OBB.Center - this.OBB.XAxis * this.OBB.Extends.x - this.OBB.YAxis * this.OBB.Extends.y - this.OBB.ZAxis * this.OBB.Extends.z,
-                                this.OBB.Center - this.OBB.XAxis * this.OBB.Extends.x - this.OBB.YAxis * this.OBB.Extends.y + this.OBB.ZAxis * this.OBB.Extends.z);
-
-                Gizmos.DrawLine(this.OBB.Center - this.OBB.XAxis * this.OBB.Extends.x - this.OBB.YAxis * this.OBB.Extends.y - this.OBB.ZAxis * this.OBB.Extends.z,
-                                this.OBB.Center - this.OBB.XAxis * this.OBB.Extends.x + this.OBB.YAxis * this.OBB.Extends.y - this.OBB.ZAxis * this.OBB.Extends.z);
-
-                Gizmos.DrawLine(this.OBB.Center - this.OBB.XAxis * this.OBB.Extends.x - this.OBB.YAxis * this.OBB.Extends.y - this.OBB.ZAxis * this.OBB.Extends.z,
-                                this.OBB.Center + this.OBB.XAxis * this.OBB.Extends.x - this.OBB.YAxis * this.OBB.Extends.y - this.OBB.ZAxis * this.OBB.Extends.z);
-
-            }
         }
         
         public List<LineBox>        LineBoxes;

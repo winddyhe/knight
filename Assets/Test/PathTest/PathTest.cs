@@ -31,19 +31,11 @@ namespace Test
                 Gizmos.DrawLine(this.GameObjects[i].transform.position, this.GameObjects[i + 1].transform.position);
             }
 
-            //if (this.Lines != null)
-            //{
-            //    for (int i = 0; i < this.Lines.Count; i++)
-            //    {
-            //        this.DrawLine(this.Lines[i]);
-            //    }
-            //}
-
-            if (this.LinePathAlgo != null)
+            if (this.Lines != null)
             {
-                for (int i = 0; i < this.LinePathAlgo.LineBoxes.Count; i++)
+                for (int i = 0; i < this.Lines.Count; i++)
                 {
-                    this.LinePathAlgo.LineBoxes[i].DrawGizmos();
+                    this.DrawLine(this.Lines[i]);
                 }
             }
         }
