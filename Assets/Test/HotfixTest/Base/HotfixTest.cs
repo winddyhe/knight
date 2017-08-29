@@ -5,6 +5,7 @@ using Game.Knight;
 using Framework.WindUI;
 using Framework.Hotfix;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Test
 {
@@ -12,11 +13,11 @@ namespace Test
     {
         public Canvas Canvas;
 
-        IEnumerator Start()
+        void Start()
         {
             CoroutineManager.Instance.Initialize();
-            yield return HotfixApp.Instance.Load("game/knight.ab", "KnightHotfixModule");
-
+            
+            LoadHotfixDLL();
             string rPrefabPath = "Assets/Test/HotfixTest/Base/HotfixTest4.prefab";
 
             GameObject rTestPrefab = null;
@@ -29,6 +30,22 @@ namespace Test
             //HotfixObject rHotfixObj = HotfixApp.Instance.Instantiate("WindHotfix.Test.Class3");
             //rHotfixObj.Invoke("Test");
             //rHotfixObj.InvokeParent("WindHotfix.Test1.TClass3`1", "Test");
+        }
+
+        private void LoadHotfixDLL()
+        {
+            string rDLLPath = "Assets/Game/Knight/GameAsset/Hotfix/Libs/KnightHotfixModule.bytes";
+            string rPDBPath = "Assets/Game/Knight/GameAsset/Hotfix/Libs/KnightHotfixModule_PDB.bytes";
+
+            MemoryStream rDllMS = new MemoryStream(File.ReadAllBytes(rDLLPath));
+            MemoryStream rPDBMS = new MemoryStream(File.ReadAllBytes(rPDBPath));
+
+            HotfixApp.Instance.Initialize(rDllMS, rPDBMS);
+
+            rDllMS.Close();
+            rPDBMS.Close();
+            rDllMS.Dispose();
+            rPDBMS.Dispose();
         }
     }
 }
