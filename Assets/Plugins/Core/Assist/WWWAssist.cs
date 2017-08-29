@@ -64,7 +64,7 @@ namespace Core
             rRequest.Text = www.text;
             rRequest.Bytes = www.bytes;
 
-            WWWAssist.Dispose(ref www);
+            WWWAssist.Destroy(ref www);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace UnityEngine.AssetBundles
 {    
     /// <summary>
     /// 加载资源的管理类，用作资源的加载管理
+    /// 采用缓存Assetbundle对象的策略，半自动的引用计数
     /// </summary>
     public class ABLoader : MonoBehaviour
     {
