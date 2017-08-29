@@ -96,6 +96,7 @@
     <Compile Include="Knight\GamePlay\ECS\GameWorld.CreatePlayer.cs" />
     <Compile Include="Knight\GamePlay\ECS\GameWorld.World.cs" />
     <Compile Include="Knight\GamePlay\ECS\System\AvatarLoadSystem.cs" />
+    <Compile Include="Knight\Game\GameMainLogic.cs" />
     <Compile Include="Test\BaseFunction\Class4.cs" />
     <Compile Include="Test\BaseFunction\Class5.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixAssists.cs" />

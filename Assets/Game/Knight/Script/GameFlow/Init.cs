@@ -49,8 +49,8 @@ namespace Game.Knight
             // 加载热更新代码资源
             yield return HotfixApp.Instance.Load(this.HotfixABPath, this.HotfixModule);
 
-            // 加载Hotfix端的代码
-            yield return HotfixApp.Instance.InvokeStatic(this.HotfixScript, "Start_Async") as IEnumerator;
+            // 开始热更新端的游戏主逻辑
+            yield return HotfixGameMainLogic.Instance.Initialize();
 
             Debug.Log("End init..");
         }

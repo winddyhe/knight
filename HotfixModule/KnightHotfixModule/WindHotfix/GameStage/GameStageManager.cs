@@ -14,11 +14,8 @@ namespace WindHotfix.GameStage
     /// <summary>
     /// 游戏的关卡管理，管理一个游戏关卡的加载，卸载，关卡中的内容承载等功能。
     /// </summary>
-    public class GameStageManager : THotfixMB<GameStageManager>
+    public class GameStageManager : THotfixSingleton<GameStageManager>
     {
-        private static GameStageManager     __instance;
-        public  static GameStageManager     Instance    { get { return __instance; } }
-
         /// <summary>
         /// 关卡中的阶段, 相同Index的GameStage谁先谁后都没有关系。
         /// </summary>
@@ -29,12 +26,8 @@ namespace WindHotfix.GameStage
         /// </summary>
         public GameMode                     gameMode;
 
-        public override void Awake()
+        private GameStageManager()
         {
-            if (__instance == null)
-            {
-                __instance = this;
-            }
         }
 
         /// <summary>
