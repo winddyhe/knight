@@ -18,8 +18,7 @@ namespace Game.Knight
     {
         public string HotfixABPath = "";
         public string HotfixModule = "";
-        public string HotfixScript = string.Empty;
-
+        
         void Start()
         {
             //限帧
