@@ -3,6 +3,7 @@ using System.Collections;
 using Framework.WindUI;
 using Core;
 using Framework.Hotfix;
+using System.IO;
 
 namespace Test
 {
@@ -12,11 +13,30 @@ namespace Test
         {
             CoroutineManager.Instance.Initialize();
 
-            // 加载热更新代码资源
-            yield return HotfixApp.Instance.Load("game/knight.ab", "KnightHotfixModule");
+            // 加载热更新DLL
+            this.LoadHotfixDLL();
 
             // 加载界面
-            yield return UIManager.Instance.OpenAsync("HotfixLogin", View.State.dispatch);
+            var rRequest = Resources.LoadAsync("HotfixLogin");
+            yield return rRequest;
+
+            UIManager.Instance.OpenView("HotfixLogin", rRequest.asset as GameObject, View.State.dispatch, null);
+        }
+
+        private void LoadHotfixDLL()
+        {
+            string rDLLPath = "Assets/Game/Knight/GameAsset/Hotfix/Libs/KnightHotfixModule.bytes";
+            string rPDBPath = "Assets/Game/Knight/GameAsset/Hotfix/Libs/KnightHotfixModule_PDB.bytes";
+
+            MemoryStream rDllMS = new MemoryStream(File.ReadAllBytes(rDLLPath));
+            MemoryStream rPDBMS = new MemoryStream(File.ReadAllBytes(rPDBPath));
+
+            HotfixApp.Instance.Initialize(rDllMS, rPDBMS);
+
+            rDllMS.Close();
+            rPDBMS.Close();
+            rDllMS.Dispose();
+            rPDBMS.Dispose();
         }
     }
 }
