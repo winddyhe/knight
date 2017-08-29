@@ -141,6 +141,10 @@
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolElement.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolItem.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolObject.Binary.cs" />
+    <Compile Include="WindHotfix\GUI\TUIViewController.cs" />
+    <Compile Include="WindHotfix\GUI\UIView.cs" />
+    <Compile Include="WindHotfix\GUI\UIViewController.cs" />
+    <Compile Include="WindHotfix\GUI\UIViewManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
