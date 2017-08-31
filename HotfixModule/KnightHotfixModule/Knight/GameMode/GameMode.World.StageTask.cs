@@ -14,11 +14,10 @@ using WindHotfix.Core;
 
 namespace Game.Knight
 {
-    public class GameMode_World : GameMode
+    public partial class GameMode_World
     {
-        #region StageTask
         /// <summary>
-        /// 加载角色资源的StageTask
+        /// 加载场景资源的StageTask
         /// </summary>
         public class StageTask_LoadAssets : StageTask
         {
@@ -49,6 +48,9 @@ namespace Game.Knight
             }
         }
 
+        /// <summary>
+        /// 加载角色的StageTask
+        /// </summary>
         public class StageTask_CreatePlayer : StageTask
         {
             public GameMode_World GameMode;
@@ -132,46 +134,5 @@ namespace Game.Knight
                 yield break;
             }
         }
-        #endregion
-
-        #region GameMode
-
-        protected override void OnBuildStages()
-        {
-            // 构建GameStages
-            this.gsm.gameStages = new Dict<int, GameStage>();
-
-            this.Initialize();
-
-            // 加载资源的GameStage
-            GameStage rStageLoadAssets = new GameStage();
-            rStageLoadAssets.index = 0;
-            rStageLoadAssets.taskList = new List<StageTask>();
-            rStageLoadAssets.taskList.Add(new StageTask_LoadAssets(this));
-            rStageLoadAssets.taskList.Add(new StageTask_CreatePlayer(this));
-            this.gsm.gameStages.Add(rStageLoadAssets.index, rStageLoadAssets);
-
-            // 初始化游戏数据
-            GameStage rStageInitData = new GameStage();
-            rStageInitData.index = 1;
-            rStageInitData.taskList = new List<StageTask>();
-            rStageInitData.taskList.Add(new StageTask_InitData(this));
-            this.gsm.gameStages.Add(rStageInitData.index, rStageInitData);
-        }
-
-        protected void Initialize()
-        {
-            this.PlayerList = new List<Actor>();
-        }
-
-        #endregion
-
-        #region GameMode_CreatePlayer
-
-        public StageConfig  StageConfig;
-        public Actor        MainPlayer;
-        public List<Actor>  PlayerList;
-
-        #endregion
     }
 }
