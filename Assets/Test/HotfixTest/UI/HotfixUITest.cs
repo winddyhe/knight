@@ -4,6 +4,7 @@ using Framework.WindUI;
 using Core;
 using Framework.Hotfix;
 using System.IO;
+using UnityEngine.EventSystems;
 
 namespace Test
 {
@@ -14,13 +15,14 @@ namespace Test
             CoroutineManager.Instance.Initialize();
 
             // 加载热更新DLL
-            this.LoadHotfixDLL();
+            //this.LoadHotfixDLL();
 
-            // 加载界面
-            var rRequest = Resources.LoadAsync("HotfixLogin");
-            yield return rRequest;
+            //// 加载界面
+            //var rRequest = Resources.LoadAsync("HotfixLogin");
+            //yield return rRequest;
+            //UIManager.Instance.OpenView("HotfixLogin", rRequest.asset as GameObject, View.State.dispatch, null);
 
-            UIManager.Instance.OpenView("HotfixLogin", rRequest.asset as GameObject, View.State.dispatch, null);
+            yield break;
         }
 
         private void LoadHotfixDLL()
