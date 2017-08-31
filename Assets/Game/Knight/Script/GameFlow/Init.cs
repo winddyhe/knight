@@ -8,6 +8,7 @@ using Framework;
 using Core;
 using Framework.Hotfix;
 using UnityEngine.AssetBundles;
+using Framework.WindUI;
 
 namespace Game.Knight
 {
@@ -24,6 +25,10 @@ namespace Game.Knight
             //限帧
             Application.targetFrameRate = 30;
 
+            // 初始化UI管理器
+            UIRoot.Instance.Initialize();
+
+            // 初始化加载进度条
             GameLoading.Instance.LoadingView = LoadingView_Knight.Instance;
             GameLoading.Instance.StartLoading(0.5f, "游戏初始化阶段，开始加载资源...");
 

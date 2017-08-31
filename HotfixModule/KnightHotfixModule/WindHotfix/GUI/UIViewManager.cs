@@ -34,7 +34,7 @@ namespace WindHotfix.GUI
 
         public void Initialize()
         {
-            this.RootCanvas = GameObject.Find("UIRoot/RootCanvas/__dynamicRoot");
+            this.RootCanvas = UIRoot.Instance.DynamicRoot;
             this.mCurViews = new Dict<string, UIView>();
             this.mCurFixedViews = new Dict<string, UIView>();
             this.mUnusedViews = new List<string>();

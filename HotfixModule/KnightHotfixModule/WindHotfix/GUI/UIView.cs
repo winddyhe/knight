@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Framework.WindUI;
 using UnityEngine;
+using WindHotfix.Core;
 
 namespace WindHotfix.GUI
 {
@@ -126,23 +127,16 @@ namespace WindHotfix.GUI
         /// </summary>
         protected virtual void InitializeViewController()
         {
-            //this.mViewController = HotfixApp.Instance.Instantiate<ViewController>(this.mHotfixName);
-            //if (this.mViewController == null)
-            //{
-            //    Debug.LogErrorFormat("Create View controller <color=red>{0}</color> failed..", this.mHotfixName);
-            //}
-            //else
-            //{
-            //    this.mViewController.SetHotfix(this.mHotfixName, this.GUID);
-            //    this.mViewController.Initialize(this.mObjects, this.ToBaseDataObjects(this.mBaseDatas));
-
-            //    var rMBContainers = this.gameObject.GetComponentsInChildren<HotfixMBContainer>(true);
-            //    for (int i = 0; i < rMBContainers.Length; i++)
-            //    {
-            //        if (rMBContainers[i] is View || rMBContainers[i].MBHotfixObject != null) continue;
-            //        rMBContainers[i].InitHotfixMB();
-            //    }
-            //}
+            this.mViewController = HotfixReflectAssists.Construct(Type.GetType(this.ViewMB.HotfixName)) as UIViewController;
+            if (this.mViewController == null)
+            {
+                Debug.LogErrorFormat("Create View controller <color=red>{0}</color> failed..", this.ViewMB.HotfixName);
+            }
+            else
+            {
+                this.mViewController.SetHotfix(this.ViewMB.HotfixName, this.GUID);
+                this.mViewController.Initialize(this.ViewMB.Objects, this.ViewMB.ToBaseDataObjects(this.ViewMB.BaseDatas));
+            }
         }
 
         /// <summary>

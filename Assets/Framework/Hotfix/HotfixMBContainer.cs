@@ -22,13 +22,11 @@ namespace Framework.Hotfix
         protected List<BaseDataDisplayObject>   mBaseDatas;
         
         private HotfixMB                        mMBHotfixObj;
-        public  HotfixMB                        MBHotfixObject { get { return this.mMBHotfixObj; } }
+        public  HotfixMB                        MBHotfixObject  { get { return this.mMBHotfixObj; } }
 
-        public  string                          HotfixName
-        {
-            get { return mHotfixName;  }
-            set { mHotfixName = value; }
-        }
+        public  string                          HotfixName      { get { return mHotfixName;  } set { mHotfixName = value; } }
+        public List<UnityObject>                Objects         { get { return mObjects;    } }
+        public List<BaseDataDisplayObject>      BaseDatas       { get { return mBaseDatas;  } }
 
         protected virtual void Awake()
         {
@@ -84,7 +82,7 @@ namespace Framework.Hotfix
             mMBHotfixObj.OnUnityEvent(rTarget);
         }
 
-        protected List<BaseDataObject> ToBaseDataObjects(List<BaseDataDisplayObject> rBaseDatas)
+        public List<BaseDataObject> ToBaseDataObjects(List<BaseDataDisplayObject> rBaseDatas)
         {
             if (rBaseDatas == null) return new List<BaseDataObject>();
 
