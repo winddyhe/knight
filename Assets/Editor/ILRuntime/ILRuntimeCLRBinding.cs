@@ -43,7 +43,6 @@ public class ILRuntimeCLRBinding
         types.Add(typeof(JsonArray));
         types.Add(typeof(JsonClass));
         types.Add(typeof(JsonData));
-        types.Add(typeof(HotfixEventHandler));
 
         ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, "Assets/ILRuntime/Generated");
 
@@ -71,7 +70,6 @@ public class ILRuntimeCLRBinding
         domain.RegisterCrossBindingAdaptor(new IEqualityComparerAdaptor());
         domain.RegisterCrossBindingAdaptor(new IEnumerableAdaptor());
         domain.RegisterCrossBindingAdaptor(new HotfixMBAdaptor());
-        domain.RegisterCrossBindingAdaptor(new ViewControllerAdaptor());
     }
 }
 #endif

@@ -8,7 +8,7 @@ using WindHotfix.GUI;
 
 namespace KnightHotfixModule.Test.UI
 {
-    public class UILoginTest : THotfixViewController<UILoginTest>
+    public class UILoginTest : TUIViewController<UILoginTest>
     {
         private InputField mAccountInput;
         private InputField mPasswordInput;
@@ -20,7 +20,7 @@ namespace KnightHotfixModule.Test.UI
             mAccountInput = this.Objects[0].Object as InputField;
             mPasswordInput = this.Objects[1].Object as InputField;
             
-            this.AddEventListener(this.Objects[2].Object, OnButton_Clicked);
+            this.EventBinding(this.Objects[2].Object, UnityEngine.EventSystems.EventTriggerType.PointerClick, OnButton_Clicked);
         }
 
         public override void OnOpening()

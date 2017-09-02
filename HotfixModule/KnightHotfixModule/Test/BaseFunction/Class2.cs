@@ -14,12 +14,18 @@ namespace WindHotfix.Test
     {
         public override void Start()
         {
-            this.AddEventListener(this.Objects[0].Object, OnButton_Clicked);
-            this.AddEventListener(this.Objects[1].Object, OnButton1_Clicked);
+            HotfixEventManager.Instance.Binding(this.Objects[0].Object, UnityEngine.EventSystems.EventTriggerType.PointerClick, OnButton_Clicked);
+            HotfixEventManager.Instance.Binding(this.Objects[1].Object, UnityEngine.EventSystems.EventTriggerType.PointerClick, OnButton1_Clicked);
 
             Debug.LogError("1111");
             string rName = (string)this.GetData("Name");
             Debug.LogError(rName);
+        }
+
+        public override void OnDestroy()
+        {
+            HotfixEventManager.Instance.UnBinding(this.Objects[0].Object, UnityEngine.EventSystems.EventTriggerType.PointerClick, OnButton_Clicked);
+            HotfixEventManager.Instance.UnBinding(this.Objects[1].Object, UnityEngine.EventSystems.EventTriggerType.PointerClick, OnButton1_Clicked);
         }
 
         private void OnButton_Clicked(UnityEngine.Object rObj)

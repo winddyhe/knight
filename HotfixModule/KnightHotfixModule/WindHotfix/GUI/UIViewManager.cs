@@ -42,7 +42,10 @@ namespace WindHotfix.GUI
 
         public void Update()
         {
-
+            foreach (var rPair in mCurViews)
+            {
+                rPair.Value.Update();
+            }
         }
 
         /// <summary>
@@ -148,7 +151,7 @@ namespace WindHotfix.GUI
         public void OpenView(string rViewName, GameObject rViewPrefab, UIView.State rViewState, Action<UIView> rOpenCompleted)
         {
             if (rViewPrefab == null) return;
-
+            
             //把View的GameObject结点加到rootCanvas下
             GameObject rViewGo = this.RootCanvas.transform.AddChild(rViewPrefab, "UI");
 

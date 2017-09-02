@@ -7,24 +7,31 @@ using WindHotfix.GUI;
 
 namespace Game.Knight
 {
-    public class GamePadView : THotfixViewController<GamePadView>
+    public class GamePadView : TUIViewController<GamePadView>
     {
         public GamePadViewJoystick Joystick;
 
         public override void OnInitialize()
         {
-
+            this.Joystick = new GamePadViewJoystick(this.Objects[0].Object as HotfixMBContainer);
         }
 
         public override void OnOpening()
         {
-            this.Joystick = (this.Objects[0].Object as HotfixMBContainer).MBHotfixObject as GamePadViewJoystick;
             this.mIsOpened = true;
         }
 
         public override void OnClosing()
         {
             this.mIsClosed = true;
+        }
+
+        public override void OnUpdate()
+        {
+            if (this.Joystick != null)
+            {
+                this.Joystick.Update();
+            }
         }
     }
 }

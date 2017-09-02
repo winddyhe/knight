@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731213, g: 0.38074124, b: 0.35872686, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -350,8 +350,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 790448229}
-  - component: {fileID: 790448231}
   - component: {fileID: 790448230}
+  - component: {fileID: 790448231}
   m_Layer: 5
   m_Name: UIRoot
   m_TagString: Untagged
@@ -383,10 +383,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 790448228}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b30111276fa2edb4c878899e444018f6, type: 3}
+  m_Script: {fileID: 11500000, guid: f05f8a15726714944a86b60de7813ffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RootCanvas: {fileID: 1875234235}
 --- !u!114 &790448231
 MonoBehaviour:
   m_ObjectHideFlags: 0

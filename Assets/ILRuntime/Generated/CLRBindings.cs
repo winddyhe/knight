@@ -38,7 +38,6 @@ namespace ILRuntime.Runtime.Generated
             Core_WindJson_JsonArray_Binding.Register(app);
             Core_WindJson_JsonClass_Binding.Register(app);
             Core_WindJson_JsonData_Binding.Register(app);
-            Framework_Hotfix_HotfixEventHandler_Binding.Register(app);
         }
     }
 }

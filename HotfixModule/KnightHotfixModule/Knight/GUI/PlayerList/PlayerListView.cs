@@ -9,10 +9,11 @@ using UnityEngine.UI;
 using WindHotfix.GUI;
 using Framework.Hotfix;
 using Framework;
+using UnityEngine.EventSystems;
 
 namespace Game.Knight
 {
-    public class PlayerListView : THotfixViewController<PlayerListView>
+    public class PlayerListView : TUIViewController<PlayerListView>
     {
         public NetPlayerItem    NetPlayerItemTemplate;
         public GridLayoutGroup  PlayerListContainer;
@@ -21,6 +22,7 @@ namespace Game.Knight
         public Button           CreatePlayerBtn;
 
         public NetPlayerItem    SelectedPlayerItem;
+        public List<NetPlayerItem> PlayerItems;
 
 
         public override void OnInitialize()
@@ -30,20 +32,28 @@ namespace Game.Knight
             this.CreatePlayerBtn        = this.Objects[3].Object as Button;
             this.SelectedPlayerItem     = null;
 
-            this.AddEventListener(this.StartGameBtn, OnStartGameBtn_Clicked);
-            this.AddEventListener(this.CreatePlayerBtn, OnCreatePlayerBtn_Clicked);
+            this.EventBinding(this.StartGameBtn, EventTriggerType.PointerClick, OnStartGameBtn_Clicked);
+            this.EventBinding(this.CreatePlayerBtn, EventTriggerType.PointerClick, OnCreatePlayerBtn_Clicked);
         }
 
         public override void OnOpening()
         {
-            this.NetPlayerItemTemplate = (this.Objects[0].Object as HotfixMBContainer).MBHotfixObject as NetPlayerItem;
-            this.RefreshActorList();
+            this.NetPlayerItemTemplate = new NetPlayerItem(this.Objects[0].Object as HotfixMBContainer);
+            this.InitActorList();
         }
 
         public override void OnClosing()
         {
             if (this.SelectedPlayerItem != null)
                 this.SelectedPlayerItem.StopLoad();
+
+            this.EventUnBinding(this.StartGameBtn, EventTriggerType.PointerClick, OnStartGameBtn_Clicked);
+            this.EventUnBinding(this.CreatePlayerBtn, EventTriggerType.PointerClick, OnCreatePlayerBtn_Clicked);
+
+            for (int i = 0; i < this.PlayerItems.Count; i++)
+            {
+                this.PlayerItems[i].Destroy();
+            }
         }
 
         public void OnStartGameBtn_Clicked(Object rTarget)
@@ -52,18 +62,20 @@ namespace Game.Knight
             CreatePlayer.Instance.UnloadScene();
 
             GameLoading.Instance.StartLoading(2.0f, "开始进入游戏世界...");
-            UIManager.Instance.CloseView(this.GUID);
+            UIViewManager.Instance.CloseView(this.GUID);
             GameFlowLevelManager.Instance.LoadLevel("World");
         }
         
         public void OnCreatePlayerBtn_Clicked(Object rTarget)
         {
-            UIManager.Instance.Open("KNCreatePlayer", View.State.dispatch);
+            UIViewManager.Instance.Open("KNCreatePlayer", UIView.State.dispatch);
         }
 
-        public void RefreshActorList()
+        public void InitActorList()
         {
+            this.PlayerItems = new List<NetPlayerItem>();
             List<NetActor> rActors = Account.Instance.NetActors;
+
             if (rActors != null)
             {
                 for (int i = 0; i < rActors.Count; i++)
@@ -71,15 +83,20 @@ namespace Game.Knight
                     GameObject rPlayerItemObj = GameObject.Instantiate(this.NetPlayerItemTemplate.GameObject);
                     rPlayerItemObj.SetActive(true);
                     var rMBContainer = rPlayerItemObj.GetComponent<HotfixMBContainer>();
-                    var rNetPlayerItem = rMBContainer.MBHotfixObject as NetPlayerItem;
+                    var rNetPlayerItem = new NetPlayerItem(rMBContainer);
 
                     rNetPlayerItem.Parent = this;
                     rNetPlayerItem.Set(rActors[i]);
 
                     rNetPlayerItem.SetSelected(i == 0);
-                    if (i == 0) this.SelectedPlayerItem.OnValueChanged();
+                    if (i == 0)
+                    {
+                        rNetPlayerItem.OnValueChanged();
+                    }
                     
                     rPlayerItemObj.transform.SetParent(this.PlayerListContainer.transform, false);
+
+                    this.PlayerItems.Add(rNetPlayerItem);
                 }
             }
         }

@@ -13,15 +13,12 @@ namespace WindHotfix.Core
     {
         public List<UnityObject>        Objects;
         public List<BaseDataObject>     BaseDatas;
-
-        protected HotfixEventHandler    mEventHandler;
-
+        
         public override void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
         {
             this.Objects   = rObjs;
             this.BaseDatas = rBaseDatas;
-
-            this.mEventHandler = new HotfixEventHandler();
+            
             this.OnInitialize();
         }
 
@@ -35,32 +32,17 @@ namespace WindHotfix.Core
         /// </summary>
         public void Destroy()
         {
-            if (mEventHandler != null)
-                mEventHandler.RemoveAll();
-            mEventHandler = null;
             this.GameObject = null;
 
             this.OnDestroy();
         }
         
-        public override void OnUnityEvent(Object rTarget)
-        {
-            if (mEventHandler == null) return;
-            mEventHandler.Handle(rTarget);
-        }
-
         public object GetData(string rName)
         {
             if (this.BaseDatas == null) return null;
             var rBaseDataObj = this.BaseDatas.Find((rItem) => { return rItem.Name.Equals(rName); });
             if (rBaseDataObj == null) return null;
             return rBaseDataObj.Object;
-        }
-
-        public void AddEventListener(UnityEngine.Object rObj, Action<UnityEngine.Object> rAction)
-        {
-            if (this.mEventHandler == null) return;
-            this.mEventHandler.AddEventListener(rObj, rAction);
         }
     }
 }

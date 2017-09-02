@@ -11,6 +11,7 @@ using Core;
 using Framework.WindUI;
 using WindHotfix.GameStage;
 using WindHotfix.Core;
+using WindHotfix.GUI;
 
 namespace Game.Knight
 {
@@ -127,7 +128,7 @@ namespace Game.Knight
                 this.GameMode.MainPlayer.ActorGo.ReceiveHotfixComponent<ActorController>();
 
                 // 加载Gamepad界面
-                yield return UIManager.Instance.OpenAsync("KNGamePad", View.State.dispatch);
+                yield return UIViewManager.Instance.OpenAsync("KNGamePad", UIView.State.dispatch);
 
                 GameLoading.Instance.Hide();
                 Debug.Log("GameStage -- Init data complete.");

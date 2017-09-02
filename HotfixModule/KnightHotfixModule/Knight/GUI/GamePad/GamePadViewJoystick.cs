@@ -5,38 +5,38 @@
 using UnityEngine;
 using Framework;
 using WindHotfix.Core;
+using Framework.Hotfix;
 
 namespace Game.Knight
 {
-    public class GamePadViewJoystick : THotfixMB<GamePadViewJoystick>
+    public class GamePadViewJoystick
     {
 #region unity_bind
 
-        public RectTransform    JoystickRootTrans;
-        public RectTransform    JoystickFrontTrans;
+        public RectTransform        JoystickRootTrans;
+        public RectTransform        JoystickFrontTrans;
 
-        public TouchObject      TouchObj1;
-        public TouchObject      TouchObj2;
+        public TouchObject          TouchObj1;
+        public TouchObject          TouchObj2;
 
-        public float            JoystickMaxDistance = 100;
+        public float                JoystickMaxDistance = 100;
 
 #endregion
 
-        private Vector2         JoystickInitPos;
+        private Vector2             JoystickInitPos;
+        private HotfixMBContainer   mMBContainer;
 
-        public override void OnInitialize()
+        public GamePadViewJoystick(HotfixMBContainer rMBContainer)
         {
-            this.JoystickRootTrans  = this.Objects[0].Object as RectTransform;
-            this.JoystickFrontTrans = this.Objects[1].Object as RectTransform;
-        }
+            this.mMBContainer       = rMBContainer;
+            this.JoystickRootTrans  = rMBContainer.Objects[0].Object as RectTransform;
+            this.JoystickFrontTrans = rMBContainer.Objects[1].Object as RectTransform;
 
-        public override void Start()
-        {
             this.JoystickInitPos = this.JoystickRootTrans.anchoredPosition;
             Joystick.Instance.Reset();
         }
 
-        public override void Update()
+        public void Update()
         {
             if (TouchInput.Instance.TouchCount > 0)
             {

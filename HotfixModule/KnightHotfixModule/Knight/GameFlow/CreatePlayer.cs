@@ -8,6 +8,7 @@ using Framework;
 using Framework.WindUI;
 using WindHotfix.Core;
 using WindHotfix.GameStage;
+using WindHotfix.GUI;
 
 namespace Game.Knight
 {
@@ -60,8 +61,11 @@ namespace Game.Knight
         /// </summary>
         public void Create(string rActorName, int rProfessionalID)
         {
-            GamePlayProtocol.DoClientCreatePlayerRequest(
-                Account.Instance.AccountID, rActorName, rProfessionalID, Account.Instance.ServerID);
+            //GamePlayProtocol.DoClientCreatePlayerRequest(
+            //    Account.Instance.AccountID, rActorName, rProfessionalID, Account.Instance.ServerID);
+
+            Account.Instance.CreateActor(rActorName, rProfessionalID, 10001);
+            UIViewManager.Instance.Open("KNPlayerList", UIView.State.dispatch);
         }
 
         /// <summary>
@@ -72,7 +76,7 @@ namespace Game.Knight
             if (rMsgCode == NetworkMsgCode.Success)
             {
                 Account.Instance.CreateActor(rActorName, rProfessionalID, rActorID);
-                UIManager.Instance.Open("KNPlayerList", View.State.dispatch);
+                UIViewManager.Instance.Open("KNPlayerList", UIView.State.dispatch);
             }
             else if (rMsgCode == NetworkMsgCode.FA_ACTOR_IS_EXSIST)
             {

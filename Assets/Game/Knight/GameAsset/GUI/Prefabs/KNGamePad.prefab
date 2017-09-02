@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20351adb1e3158e4abbb09c3806321cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHotfixName: Game.Knight.GamePadViewJoystick
+  mHotfixName: 
   mObjects:
   - Name: back
     Object: {fileID: 224062702370124402}
@@ -143,6 +143,7 @@ MonoBehaviour:
     Type: Framework.Hotfix.HotfixMBContainer
   mBaseDatas: []
   GUID: 
+  ViewName: 
   CurState: 2
   IsMultiView: 0
 --- !u!114 &114543129590210636

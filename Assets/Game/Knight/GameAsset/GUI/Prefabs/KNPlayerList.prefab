@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 222501507847888296}
   - component: {fileID: 114250033378586904}
   - component: {fileID: 114538227765326436}
+  - component: {fileID: 114514527106470254}
   m_Layer: 5
   m_Name: CreatePlayerBtn
   m_TagString: Untagged
@@ -92,6 +93,7 @@ GameObject:
   - component: {fileID: 222361585835229486}
   - component: {fileID: 114839626007596550}
   - component: {fileID: 114933600948018402}
+  - component: {fileID: 114408075785158824}
   m_Layer: 5
   m_Name: StartGameBtn
   m_TagString: Untagged
@@ -214,6 +216,7 @@ GameObject:
   - component: {fileID: 114797712473670526}
   - component: {fileID: 114009905873122412}
   - component: {fileID: 114505813225506098}
+  - component: {fileID: 114087740229304586}
   m_Layer: 5
   m_Name: NetPlayerItem
   m_TagString: Untagged
@@ -330,18 +333,7 @@ MonoBehaviour:
   m_Group: {fileID: 114417041466174968}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114505813225506098}
-        m_MethodName: OnUnityEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 114009905873122412}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 0
@@ -376,6 +368,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.ScrollRect+ScrollRectEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114087740229304586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680080643284542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f07e6454f69666648b84630ae9b5e069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventTypeMask: 512
+  EventObj: {fileID: 114009905873122412}
 --- !u!114 &114188639692511946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -403,6 +408,7 @@ MonoBehaviour:
     Type: UnityEngine.UI.Button
   mBaseDatas: []
   GUID: 
+  ViewName: 
   CurState: 0
   IsMultiView: 0
 --- !u!114 &114240572707751516
@@ -517,6 +523,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Text: {fileID: 114996499455606460}
   FormatText: "\u804C\u4E1A\uFF1A{0}"
+--- !u!114 &114408075785158824
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1240490760971276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f07e6454f69666648b84630ae9b5e069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventTypeMask: 16
+  EventObj: {fileID: 114933600948018402}
 --- !u!114 &114417041466174968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -600,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20351adb1e3158e4abbb09c3806321cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHotfixName: Game.Knight.NetPlayerItem
+  mHotfixName: 
   mObjects:
   - Name: ActorProfessionText
     Object: {fileID: 114389963631537470}
@@ -615,6 +634,19 @@ MonoBehaviour:
     Object: {fileID: 114009905873122412}
     Type: UnityEngine.UI.Toggle
   mBaseDatas: []
+--- !u!114 &114514527106470254
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1093818018153636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f07e6454f69666648b84630ae9b5e069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventTypeMask: 16
+  EventObj: {fileID: 114538227765326436}
 --- !u!114 &114538227765326436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -653,18 +685,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114250033378586904}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114188639692511946}
-        m_MethodName: OnUnityEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 114538227765326436}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114589539644981960
@@ -882,18 +903,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114839626007596550}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114188639692511946}
-        m_MethodName: OnUnityEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 114933600948018402}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114948245465883714

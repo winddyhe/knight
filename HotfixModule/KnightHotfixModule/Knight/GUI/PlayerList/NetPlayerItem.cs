@@ -6,13 +6,14 @@ using UnityEngine;
 using Framework.WindUI;
 using UnityEngine.UI;
 using Core;
-using WindHotfix.Core;
-using UnityEngine.AssetBundles;
+using Framework.Hotfix;
+using UnityEngine.EventSystems;
 
 namespace Game.Knight
 {
-    public class NetPlayerItem : THotfixMB<NetPlayerItem>
+    public class NetPlayerItem
     {
+        public GameObject                   GameObject;
         public TextFormat                   ActorProfession;
         public TextFormat                   ActorLevel;
         public Text                         ActorName;
@@ -23,14 +24,20 @@ namespace Game.Knight
         private NetActor                    mNetActor;
         private Actor.ActorCreateRequest    mActorCreateRequest;
 
-        public override void OnInitialize()
+        public NetPlayerItem(HotfixMBContainer rMBContainer)
         {
-            this.ActorProfession = this.Objects[0].Object as TextFormat;
-            this.ActorLevel      = this.Objects[1].Object as TextFormat;
-            this.ActorName       = this.Objects[2].Object as Text;
-            this.SelectedToggle  = this.Objects[3].Object as Toggle;
+            this.GameObject      = rMBContainer.gameObject;   
+            this.ActorProfession = rMBContainer.Objects[0].Object as TextFormat;
+            this.ActorLevel      = rMBContainer.Objects[1].Object as TextFormat;
+            this.ActorName       = rMBContainer.Objects[2].Object as Text;
+            this.SelectedToggle  = rMBContainer.Objects[3].Object as Toggle;
 
-            this.AddEventListener(this.SelectedToggle, (rTarget) => { OnValueChanged(); });
+            HotfixEventManager.Instance.Binding(this.SelectedToggle, EventTriggerType.Select, (rTarget) => { OnValueChanged(); });
+        }
+
+        public void Destroy()
+        {
+            HotfixEventManager.Instance.UnBinding(this.SelectedToggle, EventTriggerType.Select, (rTarget) => { OnValueChanged(); });
         }
 
         public void Set(NetActor rNetActor)

@@ -53,6 +53,7 @@ namespace WindHotfix.GUI
         /// View控制器
         /// </summary>
         private UIViewController    mViewController;
+
         public  UIViewController    ViewController { get { return mViewController; } }
 
         /// <summary>
@@ -116,6 +117,7 @@ namespace WindHotfix.GUI
             this.CurState = rViewState;
 
             this.ViewMB.GUID = rViewGUID;
+            this.ViewMB.ViewName = rViewName;
             this.ViewMB.CurState = (View.State)rViewState;
 
             // 初始化View controller
@@ -130,7 +132,7 @@ namespace WindHotfix.GUI
             this.mViewController = HotfixReflectAssists.Construct(Type.GetType(this.ViewMB.HotfixName)) as UIViewController;
             if (this.mViewController == null)
             {
-                Debug.LogErrorFormat("Create View controller <color=red>{0}</color> failed..", this.ViewMB.HotfixName);
+                Debug.LogErrorFormat("Create View controller <color=blue>{0}</color> failed..", this.ViewMB.HotfixName);
             }
             else
             {
@@ -181,6 +183,15 @@ namespace WindHotfix.GUI
         {
             if (mViewController != null)
                 mViewController.OnHide();
+        }
+
+        /// <summary>
+        /// Update
+        /// </summary>
+        public void Update()
+        {
+            if (mViewController != null)
+                mViewController.OnUpdate();
         }
 
         /// <summary>

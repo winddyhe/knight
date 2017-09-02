@@ -9,6 +9,7 @@ using Core;
 using System.Collections.Generic;
 using Framework.WindUI;
 using WindHotfix.GameStage;
+using WindHotfix.GUI;
 
 namespace Game.Knight
 {
@@ -70,7 +71,7 @@ namespace Game.Knight
                 string rViewName = "KNCreatePlayer";
                 if (Account.Instance.NetActors != null && Account.Instance.NetActors.Count > 0)
                     rViewName = "KNPlayerList";
-                yield return UIManager.Instance.OpenAsync(rViewName, View.State.dispatch);
+                yield return UIViewManager.Instance.OpenAsync(rViewName, UIView.State.dispatch);
 
                 GameLoading.Instance.Hide();
 

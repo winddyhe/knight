@@ -10,6 +10,7 @@ using Core;
 using Framework;
 using UnityEngine;
 using WindHotfix.Core;
+using WindHotfix.GUI;
 
 namespace Game.Knight
 {
@@ -47,7 +48,7 @@ namespace Game.Knight
         private IEnumerator Start_Async()
         {
             //打开Login界面
-            yield return UIManager.Instance.OpenAsync("KNLogin", View.State.dispatch);
+            yield return UIViewManager.Instance.OpenAsync("KNLogin", UIView.State.dispatch);
             //隐藏进度条
             GameLoading.Instance.Hide();
         }
@@ -127,9 +128,9 @@ namespace Game.Knight
             });
         }
 
-        private IEnumerator JumpToCreatePlayer(List<NetActor> rNetActors)
+        public IEnumerator JumpToCreatePlayer(List<NetActor> rNetActors)
         {
-            UIManager.Instance.Pop();
+            UIViewManager.Instance.Pop();
             Account.Instance.NetActors = rNetActors;
             GameLoading.Instance.StartLoading(1.0f, "开始创建角色！");       // 开始创建新角色
             var rLevelRequest = GameFlowLevelManager.Instance.LoadLevel("CreatePlayer"); // 切换到Login场景

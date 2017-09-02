@@ -1,6 +1,7 @@
 ﻿using Framework.Hotfix;
 using System;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 namespace WindHotfix.GUI
 {
@@ -9,7 +10,6 @@ namespace WindHotfix.GUI
         public List<UnityObject>        Objects;
         public List<BaseDataObject>     BaseDatas;
 
-        protected HotfixEventHandler    mEventHandler;
         protected bool                  mIsOpened       = false;
         protected bool                  mIsClosed       = false;
 
@@ -17,8 +17,7 @@ namespace WindHotfix.GUI
         {
             this.Objects = rObjs;
             this.BaseDatas = rBaseDatas;
-
-            this.mEventHandler = new HotfixEventHandler();
+            
             this.OnInitialize();
         }
 
@@ -48,17 +47,7 @@ namespace WindHotfix.GUI
 
         public override void Closed()
         {
-            if (mEventHandler != null)
-                mEventHandler.RemoveAll();
-            mEventHandler = null;
-
             this.OnClosed();
-        }
-
-        public override void OnUnityEvent(UnityEngine.Object rTarget)
-        {
-            if (mEventHandler == null) return;
-            mEventHandler.Handle(rTarget);
         }
 
         public object GetData(string rName)
@@ -69,10 +58,14 @@ namespace WindHotfix.GUI
             return rBaseDataObj.Object;
         }
 
-        public void AddEventListener(UnityEngine.Object rObj, Action<UnityEngine.Object> rAction)
+        public void EventBinding(UnityEngine.Object rObj, EventTriggerType rType, Action<UnityEngine.Object> rAction)
         {
-            if (this.mEventHandler == null) return;
-            this.mEventHandler.AddEventListener(rObj, rAction);
+            HotfixEventManager.Instance.Binding(rObj, rType, rAction);
+        }
+
+        public void EventUnBinding(UnityEngine.Object rObj, EventTriggerType rType, Action<UnityEngine.Object> rAction)
+        {
+            HotfixEventManager.Instance.UnBinding(rObj, rType, rAction);
         }
 
         public virtual void OnInitialize()

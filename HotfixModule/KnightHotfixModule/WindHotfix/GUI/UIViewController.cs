@@ -94,10 +94,7 @@ namespace WindHotfix.GUI
         {
         }
 
-        /// <summary>
-        /// 事件传递
-        /// </summary>
-        public virtual void OnUnityEvent(UnityEngine.Object rTarget)
+        public virtual void OnUpdate()
         {
         }
     }

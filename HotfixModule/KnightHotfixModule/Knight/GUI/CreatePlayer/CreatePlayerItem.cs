@@ -8,10 +8,12 @@ using UnityEngine;
 using WindHotfix.Core;
 using Framework.WindUI;
 using UnityEngine.AssetBundles;
+using Framework.Hotfix;
+using UnityEngine.EventSystems;
 
 namespace Game.Knight
 {
-    public class CreatePlayerItem : THotfixMB<CreatePlayerItem>
+    public class CreatePlayerItem
     {
         public Toggle                       SelectedPlayer;
         public CreatePlayerView             Parent;
@@ -19,21 +21,23 @@ namespace Game.Knight
 
         private Actor.ActorCreateRequest    mActorCreateRequest;
 
-        public override void OnInitialize()
-        {
-            this.SelectedPlayer = this.Objects[0].Object as Toggle;
-            this.AddEventListener(this.Objects[0].Object, (rTarget) => { OnToggleSelectedValueChanged(); });
-
-            // 获取ProfessionalID
-            this.ProfessionalID = (int)this.GetData("ProfessionalID");
-        }
-
-        public override void Start()
+        public void Initialize(CreatePlayerView rParent, HotfixMBContainer rMBContainer)
         {
             // 这里的调用次序的问题 必须要等待下一帧才能得到ViewController的值
-            this.Parent = (this.Objects[1].Object as View).ViewController as CreatePlayerView;
+            this.Parent = rParent;
+            this.SelectedPlayer = rMBContainer.Objects[0].Object as Toggle;
+
+            HotfixEventManager.Instance.Binding(this.SelectedPlayer, (EventTriggerType)100, (rTarget) => { OnToggleSelectedValueChanged(); });
+
+            // 获取ProfessionalID
+            this.ProfessionalID = rMBContainer.BaseDatas[0].IntObject;
         }
 
+        public void Destroy()
+        {
+            HotfixEventManager.Instance.UnBinding(this.SelectedPlayer, (EventTriggerType)100, (rTarget) => { OnToggleSelectedValueChanged(); });
+        }
+        
         public void OnToggleSelectedValueChanged()
         {
             if (this.SelectedPlayer.isOn && this.Parent != null && this.Parent.CurrentSelectedItem != this)
@@ -53,13 +57,6 @@ namespace Game.Knight
             ActorProfessional rProfessional = GameConfig.Instance.GetActorProfessional(this.ProfessionalID);
             this.Parent.ProfessionalDesc.text = rProfessional.Desc;
             mActorCreateRequest = Actor.CreateActor(-1, rProfessional.HeroID, ActorLoadCompleted);
-        }
-
-        public void StartLoad(CreatePlayerView rCreatePlayerView)
-        {
-            this.ProfessionalID = (int)this.GetData("ProfessionalID");
-            this.Parent = rCreatePlayerView;
-            this.StartLoad();
         }
 
         public void StopLoad()

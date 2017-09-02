@@ -131,7 +131,6 @@
     <Compile Include="WindHotfix\Core\Assist\THotfixMB.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixSingleton.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixTypeSearch.cs" />
-    <Compile Include="WindHotfix\GUI\THotfixViewController.cs" />
     <Compile Include="WindHotfix\Core\Serializer\HotfixSerializerBinary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\CommonSerializer.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.ActorProfessional.Binary.cs" />

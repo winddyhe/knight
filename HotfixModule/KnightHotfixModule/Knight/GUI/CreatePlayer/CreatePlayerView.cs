@@ -6,15 +6,19 @@ using Framework.WindUI;
 using UnityEngine.UI;
 using Framework.Hotfix;
 using WindHotfix.GUI;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 namespace Game.Knight
 {
-    public class CreatePlayerView : THotfixViewController<CreatePlayerView>
+    public class CreatePlayerView : TUIViewController<CreatePlayerView>
     {
-        public ToggleGroup      ProfessionSelected;
-        public InputField       PlayerName;
-        public Text             ProfessionalDesc;
-        public CreatePlayerItem CurrentSelectedItem;
+        public ToggleGroup              ProfessionSelected;
+        public InputField               PlayerName;
+        public Text                     ProfessionalDesc;
+
+        public CreatePlayerItem         CurrentSelectedItem;
+        public List<CreatePlayerItem>   CreatePlayerItems;
         
         public override void OnInitialize()
         {
@@ -22,16 +26,36 @@ namespace Game.Knight
             this.ProfessionSelected  = this.Objects[0].Object as ToggleGroup;
             this.PlayerName          = this.Objects[1].Object as InputField;
             this.ProfessionalDesc    = this.Objects[2].Object as Text;
-            
+
+            // 初始化Items
+            this.InitItems();
+
             // 注册事件
-            this.AddEventListener(this.Objects[4].Object, OnPlayerCreateBtn_Clicked);
-            this.AddEventListener(this.Objects[5].Object, OnBackBtn_Clicked);
+            this.EventBinding(this.Objects[4].Object, EventTriggerType.PointerClick, OnPlayerCreateBtn_Clicked);
+            this.EventBinding(this.Objects[5].Object, EventTriggerType.PointerClick, OnBackBtn_Clicked);
         }
         
+        private void InitItems()
+        {
+            this.CreatePlayerItems = new List<CreatePlayerItem>();
+
+            CreatePlayerItem rItem = new CreatePlayerItem();
+            rItem.Initialize(this, this.Objects[6].Object as HotfixMBContainer);
+            this.CreatePlayerItems.Add(rItem);
+
+            rItem = new CreatePlayerItem();
+            rItem.Initialize(this, this.Objects[7].Object as HotfixMBContainer);
+            this.CreatePlayerItems.Add(rItem);
+
+            rItem = new CreatePlayerItem();
+            rItem.Initialize(this, this.Objects[8].Object as HotfixMBContainer);
+            this.CreatePlayerItems.Add(rItem);
+        }
+
         public override void OnOpening()
         {
-            this.CurrentSelectedItem = (this.Objects[3].Object as HotfixMBContainer).MBHotfixObject as CreatePlayerItem;
-            this.CurrentSelectedItem.StartLoad(this);
+            this.CurrentSelectedItem = this.CreatePlayerItems[0];
+            this.CurrentSelectedItem.StartLoad();
             this.mIsOpened = true;
         }
 
@@ -39,6 +63,14 @@ namespace Game.Knight
         {
             this.CurrentSelectedItem.StopLoad();
             this.mIsClosed = true;
+
+            this.EventUnBinding(this.Objects[4].Object, EventTriggerType.PointerClick, OnPlayerCreateBtn_Clicked);
+            this.EventUnBinding(this.Objects[5].Object, EventTriggerType.PointerClick, OnBackBtn_Clicked);
+
+            for (int i = 0; i < this.CreatePlayerItems.Count; i++)
+            {
+                this.CreatePlayerItems[i].Destroy();
+            }
         }
 
         private void OnPlayerCreateBtn_Clicked(UnityEngine.Object rTarget)
@@ -53,7 +85,7 @@ namespace Game.Knight
 
         private void OnBackBtn_Clicked(UnityEngine.Object rTarget)
         {
-            UIManager.Instance.Open("KNPlayerList", View.State.dispatch);
+            UIViewManager.Instance.Open("KNPlayerList", UIView.State.dispatch);
         }
     }
 }
