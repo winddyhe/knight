@@ -6,13 +6,13 @@ using System.Text;
 
 namespace WindHotfix.GUI
 {
-    public class UIViewController
+    public class ViewController
     {
         public string HotfixName;
         public string GUID;
         public string ParentType = "WindHotfix.GUI.THotfixViewController`1";
 
-        public UIViewController()
+        public ViewController()
         {
         }
 

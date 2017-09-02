@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
 
 namespace Game.Knight
 {
-    public class LoginView : TUIViewController<LoginView>
+    public class LoginView : TViewController<LoginView>
     {
         private InputField  mAccountInput;
         private InputField  mPasswordInput;

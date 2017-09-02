@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
 
 namespace Game.Knight
 {
-    public class CreatePlayerView : TUIViewController<CreatePlayerView>
+    public class CreatePlayerView : TViewController<CreatePlayerView>
     {
         public ToggleGroup              ProfessionSelected;
         public InputField               PlayerName;
@@ -85,7 +85,7 @@ namespace Game.Knight
 
         private void OnBackBtn_Clicked(UnityEngine.Object rTarget)
         {
-            UIViewManager.Instance.Open("KNPlayerList", UIView.State.dispatch);
+            ViewManager.Instance.Open("KNPlayerList", View.State.dispatch);
         }
     }
 }

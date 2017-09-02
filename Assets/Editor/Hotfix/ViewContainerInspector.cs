@@ -6,7 +6,7 @@ using UnityEditor;
 namespace Framework.WindUI.Editor
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(View), true)]
+    [CustomEditor(typeof(ViewContainer), true)]
     public class ViewInspector : HotfixMBContainerInspector
     {
         public override void OnInspectorGUI()

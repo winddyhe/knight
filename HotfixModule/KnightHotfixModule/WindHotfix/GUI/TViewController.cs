@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace WindHotfix.GUI
 {
-    public class TUIViewController<T> : UIViewController where T : class
+    public class TViewController<T> : ViewController where T : class
     {
         public List<UnityObject>        Objects;
         public List<BaseDataObject>     BaseDatas;

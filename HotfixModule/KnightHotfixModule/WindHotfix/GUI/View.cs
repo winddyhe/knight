@@ -8,7 +8,7 @@ using WindHotfix.Core;
 
 namespace WindHotfix.GUI
 {
-    public class UIView
+    public class View
     {        
         /// <summary>
         /// View的状态，有三种状态
@@ -48,13 +48,13 @@ namespace WindHotfix.GUI
         /// <summary>
         /// View脚本
         /// </summary>
-        public View                 ViewMB;
+        public ViewContainer        ViewMB;
         /// <summary>
         /// View控制器
         /// </summary>
-        private UIViewController    mViewController;
+        private ViewController    mViewController;
 
-        public  UIViewController    ViewController { get { return mViewController; } }
+        public  ViewController    ViewController { get { return mViewController; } }
 
         /// <summary>
         /// 该View是否被打开？
@@ -99,12 +99,12 @@ namespace WindHotfix.GUI
             set { this.gameObject.SetActive(value); }
         }
 
-        public static UIView CreateView(GameObject rViewGo)
+        public static View CreateView(GameObject rViewGo)
         {
-            View rViewDataMB = rViewGo.GetComponent<View>();
+            ViewContainer rViewDataMB = rViewGo.GetComponent<ViewContainer>();
             if (rViewDataMB == null) return null;
 
-            UIView rUIView = new UIView();
+            View rUIView = new View();
             rUIView.gameObject = rViewGo;
             rUIView.ViewMB = rViewDataMB;
             return rUIView;
@@ -118,7 +118,7 @@ namespace WindHotfix.GUI
 
             this.ViewMB.GUID = rViewGUID;
             this.ViewMB.ViewName = rViewName;
-            this.ViewMB.CurState = (View.State)rViewState;
+            this.ViewMB.CurState = (ViewContainer.State)rViewState;
 
             // 初始化View controller
             this.InitializeViewController();
@@ -129,7 +129,7 @@ namespace WindHotfix.GUI
         /// </summary>
         protected virtual void InitializeViewController()
         {
-            this.mViewController = HotfixReflectAssists.Construct(Type.GetType(this.ViewMB.HotfixName)) as UIViewController;
+            this.mViewController = HotfixReflectAssists.Construct(Type.GetType(this.ViewMB.HotfixName)) as ViewController;
             if (this.mViewController == null)
             {
                 Debug.LogErrorFormat("Create View controller <color=blue>{0}</color> failed..", this.ViewMB.HotfixName);
@@ -144,7 +144,7 @@ namespace WindHotfix.GUI
         /// <summary>
         /// 打开View, 此时View对应的GameObject已经加载出来了, 用于做View的初始化。
         /// </summary>
-        public void Open(Action<UIView> rOpenCompleted)
+        public void Open(Action<View> rOpenCompleted)
         {
             this.IsOpened = false;
 
@@ -154,7 +154,7 @@ namespace WindHotfix.GUI
             CoroutineManager.Instance.Start(Open_WaitforCompleted(rOpenCompleted));
         }
 
-        private IEnumerator Open_WaitforCompleted(Action<UIView> rOpenCompleted)
+        private IEnumerator Open_WaitforCompleted(Action<View> rOpenCompleted)
         {
             while (!this.IsOpened)
             {

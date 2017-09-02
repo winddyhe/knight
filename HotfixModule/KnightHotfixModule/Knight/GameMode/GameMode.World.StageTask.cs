@@ -128,7 +128,7 @@ namespace Game.Knight
                 this.GameMode.MainPlayer.ActorGo.ReceiveHotfixComponent<ActorController>();
 
                 // 加载Gamepad界面
-                yield return UIViewManager.Instance.OpenAsync("KNGamePad", UIView.State.dispatch);
+                yield return ViewManager.Instance.OpenAsync("KNGamePad", View.State.dispatch);
 
                 GameLoading.Instance.Hide();
                 Debug.Log("GameStage -- Init data complete.");

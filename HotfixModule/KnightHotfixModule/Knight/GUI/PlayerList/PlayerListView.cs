@@ -13,7 +13,7 @@ using UnityEngine.EventSystems;
 
 namespace Game.Knight
 {
-    public class PlayerListView : TUIViewController<PlayerListView>
+    public class PlayerListView : TViewController<PlayerListView>
     {
         public NetPlayerItem    NetPlayerItemTemplate;
         public GridLayoutGroup  PlayerListContainer;
@@ -62,13 +62,13 @@ namespace Game.Knight
             CreatePlayer.Instance.UnloadScene();
 
             GameLoading.Instance.StartLoading(2.0f, "开始进入游戏世界...");
-            UIViewManager.Instance.CloseView(this.GUID);
+            ViewManager.Instance.CloseView(this.GUID);
             GameFlowLevelManager.Instance.LoadLevel("World");
         }
         
         public void OnCreatePlayerBtn_Clicked(Object rTarget)
         {
-            UIViewManager.Instance.Open("KNCreatePlayer", UIView.State.dispatch);
+            ViewManager.Instance.Open("KNCreatePlayer", View.State.dispatch);
         }
 
         public void InitActorList()

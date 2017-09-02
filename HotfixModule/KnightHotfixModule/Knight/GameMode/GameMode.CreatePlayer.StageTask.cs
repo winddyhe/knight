@@ -71,7 +71,7 @@ namespace Game.Knight
                 string rViewName = "KNCreatePlayer";
                 if (Account.Instance.NetActors != null && Account.Instance.NetActors.Count > 0)
                     rViewName = "KNPlayerList";
-                yield return UIViewManager.Instance.OpenAsync(rViewName, UIView.State.dispatch);
+                yield return ViewManager.Instance.OpenAsync(rViewName, View.State.dispatch);
 
                 GameLoading.Instance.Hide();
 

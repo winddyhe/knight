@@ -7,7 +7,7 @@ using WindHotfix.GUI;
 
 namespace Game.Knight
 {
-    public class GamePadView : TUIViewController<GamePadView>
+    public class GamePadView : TViewController<GamePadView>
     {
         public GamePadViewJoystick Joystick;
 

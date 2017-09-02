@@ -16,7 +16,7 @@ namespace Framework.WindUI
     /// PS: 限定View只绑定到Prefab的根节点上。
     /// @TODO: 将变量 GUID CurState IsMultiView 定义到ViewController中，同时又显示到Inspector中去
     /// </summary>
-    public class View : HotfixMBContainer
+    public class ViewContainer : HotfixMBContainer
     {
         /// <summary>
         /// View的状态，有三种状态
