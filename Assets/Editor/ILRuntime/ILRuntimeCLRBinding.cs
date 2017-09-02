@@ -43,6 +43,7 @@ public class ILRuntimeCLRBinding
         types.Add(typeof(JsonArray));
         types.Add(typeof(JsonClass));
         types.Add(typeof(JsonData));
+        types.Add(typeof(HotfixEventManager));
 
         ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, "Assets/ILRuntime/Generated");
 
