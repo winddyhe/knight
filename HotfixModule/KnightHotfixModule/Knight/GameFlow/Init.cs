@@ -5,6 +5,7 @@
 using UnityEngine;
 using System.Collections;
 using Framework;
+using Framework.Hotfix;
 
 namespace Game.Knight
 {
@@ -19,7 +20,7 @@ namespace Game.Knight
             // 加载技能配置
             yield return GPCSkillConfig.Instance.Load("game/skillconfig.ab", "SkillConfig");
             GPCSkillConfig.Instance.Unload("game/skillconfig.ab");
-            
+
             //切换到Login场景
             yield return GameFlowLevelManager.Instance.LoadLevel("Login");
 

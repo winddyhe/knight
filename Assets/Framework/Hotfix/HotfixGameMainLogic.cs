@@ -27,9 +27,6 @@ namespace Framework.Hotfix
             
             // 加载Hotfix端的代码
             yield return HotfixApp.Instance.Invoke(this.MainLogicHotfixObj, "Initialize") as IEnumerator;
-
-            // 初始化事件模块
-            HotfixEventManager.Instance.Initialize();
         }
 
         void Update()
