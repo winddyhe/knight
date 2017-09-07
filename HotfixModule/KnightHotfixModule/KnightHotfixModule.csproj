@@ -105,10 +105,6 @@
     <Compile Include="Test\BaseFunction\Class4.cs" />
     <Compile Include="Test\BaseFunction\Class5.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixAssists.cs" />
-    <Compile Include="WindHotfix\GamePlay\GameComponent.cs" />
-    <Compile Include="WindHotfix\GamePlay\GameEntity.cs" />
-    <Compile Include="WindHotfix\GamePlay\GameWorld.cs" />
-    <Compile Include="WindHotfix\GamePlay\GameSystem.cs" />
     <Compile Include="WindHotfix\GameStage\GameMode.cs" />
     <Compile Include="WindHotfix\GameStage\GameStage.cs" />
     <Compile Include="WindHotfix\GameStage\GameStageManager.cs" />
@@ -145,6 +141,8 @@
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolElement.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolItem.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolObject.Binary.cs" />
+    <Compile Include="WindHotfix\Game\GameComponent.cs" />
+    <Compile Include="WindHotfix\Game\GameLogicBase.cs" />
     <Compile Include="WindHotfix\GUI\TViewController.cs" />
     <Compile Include="WindHotfix\GUI\View.cs" />
     <Compile Include="WindHotfix\GUI\ViewController.cs" />
