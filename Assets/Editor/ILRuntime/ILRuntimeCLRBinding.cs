@@ -70,7 +70,6 @@ public class ILRuntimeCLRBinding
         domain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
         domain.RegisterCrossBindingAdaptor(new IEqualityComparerAdaptor());
         domain.RegisterCrossBindingAdaptor(new IEnumerableAdaptor());
-        domain.RegisterCrossBindingAdaptor(new HotfixMBAdaptor());
     }
 }
 #endif

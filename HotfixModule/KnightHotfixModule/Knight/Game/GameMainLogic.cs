@@ -1,19 +1,19 @@
-﻿using Framework;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using WindHotfix.GUI;
 using Framework.Hotfix;
+using WindHotfix.Game;
 
 namespace Game.Knight
 {
-    public class GameMainLogic
+    public class GameMainLogic : GameLogicBase
     {
         public ViewManager UIViewMgr;
 
-        public IEnumerator Initialize()
+        public override IEnumerator Initialize()
         {
+            yield return base.Initialize();
+
             // 事件管理器
             HotfixEventManager.Instance.Initialize();
 
@@ -26,7 +26,7 @@ namespace Game.Knight
             Debug.Log("End hotfix initialize...");
         }
 
-        public void Update()
+        public override void Update()
         {
             // UI Manager的Update
             ViewManager.Instance.Update();

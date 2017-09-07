@@ -19,17 +19,16 @@ namespace Framework.Hotfix.Editor
         }
 
         private SerializedProperty      mHotfixName;
+        private SerializedProperty      mNeedUpdate;
         private SerializedProperty      mObjects;
-        private SerializedProperty      mBaseDatas;
 
         private List<ObjectType>        mObjectTypes;
-        private List<ObjectType>        mBaseDataTypes;
 
         void OnEnable()
         {
             this.mHotfixName    = this.serializedObject.FindProperty("mHotfixName");
+            this.mNeedUpdate    = this.serializedObject.FindProperty("mNeedUpdate");
             this.mObjects       = this.serializedObject.FindProperty("mObjects");
-            this.mBaseDatas     = this.serializedObject.FindProperty("mBaseDatas");
 
             this.mObjectTypes   = this.ToObjectTypes(this.mObjects);
         }
@@ -50,8 +49,8 @@ namespace Framework.Hotfix.Editor
             using (var space = new EditorGUILayout.VerticalScope())
             {
                 EditorGUILayout.PropertyField(this.mHotfixName, new GUIContent("Hotfix Class Name: "));
+                EditorGUILayout.PropertyField(this.mNeedUpdate, new GUIContent("Hotfix Need Update: "));
                 
-                this.DrawBaseDatas();
                 this.DrawUnityEngineObjects();
             }
 
@@ -186,135 +185,6 @@ namespace Framework.Hotfix.Editor
                 }
             }
             return rElemTypes;
-        }
-
-        private void DrawBaseDatas()
-        {
-            this.mBaseDataTypes = this.ToBaseDataTypes(this.mBaseDatas);
-
-            EditorGUILayout.LabelField("Objects: ");
-            for (int i = 0; i < this.mBaseDataTypes.Count; i++)
-            {
-                using (var space1 = new EditorGUILayout.HorizontalScope("TextField"))
-                {
-                    GUILayout.Label(i.ToString() + ": ", GUILayout.Width(15));
-
-                    var rElementNameProperty = this.mBaseDataTypes[i].Name;
-                    var rElementObjProperty = this.mBaseDataTypes[i].Object;
-                    var rElementTypeProperty = this.mBaseDataTypes[i].Type;
-                    EditorGUILayout.PropertyField(rElementNameProperty, new GUIContent(""));
-                    EditorGUILayout.PropertyField(rElementObjProperty, new GUIContent(""));
-
-                    List<string> rElemTypes = this.GetBaseDataTypes();
-                    this.mBaseDataTypes[i].Selected = EditorGUILayout.Popup(this.mBaseDataTypes[i].Selected, rElemTypes.ToArray());
-                    this.ChangeElementBaseDataBySelectedType(rElementObjProperty, rElementTypeProperty, this.mBaseDataTypes[i].Selected);
-
-                    if (GUILayout.Button("Del", GUILayout.Width(40)))
-                    {
-                        this.mBaseDatas.DeleteArrayElementAtIndex(i);
-                        break;
-                    }
-                }
-            }
-
-            if (GUILayout.Button("Add Base Datas"))
-            {
-                this.mBaseDatas.InsertArrayElementAtIndex(this.mBaseDatas.arraySize);
-                this.mBaseDataTypes = this.ToBaseDataTypes(this.mBaseDatas);
-            }
-        }
-
-        private List<ObjectType> ToBaseDataTypes(SerializedProperty rObjects)
-        {
-            var rObjectTypes = new List<ObjectType>();
-            if (rObjects == null) return rObjectTypes;
-
-            for (int i = 0; i < rObjects.arraySize; i++)
-            {
-                SerializedProperty rElementProp = rObjects.GetArrayElementAtIndex(i);
-                var rTypeProp = rElementProp.FindPropertyRelative("Type");
-                SerializedProperty rObjectProp = null;
-
-                if (rTypeProp.stringValue == "Int")
-                    rObjectProp = rElementProp.FindPropertyRelative("IntObject");
-                else if (rTypeProp.stringValue == "Long")
-                    rObjectProp = rElementProp.FindPropertyRelative("LongObject");
-                else if (rTypeProp.stringValue == "Float")
-                    rObjectProp = rElementProp.FindPropertyRelative("FloatObject");
-                else if (rTypeProp.stringValue == "Double")
-                    rObjectProp = rElementProp.FindPropertyRelative("DoubleObject");
-                else if (rTypeProp.stringValue == "String")
-                    rObjectProp = rElementProp.FindPropertyRelative("StringObject");
-                else
-                    rObjectProp = rElementProp.FindPropertyRelative("IntObject");
-
-                var rObjectType = new ObjectType()
-                {
-                    Object = rObjectProp,
-                    Type = rTypeProp,
-                    Name = rElementProp.FindPropertyRelative("Name"),
-                    Selected = GetSelectedTypeIndex_BaseData(rTypeProp),
-                };
-                rObjectTypes.Add(rObjectType);
-            }
-            return rObjectTypes;
-        }
-
-        private int GetSelectedTypeIndex_BaseData(SerializedProperty rTypeProp)
-        {
-            int nSelected = 0;
-            if (rTypeProp.stringValue == "Int")
-                nSelected = 0;
-            else if (rTypeProp.stringValue == "Long")
-                nSelected = 1;
-            else if (rTypeProp.stringValue == "Float")
-                nSelected = 2;
-            else if (rTypeProp.stringValue == "Double")
-                nSelected = 3;
-            else if (rTypeProp.stringValue == "String")
-                nSelected = 4;
-            return nSelected;
-        }
-             
-
-        private List<string> GetBaseDataTypes()
-        {
-            return new List<string>(Enum.GetNames(typeof(BaseDataType)));
-        }
-
-        private void ChangeElementBaseDataBySelectedType(SerializedProperty rObjectProp, SerializedProperty rTypeProp, int nSelected)
-        {
-            List<string> rElemTypes = GetBaseDataTypes();
-
-            if (nSelected >= 0 && nSelected < rElemTypes.Count)
-            {
-                string rRealType = rElemTypes[nSelected];
-                rTypeProp.stringValue = rRealType;
-            }
-        }
-
-        private List<object> GetBaseDataComponents(SerializedProperty rObjectProp)
-        {
-            if (rObjectProp == null) return new List<object>();
-
-            GameObject rElementGo = rObjectProp.objectReferenceValue as GameObject;
-            if (rElementGo == null)
-            {
-                var rTempCmp = rObjectProp.objectReferenceValue as Component;
-                if (rTempCmp != null)
-                    rElementGo = rTempCmp.gameObject;
-            }
-            List<object> rElemObjs = new List<object>();
-            if (rElementGo != null)
-            {
-                rElemObjs.Add(rElementGo);
-                var rElemCmps = rElementGo.GetComponents<Component>();
-                for (int k = 0; k < rElemCmps.Length; k++)
-                {
-                    rElemObjs.Add(rElemCmps[k]);
-                }
-            }
-            return rElemObjs;
         }
     }
 }

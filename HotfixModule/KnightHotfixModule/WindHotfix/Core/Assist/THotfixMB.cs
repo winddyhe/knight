@@ -5,44 +5,81 @@
 using Framework.Hotfix;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace WindHotfix.Core
 {
-    public class THotfixMB<T> : HotfixMB where T : class
+    public class THotfixMB<T> where T : class
     {
-        public List<UnityObject>        Objects;
-        public List<BaseDataObject>     BaseDatas;
+        public GameObject           GameObject;
+        public List<UnityObject>    Objects;
         
-        public override void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
+        public void Awake_Proxy(GameObject rGo, List<UnityObject> rObjs)
         {
-            this.Objects   = rObjs;
-            this.BaseDatas = rBaseDatas;
-            
-            this.OnInitialize();
+            this.GameObject = rGo;
+            this.Objects    = rObjs;
+
+            this.Awake();
         }
 
-        public virtual void OnInitialize()
+        public void Start_Proxy()
         {
+            this.Start();
         }
-        
-        /// <summary>
-        /// @TODO: 这样子做可能有风险，无法执行到OnDestroy导致mEventHandler的引用计数不对
-        ///        等框架完善之后再做改进
-        /// </summary>
-        public void Destroy()
-        {
-            this.GameObject = null;
 
+        public void Update_Proxy()
+        {
+            this.Update();
+        }
+
+        public void OnDestroy_Proxy()
+        {
             this.OnDestroy();
+
+            this.GameObject = null;
+            if (this.Objects != null)
+            {
+                for (int i = 0; i < this.Objects.Count; i++)
+                {
+                    this.Objects[i] = null;
+                }
+                this.Objects.Clear();
+            }
+        }
+
+        public void OnEnable_Proxy()
+        {
+            this.OnEnable();
+        }
+
+        public void OnDisable_Proxy()
+        {
+            this.OnDisable();
         }
         
-        public object GetData(string rName)
+        public virtual void Awake()
         {
-            if (this.BaseDatas == null) return null;
-            var rBaseDataObj = this.BaseDatas.Find((rItem) => { return rItem.Name.Equals(rName); });
-            if (rBaseDataObj == null) return null;
-            return rBaseDataObj.Object;
+        }
+
+        public virtual void Start()
+        {
+        }
+
+        public virtual void Update()
+        {
+        }
+
+        public virtual void OnDestroy()
+        {
+        }
+        
+        public virtual void OnEnable()
+        {
+        }
+
+        private void OnDisable()
+        {
         }
     }
 }

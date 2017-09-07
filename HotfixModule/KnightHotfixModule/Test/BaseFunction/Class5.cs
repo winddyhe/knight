@@ -8,7 +8,7 @@ namespace WindHotfix.Test
     {
         public string name = "Class5";
 
-        public override void OnInitialize()
+        public override void Awake()
         {
             this.name = "OnInitialize Class5";
         }

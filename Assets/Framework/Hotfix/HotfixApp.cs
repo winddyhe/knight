@@ -71,7 +71,6 @@ namespace Framework.Hotfix
             this.mApp.RegisterCrossBindingAdaptor(new CoroutineAdapter());
             this.mApp.RegisterCrossBindingAdaptor(new IEqualityComparerAdaptor());
             this.mApp.RegisterCrossBindingAdaptor(new IEnumerableAdaptor());
-            this.mApp.RegisterCrossBindingAdaptor(new HotfixMBAdaptor());
 
             UtilTool.SafeExecute(this.RegisterCrossBindingAdaptorEvent);
         }
