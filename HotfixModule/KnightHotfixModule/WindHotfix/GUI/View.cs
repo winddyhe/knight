@@ -52,9 +52,9 @@ namespace WindHotfix.GUI
         /// <summary>
         /// View控制器
         /// </summary>
-        private ViewController    mViewController;
+        private ViewController      mViewController;
 
-        public  ViewController    ViewController { get { return mViewController; } }
+        public  ViewController      ViewController { get { return mViewController; } }
 
         /// <summary>
         /// 该View是否被打开？

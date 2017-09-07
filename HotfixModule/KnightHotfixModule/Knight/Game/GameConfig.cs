@@ -66,7 +66,7 @@ namespace Game.Knight
                 string rAssetPath = UtilTool.PathCombine(rLocalAssetPath, rConfigPathAttr.AssetName);
                 string rJsonText = File.ReadAllText(rAssetPath);
                 JsonNode rJsonNode = JsonParser.Parse(rJsonText);
-
+                
                 if (rMemberInfo.MemberType == MemberTypes.Field)
                 {
                     FieldInfo rFieldInfo = rMemberInfo.DeclaringType.GetField(rMemberInfo.Name);

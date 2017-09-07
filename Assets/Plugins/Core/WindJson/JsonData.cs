@@ -402,7 +402,7 @@ namespace Core.WindJson
             if (rType.IsGenericType && typeof(IDictionary).IsAssignableFrom(rType.GetGenericTypeDefinition()))
             {
                 // 特殊处理IDictionary<,>类型
-                IDictionary rObject = (IDictionary)ReflectionAssist.CreateInstance(rType, BindingFlags.Default);
+                IDictionary rObject = (IDictionary)ReflectionAssist.CreateInstance(rType, ReflectionAssist.flags_all);
                 Type[] rArgsTypes = rType.GetGenericArguments();
                 foreach (var rItem in this.dict)
                 {
@@ -415,7 +415,7 @@ namespace Core.WindJson
             else if (rType.IsGenericType && typeof(IDict).IsAssignableFrom(rType.GetGenericTypeDefinition()))
             {
                 // 特殊处理IDict<,>的类型
-                IDict rObject = (IDict)ReflectionAssist.CreateInstance(rType, BindingFlags.Default);
+                IDict rObject = (IDict)ReflectionAssist.CreateInstance(rType, ReflectionAssist.flags_all);
                 Type[] rArgsTypes = rType.GetGenericArguments();
                 foreach (var rItem in this.dict)
                 {

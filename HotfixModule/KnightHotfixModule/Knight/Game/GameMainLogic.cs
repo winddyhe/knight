@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WindHotfix.GUI;
+using Framework.Hotfix;
 
 namespace Game.Knight
 {
@@ -13,6 +14,9 @@ namespace Game.Knight
 
         public IEnumerator Initialize()
         {
+            // 事件管理器
+            HotfixEventManager.Instance.Initialize();
+
             // UI Manager 初始化
             ViewManager.Instance.Initialize();
 

@@ -3,12 +3,14 @@
 //        Email: hgplan@126.com
 //======================================================================
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using Core;
 using System.IO;
 using System.Xml;
+using System.Linq;
 
 namespace WindHotfix.Core.Editor
 {
@@ -95,8 +97,9 @@ namespace WindHotfix.Core.Editor
                     rText.A("}").N();
 
                 var rGroupName = string.Empty;
-                var rAttributes = rType.GetCustomAttributes<HotfixSBGroupAttribute>(true);
-                if (rAttributes.Length > 0)
+                var rAttributes = new List<HotfixSBGroupAttribute>();
+                rAttributes.AddRange(rType.GetCustomAttributes<HotfixSBGroupAttribute>(true));
+                if (rAttributes.Count > 0)
                     rGroupName = rAttributes[0].GroupName;
 
                 rGenerate.Add(rText.ToString(), UtilTool.PathCombine(GeneratePath, rGroupName, rType.FullName + ".Binary.cs"));
