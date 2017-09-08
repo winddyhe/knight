@@ -5,17 +5,13 @@ namespace WindHotfix.Game
 {
     public class Entity
     {
-        private List<Component> mComponents;
+        private List<Component>     mComponents;
 
         public Entity()
         {
             mComponents = new List<Component>();
         }
-
-        public void Update()
-        {
-        }
-
+        
         public T AddComponent<T>() where T : Component, new()
         {
             var rComp = Entity.Create<T>(this);

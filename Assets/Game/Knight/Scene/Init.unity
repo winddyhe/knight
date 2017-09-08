@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c41be6df1c2684e85a0ac1a957a79c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainLogicScript: Game.Knight.GameMainLogic
+  MainLogicScript: Game.Knight.LogicSystemManagerSGX
 --- !u!4 &151280999
 Transform:
   m_ObjectHideFlags: 0

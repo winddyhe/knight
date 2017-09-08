@@ -96,7 +96,9 @@
     <Compile Include="Knight\GamePlay\GamePlayComponent.ActorSkill.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentConfig.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentParser.cs" />
-    <Compile Include="Knight\Game\GameMainLogic.cs" />
+    <Compile Include="Knight\Game\ECS\MoveComponent.cs" />
+    <Compile Include="Knight\Game\ECS\Player.cs" />
+    <Compile Include="Knight\Game\LogicSystemManager.SGX.cs" />
     <Compile Include="Test\BaseFunction\Class5.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixAssists.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixDataBinding.cs" />
@@ -139,7 +141,8 @@
     <Compile Include="WindHotfix\Game\Component.cs" />
     <Compile Include="WindHotfix\Game\Components\ComponentMBContainer.cs" />
     <Compile Include="WindHotfix\Game\Entity.cs" />
-    <Compile Include="WindHotfix\Game\GameLogicBase.cs" />
+    <Compile Include="WindHotfix\Game\LogicSystemManager.cs" />
+    <Compile Include="WindHotfix\Game\LogicSystem.cs" />
     <Compile Include="WindHotfix\GUI\TViewController.cs" />
     <Compile Include="WindHotfix\GUI\View.cs" />
     <Compile Include="WindHotfix\GUI\ViewController.cs" />
