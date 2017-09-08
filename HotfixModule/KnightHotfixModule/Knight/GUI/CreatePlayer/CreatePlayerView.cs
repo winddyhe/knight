@@ -40,15 +40,15 @@ namespace Game.Knight
             this.CreatePlayerItems = new List<CreatePlayerItem>();
 
             CreatePlayerItem rItem = new CreatePlayerItem();
-            rItem.Initialize(this, this.Objects[6].Object as HotfixMBContainer);
+            rItem.Initialize(this, this.Objects[6].Object as HotfixMBContainer, 911);
             this.CreatePlayerItems.Add(rItem);
 
             rItem = new CreatePlayerItem();
-            rItem.Initialize(this, this.Objects[7].Object as HotfixMBContainer);
+            rItem.Initialize(this, this.Objects[7].Object as HotfixMBContainer, 911);
             this.CreatePlayerItems.Add(rItem);
 
             rItem = new CreatePlayerItem();
-            rItem.Initialize(this, this.Objects[8].Object as HotfixMBContainer);
+            rItem.Initialize(this, this.Objects[8].Object as HotfixMBContainer, 911);
             this.CreatePlayerItems.Add(rItem);
         }
 

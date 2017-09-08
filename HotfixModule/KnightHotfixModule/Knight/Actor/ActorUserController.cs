@@ -29,7 +29,7 @@ namespace Game.Knight
             {
                 Debug.LogError("Cannot find main camera.");
             }
-            mCharacter = this.GameObject.ReceiveHotfixComponent<ActorController>();
+            //mCharacter = this.GameObject.ReceiveHotfixComponent<ActorController>();
         }
 
         public override void Update()

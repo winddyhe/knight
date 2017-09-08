@@ -21,7 +21,7 @@ namespace Game.Knight
 
         private Actor.ActorCreateRequest    mActorCreateRequest;
 
-        public void Initialize(CreatePlayerView rParent, HotfixMBContainer rMBContainer)
+        public void Initialize(CreatePlayerView rParent, HotfixMBContainer rMBContainer, int nProfessionalID)
         {
             // 这里的调用次序的问题 必须要等待下一帧才能得到ViewController的值
             this.Parent = rParent;
@@ -30,7 +30,7 @@ namespace Game.Knight
             HotfixEventManager.Instance.Binding(this.SelectedPlayer, (EventTriggerType)100, (rTarget) => { OnToggleSelectedValueChanged(); });
 
             // 获取ProfessionalID
-            this.ProfessionalID = rMBContainer.BaseDatas[0].IntObject;
+            this.ProfessionalID = nProfessionalID;
         }
 
         public void Destroy()

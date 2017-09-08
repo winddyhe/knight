@@ -7,23 +7,16 @@ namespace WindHotfix.Game
 {
     public class GameLogicBase
     {
-        private List<GameComponent> mGameComps;
+        private List<Component> mGameComps;
 
         public virtual IEnumerator Initialize()
         {
-            mGameComps = new List<GameComponent>();
+            mGameComps = new List<Component>();
             yield break;
         }
 
         public virtual void Update()
         {
-        }
-
-        public GameComponent AddComponent(HotfixMBContainer rMBContainer)
-        {
-            GameComponent rGameComp = new GameComponent(rMBContainer);
-            mGameComps.Add(rGameComp);
-            return rGameComp;
         }
     }
 }

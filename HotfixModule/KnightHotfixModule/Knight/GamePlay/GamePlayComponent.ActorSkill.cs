@@ -156,7 +156,7 @@ namespace Game.Knight
         public override void Initialize()
         {
             base.Initialize();
-            mActionMgr = this.mGamePlayMgr.Actor.ActorGo.GetHotfixComponent<ActionManager>();
+            //mActionMgr = this.mGamePlayMgr.Actor.ActorGo.GetHotfixComponent<ActionManager>();
         }
 
         protected override void OnStart()

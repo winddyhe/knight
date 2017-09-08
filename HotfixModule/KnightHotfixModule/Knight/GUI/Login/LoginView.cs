@@ -16,18 +16,14 @@ namespace Game.Knight
         private InputField  mAccountInput;
         private InputField  mPasswordInput;
 
-        private string      mGateHost = "";
-        private int         mGatePort = 0;
-        private int         mServerID = 0;
+        private string      mGateHost = "127.0.0.1";
+        private int         mGatePort = 3010;
+        private int         mServerID = 1001;
 
         public override void OnInitialize()
         {
             mAccountInput  = this.Objects[0].Object as InputField;
             mPasswordInput = this.Objects[1].Object as InputField;
-            
-            this.mGateHost = (string)this.GetData("GateHost");
-            this.mGatePort = (int)this.GetData("GatePort");
-            this.mServerID = (int)this.GetData("ServerID");
             
             this.EventBinding(this.Objects[2].Object, EventTriggerType.PointerClick, OnButton_Clicked);
         }

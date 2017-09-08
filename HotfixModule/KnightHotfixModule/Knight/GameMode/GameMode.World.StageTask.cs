@@ -124,8 +124,8 @@ namespace Game.Knight
                 this.GameMode.MainPlayer.ActorGo.transform.position = rBornPos;
 
                 // 添加角色控制器
-                this.GameMode.MainPlayer.ActorGo.ReceiveHotfixComponent<ActorUserController>();
-                this.GameMode.MainPlayer.ActorGo.ReceiveHotfixComponent<ActorController>();
+                //this.GameMode.MainPlayer.ActorGo.ReceiveHotfixComponent<ActorUserController>();
+                //this.GameMode.MainPlayer.ActorGo.ReceiveHotfixComponent<ActorController>();
 
                 // 加载Gamepad界面
                 yield return ViewManager.Instance.OpenAsync("KNGamePad", View.State.dispatch);

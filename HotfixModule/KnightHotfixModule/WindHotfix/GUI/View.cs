@@ -137,7 +137,7 @@ namespace WindHotfix.GUI
             else
             {
                 this.mViewController.SetHotfix(this.ViewMB.HotfixName, this.GUID);
-                this.mViewController.Initialize(this.ViewMB.Objects, this.ViewMB.ToBaseDataObjects(this.ViewMB.BaseDatas));
+                this.mViewController.Initialize(this.ViewMB.Objects);
             }
         }
 

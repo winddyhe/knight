@@ -23,7 +23,7 @@ namespace WindHotfix.GUI
             this.ParentType = string.Format("WindHotfix.GUI.THotfixViewController`1<{0}>", rHotfixName);
         }
 
-        public virtual void Initialize(List<UnityObject> rObjs, List<BaseDataObject> rBaseDatas)
+        public virtual void Initialize(List<UnityObject> rObjs)
         {
         }
 

@@ -57,7 +57,7 @@ namespace Game.Knight
             this.Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             this.Rigidbody.isKinematic = true;
             this.Rigidbody.useGravity = false;
-            this.ActionMgr = this.Actor.ActorGo.ReceiveHotfixComponent<ActionManager>();
+            //this.ActionMgr = this.Actor.ActorGo.ReceiveHotfixComponent<ActionManager>();
         }
 
         public void Move(Vector3 rMove, bool bIsRun)
