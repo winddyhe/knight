@@ -42,6 +42,8 @@ namespace WindHotfix.GUI
 
         public void Update()
         {
+            if (this.mCurViews == null) return;
+
             foreach (var rPair in mCurViews)
             {
                 rPair.Value.Update();
