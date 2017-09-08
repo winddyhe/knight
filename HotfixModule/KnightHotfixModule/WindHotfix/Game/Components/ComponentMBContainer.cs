@@ -2,17 +2,17 @@
 using System;
 using System.Collections.Generic;
 using WindHotfix.Core;
+using UnityEngine;
 
 namespace WindHotfix.Game
 {
     public class ComponentMBContainer : Component
     {
-        public HotfixMBContainer MBContainer;
+        public HotfixMBContainer    MBContainer;
 
-        public ComponentMBContainer(HotfixMBContainer rMBContainer)
+        public void Initialize(HotfixMBContainer rMBContainer)
         {
-            this.MBContainer = rMBContainer;
-            
+            this.MBContainer = rMBContainer;   
             // 绑定数据
             HotfixDataBindingAssist.BindComponent(this);
         }
@@ -28,6 +28,15 @@ namespace WindHotfix.Game
             if (this.MBContainer == null || this.MBContainer.Objects == null) return null;
             if (nIndex < 0 || nIndex >= this.MBContainer.Objects.Count) return null;
             return this.MBContainer.Objects[nIndex];
+        }
+
+        public GameObject GameObject 
+        {
+            get
+            {
+                if (this.MBContainer == null) return null;
+                return this.MBContainer.gameObject;
+            }
         }
     }
 }

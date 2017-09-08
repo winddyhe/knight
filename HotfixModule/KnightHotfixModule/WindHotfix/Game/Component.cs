@@ -6,6 +6,7 @@ namespace WindHotfix.Game
 {
     public class Component
     {
-        public int ID;
+        public string   GUID;
+        public Entity   Entity;
     }
 }
