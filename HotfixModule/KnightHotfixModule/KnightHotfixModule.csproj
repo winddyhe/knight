@@ -96,9 +96,13 @@
     <Compile Include="Knight\GamePlay\GamePlayComponent.ActorSkill.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentConfig.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentParser.cs" />
-    <Compile Include="Knight\Game\ECS\MoveComponent.cs" />
-    <Compile Include="Knight\Game\ECS\Player.cs" />
-    <Compile Include="Knight\Game\LogicSystemManager.SGX.cs" />
+    <Compile Include="Knight\Game\ECS\Components\ComponentAnimator.cs" />
+    <Compile Include="Knight\Game\ECS\Components\ComponentCollider.cs" />
+    <Compile Include="Knight\Game\ECS\Components\ComponentMove.cs" />
+    <Compile Include="Knight\Game\ECS\Components\ComponentTransform.cs" />
+    <Compile Include="Knight\Game\ECS\Systems\SystemAnimator.cs" />
+    <Compile Include="Knight\Game\ECS\Systems\SystemMove.cs" />
+    <Compile Include="Knight\Game\GameLogicManager.cs" />
     <Compile Include="Test\BaseFunction\Class5.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixAssists.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixDataBinding.cs" />
@@ -138,17 +142,19 @@
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolElement.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolItem.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolObject.Binary.cs" />
-    <Compile Include="WindHotfix\Game\Component.cs" />
-    <Compile Include="WindHotfix\Game\Components\ComponentMBContainer.cs" />
-    <Compile Include="WindHotfix\Game\Entity.cs" />
-    <Compile Include="WindHotfix\Game\LogicSystemManager.cs" />
-    <Compile Include="WindHotfix\Game\LogicSystem.cs" />
+    <Compile Include="WindHotfix\Game\GameComponent.cs" />
+    <Compile Include="WindHotfix\Game\GCContainer.cs" />
+    <Compile Include="WindHotfix\Game\GameEntity.cs" />
+    <Compile Include="WindHotfix\Game\ECSManager.cs" />
+    <Compile Include="WindHotfix\Game\GameSystem.cs" />
     <Compile Include="WindHotfix\GUI\TViewController.cs" />
     <Compile Include="WindHotfix\GUI\View.cs" />
     <Compile Include="WindHotfix\GUI\ViewController.cs" />
     <Compile Include="WindHotfix\GUI\ViewManager.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Knight\Game\ECS\Entities\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

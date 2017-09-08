@@ -3,30 +3,31 @@ using System.Collections.Generic;
 
 namespace WindHotfix.Game
 {
-    public class Entity
+    public class GameEntity
     {
-        private List<Component>     mComponents;
+        private List<GameComponent> mComponents;
+        public List<GameComponent>  Components  { get { return mComponents; } }
 
-        public Entity()
+        public GameEntity()
         {
-            mComponents = new List<Component>();
+            mComponents = new List<GameComponent>();
         }
         
-        public T AddComponent<T>() where T : Component, new()
+        public T AddComponent<T>() where T : GameComponent, new()
         {
-            var rComp = Entity.Create<T>(this);
+            var rComp = GameEntity.Create<T>(this);
             mComponents.Add(rComp);
             return rComp;
         }
 
-        public T GetComponent<T>() where T : Component
+        public T GetComponent<T>() where T : GameComponent
         {
             var rComp = mComponents.Find((rItem) => { return rItem.GetType().Equals(typeof(T)); });
             if (rComp != null) return rComp as T;
             return null;
         }
 
-        public List<T> GetComponents<T>() where T : Component
+        public List<T> GetComponents<T>() where T : GameComponent
         {
             List<T> rComps = new List<T>();
             for (int i = 0; i < mComponents.Count; i++)
@@ -37,14 +38,14 @@ namespace WindHotfix.Game
             return rComps;
         }
         
-        public T ReceiveComponent<T>() where T : Component, new()
+        public T ReceiveComponent<T>() where T : GameComponent, new()
         {
             var rComp = this.GetComponent<T>();
             if (rComp == null) rComp = this.AddComponent<T>();
             return rComp;
         }
 
-        public static T Create<T>(Entity rEntity) where T : Component, new()
+        public static T Create<T>(GameEntity rEntity) where T : GameComponent, new()
         {
             T rComp = new T();
             rComp.GUID = System.Guid.NewGuid().ToString();

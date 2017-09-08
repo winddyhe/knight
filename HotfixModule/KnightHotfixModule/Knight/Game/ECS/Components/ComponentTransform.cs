@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 using WindHotfix.Game;
 
 namespace Game.Knight
 {
-    public class Player : Entity
+    public class ComponentTransform : GameComponent
     {
-        public MoveComponent MoveComp;
+        public Transform Transform;
     }
 }

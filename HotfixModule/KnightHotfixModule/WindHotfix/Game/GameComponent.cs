@@ -4,9 +4,9 @@ using Framework.Hotfix;
 
 namespace WindHotfix.Game
 {
-    public class Component
+    public class GameComponent
     {
         public string   GUID;
-        public Entity   Entity;
+        public GameEntity   Entity;
     }
 }
