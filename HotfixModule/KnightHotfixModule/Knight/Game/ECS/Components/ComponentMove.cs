@@ -6,9 +6,7 @@ namespace Game.Knight
 {
     public class ComponentMove : GameComponent
     {
-        public Transform    Trans;
         public Vector3      MoveSpeed;
-
 
         public Vector3      mGroundNormal;
         public float        mGroundedY;

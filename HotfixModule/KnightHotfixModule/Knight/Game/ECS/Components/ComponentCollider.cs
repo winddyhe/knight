@@ -6,6 +6,7 @@ namespace Game.Knight
 {
     public class ComponentCollider : GameComponent
     {
-
+        public float    Radius;
+        public float    Height;
     }
 }
