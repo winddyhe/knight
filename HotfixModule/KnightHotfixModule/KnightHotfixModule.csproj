@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -147,6 +147,16 @@
     <Compile Include="WindHotfix\Game\GameEntity.cs" />
     <Compile Include="WindHotfix\Game\ECSManager.cs" />
     <Compile Include="WindHotfix\Game\GameSystem.cs" />
+    <Compile Include="WindHotfix\Game\TSystem\GameSystem.Template10.cs" />
+    <Compile Include="WindHotfix\Game\TSystem\GameSystem.Template2.cs" />
+    <Compile Include="WindHotfix\Game\TSystem\GameSystem.Template1.cs" />
+    <Compile Include="WindHotfix\Game\TSystem\GameSystem.Template3.cs" />
+    <Compile Include="WindHotfix\Game\TSystem\GameSystem.Template4.cs" />
+    <Compile Include="WindHotfix\Game\TSystem\GameSystem.Template5.cs" />
+    <Compile Include="WindHotfix\Game\TSystem\GameSystem.Template6.cs" />
+    <Compile Include="WindHotfix\Game\TSystem\GameSystem.Template7.cs" />
+    <Compile Include="WindHotfix\Game\TSystem\GameSystem.Template8.cs" />
+    <Compile Include="WindHotfix\Game\TSystem\GameSystem.Template9.cs" />
     <Compile Include="WindHotfix\GUI\TViewController.cs" />
     <Compile Include="WindHotfix\GUI\View.cs" />
     <Compile Include="WindHotfix\GUI\ViewController.cs" />

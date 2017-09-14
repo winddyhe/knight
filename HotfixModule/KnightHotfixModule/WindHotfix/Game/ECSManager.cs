@@ -35,7 +35,7 @@ namespace WindHotfix.Game
         {
             for (int i = 0; i < mSystems.Count; i++)
             {
-                mSystems[i].Initialize();
+                mSystems[i].Start();
             }
         }
 

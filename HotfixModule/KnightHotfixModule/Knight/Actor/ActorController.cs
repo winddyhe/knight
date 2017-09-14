@@ -132,7 +132,7 @@ namespace Game.Knight
             float rActorRadius = this.Actor.Hero.Radius + 0.2f;
 #if UNITY_EDITOR
             Debug.DrawLine(rActorPos, rActorPos + rMove, Color.red);
-            Debug.DrawLine(rActorPos, rActorPos + this.transform.forward * rActorRadius, Color.green);
+            Debug.DrawLine(rActorPos, rActorPos + this.GameObject.transform.forward * rActorRadius, Color.green);
 #endif
             if (Physics.Raycast(rActorPos, this.GameObject.transform.forward, out rHitInfo, rActorRadius, 1 << LayerMask.NameToLayer("Wall")))
             {

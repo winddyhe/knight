@@ -7,16 +7,17 @@ namespace WindHotfix.Game
     public class GameSystem
     {
         public    bool        IsActive;
-
         protected GCContainer mResultComps;
 
-        public virtual void Initialize()
+        public virtual void Start()
         {
-            this.IsActive = true;
-            this.mResultComps = new GCContainer();
         }
 
         public virtual void Update()
+        {
+        }
+
+        public virtual void Stop()
         {
         }
     }

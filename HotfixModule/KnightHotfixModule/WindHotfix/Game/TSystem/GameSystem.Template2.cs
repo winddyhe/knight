@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace WindHotfix.Game
+{
+    public class TGameSystem<T1, T2> : GameSystem 
+        where T1 : GameComponent 
+        where T2 : GameComponent
+    {
+        public override void Start()
+        {
+            this.IsActive = true;
+            this.mResultComps = new GCContainer();
+
+            ECSManager.Instance.ForeachEntities(this.mResultComps, (rComps) =>
+            {
+                this.OnStart(this.mResultComps.Get<T1>(), this.mResultComps.Get<T2>());
+            });
+        }
+
+        public override void Update()
+        {
+            if (!this.IsActive) return;
+
+            ECSManager.Instance.ForeachEntities(this.mResultComps, (rComps) =>
+            {
+                this.OnUpdate(this.mResultComps.Get<T1>(), this.mResultComps.Get<T2>());
+            });
+        }
+
+        public override void Stop()
+        {
+            this.IsActive = false;
+
+            ECSManager.Instance.ForeachEntities(this.mResultComps, (rComps) =>
+            {
+                this.OnStop(this.mResultComps.Get<T1>(), this.mResultComps.Get<T2>());
+            });
+        }
+
+        protected virtual void OnStart(T1 rComp1, T2 rComp2)
+        {
+        }
+
+        protected virtual void OnUpdate(T1 rComp1, T2 rComp2)
+        {
+        }
+
+        protected virtual void OnStop(T1 rComp1, T2 rComp2)
+        {
+        }
+    }
+}

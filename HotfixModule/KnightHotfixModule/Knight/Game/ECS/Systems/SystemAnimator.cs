@@ -4,22 +4,20 @@ using WindHotfix.Game;
 
 namespace Game.Knight
 {
-    public class SystemAnimator : GameSystem
+    public class SystemAnimator : TGameSystem<ComponentAnimator>
     {
-        public override void Initialize()
+        protected override void OnUpdate(ComponentAnimator rCompAnimator)
         {
-            base.Initialize();
-        }
-
-        public override void Update()
-        {
-            if (!this.IsActive) return;
-
-            //ECSManager.Instance.ForeachEntities((rComps) =>
-            //{
-
-            //},
-            //typeof(ComponentAnimator));
+            if (rCompAnimator.IsRun)
+            {
+                rCompAnimator.Animator.SetBool("IsRun",  rCompAnimator.IsMove);
+                rCompAnimator.Animator.SetBool("IsMove", rCompAnimator.IsMove);
+            }
+            else
+            {
+                rCompAnimator.Animator.SetBool("IsMove", rCompAnimator.IsMove);
+                rCompAnimator.Animator.SetBool("IsRun",  false);
+            }
         }
     }
 }
