@@ -96,11 +96,11 @@
     <Compile Include="Knight\GamePlay\GamePlayComponent.ActorSkill.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentConfig.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentParser.cs" />
-    <Compile Include="Knight\Game\ECS\Components\ComponentAnimator.cs" />
-    <Compile Include="Knight\Game\ECS\Components\ComponentCollider.cs" />
-    <Compile Include="Knight\Game\ECS\Components\ComponentMove.cs" />
-    <Compile Include="Knight\Game\ECS\Components\ComponentTransform.cs" />
+    <Compile Include="Knight\Game\ECS\Components\Component.Base.cs" />
+    <Compile Include="Knight\Game\ECS\Components\Component.Unity.cs" />
     <Compile Include="Knight\Game\ECS\Systems\SystemAnimator.cs" />
+    <Compile Include="Knight\Game\ECS\Systems\SystemAnimatorMove.cs" />
+    <Compile Include="Knight\Game\ECS\Systems\SystemTransform.cs" />
     <Compile Include="Knight\Game\ECS\Systems\SystemMove.cs" />
     <Compile Include="Knight\Game\GameLogicManager.cs" />
     <Compile Include="Test\BaseFunction\Class5.cs" />

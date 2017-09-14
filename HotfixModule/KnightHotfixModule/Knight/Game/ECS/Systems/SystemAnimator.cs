@@ -1,22 +1,22 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
+using System.Collections.Generic;
 using WindHotfix.Game;
 
 namespace Game.Knight
 {
-    public class SystemAnimator : TGameSystem<ComponentAnimator>
+    public class SystemAnimator : TGameSystem<ComponentAnimator, ComponentUnityAnimator>
     {
-        protected override void OnUpdate(ComponentAnimator rCompAnimator)
+        protected override void OnUpdate(ComponentAnimator rCompAnim, ComponentUnityAnimator rCompUnityAnim)
         {
-            if (rCompAnimator.IsRun)
+            if (rCompAnim.IsRun)
             {
-                rCompAnimator.Animator.SetBool("IsRun",  rCompAnimator.IsMove);
-                rCompAnimator.Animator.SetBool("IsMove", rCompAnimator.IsMove);
+                rCompUnityAnim.Animator.SetBool("IsRun",  rCompAnim.IsRun);
+                rCompUnityAnim.Animator.SetBool("IsWalk", rCompAnim.IsMove);
             }
             else
             {
-                rCompAnimator.Animator.SetBool("IsMove", rCompAnimator.IsMove);
-                rCompAnimator.Animator.SetBool("IsRun",  false);
+                rCompUnityAnim.Animator.SetBool("IsRun",  rCompAnim.IsRun);
+                rCompUnityAnim.Animator.SetBool("IsWalk", rCompAnim.IsMove);
             }
         }
     }
