@@ -19,6 +19,10 @@ namespace Core
         /// </summary>
         private TObjectPool<GameObject> mObjectPool;
         /// <summary>
+        /// 模板对象
+        /// </summary>
+        private GameObject              mPrefabGo;
+        /// <summary>
         /// 对象池的根节点
         /// </summary>
         private GameObject              mRootGo;
@@ -27,8 +31,9 @@ namespace Core
         /// </summary>
         public  GameObject              RootGo          { get { return mRootGo; } }
 
-        public GameObjectPool(string rPoolName, int rInitCount = 0)
+        public GameObjectPool(string rPoolName, GameObject rPrefabGo, int rInitCount = 0)
         {
+            this.mPrefabGo = rPrefabGo;
             this.mObjectPool = new TObjectPool<GameObject>(OnAlloc, OnFree, OnDestroy);
 
             this.mRootGo = UtilTool.CreateGameObject(rPoolName);
@@ -54,13 +59,14 @@ namespace Core
 
         public void Destroy()
         {
+            this.mPrefabGo = null;
             this.mObjectPool.Destroy();
             UtilTool.SafeDestroy(this.mRootGo);
         }
 
-        private void OnAlloc(GameObject rGo)
+        private GameObject OnAlloc()
         {
-            rGo.transform.parent = null;
+            return GameObject.Instantiate(this.mPrefabGo);
         }
 
         private void OnFree(GameObject rGo)

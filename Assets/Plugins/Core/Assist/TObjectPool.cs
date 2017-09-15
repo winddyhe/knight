@@ -6,13 +6,13 @@ namespace Core
 {
     public class TObjectPool<T> where T : new()
     {
-        private Stack<T> mStack;
+        private Stack<T>    mStack;
 
-        private Action<T> mActionAlloc;
-        private Action<T> mActionFree;
-        private Action<T> mActionDestroy;
+        private Func<T>     mActionAlloc;
+        private Action<T>   mActionFree;
+        private Action<T>   mActionDestroy;
 
-        public TObjectPool(Action<T> rActionAlloc, Action<T> rActionFree, Action<T> rActionDestroy)
+        public TObjectPool(Func<T> rActionAlloc, Action<T> rActionFree, Action<T> rActionDestroy)
         {
             mStack = new Stack<T>();
 
@@ -23,23 +23,20 @@ namespace Core
 
         public T Alloc()
         {
-            T rElement = default(T);
             if (mStack.Count == 0)
             {
-                rElement = new T();
+                return UtilTool.SafeExecute(mActionAlloc);
             }
             else
             {
-                rElement = mStack.Pop();
+                return mStack.Pop();
             }
-            UtilTool.SafeExecute(mActionAlloc, rElement);
-            return rElement;
         }
 
         public void Free(T rElement)
         {
             if (mStack.Count > 0 && object.ReferenceEquals(mStack.Peek(), rElement))
-                Debug.LogError("Internal error. Trying to destroy object that is already released to pool.");
+                Debug.Log("Internal error. Trying to destroy object that is already released to pool.");
 
             if (mActionFree != null)
                 mActionFree(rElement);

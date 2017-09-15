@@ -10,7 +10,7 @@ namespace Framework.Graphics
 {
     public class VertexListPool<T>
     {
-        private static readonly TObjectPool<List<T>> mListPool = new TObjectPool<List<T>>(null, OnDestroy, OnDestroy);
+        private static readonly TObjectPool<List<T>> mListPool = new TObjectPool<List<T>>(OnAlloc, OnDestroy, OnDestroy);
 
         public static List<T> Alloc()
         {
@@ -25,6 +25,11 @@ namespace Framework.Graphics
         public static void Destroy()
         {
             mListPool.Destroy();
+        }
+
+        private static List<T> OnAlloc()
+        {
+            return new List<T>();
         }
 
         private static void OnDestroy(List<T> rList)
