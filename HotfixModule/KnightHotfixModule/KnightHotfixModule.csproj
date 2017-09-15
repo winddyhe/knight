@@ -7,7 +7,7 @@
     <ProjectGuid>{42AE5E3D-2228-4EEC-9E0A-A58E803D692D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KnightHotfixModule</RootNamespace>
+    <RootNamespace>Game.Knight</RootNamespace>
     <AssemblyName>KnightHotfixModule</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -97,10 +97,12 @@
     <Compile Include="Knight\GamePlay\GamePlayComponentConfig.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentParser.cs" />
     <Compile Include="Knight\Game\ECS\Components\Component.Base.cs" />
+    <Compile Include="Knight\Game\ECS\Components\Component.Camera.cs" />
     <Compile Include="Knight\Game\ECS\Components\Component.Unity.cs" />
-    <Compile Include="Knight\Game\ECS\Systems\SystemAnimator.cs" />
-    <Compile Include="Knight\Game\ECS\Systems\SystemMove.cs" />
-    <Compile Include="Knight\Game\ECS\Systems\SystemTransform.cs" />
+    <Compile Include="Knight\Game\ECS\Systems\System.Camera.cs" />
+    <Compile Include="Knight\Game\ECS\Systems\System.Move.cs" />
+    <Compile Include="Knight\Game\ECS\Systems\System.Unity.cs" />
+    <Compile Include="Knight\Game\ECS\Utilities\Utility.Player.cs" />
     <Compile Include="Knight\Game\GameLogicManager.cs" />
     <Compile Include="Test\BaseFunction\Class5.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixAssists.cs" />

@@ -27,9 +27,6 @@ namespace Game.Knight
         {
             // UI的模块更新逻辑
             ViewManager.Instance.Update();
-
-            // ECS模块更新逻辑
-            ECSManager.Instance.Update();
         }
     }
 }

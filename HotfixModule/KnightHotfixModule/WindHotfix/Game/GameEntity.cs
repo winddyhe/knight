@@ -6,11 +6,16 @@ namespace WindHotfix.Game
     public class GameEntity
     {
         private List<GameComponent> mComponents;
-        public List<GameComponent>  Components  { get { return mComponents; } }
+        public  List<GameComponent> Components  { get { return mComponents; } }
 
         public GameEntity()
         {
             mComponents = new List<GameComponent>();
+        }
+
+        public void AddComponent(GameComponent rComp)
+        {
+            mComponents.Add(rComp);
         }
         
         public T AddComponent<T>() where T : GameComponent, new()

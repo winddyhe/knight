@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using WindHotfix.Game;
+using Framework;
 
 namespace Game.Knight
 {
@@ -68,11 +69,33 @@ namespace Game.Knight
         }
     }
 
-    public class SystemMoveInput : TGameSystem<ComponentMove, ComponentInput>
+    public class SystemAnimatorMove : TGameSystem<ComponentMove, ComponentAnimator>
     {
-        protected override void OnUpdate(ComponentMove rCompMove, ComponentInput rCompInput)
+        protected override void OnUpdate(ComponentMove rCompMove, ComponentAnimator rCompAnim)
         {
-             
+            rCompAnim.IsMove = !rCompMove.MoveSpeed.Equals(Vector3.zero);
+            rCompMove.SpeedRate = rCompAnim.IsRun ? 2.0f : 1.0f;
+        }
+    }
+
+    public class SystemAnimatorInput : TGameSystem<ComponentAnimator, ComponentInput>
+    {
+        protected override void OnUpdate(ComponentAnimator rCompAnim, ComponentInput rCompInput)
+        {
+            rCompAnim.IsRun = rCompInput.IsRunInput;
+        }
+    }
+
+    public class SystemInputMove : TGameSystem<ComponentMove, ComponentTransform, ComponentInput>
+    {
+        protected override void OnUpdate(ComponentMove rCompMove, ComponentTransform rCompTrans, ComponentInput rCompInput)
+        {
+            rCompInput.HorizontalInput = InputManager.Instance.Horizontal;
+            rCompInput.VerticalInput = InputManager.Instance.Vertical;
+
+            Vector3 rForward = Vector3.Scale(rCompTrans.Forward, rCompInput.TempForword).normalized;
+            Vector3 rRight = Vector3.Cross(rCompTrans.Up, rCompTrans.Forward);
+            rCompMove.MoveSpeed = rCompInput.VerticalInput * rForward + rCompInput.HorizontalInput * rRight;
         }
     }
 }

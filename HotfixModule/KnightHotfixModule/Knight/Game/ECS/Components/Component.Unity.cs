@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using WindHotfix.Game;
+using Framework;
 
 namespace Game.Knight
 {
     public class ComponentUnityAnimator : GameComponent
     {
-        public Animator     Animator;
+        public Animator             Animator;
     }
 
-    public class ComponentUnityTrans : GameComponent
+    public class ComponentUnityGo : GameComponent
     {
-        public Transform    Transform;
+        public GameObject           GameObject;
     }
 }

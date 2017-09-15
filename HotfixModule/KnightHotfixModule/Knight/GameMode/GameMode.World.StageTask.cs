@@ -12,6 +12,7 @@ using Framework.WindUI;
 using WindHotfix.GameStage;
 using WindHotfix.Core;
 using WindHotfix.GUI;
+using WindHotfix.Game;
 
 namespace Game.Knight
 {
@@ -132,6 +133,31 @@ namespace Game.Knight
 
                 GameLoading.Instance.Hide();
                 Debug.Log("GameStage -- Init data complete.");
+                yield break;
+            }
+        }
+
+        /// <summary>
+        /// 初始化数据， 加载界面
+        /// </summary>
+        public class StageTask_InitMainPlayer : StageTask
+        {
+            public GameMode_World GameMode;
+
+            public StageTask_InitMainPlayer(GameMode_World rGameMode)
+            {
+                this.GameMode = rGameMode;
+            }
+
+            protected override bool OnInit()
+            {
+                this.name = "InitMainPlayer";
+                return true;
+            }
+
+            protected override IEnumerator OnRun_Async()
+            {
+                var rCompAvatar = this.GameMode.MainPlayer1.AddComponent<ComponentAvatar>();
                 yield break;
             }
         }

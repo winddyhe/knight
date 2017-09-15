@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WindHotfix.GameStage;
+using WindHotfix.Game;
 
 namespace Game.Knight
 {
@@ -12,6 +13,8 @@ namespace Game.Knight
         public StageConfig  StageConfig;
         public Actor        MainPlayer;
         public List<Actor>  PlayerList;
+        
+        public GameEntity   MainPlayer1;
 
         protected void Initialize()
         {

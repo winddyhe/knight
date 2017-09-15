@@ -62,5 +62,43 @@ namespace Game.Knight
         public float        VerticalInput;
 
         public bool         IsRunInput;
+
+        public Vector3      TempForword         = new Vector3(1, 0, 1);
+    }
+
+    public class ComponentHero : GameComponent
+    {
+        public int          ID;
+        public string       Name;
+        public int          AvatarID;
+        public int          SkillID;
+        public float        Scale;
+        public float        Height;
+        public float        Radius;
+    }
+
+    public class ComponentAvatar : GameComponent
+    {
+        public int          ID;
+        public string       AvatarName;
+        public string       ABPath;
+        public string       AssetName;
+    }
+
+    public class ComponentProfessional : GameComponent
+    {
+        public int          ID;
+        public int          HeroID;
+        public string       Name;
+        public string       Desc;
+    }
+
+    public class ComponentNet : GameComponent
+    {
+        public long         ActorID;
+        public string       ActorName;
+        public int          Level;
+        public int          ServerID;
+        public int          ProfessionalID;
     }
 }
