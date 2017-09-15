@@ -27,18 +27,18 @@ namespace Game.Knight
         /// <summary>
         /// 速度系数
         /// </summary>
-        public float        SpeedRate;
+        public float        SpeedRate           = 1.0f;
         
         /// <summary>
         /// 地面监测用的
         /// </summary>
-        public Vector3      GroundNormal;
-        public float        GroundedY;
+        public Vector3      GroundNormal        = Vector3.up;
+        public float        GroundedY           = 0.0f;
         /// <summary>
         /// 转向用的
         /// </summary>
-        public float        TurnAmount;
-        public float        ForwardAmount;
+        public float        TurnAmount          = 0.0f;
+        public float        ForwardAmount       = 0.0f;
 
         public float        GroundCheckDistance = 5f;
         public float        MovingTurnSpeed     = 360;
@@ -50,10 +50,9 @@ namespace Game.Knight
     public class ComponentTransform : GameComponent
     {
         public Vector3      Position;
-        public Quaternion   Rotation;
         public Vector3      Scale;
-
         public Vector3      Forward;
-        public Vector3      Right;
+
+        public Vector3      Up                  = Vector3.one;
     }
 }
