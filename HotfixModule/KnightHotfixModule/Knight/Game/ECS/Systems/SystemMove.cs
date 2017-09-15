@@ -67,4 +67,12 @@ namespace Game.Knight
             }
         }
     }
+
+    public class SystemMoveInput : TGameSystem<ComponentMove, ComponentInput>
+    {
+        protected override void OnUpdate(ComponentMove rCompMove, ComponentInput rCompInput)
+        {
+             
+        }
+    }
 }

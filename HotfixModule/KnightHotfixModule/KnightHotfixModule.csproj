@@ -99,7 +99,6 @@
     <Compile Include="Knight\Game\ECS\Components\Component.Base.cs" />
     <Compile Include="Knight\Game\ECS\Components\Component.Unity.cs" />
     <Compile Include="Knight\Game\ECS\Systems\SystemAnimator.cs" />
-    <Compile Include="Knight\Game\ECS\Systems\SystemAnimatorMove.cs" />
     <Compile Include="Knight\Game\ECS\Systems\SystemMove.cs" />
     <Compile Include="Knight\Game\ECS\Systems\SystemTransform.cs" />
     <Compile Include="Knight\Game\GameLogicManager.cs" />

@@ -55,4 +55,12 @@ namespace Game.Knight
 
         public Vector3      Up                  = Vector3.one;
     }
+
+    public class ComponentInput : GameComponent
+    {
+        public float        HorizontalInput;
+        public float        VerticalInput;
+
+        public bool         IsRunInput;
+    }
 }
