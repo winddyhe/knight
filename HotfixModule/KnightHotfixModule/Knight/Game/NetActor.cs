@@ -29,7 +29,7 @@ namespace Game.Knight
         /// <summary>
         /// 角色的职业类型
         /// </summary>
-        public ActorProfessional    Professional;
+        public int                  ProfessionalID;
     }
 }
 

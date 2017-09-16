@@ -5,8 +5,8 @@ namespace WindHotfix.Game
 {
     public class GameEntity
     {
-        private List<GameComponent> mComponents;
-        public  List<GameComponent> Components  { get { return mComponents; } }
+        protected List<GameComponent> mComponents;
+        public    List<GameComponent> Components  { get { return mComponents; } }
 
         public GameEntity()
         {

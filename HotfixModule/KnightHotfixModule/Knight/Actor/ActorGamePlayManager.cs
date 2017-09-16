@@ -9,7 +9,7 @@ namespace Game.Knight
 {
     public class ActorGamePlayManager : THotfixMB<ActorGamePlayManager>
     {
-        public Actor                Actor;
+        //public Actor                Actor;
         public List<GPCSkill>       Skills;
 
         public GPCSkill             CurSkill;
@@ -18,16 +18,16 @@ namespace Game.Knight
         private bool                mIsPause   = false;
         private float               mCurTime   = 0.0f;
 
-        public void Initialize(Actor rActor)
-        {
-            this.Actor = rActor;
+        //public void Initialize(Actor rActor)
+        //{
+        //    this.Actor = rActor;
 
-            this.BuildSkills(this.Actor.Hero.SkillID);
+        //    this.BuildSkills(this.Actor.Hero.SkillID);
 
-            mIsPlaying = false;
-            mIsPause = false;
-            mCurTime = 0.0f;
-        }
+        //    mIsPlaying = false;
+        //    mIsPause = false;
+        //    mCurTime = 0.0f;
+        //}
 
         public void Play(int nSkillFixedID)
         {

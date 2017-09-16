@@ -21,9 +21,10 @@ namespace WindHotfix.Game
             this.mSystems  = new List<GameSystem>();
         }
 
-        public void AddSystem(GameSystem rSystem)
+        public ECSManager AddSystem(GameSystem rSystem)
         {
             mSystems.Add(rSystem);
+            return this;
         }
 
         public void AddEntity(GameEntity rEntity)

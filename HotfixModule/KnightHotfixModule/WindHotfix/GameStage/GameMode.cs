@@ -5,6 +5,8 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
+using Core;
 
 namespace WindHotfix.GameStage
 {
@@ -30,11 +32,22 @@ namespace WindHotfix.GameStage
         {
             //设置GameStageManager
             this.gsm = GameStageManager.Instance;
-    
+            // 构建GameStages
+            this.gsm.gameStages = new Dict<int, GameStage>();
+
             // 构建GameStages
             OnBuildStages();
         }
     
         protected virtual void OnBuildStages() { }
+
+        public void AddGameStage(int nIndex, params StageTask[] rStageTasks)
+        {
+            GameStage rStageLoadAssets = new GameStage();
+            rStageLoadAssets.index = 0;
+            rStageLoadAssets.taskList = new List<StageTask>();
+            rStageLoadAssets.taskList.AddRange(rStageTasks);
+            this.gsm.gameStages.Add(rStageLoadAssets.index, rStageLoadAssets);
+        }
     }
 }

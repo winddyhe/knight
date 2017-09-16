@@ -146,7 +146,7 @@ namespace Game.Knight
     {
         public int              AnimID;
 
-        private ActionManager   mActionMgr;
+        //private ActionManager   mActionMgr;
 
         public GPCAnimation(ActorGamePlayManager rGamePlayMgr, List<string> rArgs)
             : base(rGamePlayMgr, rArgs)
@@ -161,12 +161,12 @@ namespace Game.Knight
 
         protected override void OnStart()
         {
-            mActionMgr.PlaySkill(this.AnimID);
+            //mActionMgr.PlaySkill(this.AnimID);
         }
 
         protected override void OnEnd()
         {
-            mActionMgr.PlaySkill(0);
+            //mActionMgr.PlaySkill(0);
         }
     }
 

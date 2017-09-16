@@ -65,7 +65,7 @@ namespace Game.Knight
                         Level = rActorNode["level"].AsInt,
                         ServerID = rActorNode["serverID"].AsInt
                     };
-                    rActor.Professional = GameConfig.Instance.GetActorProfessional(rActorNode["professionalID"].AsInt);
+                    rActor.ProfessionalID = rActorNode["professionalID"].AsInt;
                     rNetActors.Add(rActor);
                 }
             }

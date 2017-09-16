@@ -11,7 +11,7 @@ namespace Game.Knight
         public Camera           Camera;
 
         public Vector3          Offset;
-        public Vector3          Direction = new Vector3(0, 0, -1);
+        public Vector3          Direction   = new Vector3(0, 0, -1);
     }
 
     public class ComponentCameraSetting : GameComponent
@@ -25,9 +25,9 @@ namespace Game.Knight
 
     public class ComponentCameraFollower : GameComponent
     {
-        public bool             Enable;
+        public bool             Enable      = false;
 
         public float            SpringConst = 4.0f;
-        public float            SpringRate = 2.0f;
+        public float            SpringRate  = 2.0f;
     }
 }

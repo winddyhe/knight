@@ -16,8 +16,8 @@ namespace Game.Knight
         private InputField  mAccountInput;
         private InputField  mPasswordInput;
 
-        private string      mGateHost = "127.0.0.1";
-        private int         mGatePort = 3010;
+        //private string      mGateHost = "127.0.0.1";
+        //private int         mGatePort = 3010;
         private int         mServerID = 1001;
 
         public override void OnInitialize()

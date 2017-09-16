@@ -45,7 +45,7 @@ namespace Game.Knight
                 Level = 1,
                 ServerID = this.ServerID
             };
-            this.ActiveActor.Professional = GameConfig.Instance.GetActorProfessional(rProfessionalID);
+            this.ActiveActor.ProfessionalID = rProfessionalID;
             this.NetActors.Add(this.ActiveActor);
         }
     }
