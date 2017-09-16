@@ -44,7 +44,7 @@ namespace WindHotfix.GameStage
         public void AddGameStage(int nIndex, params StageTask[] rStageTasks)
         {
             GameStage rStageLoadAssets = new GameStage();
-            rStageLoadAssets.index = 0;
+            rStageLoadAssets.index = nIndex;
             rStageLoadAssets.taskList = new List<StageTask>();
             rStageLoadAssets.taskList.AddRange(rStageTasks);
             this.gsm.gameStages.Add(rStageLoadAssets.index, rStageLoadAssets);
