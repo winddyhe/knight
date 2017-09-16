@@ -91,14 +91,14 @@
     <Compile Include="Knight\GamePlay\GamePlayComponent.ActorSkill.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentConfig.cs" />
     <Compile Include="Knight\GamePlay\GamePlayComponentParser.cs" />
-    <Compile Include="Knight\Game\ECS\Components\Component.Base.cs" />
-    <Compile Include="Knight\Game\ECS\Components\Component.Camera.cs" />
-    <Compile Include="Knight\Game\ECS\Components\Component.Unity.cs" />
-    <Compile Include="Knight\Game\ECS\Entities\Entity.Camera.cs" />
-    <Compile Include="Knight\Game\ECS\Entities\Entity.Player.cs" />
-    <Compile Include="Knight\Game\ECS\Systems\System.Camera.cs" />
-    <Compile Include="Knight\Game\ECS\Systems\System.Move.cs" />
-    <Compile Include="Knight\Game\ECS\Systems\System.Unity.cs" />
+    <Compile Include="Knight\ECS\Components\Component.Base.cs" />
+    <Compile Include="Knight\ECS\Components\Component.Camera.cs" />
+    <Compile Include="Knight\ECS\Components\Component.Unity.cs" />
+    <Compile Include="Knight\ECS\Entities\Entity.Camera.cs" />
+    <Compile Include="Knight\ECS\Entities\Entity.Player.cs" />
+    <Compile Include="Knight\ECS\Systems\System.Camera.cs" />
+    <Compile Include="Knight\ECS\Systems\System.Move.cs" />
+    <Compile Include="Knight\ECS\Systems\System.Unity.cs" />
     <Compile Include="Knight\Game\GameLogicManager.cs" />
     <Compile Include="Test\BaseFunction\Class5.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixAssists.cs" />
@@ -160,7 +160,7 @@
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolObject.Binary.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Knight\Game\ECS\Utilities\" />
+    <Folder Include="Knight\ECS\Utilities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
