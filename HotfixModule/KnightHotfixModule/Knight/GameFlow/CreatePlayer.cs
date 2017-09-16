@@ -16,7 +16,7 @@ namespace Game.Knight
     {
         private static CreatePlayer     __instance;
         public static CreatePlayer      Instance { get { return __instance; } }
-
+        
         private GameMode_CreatePlayer   mGameMode;
         private string                  mSceneABPath;
 

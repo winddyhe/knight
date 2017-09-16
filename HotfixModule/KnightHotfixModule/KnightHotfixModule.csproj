@@ -76,6 +76,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Knight\Actor\ActorCreater.cs" />
     <Compile Include="Knight\Actor\ActorGamePlayManager.cs" />
     <Compile Include="Knight\Actor\ActorProfessional.cs" />
     <Compile Include="Knight\Actor\ActorHero.cs" />

@@ -15,11 +15,11 @@ namespace Game.Knight
 {
     public class CreatePlayerItem
     {
-        public Toggle                       SelectedPlayer;
-        public CreatePlayerView             Parent;
-        public int                          ProfessionalID;
+        public Toggle                           SelectedPlayer;
+        public CreatePlayerView                 Parent;
+        public int                              ProfessionalID;
 
-        //private Actor.ActorCreateRequest    mActorCreateRequest;
+        private ActorCreater.ActorCreateRequest mActorCreateRequest;
 
         public void Initialize(CreatePlayerView rParent, HotfixMBContainer rMBContainer, int nProfessionalID)
         {
@@ -54,35 +54,33 @@ namespace Game.Knight
 
         public void StartLoad()
         {
-            //ActorProfessional rProfessional = GameConfig.Instance.GetActorProfessional(this.ProfessionalID);
-            //this.Parent.ProfessionalDesc.text = rProfessional.Desc;
-            //mActorCreateRequest = Actor.CreateActor(-1, rProfessional.HeroID, ActorLoadCompleted);
+            ActorProfessional rProfessional = GameConfig.Instance.GetActorProfessional(this.ProfessionalID);
+            this.Parent.ProfessionalDesc.text = rProfessional.Desc;
+            mActorCreateRequest = ActorCreater.CreateActor(-1, rProfessional.HeroID, ActorLoadCompleted);
         }
 
         public void StopLoad()
         {
-            //if (mActorCreateRequest != null)
-            //{
-            //    if (mActorCreateRequest.Actor != null &&
-            //        mActorCreateRequest.Actor.ExhibitActor != null &&
-            //        mActorCreateRequest.Actor.ExhibitActor.ActorGo != null)
-            //    {
-            //        Actor.DestoryActor(mActorCreateRequest.Actor.Hero.ID);
-            //        UtilTool.SafeDestroy(mActorCreateRequest.Actor.ExhibitActor.ActorGo);
-            //    }
-            //    mActorCreateRequest.Stop();
-            //}
+            if (mActorCreateRequest != null)
+            {
+                if (mActorCreateRequest.ActorGo != null)
+                {
+                    ActorCreater.DestoryActor(mActorCreateRequest.Hero.ID);
+                    UtilTool.SafeDestroy(mActorCreateRequest.ActorGo);
+                }
+                mActorCreateRequest.Stop();
+            }
         }
 
-        //private void ActorLoadCompleted(Actor rActor)
-        //{
-        //    var rActorPos = rActor.ActorGo.transform.position;
-        //    RaycastHit rHitInfo;
-        //    if (Physics.Raycast(rActorPos + Vector3.up * 5.0f, Vector3.down, out rHitInfo, 20, 1 << LayerMask.NameToLayer("Road")))
-        //    {
-        //        rActorPos = new Vector3(rActorPos.x, rHitInfo.point.y, rActorPos.z);
-        //    }
-        //    rActor.ActorGo.transform.position = rActorPos;
-        //}
+        private void ActorLoadCompleted(GameObject rActorGo)
+        {
+            var rActorPos = rActorGo.transform.position;
+            RaycastHit rHitInfo;
+            if (Physics.Raycast(rActorPos + Vector3.up * 5.0f, Vector3.down, out rHitInfo, 20, 1 << LayerMask.NameToLayer("Road")))
+            {
+                rActorPos = new Vector3(rActorPos.x, rHitInfo.point.y, rActorPos.z);
+            }
+            rActorGo.transform.position = rActorPos;
+        }
     }
 }

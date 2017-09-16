@@ -110,6 +110,7 @@ namespace Framework.Hotfix
             });
 
             this.mApp.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
+            this.mApp.DelegateManager.RegisterMethodDelegate<UnityEngine.GameObject>();
         }
 
         public HotfixObject Instantiate(string rTypeName, params object[] rArgs)

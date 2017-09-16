@@ -13,16 +13,16 @@ namespace Game.Knight
 {
     public class NetPlayerItem
     {
-        public GameObject                   GameObject;
-        public TextFormat                   ActorProfession;
-        public TextFormat                   ActorLevel;
-        public Text                         ActorName;
-        public Toggle                       SelectedToggle;
+        public GameObject                       GameObject;
+        public TextFormat                       ActorProfession;
+        public TextFormat                       ActorLevel;
+        public Text                             ActorName;
+        public Toggle                           SelectedToggle;
 
-        public PlayerListView               Parent;
+        public PlayerListView                   Parent;
 
-        private ActorNet                    mNetActor;
-        //private Actor.ActorCreateRequest    mActorCreateRequest;
+        private ActorNet                        mNetActor;
+        private ActorCreater.ActorCreateRequest mActorCreateRequest;
 
         public NetPlayerItem(HotfixMBContainer rMBContainer)
         {
@@ -43,16 +43,17 @@ namespace Game.Knight
         public void Set(ActorNet rNetActor)
         {
             this.mNetActor = rNetActor;
-            //this.ActorProfession.Set(rNetActor.Professional.Name);
+            ActorProfessional rProfessional = GameConfig.Instance.GetActorProfessional(rNetActor.ProfessionalID);
+            this.ActorProfession.Set(rProfessional.Name);
             this.ActorLevel.Set(rNetActor.Level);
             this.ActorName.text = rNetActor.ActorName;
         }
 
-        //public Actor GetActor()
-        //{
-        //    if (mActorCreateRequest == null) return null;
-        //    return mActorCreateRequest.Actor;
-        //}
+        public GameObject GetActorGo()
+        {
+            if (mActorCreateRequest == null) return null;
+            return mActorCreateRequest.ActorGo;
+        }
 
         public void SetSelected(bool isSelected)
         {
@@ -61,46 +62,45 @@ namespace Game.Knight
 
         public void OnValueChanged()
         {
-            //if (this.SelectedToggle.isOn && this.Parent.SelectedPlayerItem != this)
-            //{
-            //    StopLoad();
-            //    Account.Instance.ActiveActor = this.mNetActor;
-            //    this.Parent.SelectedPlayerItem = this;
-            //    mActorCreateRequest = Actor.CreateActor(this.mNetActor.ActorID, this.mNetActor.Professional.HeroID, ActorLoadCompleted);
-            //}
-            //else if (!this.SelectedToggle.isOn)
-            //{
-            //    Actor.DestoryActor(mActorCreateRequest.Actor.Hero.ID);
-            //    UtilTool.SafeDestroy(mActorCreateRequest.Actor.ExhibitActor.ActorGo);
-            //    mActorCreateRequest.Stop();
-            //}
+            if (this.SelectedToggle.isOn && this.Parent.SelectedPlayerItem != this)
+            {
+                StopLoad();
+                Account.Instance.ActiveActor = this.mNetActor;
+                this.Parent.SelectedPlayerItem = this;
+                ActorProfessional rProfessional = GameConfig.Instance.GetActorProfessional(this.mNetActor.ProfessionalID);
+                mActorCreateRequest = ActorCreater.CreateActor(this.mNetActor.ActorID, rProfessional.HeroID, ActorLoadCompleted);
+            }
+            else if (!this.SelectedToggle.isOn)
+            {
+                ActorCreater.DestoryActor(mActorCreateRequest.Hero.ID);
+                UtilTool.SafeDestroy(mActorCreateRequest.ActorGo);
+                mActorCreateRequest.Stop();
+            }
         }
 
         public void StopLoad()
         {
-            //if (mActorCreateRequest != null)
-            //{
-            //    if (mActorCreateRequest.Actor != null && 
-            //        mActorCreateRequest.Actor.ExhibitActor != null && 
-            //        mActorCreateRequest.Actor.ExhibitActor.ActorGo != null)
-            //    {
-            //        Actor.DestoryActor(mActorCreateRequest.Actor.Hero.ID);
-            //        UtilTool.SafeDestroy(mActorCreateRequest.Actor.ExhibitActor.ActorGo);
-            //    }
-            //    mActorCreateRequest.Stop();
-            //}
+            if (mActorCreateRequest != null)
+            {
+                if (mActorCreateRequest.ActorGo != null)
+                {
+                    ActorCreater.DestoryActor(mActorCreateRequest.Hero.ID);
+                    UtilTool.SafeDestroy(mActorCreateRequest.ActorGo);
+                }
+                mActorCreateRequest.Stop();
+            }
         }
 
-        //private void ActorLoadCompleted(Actor rActor)
-        //{
-        //    var rActorPos = rActor.ActorGo.transform.position;
-        //    RaycastHit rHitInfo;
-        //    if (Physics.Raycast(rActorPos + Vector3.up * 5.0f, Vector3.down, out rHitInfo, 20, 1 << LayerMask.NameToLayer("Road")))
-        //    {
-        //        rActorPos = new Vector3(rActorPos.x, rHitInfo.point.y, rActorPos.z);
-        //    }
-        //    rActor.ActorGo.transform.position = rActorPos;
-        //}
+        private void ActorLoadCompleted(GameObject rActorGo)
+        {
+            var rActorPos = rActorGo.transform.position;
+            RaycastHit rHitInfo;
+            if (Physics.Raycast(rActorPos + Vector3.up * 5.0f, Vector3.down, out rHitInfo, 20, 1 << LayerMask.NameToLayer("Road")))
+            {
+                rActorPos = new Vector3(rActorPos.x, rHitInfo.point.y, rActorPos.z);
+            }
+            rActorGo.transform.position = rActorPos;
+        }
     }
 }
 
