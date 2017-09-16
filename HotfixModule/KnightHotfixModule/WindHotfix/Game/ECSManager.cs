@@ -32,7 +32,7 @@ namespace WindHotfix.Game
             mEntities.Add(rEntity);
         }
 
-        public void InitializeSystems()
+        public void Initialize()
         {
             for (int i = 0; i < mSystems.Count; i++)
             {
@@ -45,23 +45,42 @@ namespace WindHotfix.Game
             for (int i = 0; i < mSystems.Count; i++)
             {
                 if (mSystems[i].IsActive)
+                {
                     mSystems[i].Update();
+                }
             }
+        }
+        
+        public void Destroy()
+        {
+            this.mEntities.Clear();
+            this.mSystems.Clear();
         }
 
         public void ForeachEntities(GCContainer rGCContainer, Action<GCContainer> rExecuteComponents, params Type[] rTypes)
         {
-            rGCContainer.Clear();
+            if (rTypes.Length == 0) return;
+
             for (int i = 0; i < mEntities.Count; i++)
             {
                 var rEntity = mEntities[i];
+                rGCContainer.Clear();
+                bool bIsIgnore = false;
                 for (int k = 0; k < rTypes.Length; k++)
                 {
                     var rComp = rEntity.Components.Find((rItem) => { return rItem.GetType().Equals(rTypes[k]); });
+                    if (rComp == null)
+                    {
+                        bIsIgnore = true;
+                        break;
+                    }
                     rGCContainer.Add(rComp);
                 }
+                if (!bIsIgnore)
+                {
+                    UtilTool.SafeExecute(rExecuteComponents, rGCContainer);
+                }
             }
-            UtilTool.SafeExecute(rExecuteComponents, rGCContainer);
         }
     }
 }

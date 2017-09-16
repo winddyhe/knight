@@ -36,10 +36,24 @@ namespace WindHotfix.GameStage
             this.gsm.gameStages = new Dict<int, GameStage>();
 
             // 构建GameStages
-            OnBuildStages();
+            this.OnBuildStages();
         }
-    
+
+        public void Update()
+        {
+            this.OnUpdate();
+        }
+
+        public void Destroy()
+        {
+            this.OnDestroy();
+        }
+        
         protected virtual void OnBuildStages() { }
+
+        protected virtual void OnUpdate()      { }
+
+        protected virtual void OnDestroy()     { }
 
         public void AddGameStage(int nIndex, params StageTask[] rStageTasks)
         {

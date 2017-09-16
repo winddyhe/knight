@@ -45,6 +45,18 @@ namespace Game.Knight
             GameStageManager.Instance.StageIntialize();
             GameStageManager.Instance.StageRunning();
         }
+
+        public override void Update()
+        {
+            if (mGameMode != null)
+                mGameMode.Update();
+        }
+
+        public override void OnDestroy()
+        {
+            if (mGameMode != null)
+                mGameMode.Destroy();
+        }
     }
 }
 

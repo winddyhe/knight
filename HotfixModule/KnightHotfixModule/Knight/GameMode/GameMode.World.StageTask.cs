@@ -67,14 +67,14 @@ namespace Game.Knight
                 // 创建主角
                 // 角色的初始位置
                 Vector3 rBornPos = new Vector3(this.GameMode.StageConfig.BornPos[0], this.GameMode.StageConfig.BornPos[1], this.GameMode.StageConfig.BornPos[2]);
-                this.GameMode.MainPlayer1 = new EntityPlayer();
-                yield return this.GameMode.MainPlayer1.Create(Account.Instance.ActiveActor, rBornPos);
-                ECSManager.Instance.AddEntity(this.GameMode.MainPlayer1);
+                this.GameMode.MainPlayer = new EntityPlayer();
+                yield return this.GameMode.MainPlayer.Create(Account.Instance.ActiveActor, rBornPos);
+                ECSManager.Instance.AddEntity(this.GameMode.MainPlayer);
 
                 // 创建相机对象
                 Camera rMainCamera = GameFlowLevelManager.Instance.GetMainCamera();
                 this.GameMode.MainCamera = new EntityCamera();
-                this.GameMode.MainCamera.Create(rMainCamera, this.GameMode.StageConfig, this.GameMode.MainPlayer1.CompUnitGo.GameObject);
+                this.GameMode.MainCamera.Create(rMainCamera, this.GameMode.StageConfig, this.GameMode.MainPlayer.CompUnitGo.GameObject);
                 ECSManager.Instance.AddEntity(this.GameMode.MainCamera);
 
                 // 创建系统
@@ -84,7 +84,8 @@ namespace Game.Knight
                     .AddSystem(new SystemMove())
                     .AddSystem(new SystemAnimatorMove())
                     .AddSystem(new SystemAnimatorInput())
-                    .AddSystem(new SystemAnimator());
+                    .AddSystem(new SystemAnimator())
+                    .AddSystem(new SystemCamera());
 
                 Debug.Log("GameStage -- create ECS complete.");
             }
@@ -113,6 +114,9 @@ namespace Game.Knight
                 // 加载Gamepad界面
                 yield return ViewManager.Instance.OpenAsync("KNGamePad", View.State.dispatch);
                 GameLoading.Instance.Hide();
+                
+                // 初始化ECS模块
+                ECSManager.Instance.Initialize();
 
                 Debug.Log("GameStage -- Init data complete.");
             }

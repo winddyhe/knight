@@ -22,7 +22,7 @@ namespace WindHotfix.Game
             {
                 this.OnStart(this.mResultComps.Get<T1>(), this.mResultComps.Get<T2>(), this.mResultComps.Get<T3>(), this.mResultComps.Get<T4>(),
                              this.mResultComps.Get<T5>(), this.mResultComps.Get<T6>(), this.mResultComps.Get<T7>(), this.mResultComps.Get<T8>());
-            });
+            }, typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7), typeof(T8));
         }
 
         public override void Update()
@@ -33,7 +33,7 @@ namespace WindHotfix.Game
             {
                 this.OnUpdate(this.mResultComps.Get<T1>(), this.mResultComps.Get<T2>(), this.mResultComps.Get<T3>(), this.mResultComps.Get<T4>(),
                               this.mResultComps.Get<T5>(), this.mResultComps.Get<T6>(), this.mResultComps.Get<T7>(), this.mResultComps.Get<T8>());
-            });
+            }, typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7), typeof(T8));
         }
 
         public override void Stop()
@@ -44,7 +44,7 @@ namespace WindHotfix.Game
             {
                 this.OnStop(this.mResultComps.Get<T1>(), this.mResultComps.Get<T2>(), this.mResultComps.Get<T3>(), this.mResultComps.Get<T4>(),
                               this.mResultComps.Get<T5>(), this.mResultComps.Get<T6>(), this.mResultComps.Get<T7>(), this.mResultComps.Get<T8>());
-            });
+            }, typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7), typeof(T8));
         }
 
         protected virtual void OnStart(T1 rComp1, T2 rComp2, T3 rComp3, T4 rComp4, T5 rComp5, T6 rComp6, T7 rComp7, T8 rComp8)

@@ -86,12 +86,12 @@ namespace Framework.Hotfix
             this.mApp.DelegateManager.RegisterMethodDelegate<JsonNode, JsonNode>();
             this.mApp.DelegateManager.RegisterMethodDelegate<IEqualityComparer>();
 
-            this.mApp.DelegateManager.RegisterFunctionDelegate<Framework.Hotfix.BaseDataObject, bool>();
+            this.mApp.DelegateManager.RegisterFunctionDelegate<Framework.Hotfix.BaseDataObject, System.Boolean>();
             this.mApp.DelegateManager.RegisterDelegateConvertor<System.Predicate<Framework.Hotfix.BaseDataObject>>((act) =>
             {
                 return new System.Predicate<Framework.Hotfix.BaseDataObject>((obj) =>
                 {
-                    return ((Func<Framework.Hotfix.BaseDataObject, bool>)act)(obj);
+                    return ((Func<Framework.Hotfix.BaseDataObject, System.Boolean>)act)(obj);
                 });
             });
 
@@ -106,6 +106,15 @@ namespace Framework.Hotfix
                                   System.Collections.Generic.KeyValuePair<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>, 
                                   int>)
                            act)(x, y);
+                });
+            });
+
+            this.mApp.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>();
+            this.mApp.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
+            {
+                return new System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>((obj) =>
+                {
+                    return ((Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>)act)(obj);
                 });
             });
 

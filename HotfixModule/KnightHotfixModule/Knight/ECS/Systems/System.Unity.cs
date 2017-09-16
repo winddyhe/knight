@@ -21,12 +21,12 @@ namespace Game.Knight
             if (rCompAnim.IsRun)
             {
                 rCompUnityAnim.Animator.SetBool("IsRun", rCompAnim.IsRun);
-                rCompUnityAnim.Animator.SetBool("IsWalk", rCompAnim.IsMove);
+                rCompUnityAnim.Animator.SetBool("IsMove", rCompAnim.IsMove);
             }
             else
             {
                 rCompUnityAnim.Animator.SetBool("IsRun", rCompAnim.IsRun);
-                rCompUnityAnim.Animator.SetBool("IsWalk", rCompAnim.IsMove);
+                rCompUnityAnim.Animator.SetBool("IsMove", rCompAnim.IsMove);
             }
         }
     }

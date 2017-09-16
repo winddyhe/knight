@@ -7,6 +7,11 @@ namespace Game.Knight
 {
     public class SystemCamera : TGameSystem<ComponentCamera, ComponentCameraSetting, ComponentCameraFollower>
     {
+        protected override void OnStart(ComponentCamera rCompCamera, ComponentCameraSetting rCompCameraSetting, ComponentCameraFollower rCompCameraFollower)
+        {
+            rCompCameraFollower.Enable = true;
+        }
+
         protected override void OnUpdate(ComponentCamera rCompCamera, ComponentCameraSetting rCompCameraSetting, ComponentCameraFollower rCompCameraFollower)
         {
             rCompCamera.Offset.y = rCompCameraSetting.OffsetY;

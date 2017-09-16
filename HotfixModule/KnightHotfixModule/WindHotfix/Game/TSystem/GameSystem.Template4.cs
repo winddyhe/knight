@@ -17,7 +17,7 @@ namespace WindHotfix.Game
             ECSManager.Instance.ForeachEntities(this.mResultComps, (rComps) =>
             {
                 this.OnStart(this.mResultComps.Get<T1>(), this.mResultComps.Get<T2>(), this.mResultComps.Get<T3>(), this.mResultComps.Get<T4>());
-            });
+            }, typeof(T1), typeof(T2), typeof(T3), typeof(T4));
         }
 
         public override void Update()
@@ -27,7 +27,7 @@ namespace WindHotfix.Game
             ECSManager.Instance.ForeachEntities(this.mResultComps, (rComps) =>
             {
                 this.OnUpdate(this.mResultComps.Get<T1>(), this.mResultComps.Get<T2>(), this.mResultComps.Get<T3>(), this.mResultComps.Get<T4>());
-            });
+            }, typeof(T1), typeof(T2), typeof(T3), typeof(T4));
         }
 
         public override void Stop()
@@ -37,7 +37,7 @@ namespace WindHotfix.Game
             ECSManager.Instance.ForeachEntities(this.mResultComps, (rComps) =>
             {
                 this.OnStop(this.mResultComps.Get<T1>(), this.mResultComps.Get<T2>(), this.mResultComps.Get<T3>(), this.mResultComps.Get<T4>());
-            });
+            }, typeof(T1), typeof(T2), typeof(T3), typeof(T4));
         }
 
         protected virtual void OnStart(T1 rComp1, T2 rComp2, T3 rComp3, T4 rComp4)
