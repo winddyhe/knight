@@ -74,7 +74,7 @@ namespace Game.Knight
         public void InitActorList()
         {
             this.PlayerItems = new List<NetPlayerItem>();
-            List<NetActor> rActors = Account.Instance.NetActors;
+            List<ActorNet> rActors = Account.Instance.NetActors;
 
             if (rActors != null)
             {

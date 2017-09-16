@@ -8,7 +8,7 @@ using WindHotfix.Core;
 /// </summary>
 namespace Game.Knight
 {
-public partial class Hero
+public partial class ActorHero
 {
 	public override void Serialize(BinaryWriter rWriter)
 	{

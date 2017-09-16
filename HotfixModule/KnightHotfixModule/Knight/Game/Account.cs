@@ -18,8 +18,8 @@ namespace Game.Knight
         public string           AccountName = "";
         public int              ServerID      = 0;
 
-        public NetActor         ActiveActor = null;
-        public List<NetActor>   NetActors   = null;
+        public ActorNet         ActiveActor = null;
+        public List<ActorNet>   NetActors   = null;
         
         private Account()       { }
 
@@ -28,10 +28,10 @@ namespace Game.Knight
         /// </summary>
         public void Create(long rAccountID, string rAccount, int rServerID)
         {
-            this.IsLogin = true;
-            this.AccountID = rAccountID;
+            this.IsLogin     = true;
+            this.AccountID   = rAccountID;
             this.AccountName = rAccount;
-            this.ServerID = rServerID;
+            this.ServerID    = rServerID;
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Game.Knight
         /// </summary>
         public void CreateActor(string rActorName, int rProfessionalID, long rActorID)
         {
-            this.ActiveActor = new NetActor() {
+            this.ActiveActor = new ActorNet() {
                 ActorID = rActorID,
                 ActorName = rActorName,
                 Level = 1,

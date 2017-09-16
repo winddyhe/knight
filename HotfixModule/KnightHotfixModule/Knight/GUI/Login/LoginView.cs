@@ -49,7 +49,7 @@ namespace Game.Knight
 
             // 创建角色账户，并进入创建角色界面
             Account.Instance.Create(10001, "红烧肉", mServerID);
-            CoroutineManager.Instance.Start(Login.Instance.JumpToCreatePlayer(new List<NetActor>()));
+            CoroutineManager.Instance.Start(Login.Instance.JumpToCreatePlayer(new List<ActorNet>()));
         }
     }
 }

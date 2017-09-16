@@ -23,7 +23,7 @@ namespace Game.Knight
         public ComponentUnityAnimator   CompUnityAnimator;
         public ComponentUnityGo         CompUnitGo;
 
-        public IEnumerator Create(NetActor rNetActor, Vector3 rBornPos)
+        public IEnumerator Create(ActorNet rNetActor, Vector3 rBornPos)
         {
             // 创建Component net
             this.CompNet = this.AddComponent<ComponentNet>();
@@ -40,7 +40,7 @@ namespace Game.Knight
             this.CompPrefessional.Professional = rProfessional;
 
             // 创建Component Hero
-            Hero rHero = GameConfig.Instance.GetHero(rProfessional.HeroID);
+            ActorHero rHero = GameConfig.Instance.GetHero(rProfessional.HeroID);
             if (rHero == null)
             {
                 Debug.LogErrorFormat("Cannot find hero ID: {0}", rProfessional.HeroID);
@@ -50,7 +50,7 @@ namespace Game.Knight
             this.CompHero.Hero = rHero;
 
             // 创建Component Avatar
-            Avatar rAvatar = GameConfig.Instance.GetAvatar(rHero.AvatarID);
+            ActorAvatar rAvatar = GameConfig.Instance.GetAvatar(rHero.AvatarID);
             if (rAvatar == null)
             {
                 Debug.LogErrorFormat("Cannot find avatar ID: {0}", rHero.AvatarID);

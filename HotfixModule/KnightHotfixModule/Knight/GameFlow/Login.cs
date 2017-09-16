@@ -53,7 +53,7 @@ namespace Game.Knight
             GameLoading.Instance.Hide();
         }
 
-        public void OnClientLoginResponse(NetworkMsgCode rMsgCode, long rAccountID, List<NetActor> rNetActors)
+        public void OnClientLoginResponse(NetworkMsgCode rMsgCode, long rAccountID, List<ActorNet> rNetActors)
         {
             if (rMsgCode == NetworkMsgCode.Success)
             {
@@ -128,7 +128,7 @@ namespace Game.Knight
             });
         }
 
-        public IEnumerator JumpToCreatePlayer(List<NetActor> rNetActors)
+        public IEnumerator JumpToCreatePlayer(List<ActorNet> rNetActors)
         {
             ViewManager.Instance.Pop();
             Account.Instance.NetActors = rNetActors;

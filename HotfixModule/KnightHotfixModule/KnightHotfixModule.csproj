@@ -78,8 +78,8 @@
   <ItemGroup>
     <Compile Include="Knight\Actor\ActorGamePlayManager.cs" />
     <Compile Include="Knight\Actor\ActorProfessional.cs" />
-    <Compile Include="Knight\Actor\Hero.cs" />
-    <Compile Include="Knight\Avatar\Avatar.cs" />
+    <Compile Include="Knight\Actor\ActorHero.cs" />
+    <Compile Include="Knight\Actor\ActorAvatar.cs" />
     <Compile Include="Knight\GameFlow\CreatePlayer.cs" />
     <Compile Include="Knight\GameFlow\Init.cs" />
     <Compile Include="Knight\GameFlow\Login.cs" />
@@ -109,7 +109,7 @@
     <Compile Include="Knight\GameStage\StageConfig.cs" />
     <Compile Include="Knight\Game\Account.cs" />
     <Compile Include="Knight\Game\GameConfig.cs" />
-    <Compile Include="Knight\Game\NetActor.cs" />
+    <Compile Include="Knight\Actor\ActorNet.cs" />
     <Compile Include="Knight\GUI\CreatePlayer\CreatePlayerItem.cs" />
     <Compile Include="Knight\GUI\CreatePlayer\CreatePlayerView.cs" />
     <Compile Include="Knight\GUI\GamePad\GamePadView.cs" />

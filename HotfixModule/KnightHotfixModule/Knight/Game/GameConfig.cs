@@ -30,10 +30,10 @@ namespace Game.Knight
         public static GameConfig            Instance { get { return HotfixSingleton<GameConfig>.GetInstance(); } }
 
         [ConfigPath("Avatar.json")]
-        public Dict<int, Avatar>            Avatars;
+        public Dict<int, ActorAvatar>            Avatars;
 
         [ConfigPath("Hero.json")]
-        public Dict<int, Hero>              Heros;
+        public Dict<int, ActorHero>              Heros;
         
         [ConfigPath("Professional.json")]
         public Dict<int, ActorProfessional> ActorProfessionals;
@@ -125,16 +125,16 @@ namespace Game.Knight
         }
         #endregion
 
-        public Avatar GetAvatar(int rAvatarID)
+        public ActorAvatar GetAvatar(int rAvatarID)
         {
-            Avatar rAvatar = null;
+            ActorAvatar rAvatar = null;
             this.Avatars.TryGetValue(rAvatarID, out rAvatar);
             return rAvatar;
         }
 
-        public Hero GetHero(int rHeroID)
+        public ActorHero GetHero(int rHeroID)
         {
-            Hero rHero = null;
+            ActorHero rHero = null;
             this.Heros.TryGetValue(rHeroID, out rHero);
             return rHero;
         }

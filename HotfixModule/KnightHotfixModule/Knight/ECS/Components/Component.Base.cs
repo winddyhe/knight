@@ -69,12 +69,12 @@ namespace Game.Knight
 
     public class ComponentHero : GameComponent
     {
-        public Hero                 Hero;
+        public ActorHero                 Hero;
     }
 
     public class ComponentAvatar : GameComponent
     {
-        public Avatar               Avatar;
+        public ActorAvatar               Avatar;
     }
     
     public class ComponentProfessional : GameComponent
@@ -84,6 +84,6 @@ namespace Game.Knight
 
     public class ComponentNet : GameComponent
     {
-        public NetActor             NetActor;
+        public ActorNet             NetActor;
     }
 }

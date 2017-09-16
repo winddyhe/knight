@@ -53,13 +53,13 @@ namespace Game.Knight
         {
             var rMsgCode = NetworkClient.Instance.GetMessageCode(rProtocolMsg);
             JsonNode rActorsNode = rProtocolMsg["actors"];
-            List<NetActor> rNetActors = new List<NetActor>();
+            List<ActorNet> rNetActors = new List<ActorNet>();
             if (rActorsNode != null)
             {
                 for (int i = 0; i < rActorsNode.Count; i++)
                 {
                     JsonNode rActorNode = rActorsNode[i];
-                    NetActor rActor = new NetActor() {
+                    ActorNet rActor = new ActorNet() {
                         ActorID = rActorNode["actorID"].AsLong,
                         ActorName = rActorNode["actorName"].AsString,
                         Level = rActorNode["level"].AsInt,

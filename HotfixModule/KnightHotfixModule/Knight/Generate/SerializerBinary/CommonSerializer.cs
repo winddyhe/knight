@@ -123,7 +123,7 @@ namespace Game.Knight
 				rResult[nIndex] = rReader.Deserialize(default(float));
 			return rResult;
 		}
-		public static void Serialize(this BinaryWriter rWriter, Dict<int, Game.Knight.Avatar> value)
+		public static void Serialize(this BinaryWriter rWriter, Dict<int, Game.Knight.ActorAvatar> value)
 		{
 			var bValid = (null != value);
 			rWriter.Serialize(bValid);
@@ -136,22 +136,22 @@ namespace Game.Knight
 				rWriter.Serialize(rPair.Value);
 			}
 		}
-		public static Dict<int, Game.Knight.Avatar> Deserialize(this BinaryReader rReader, Dict<int, Game.Knight.Avatar> value)
+		public static Dict<int, Game.Knight.ActorAvatar> Deserialize(this BinaryReader rReader, Dict<int, Game.Knight.ActorAvatar> value)
 		{
 			var bValid = rReader.Deserialize(default(bool));
 			if (!bValid)
 				return null;
 			var nCount  = rReader.Deserialize(default(int));
-			var rResult = new Dict<int, Game.Knight.Avatar>();
+			var rResult = new Dict<int, Game.Knight.ActorAvatar>();
 			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
 			{
 				var rKey   = rReader.Deserialize(default(int));
-				var rValue = rReader.Deserialize(default(Game.Knight.Avatar));
+				var rValue = rReader.Deserialize(default(Game.Knight.ActorAvatar));
 				rResult.Add(rKey, rValue);
 			}
 			return rResult;
 		}
-		public static void Serialize(this BinaryWriter rWriter, Dict<int, Game.Knight.Hero> value)
+		public static void Serialize(this BinaryWriter rWriter, Dict<int, Game.Knight.ActorHero> value)
 		{
 			var bValid = (null != value);
 			rWriter.Serialize(bValid);
@@ -164,17 +164,17 @@ namespace Game.Knight
 				rWriter.Serialize(rPair.Value);
 			}
 		}
-		public static Dict<int, Game.Knight.Hero> Deserialize(this BinaryReader rReader, Dict<int, Game.Knight.Hero> value)
+		public static Dict<int, Game.Knight.ActorHero> Deserialize(this BinaryReader rReader, Dict<int, Game.Knight.ActorHero> value)
 		{
 			var bValid = rReader.Deserialize(default(bool));
 			if (!bValid)
 				return null;
 			var nCount  = rReader.Deserialize(default(int));
-			var rResult = new Dict<int, Game.Knight.Hero>();
+			var rResult = new Dict<int, Game.Knight.ActorHero>();
 			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
 			{
 				var rKey   = rReader.Deserialize(default(int));
-				var rValue = rReader.Deserialize(default(Game.Knight.Hero));
+				var rValue = rReader.Deserialize(default(Game.Knight.ActorHero));
 				rResult.Add(rKey, rValue);
 			}
 			return rResult;

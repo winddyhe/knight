@@ -2,13 +2,13 @@
   {
     "ExcelName": "Avatar.xlsx",
     "SheetName": "Avatar",
-    "ClassName": "Game.Knight.Avatar",
+    "ClassName": "Game.Knight.ActorAvatar",
     "PrimaryKey": "ID"
   },
   {
     "ExcelName": "Hero.xlsx",
     "SheetName": "Hero",
-    "ClassName": "Game.Knight.Hero",
+    "ClassName": "Game.Knight.ActorHero",
     "PrimaryKey": "ID"
   },
   {

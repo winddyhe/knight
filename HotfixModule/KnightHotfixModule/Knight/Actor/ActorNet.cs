@@ -8,7 +8,7 @@ namespace Game.Knight
     /// <summary>
     /// 网络角色
     /// </summary>
-    public class NetActor
+    public class ActorNet
     {
         /// <summary>
         /// 角色的网络ID

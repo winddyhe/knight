@@ -21,7 +21,7 @@ namespace Game.Knight
 
         public PlayerListView               Parent;
 
-        private NetActor                    mNetActor;
+        private ActorNet                    mNetActor;
         //private Actor.ActorCreateRequest    mActorCreateRequest;
 
         public NetPlayerItem(HotfixMBContainer rMBContainer)
@@ -40,7 +40,7 @@ namespace Game.Knight
             HotfixEventManager.Instance.UnBinding(this.SelectedToggle, EventTriggerType.Select, (rTarget) => { OnValueChanged(); });
         }
 
-        public void Set(NetActor rNetActor)
+        public void Set(ActorNet rNetActor)
         {
             this.mNetActor = rNetActor;
             //this.ActorProfession.Set(rNetActor.Professional.Name);
