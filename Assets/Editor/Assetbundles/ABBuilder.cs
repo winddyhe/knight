@@ -18,6 +18,7 @@ namespace UnityEditor.AssetBundles
         public enum BuildPlatform
         {
             Windows     = BuildTarget.StandaloneWindows,        //Windows
+            Windows64   = BuildTarget.StandaloneWindows64,      //Windows64
             OSX         = BuildTarget.StandaloneOSXIntel,       //OSX
             IOS         = BuildTarget.iOS,                      //IOS
             Android     = BuildTarget.Android,                  //Android
@@ -61,7 +62,7 @@ namespace UnityEditor.AssetBundles
         /// </summary>
         public string GetManifestName()
         {
-            return CurBuildPlatform.ToString() + "_Assetbundles";
+            return GetCurrentBuildPlatformName() + "_Assetbundles";
         }
     
         /// <summary>
@@ -150,13 +151,17 @@ namespace UnityEditor.AssetBundles
         
         public static BuildPlatform GetCurrentBuildPlatform()
         {
-            var rCurBuildPlatform = (BuildPlatform)EditorUserBuildSettings.activeBuildTarget;
-            // 修复64位windows带来的资源打包的错误
-            if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneWindows64)
+            return (BuildPlatform)EditorUserBuildSettings.activeBuildTarget;
+        }
+
+        public static string GetCurrentBuildPlatformName()
+        {
+            string rPlatformName = GetCurrentBuildPlatform().ToString();
+            if (rPlatformName.Equals("Windows64"))
             {
-                rCurBuildPlatform = (BuildPlatform)BuildTarget.StandaloneWindows;
+                rPlatformName = "Windows";
             }
-            return rCurBuildPlatform;
+            return rPlatformName;
         }
     }
 }

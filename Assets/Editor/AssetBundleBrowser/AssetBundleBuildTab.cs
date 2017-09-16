@@ -134,7 +134,7 @@ namespace UnityEditor.AssetBundles
             EditorPrefs.SetInt(kBuildPrefPrefix + "BuildTarget", (int)m_buildTarget);
 
             m_outputPath = ABBuilder.Instance.GetPathPrefix_Assetbundle();
-            EditorUserBuildSettings.SetPlatformSettings(ABBuilder.GetCurrentBuildPlatform().ToString(), "AssetBundleOutputPath", m_outputPath);
+            EditorUserBuildSettings.SetPlatformSettings(ABBuilder.GetCurrentBuildPlatformName(), "AssetBundleOutputPath", m_outputPath);
             
             //output path
             EditorGUILayout.Space();
@@ -144,7 +144,7 @@ namespace UnityEditor.AssetBundles
             {
                 m_useDefaultPath = false;
                 m_outputPath = newPath;
-                EditorUserBuildSettings.SetPlatformSettings(ABBuilder.GetCurrentBuildPlatform().ToString(), "AssetBundleOutputPath", m_outputPath);
+                EditorUserBuildSettings.SetPlatformSettings(ABBuilder.GetCurrentBuildPlatformName(), "AssetBundleOutputPath", m_outputPath);
             }
 
             GUILayout.EndHorizontal();
@@ -152,7 +152,7 @@ namespace UnityEditor.AssetBundles
             GUILayout.FlexibleSpace();
 
             if (string.IsNullOrEmpty(m_outputPath))
-                m_outputPath = EditorUserBuildSettings.GetPlatformSettings(ABBuilder.GetCurrentBuildPlatform().ToString(), "AssetBundleOutputPath");
+                m_outputPath = EditorUserBuildSettings.GetPlatformSettings(ABBuilder.GetCurrentBuildPlatformName(), "AssetBundleOutputPath");
             GUILayout.EndHorizontal();
             EditorGUILayout.Space();
 
