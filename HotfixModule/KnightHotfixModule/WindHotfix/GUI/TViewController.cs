@@ -149,6 +149,13 @@ namespace WindHotfix.GUI
                         Delegate rDelegate = Delegate.CreateDelegate(typeof(Action<Object>), this, rMethodInfos[i]);
                         Action<Object> rActionDelegate = rDelegate as Action<Object>;
                         HotfixEventManager.Instance.Binding(rUnityObject.Object, rBindingEventAttr.EventType, rActionDelegate);
+                        this.mEventObjs.Add(new HotfixEventObject() 
+                        {
+                            TargetObject = rUnityObject.Object,
+                            EventHandler = rActionDelegate,
+                            EventType = rBindingEventAttr.EventType,
+                            NeedUnbind = rBindingEventAttr.NeedUnbind
+                        });
                     }
                 }
             }
