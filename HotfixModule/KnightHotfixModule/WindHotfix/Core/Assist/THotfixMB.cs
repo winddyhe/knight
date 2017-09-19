@@ -125,26 +125,27 @@ namespace WindHotfix.Core
             var rFiledInfos = rType.GetFields(rBindingFlags);
             for (int i = 0; i < rFiledInfos.Length; i++)
             {
-                var rDataBindingAttr = rFiledInfos[i].GetCustomAttribute<HotfixBindingAttribute>();
-                if (rDataBindingAttr != null)
+                var rAttrObjs = rFiledInfos[i].GetCustomAttributes(typeof(HotfixBindingAttribute), false);
+                if (rAttrObjs == null || rAttrObjs.Length == 0) continue;
+
+                var rBindingAttr = rAttrObjs[0] as HotfixBindingAttribute;
+                if (rBindingAttr != null)
                 {
                     UnityObject rUnityObject = null;
-                    if (!string.IsNullOrEmpty(rDataBindingAttr.Name))
-                        rUnityObject = this.Get(rDataBindingAttr.Name);
+                    if (!string.IsNullOrEmpty(rBindingAttr.Name))
+                        rUnityObject = this.Get(rBindingAttr.Name);
                     else
-                        rUnityObject = this.Get(rDataBindingAttr.Index);
+                        rUnityObject = this.Get(rBindingAttr.Index);
 
                     // 如果属性没有，直接报错
                     if (rUnityObject == null)
                         UnityEngine.Debug.LogErrorFormat("Not find binding data, please check prefab and hofix script. {0}", rFiledInfos[i].Name);
                     else
                     {
-                        if (rUnityObject.Type == rFiledInfos[i].FieldType.ToString())
+                        if (!rUnityObject.Type.Equals(rFiledInfos[i].FieldType.ToString()))
                             UnityEngine.Debug.LogErrorFormat("Binding data type is not match. {0}", rFiledInfos[i].Name);
                         else
-                        {
                             rFiledInfos[i].SetValue(this, rUnityObject.Object);
-                        }
                     }
                 }
             }
@@ -153,7 +154,10 @@ namespace WindHotfix.Core
             var rMethodInfos = rType.GetMethods();
             for (int i = 0; i < rMethodInfos.Length; i++)
             {
-                var rBindingEventAttr = rMethodInfos[i].GetCustomAttribute<HotfixBindingEventAttribute>();
+                var rAttrObjs = rMethodInfos[i].GetCustomAttributes(typeof(HotfixBindingEventAttribute), false);
+                if (rAttrObjs == null || rAttrObjs.Length == 0) continue;
+
+                var rBindingEventAttr = rAttrObjs[0] as HotfixBindingEventAttribute;
                 if (rBindingEventAttr != null)
                 {
                     UnityObject rUnityObject = null;
@@ -163,9 +167,16 @@ namespace WindHotfix.Core
                     if (rUnityObject != null)
                     {
                         // 委托所在的对象，如果不是当前对象，要改动 
-                        Delegate rDelegate = Delegate.CreateDelegate(typeof(Action<Object>), this, rMethodInfos[i]);
-                        Action<Object> rActionDelegate = rDelegate as Action<Object>;
+                        MethodInfo rMethodInfo = rMethodInfos[i];
+                        Action<Object> rActionDelegate = (rObj) => { rMethodInfo.Invoke(this, new object[] { rUnityObject.Object }); };
                         HotfixEventManager.Instance.Binding(rUnityObject.Object, rBindingEventAttr.EventType, rActionDelegate);
+                        this.mEventObjs.Add(new HotfixEventObject()
+                        {
+                            TargetObject = rUnityObject.Object,
+                            EventHandler = rActionDelegate,
+                            EventType = rBindingEventAttr.EventType,
+                            NeedUnbind = rBindingEventAttr.NeedUnbind
+                        });
                     }
                 }
             }

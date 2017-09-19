@@ -6,6 +6,7 @@ using Framework.WindUI;
 using Framework.Hotfix;
 using System.Collections.Generic;
 using System.IO;
+using System;
 
 namespace Test
 {
@@ -13,10 +14,28 @@ namespace Test
     {
         public Canvas Canvas;
 
+        public void Test(UnityEngine.Object rObj)
+        {
+            Debug.Log("Test");
+        }
+
         void Start()
         {
+            var rMethodInfos = this.GetType().GetMethods();
+            for (int i = 0; i < rMethodInfos.Length; i++)
+            {
+                if (rMethodInfos[i].Name == "Test")
+                {
+                    Delegate rDelegate = Delegate.CreateDelegate(typeof(Action<UnityEngine.Object>), this, rMethodInfos[i]);
+                    Action<UnityEngine.Object> rActionDelegate = rDelegate as Action<UnityEngine.Object>;
+
+                    Debug.LogError("Te1");
+                    rActionDelegate(null);
+                }
+            }
+
             CoroutineManager.Instance.Initialize();
-            
+
             LoadHotfixDLL();
             string rPrefabPath = "Assets/Test/HotfixTest/Base/HotfixTest4.prefab";
 
@@ -25,11 +44,11 @@ namespace Test
             rTestPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath(rPrefabPath, typeof(GameObject)) as GameObject;
 #endif
             //this.Canvas.transform.AddChild(rTestPrefab, "UI");
-            GameObject.Instantiate(rTestPrefab); 
+            GameObject.Instantiate(rTestPrefab);
 
-            //HotfixObject rHotfixObj = HotfixApp.Instance.Instantiate("WindHotfix.Test.Class3");
-            //rHotfixObj.Invoke("Test");
-            //rHotfixObj.InvokeParent("WindHotfix.Test1.TClass3`1", "Test");
+            HotfixObject rHotfixObj = HotfixApp.Instance.Instantiate("WindHotfix.Test.Class3");
+            rHotfixObj.Invoke("Test");
+            rHotfixObj.InvokeParent("WindHotfix.Test1.TClass3`1", "Test");
         }
 
         private void LoadHotfixDLL()
