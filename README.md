@@ -1,8 +1,21 @@
 # knight
-Knight是一个基于Unity5.x引擎的游戏GamePlay框架，提供一些简单易用的游戏框架接口，目的让开发者更加专注于游戏内容的开发。同时在框架基础上提供一些不同游戏类型的Demo。
+Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易用的游戏框架接口，目的让开发者更加专注于游戏内容的开发。同时在框架基础上提供一些不同游戏类型的Demo。
+
+本框架目前以知识积累和功能预研为主，将会持续更新中。。
+目前使用的Unity版本为Unity2017.1.1f1
 
 
 ## 主要功能
+* ILRuntime全逻辑热更新
+    * 使用ILRuntime实现C#的全逻辑热更新
+	* 整合框架内其他模块和热更新模块的相互访问，尽可能的与正常Unity开发流程保持一致
+
+* 完整的Assetbundle资源打包工具与加载模块
+	* 整合官方的AssetbundleBrowser
+    * 统一资源加载接口，自动根据依赖项加载资源
+	* 实现资源包下载流程
+	* 实现资源管理模块Editor Simulate和非Editor的加载接口统一，可以根据不同的资源类型自由切换
+
 * WindJson Json解析库
     * 标准的Json格式解析
     * 方便的从object/jsonstring/jsonnode三者之间相互转化
@@ -10,19 +23,9 @@ Knight是一个基于Unity5.x引擎的游戏GamePlay框架，提供一些简单�
     * 支持枚举类型、true/false关键字的识别
     * 支持 // /**/ 注释的识别
 
-* ILRuntime全逻辑热更新
-    * 使用ILRuntime实现C#的全逻辑热更新
-	* 整合框架内其他模块和热更新模块的相互访问，尽可能的与正常Unity开发流程保持一致
-   
 * 改造官方的MemoryProfiler工具
     * 添加对象查找的工具
     * 添加两次内存snap的比较工具
-
-* 完整的Assetbundle资源打包工具与加载模块
-	* 整合官方的AssetbundleBrowser
-    * 统一资源加载接口，自动根据依赖项加载资源
-	* 实现资源包下载流程
-	* 实现资源管理模块Editor和非Editor的加载接口统一，可以根据不同的资源类型自由切换
 
 * Coroutine协程管理
 	* 协程使用统一管理，让携程的启动不再依赖MonoBehaviour
@@ -33,42 +36,24 @@ Knight是一个基于Unity5.x引擎的游戏GamePlay框架，提供一些简单�
     * 提供服务器消息发送和接收的接口
     * 服务器登录流程
     * 数据库使用MongoDB
-    * TODO: 服务器相关功能，如位置同步、伤害计算同步等等
 
 * WindUI: 
+	* 全热更新逻辑的MVC结构
     * UI资源加载和UI对象的管理
     * 封装可复用的UI控件
 
 * ExcelReader
     * 支持Excel表格的读取，转换为Json格式的字符串
 
-* MultiScene: 地形分块
-    * 将一个大地形资源分成小块地形
-    * 根据角色位置按照一定的策略加载和卸载不同的地形块
-
-* Knight游戏
-    * 一个MMORPG的游戏Demo，开发中
-
+* Graphics
+	* 提供一些常用的功能性Shader
+	* 高效率的3D UI，Image和Text，可以自动合并批次，适用于血条和飘字
+	
 ## 插件(感谢以下插件对本框架的底层功能的支持)
 * PomeloClient: Pomelo提供的U3D客户端插件，地址：https://github.com/NetEase/pomelo-unityclient-socket
 * ILRuntime: 一个使用C#编写的用来运行C#程序的虚拟机，用来实现热更新机制，地址：https://github.com/Ourpalm/ILRuntime
 
-## 计划 
-### 2017.3.16 【已完成】
-* 使用ILRuntime做热更新，把全部的游戏逻辑放到ILRuntime端去。实现全逻辑的热更新机制。
 
-### 2017.5.17 【已完成】
-* 实现完整的资源管理模块
-	* 整合官方的AssetbundleBrowser
-	* 实现资源包下载流程
-	* 实现资源管理模块Editor和非Editor的加载接口统一，可以自由切换。
-
-### 2017.6.18 【进行中】
-* 图形渲染模块
-	* 实现一个3D的Text和Image渲染，自定义渲染管理，使得渲染效率达到最优解。
-	* 优化Standard Shader的复杂度。
-	* 实现一些通用的、高效率的Shader效果。
-	
 ## 联系方式
 Email: hgplan@126.com
-QQ群: 651543479
+QQ群:  651543479
