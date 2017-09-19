@@ -51,7 +51,7 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 	
 ## 插件(感谢以下插件对本框架的底层功能的支持)
 * PomeloClient: Pomelo提供的U3D客户端插件，地址：https://github.com/NetEase/pomelo-unityclient-socket
-* ILRuntime: 一个使用C#编写的用来运行C#程序的虚拟机，用来实现热更新机制，地址：https://github.com/Ourpalm/ILRuntime
+* ILRuntime: 一个使用C#编写的解释运行C# IL代码的库，用来实现热更新机制，地址：https://github.com/Ourpalm/ILRuntime
 
 
 ## 联系方式
