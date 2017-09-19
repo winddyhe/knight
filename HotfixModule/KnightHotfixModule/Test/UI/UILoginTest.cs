@@ -5,22 +5,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 using WindHotfix.GUI;
+using WindHotfix.Core;
+using UnityEngine.EventSystems;
 
 namespace KnightHotfixModule.Test.UI
 {
     public class UILoginTest : TViewController<UILoginTest>
     {
-        private InputField mAccountInput;
-        private InputField mPasswordInput;
+        [HotfixBinding("AccountInput")]
+        public InputField       AccountInput;
+        [HotfixBinding("PasswordInput")]
+        public InputField       PasswordInput;
 
         public override void OnInitialize()
         {
             Debug.LogError("UILoginTest.Initialize..." + this.Objects.Count);
-
-            mAccountInput = this.Objects[0].Object as InputField;
-            mPasswordInput = this.Objects[1].Object as InputField;
-            
-            this.EventBinding(this.Objects[2].Object, UnityEngine.EventSystems.EventTriggerType.PointerClick, OnButton_Clicked);
         }
 
         public override void OnOpening()
@@ -32,10 +31,11 @@ namespace KnightHotfixModule.Test.UI
         {
             Debug.LogError("OnClosing: " + this.mIsClosed);
         }
-        
+
+        [HotfixBindingEvent("LoginBtn", EventTriggerType.PointerClick)]
         private void OnButton_Clicked(UnityEngine.Object rObj)
         {
-            Debug.LogError("Button Clicked..." + this.mAccountInput.text + ", " + this.mPasswordInput.text);
+            Debug.LogError("Button Clicked..." + this.AccountInput.text + ", " + this.PasswordInput.text);
         }
     }
 }

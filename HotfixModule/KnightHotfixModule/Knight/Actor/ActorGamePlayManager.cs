@@ -32,7 +32,7 @@ namespace Game.Knight
         public void Play(int nSkillFixedID)
         {
             if (this.Skills == null) return;
-            this.CurSkill = this.Get(nSkillFixedID);
+            this.CurSkill = this.GetSkill(nSkillFixedID);
 
             mIsPlaying = true;
             mIsPause = false;
@@ -79,7 +79,7 @@ namespace Game.Knight
             }
         }
 
-        private GPCSkill Get(int nSkillFixedID)
+        private GPCSkill GetSkill(int nSkillFixedID)
         {
             return this.Skills.Find((rItem) => { return rItem.SkillID == nSkillFixedID; });
         }

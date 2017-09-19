@@ -10,30 +10,26 @@ using WindHotfix.GUI;
 using Framework.Hotfix;
 using Framework;
 using UnityEngine.EventSystems;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
     public class PlayerListView : TViewController<PlayerListView>
     {
-        public NetPlayerItem    NetPlayerItemTemplate;
-        public GridLayoutGroup  PlayerListContainer;
+        [HotfixBinding("NetPlayerItem")]
+        public HotfixMBContainer    NetPlayerItem;
+        [HotfixBinding("Content")]
+        public GridLayoutGroup      PlayerListContainer;
 
-        public Button           StartGameBtn;
-        public Button           CreatePlayerBtn;
+        public NetPlayerItem        NetPlayerItemTemplate;
 
-        public NetPlayerItem    SelectedPlayerItem;
-        public List<NetPlayerItem> PlayerItems;
-
+        public NetPlayerItem        SelectedPlayerItem;
+        public List<NetPlayerItem>  PlayerItems;
 
         public override void OnInitialize()
         {
             this.PlayerListContainer    = this.Objects[1].Object as GridLayoutGroup;
-            this.StartGameBtn           = this.Objects[2].Object as Button;
-            this.CreatePlayerBtn        = this.Objects[3].Object as Button;
             this.SelectedPlayerItem     = null;
-
-            this.EventBinding(this.StartGameBtn, EventTriggerType.PointerClick, OnStartGameBtn_Clicked);
-            this.EventBinding(this.CreatePlayerBtn, EventTriggerType.PointerClick, OnCreatePlayerBtn_Clicked);
         }
 
         public override void OnOpening()
@@ -47,15 +43,13 @@ namespace Game.Knight
             if (this.SelectedPlayerItem != null)
                 this.SelectedPlayerItem.StopLoad();
 
-            this.EventUnBinding(this.StartGameBtn, EventTriggerType.PointerClick, OnStartGameBtn_Clicked);
-            this.EventUnBinding(this.CreatePlayerBtn, EventTriggerType.PointerClick, OnCreatePlayerBtn_Clicked);
-
             for (int i = 0; i < this.PlayerItems.Count; i++)
             {
                 this.PlayerItems[i].Destroy();
             }
         }
 
+        [HotfixBindingEvent("StartGameBtn", EventTriggerType.PointerClick)]
         public void OnStartGameBtn_Clicked(Object rTarget)
         {
             // 卸载当前场景
@@ -65,7 +59,8 @@ namespace Game.Knight
             ViewManager.Instance.CloseView(this.GUID);
             GameFlowLevelManager.Instance.LoadLevel("World");
         }
-        
+
+        [HotfixBindingEvent("CreatePlayerBtn", EventTriggerType.PointerClick)]
         public void OnCreatePlayerBtn_Clicked(Object rTarget)
         {
             ViewManager.Instance.Open("KNCreatePlayer", View.State.dispatch);
@@ -93,9 +88,7 @@ namespace Game.Knight
                     {
                         rNetPlayerItem.OnValueChanged();
                     }
-                    
                     rPlayerItemObj.transform.SetParent(this.PlayerListContainer.transform, false);
-
                     this.PlayerItems.Add(rNetPlayerItem);
                 }
             }

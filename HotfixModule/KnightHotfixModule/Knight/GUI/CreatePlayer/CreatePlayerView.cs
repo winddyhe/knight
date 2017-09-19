@@ -8,31 +8,32 @@ using Framework.Hotfix;
 using WindHotfix.GUI;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
     public class CreatePlayerView : TViewController<CreatePlayerView>
     {
+        [HotfixBinding("ProfessionSelected")]
         public ToggleGroup              ProfessionSelected;
+        [HotfixBinding("PlayerNameInputField")]
         public InputField               PlayerName;
+        [HotfixBinding("ProfessionText")]
         public Text                     ProfessionalDesc;
+        [HotfixBinding("Knight1")]
+        public HotfixMBContainer        KnightItem1;
+        [HotfixBinding("Knight2")]
+        public HotfixMBContainer        KnightItem2;
+        [HotfixBinding("Knight3")]
+        public HotfixMBContainer        KnightItem3;
 
-        public CreatePlayerItem         CurrentSelectedItem;
+        public CreatePlayerItem         CurSelectedItem;
         public List<CreatePlayerItem>   CreatePlayerItems;
-        
+
         public override void OnInitialize()
         {
-            // 转换变量
-            this.ProfessionSelected  = this.Objects[0].Object as ToggleGroup;
-            this.PlayerName          = this.Objects[1].Object as InputField;
-            this.ProfessionalDesc    = this.Objects[2].Object as Text;
-
             // 初始化Items
             this.InitItems();
-
-            // 注册事件
-            this.EventBinding(this.Objects[4].Object, EventTriggerType.PointerClick, OnPlayerCreateBtn_Clicked);
-            this.EventBinding(this.Objects[5].Object, EventTriggerType.PointerClick, OnBackBtn_Clicked);
         }
         
         private void InitItems()
@@ -40,32 +41,29 @@ namespace Game.Knight
             this.CreatePlayerItems = new List<CreatePlayerItem>();
 
             CreatePlayerItem rItem = new CreatePlayerItem();
-            rItem.Initialize(this, this.Objects[6].Object as HotfixMBContainer, 911);
+            rItem.Initialize(this, KnightItem1, 911);
             this.CreatePlayerItems.Add(rItem);
 
             rItem = new CreatePlayerItem();
-            rItem.Initialize(this, this.Objects[7].Object as HotfixMBContainer, 911);
+            rItem.Initialize(this, KnightItem2, 911);
             this.CreatePlayerItems.Add(rItem);
 
             rItem = new CreatePlayerItem();
-            rItem.Initialize(this, this.Objects[8].Object as HotfixMBContainer, 911);
+            rItem.Initialize(this, KnightItem3, 911);
             this.CreatePlayerItems.Add(rItem);
         }
 
         public override void OnOpening()
         {
-            this.CurrentSelectedItem = this.CreatePlayerItems[0];
-            this.CurrentSelectedItem.StartLoad();
+            this.CurSelectedItem = this.CreatePlayerItems[0];
+            this.CurSelectedItem.StartLoad();
             this.mIsOpened = true;
         }
 
         public override void OnClosing()
         {
-            this.CurrentSelectedItem.StopLoad();
+            this.CurSelectedItem.StopLoad();
             this.mIsClosed = true;
-
-            this.EventUnBinding(this.Objects[4].Object, EventTriggerType.PointerClick, OnPlayerCreateBtn_Clicked);
-            this.EventUnBinding(this.Objects[5].Object, EventTriggerType.PointerClick, OnBackBtn_Clicked);
 
             for (int i = 0; i < this.CreatePlayerItems.Count; i++)
             {
@@ -73,6 +71,7 @@ namespace Game.Knight
             }
         }
 
+        [HotfixBindingEvent("PlayerCreateBtn", EventTriggerType.PointerClick)]
         private void OnPlayerCreateBtn_Clicked(UnityEngine.Object rTarget)
         {
             if (string.IsNullOrEmpty(this.PlayerName.text))
@@ -80,9 +79,10 @@ namespace Game.Knight
                 Toast.Instance.Show("角色名不能为空！");
                 return;
             }
-            Game.Knight.CreatePlayer.Instance.Create(this.PlayerName.text, this.CurrentSelectedItem.ProfessionalID);
+            Game.Knight.CreatePlayer.Instance.Create(this.PlayerName.text, this.CurSelectedItem.ProfessionalID);
         }
 
+        [HotfixBindingEvent("BackBtn", EventTriggerType.PointerClick)]
         private void OnBackBtn_Clicked(UnityEngine.Object rTarget)
         {
             ViewManager.Instance.Open("KNPlayerList", View.State.dispatch);

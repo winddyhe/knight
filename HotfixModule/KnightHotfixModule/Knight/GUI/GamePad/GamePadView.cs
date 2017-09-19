@@ -4,16 +4,20 @@
 //======================================================================
 using Framework.Hotfix;
 using WindHotfix.GUI;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
     public class GamePadView : TViewController<GamePadView>
     {
+        [HotfixBinding("Joystick")]
+        public HotfixMBContainer    JoystickMB;
+
         public GamePadViewJoystick Joystick;
 
         public override void OnInitialize()
         {
-            this.Joystick = new GamePadViewJoystick(this.Objects[0].Object as HotfixMBContainer);
+            this.Joystick = new GamePadViewJoystick(this.JoystickMB);
         }
 
         public override void OnOpening()

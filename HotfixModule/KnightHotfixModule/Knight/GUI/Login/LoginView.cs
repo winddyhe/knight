@@ -8,39 +8,30 @@ using UnityEngine.UI;
 using WindHotfix.GUI;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using WindHotfix.Core;
 
 namespace Game.Knight
 {
     public class LoginView : TViewController<LoginView>
     {
-        private InputField  mAccountInput;
-        private InputField  mPasswordInput;
+        [HotfixBinding("AccountInput")]
+        public InputField       AccountInput;
+        [HotfixBinding("PasswordInput")]
+        public InputField       PasswordInput;
+        
+        private int             mServerID       = 1001;
+        //private string        mGateHost       = "127.0.0.1";
+        //private int           mGatePort       = 3010;
 
-        //private string      mGateHost = "127.0.0.1";
-        //private int         mGatePort = 3010;
-        private int         mServerID = 1001;
-
-        public override void OnInitialize()
-        {
-            mAccountInput  = this.Objects[0].Object as InputField;
-            mPasswordInput = this.Objects[1].Object as InputField;
-            
-            this.EventBinding(this.Objects[2].Object, EventTriggerType.PointerClick, OnButton_Clicked);
-        }
-
-        public override void OnClosed()
-        {
-            this.EventUnBinding(this.Objects[2].Object, EventTriggerType.PointerClick, OnButton_Clicked);
-        }
-
+        [HotfixBindingEvent("LoginBtn", EventTriggerType.PointerClick)]
         private void OnButton_Clicked(UnityEngine.Object rObj)
         {
-            if (string.IsNullOrEmpty(this.mAccountInput.text))
+            if (string.IsNullOrEmpty(this.AccountInput.text))
             {
                 Toast.Instance.Show("用户名不能为空。");
                 return;
             }
-            if (string.IsNullOrEmpty(this.mPasswordInput.text))
+            if (string.IsNullOrEmpty(this.PasswordInput.text))
             {
                 Toast.Instance.Show("密码不能为空。");
                 return;

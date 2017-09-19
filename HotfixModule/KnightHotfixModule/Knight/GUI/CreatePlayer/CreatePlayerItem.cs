@@ -40,11 +40,11 @@ namespace Game.Knight
         
         public void OnToggleSelectedValueChanged()
         {
-            if (this.SelectedPlayer.isOn && this.Parent != null && this.Parent.CurrentSelectedItem != this)
+            if (this.SelectedPlayer.isOn && this.Parent != null && this.Parent.CurSelectedItem != this)
             {
                 StopLoad();
                 StartLoad();
-                this.Parent.CurrentSelectedItem = this;
+                this.Parent.CurSelectedItem = this;
             }
             else if (!this.SelectedPlayer.isOn)
             {

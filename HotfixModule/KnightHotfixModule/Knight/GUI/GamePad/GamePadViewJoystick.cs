@@ -11,8 +11,6 @@ namespace Game.Knight
 {
     public class GamePadViewJoystick
     {
-#region unity_bind
-
         public RectTransform        JoystickRootTrans;
         public RectTransform        JoystickFrontTrans;
 
@@ -20,8 +18,6 @@ namespace Game.Knight
         public TouchObject          TouchObj2;
 
         public float                JoystickMaxDistance = 100;
-
-#endregion
 
         private Vector2             JoystickInitPos;
         private HotfixMBContainer   mMBContainer;
