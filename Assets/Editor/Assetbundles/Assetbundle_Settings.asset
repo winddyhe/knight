@@ -76,3 +76,11 @@ MonoBehaviour:
     assetSrcType: 2
     abClassName: UnityEditor.AssetBundles.ABEntryProcessor
     abOriginalResPath: 
+  - abName: game/shader
+    abVariant: ab
+    assetResPath: Assets/Framework/Graphics/Shaders
+    assetType: t:Shader
+    filerAssets: []
+    assetSrcType: 2
+    abClassName: UnityEditor.AssetBundles.ABEntryProcessor
+    abOriginalResPath: 
