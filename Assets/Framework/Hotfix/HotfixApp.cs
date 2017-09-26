@@ -61,6 +61,9 @@ namespace Framework.Hotfix
 
             // 注册重定向方法
             this.RegisterCLRMethodRedirection();
+
+            // 注册Value Type Binder
+            //this.RegisterValueTypeBinder();
             
             // 注册委托
             this.RegisterDelegates();
@@ -77,7 +80,13 @@ namespace Framework.Hotfix
 
         public unsafe void RegisterCLRMethodRedirection()
         {
-            //ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
+            ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
+        }
+
+        public void RegisterValueTypeBinder()
+        {
+            this.mApp.RegisterValueTypeBinder(typeof(Vector3), new Vector3Binder());
+            this.mApp.RegisterValueTypeBinder(typeof(Quaternion), new QuaternionBinder());
         }
         
         public void RegisterDelegates()

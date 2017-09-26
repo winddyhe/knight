@@ -23,7 +23,7 @@ public class ILRuntimeCLRBinding
         types.Add(typeof(Array));
         types.Add(typeof(Vector2));
         types.Add(typeof(Vector3));
-        types.Add(typeof(Vector4));
+        //types.Add(typeof(Vector4));
         types.Add(typeof(Color));
         types.Add(typeof(MonoBehaviour));
         types.Add(typeof(Quaternion));
