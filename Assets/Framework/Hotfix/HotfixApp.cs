@@ -56,15 +56,15 @@ namespace Framework.Hotfix
             mApp = new AppDomain();
             mApp.LoadAssembly(rDLLStream, rPDBStream, new Mono.Cecil.Pdb.PdbReaderProvider());
 
+            // 注册Value Type Binder
+            //this.RegisterValueTypeBinder();
+
             // 注册Adaptor
             this.RegisterCrossBindingAdaptor();
-
+            
             // 注册重定向方法
             this.RegisterCLRMethodRedirection();
 
-            // 注册Value Type Binder
-            //this.RegisterValueTypeBinder();
-            
             // 注册委托
             this.RegisterDelegates();
         }
@@ -87,6 +87,7 @@ namespace Framework.Hotfix
         {
             this.mApp.RegisterValueTypeBinder(typeof(Vector3), new Vector3Binder());
             this.mApp.RegisterValueTypeBinder(typeof(Quaternion), new QuaternionBinder());
+            this.mApp.RegisterValueTypeBinder(typeof(Vector2), new Vector2Binder());
         }
         
         public void RegisterDelegates()

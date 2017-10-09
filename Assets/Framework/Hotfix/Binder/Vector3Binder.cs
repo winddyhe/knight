@@ -106,6 +106,26 @@ public unsafe class Vector3Binder : ValueTypeBinder<Vector3>
         args = new Type[] { };
         method = type.GetMethod("get_zero", flag, null, args, null);
         appdomain.RegisterCLRMethodRedirection(method, Get_Zero);
+
+        args = new Type[] { };
+        method = type.GetMethod("get_up", flag, null, args, null);
+        appdomain.RegisterCLRMethodRedirection(method, Get_Up);
+
+        args = new Type[] { };
+        method = type.GetMethod("get_down", flag, null, args, null);
+        appdomain.RegisterCLRMethodRedirection(method, Get_Down);
+
+        args = new Type[] { };
+        method = type.GetMethod("get_right", flag, null, args, null);
+        appdomain.RegisterCLRMethodRedirection(method, Get_Right);
+
+        args = new Type[] { };
+        method = type.GetMethod("get_left", flag, null, args, null);
+        appdomain.RegisterCLRMethodRedirection(method, Get_Left);
+
+        args = new Type[] { };
+        method = type.GetMethod("get_forward", flag, null, args, null);
+        appdomain.RegisterCLRMethodRedirection(method, Get_Forward);
     }
 
     StackObject* Vector3_Add(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isNewObj)
@@ -434,6 +454,46 @@ public unsafe class Vector3Binder : ValueTypeBinder<Vector3>
         return ret + 1;
     }
 
+    StackObject* Get_Up(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isNewObj)
+    {
+        var ret = esp;
+        var res = Vector3.up;
+        PushVector3(ref res, intp, ret, mStack);
+        return ret + 1;
+    }
+
+    StackObject* Get_Down(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isNewObj)
+    {
+        var ret = esp;
+        var res = Vector3.down;
+        PushVector3(ref res, intp, ret, mStack);
+        return ret + 1;
+    }
+
+    StackObject* Get_Left(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isNewObj)
+    {
+        var ret = esp;
+        var res = Vector3.left;
+        PushVector3(ref res, intp, ret, mStack);
+        return ret + 1;
+    }
+
+    StackObject* Get_Right(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isNewObj)
+    {
+        var ret = esp;
+        var res = Vector3.right;
+        PushVector3(ref res, intp, ret, mStack);
+        return ret + 1;
+    }
+
+    StackObject* Get_Forward(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isNewObj)
+    {
+        var ret = esp;
+        var res = Vector3.forward;
+        PushVector3(ref res, intp, ret, mStack);
+        return ret + 1;
+    }
+
     public static void ParseVector3(out Vector3 vec, ILIntepreter intp, StackObject* ptr, IList<object> mStack)
     {
         var a = ILIntepreter.GetObjectAndResolveReference(ptr);
@@ -447,7 +507,7 @@ public unsafe class Vector3Binder : ValueTypeBinder<Vector3>
         }
         else
         {
-            vec = (Vector3)mStack[a->Value];
+            vec = (Vector3)StackObject.ToObject(a, intp.AppDomain, mStack);
             intp.Free(ptr);
         }
     }

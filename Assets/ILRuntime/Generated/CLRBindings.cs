@@ -17,11 +17,8 @@ namespace ILRuntime.Runtime.Generated
             System_Object_Binding.Register(app);
             System_String_Binding.Register(app);
             System_Array_Binding.Register(app);
-            UnityEngine_Vector2_Binding.Register(app);
-            UnityEngine_Vector3_Binding.Register(app);
             UnityEngine_Color_Binding.Register(app);
             UnityEngine_MonoBehaviour_Binding.Register(app);
-            UnityEngine_Quaternion_Binding.Register(app);
             UnityEngine_GameObject_Binding.Register(app);
             UnityEngine_Object_Binding.Register(app);
             UnityEngine_Transform_Binding.Register(app);

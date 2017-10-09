@@ -21,12 +21,8 @@ public class ILRuntimeCLRBinding
         types.Add(typeof(object));
         types.Add(typeof(string));
         types.Add(typeof(Array));
-        types.Add(typeof(Vector2));
-        types.Add(typeof(Vector3));
-        //types.Add(typeof(Vector4));
         types.Add(typeof(Color));
         types.Add(typeof(MonoBehaviour));
-        types.Add(typeof(Quaternion));
         types.Add(typeof(GameObject));
         types.Add(typeof(UnityEngine.Object));
         types.Add(typeof(Transform));
