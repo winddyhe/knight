@@ -57,7 +57,7 @@ namespace Framework.Hotfix
             mApp.LoadAssembly(rDLLStream, rPDBStream, new Mono.Cecil.Pdb.PdbReaderProvider());
 
             // 注册Value Type Binder
-            //this.RegisterValueTypeBinder();
+            this.RegisterValueTypeBinder();
 
             // 注册Adaptor
             this.RegisterCrossBindingAdaptor();
@@ -83,7 +83,7 @@ namespace Framework.Hotfix
             ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
         }
 
-        public void RegisterValueTypeBinder()
+        public unsafe void RegisterValueTypeBinder()
         {
             this.mApp.RegisterValueTypeBinder(typeof(Vector3), new Vector3Binder());
             this.mApp.RegisterValueTypeBinder(typeof(Quaternion), new QuaternionBinder());

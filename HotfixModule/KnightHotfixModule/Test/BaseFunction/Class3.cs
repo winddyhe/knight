@@ -81,7 +81,8 @@ namespace WindHotfix.Test
             yield return new WaitForSeconds(1.0f);
 
             GameObject rGo = new GameObject("11");
-            rGo.transform.localScale = Vector3.one * 3.0f;
+            rGo.transform.localScale = Vector3.one * 3.0f + Vector3.one + Quaternion.AngleAxis(36.0f, Vector3.up) * Quaternion.identity * Vector3.one * 2.0f;
+
             Debug.LogError(rGo.transform.localScale);
         }
     }

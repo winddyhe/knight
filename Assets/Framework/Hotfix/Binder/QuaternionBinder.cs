@@ -86,6 +86,10 @@ public unsafe class QuaternionBinder : ValueTypeBinder<Quaternion>
         method = type.GetMethod("Angle", flag, null, args, null);
         appdomain.RegisterCLRMethodRedirection(method, Quaternion_Angle);
 
+        args = new Type[] { typeof(float), typeof(Vector3) };
+        method = type.GetMethod("AngleAxis", flag, null, args, null);
+        appdomain.RegisterCLRMethodRedirection(method, Quaternion_AngleAxis);
+
         args = new Type[] { typeof(Vector3) };
         method = type.GetMethod("Euler", flag, null, args, null);
         appdomain.RegisterCLRMethodRedirection(method, Quaternion_Euler);
@@ -207,6 +211,25 @@ public unsafe class QuaternionBinder : ValueTypeBinder<Quaternion>
 
         ret->ObjectType = ObjectTypes.Float;
         *(float*)&ret->Value = res;
+        return ret + 1;
+    }
+
+    StackObject* Quaternion_AngleAxis(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isNewObj)
+    {
+        var ret = ILIntepreter.Minus(esp, 2);
+        var ptr = ILIntepreter.Minus(esp, 1);
+
+        float angle;
+        Vector3 vec;
+
+        Vector3Binder.ParseVector3(out vec, intp, ptr, mStack);
+
+        ptr = ILIntepreter.GetObjectAndResolveReference(ILIntepreter.Minus(esp, 2));
+        angle = *(float*)&ptr->Value;
+
+        var res = Quaternion.AngleAxis(angle, vec);
+
+        PushQuaternion(ref res, intp, ptr, mStack);
         return ret + 1;
     }
 

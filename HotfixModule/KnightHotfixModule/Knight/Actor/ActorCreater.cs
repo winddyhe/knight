@@ -80,6 +80,9 @@ namespace Game.Knight
             var rAvatarRequest = AvatarAssetLoader.Instance.Load(rActorCreateRequest.Avatar.ABPath, rActorCreateRequest.Avatar.AssetName);
             yield return rAvatarRequest;
             rActorCreateRequest.ActorGo = rAvatarRequest.AvatarGo;
+            
+            // 设置ActorGo的大小
+            rAvatarRequest.AvatarGo.transform.localScale = Vector3.one * rActorCreateRequest.Hero.Scale;
 
             UtilTool.SetLayer(rAvatarRequest.AvatarGo, "Actor", true);
             UtilTool.SafeExecute(rLoadCompleted, rAvatarRequest.AvatarGo);
