@@ -67,8 +67,10 @@ namespace Core
         {
             while (!rRequest.IsDone)
             {
-                UtilTool.SafeExecute(rRequest.DownloadProgress, rWebRequest.downloadProgress);
-                yield return 0;
+                try { UtilTool.SafeExecute(rRequest.DownloadProgress, rWebRequest.downloadProgress); }
+                catch (System.Exception) {}
+
+                yield return new WaitForEndOfFrame();
             }
             rWebRequest = null;
         }
