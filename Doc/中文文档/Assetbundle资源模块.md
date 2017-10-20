@@ -14,17 +14,18 @@
 * 通过以上的MD5码和版本号信息，就能轻松的判断哪些资源包需要更新到Persitent空间中去。
 * 下载资源使用API是Unity提供的UnityWebRequest。
 * 资源更新流程如下：
-	1. 加载Persistent空间下的ABVersion_MD5.Bin文件。
-	2. 下载Server空间下的ABVersion_MD5.Bin文件。
-	3. 比较Persistent和Server下的MD5码是否相等？如果不相等转4，否则转9退出下载流程。
-	4. 下载Server空间下的ABVersion.Bin版本信息文件。
-	5. 加载Persistent空间下的ABVersion.Bin版本信息文件。
-	6. 比较Server和Persistent下的版本信息文件，将需要更新的资源包文件记录到一个List中。（需要更新的资源包的条件：a. Server上单个资源包版本号大于Persistent空间单个资源包版本号。 b. 只有Server上存在的资源包）
-	7. 遍历需要更新的资源包文件列表，从服务器上下载资源包到Persistent空间中，下载完一个资源包更新一次Persistent空间的版本信息文件ABVersion.Bin。
-	8. 整个下载过程完成后，将Server的版本MD5码保存到Persistent空间中，如果下载过程终端则不保存版本MD5码。
-	9. 最后将比较Persitent空间和StreamingAssets空间中的版本文件最终生成用于资源加载的版本信息数据对象ABLoaderVersion。（比较两个空间下单个资源包版本号较大的作为最终使用的资源包路径。）
-	10. 完成更新下载流程。
-	
+```
+1. 加载Persistent空间下的ABVersion_MD5.Bin文件。
+2. 下载Server空间下的ABVersion_MD5.Bin文件。
+3. 比较Persistent和Server下的MD5码是否相等？如果不相等转4，否则转9退出下载流程。
+4. 下载Server空间下的ABVersion.Bin版本信息文件。
+5. 加载Persistent空间下的ABVersion.Bin版本信息文件。
+6. 比较Server和Persistent下的版本信息文件，将需要更新的资源包文件记录到一个List中。（需要更新的资源包的条件：a. Server上单个资源包版本号大于Persistent空间单个资源包版本号。 b. 只有Server上存在的资源包）
+7. 遍历需要更新的资源包文件列表，从服务器上下载资源包到Persistent空间中，下载完一个资源包更新一次Persistent空间的版本信息文件ABVersion.Bin。
+8. 整个下载过程完成后，将Server的版本MD5码保存到Persistent空间中，如果下载过程终端则不保存版本MD5码。
+9. 最后将比较Persitent空间和StreamingAssets空间中的版本文件最终生成用于资源加载的版本信息数据对象ABLoaderVersion。（比较两个空间下单个资源包版本号较大的作为最终使用的资源包路径。）
+10. 完成更新下载流程。
+```
 ### Server空间上的增量更新包的生成
 * 每次打包资源的时，将会资源打包的增量信息，保存在资源包文件夹的History中。
 * 提供了一个增量资源包提取工具Tools/AssetBundle/AssetBundle History，用来提取从某个版本开始的所有的增量资源包。
