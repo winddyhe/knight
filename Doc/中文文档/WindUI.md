@@ -11,37 +11,37 @@
 * 所有的UI逻辑类都将继承自TViewController，同样的使用HotfixBinding和HotfixBindingEvent来绑定数据和事件，让逻辑代码不会被其他非逻辑代码污染，让代码变得更加精简。
 
 ```C#
-	namespace KnightHotfixModule.Test.UI
+namespace KnightHotfixModule.Test.UI
+{
+	public class UILoginTest : TViewController<UILoginTest>
 	{
-		public class UILoginTest : TViewController<UILoginTest>
+		[HotfixBinding("AccountInput")]
+		public InputField       AccountInput;
+		[HotfixBinding("PasswordInput")]
+		public InputField       PasswordInput;
+
+		public override void OnInitialize()
 		{
-			[HotfixBinding("AccountInput")]
-			public InputField       AccountInput;
-			[HotfixBinding("PasswordInput")]
-			public InputField       PasswordInput;
+			Debug.LogError("UILoginTest.Initialize..." + this.Objects.Count);
+		}
 
-			public override void OnInitialize()
-			{
-				Debug.LogError("UILoginTest.Initialize..." + this.Objects.Count);
-			}
+		public override void OnOpening()
+		{
+			Debug.LogError("OnOpening: " + this.mIsOpened);
+		}
 
-			public override void OnOpening()
-			{
-				Debug.LogError("OnOpening: " + this.mIsOpened);
-			}
+		public override void OnClosing()
+		{
+			Debug.LogError("OnClosing: " + this.mIsClosed);
+		}
 
-			public override void OnClosing()
-			{
-				Debug.LogError("OnClosing: " + this.mIsClosed);
-			}
-
-			[HotfixBindingEvent("LoginBtn", EventTriggerType.PointerClick)]
-			private void OnButton_Clicked(UnityEngine.Object rObj)
-			{
-				Debug.LogError("Button Clicked..." + this.AccountInput.text + ", " + this.PasswordInput.text);
-			}
+		[HotfixBindingEvent("LoginBtn", EventTriggerType.PointerClick)]
+		private void OnButton_Clicked(UnityEngine.Object rObj)
+		{
+			Debug.LogError("Button Clicked..." + this.AccountInput.text + ", " + this.PasswordInput.text);
 		}
 	}
+}
 ```
 
 * 打开一个UI，支持异步打开一个UI
