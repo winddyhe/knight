@@ -10,6 +10,7 @@
 	* HofixNeedUpdate: 这里为了做效率优化，提供了一个是否需要执行Update API的标记。
 	* Obejects: Prefab中的对象引用。
 
+## 热更逻辑模板类THofixMB
 * 在热更DLL中有一个THotfixMB模板类，他是热更端所有逻辑脚本的基类。逻辑脚本通过继承他，并且重写他的虚函数来实现游戏逻辑。
 * ![THotfixMB](https://github.com/winddyhe/knight/blob/master/Doc/res/images/hofix_2.png)
 
