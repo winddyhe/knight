@@ -7,28 +7,33 @@ using System;
 using System.Collections.Generic;
 using WindHotfix.Core;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace WindHotfix.Test
 {
     public class Class2 : THotfixMB<Class2>
     {
+        [HotfixBinding("HotfixTest1")]
+        public Button   BtnTest1;
+
+        [HotfixBinding(1)]
+        public Button   BtnTest2;
+
         public override void Start()
         {
-            HotfixEventManager.Instance.Binding(this.Objects[0].Object, UnityEngine.EventSystems.EventTriggerType.PointerClick, OnButton_Clicked);
-            HotfixEventManager.Instance.Binding(this.Objects[1].Object, UnityEngine.EventSystems.EventTriggerType.PointerClick, OnButton1_Clicked);
         }
 
         public override void OnDestroy()
         {
-            HotfixEventManager.Instance.UnBinding(this.Objects[0].Object, UnityEngine.EventSystems.EventTriggerType.PointerClick, OnButton_Clicked);
-            HotfixEventManager.Instance.UnBinding(this.Objects[1].Object, UnityEngine.EventSystems.EventTriggerType.PointerClick, OnButton1_Clicked);
         }
 
+        [HotfixBindingEvent("HotfixTest1", UnityEngine.EventSystems.EventTriggerType.PointerClick)]
         private void OnButton_Clicked(UnityEngine.Object rObj)
         {
             Debug.LogError(rObj.name + " Clicked...");
         }
 
+        [HotfixBindingEvent("HotfixTest1 (1)", UnityEngine.EventSystems.EventTriggerType.PointerClick)]
         private void OnButton1_Clicked(UnityEngine.Object rObj)
         {
             Debug.LogError(rObj.name + " Clicked...");
