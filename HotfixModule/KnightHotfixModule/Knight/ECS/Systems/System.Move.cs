@@ -25,7 +25,7 @@ namespace Game.Knight
 
             // 和墙面的碰撞检测
             this.MoveRayForword(rCompMove, rCompTrans, rCompColl);
-
+            
             // 设置位置
             rCompTrans.Position += rCompMove.MoveSpeed * 0.075f * rCompMove.SpeedRate;
             rCompTrans.Position = new Vector3(rCompTrans.Position.x, rCompMove.GroundedY, rCompTrans.Position.z);
@@ -35,11 +35,10 @@ namespace Game.Knight
         {
             RaycastHit rHitInfo;
             Vector3 rPos = rCompTrans.Position + rCompTrans.Up * 1.0f;
-
             if (Physics.Raycast(rPos, Vector3.down, out rHitInfo, rCompMove.GroundCheckDistance))
             {
                 rCompMove.GroundNormal = rHitInfo.normal;
-                rCompMove.GroundedY = rHitInfo.point.y;
+                rCompMove.GroundedY = rHitInfo.point.y - 0.1f;
             }
             else
             {
@@ -50,15 +49,15 @@ namespace Game.Knight
 
         private void ApplyExtraRatation(ComponentMove rCompMove, ComponentTransform rCompTrans)
         {
-            float fTurnSpeed = Mathf.Lerp(rCompMove.StationaryTurnSpeed, rCompMove.MovingTurnSpeed, rCompMove.ForwardAmount) * Time.deltaTime * rCompMove.TurnAmount;
-            rCompTrans.Forward = Quaternion.AngleAxis(fTurnSpeed, rCompTrans.Up) * rCompTrans.Forward;
+            float fTurnSpeed = Mathf.Lerp(rCompMove.StationaryTurnSpeed, rCompMove.MovingTurnSpeed, rCompMove.ForwardAmount);
+            rCompTrans.Forward = Vector3.RotateTowards(rCompTrans.Forward, rCompMove.MoveSpeed, fTurnSpeed, 0);
         }
 
         private void MoveRayForword(ComponentMove rCompMove, ComponentTransform rCompTrans, ComponentCollider rCompColl)
         {
             RaycastHit rHitInfo;
             Vector3 rActorPos = rCompTrans.Position + Vector3.up * 0.2f;
-            float rActorRadius = rCompColl.Radius + 0.2f;
+            float rActorRadius = rCompColl.Radius + 0.3f;
 
             if (Physics.Raycast(rActorPos, rCompTrans.Forward, out rHitInfo, rActorRadius, 1 << LayerMask.NameToLayer("Wall")))
             {
@@ -86,16 +85,20 @@ namespace Game.Knight
         }
     }
 
-    public class SystemInputMove : TGameSystem<ComponentMove, ComponentTransform, ComponentInput>
+    public class SystemInputMove : TGameSystem<ComponentMove, ComponentInput>
     {
-        protected override void OnUpdate(ComponentMove rCompMove, ComponentTransform rCompTrans, ComponentInput rCompInput)
+        protected override void OnUpdate(ComponentMove rCompMove, ComponentInput rCompInput)
         {
+            // 取到摄像机的方向
+            var rCameraEntity = Utilities.GetEntityCamera();
+            var rCameraTrans = rCameraEntity.CompCamera.Camera.transform;
+            var rCamForward = Vector3.Scale(rCameraTrans.forward, rCompInput.TempForword);
+
             rCompInput.HorizontalInput = InputManager.Instance.Horizontal;
             rCompInput.VerticalInput = InputManager.Instance.Vertical;
-
-            Vector3 rForward = Vector3.Scale(rCompTrans.Forward, rCompInput.TempForword).normalized;
-            Vector3 rRight = Vector3.Cross(rCompTrans.Up, rCompTrans.Forward);
-            rCompMove.MoveSpeed = rCompInput.VerticalInput * rForward + rCompInput.HorizontalInput * rRight;
+            rCompInput.IsRunInput = InputManager.Instance.IsKey(InputKey.Run);
+            
+            rCompMove.MoveSpeed = rCompInput.VerticalInput * rCamForward + rCompInput.HorizontalInput * rCameraTrans.right;
         }
     }
 }

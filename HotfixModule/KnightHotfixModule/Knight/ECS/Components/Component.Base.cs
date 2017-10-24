@@ -54,7 +54,8 @@ namespace Game.Knight
         public Vector3              Scale               = Vector3.one;
         public Vector3              Forward             = Vector3.forward;
 
-        public Vector3              Up                  = Vector3.one;
+        public Vector3              Up                  = Vector3.up;
+        public Vector3              TempForword         = new Vector3(1, 0, 1);
     }
 
     public class ComponentInput : GameComponent
@@ -69,12 +70,12 @@ namespace Game.Knight
 
     public class ComponentHero : GameComponent
     {
-        public ActorHero                 Hero;
+        public ActorHero            Hero;
     }
 
     public class ComponentAvatar : GameComponent
     {
-        public ActorAvatar               Avatar;
+        public ActorAvatar          Avatar;
     }
     
     public class ComponentProfessional : GameComponent
