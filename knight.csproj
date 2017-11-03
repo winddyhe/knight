@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6E93D330-FA13-595F-34F0-1440245108EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Assembly-CSharp.dll</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <CompilerResponseFile>Library\UnityAssemblies\mcs.rsp</CompilerResponseFile>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
+    <UnityVersion>2017.1.1f1</UnityVersion>
+    <RootNamespace></RootNamespace>
+    <LangVersion>6</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoConfig>true</NoConfig>
+    <NoStdLib>true</NoStdLib>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_1_1;UNITY_2017_1;UNITY_2017;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_1_1;UNITY_2017_1;UNITY_2017;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML">
+      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.XML.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\Microsoft.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Xml.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/Managed/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Timeline">
+      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="knight.Plugins.csproj">
+      <Project>{9CC3C92F-FE7E-EA45-EC53-58BD08676A52}</Project>
+      <Name>knight.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Framework\Assetbundles\ABLoader.cs" />
+    <Compile Include="Assets\Framework\Assetbundles\ABLoaderVersion.cs" />
+    <Compile Include="Assets\Framework\Assetbundles\ABPlatform.cs" />
+    <Compile Include="Assets\Framework\Assetbundles\ABUpdater.cs" />
+    <Compile Include="Assets\Framework\Assetbundles\ABVersion.cs" />
+    <Compile Include="Assets\Framework\Camera\CameraController.cs" />
+    <Compile Include="Assets\Framework\Camera\CameraFollower.cs" />
+    <Compile Include="Assets\Framework\Graphics\3DRenderer\Image3DRenderer.cs" />
+    <Compile Include="Assets\Framework\Graphics\3DRenderer\Text3DRenderer.cs" />
+    <Compile Include="Assets\Framework\Graphics\Assist\FontData.cs" />
+    <Compile Include="Assets\Framework\Graphics\Assist\ImageLayout.cs" />
+    <Compile Include="Assets\Framework\Graphics\Assist\TextLayout.cs" />
+    <Compile Include="Assets\Framework\Graphics\Assist\VertexElement.cs" />
+    <Compile Include="Assets\Framework\Graphics\Assist\VertexListPool.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Adaptor\CoroutineAdapter.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Adaptor\IEnumerableAdaptor.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Adaptor\IEqualityComparerAdaptor.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Binder\QuaternionBinder.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Binder\Vector2Binder.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Binder\Vector3Binder.cs" />
+    <Compile Include="Assets\Framework\Hotfix\HotfixApp.cs" />
+    <Compile Include="Assets\Framework\Hotfix\HotfixAssetLoader.cs" />
+    <Compile Include="Assets\Framework\Hotfix\HotfixData.cs" />
+    <Compile Include="Assets\Framework\Hotfix\HotfixEventManager.cs" />
+    <Compile Include="Assets\Framework\Hotfix\HotfixEventTrigger.cs" />
+    <Compile Include="Assets\Framework\Hotfix\HotfixGameMainLogic.cs" />
+    <Compile Include="Assets\Framework\Hotfix\HotfixMBContainer.cs" />
+    <Compile Include="Assets\Framework\Hotfix\HotfixObject.cs" />
+    <Compile Include="Assets\Framework\Input\BaseInput.cs" />
+    <Compile Include="Assets\Framework\Input\InputManager.cs" />
+    <Compile Include="Assets\Framework\Input\Joystick.cs" />
+    <Compile Include="Assets\Framework\Input\JoystickInput.cs" />
+    <Compile Include="Assets\Framework\Input\KeyboardInput.cs" />
+    <Compile Include="Assets\Framework\Input\MouseTouchMonitor.cs" />
+    <Compile Include="Assets\Framework\Input\TouchInput.cs" />
+    <Compile Include="Assets\Framework\Loader\AvatarAssetLoader.cs" />
+    <Compile Include="Assets\Framework\Loader\SceneAssetLoader.cs" />
+    <Compile Include="Assets\Framework\Loader\SceneConfig.cs" />
+    <Compile Include="Assets\Framework\Loading\GameLoading.cs" />
+    <Compile Include="Assets\Framework\Loading\ILoadingView.cs" />
+    <Compile Include="Assets\Framework\Network\NetworkClient.cs" />
+    <Compile Include="Assets\Framework\Network\NetworkMsgCode.cs" />
+    <Compile Include="Assets\Framework\Utility\DontDestroyOnLoad.cs" />
+    <Compile Include="Assets\Framework\Utility\GameFlowLevelManager.cs" />
+    <Compile Include="Assets\Framework\Utility\MainAssemblyExpand.cs" />
+    <Compile Include="Assets\Framework\Utility\MainUpdate.cs" />
+    <Compile Include="Assets\Framework\WindUI\UIAssetLoader.cs" />
+    <Compile Include="Assets\Framework\WindUI\UIRoot.cs" />
+    <Compile Include="Assets\Framework\WindUI\UITool.cs" />
+    <Compile Include="Assets\Framework\WindUI\ViewContainer.cs" />
+    <Compile Include="Assets\Framework\WindUI\Widget\TextFormat.cs" />
+    <Compile Include="Assets\Framework\WindUI\Widget\Toast.cs" />
+    <Compile Include="Assets\Game\Knight\Script\GameFlow\GameTest.cs" />
+    <Compile Include="Assets\Game\Knight\Script\GameFlow\Init.cs" />
+    <Compile Include="Assets\Game\Knight\Script\Loading\LoadingView_Knight.cs" />
+    <Compile Include="Assets\Game\OriginalRes\Scene\Top_Down_City\Origin\Tools\AnimateTiledTexture.cs" />
+    <Compile Include="Assets\Game\OriginalRes\Scene\Top_Down_City\Water\Sources\Scripts\Water.cs" />
+    <Compile Include="Assets\Generate\SerializerBinary\Runtime\CommonSerializer.cs" />
+    <Compile Include="Assets\Generate\SerializerBinary\Runtime\UnityEngine.AssetBundles.ABVersion.Binary.cs" />
+    <Compile Include="Assets\Generate\SerializerBinary\Runtime\UnityEngine.AssetBundles.ABVersionEntry.Binary.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\CLRBindings.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\Core_Dict_2_ILTypeInstance_ILTypeInstance_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\Core_Dict_2_Object_Object_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\Core_WindJson_JsonArray_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\Core_WindJson_JsonClass_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\Core_WindJson_JsonData_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\Core_WindJson_JsonParser_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\Framework_Hotfix_HotfixEventManager_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\System_Array_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\System_Collections_Generic_Dictionary_2_ILTypeInstance_ILTypeInstance_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\System_Collections_Generic_Dictionary_2_Object_Object_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\System_Collections_Generic_List_1_ILTypeInstance_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\System_Delegate_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\System_Int32_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\System_Int64_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\System_Object_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\System_Single_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\System_String_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Color_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Debug_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\UnityEngine_GameObject_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\UnityEngine_MonoBehaviour_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Object_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Quaternion_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\UnityEngine_RectTransform_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Time_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Transform_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Vector2_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Vector3_Binding.cs" />
+    <Compile Include="Assets\Test\AreaOverlapTest\AreaOverlapTest.cs" />
+    <Compile Include="Assets\Test\AsyncAwaitTest\AsyncAwaitTest.cs" />
+    <Compile Include="Assets\Test\CoroutineTest\CoroutineTest.cs" />
+    <Compile Include="Assets\Test\GamePlayTest\GamePlayTest.cs" />
+    <Compile Include="Assets\Test\HotfixTest\Base\HotfixMBTest.cs" />
+    <Compile Include="Assets\Test\HotfixTest\Base\HotfixTest.cs" />
+    <Compile Include="Assets\Test\HotfixTest\UI\HotfixUITest.cs" />
+    <Compile Include="Assets\Test\JsonTest\JsonParseTest.cs" />
+    <Compile Include="Assets\Test\NavTest\NavMeshDisplay.cs" />
+    <Compile Include="Assets\Test\PathTest\PathTest.cs" />
+    <Compile Include="Assets\Test\PomeloClientTest\PomeloClientTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\Bloom\BloomTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\GaussianBlurTest\GaussianBlurEffectTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\HDR\HDRTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\MotionBlur\MotionBlurTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\RadialBlur\RadialBlurTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\SceneBoom\SceneBoomTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\SceneTwist\SceneTwistTest.cs" />
+    <Compile Include="Assets\Test\SceneABTest\SceneABLoadTest.cs" />
+    <Compile Include="Assets\Test\UnsafeTest\UnsafeTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlend.cginc" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlend.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlendAlpha.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlendCutOff.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\Diffuse.cginc" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\Diffuse.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\DiffuseAlpha.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\DiffuseCutOff.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Effect\Effect.cginc" />
+    <None Include="Assets\Framework\Graphics\Shaders\Effect\TextureEffect.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Effect\ThirdTextureEffect.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Effect\TwoTextureEffect.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\Bloom.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\BlurEffectCG.cginc" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\GaussinBlur.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\HDR.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\MotionBlur.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\RadialBlur.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\SceneBoom.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\SceneTwist.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Texture\Texture.cginc" />
+    <None Include="Assets\Framework\Graphics\Shaders\Texture\Texture.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Texture\TextureAlpha.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Texture\TextureCutOff.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\UI\Image3DUI.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\UI\Text3DUI.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\UI\ThreeDUI.cginc" />
+    <None Include="Assets\Game\Knight\GameAsset\Config\SkillConfig\Text\911.txt" />
+    <None Include="Assets\Game\Knight\GameAsset\Config\SkillConfig\Text\SkillList.txt" />
+    <None Include="Assets\Game\Knight\Resources\server_url_default.txt" />
+    <None Include="Assets\Game\OriginalRes\Scene\Top_Down_City\Water\Sources\Shaders\FX-Water.shader" />
+    <None Include="Assets\Test\GamePlayTest\game_play_config_test.txt" />
+    <None Include="Assets\Test\JsonTest\Test1.txt" />
+    <None Include="Assets\Test\RoleTest\ColorLevelsSurfaceShader.shader" />
+    <None Include="Assets\link.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
+</Project>
