@@ -1,4 +1,9 @@
-﻿using System;
+﻿//======================================================================
+//
+//        Forked github: https://github.com/svermeulen/Unity3dAsyncAwaitUtil
+//
+//======================================================================
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

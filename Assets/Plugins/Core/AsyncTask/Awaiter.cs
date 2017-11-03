@@ -1,6 +1,7 @@
 ﻿//======================================================================
+//
 //        Forked github: https://github.com/svermeulen/Unity3dAsyncAwaitUtil
-//        Email: hgplan@126.com
+//
 //======================================================================
 
 using System;
