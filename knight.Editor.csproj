@@ -47,91 +47,91 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\mscorlib.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\mscorlib.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.dll</HintPath>
     </Reference>
     <Reference Include="System.XML">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.XML.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.XML.dll</HintPath>
     </Reference>
     <Reference Include="System.Core">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Core.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\Microsoft.CSharp.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\Microsoft.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Runtime.Serialization.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Runtime.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Xml.Linq.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Xml.Linq.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Networking">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.TestRunner">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Timeline">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Timeline">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/Timeline/Editor/UnityEditor.Timeline.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/Timeline/Editor/UnityEditor.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.TreeEditor">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Analytics">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/UnityAnalytics/Editor/UnityEditor.Analytics.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/UnityAnalytics/Editor/UnityEditor.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.HoloLens">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.HoloLens">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/UnityPurchasing/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/UnityPurchasing/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.VR">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Graphs">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Android.Extensions">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>

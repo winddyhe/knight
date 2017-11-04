@@ -1,12 +1,7 @@
-﻿//======================================================================
-//
-//        Forked github: https://github.com/svermeulen/Unity3dAsyncAwaitUtil
-//
-//======================================================================
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -16,9 +11,10 @@ namespace Core
     public static class SyncContextUtil
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void Install()
+        static void Install()
         {
             UnitySynchronizationContext = SynchronizationContext.Current;
+            UnityThreadId = Thread.CurrentThread.ManagedThreadId;
         }
 
         public static int UnityThreadId
@@ -32,3 +28,4 @@ namespace Core
         }
     }
 }
+

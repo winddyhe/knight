@@ -47,52 +47,52 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\mscorlib.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\mscorlib.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.dll</HintPath>
     </Reference>
     <Reference Include="System.XML">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.XML.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.XML.dll</HintPath>
     </Reference>
     <Reference Include="System.Core">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Core.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\Microsoft.CSharp.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\Microsoft.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Runtime.Serialization.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Runtime.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Xml.Linq.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Xml.Linq.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Timeline">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.HoloLens">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +193,9 @@
     <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Vector3_Binding.cs" />
     <Compile Include="Assets\Test\AreaOverlapTest\AreaOverlapTest.cs" />
     <Compile Include="Assets\Test\AsyncAwaitTest\AsyncAwaitTest.cs" />
+    <Compile Include="Assets\Test\AsyncTests\AsyncUtilTests.cs" />
+    <Compile Include="Assets\Test\AsyncTests\Util\TestButtonHandler.cs" />
+    <Compile Include="Assets\Test\CoroutineTest\CoroutineLoadTest.cs" />
     <Compile Include="Assets\Test\CoroutineTest\CoroutineTest.cs" />
     <Compile Include="Assets\Test\GamePlayTest\GamePlayTest.cs" />
     <Compile Include="Assets\Test\HotfixTest\Base\HotfixMBTest.cs" />

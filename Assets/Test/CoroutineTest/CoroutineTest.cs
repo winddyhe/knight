@@ -5,61 +5,26 @@
 using UnityEngine;
 using System.Collections;
 using Core;
+using System.Threading.Tasks;
 
 namespace Test
 {
-    /// <summary>
-    /// 使用的部分
-    /// </summary>
-    public class LoaderRequest : CoroutineRequest<LoaderRequest>
-    {
-        public Object obj;
-        public string path;
-
-        public LoaderRequest(string rPath)
-        {
-            this.path = rPath;
-        }
-    }
-
-    public class CoroutineLoadTest
-    {
-        public LoaderRequest mRequest;
-
-        private LoaderRequest Load_Async(string rPath)
-        {
-            LoaderRequest rRequest = new LoaderRequest(rPath);
-            mRequest = rRequest;
-            rRequest.Start(Load(rRequest));
-            return rRequest;
-        }
-
-        private IEnumerator Load(LoaderRequest rRequest)
-        {
-            yield return new WaitForSeconds(1.0f);
-            rRequest.obj = new GameObject(rRequest.path);
-            Debug.LogFormat("Create GameObject: {0}", rRequest.path);
-        }
-
-        public IEnumerator Loading(string rPath)
-        {
-            yield return Load_Async(rPath);
-        }
-    }
-
     public class CoroutineTest : MonoBehaviour
     {
-        IEnumerator Start()
+        private async void Start()
         {
             CoroutineManager.Instance.Initialize();
-            yield return CoroutineManager.Instance.Start(Start_Async());
+            await Start_Async();
         }
 
-        IEnumerator Start_Async()
+        private async Task Start_Async()
         {
             CoroutineLoadTest rTest = new CoroutineLoadTest();
-            yield return CoroutineManager.Instance.Start(rTest.Loading("Test1"));
-            yield return CoroutineManager.Instance.Start(rTest.Loading("Test2"));
+            Debug.Log(await rTest.Loading("Test1"));
+            Debug.Log(await rTest.Loading("Test2"));
+
+            Debug.Log(await rTest.GetValueExampleAsync());
+
             Debug.Log("Done.");
         }
     }

@@ -49,56 +49,55 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\mscorlib.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\mscorlib.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.dll</HintPath>
     </Reference>
     <Reference Include="System.XML">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.XML.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.XML.dll</HintPath>
     </Reference>
     <Reference Include="System.Core">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Core.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\Microsoft.CSharp.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\Microsoft.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Runtime.Serialization.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Runtime.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq">
-      <HintPath>E:\program\Unity\Unity2017011f1\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Xml.Linq.dll</HintPath>
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Xml.Linq.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Timeline">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.HoloLens">
-      <HintPath>E:/program/Unity/Unity2017011f1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Plugins\Core\AsyncTask\Awaiter.cs" />
     <Compile Include="Assets\Plugins\Core\Assist\CryptoUtility.cs" />
     <Compile Include="Assets\Plugins\Core\Assist\Debugger.cs" />
     <Compile Include="Assets\Plugins\Core\Assist\Dict.cs" />
@@ -118,9 +117,13 @@
     <Compile Include="Assets\Plugins\Core\Assist\UtilTool.cs" />
     <Compile Include="Assets\Plugins\Core\Assist\WebRequestAssist.cs" />
     <Compile Include="Assets\Plugins\Core\Assist\WWWAssist.cs" />
-    <Compile Include="Assets\Plugins\Core\AsyncTask\AsyncTaskHandler.cs" />
-    <Compile Include="Assets\Plugins\Core\AsyncTask\AsyncTaskManager.cs" />
-    <Compile Include="Assets\Plugins\Core\AsyncTask\SyncContextUtil.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\Awaiters.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\AwaitExtensions.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\IEnumeratorAwaitExtensions.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\Internal\SyncContextUtil.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\TaskExtensions.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\WaitForBackgroundThread.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\WaitForUpdate.cs" />
     <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineHandler.cs" />
     <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineManager.cs" />
     <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineRequest.cs" />
