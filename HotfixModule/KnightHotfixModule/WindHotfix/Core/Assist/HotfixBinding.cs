@@ -11,9 +11,13 @@ namespace WindHotfix.Core
         public string           Name;
         public int              Index;
 
-        public HotfixBindingAttribute(string rName = "", int nIndex = -1)
+        public HotfixBindingAttribute(string rName = "")
         {
             this.Name           = rName;
+        }
+
+        public HotfixBindingAttribute(int nIndex = -1)
+        {
             this.Index          = nIndex;
         }
     }

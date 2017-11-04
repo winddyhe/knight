@@ -30,10 +30,10 @@ namespace Game.Knight
         public static GameConfig            Instance { get { return HotfixSingleton<GameConfig>.GetInstance(); } }
 
         [ConfigPath("Avatar.json")]
-        public Dict<int, ActorAvatar>            Avatars;
+        public Dict<int, ActorAvatar>       Avatars;
 
         [ConfigPath("Hero.json")]
-        public Dict<int, ActorHero>              Heros;
+        public Dict<int, ActorHero>         Heros;
         
         [ConfigPath("Professional.json")]
         public Dict<int, ActorProfessional> ActorProfessionals;

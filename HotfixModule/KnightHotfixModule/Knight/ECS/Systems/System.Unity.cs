@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using WindHotfix.Game;
+using Core;
+using UnityEngine;
 
 namespace Game.Knight
 {

@@ -57,6 +57,11 @@ namespace Game.Knight
             if (mGameMode != null)
                 mGameMode.Destroy();
         }
+
+        public GameMode_World GameWorld
+        {
+            get { return mGameMode; }
+        }
     }
 }
 
