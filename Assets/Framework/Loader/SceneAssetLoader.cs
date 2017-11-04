@@ -8,12 +8,13 @@ using Core;
 using UnityEngine.SceneManagement;
 using System.IO;
 using UnityEngine.AssetBundles;
+using System.Threading.Tasks;
 
 namespace Framework
 {
     public class SceneAssetLoader : TSingleton<SceneAssetLoader>
     {
-        public class SceneLoaderRequest : CoroutineRequest<SceneLoaderRequest>
+        public class SceneLoaderRequest
         {
             public string        ABPath;
             public string        AssetName;
@@ -29,33 +30,21 @@ namespace Framework
 
         private SceneAssetLoader() { }
 
-        public SceneLoaderRequest Load_Async(string rSceneABPath, string rSceneName, LoadSceneMode rLoadSceneMode)
+        public async Task<SceneLoaderRequest> Load_Async(string rSceneABPath, string rSceneName, LoadSceneMode rLoadSceneMode)
         {
             var rLoadRequest = new SceneLoaderRequest(rSceneABPath, rSceneName, rLoadSceneMode);
-            rLoadRequest.Start(Load_Async(rLoadRequest));
-            return rLoadRequest;
-        }
 
-        public void Unload(string rABPath)
-        {
-            ABLoader.Instance.UnloadAsset(rABPath);
-        }
-
-        private IEnumerator Load_Async(SceneLoaderRequest rLoadRequest)
-        {
             GameObject rSceneConfigGo = null;
-
             if (ABPlatform.Instance.IsSumilateMode_Scene())
             {
                 Debug.Log("---Simulate Load ab: " + rLoadRequest.ABPath);
 #if UNITY_EDITOR
                 if (rLoadRequest.LoadMode == LoadSceneMode.Additive)
-                    yield return UnityEditor.EditorApplication.LoadLevelAdditiveAsyncInPlayMode(rLoadRequest.AssetName);
+                    await UnityEditor.EditorApplication.LoadLevelAdditiveAsyncInPlayMode(rLoadRequest.AssetName);
                 else
-                    yield return UnityEditor.EditorApplication.LoadLevelAsyncInPlayMode(rLoadRequest.AssetName);
-
-                string rSceneName = Path.GetFileNameWithoutExtension(rLoadRequest.AssetName);
-                var rScene = SceneManager.GetSceneByName(rSceneName);
+                    await UnityEditor.EditorApplication.LoadLevelAsyncInPlayMode(rLoadRequest.AssetName);
+                
+                var rScene = SceneManager.GetSceneByName(Path.GetFileNameWithoutExtension(rLoadRequest.AssetName));
                 SceneManager.SetActiveScene(rScene);
 
                 rSceneConfigGo = GameObject.Find(rScene.name + "_Config");
@@ -63,13 +52,8 @@ namespace Framework
             }
             else
             {
-                var rSceneRequest = ABLoader.Instance.LoadScene(rLoadRequest.ABPath, rLoadRequest.AssetName);
-                yield return rSceneRequest;
-
-                string rSceneName = Path.GetFileNameWithoutExtension(rSceneRequest.AssetName);
-                var rSceneLoadRequest = SceneManager.LoadSceneAsync(rSceneName, rLoadRequest.LoadMode);
-                yield return rSceneLoadRequest;
-
+                var rSceneRequest = await ABLoader.Instance.LoadScene(rLoadRequest.ABPath, rLoadRequest.AssetName);
+                var rSceneLoadRequest = await SceneManager.LoadSceneAsync(Path.GetFileNameWithoutExtension(rSceneRequest.AssetName), rLoadRequest.LoadMode);
                 rSceneRequest.Scene = SceneManager.GetSceneByName(rSceneName);
                 SceneManager.SetActiveScene(rSceneRequest.Scene);
 
@@ -90,6 +74,12 @@ namespace Framework
                     rMainCamera.nearClipPlane = rSceneConfig.CameraNear;
                 }
             }
+            return rLoadRequest;
+        }
+
+        public void Unload(string rABPath)
+        {
+            ABLoader.Instance.UnloadAsset(rABPath);
         }
     }
 }

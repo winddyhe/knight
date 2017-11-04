@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
 
@@ -30,15 +31,9 @@ namespace Framework.Hotfix
             mApp = null;
         }
 
-        public Coroutine Load(string rABPath, string rHotfixModuleName)
+        public async Task Load(string rABPath, string rHotfixModuleName)
         {
-            return CoroutineManager.Instance.Start(Load_Async(rABPath, rHotfixModuleName));
-        }
-
-        private IEnumerator Load_Async(string rABPath, string rHotfixModuleName)
-        {
-            var rRequest = HotfixAssetLoader.Instance.Load(rABPath, rHotfixModuleName);
-            yield return rRequest;
+            var rRequest = await HotfixAssetLoader.Instance.Load(rABPath, rHotfixModuleName);
 
             MemoryStream rDllMS = new MemoryStream(rRequest.dllBytes);
             MemoryStream rPDBMS = new MemoryStream(rRequest.pdbBytes);

@@ -9,6 +9,7 @@ using Core;
 using Framework.Hotfix;
 using UnityEngine.AssetBundles;
 using Framework.WindUI;
+using System.Threading.Tasks;
 
 namespace Game.Knight
 {
@@ -20,7 +21,7 @@ namespace Game.Knight
         public string HotfixABPath = "";
         public string HotfixModule = "";
         
-        void Start()
+        async void Start()
         {
             //限帧
             Application.targetFrameRate = 30;
@@ -36,25 +37,25 @@ namespace Game.Knight
             CoroutineManager.Instance.Initialize();
 
             //异步初始化代码
-            CoroutineManager.Instance.Start(Start_Async());
+            await Start_Async();
         }
 
-        private IEnumerator Start_Async()
+        private async Task Start_Async()
         {
             // 平台初始化
-            yield return ABPlatform.Instance.Initialize();
+            await ABPlatform.Instance.Initialize();
             
             // 资源下载模块初始化
-            yield return ABUpdater.Instance.Initialize();
+            await ABUpdater.Instance.Initialize();
             
             GameLoading.Instance.Hide();
             GameLoading.Instance.StartLoading(1.0f, "游戏初始化阶段，开始加载资源...");
 
             // 加载热更新代码资源
-            yield return HotfixApp.Instance.Load(this.HotfixABPath, this.HotfixModule);
+            await HotfixApp.Instance.Load(this.HotfixABPath, this.HotfixModule);
 
             // 开始热更新端的游戏主逻辑
-            yield return HotfixGameMainLogic.Instance.Initialize();
+            await HotfixGameMainLogic.Instance.Initialize();
 
             Debug.Log("End init..");
         }

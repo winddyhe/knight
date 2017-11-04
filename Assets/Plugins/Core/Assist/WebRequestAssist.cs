@@ -5,12 +5,13 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
+using System.Threading.Tasks;
 
 namespace Core
 {
     public class WebRequestAssist
     {
-        public class LoaderRequest : CoroutineRequest<LoaderRequest>
+        public class LoaderRequest
         {
             public string               Text;
             public byte[]               Bytes;
@@ -27,30 +28,25 @@ namespace Core
             }
         }
 
-        public static LoaderRequest DownloadFile(string rURL, System.Action<float> rDownloadProgress = null)
+        public static async Task<LoaderRequest> DownloadFile(string rURL, System.Action<float> rDownloadProgress = null)
         {
             LoaderRequest rRequest = new LoaderRequest(rURL, rDownloadProgress);
-            rRequest.Start(DownloadFile_Async(rRequest));
-            return rRequest;
-        }
 
-        private static IEnumerator DownloadFile_Async(LoaderRequest rRequest)
-        {
             UnityWebRequest rWebRequest = UnityWebRequest.Get(rRequest.Url);
             CoroutineManager.Instance.Start(Record_DownloadProgress_Async(rRequest, rWebRequest));
-            yield return rWebRequest.Send();
+            await rWebRequest.Send();
 
             if (rWebRequest.isNetworkError)
             {
                 Debug.Log(rWebRequest.error);
                 rWebRequest.Dispose();
-                yield break;
+                return null;
             }
 
             var rDownloadHandler = rWebRequest.downloadHandler;
             if (rDownloadHandler == null)
             {
-                yield break;
+                return null;
             }
 
             rRequest.IsDone = true;
@@ -61,6 +57,8 @@ namespace Core
             rDownloadHandler.Dispose();
             rWebRequest = null;
             rDownloadHandler = null;
+
+            return rRequest;
         }
 
         private static IEnumerator Record_DownloadProgress_Async(LoaderRequest rRequest, UnityWebRequest rWebRequest)

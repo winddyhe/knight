@@ -8,10 +8,11 @@ using UnityEngine;
 using Core;
 using System.IO;
 using UnityEngine.AssetBundles;
+using System.Threading.Tasks;
 
 namespace Framework.Hotfix
 {
-    public class HotfixLoaderRequest : CoroutineRequest<HotfixAssetLoader>
+    public class HotfixLoaderRequest
     {
         public string ABPath;
         public string hotfixModuleName;
@@ -32,15 +33,10 @@ namespace Framework.Hotfix
 
         private HotfixAssetLoader() { }
 
-        public HotfixLoaderRequest Load(string rABPath, string rHotfixModuleName)
+        public async Task<HotfixLoaderRequest> Load(string rABPath, string rHotfixModuleName)
         {
             var rRequest = new HotfixLoaderRequest(rABPath, rHotfixModuleName);
-            rRequest.Start(Load_Async(rRequest));
-            return rRequest;
-        }
         
-        public IEnumerator Load_Async(HotfixLoaderRequest rRequest)
-        {
             string rDLLPath = mHotfixDllDir + rRequest.hotfixModuleName + ".bytes";
             string rPDBPath = mHotfixDllDir + rRequest.hotfixModuleName + "_PDB.bytes";
 
@@ -52,9 +48,7 @@ namespace Framework.Hotfix
             }
             else
             {
-                var rDLLAssetRequest = ABLoader.Instance.LoadAsset(rRequest.ABPath, rDLLPath, false);
-                yield return rDLLAssetRequest;
-
+                var rDLLAssetRequest = await ABLoader.Instance.LoadAsset(rRequest.ABPath, rDLLPath, false);
                 if (rDLLAssetRequest.Asset != null)
                 {
                     var rTextAsset = rDLLAssetRequest.Asset as TextAsset;
@@ -63,9 +57,7 @@ namespace Framework.Hotfix
                 }
                 ABLoader.Instance.UnloadAsset(rRequest.ABPath);
 
-                var rPDBAssetRequest = ABLoader.Instance.LoadAsset(rRequest.ABPath, rPDBPath, false);
-                yield return rPDBAssetRequest;
-
+                var rPDBAssetRequest = await ABLoader.Instance.LoadAsset(rRequest.ABPath, rPDBPath, false);
                 if (rPDBAssetRequest.Asset != null)
                 {
                     var rTextAsset = rPDBAssetRequest.Asset as TextAsset;
@@ -74,6 +66,7 @@ namespace Framework.Hotfix
                 }
                 ABLoader.Instance.UnloadAsset(rRequest.ABPath);
             }
+            return rRequest;
         }
     }
 }

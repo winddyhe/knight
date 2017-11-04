@@ -4,6 +4,7 @@
 //======================================================================
 using UnityEngine;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace Core
 {
@@ -12,7 +13,7 @@ namespace Core
     /// </summary> 
     public class WWWAssist
     {
-        public class LoaderRequest : CoroutineRequest<LoaderRequest>
+        public class LoaderRequest
         {
             public string       Text;
             public byte[]       Bytes;
@@ -49,22 +50,18 @@ namespace Core
             www = null;
         }
 
-        public static LoaderRequest LoadFile(string rURL)
+        public async static Task<LoaderRequest> LoadFile(string rURL)
         {
             LoaderRequest rRequest = new LoaderRequest(rURL);
-            rRequest.Start(LoadFile_Async(rRequest));
-            return rRequest;
-        }
 
-        private static IEnumerator LoadFile_Async(LoaderRequest rRequest)
-        {
             WWW www = WWWAssist.Load(rRequest.Url);
-            yield return www;
+            await www;
 
             rRequest.Text = www.text;
             rRequest.Bytes = www.bytes;
-
             WWWAssist.Destroy(ref www);
+
+            return rRequest;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Framework.Hotfix
@@ -20,13 +21,13 @@ namespace Framework.Hotfix
                 __instance = this;
         }
 
-        public IEnumerator Initialize()
+        public async Task Initialize()
         {
             // 加载Hotfix端的代码
             this.MainLogicHotfixObj = HotfixApp.Instance.Instantiate(this.MainLogicScript);
             
             // 加载Hotfix端的代码
-            yield return HotfixApp.Instance.Invoke(this.MainLogicHotfixObj, "Initialize") as IEnumerator;
+            await (HotfixApp.Instance.Invoke(this.MainLogicHotfixObj, "Initialize") as Task);
         }
 
         void Update()
