@@ -12,12 +12,14 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <CompilerResponseFile>Library\UnityAssemblies\mcs.rsp</CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -116,7 +118,8 @@
     <Compile Include="Assets\Framework\Graphics\Assist\TextLayout.cs" />
     <Compile Include="Assets\Framework\Graphics\Assist\VertexElement.cs" />
     <Compile Include="Assets\Framework\Graphics\Assist\VertexListPool.cs" />
-    <Compile Include="Assets\Framework\Hotfix\Adaptor\CoroutineAdapter.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Adaptor\CoroutineAdaptor.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Adaptor\IAsyncStateMachineAdaptor.cs" />
     <Compile Include="Assets\Framework\Hotfix\Adaptor\IEnumerableAdaptor.cs" />
     <Compile Include="Assets\Framework\Hotfix\Adaptor\IEqualityComparerAdaptor.cs" />
     <Compile Include="Assets\Framework\Hotfix\Binder\QuaternionBinder.cs" />

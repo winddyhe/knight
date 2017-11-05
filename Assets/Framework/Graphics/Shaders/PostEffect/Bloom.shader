@@ -25,6 +25,8 @@
 				bloomV2f o;
 				o.vertex=UnityObjectToClipPos(a.vertex);
 				o.uv.xy=TRANSFORM_TEX(a.uv,_MainTex);
+				o.uv.z = 0;
+				o.uv.w = 0;
 				return o;
 			}
 			fixed4 luminanceFrag(bloomV2f i):SV_Target

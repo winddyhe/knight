@@ -25,7 +25,7 @@ namespace Framework.Hotfix
         {
             // 加载Hotfix端的代码
             this.MainLogicHotfixObj = HotfixApp.Instance.Instantiate(this.MainLogicScript);
-            
+
             // 加载Hotfix端的代码
             await (HotfixApp.Instance.Invoke(this.MainLogicHotfixObj, "Initialize") as Task);
         }

@@ -11,6 +11,7 @@ using Core.WindJson;
 using System.IO;
 using WindHotfix.Core;
 using UnityEngine.AssetBundles;
+using System.Threading.Tasks;
 
 namespace Game.Knight
 {
@@ -93,27 +94,13 @@ namespace Game.Knight
         /// <summary>
         /// 异步加载游戏配置
         /// </summary>
-        public Coroutine Load(string rConfigABPath, string rConfigName)
+        public async Task Load(string rConfigABPath, string rConfigName)
         {
-            return CoroutineManager.Instance.Start(Load_Async(rConfigABPath, rConfigName));
-        }
-
-        /// <summary>
-        /// 卸载资源包
-        /// </summary>
-        public void Unload(string rConfigABPath)
-        {
-            ABLoader.Instance.UnloadAsset(rConfigABPath);
-        }
-
-        private IEnumerator Load_Async(string rConfigABPath, string rConfigName)
-        {
-            var rAssetRequesst = ABLoader.Instance.LoadAsset(rConfigABPath, rConfigName, ABPlatform.Instance.IsSumilateMode_Config());
-            yield return rAssetRequesst;
-            if (rAssetRequesst.Asset == null) yield break;
+            var rAssetRequesst = await ABLoader.Instance.LoadAsset(rConfigABPath, rConfigName, ABPlatform.Instance.IsSumilateMode_Config());
+            if (rAssetRequesst.Asset == null) return;
 
             TextAsset rConfigAsset = rAssetRequesst.Asset as TextAsset;
-            if (rConfigAsset == null) yield break;
+            if (rConfigAsset == null) return;
 
             using (var ms = new MemoryStream(rConfigAsset.bytes))
             {
@@ -122,6 +109,14 @@ namespace Game.Knight
                     this.Deserialize(br);
                 }
             }
+        }
+
+        /// <summary>
+        /// 卸载资源包
+        /// </summary>
+        public void Unload(string rConfigABPath)
+        {
+            ABLoader.Instance.UnloadAsset(rConfigABPath);
         }
         #endregion
 

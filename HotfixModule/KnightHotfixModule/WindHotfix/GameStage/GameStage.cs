@@ -7,6 +7,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using Core;
+using System.Threading.Tasks;
 
 namespace WindHotfix.GameStage
 {
@@ -40,11 +41,11 @@ namespace WindHotfix.GameStage
         /// <summary>
         /// 开始执行GameStage
         /// </summary>
-        public IEnumerator Run_Async()  
+        public async Task Run_Async()  
         {
             isCompleted = false;
-    
-            yield return CoroutineManager.Instance.Start(OnRun_Async());
+
+            await OnRun_Async();
     
             isCompleted = true;
         }
@@ -57,7 +58,7 @@ namespace WindHotfix.GameStage
         /// <summary>
         /// 执行GameStage
         /// </summary>
-        protected virtual IEnumerator OnRun_Async() { yield break; }
+        protected virtual async Task OnRun_Async() { }
     }
     
     /// <summary>
@@ -95,17 +96,17 @@ namespace WindHotfix.GameStage
         /// <summary>
         /// 开始异步执行GameStage
         /// </summary>
-        public IEnumerator Run_Async()
+        public async Task Run_Async()
         {
             for (int i = 0; i < taskList.Count; i++)
             {
-                CoroutineManager.Instance.Start(taskList[i].Run_Async());
+                taskList[i].Run_Async();
             }
             
             //等待这个索引的所有的Task执行完成后，才进入下一个索引
             while (!CheckStageIsCompleted())
             {
-                yield return 0;
+                await new WaitForEndOfFrame();
             }
             this.isStageCompleted = true;
         }

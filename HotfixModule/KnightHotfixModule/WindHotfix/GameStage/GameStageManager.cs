@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System;
 using Core;
 using WindHotfix.Core;
+using System.Threading.Tasks;
 
 namespace WindHotfix.GameStage
 {
@@ -62,24 +63,14 @@ namespace WindHotfix.GameStage
         /// <summary>
         /// GameStage开始执行
         /// </summary>
-        public void StageRunning()
+        public async Task StageRunning()
         {
-            CoroutineManager.Instance.Start(StageRunning_Async());
-        }
-
-        /// <summary>
-        /// 异步执行GameStage
-        /// </summary>
-        private IEnumerator StageRunning_Async()
-        {
-            if (this.gameStages == null) yield break;
-
-            // @Tips: 很蛋疼的痛点，直接使用foreach在其中yield return Coroutine会卡死在里面，不知道是怎么回事。
-            //        只能临时把Dict转成List再来等待。
+            if (this.gameStages == null) return;
+            
             var rGameStageList = new List<KeyValuePair<int, GameStage>>(this.gameStages);
             for (int i = 0; i < rGameStageList.Count; i++)
             {
-                yield return rGameStageList[i].Value.Run_Async();
+                await rGameStageList[i].Value.Run_Async();
             }
         }
     }

@@ -31,7 +31,7 @@ namespace Game.Knight
             __instance = null;
         }
 
-        public override void Start()
+        public async override void Start()
         {
             // 设置当前的游戏模式
             mGameMode = new GameMode_CreatePlayer();
@@ -53,7 +53,7 @@ namespace Game.Knight
             // 开始游戏
             GameStageManager.Instance.InitGame();
             GameStageManager.Instance.StageIntialize();
-            GameStageManager.Instance.StageRunning();
+            await GameStageManager.Instance.StageRunning();
         }
 
         /// <summary>

@@ -54,7 +54,8 @@ namespace Framework
             {
                 var rSceneRequest = await ABLoader.Instance.LoadScene(rLoadRequest.ABPath, rLoadRequest.AssetName);
                 var rSceneLoadRequest = await SceneManager.LoadSceneAsync(Path.GetFileNameWithoutExtension(rSceneRequest.AssetName), rLoadRequest.LoadMode);
-                rSceneRequest.Scene = SceneManager.GetSceneByName(rSceneName);
+                rSceneRequest.Scene = SceneManager.GetSceneByName(Path.GetFileNameWithoutExtension(rSceneRequest.AssetName));
+                Debug.LogError(rSceneRequest.Scene.name);
                 SceneManager.SetActiveScene(rSceneRequest.Scene);
 
                 rSceneConfigGo = GameObject.Find(rSceneRequest.Scene.name + "_Config");

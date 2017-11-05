@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Core;
 using WindHotfix.Core;
 using Framework;
+using System.Threading.Tasks;
 
 namespace Game.Knight
 {
@@ -16,14 +17,15 @@ namespace Game.Knight
     {
         public class ActorCreateRequest
         {
-            public CoroutineHandler Handler;
+            public Task             Handler;
             public ActorAvatar      Avatar;
             public ActorHero        Hero;
             public GameObject       ActorGo;
 
             public void Stop()
             {
-                CoroutineManager.Instance.Stop(this.Handler);
+                //CoroutineManager.Instance.Stop(this.Handler);
+                this.Handler.Dispose();
             }
         }
 
@@ -60,7 +62,7 @@ namespace Game.Knight
             }
 
             var rRequest = new ActorCreateRequest() { Avatar = rAvatar, Hero = rHero };
-            rRequest.Handler = CoroutineManager.Instance.StartHandler(CreateActor_Async(rRequest, rLoadCompleted));
+            rRequest.Handler = CreateActor_Async(rRequest, rLoadCompleted);
             return rRequest;
         }
 
@@ -75,10 +77,9 @@ namespace Game.Knight
             AvatarAssetLoader.Instance.UnloadAsset(rAvatar.ABPath, bIsDelayUnload);
         }
 
-        private static IEnumerator CreateActor_Async(ActorCreateRequest rActorCreateRequest, System.Action<GameObject> rLoadCompleted)
+        private static async Task CreateActor_Async(ActorCreateRequest rActorCreateRequest, System.Action<GameObject> rLoadCompleted)
         {
-            var rAvatarRequest = AvatarAssetLoader.Instance.Load(rActorCreateRequest.Avatar.ABPath, rActorCreateRequest.Avatar.AssetName);
-            yield return rAvatarRequest;
+            var rAvatarRequest = await AvatarAssetLoader.Instance.Load(rActorCreateRequest.Avatar.ABPath, rActorCreateRequest.Avatar.AssetName);
             rActorCreateRequest.ActorGo = rAvatarRequest.AvatarGo;
             
             // 设置ActorGo的大小

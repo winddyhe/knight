@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using WindHotfix.Game;
 using UnityEngine;
 using Framework;
+using System.Threading.Tasks;
 
 namespace Game.Knight
 {
@@ -23,7 +24,7 @@ namespace Game.Knight
         public ComponentUnityAnimator   CompUnityAnimator;
         public ComponentUnityGo         CompUnitGo;
 
-        public IEnumerator Create(ActorNet rNetActor, Vector3 rBornPos)
+        public async Task Create(ActorNet rNetActor, Vector3 rBornPos)
         {
             // 创建Component net
             this.CompNet = this.AddComponent<ComponentNet>();
@@ -34,7 +35,7 @@ namespace Game.Knight
             if (rProfessional == null)
             {
                 Debug.LogErrorFormat("Cannot find professional ID: {0}", rNetActor.ProfessionalID);
-                yield break;
+                return;
             }
             this.CompPrefessional = this.AddComponent<ComponentProfessional>();
             this.CompPrefessional.Professional = rProfessional;
@@ -44,7 +45,7 @@ namespace Game.Knight
             if (rHero == null)
             {
                 Debug.LogErrorFormat("Cannot find hero ID: {0}", rProfessional.HeroID);
-                yield break;
+                return;
             }
             this.CompHero = this.AddComponent<ComponentHero>();
             this.CompHero.Hero = rHero;
@@ -54,18 +55,17 @@ namespace Game.Knight
             if (rAvatar == null)
             {
                 Debug.LogErrorFormat("Cannot find avatar ID: {0}", rHero.AvatarID);
-                yield break;
+                return;
             }
             this.CompAvatar = this.AddComponent<ComponentAvatar>();
             this.CompAvatar.Avatar = rAvatar;
 
             // 根据Avatar加载角色
-            var rAvatarRequest = AvatarAssetLoader.Instance.Load(this.CompAvatar.Avatar.ABPath, this.CompAvatar.Avatar.AssetName);
-            yield return rAvatarRequest;
+            var rAvatarRequest = await AvatarAssetLoader.Instance.Load(this.CompAvatar.Avatar.ABPath, this.CompAvatar.Avatar.AssetName);
             if (rAvatarRequest.AvatarGo == null)
             {
                 Debug.LogError("Avatar load failed..");
-                yield break;
+                return;
             }
 
             // 创建Component GameObject
