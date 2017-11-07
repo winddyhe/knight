@@ -8,6 +8,7 @@ using System.IO;
 using System.Collections.Generic;
 using Core;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 namespace UnityEngine.AssetBundles
 {    
@@ -17,7 +18,7 @@ namespace UnityEngine.AssetBundles
     /// </summary>
     public class ABLoader : MonoBehaviour
     {
-        public class LoaderRequest : CoroutineRequest<LoaderRequest>
+        public class LoaderRequest
         {
             public Object                   Asset;
             public Scene                    Scene;
@@ -53,23 +54,23 @@ namespace UnityEngine.AssetBundles
             }
         }
         
-        public LoaderRequest LoadAsset(string rAssetbundleName, string rAssetName, bool bIsSimulate)
+        public async Task<LoaderRequest> LoadAsset(string rAssetbundleName, string rAssetName, bool bIsSimulate)
         {
             if (!this.LoadedAssetbundles.Contains(rAssetbundleName))
                 this.LoadedAssetbundles.Add(rAssetbundleName);
 
             LoaderRequest rRequest = new LoaderRequest(rAssetbundleName, rAssetName, false, bIsSimulate);
-            rRequest.Start(LoadAsset_Async(rRequest));
+            await LoadAsset_Async(rRequest);
             return rRequest;
         }
 
-        public LoaderRequest LoadScene(string rAssetbundleName, string rScenePath)
+        public async Task<LoaderRequest> LoadScene(string rAssetbundleName, string rScenePath)
         {
             if (!this.LoadedScenebundles.Contains(rAssetbundleName))
                 this.LoadedScenebundles.Add(rAssetbundleName);
             
             LoaderRequest rSceneRequest = new LoaderRequest(rAssetbundleName, rScenePath, true, false);
-            rSceneRequest.Start(LoadAsset_Async(rSceneRequest));
+            await LoadAsset_Async(rSceneRequest);
             return rSceneRequest;
         }
         
@@ -115,20 +116,20 @@ namespace UnityEngine.AssetBundles
             }
         }
     
-        private IEnumerator LoadAsset_Async(LoaderRequest rRequest)
+        private async Task LoadAsset_Async(LoaderRequest rRequest)
         {
             ABLoadEntry rAssetLoadEntry = null;
             if (!ABLoaderVersion.Instance.TryGetValue(rRequest.Path, out rAssetLoadEntry))
             {
                 Debug.LogErrorFormat("Can not find assetbundle: -- {0}", rRequest.Path);
                 rRequest.Asset = null;
-                yield break;
+                return;
             }
             
             // 确认未加载完成并且正在被加载、一直等待其加载完成
             while (rAssetLoadEntry.IsLoading && !rAssetLoadEntry.IsLoadCompleted)
             {
-                yield return 0;
+                await new WaitForEndOfFrame();
             }
     
             //引用计数加1
@@ -148,7 +149,7 @@ namespace UnityEngine.AssetBundles
                         if (rAssetPaths.Length == 0)
                         {
                             Debug.LogError("There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
-                            yield break;
+                            return;
                         }
                         Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
                         rRequest.Asset = rTargetAsset;
@@ -164,9 +165,7 @@ namespace UnityEngine.AssetBundles
                     {
                         if (!rRequest.IsScene)
                         {
-                            AssetBundleRequest rABRequest = rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
-                            yield return rABRequest;
-                            rRequest.Asset = rABRequest.asset;
+                            rRequest.Asset = await rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
                         }
                         else
                         {
@@ -174,7 +173,7 @@ namespace UnityEngine.AssetBundles
                         }
                     }
                 }
-                yield break;
+                return;
             }
             
             // 开始加载资源依赖项
@@ -186,7 +185,7 @@ namespace UnityEngine.AssetBundles
                     string rDependABName = rDependABPath;
 
                     LoaderRequest rDependAssetRequest = new LoaderRequest(rDependABName, "", false, rRequest.IsSimulate);
-                    yield return rDependAssetRequest.Start(LoadAsset_Async(rDependAssetRequest));
+                    await LoadAsset_Async(rDependAssetRequest);
                 }
             }
 
@@ -204,7 +203,7 @@ namespace UnityEngine.AssetBundles
                     if (rAssetPaths.Length == 0)
                     {
                         Debug.LogError("There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
-                        yield break;
+                        return;
                     }
                     Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
                     rRequest.Asset = rTargetAsset;
@@ -214,21 +213,15 @@ namespace UnityEngine.AssetBundles
             else
             {
                 Debug.Log("---Real Load ab: " + rAssetLoadUrl);
-
-                var rAssetbundleCreateRequest = AssetBundle.LoadFromFileAsync(rAssetLoadUrl);
-                yield return rAssetbundleCreateRequest;
-
                 // 如果是一个直接的资源，将资源的对象取出来
-                rAssetLoadEntry.CacheAsset = rAssetbundleCreateRequest.assetBundle;
+                rAssetLoadEntry.CacheAsset = await AssetBundle.LoadFromFileAsync(rAssetLoadUrl);
                 
                 // 加载Object
                 if (!string.IsNullOrEmpty(rRequest.AssetName))
                 {
                     if (!rRequest.IsScene)
                     {
-                        AssetBundleRequest rABRequest = rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
-                        yield return rABRequest;
-                        rRequest.Asset = rABRequest.asset;
+                        rRequest.Asset = await rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
                     }
                     else
                     {

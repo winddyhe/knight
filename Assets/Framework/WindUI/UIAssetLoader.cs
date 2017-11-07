@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections;
 using Core;
 using UnityEngine.AssetBundles;
+using System.Threading.Tasks;
 
 namespace Framework.WindUI
 {
@@ -14,7 +15,7 @@ namespace Framework.WindUI
     /// </summary>
     public class UIAssetLoader : TSingleton<UIAssetLoader>
     {
-        public class LoaderRequest : CoroutineRequest<LoaderRequest>
+        public class LoaderRequest
         {
             public GameObject   ViewPrefabGo;
             public string       ViewName;
@@ -30,11 +31,16 @@ namespace Framework.WindUI
         /// <summary>
         /// 异步加载UI
         /// </summary>
-        public LoaderRequest LoadUI(string rViewName)
+        public async Task<LoaderRequest> LoadUI(string rViewName)
         {
             LoaderRequest rRequest = new LoaderRequest(rViewName);
-            rRequest.Start(LoadUI_Async(rRequest));
+            string rUIABPath = "game/ui/" + rRequest.ViewName.ToLower() + ".ab";
 
+            var rAssetRequest = await ABLoader.Instance.LoadAsset(rUIABPath, rRequest.ViewName, ABPlatform.Instance.IsSumilateMode_GUI());
+            if (rAssetRequest.Asset != null)
+            {
+                rRequest.ViewPrefabGo = rAssetRequest.Asset as GameObject;
+            }
             return rRequest;
         }
 
@@ -45,21 +51,6 @@ namespace Framework.WindUI
         {
             string rUIABPath = "game/ui/" + rViewName.ToLower() + ".ab";
             ABLoader.Instance.UnloadAsset(rUIABPath);
-        }
-    
-        /// <summary>
-        /// 根据名字异步加载UI
-        /// </summary>
-        private IEnumerator LoadUI_Async(LoaderRequest rRequest)
-        {
-            string rUIABPath = "game/ui/" + rRequest.ViewName.ToLower() + ".ab";
-            var rAssetRequest = ABLoader.Instance.LoadAsset(rUIABPath, rRequest.ViewName, ABPlatform.Instance.IsSumilateMode_GUI());
-            yield return rAssetRequest;
-
-            if (rAssetRequest.Asset != null)
-            {
-                rRequest.ViewPrefabGo = rAssetRequest.Asset as GameObject;
-            }
         }
     }
 }

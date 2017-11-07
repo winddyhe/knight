@@ -7,6 +7,7 @@ using System.Collections;
 using Core;
 using System.IO;
 using Core.WindJson;
+using System.Threading.Tasks;
 
 namespace UnityEngine.AssetBundles
 {
@@ -95,7 +96,7 @@ namespace UnityEngine.AssetBundles
         /// <summary>
         /// 管理器的初始化
         /// </summary>
-        public IEnumerator Initialize()
+        public async Task Initialize()
         {
             Debug.LogFormat("IsDevelopeMode: {0}",        this.IsDevelopeMode());
             Debug.LogFormat("IsSumilateMode Scene: {0}",  this.IsSumilateMode_Scene());
@@ -107,7 +108,7 @@ namespace UnityEngine.AssetBundles
             this.CurRuntimePlatform = RuntimePlatform_To_Plaform(Application.platform);
 
             // 加载更新服务器的地址
-            yield return LoadServerURL_Async();
+            await LoadServerURL_Async();
         }
 
         /// <summary>
@@ -292,10 +293,10 @@ namespace UnityEngine.AssetBundles
         /// <summary>
         /// 加载更新服务器的地址
         /// </summary>
-        private IEnumerator LoadServerURL_Async()
+        private async Task LoadServerURL_Async()
         {
             var rResourceRequest = Resources.LoadAsync<TextAsset>("server_url_default");
-            yield return rResourceRequest;
+            await rResourceRequest;
 
             string rServerContent = (rResourceRequest.asset as TextAsset).text;
 

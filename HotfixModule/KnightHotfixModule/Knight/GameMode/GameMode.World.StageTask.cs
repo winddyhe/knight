@@ -8,6 +8,7 @@ using UnityEngine;
 using WindHotfix.GameStage;
 using WindHotfix.GUI;
 using WindHotfix.Game;
+using System.Threading.Tasks;
 
 namespace Game.Knight
 {
@@ -31,15 +32,14 @@ namespace Game.Knight
                 return true;
             }
 
-            protected override IEnumerator OnRun_Async()
+            protected override async Task OnRun_Async()
             {
                 // 加载场景
-                var rSceneRequest = SceneAssetLoader.Instance.Load_Async(
+                var rSceneRequest = await SceneAssetLoader.Instance.Load_Async(
                     this.GameMode.StageConfig.SceneABPath,
                     this.GameMode.StageConfig.ScenePath,
                     UnityEngine.SceneManagement.LoadSceneMode.Additive);
 
-                yield return rSceneRequest;
                 Debug.Log("GameStage -- Load assets complete.");
             }
         }
@@ -62,13 +62,13 @@ namespace Game.Knight
                 return true;
             }
 
-            protected override IEnumerator OnRun_Async()
+            protected override async Task OnRun_Async()
             {
                 // 创建主角
                 // 角色的初始位置
                 Vector3 rBornPos = new Vector3(this.GameMode.StageConfig.BornPos[0], this.GameMode.StageConfig.BornPos[1], this.GameMode.StageConfig.BornPos[2]);
                 this.GameMode.MainPlayer = new EntityPlayer();
-                yield return this.GameMode.MainPlayer.Create(Account.Instance.ActiveActor, rBornPos);
+                await this.GameMode.MainPlayer.Create(Account.Instance.ActiveActor, rBornPos);
                 ECSManager.Instance.AddEntity(this.GameMode.MainPlayer);
 
                 // 创建相机对象
@@ -109,10 +109,10 @@ namespace Game.Knight
                 return true;
             }
 
-            protected override IEnumerator OnRun_Async()
+            protected override async Task OnRun_Async()
             {
                 // 加载Gamepad界面
-                yield return ViewManager.Instance.OpenAsync("KNGamePad", View.State.dispatch);
+                await ViewManager.Instance.Open("KNGamePad", View.State.dispatch);
                 GameLoading.Instance.Hide();
                 
                 // 初始化ECS模块

@@ -11,6 +11,7 @@ using Framework;
 using UnityEngine;
 using WindHotfix.Core;
 using WindHotfix.GUI;
+using System.Threading.Tasks;
 
 namespace Game.Knight
 {
@@ -37,18 +38,18 @@ namespace Game.Knight
             __instance = null;
         }
 
-        public override void Start()
+        public async override void Start()
         {
             if (__instance == null)
                 __instance = this;
 
-            CoroutineManager.Instance.Start(this.Start_Async());
+            await this.Start_Async();
         }
 
-        private IEnumerator Start_Async()
+        private async Task Start_Async()
         {
             //打开Login界面
-            yield return ViewManager.Instance.OpenAsync("KNLogin", View.State.dispatch);
+            await ViewManager.Instance.Open("KNLogin", View.State.dispatch);
             //隐藏进度条
             GameLoading.Instance.Hide();
         }

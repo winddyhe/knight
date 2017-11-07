@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WindHotfix.Core;
 using Framework.WindUI;
+using System.Threading.Tasks;
 
 namespace WindHotfix.GUI
 {
@@ -53,28 +54,18 @@ namespace WindHotfix.GUI
         /// <summary>
         /// 打开一个View
         /// </summary>
-        public void Open(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
+        public async Task Open(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
         {
             // 企图关闭当前的View
             Debug.Log("Open " + rViewName);
             MaybeCloseTopView(rViewState);
 
-            CoroutineManager.Instance.Start(Open_Async(rViewName, rViewState, rOpenCompleted));
+            await Open_Async(rViewName, rViewState, rOpenCompleted);
         }
 
-        public Coroutine OpenAsync(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
+        private async Task Open_Async(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
         {
-            // 企图关闭当前的View
-            Debug.Log("Open " + rViewName);
-            MaybeCloseTopView(rViewState);
-            return CoroutineManager.Instance.Start(Open_Async(rViewName, rViewState, rOpenCompleted));
-        }
-
-        private IEnumerator Open_Async(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
-        {
-            var rLoaderRequest = Framework.WindUI.UIAssetLoader.Instance.LoadUI(rViewName);
-            yield return rLoaderRequest;
-
+            var rLoaderRequest = await Framework.WindUI.UIAssetLoader.Instance.LoadUI(rViewName);
             OpenView(rViewName, rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
         }
 

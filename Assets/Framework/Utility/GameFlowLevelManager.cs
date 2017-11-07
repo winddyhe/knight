@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using Core;
+using System.Threading.Tasks;
 
 namespace Framework
 {
@@ -14,7 +15,7 @@ namespace Framework
     /// </summary>
     public class GameFlowLevelManager : TSingleton<GameFlowLevelManager>
     {
-        public class LevelRequest : CoroutineRequest<LevelRequest>
+        public class LevelRequest
         {
             public Scene    Level;
             public string   LevelName;
@@ -27,19 +28,14 @@ namespace Framework
 
         GameFlowLevelManager() {}
 
-        public LevelRequest LoadLevel(string rLevelName)
+        public async Task<LevelRequest> LoadLevel(string rLevelName)
         {
             var rLevelRequest = new LevelRequest(rLevelName);
-            rLevelRequest.Start(LoadLevel_async(rLevelRequest));
+            await SceneManager.LoadSceneAsync(rLevelRequest.LevelName);
+            rLevelRequest.Level = SceneManager.GetSceneByName(rLevelRequest.LevelName);
             return rLevelRequest;
         }
-
-        private IEnumerator LoadLevel_async(LevelRequest rRequest)
-        {
-            yield return SceneManager.LoadSceneAsync(rRequest.LevelName);
-            rRequest.Level = SceneManager.GetSceneByName(rRequest.LevelName);
-        }
-
+        
         public Camera GetMainCamera()
         {
             var rMainCameraGo = GameObject.FindGameObjectWithTag("MainCamera");

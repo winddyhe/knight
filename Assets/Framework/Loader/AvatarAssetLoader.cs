@@ -7,10 +7,11 @@ using System.Collections;
 using Core;
 using UnityEngine.AssetBundles;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Framework
 {
-    public class AvatarLoaderRequest : CoroutineRequest<AvatarLoaderRequest>
+    public class AvatarLoaderRequest
     {
         public string       ABPath;
         public string       AssetName;
@@ -32,10 +33,20 @@ namespace Framework
             mUnusedAvatars = new List<string>();
         }
 
-        public AvatarLoaderRequest Load(string rABPath, string rAssetName)
+        public async Task<AvatarLoaderRequest> Load(string rABPath, string rAssetName)
         {
             var rRequest = new AvatarLoaderRequest(rABPath, rAssetName);
-            rRequest.Start(Load_Async(rRequest));
+            string rAvatarABPath = rRequest.ABPath;
+
+            var rAssetRequest = await ABLoader.Instance.LoadAsset(rAvatarABPath, rRequest.AssetName, ABPlatform.Instance.IsSumilateMode_Avatar());
+            if (rAssetRequest.Asset != null)
+            {
+                GameObject rAvatarGo = GameObject.Instantiate(rAssetRequest.Asset) as GameObject;
+                rAvatarGo.name = rAssetRequest.Asset.name;
+                rAvatarGo.transform.position = Vector3.zero;
+                rRequest.AvatarGo = rAvatarGo;
+            }
+            this.UnloadUnusedAvatarAssets();
             return rRequest;
         }
 
@@ -46,22 +57,7 @@ namespace Framework
             else
                 ABLoader.Instance.UnloadAsset(rABPath);
         }
-
-        public IEnumerator Load_Async(AvatarLoaderRequest rRequest)
-        {
-            string rAvatarABPath = rRequest.ABPath;
-            var rAssetRequest = ABLoader.Instance.LoadAsset(rAvatarABPath, rRequest.AssetName, ABPlatform.Instance.IsSumilateMode_Avatar());
-            yield return rAssetRequest;
-            if (rAssetRequest.Asset != null)
-            {
-                GameObject rAvatarGo = GameObject.Instantiate(rAssetRequest.Asset) as GameObject;
-                rAvatarGo.name = rAssetRequest.Asset.name;
-                rAvatarGo.transform.position = Vector3.zero;
-                rRequest.AvatarGo = rAvatarGo;
-            }
-            this.UnloadUnusedAvatarAssets();
-        }
-
+        
         private void UnloadUnusedAvatarAssets()
         {
             if (mUnusedAvatars == null) return;

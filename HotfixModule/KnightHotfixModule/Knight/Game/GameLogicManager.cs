@@ -3,12 +3,13 @@ using UnityEngine;
 using WindHotfix.GUI;
 using Framework.Hotfix;
 using WindHotfix.Game;
+using System.Threading.Tasks;
 
 namespace Game.Knight
 {
     public class GameLogicManager
     {
-        public IEnumerator Initialize()
+        public async Task Initialize()
         {
             // [0] 其他模块的初始化
             // 事件模块管理器
@@ -18,7 +19,7 @@ namespace Game.Knight
             ViewManager.Instance.Initialize();
             
             // 开始游戏Init流程
-            yield return Init.Start_Async(); 
+            await Init.Start_Async(); 
 
             Debug.Log("End hotfix initialize...");
         }

@@ -7,6 +7,7 @@ using Core.Serializer;
 using System.IO;
 using System.Collections;
 using Core.WindJson;
+using System.Threading.Tasks;
 
 namespace UnityEngine.AssetBundles
 {
@@ -33,7 +34,7 @@ namespace UnityEngine.AssetBundles
 
     public partial class ABVersion : SerializerBinary
     {
-        public class LoaderRequest : CoroutineRequest<LoaderRequest>
+        public class LoaderRequest
         {
             public ABVersion                Version;
             public string                   Url;
@@ -61,17 +62,50 @@ namespace UnityEngine.AssetBundles
             return rEntry;
         }
 
-        public static LoaderRequest Load(string rURL)
+        public static async Task<LoaderRequest> Load(string rURL)
         {
             LoaderRequest rRequest = new LoaderRequest(rURL);
-            rRequest.Start(Load_Async(rRequest));
+            string rVersionURL = rRequest.Url;
+
+            WWWAssist.LoaderRequest rWWWVersionRequest = await WWWAssist.LoadFile(rVersionURL);
+            if (rWWWVersionRequest.Bytes == null || rWWWVersionRequest.Bytes.Length == 0)
+            {
+                return null;
+            }
+
+            ABVersion rVersion = new ABVersion();
+            using (var ms = new MemoryStream(rWWWVersionRequest.Bytes))
+            {
+                using (var br = new BinaryReader(ms))
+                {
+                    rVersion.Deserialize(br);
+                }
+            }
+            rRequest.Version = rVersion;
+
             return rRequest;
         }
 
-        public static LoaderRequest Download(string rURL)
+        public static async Task<LoaderRequest> Download(string rURL)
         {
             LoaderRequest rRequest = new LoaderRequest(rURL);
-            rRequest.Start(Download_Async(rRequest));
+            string rVersionURL = rRequest.Url;
+
+            WebRequestAssist.LoaderRequest rWebVersionRequest = await WebRequestAssist.DownloadFile(rVersionURL);
+            if (rWebVersionRequest.Bytes == null || rWebVersionRequest.Bytes.Length == 0)
+            {
+                return null;
+            }
+
+            ABVersion rVersion = new ABVersion();
+            using (var ms = new MemoryStream(rWebVersionRequest.Bytes))
+            {
+                using (var br = new BinaryReader(ms))
+                {
+                    rVersion.Deserialize(br);
+                }
+            }
+            rRequest.Version = rVersion;
             return rRequest;
         }
 
@@ -84,50 +118,6 @@ namespace UnityEngine.AssetBundles
                     this.Serialize(bw);
                 }
             }
-        }
-
-        private static IEnumerator Load_Async(LoaderRequest rRequest)
-        {
-            string rVersionURL = rRequest.Url;
-            WWWAssist.LoaderRequest rWWWVersionRequest = WWWAssist.LoadFile(rVersionURL);
-            yield return rWWWVersionRequest;
-
-            if (rWWWVersionRequest.Bytes == null || rWWWVersionRequest.Bytes.Length == 0)
-            {
-                yield break;
-            }
-
-            ABVersion rVersion = new ABVersion();
-            using (var ms = new MemoryStream(rWWWVersionRequest.Bytes))
-            {
-                using (var br = new BinaryReader(ms))
-                {
-                    rVersion.Deserialize(br);
-                }
-            }
-            rRequest.Version = rVersion;
-        }
-
-        private static IEnumerator Download_Async(LoaderRequest rRequest)
-        {
-            string rVersionURL = rRequest.Url;
-            WebRequestAssist.LoaderRequest rWebVersionRequest = WebRequestAssist.DownloadFile(rVersionURL);
-            yield return rWebVersionRequest;
-
-            if (rWebVersionRequest.Bytes == null || rWebVersionRequest.Bytes.Length == 0)
-            {
-                yield break;
-            }
-
-            ABVersion rVersion = new ABVersion();
-            using (var ms = new MemoryStream(rWebVersionRequest.Bytes))
-            {
-                using (var br = new BinaryReader(ms))
-                {
-                    rVersion.Deserialize(br);
-                }
-            }
-            rRequest.Version = rVersion;
         }
     }
 }

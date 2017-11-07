@@ -5,19 +5,27 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{81445F13-9F77-1C4A-4E57-5A734EB47346}</ProjectGuid>
+    <ProjectGuid>{6E93D330-FA13-595F-34F0-1440245108EB}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp.dll</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>Assets\smcs.rsp</CompilerResponseFile>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <CompilerResponseFile>Library\UnityAssemblies\mcs.rsp</CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
+    <LangVersion>6</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoConfig>true</NoConfig>
+    <NoStdLib>true</NoStdLib>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,46 +48,59 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="mscorlib" />
-    <Reference Include="System" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Core" />
-    <Reference Include="Boo.Lang" />
-    <Reference Include="UnityScript.Lang" />
-    <Reference Include="UnityEngine">
-      <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
+    <Reference Include="mscorlib">
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML">
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.XML.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\Microsoft.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>D:\Unity\Unity2017011\Editor\Data\MonoBleedingEdge\lib\mono\4.5\System.Xml.Linq.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine">
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/Managed/UnityEngine.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>Library\UnityAssemblies\UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>Library\UnityAssemblies\nunit.framework.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Timeline">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Timeline.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.HoloLens">
-      <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
+      <HintPath>D:/Unity/Unity2017011/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="knight.CSharp.Plugins.csproj">
-      <Project>{2052EFA6-9054-776D-BF1D-E5D8FFA32E45}</Project>
-      <Name>knight.CSharp.Plugins</Name>
+    <ProjectReference Include="knight.Plugins.csproj">
+      <Project>{9CC3C92F-FE7E-EA45-EC53-58BD08676A52}</Project>
+      <Name>knight.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -97,17 +118,19 @@
     <Compile Include="Assets\Framework\Graphics\Assist\TextLayout.cs" />
     <Compile Include="Assets\Framework\Graphics\Assist\VertexElement.cs" />
     <Compile Include="Assets\Framework\Graphics\Assist\VertexListPool.cs" />
-    <Compile Include="Assets\Framework\Hotfix\Adaptor\CoroutineAdapter.cs" />
-    <Compile Include="Assets\Framework\Hotfix\Adaptor\HotfixMBAdaptor.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Adaptor\CoroutineAdaptor.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Adaptor\IAsyncStateMachineAdaptor.cs" />
     <Compile Include="Assets\Framework\Hotfix\Adaptor\IEnumerableAdaptor.cs" />
     <Compile Include="Assets\Framework\Hotfix\Adaptor\IEqualityComparerAdaptor.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Binder\QuaternionBinder.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Binder\Vector2Binder.cs" />
+    <Compile Include="Assets\Framework\Hotfix\Binder\Vector3Binder.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixApp.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixAssetLoader.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixData.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixEventManager.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixEventTrigger.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixGameMainLogic.cs" />
-    <Compile Include="Assets\Framework\Hotfix\HotfixMB.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixMBContainer.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixObject.cs" />
     <Compile Include="Assets\Framework\Input\BaseInput.cs" />
@@ -154,6 +177,7 @@
     <Compile Include="Assets\ILRuntime\Generated\System_Collections_Generic_Dictionary_2_ILTypeInstance_ILTypeInstance_Binding.cs" />
     <Compile Include="Assets\ILRuntime\Generated\System_Collections_Generic_Dictionary_2_Object_Object_Binding.cs" />
     <Compile Include="Assets\ILRuntime\Generated\System_Collections_Generic_List_1_ILTypeInstance_Binding.cs" />
+    <Compile Include="Assets\ILRuntime\Generated\System_Delegate_Binding.cs" />
     <Compile Include="Assets\ILRuntime\Generated\System_Int32_Binding.cs" />
     <Compile Include="Assets\ILRuntime\Generated\System_Int64_Binding.cs" />
     <Compile Include="Assets\ILRuntime\Generated\System_Object_Binding.cs" />
@@ -170,8 +194,11 @@
     <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Transform_Binding.cs" />
     <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Vector2_Binding.cs" />
     <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Vector3_Binding.cs" />
-    <Compile Include="Assets\ILRuntime\Generated\UnityEngine_Vector4_Binding.cs" />
     <Compile Include="Assets\Test\AreaOverlapTest\AreaOverlapTest.cs" />
+    <Compile Include="Assets\Test\AsyncAwaitTest\AsyncAwaitTest.cs" />
+    <Compile Include="Assets\Test\AsyncTests\AsyncUtilTests.cs" />
+    <Compile Include="Assets\Test\AsyncTests\Util\TestButtonHandler.cs" />
+    <Compile Include="Assets\Test\CoroutineTest\CoroutineLoadTest.cs" />
     <Compile Include="Assets\Test\CoroutineTest\CoroutineTest.cs" />
     <Compile Include="Assets\Test\GamePlayTest\GamePlayTest.cs" />
     <Compile Include="Assets\Test\HotfixTest\Base\HotfixMBTest.cs" />
@@ -181,6 +208,13 @@
     <Compile Include="Assets\Test\NavTest\NavMeshDisplay.cs" />
     <Compile Include="Assets\Test\PathTest\PathTest.cs" />
     <Compile Include="Assets\Test\PomeloClientTest\PomeloClientTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\Bloom\BloomTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\GaussianBlurTest\GaussianBlurEffectTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\HDR\HDRTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\MotionBlur\MotionBlurTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\RadialBlur\RadialBlurTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\SceneBoom\SceneBoomTest.cs" />
+    <Compile Include="Assets\Test\PostEffctTest\SceneTwist\SceneTwistTest.cs" />
     <Compile Include="Assets\Test\SceneABTest\SceneABLoadTest.cs" />
     <Compile Include="Assets\Test\UnsafeTest\UnsafeTest.cs" />
   </ItemGroup>
@@ -197,6 +231,14 @@
     <None Include="Assets\Framework\Graphics\Shaders\Effect\TextureEffect.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\Effect\ThirdTextureEffect.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\Effect\TwoTextureEffect.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\Bloom.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\BlurEffectCG.cginc" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\GaussinBlur.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\HDR.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\MotionBlur.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\RadialBlur.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\SceneBoom.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\SceneTwist.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\Texture\Texture.cginc" />
     <None Include="Assets\Framework\Graphics\Shaders\Texture\Texture.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\Texture\TextureAlpha.shader" />
@@ -213,5 +255,6 @@
     <None Include="Assets\Test\RoleTest\ColorLevelsSurfaceShader.shader" />
     <None Include="Assets\link.xml" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

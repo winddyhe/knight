@@ -13,7 +13,7 @@ using ILRuntime.CLR.Method;
 
 namespace Framework.Hotfix
 {
-    public class CoroutineAdapter : CrossBindingAdaptor
+    public class CoroutineAdaptor : CrossBindingAdaptor
     {
         public override Type BaseCLRType
         {
