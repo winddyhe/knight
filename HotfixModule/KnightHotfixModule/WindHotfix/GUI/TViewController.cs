@@ -100,6 +100,8 @@ namespace WindHotfix.GUI
 
         public void BindHotfixMB()
         {
+            UnityEngine.Debug.LogError("binding..");
+
             this.mEventObjs = new List<HotfixEventObject>();
 
             Type rType = this.GetType();

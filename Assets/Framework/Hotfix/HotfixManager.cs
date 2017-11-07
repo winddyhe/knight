@@ -22,19 +22,11 @@ namespace Framework.Hotfix
         public void Initialize()
         {
             Debug.LogFormat("IsHotfixDebugModeKey: {0}", this.IsHotfixDebugMode());
-
-#if UNITY_EDITOR
+            
             if (IsHotfixDebugMode())
                 mApp = new HotfixApp_Reflect();
             else
                 mApp = new HotfixApp_ILRT();
-#else
-#if HOTFIX_REFLECT_USE
-                mApp = new HotfixApp_ILRT();
-#else
-                mApp = new HotfixApp_Reflect();
-#endif
-#endif
         }
 
         public void InitApp(byte[] rDLLBytes, byte[] rPDBBytes)
@@ -81,11 +73,17 @@ namespace Framework.Hotfix
 
         public bool IsHotfixDebugMode()
         {
-            bool bIsHotfixDebugMode = false;
 #if UNITY_EDITOR
+            bool bIsHotfixDebugMode = false;
             bIsHotfixDebugMode = UnityEditor.EditorPrefs.GetBool(HotfixManager.IsHotfixDebugModeKey);
-#endif
             return bIsHotfixDebugMode;
+#else
+    #if HOTFIX_REFLECT_USE
+            return true;
+    #else
+            return false;
+    #endif
+#endif
         }
     }
 }

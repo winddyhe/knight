@@ -15,15 +15,15 @@ namespace Framework.Hotfix
     public class HotfixLoaderRequest
     {
         public string ABPath;
-        public string HotfixModuleName;
+        public string ModuleName;
 
         public byte[] DllBytes;
         public byte[] PdbBytes;
 
-        public HotfixLoaderRequest(string rABName, string rHotfixModuleName)
+        public HotfixLoaderRequest(string rABName, string rModuleName)
         {
-            this.ABPath             = rABName;
-            this.HotfixModuleName   = rHotfixModuleName;
+            this.ABPath     = rABName;
+            this.ModuleName = rModuleName;
         }
     }
 
@@ -36,9 +36,24 @@ namespace Framework.Hotfix
         public async Task<HotfixLoaderRequest> Load(string rABPath, string rHotfixModuleName)
         {
             var rRequest = new HotfixLoaderRequest(rABPath, rHotfixModuleName);
-        
-            string rDLLPath = mHotfixDllDir + rRequest.HotfixModuleName + ".bytes";
-            string rPDBPath = mHotfixDllDir + rRequest.HotfixModuleName + "_PDB.bytes";
+
+            string rDLLPath = mHotfixDllDir + rRequest.ModuleName + ".bytes";
+            string rPDBPath = mHotfixDllDir + rRequest.ModuleName + "_PDB.bytes";
+
+#if UNITY_EDITOR
+            // 编辑器下的HotfixDebug模式直接加载DLL文件，方便做断点调试
+            if (HotfixManager.Instance.IsHotfixDebugMode())
+            {
+                rDLLPath = Application.dataPath + "/../HotfixModule/KnightHotfixModule/bin/Debug/" + rRequest.ModuleName + ".dll";
+                rPDBPath = Application.dataPath + "/../HotfixModule/KnightHotfixModule/bin/Debug/" + rRequest.ModuleName + ".pdb";
+
+                Debug.Log("---Simulate load hotfix dll: " + rDLLPath);
+                rRequest.DllBytes = File.ReadAllBytes(rDLLPath);
+                rRequest.PdbBytes = File.ReadAllBytes(rPDBPath);
+
+                return rRequest;
+            }
+#endif
 
             if (ABPlatform.Instance.IsSumilateMode_Script())
             {
