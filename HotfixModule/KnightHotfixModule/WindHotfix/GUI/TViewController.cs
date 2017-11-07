@@ -100,14 +100,12 @@ namespace WindHotfix.GUI
 
         public void BindHotfixMB()
         {
-            UnityEngine.Debug.LogError("binding..");
-
             this.mEventObjs = new List<HotfixEventObject>();
 
             Type rType = this.GetType();
             if (rType == null) return;
-
-            var rBindingFlags = BindingFlags.GetField | BindingFlags.SetField | BindingFlags.Public | BindingFlags.Instance;
+            
+            var rBindingFlags = BindingFlags.GetField | BindingFlags.SetField | BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
             var rFiledInfos = rType.GetFields(rBindingFlags);
             for (int i = 0; i < rFiledInfos.Length; i++)
             {
@@ -136,16 +134,17 @@ namespace WindHotfix.GUI
                 }
             }
 
-            rBindingFlags = BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Instance;
-            var rMethodInfos = rType.GetMethods();
+            rBindingFlags = BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
+            var rMethodInfos = rType.GetMethods(rBindingFlags);
             for (int i = 0; i < rMethodInfos.Length; i++)
             {
                 var rAttrObjs = rMethodInfos[i].GetCustomAttributes(typeof(HotfixBindingEventAttribute), false);
                 if (rAttrObjs == null || rAttrObjs.Length == 0) continue;
-
+                
                 var rBindingEventAttr = rAttrObjs[0] as HotfixBindingEventAttribute;
                 if (rBindingEventAttr != null)
                 {
+
                     UnityObject rUnityObject = null;
                     if (!string.IsNullOrEmpty(rBindingEventAttr.Name))
                         rUnityObject = this.Get(rBindingEventAttr.Name);

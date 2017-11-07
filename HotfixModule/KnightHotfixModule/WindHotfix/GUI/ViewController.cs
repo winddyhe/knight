@@ -21,7 +21,6 @@ namespace WindHotfix.GUI
             this.HotfixName = rHotfixName;
             this.GUID = rGUID;
             this.ParentType = string.Format("WindHotfix.GUI.THotfixViewController`1<{0}>", rHotfixName);
-            UnityEngine.Debug.LogError(this.ParentType);
         }
 
         public virtual void Initialize(List<UnityObject> rObjs)
