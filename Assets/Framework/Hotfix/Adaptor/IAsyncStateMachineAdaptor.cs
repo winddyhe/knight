@@ -34,9 +34,7 @@ namespace Framework.Hotfix
 
             private IMethod                                 mMoveNext;
             private IMethod                                 mSetStateMachine;
-
-            private readonly object[]                       mParam1             = new object[1];
-
+            
             public Adaptor()
             {
             }

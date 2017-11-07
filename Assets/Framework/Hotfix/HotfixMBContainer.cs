@@ -78,7 +78,7 @@ namespace Framework.Hotfix
             if (mMBHotfixObj == null && !string.IsNullOrEmpty(mHotfixName))
             {
                 this.mParentType = string.Format(this.mParentType, this.mHotfixName);
-                this.mMBHotfixObj = HotfixApp.Instance.Instantiate(this.mHotfixName);
+                this.mMBHotfixObj = HotfixManager.Instance.Instantiate(this.mHotfixName);
                 this.mMBHotfixObj.InvokeParent(this.mParentType, "Awake_Proxy", this.gameObject, this.mObjects);
             }
         }

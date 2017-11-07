@@ -21,6 +21,10 @@ namespace Core
         public static readonly BindingFlags flags_public    = flags_common              | BindingFlags.Public;
         public static readonly BindingFlags flags_nonpublic = flags_common              | BindingFlags.NonPublic;
         public static readonly BindingFlags flags_all       = flags_common              | BindingFlags.Public       | BindingFlags.NonPublic;
+
+        public static readonly BindingFlags flags_method_inst = BindingFlags.Instance     | BindingFlags.InvokeMethod | BindingFlags.Public     | BindingFlags.NonPublic;
+        public static readonly BindingFlags flags_method      = BindingFlags.InvokeMethod | BindingFlags.Public       | BindingFlags.NonPublic;
+
         public static readonly Type[]       empty_types     = new Type[0];
 
         public static ConstructorInfo GetConstructorInfo(BindingFlags rBindFlags, Type rType, Type[] rTypes)

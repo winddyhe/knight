@@ -46,7 +46,7 @@ namespace Test
             //this.Canvas.transform.AddChild(rTestPrefab, "UI");
             GameObject.Instantiate(rTestPrefab);
 
-            HotfixObject rHotfixObj = HotfixApp.Instance.Instantiate("WindHotfix.Test.Class3");
+            HotfixObject rHotfixObj = HotfixManager.Instance.Instantiate("WindHotfix.Test.Class3");
             rHotfixObj.Invoke("Test");
             rHotfixObj.InvokeParent("WindHotfix.Test1.TClass3`1", "Test");
         }
@@ -55,16 +55,8 @@ namespace Test
         {
             string rDLLPath = "Assets/Game/Knight/GameAsset/Hotfix/Libs/KnightHotfixModule.bytes";
             string rPDBPath = "Assets/Game/Knight/GameAsset/Hotfix/Libs/KnightHotfixModule_PDB.bytes";
-
-            MemoryStream rDllMS = new MemoryStream(File.ReadAllBytes(rDLLPath));
-            MemoryStream rPDBMS = new MemoryStream(File.ReadAllBytes(rPDBPath));
-
-            HotfixApp.Instance.Initialize(rDllMS, rPDBMS);
-
-            rDllMS.Close();
-            rPDBMS.Close();
-            rDllMS.Dispose();
-            rPDBMS.Dispose();
+            
+            HotfixManager.Instance.InitApp(File.ReadAllBytes(rDLLPath), File.ReadAllBytes(rPDBPath));
         }
     }
 }

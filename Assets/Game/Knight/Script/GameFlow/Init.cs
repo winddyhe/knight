@@ -26,6 +26,9 @@ namespace Game.Knight
             //限帧
             Application.targetFrameRate = 30;
 
+            // 初始化热更新模块
+            HotfixManager.Instance.Initialize();
+
             // 初始化UI管理器
             UIRoot.Instance.Initialize();
 
@@ -52,7 +55,7 @@ namespace Game.Knight
             GameLoading.Instance.StartLoading(1.0f, "游戏初始化阶段，开始加载资源...");
 
             // 加载热更新代码资源
-            await HotfixApp.Instance.Load(this.HotfixABPath, this.HotfixModule);
+            await HotfixManager.Instance.Load(this.HotfixABPath, this.HotfixModule);
 
             // 开始热更新端的游戏主逻辑
             await HotfixGameMainLogic.Instance.Initialize();

@@ -15,15 +15,15 @@ namespace Framework.Hotfix
     public class HotfixLoaderRequest
     {
         public string ABPath;
-        public string hotfixModuleName;
+        public string HotfixModuleName;
 
-        public byte[] dllBytes;
-        public byte[] pdbBytes;
+        public byte[] DllBytes;
+        public byte[] PdbBytes;
 
         public HotfixLoaderRequest(string rABName, string rHotfixModuleName)
         {
             this.ABPath             = rABName;
-            this.hotfixModuleName   = rHotfixModuleName;
+            this.HotfixModuleName   = rHotfixModuleName;
         }
     }
 
@@ -37,14 +37,14 @@ namespace Framework.Hotfix
         {
             var rRequest = new HotfixLoaderRequest(rABPath, rHotfixModuleName);
         
-            string rDLLPath = mHotfixDllDir + rRequest.hotfixModuleName + ".bytes";
-            string rPDBPath = mHotfixDllDir + rRequest.hotfixModuleName + "_PDB.bytes";
+            string rDLLPath = mHotfixDllDir + rRequest.HotfixModuleName + ".bytes";
+            string rPDBPath = mHotfixDllDir + rRequest.HotfixModuleName + "_PDB.bytes";
 
             if (ABPlatform.Instance.IsSumilateMode_Script())
             {
                 Debug.Log("---Simulate load ab: " + rRequest.ABPath);
-                rRequest.dllBytes = File.ReadAllBytes(rDLLPath);
-                rRequest.pdbBytes = File.ReadAllBytes(rPDBPath);
+                rRequest.DllBytes = File.ReadAllBytes(rDLLPath);
+                rRequest.PdbBytes = File.ReadAllBytes(rPDBPath);
             }
             else
             {
@@ -53,7 +53,7 @@ namespace Framework.Hotfix
                 {
                     var rTextAsset = rDLLAssetRequest.Asset as TextAsset;
                     if (rTextAsset != null)
-                        rRequest.dllBytes = rTextAsset.bytes;
+                        rRequest.DllBytes = rTextAsset.bytes;
                 }
                 ABLoader.Instance.UnloadAsset(rRequest.ABPath);
 
@@ -62,7 +62,7 @@ namespace Framework.Hotfix
                 {
                     var rTextAsset = rPDBAssetRequest.Asset as TextAsset;
                     if (rTextAsset != null)
-                        rRequest.pdbBytes = rTextAsset.bytes;
+                        rRequest.PdbBytes = rTextAsset.bytes;
                 }
                 ABLoader.Instance.UnloadAsset(rRequest.ABPath);
             }
