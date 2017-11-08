@@ -9,10 +9,12 @@ namespace Framework.Hotfix
 {
     public class HotfixApp
     {
-        public async Task Load(string rABPath, string rHotfixModuleName)
+        public virtual async Task Load(string rABPath, string rHotfixModuleName)
         {
-            var rRequest = await HotfixAssetLoader.Instance.Load(rABPath, rHotfixModuleName);
-            this.InitApp(rRequest.DllBytes, rRequest.PdbBytes);
+        }
+
+        public virtual void InitApp(string rDLLPath, string rPDBPath)
+        {
         }
 
         public virtual void InitApp(byte[] rDLLBytes, byte[] rPDBBytes)

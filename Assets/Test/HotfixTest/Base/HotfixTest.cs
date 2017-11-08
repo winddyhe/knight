@@ -34,10 +34,12 @@ namespace Test
                 }
             }
 
+            HotfixManager.Instance.Initialize();
             CoroutineManager.Instance.Initialize();
+            HotfixEventManager.Instance.Initialize();
 
             LoadHotfixDLL();
-            string rPrefabPath = "Assets/Test/HotfixTest/Base/HotfixTest4.prefab";
+            string rPrefabPath = "Assets/Test/HotfixTest/Base/HotfixTest1.prefab";
 
             GameObject rTestPrefab = null;
 #if UNITY_EDITOR
@@ -53,10 +55,9 @@ namespace Test
 
         private void LoadHotfixDLL()
         {
-            string rDLLPath = "Assets/Game/Knight/GameAsset/Hotfix/Libs/KnightHotfixModule.bytes";
-            string rPDBPath = "Assets/Game/Knight/GameAsset/Hotfix/Libs/KnightHotfixModule_PDB.bytes";
-            
-            HotfixManager.Instance.InitApp(File.ReadAllBytes(rDLLPath), File.ReadAllBytes(rPDBPath));
+            string rDLLPath = "Assets/Game/Knight/GameAsset/Hotfix/Debug/KnightHotfixModule.dll";
+            string rPDBPath = "Assets/Game/Knight/GameAsset/Hotfix/Debug/KnightHotfixModule.pdb";
+            HotfixManager.Instance.InitApp(rDLLPath, rPDBPath);
         }
     }
 }

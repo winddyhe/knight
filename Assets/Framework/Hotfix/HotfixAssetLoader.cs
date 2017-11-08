@@ -20,6 +20,9 @@ namespace Framework.Hotfix
         public byte[] DllBytes;
         public byte[] PdbBytes;
 
+        public string DLLPath;
+        public string PDBPath;
+
         public HotfixLoaderRequest(string rABName, string rModuleName)
         {
             this.ABPath     = rABName;
@@ -29,7 +32,8 @@ namespace Framework.Hotfix
 
     public class HotfixAssetLoader : TSingleton<HotfixAssetLoader>
     {
-        private string mHotfixDllDir = "Assets/Game/Knight/GameAsset/Hotfix/Libs/";
+        private string mHotfixDllDir        = "Assets/Game/Knight/GameAsset/Hotfix/Libs/";
+        private string mHotfixDebugDllDir   = "Assets/Game/Knight/GameAsset/Hotfix/Debug/";
 
         private HotfixAssetLoader() { }
 
@@ -44,12 +48,12 @@ namespace Framework.Hotfix
             // 编辑器下的HotfixDebug模式直接加载DLL文件，方便做断点调试
             if (HotfixManager.Instance.IsHotfixDebugMode())
             {
-                rDLLPath = Application.dataPath + "/../HotfixModule/KnightHotfixModule/bin/Debug/" + rRequest.ModuleName + ".dll";
-                rPDBPath = Application.dataPath + "/../HotfixModule/KnightHotfixModule/bin/Debug/" + rRequest.ModuleName + ".pdb";
+                rDLLPath = mHotfixDebugDllDir + rRequest.ModuleName + ".dll";
+                rPDBPath = mHotfixDebugDllDir + rRequest.ModuleName + ".pdb";
 
                 Debug.Log("---Simulate load hotfix dll: " + rDLLPath);
-                rRequest.DllBytes = File.ReadAllBytes(rDLLPath);
-                rRequest.PdbBytes = File.ReadAllBytes(rPDBPath);
+                rRequest.DLLPath = rDLLPath;
+                rRequest.PDBPath = rPDBPath;
 
                 return rRequest;
             }

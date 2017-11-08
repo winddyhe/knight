@@ -35,6 +35,12 @@ namespace Framework.Hotfix
             mApp.InitApp(rDLLBytes, rPDBBytes);
         }
 
+        public void InitApp(string rDLLPath, string rPDBPath)
+        {
+            if (mApp == null) return;
+            mApp.InitApp(rDLLPath, rPDBPath);
+        }
+
         public async Task Load(string rABPath, string rHotfixModuleName)
         {
             if (mApp == null) return;

@@ -5,6 +5,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using Core;
 
 namespace Framework.Hotfix
@@ -13,9 +14,20 @@ namespace Framework.Hotfix
     {
         private Assembly    mApp;
 
+        public override async Task Load(string rABPath, string rHotfixModuleName)
+        {
+            var rRequest = await HotfixAssetLoader.Instance.Load(rABPath, rHotfixModuleName);
+            this.InitApp(rRequest.DLLPath, rRequest.PDBPath);
+        }
+        
         public override void InitApp(byte[] rDLLBytes, byte[] rPDBBytes)
         {
             mApp = Assembly.Load(rDLLBytes, rPDBBytes);
+        }
+
+        public override void InitApp(string rDLLPath, string rPDBPath)
+        {
+            mApp = Assembly.LoadFile(rDLLPath);
         }
 
         public override HotfixObject Instantiate(string rTypeName, params object[] rArgs)

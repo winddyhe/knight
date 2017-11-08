@@ -12,14 +12,12 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
     <CompilerResponseFile>Library\UnityAssemblies\mcs.rsp</CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -125,7 +123,6 @@
     <Compile Include="Assets\Framework\Hotfix\Binder\QuaternionBinder.cs" />
     <Compile Include="Assets\Framework\Hotfix\Binder\Vector2Binder.cs" />
     <Compile Include="Assets\Framework\Hotfix\Binder\Vector3Binder.cs" />
-    <Compile Include="Assets\Framework\Hotfix\HotfixManager.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixApp.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixApp.ILRT.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixApp.Reflect.cs" />
@@ -134,6 +131,7 @@
     <Compile Include="Assets\Framework\Hotfix\HotfixEventManager.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixEventTrigger.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixGameMainLogic.cs" />
+    <Compile Include="Assets\Framework\Hotfix\HotfixManager.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixMBContainer.cs" />
     <Compile Include="Assets\Framework\Hotfix\HotfixObject.cs" />
     <Compile Include="Assets\Framework\Input\BaseInput.cs" />

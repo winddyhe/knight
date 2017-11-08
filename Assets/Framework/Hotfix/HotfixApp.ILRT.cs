@@ -7,6 +7,7 @@ using Core.WindJson;
 using System;
 using System.Collections;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
 
@@ -24,7 +25,13 @@ namespace Framework.Hotfix
         {
             mApp = null;
         }
-        
+
+        public override async Task Load(string rABPath, string rHotfixModuleName)
+        {
+            var rRequest = await HotfixAssetLoader.Instance.Load(rABPath, rHotfixModuleName);
+            this.InitApp(rRequest.DllBytes, rRequest.PdbBytes);
+        }
+
         public override void InitApp(byte[] rDLLBytes, byte[] rPDBBytes)
         {
             mApp = new AppDomain();
@@ -50,6 +57,11 @@ namespace Framework.Hotfix
 
             // 注册委托
             this.RegisterDelegates();
+        }
+
+        public override void InitApp(string rDLLPath, string rPDBPath)
+        {
+            InitApp(File.ReadAllBytes(rDLLPath), File.ReadAllBytes(rPDBPath));
         }
 
         private void RegisterCrossBindingAdaptor()
