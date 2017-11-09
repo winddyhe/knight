@@ -2,6 +2,7 @@ fileFormatVersion: 2
 guid: 262636fb2e6884f4a9dcf5f5a119642f
 TextureImporter:
   fileIDToRecycleName: {}
+  externalObjects: {}
   serializedVersion: 4
   mipmaps:
     mipMapMode: 1
@@ -55,6 +56,7 @@ TextureImporter:
   platformSettings:
   - buildTarget: DefaultTexturePlatform
     maxTextureSize: 1024
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
     compressionQuality: 50
@@ -63,6 +65,7 @@ TextureImporter:
     overridden: 0
   - buildTarget: Android
     maxTextureSize: 512
+    resizeAlgorithm: 0
     textureFormat: 34
     textureCompression: 1
     compressionQuality: 50
@@ -71,6 +74,7 @@ TextureImporter:
     overridden: 1
   - buildTarget: Standalone
     maxTextureSize: 1024
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
     compressionQuality: 0

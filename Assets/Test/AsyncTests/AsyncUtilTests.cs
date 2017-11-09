@@ -212,7 +212,7 @@ namespace Test
         async Task<byte[]> DownloadRawDataAsync(string url)
         {
             var request = UnityWebRequest.Get(url);
-            await request.Send();
+            await request.SendWebRequest();
             return request.downloadHandler.data;
         }
 
