@@ -34,7 +34,7 @@ namespace Core
 
             UnityWebRequest rWebRequest = UnityWebRequest.Get(rRequest.Url);
             CoroutineManager.Instance.Start(Record_DownloadProgress_Async(rRequest, rWebRequest));
-            await rWebRequest.Send();
+            await rWebRequest.SendWebRequest();
 
             if (rWebRequest.isNetworkError)
             {
