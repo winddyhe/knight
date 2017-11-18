@@ -33,7 +33,7 @@ namespace Framework.Hotfix
     public class HotfixAssetLoader : TSingleton<HotfixAssetLoader>
     {
         private string mHotfixDllDir        = "Assets/Game/Knight/GameAsset/Hotfix/Libs/";
-        private string mHotfixDebugDllDir   = "Assets/Game/Knight/GameAsset/Hotfix/Debug/";
+        private string mHotfixDebugDllDir   = "Assets/StreamingAssets/Temp/Libs/";
 
         private HotfixAssetLoader() { }
 
