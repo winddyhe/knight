@@ -235,6 +235,9 @@
     <Reference Include="UnityEngine.Purchasing">
       <HintPath>C:/Users/Winddy/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Assets/Plugins/ZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="knight.Plugins.csproj">
@@ -250,6 +253,55 @@
     <Compile Include="Assets\Framework\Assetbundles\ABVersion.cs" />
     <Compile Include="Assets\Framework\Camera\CameraController.cs" />
     <Compile Include="Assets\Framework\Camera\CameraFollower.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\DllHelper.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\DoubleMap.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\EQueue.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\GameObjectHelper.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\IdGenerater.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\Log.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\LogType.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\MultiMap.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\QueueDictionary.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\StringHelper.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\TimeHelper.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\TryLocker.cs" />
+    <Compile Include="Assets\Framework\ETClient\Base\ZipHelper.cs" />
+    <Compile Include="Assets\Framework\ETClient\Client\ClientDispatcher.cs" />
+    <Compile Include="Assets\Framework\ETClient\Client\NetworkClient.cs" />
+    <Compile Include="Assets\Framework\ETClient\Client\NetworkOpcodeType.cs" />
+    <Compile Include="Assets\Framework\ETClient\Client\SerializerPacker.cs" />
+    <Compile Include="Assets\Framework\ETClient\Client\Session.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\AActorMessage.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\AMessage.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\AMHandler.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\AppType.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\ErrorCode.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\IMessageDispatcher.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\IMessagePacker.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\IMHandler.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\MessageAttribute.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\MessageHandlerAttribute.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\MessageInfo.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\NumericType.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\OpcodeHelper.cs" />
+    <Compile Include="Assets\Framework\ETClient\Message\RpcException.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\AChannel.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\AService.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\ASession.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\TNet\PacketParser.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\TNet\TBuffer.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\TNet\TChannel.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\TNet\TService.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\UNet\Library.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\UNet\NativeMethods.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\UNet\NativeStructs.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\UNet\UAddress.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\UNet\UChannel.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\UNet\UPacket.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\UNet\UPoller.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\UNet\UService.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\UNet\USocket.cs" />
+    <Compile Include="Assets\Framework\ETClient\Network\UNet\USocketManager.cs" />
     <Compile Include="Assets\Framework\Graphics\3DRenderer\Image3DRenderer.cs" />
     <Compile Include="Assets\Framework\Graphics\3DRenderer\Text3DRenderer.cs" />
     <Compile Include="Assets\Framework\Graphics\Assist\FontData.cs" />
@@ -342,6 +394,9 @@
     <Compile Include="Assets\Test\AsyncTests\Util\TestButtonHandler.cs" />
     <Compile Include="Assets\Test\CoroutineTest\CoroutineLoadTest.cs" />
     <Compile Include="Assets\Test\CoroutineTest\CoroutineTest.cs" />
+    <Compile Include="Assets\Test\ETClientTest\ETClientTest.cs" />
+    <Compile Include="Assets\Test\ETClientTest\Opcode.cs" />
+    <Compile Include="Assets\Test\ETClientTest\OuterMessage.cs" />
     <Compile Include="Assets\Test\GamePlayTest\GamePlayTest.cs" />
     <Compile Include="Assets\Test\HotfixTest\Base\HotfixMBTest.cs" />
     <Compile Include="Assets\Test\HotfixTest\Base\HotfixTest.cs" />

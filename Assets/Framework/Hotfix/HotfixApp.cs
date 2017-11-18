@@ -13,9 +13,11 @@ namespace Framework.Hotfix
 {
     public class HotfixApp
     {
+#pragma warning disable 1998
         public virtual async Task Load(string rABPath, string rHotfixModuleName)
         {
         }
+#pragma warning restore 1998
 
         public virtual void InitApp(string rDLLPath, string rPDBPath)
         {

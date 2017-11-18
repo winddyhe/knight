@@ -235,6 +235,9 @@
     <Reference Include="UnityEngine.Purchasing">
       <HintPath>C:/Users/Winddy/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Assets/Plugins/ZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\Core\Assist\CryptoUtility.cs" />
@@ -267,6 +270,7 @@
     <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineManager.cs" />
     <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineRequest.cs" />
     <Compile Include="Assets\Plugins\Core\FrameAnimator\FrameAnimator.cs" />
+    <Compile Include="Assets\Plugins\Core\Logger\Logger.cs" />
     <Compile Include="Assets\Plugins\Core\Math\Area\AreaOverlapAlgorithm.cs" />
     <Compile Include="Assets\Plugins\Core\Math\Path\LinePathAlgorithm.cs" />
     <Compile Include="Assets\Plugins\Core\Math\Utility\OBB.cs" />
@@ -503,7 +507,6 @@
     <Compile Include="Assets\Plugins\ILRuntime\Mono.Cecil.Pdb\pdb\Mono.Cecil.Pdb\PdbWriter.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\Mono.Cecil.Pdb\pdb\Mono.Cecil.Pdb\SymDocumentWriter.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\Mono.Cecil.Pdb\pdb\Mono.Cecil.Pdb\SymWriter.cs" />
-    <Compile Include="Assets\Plugins\Logger\Logger.cs" />
     <Compile Include="Assets\Plugins\PomeloClient\client\EventManager.cs" />
     <Compile Include="Assets\Plugins\PomeloClient\client\PomeloClient.cs" />
     <Compile Include="Assets\Plugins\PomeloClient\client\test\ClientTest.cs" />

@@ -14,6 +14,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Core.Editor
 {
+#if false
     public class LogUtility
     {
         public enum LogLevel : byte
@@ -198,4 +199,5 @@ namespace Core.Editor
     {
 
     }
+#endif
 }

@@ -274,9 +274,6 @@
     <Reference Include="Excel">
       <HintPath>Assets/Editor/ExcelReader/Excel.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>Assets/Editor/ExcelReader/ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data">
       <HintPath>Assets/Editor/ExcelReader/System.Data.dll</HintPath>
     </Reference>
@@ -295,6 +292,9 @@
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>C:/Users/Winddy/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Assets/Plugins/ZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="knight.Plugins.csproj">
@@ -302,10 +302,6 @@
       <Name>knight.Plugins</Name>
     </ProjectReference>
     <ProjectReference Include="knight.csproj">
-      <Project>{6E93D330-FA13-595F-34F0-1440245108EB}</Project>
-      <Name>knight</Name>
-    </ProjectReference>
-    <ProjectReference Include="knight.unityproj">
       <Project>{6E93D330-FA13-595F-34F0-1440245108EB}</Project>
       <Name>knight</Name>
     </ProjectReference>
