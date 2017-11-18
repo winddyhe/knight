@@ -9,7 +9,7 @@ namespace Model
 	public class NetworkClient : TSingleton<NetworkClient>
 	{
 		private AService                            mService;
-		private Dictionary<long, Session>    mSessions               = new Dictionary<long, Session>();
+		private Dictionary<long, Session>           mSessions               = new Dictionary<long, Session>();
 
 		public IMessagePacker                       MessagePacker           { get; set; }
 		public IMessageDispatcher                   MessageDispatcher       { get; set; }
