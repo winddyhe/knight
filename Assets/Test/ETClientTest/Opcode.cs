@@ -1,4 +1,4 @@
-﻿namespace Model
+﻿namespace Test
 {
 	// 客户端 100 - 999, 服务端内部1000以上
 	public enum Opcode: ushort

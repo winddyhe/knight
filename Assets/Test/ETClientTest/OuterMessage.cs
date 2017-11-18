@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Core.Serializer;
+using Model;
 
-namespace Model
+namespace Test
 {
 	public abstract partial class AActorMessage : AMessage
 	{

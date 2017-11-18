@@ -44,7 +44,11 @@ namespace Test
 
         void Update()
         {
+        }
 
+        void OnDestroy()
+        {
+            gateSession?.Dispose();
         }
     }
 }
