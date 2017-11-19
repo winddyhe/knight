@@ -8,6 +8,7 @@ using UnityEngine;
 using Game.Knight;
 using WindHotfix.Core;
 using Model;
+using Framework.Network;
 
 namespace KnightHotfixModule.Test.Net
 {

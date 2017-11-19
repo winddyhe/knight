@@ -4,8 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using Core;
+using Model;
 
-namespace Model
+namespace Framework.Network
 {
 	public sealed class Session : ASession
 	{

@@ -8,6 +8,7 @@ using WindHotfix.Core;
 using Core;
 using System.Threading;
 using UnityEngine;
+using Framework.Network;
 
 namespace WindHotfix.Net
 {
@@ -109,7 +110,7 @@ namespace WindHotfix.Net
 
         private void SendMessage(Session rSession, AMessage rMessage)
         {
-            ushort nOpcode = NetworkOpcodeTypes.Instance.GetOpcode(rMessage.GetType());
+            ushort nOpcode = OpcodeTypes.Instance.GetOpcode(rMessage.GetType());
             Debug.Log($"send: {nOpcode}, {rMessage.ToString()}");
 
             byte[] rMessageBytes = this.mMessagePacker.SerializeToByteArray(rMessage);

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core;
 using Framework.Hotfix;
+using Model;
 
-namespace Model
+namespace Framework.Network
 {
 	public class ETClient : TSingleton<ETClient>
 	{
@@ -14,8 +15,7 @@ namespace Model
         private HotfixObject        mHotfixClient;
 
         public  HotfixObject        MessageDispatcher;
-        
-        
+                
         private ETClient()
         {
         }
@@ -25,7 +25,7 @@ namespace Model
             this.mSessions = new Dict<long, Session>();
 
             // 热更新端的初始化
-            NetworkOpcodeTypes.Instance.Initialize();
+            OpcodeTypes.Instance.Initialize();
             HotfixManager.Instance.InvokeStatic("WindHotfix.Net.NetworkClient", "Initialize");
             this.MessageDispatcher = HotfixManager.Instance.Instantiate("WindHotfix.Net.MessageDispatcher");
 

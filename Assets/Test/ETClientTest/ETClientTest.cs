@@ -5,6 +5,7 @@ using Framework.Hotfix;
 using System.IO;
 using Core;
 using System.Threading.Tasks;
+using Framework.Network;
 
 namespace Test
 {

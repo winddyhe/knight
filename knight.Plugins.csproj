@@ -12,14 +12,12 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
     <CompilerResponseFile>Library\UnityAssemblies\mcs.rsp</CompilerResponseFile>
     <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.0p1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -231,14 +229,14 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>D:/Unity/Unity2017021p1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Assets/Plugins/ZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/Users/Winddy/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Purchasing">
       <HintPath>C:/Users/Winddy/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>Assets/Plugins/ZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +283,41 @@
     <Compile Include="Assets\Plugins\Core\Serializer\SerializerBinary.cs" />
     <Compile Include="Assets\Plugins\Core\WindJson\JsonData.cs" />
     <Compile Include="Assets\Plugins\Core\WindJson\JsonParser.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\DoubleMap.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\EQueue.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\IdGenerater.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\Log.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\LogType.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\MultiMap.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\QueueDictionary.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\StringHelper.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\TimeHelper.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\TryLocker.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\ZipHelper.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\AppType.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\ErrorCode.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\IMessagePacker.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\MessageAttribute.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\MessageHandlerAttribute.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\NumericType.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\RpcException.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\AChannel.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\AService.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\ASession.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\TNet\PacketParser.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\TNet\TBuffer.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\TNet\TChannel.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\TNet\TService.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\Library.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\NativeMethods.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\NativeStructs.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\UAddress.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\UChannel.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\UPacket.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\UPoller.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\UService.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\USocket.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\USocketManager.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\CLR\Method\CLRMethod.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\CLR\Method\ExceptionHandler.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\CLR\Method\ILMethod.cs" />

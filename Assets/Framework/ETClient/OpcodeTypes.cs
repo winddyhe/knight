@@ -6,14 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Model;
 
-namespace Model
+namespace Framework.Network
 {
-    public class NetworkOpcodeTypes : TSingleton<NetworkOpcodeTypes>
+    public class OpcodeTypes : TSingleton<OpcodeTypes>
     {
         public Dict<ushort, System.Type> Types;
 
-        private NetworkOpcodeTypes()
+        private OpcodeTypes()
         {
         }
         

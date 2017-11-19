@@ -2,6 +2,7 @@
 using Core;
 using UnityEngine;
 using Model;
+using Framework.Network;
 
 namespace WindHotfix.Net
 {
@@ -13,7 +14,7 @@ namespace WindHotfix.Net
 
         public void Dispatch(ushort nOpcode, byte[] rMessageBytes, int nOffset)
         {
-            Type rMessageType = NetworkOpcodeTypes.Instance.GetType(nOpcode);
+            Type rMessageType = OpcodeTypes.Instance.GetType(nOpcode);
 
             object message = NetworkClient.Instance.MessagePacker.DeserializeFrom(rMessageType, rMessageBytes, nOffset, rMessageBytes.Length - nOffset);
             Debug.Log($"recv: {nOpcode}, {message.ToString()}");
