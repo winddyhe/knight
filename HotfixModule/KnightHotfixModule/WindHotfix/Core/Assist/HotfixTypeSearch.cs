@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System;
 using UnityEngine;
-using Core;
 
 namespace WindHotfix.Core
 {
@@ -58,10 +57,11 @@ namespace WindHotfix.Core
                     if (typeof(HotfixTypeSearchBase).IsAssignableFrom(rType) &&
                         typeof(HotfixTypeSearchFull<,>) != rType &&
                         typeof(HotfixTypeSearchDefault<>) != rType &&
-                        typeof(HotfixTypeSearchBase) != rType )
+                        typeof(HotfixTypeSearchBase) != rType)
                     {
-                        var rSearchType = GetNoPublicField<Type>(rType.SearchBaseTo(typeof(HotfixTypeSearchBase)), "_Type");
-                        var rIgnoreType = GetNoPublicField<Type>(rType.SearchBaseTo(typeof(HotfixTypeSearchBase)), "_IgnoreAttributeType");
+                        Debug.LogError(rType);
+                        var rSearchType = GetNoPublicField<Type>(rType.HotfixSearchBaseTo(typeof(HotfixTypeSearchBase)), "_Type");
+                        var rIgnoreType = GetNoPublicField<Type>(rType.HotfixSearchBaseTo(typeof(HotfixTypeSearchBase)), "_IgnoreAttributeType");
                         if (null != rSearchType && null != rIgnoreType)
                             rTypeSearchSubClasses.Add(new KeyValuePair<Type, Type>(rSearchType as Type, rIgnoreType));
                     }
@@ -71,11 +71,11 @@ namespace WindHotfix.Core
             {
                 foreach (var rType in rAssembly.GetTypes())
                 {
-                    
-                    foreach(var rTypeSearchSubClass in rTypeSearchSubClasses)
+
+                    foreach (var rTypeSearchSubClass in rTypeSearchSubClasses)
                     {
-                        if (rTypeSearchSubClass.Key.IsAssignableFrom(rType) && 
-                            !rType.IsApplyAttr(rTypeSearchSubClass.Value, true))
+                        if (rTypeSearchSubClass.Key.IsAssignableFrom(rType) &&
+                            !rType.HotfixIsApplyAttr(rTypeSearchSubClass.Value, true))
                         {
                             ReceiveTypeList(rTypeSearchSubClass.Key).Add(rType);
                         }
@@ -86,6 +86,7 @@ namespace WindHotfix.Core
         protected T GetNoPublicField<T>(Type rType, string name, T rDefault = default(T))
         {
             var rFieldInfo = rType.GetField(name, BindingFlags.Static|BindingFlags.NonPublic);
+            Debug.LogError(rFieldInfo);
             if(null == rFieldInfo)
                 return rDefault;
 
@@ -105,34 +106,34 @@ namespace WindHotfix.Core
     {
         public static List<Type> GetTypes(Type rType)
         {
-            Debugger.ValidValueE(rType, "TypeSearchBase.GetTypes => rType is empty!");
+            //Debugger.ValidValueE(rType, "TypeSearchBase.GetTypes => rType is empty!");
             var rPropertyInfo = GetStorePropertyInfo(rType, "Types");
-            Debugger.ValidValueE(rPropertyInfo, "TypeSearchBase.GetTypes => rType is invalid!");
+            //Debugger.ValidValueE(rPropertyInfo, "TypeSearchBase.GetTypes => rType is invalid!");
 
             return rPropertyInfo.GetValue(null, null) as List<Type>;
         }
         public static List<string> GetTypeFullNames(Type rType)
         {
-            Debugger.ValidValueE(rType, "TypeSearchBase.GetTypeFullNames => rType is empty!");
+            //Debugger.ValidValueE(rType, "TypeSearchBase.GetTypeFullNames => rType is empty!");
             var rPropertyInfo = GetStorePropertyInfo(rType, "TypeFullNames");
-            Debugger.ValidValueE(rPropertyInfo, "TypeSearchBase.GetTypeFullNames => rType is invalid!");
+            //Debugger.ValidValueE(rPropertyInfo, "TypeSearchBase.GetTypeFullNames => rType is invalid!");
 
             return rPropertyInfo.GetValue(null, null) as List<string>;
         }
         public static List<string> GetTypeNames(Type rType)
         {
-            Debugger.ValidValueE(rType, "TypeSearchBase.GetTypeNames => rType is empty!");
+            //Debugger.ValidValueE(rType, "TypeSearchBase.GetTypeNames => rType is empty!");
             var rPropertyInfo = GetStorePropertyInfo(rType, "TypeNames");
-            Debugger.ValidValueE(rPropertyInfo, "TypeSearchBase.GetTypeNames => rType is invalid!");
+            //Debugger.ValidValueE(rPropertyInfo, "TypeSearchBase.GetTypeNames => rType is invalid!");
 
             return rPropertyInfo.GetValue(null, null) as List<string>;
         }
         public static PropertyInfo GetStorePropertyInfo(Type rType, string rStorePropertyName)
         {
-            Debugger.ValidValueE(rType,             "TypeSearchBase.GetStorePropertyInfo => rType is empty!");
-            Debugger.ValidValueE(rStorePropertyName,"TypeSearchBase.GetStorePropertyInfo => rStorePropertyName is empty!");
+            //Debugger.ValidValueE(rType,             "TypeSearchBase.GetStorePropertyInfo => rType is empty!");
+            //Debugger.ValidValueE(rStorePropertyName,"TypeSearchBase.GetStorePropertyInfo => rStorePropertyName is empty!");
 
-            return rType.SearchBaseTo<HotfixTypeSearchBase>().GetProperty(rStorePropertyName,
+            return rType.HotfixSearchBaseTo<HotfixTypeSearchBase>().GetProperty(rStorePropertyName,
                 BindingFlags.Static | BindingFlags.Public);
         }
     }

@@ -14,6 +14,11 @@ namespace WindHotfix.Core
 {
     public static class HotfixJsonParser
     {
+        public static JsonNode Parse(string rJsonText)
+        {
+            return JsonParser.Parse(rJsonText);
+        }
+
         public static T ToObject<T>(JsonNode rJsonNode)
         {
             return (T)JsonParser.ToObject(rJsonNode, typeof(T));
@@ -86,26 +91,35 @@ namespace WindHotfix.Core
             }
             else if (rType.IsClass)
             {
-                rRootNode = new JsonClass();
-                PropertyInfo[] rPropInfos = rType.GetProperties(ReflectionAssist.flags_public);
-                for (int i = 0; i < rPropInfos.Length; i++)
+                if (rType == typeof(string))
                 {
-                    object rValueObj = rPropInfos[i].GetValue(rObject, null);
-                    JsonNode rValueNode = ToJsonNode(rValueObj);
-                    rRootNode.Add(rPropInfos[i].Name, rValueNode);
+                    rRootNode = new JsonData((string)rObject);
                 }
-                FieldInfo[] rFieldInfos = rType.GetFields(ReflectionAssist.flags_public);
-                for (int i = 0; i < rFieldInfos.Length; i++)
+                else
                 {
-                    object rValueObj = rFieldInfos[i].GetValue(rObject);
-                    JsonNode rValueNode = ToJsonNode(rValueObj);
-                    rRootNode.Add(rFieldInfos[i].Name, rValueNode);
+                    rRootNode = new JsonClass();
+                    PropertyInfo[] rPropInfos = rType.GetProperties(ReflectionAssist.flags_public);
+                    for (int i = 0; i < rPropInfos.Length; i++)
+                    {
+                        object rValueObj = rPropInfos[i].GetValue(rObject, null);
+                        JsonNode rValueNode = ToJsonNode(rValueObj);
+                        rRootNode.Add(rPropInfos[i].Name, rValueNode);
+                    }
+                    FieldInfo[] rFieldInfos = rType.GetFields(ReflectionAssist.flags_public);
+                    for (int i = 0; i < rFieldInfos.Length; i++)
+                    {
+                        object rValueObj = rFieldInfos[i].GetValue(rObject);
+                        JsonNode rValueNode = ToJsonNode(rValueObj);
+                        rRootNode.Add(rFieldInfos[i].Name, rValueNode);
+                    }
                 }
             }
             else if (rType.IsPrimitive)
             {
                 if (rType.Equals(typeof(int)))
                     rRootNode = new JsonData((int)rObject);
+                else if (rType.Equals(typeof(uint)))
+                    rRootNode = new JsonData((uint)rObject);
                 else if (rType.Equals(typeof(long)))
                     rRootNode = new JsonData((long)rObject);
                 else if (rType.Equals(typeof(float)))

@@ -102,6 +102,48 @@ namespace Game.Knight
 				rResult.Add(rReader.Deserialize(default(Game.Knight.GPCSymbolObject)));
 			return rResult;
 		}
+		public static void Serialize(this BinaryWriter rWriter, List<Game.Knight.UnitInfo> value)
+		{
+			var bValid = (null != value);
+			rWriter.Serialize(bValid);
+			if (!bValid)
+				return;
+			rWriter.Serialize(value.Count);
+			for (int nIndex = 0; nIndex < value.Count; ++ nIndex)
+				rWriter.Serialize(value[nIndex]);
+		}
+		public static List<Game.Knight.UnitInfo> Deserialize(this BinaryReader rReader, List<Game.Knight.UnitInfo> value)
+		{
+			var bValid = rReader.Deserialize(default(bool));
+			if (!bValid)
+				return null;
+			var nCount  = rReader.Deserialize(default(int));
+			var rResult = new List<Game.Knight.UnitInfo>(nCount);
+			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
+				rResult.Add(rReader.Deserialize(default(Game.Knight.UnitInfo)));
+			return rResult;
+		}
+		public static void Serialize(this BinaryWriter rWriter, List<WindHotfix.Net.AFrameMessage> value)
+		{
+			var bValid = (null != value);
+			rWriter.Serialize(bValid);
+			if (!bValid)
+				return;
+			rWriter.Serialize(value.Count);
+			for (int nIndex = 0; nIndex < value.Count; ++ nIndex)
+				rWriter.Serialize(value[nIndex]);
+		}
+		public static List<WindHotfix.Net.AFrameMessage> Deserialize(this BinaryReader rReader, List<WindHotfix.Net.AFrameMessage> value)
+		{
+			var bValid = rReader.Deserialize(default(bool));
+			if (!bValid)
+				return null;
+			var nCount  = rReader.Deserialize(default(int));
+			var rResult = new List<WindHotfix.Net.AFrameMessage>(nCount);
+			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
+				rResult.Add(rReader.Deserialize(default(WindHotfix.Net.AFrameMessage)));
+			return rResult;
+		}
 		public static void Serialize(this BinaryWriter rWriter, float[] value)
 		{
 			var bValid = (null != value);

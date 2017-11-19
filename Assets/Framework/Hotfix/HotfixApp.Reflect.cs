@@ -14,6 +14,11 @@ namespace Framework.Hotfix
     {
         private Assembly    mApp;
 
+        ~HotfixApp_Reflect()
+        {
+            mApp = null;
+        }
+
         public override async Task Load(string rABPath, string rHotfixModuleName)
         {
             var rRequest = await HotfixAssetLoader.Instance.Load(rABPath, rHotfixModuleName);
@@ -62,7 +67,13 @@ namespace Framework.Hotfix
         {
             if (mApp == null) return null;
             Type rObjType = mApp.GetType(rTypeName);
-            return rObjType.InvokeMember(rMethodName, ReflectionAssist.flags_method, null, null, rArgs);
+            return rObjType.InvokeMember(rMethodName, ReflectionAssist.flags_method | BindingFlags.Static, null, null, rArgs);
+        }
+
+        public override Type[] GetTypes()
+        {
+            if (mApp == null) return null;
+            return mApp.GetTypes();
         }
     }
 }

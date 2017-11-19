@@ -12,12 +12,14 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <CompilerResponseFile>Library\UnityAssemblies\mcs.rsp</CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.0p1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -253,10 +255,8 @@
     <Compile Include="Assets\Framework\Assetbundles\ABVersion.cs" />
     <Compile Include="Assets\Framework\Camera\CameraController.cs" />
     <Compile Include="Assets\Framework\Camera\CameraFollower.cs" />
-    <Compile Include="Assets\Framework\ETClient\Base\DllHelper.cs" />
     <Compile Include="Assets\Framework\ETClient\Base\DoubleMap.cs" />
     <Compile Include="Assets\Framework\ETClient\Base\EQueue.cs" />
-    <Compile Include="Assets\Framework\ETClient\Base\GameObjectHelper.cs" />
     <Compile Include="Assets\Framework\ETClient\Base\IdGenerater.cs" />
     <Compile Include="Assets\Framework\ETClient\Base\Log.cs" />
     <Compile Include="Assets\Framework\ETClient\Base\LogType.cs" />
@@ -266,24 +266,15 @@
     <Compile Include="Assets\Framework\ETClient\Base\TimeHelper.cs" />
     <Compile Include="Assets\Framework\ETClient\Base\TryLocker.cs" />
     <Compile Include="Assets\Framework\ETClient\Base\ZipHelper.cs" />
-    <Compile Include="Assets\Framework\ETClient\Client\ClientDispatcher.cs" />
-    <Compile Include="Assets\Framework\ETClient\Client\NetworkClient.cs" />
-    <Compile Include="Assets\Framework\ETClient\Client\NetworkOpcodeType.cs" />
-    <Compile Include="Assets\Framework\ETClient\Client\SerializerPacker.cs" />
+    <Compile Include="Assets\Framework\ETClient\Client\ETClient.cs" />
+    <Compile Include="Assets\Framework\ETClient\Client\NetworkOpcodeTypes.cs" />
     <Compile Include="Assets\Framework\ETClient\Client\Session.cs" />
-    <Compile Include="Assets\Framework\ETClient\Message\AActorMessage.cs" />
-    <Compile Include="Assets\Framework\ETClient\Message\AMessage.cs" />
-    <Compile Include="Assets\Framework\ETClient\Message\AMHandler.cs" />
     <Compile Include="Assets\Framework\ETClient\Message\AppType.cs" />
     <Compile Include="Assets\Framework\ETClient\Message\ErrorCode.cs" />
-    <Compile Include="Assets\Framework\ETClient\Message\IMessageDispatcher.cs" />
     <Compile Include="Assets\Framework\ETClient\Message\IMessagePacker.cs" />
-    <Compile Include="Assets\Framework\ETClient\Message\IMHandler.cs" />
     <Compile Include="Assets\Framework\ETClient\Message\MessageAttribute.cs" />
     <Compile Include="Assets\Framework\ETClient\Message\MessageHandlerAttribute.cs" />
-    <Compile Include="Assets\Framework\ETClient\Message\MessageInfo.cs" />
     <Compile Include="Assets\Framework\ETClient\Message\NumericType.cs" />
-    <Compile Include="Assets\Framework\ETClient\Message\OpcodeHelper.cs" />
     <Compile Include="Assets\Framework\ETClient\Message\RpcException.cs" />
     <Compile Include="Assets\Framework\ETClient\Network\AChannel.cs" />
     <Compile Include="Assets\Framework\ETClient\Network\AService.cs" />
@@ -395,8 +386,6 @@
     <Compile Include="Assets\Test\CoroutineTest\CoroutineLoadTest.cs" />
     <Compile Include="Assets\Test\CoroutineTest\CoroutineTest.cs" />
     <Compile Include="Assets\Test\ETClientTest\ETClientTest.cs" />
-    <Compile Include="Assets\Test\ETClientTest\Opcode.cs" />
-    <Compile Include="Assets\Test\ETClientTest\OuterMessage.cs" />
     <Compile Include="Assets\Test\GamePlayTest\GamePlayTest.cs" />
     <Compile Include="Assets\Test\HotfixTest\Base\HotfixMBTest.cs" />
     <Compile Include="Assets\Test\HotfixTest\Base\HotfixTest.cs" />

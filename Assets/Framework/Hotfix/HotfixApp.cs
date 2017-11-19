@@ -48,7 +48,12 @@ namespace Framework.Hotfix
         }
 
         public virtual object InvokeStatic(string rTypeName, string rMethodName, params object[] rArgs)
-        { 
+        {
+            return null;
+        }
+
+        public virtual Type[] GetTypes()
+        {
             return null;
         }
     }

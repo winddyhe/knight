@@ -65,6 +65,10 @@
       <HintPath>..\..\Library\ScriptAssemblies\Assembly-CSharp-firstpass.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\Assets\Plugins\ZipLib\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -278,8 +282,11 @@
     <Compile Include="Knight\ECS\Systems\System.Move.cs" />
     <Compile Include="Knight\ECS\Systems\System.Unity.cs" />
     <Compile Include="Knight\Game\GameLogicManager.cs" />
+    <Compile Include="Knight\Network\NetworkMessage.Outer.cs" />
     <Compile Include="Test\BaseFunction\Class5.cs" />
+    <Compile Include="Test\ETNetwork\ETNetworkTest.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixBinding.cs" />
+    <Compile Include="WindHotfix\Core\Assist\HotfixTypeExpand.cs" />
     <Compile Include="WindHotfix\GameStage\GameMode.cs" />
     <Compile Include="WindHotfix\GameStage\GameStage.cs" />
     <Compile Include="WindHotfix\GameStage\GameStageManager.cs" />
@@ -335,6 +342,37 @@
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolObject.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.ActorAvatar.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.ActorHero.Binary.cs" />
+    <Compile Include="WindHotfix\Network\MessageDispatcher.cs" />
+    <Compile Include="WindHotfix\Network\NetworkClient.cs" />
+    <Compile Include="Knight\Network\NetworkOpcode.cs" />
+    <Compile Include="WindHotfix\Network\NetworkMessage.cs" />
+    <Compile Include="WindHotfix\Network\SerializerPacker.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.Actor_CreateUnits.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.Actor_Test.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.Actor_TestRequest.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.Actor_TestResponse.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.Actor_TransferRequest.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.Actor_TransferResponse.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.C2G_EnterMap.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.C2G_LoginGate.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.C2M_Reload.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.C2R_Login.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.C2R_Ping.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.FrameMessage.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.Frame_ClickMap.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.G2C_EnterMap.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.G2C_LoginGate.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.M2C_Reload.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.R2C_Login.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.R2C_Ping.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.UnitInfo.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\WindHotfix.Net.AActorMessage.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\WindHotfix.Net.AActorRequest.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\WindHotfix.Net.AActorResponse.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\WindHotfix.Net.AFrameMessage.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\WindHotfix.Net.AMessage.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\WindHotfix.Net.ARequest.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\Protocol\WindHotfix.Net.AResponse.Binary.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

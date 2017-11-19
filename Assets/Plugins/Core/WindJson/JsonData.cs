@@ -549,6 +549,11 @@ namespace Core.WindJson
             AsInt = v;
         }
 
+        public JsonData(uint v)
+        {
+            AsUint = v;
+        }
+
         public JsonData(long v)
         {
             AsLong = v;

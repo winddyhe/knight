@@ -95,5 +95,11 @@ namespace Framework.Hotfix
     #endif
 #endif
         }
+
+        public Type[] GetTypes()
+        {
+            if (mApp == null) return null;
+            return mApp.GetTypes();
+        }
     }
 }

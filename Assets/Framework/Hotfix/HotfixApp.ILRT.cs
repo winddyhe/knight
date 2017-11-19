@@ -7,6 +7,7 @@ using Core.WindJson;
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
@@ -124,6 +125,9 @@ namespace Framework.Hotfix
 
             this.mApp.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
             this.mApp.DelegateManager.RegisterMethodDelegate<UnityEngine.GameObject>();
+
+            this.mApp.DelegateManager.RegisterMethodDelegate<Model.AChannel, System.Net.Sockets.SocketError>();
+            this.mApp.DelegateManager.RegisterMethodDelegate<System.Object>();
         }
 
         public override HotfixObject Instantiate(string rTypeName, params object[] rArgs)
@@ -156,6 +160,12 @@ namespace Framework.Hotfix
         {
             if (mApp == null) return null;
             return mApp.Invoke(rTypeName, rMethodName, null, rArgs);
+        }
+
+        public override Type[] GetTypes()
+        {
+            if (mApp == null) return null;
+            return mApp.LoadedTypes.Values.Select(x => x.ReflectionType).ToArray();
         }
     }
 }

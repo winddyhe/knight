@@ -1,8 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Model;
 using System;
+using Framework.Hotfix;
+using System.IO;
+using Core;
+using System.Threading.Tasks;
 
 namespace Test
 {
@@ -10,31 +12,31 @@ namespace Test
     {
         Session gateSession;
 
-        void Awake()
-        {
-            NetworkClient.Instance.Initialize(NetworkProtocol.TCP);
-            NetworkOpcodeType.Instance.Initialize();
-        }
-
         async void Start()
         {
+            HotfixManager.Instance.Initialize();
+            CoroutineManager.Instance.Initialize();
+
+            string rDLLPath = "Assets/StreamingAssets/Temp/Libs/KnightHotfixModule.dll";
+            string rPDBPath = "Assets/StreamingAssets/Temp/Libs/KnightHotfixModule.pdb";
+            HotfixManager.Instance.InitApp(rDLLPath, rPDBPath);
+
+            ETClient.Instance.Initialize(NetworkProtocol.TCP);
+
             Session session = null;
             try
             {
-                session = NetworkClient.Instance.Create("127.0.0.1:10002");
+                session = ETClient.Instance.Create("127.0.0.1:10002");
+                string rAddress = await (HotfixManager.Instance.InvokeStatic("KnightHotfixModule.Test.Net.ETNetworkTest", "Test1", session) as Task<string>);
 
-                R2C_Login r2CLogin = await session.Call<R2C_Login>(new C2R_Login() { Account = "Test1", Password = "111111" });
-                Debug.LogError($"R2C_Login: {r2CLogin.Address}");
+                gateSession = ETClient.Instance.Create(rAddress);
+                HotfixManager.Instance.InvokeStatic("KnightHotfixModule.Test.Net.ETNetworkTest", "Test2", gateSession);
 
-                gateSession = NetworkClient.Instance.Create(r2CLogin.Address);
-                G2C_LoginGate g2CLoginGate = await gateSession.Call<G2C_LoginGate>(new C2G_LoginGate() { Key = r2CLogin.Key });
-
-                Debug.LogError("登陆gate成功!");
-                Debug.LogError(g2CLoginGate.PlayerId.ToString());
+                Debug.LogError("Test completed..");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-                Log.Error(e.ToString());
+                Debug.LogError(e.ToString());
             }
             finally
             {
@@ -44,11 +46,12 @@ namespace Test
 
         void Update()
         {
+            ETClient.Instance.Update();
         }
 
         void OnDestroy()
         {
-            gateSession?.Dispose();
+
         }
     }
 }
