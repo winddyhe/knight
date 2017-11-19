@@ -330,8 +330,6 @@
     <Compile Include="Assets\Framework\Loader\SceneConfig.cs" />
     <Compile Include="Assets\Framework\Loading\GameLoading.cs" />
     <Compile Include="Assets\Framework\Loading\ILoadingView.cs" />
-    <Compile Include="Assets\Framework\Network\NetworkClient.cs" />
-    <Compile Include="Assets\Framework\Network\NetworkMsgCode.cs" />
     <Compile Include="Assets\Framework\Utility\DontDestroyOnLoad.cs" />
     <Compile Include="Assets\Framework\Utility\GameFlowLevelManager.cs" />
     <Compile Include="Assets\Framework\Utility\MainAssemblyExpand.cs" />
@@ -393,7 +391,6 @@
     <Compile Include="Assets\Test\JsonTest\JsonParseTest.cs" />
     <Compile Include="Assets\Test\NavTest\NavMeshDisplay.cs" />
     <Compile Include="Assets\Test\PathTest\PathTest.cs" />
-    <Compile Include="Assets\Test\PomeloClientTest\PomeloClientTest.cs" />
     <Compile Include="Assets\Test\PostEffctTest\Bloom\BloomTest.cs" />
     <Compile Include="Assets\Test\PostEffctTest\GaussianBlurTest\GaussianBlurEffectTest.cs" />
     <Compile Include="Assets\Test\PostEffctTest\HDR\HDRTest.cs" />

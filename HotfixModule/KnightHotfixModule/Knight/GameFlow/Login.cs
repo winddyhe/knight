@@ -20,12 +20,12 @@ namespace Game.Knight
         private static  Login       __instance;
         public  static  Login       Instance { get { return __instance; } }
 
-        private string  mGateHost    = "";
-        private int     mGatePort    = 0;
-        private int     mServerID    = 0;
+        //private string  mGateHost    = "";
+        //private int     mGatePort    = 0;
+        //private int     mServerID    = 0;
 
-        private string  mAccountName = "";
-        private string  mPassword    = "";
+        //private string  mAccountName = "";
+        //private string  mPassword    = "";
         
         public override void Awake()
         {
@@ -54,80 +54,80 @@ namespace Game.Knight
             GameLoading.Instance.Hide();
         }
 
-        public void OnClientLoginResponse(NetworkMsgCode rMsgCode, long rAccountID, List<ActorNet> rNetActors)
-        {
-            if (rMsgCode == NetworkMsgCode.Success)
-            {
-                // 创建角色账户，并进入创建角色界面
-                Account.Instance.Create(rAccountID, mAccountName, mServerID);
-                CoroutineManager.Instance.Start(JumpToCreatePlayer(rNetActors));
-            }
-            else if (rMsgCode == NetworkMsgCode.FA_USER_NOT_EXIST)
-            {
-                Toast.Instance.Show("用户不存在！");
-            }
-            else if (rMsgCode == NetworkMsgCode.FA_USER_PASS_ERROR)
-            {
-                Toast.Instance.Show("登陆密码错误！");
-            }
-            else if (rMsgCode == NetworkMsgCode.ServerError)
-            {
-                Toast.Instance.Show("服务器错误！");
-            }
-        }
+        //public void OnClientLoginResponse(NetworkMsgCode rMsgCode, long rAccountID, List<ActorNet> rNetActors)
+        //{
+        //    if (rMsgCode == NetworkMsgCode.Success)
+        //    {
+        //        // 创建角色账户，并进入创建角色界面
+        //        Account.Instance.Create(rAccountID, mAccountName, mServerID);
+        //        CoroutineManager.Instance.Start(JumpToCreatePlayer(rNetActors));
+        //    }
+        //    else if (rMsgCode == NetworkMsgCode.FA_USER_NOT_EXIST)
+        //    {
+        //        Toast.Instance.Show("用户不存在！");
+        //    }
+        //    else if (rMsgCode == NetworkMsgCode.FA_USER_PASS_ERROR)
+        //    {
+        //        Toast.Instance.Show("登陆密码错误！");
+        //    }
+        //    else if (rMsgCode == NetworkMsgCode.ServerError)
+        //    {
+        //        Toast.Instance.Show("服务器错误！");
+        //    }
+        //}
 
         /// <summary>
         /// 请求连接服务器
         /// </summary>
-        public void LoginGateServer(string rGateHost, int nGatePort, int nServerID, string rAccountName, string rAccountPassword)
-        {
-            mAccountName = rAccountName;
-            mPassword = rAccountPassword;
+        //public void LoginGateServer(string rGateHost, int nGatePort, int nServerID, string rAccountName, string rAccountPassword)
+        //{
+        //    mAccountName = rAccountName;
+        //    mPassword = rAccountPassword;
 
-            mGateHost = rGateHost;
-            mGatePort = nGatePort;
-            mServerID = nServerID;
+        //    mGateHost = rGateHost;
+        //    mGatePort = nGatePort;
+        //    mServerID = nServerID;
 
-            Debug.Log("LoginGateServer");
-            NetworkClient.Instance.Connect(this.mGateHost, this.mGatePort, () =>
-            {
-                GamePlayProtocol.DoClientQueryGateEntryRequest(mAccountName);
-            });
-        }
+        //    Debug.Log("LoginGateServer");
+        //    NetworkClient.Instance.Connect(this.mGateHost, this.mGatePort, () =>
+        //    {
+        //        GamePlayProtocol.DoClientQueryGateEntryRequest(mAccountName);
+        //    });
+        //}
         
         /// <summary>
         /// 请求连接Connector服务器
         /// </summary>
-        public void LoginConnectorRequest(NetworkMsgCode rMsgCode, string rConnectorURL, int rConnectorPort)
-        {
-            // 断开连接
-            NetworkClient.Instance.Disconnect();
-            if (rMsgCode == NetworkMsgCode.Success)
-            {
-                ClientLoginRequest(rConnectorURL, rConnectorPort);
-            }
-            else if (rMsgCode == NetworkMsgCode.FA_NO_SERVER_AVAILABLE)
-            {
-                Toast.Instance.Show("无可用服务器!");
-            }
-            else
-            {
-                Toast.Instance.Show("未知的系统错误!");
-            }
-        }
+        //public void LoginConnectorRequest(NetworkMsgCode rMsgCode, string rConnectorURL, int rConnectorPort)
+        //{
+        //    // 断开连接
+        //    NetworkClient.Instance.Disconnect();
+        //    if (rMsgCode == NetworkMsgCode.Success)
+        //    {
+        //        ClientLoginRequest(rConnectorURL, rConnectorPort);
+        //    }
+        //    else if (rMsgCode == NetworkMsgCode.FA_NO_SERVER_AVAILABLE)
+        //    {
+        //        Toast.Instance.Show("无可用服务器!");
+        //    }
+        //    else
+        //    {
+        //        Toast.Instance.Show("未知的系统错误!");
+        //    }
+        //}
 
         /// <summary>
         /// 客户端请求用户登陆
         /// </summary>
-        private void ClientLoginRequest(string rConnectorURL, int rConnectorPort)
-        {
-            NetworkClient.Instance.Connect(rConnectorURL, rConnectorPort, () =>
-            {
-                string rMsg = mAccountName + "|" + mPassword + "|" + DateTime.Now.Ticks;
-                string rToken = CryptoUtility.Encrypt(rMsg, UtilTool.SessionSecrect);
-                GamePlayProtocol.DoClientLoginRequest(rToken);
-            });
-        }
+        //private void ClientLoginRequest(string rConnectorURL, int rConnectorPort)
+        //{
+        //    NetworkClient.Instance.Connect(rConnectorURL, rConnectorPort, () =>
+        //    {
+        //        string rMsg = mAccountName + "|" + mPassword + "|" + DateTime.Now.Ticks;
+        //        string rToken = CryptoUtility.Encrypt(rMsg, UtilTool.SessionSecrect);
+        //        GamePlayProtocol.DoClientLoginRequest(rToken);
+        //    });
+        //}
 
         public IEnumerator JumpToCreatePlayer(List<ActorNet> rNetActors)
         {

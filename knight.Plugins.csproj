@@ -12,12 +12,14 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <CompilerResponseFile>Library\UnityAssemblies\mcs.rsp</CompilerResponseFile>
     <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.0p1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -507,30 +509,6 @@
     <Compile Include="Assets\Plugins\ILRuntime\Mono.Cecil.Pdb\pdb\Mono.Cecil.Pdb\PdbWriter.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\Mono.Cecil.Pdb\pdb\Mono.Cecil.Pdb\SymDocumentWriter.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\Mono.Cecil.Pdb\pdb\Mono.Cecil.Pdb\SymWriter.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\client\EventManager.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\client\PomeloClient.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\client\test\ClientTest.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protobuf\Decoder.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protobuf\Encoder.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protobuf\MsgDecoder.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protobuf\MsgEncoder.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protobuf\Protobuf.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protobuf\test\CodecTest.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protobuf\test\ProtobufTest.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protobuf\util\Util.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protocol\HandShakeService.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protocol\HeartBeatService.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protocol\Message.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protocol\MessageProtocol.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protocol\MessageType.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protocol\Package.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protocol\PackageProtocol.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protocol\PackageTypes.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protocol\Protocol.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\protocol\ProtocolState.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\transport\test\TransportTest.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\transport\Transporter.cs" />
-    <Compile Include="Assets\Plugins\PomeloClient\transport\TransportState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlend.cginc" />

@@ -71,18 +71,18 @@ namespace Game.Knight
         /// <summary>
         /// 创建角色的响应
         /// </summary>
-        public void OnPlayerCreateResponse(NetworkMsgCode rMsgCode, string rActorName, int rProfessionalID, long rActorID)
-        {
-            if (rMsgCode == NetworkMsgCode.Success)
-            {
-                Account.Instance.CreateActor(rActorName, rProfessionalID, rActorID);
-                ViewManager.Instance.Open("KNPlayerList", View.State.dispatch);
-            }
-            else if (rMsgCode == NetworkMsgCode.FA_ACTOR_IS_EXSIST)
-            {
-                Toast.Instance.Show("角色名已经存在！");
-            }
-        }
+        //public void OnPlayerCreateResponse(NetworkMsgCode rMsgCode, string rActorName, int rProfessionalID, long rActorID)
+        //{
+        //    if (rMsgCode == NetworkMsgCode.Success)
+        //    {
+        //        Account.Instance.CreateActor(rActorName, rProfessionalID, rActorID);
+        //        ViewManager.Instance.Open("KNPlayerList", View.State.dispatch);
+        //    }
+        //    else if (rMsgCode == NetworkMsgCode.FA_ACTOR_IS_EXSIST)
+        //    {
+        //        Toast.Instance.Show("角色名已经存在！");
+        //    }
+        //}
 
         /// <summary>
         /// 卸载场景
