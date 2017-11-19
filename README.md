@@ -20,7 +20,7 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 ### 插件(感谢以下插件和框架对knight的底层功能的支持)
 * ILRuntime: 一个使用C#编写的解释运行C# IL代码的库，用来实现热更新机制，地址：https://github.com/Ourpalm/ILRuntime
 * PomeloClient: Pomelo提供的U3D客户端插件，地址：https://github.com/NetEase/pomelo-unityclient-socket
-* Egametang: 一个包含了分布式的.Net Core服务器的一个双端unity游戏框架。knight用到了它的服务器部分。地址：https://github.com/egametang/Egametang , 独立出来的ET客户端网络模块的库地址:https://github.com/winddyhe/egametang-network-client
+* Egametang: 一个包含了分布式的.Net Core服务器的双端unity游戏框架。knight用到了它的服务器部分。地址：https://github.com/egametang/Egametang , 独立出来的ET客户端网络模块的库地址:https://github.com/winddyhe/egametang-network-client
 
 ### 联系方式
 * Email: hgplan@126.com 
