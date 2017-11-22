@@ -50,7 +50,8 @@ namespace UnityEngine.AssetBundles
                 
                 // 加载Persisntent空间的版本信息文件
                 var rPersistentVersionRequest = await ABVersion.Load(ABPlatform.Instance.GetPersistentUrl_CurPlatform(ABVersion.ABVersion_File_Bin));
-                mPersistentVersion = rPersistentVersionRequest.Version;
+                if (rPersistentVersionRequest != null)
+                    mPersistentVersion = rPersistentVersionRequest.Version;
 
                 if (!string.IsNullOrEmpty(mServerMD5) && !mServerMD5.Equals(mPersistentMD5))
                 {
