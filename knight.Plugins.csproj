@@ -12,12 +12,14 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <CompilerResponseFile>Library\UnityAssemblies\mcs.rsp</CompilerResponseFile>
     <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.0p1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -266,6 +268,7 @@
     <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\TaskExtensions.cs" />
     <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\WaitForBackgroundThread.cs" />
     <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\WaitForUpdate.cs" />
+    <Compile Include="Assets\Plugins\Core\CodeGen\CodeGenerator.cs" />
     <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineHandler.cs" />
     <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineManager.cs" />
     <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineRequest.cs" />
@@ -280,7 +283,9 @@
     <Compile Include="Assets\Plugins\Core\MultiScene\SceneBlockBuffer.cs" />
     <Compile Include="Assets\Plugins\Core\MultiScene\SceneBlockLoader.cs" />
     <Compile Include="Assets\Plugins\Core\MultiScene\SceneTile.cs" />
-    <Compile Include="Assets\Plugins\Core\Serializer\SerializerBinary.cs" />
+    <Compile Include="Assets\Plugins\Core\Serializer\Serializer.Assists.cs" />
+    <Compile Include="Assets\Plugins\Core\Serializer\Serializer.Types.cs" />
+    <Compile Include="Assets\Plugins\Core\Serializer\Serializer.Binary.cs" />
     <Compile Include="Assets\Plugins\Core\WindJson\JsonData.cs" />
     <Compile Include="Assets\Plugins\Core\WindJson\JsonParser.cs" />
     <Compile Include="Assets\Plugins\ETClient\Base\DoubleMap.cs" />

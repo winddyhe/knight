@@ -369,7 +369,10 @@
     <Compile Include="Assets\Editor\MemoryProfiler\ZoomArea.cs" />
     <Compile Include="Assets\Editor\MultiScene\MultiSceneEditor.cs" />
     <Compile Include="Assets\Editor\MultiScene\MultiSceneEditorWindow.cs" />
+    <Compile Include="Assets\Editor\Serializer\CodeGenerator.ClassSerializer.cs" />
+    <Compile Include="Assets\Editor\Serializer\CodeGenerator.CommonSerializer.cs" />
     <Compile Include="Assets\Editor\Serializer\CSGenerate.cs" />
+    <Compile Include="Assets\Editor\Serializer\SerializerBinary.Editor.cs" />
     <Compile Include="Assets\Editor\Serializer\SerializerBinaryEditor.cs" />
     <Compile Include="Assets\Game\Knight\Editor\AssetbundlePerprocessor.Knight.cs" />
     <Compile Include="Assets\Test\SceneABTest\Editor\SceneABTestEditor.cs" />
