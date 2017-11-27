@@ -12,8 +12,7 @@ namespace Framework.Network
 	{
 		private AService            mService;
 		private Dict<long, Session> mSessions;
-        private HotfixObject        mHotfixClient;
-
+        
         public  HotfixObject        MessageDispatcher;
                 
         private ETClient()

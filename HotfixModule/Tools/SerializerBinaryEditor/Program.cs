@@ -13,7 +13,7 @@ namespace WindHotfix.Core.Editor
     {
         static void Main(string[] args)
         {
-            AutoCSGenerateMain.AutoCSGenerate();
+            HotfixSerializerBinaryEditor.CodeGenerate();
         }
     }
 }

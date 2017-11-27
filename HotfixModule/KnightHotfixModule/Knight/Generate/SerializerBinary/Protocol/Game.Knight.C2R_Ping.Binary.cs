@@ -1,22 +1,25 @@
+
 using System.IO;
-using Core;
 using WindHotfix.Core;
+using Core;
 
 
 /// <summary>
-/// 文件自动生成无需又该！如果出现编译错误，删除文件后会自动生成
+/// Auto generate code, not need modify.
 /// </summary>
 namespace Game.Knight
 {
-public partial class C2R_Ping
-{
-	public override void Serialize(BinaryWriter rWriter)
+	public partial class C2R_Ping
 	{
-		base.Serialize(rWriter);
-	}
-	public override void Deserialize(BinaryReader rReader)
-	{
-		base.Deserialize(rReader);
-	}
+        public override void Serialize(BinaryWriter rWriter)
+	    {
+            base.Serialize(rWriter);
+		}
+		public override void Deserialize(BinaryReader rReader)
+	    {
+		    base.Deserialize(rReader);
+		}
+    }
 }
-}
+
+

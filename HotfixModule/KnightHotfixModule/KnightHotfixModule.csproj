@@ -287,6 +287,9 @@
     <Compile Include="Test\ETNetwork\ETNetworkTest.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixBinding.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixTypeExpand.cs" />
+    <Compile Include="WindHotfix\Core\Serializer\HotfixSerializer.Assists.cs" />
+    <Compile Include="WindHotfix\Core\Serializer\HotfixSerializer.Binary.cs" />
+    <Compile Include="WindHotfix\Core\Serializer\HotfixSerializer.Types.cs" />
     <Compile Include="WindHotfix\GameStage\GameMode.cs" />
     <Compile Include="WindHotfix\GameStage\GameStage.cs" />
     <Compile Include="WindHotfix\GameStage\GameStageManager.cs" />
@@ -312,7 +315,6 @@
     <Compile Include="WindHotfix\Core\Assist\THotfixMB.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixSingleton.cs" />
     <Compile Include="WindHotfix\Core\Assist\HotfixTypeSearch.cs" />
-    <Compile Include="WindHotfix\Core\Serializer\HotfixSerializerBinary.cs" />
     <Compile Include="WindHotfix\Game\GameComponent.cs" />
     <Compile Include="WindHotfix\Game\GCContainer.cs" />
     <Compile Include="WindHotfix\Game\GameEntity.cs" />
@@ -332,7 +334,14 @@
     <Compile Include="WindHotfix\GUI\View.cs" />
     <Compile Include="WindHotfix\GUI\ViewController.cs" />
     <Compile Include="WindHotfix\GUI\ViewManager.cs" />
+    <Compile Include="WindHotfix\Network\MessageDispatcher.cs" />
+    <Compile Include="WindHotfix\Network\NetworkClient.cs" />
+    <Compile Include="Knight\Network\NetworkOpcode.cs" />
+    <Compile Include="WindHotfix\Network\NetworkMessage.cs" />
+    <Compile Include="WindHotfix\Network\SerializerPacker.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\CommonSerializer.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.ActorAvatar.Binary.cs" />
+    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.ActorHero.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.ActorProfessional.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.GameConfig.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.StageConfig.Binary.cs" />
@@ -340,13 +349,6 @@
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolElement.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolItem.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\GamePlayConfig\Game.Knight.GPCSymbolObject.Binary.cs" />
-    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.ActorAvatar.Binary.cs" />
-    <Compile Include="Knight\Generate\SerializerBinary\GameConfig\Game.Knight.ActorHero.Binary.cs" />
-    <Compile Include="WindHotfix\Network\MessageDispatcher.cs" />
-    <Compile Include="WindHotfix\Network\NetworkClient.cs" />
-    <Compile Include="Knight\Network\NetworkOpcode.cs" />
-    <Compile Include="WindHotfix\Network\NetworkMessage.cs" />
-    <Compile Include="WindHotfix\Network\SerializerPacker.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.Actor_CreateUnits.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.Actor_Test.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\Protocol\Game.Knight.Actor_TestRequest.Binary.cs" />
@@ -374,7 +376,9 @@
     <Compile Include="Knight\Generate\SerializerBinary\Protocol\WindHotfix.Net.ARequest.Binary.cs" />
     <Compile Include="Knight\Generate\SerializerBinary\Protocol\WindHotfix.Net.AResponse.Binary.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Knight\Generate\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

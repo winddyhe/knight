@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System;
-using UnityEngine;
 
 namespace WindHotfix.Core
 {
@@ -59,7 +58,7 @@ namespace WindHotfix.Core
                         typeof(HotfixTypeSearchDefault<>) != rType &&
                         typeof(HotfixTypeSearchBase) != rType)
                     {
-                        Debug.LogError(rType);
+                        //Console.WriteLine(rType);
                         var rSearchType = GetNoPublicField<Type>(rType.HotfixSearchBaseTo(typeof(HotfixTypeSearchBase)), "_Type");
                         var rIgnoreType = GetNoPublicField<Type>(rType.HotfixSearchBaseTo(typeof(HotfixTypeSearchBase)), "_IgnoreAttributeType");
                         if (null != rSearchType && null != rIgnoreType)
@@ -86,7 +85,7 @@ namespace WindHotfix.Core
         protected T GetNoPublicField<T>(Type rType, string name, T rDefault = default(T))
         {
             var rFieldInfo = rType.GetField(name, BindingFlags.Static|BindingFlags.NonPublic);
-            Debug.LogError(rFieldInfo);
+            //Console.WriteLine(rFieldInfo);
             if(null == rFieldInfo)
                 return rDefault;
 
