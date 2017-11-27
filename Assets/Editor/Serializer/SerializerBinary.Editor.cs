@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace Core.Serializer.Editor
 {
-    public class SerializerBinaryEditor1 : TSingleton<SerializerBinaryEditor1>
+    public class SerializerBinaryEditor : TSingleton<SerializerBinaryEditor>
     {
         private const string    mGeneratePathRoot      = "Assets/Generate/SerializerBinary/";
         private const string    mGeneratePath          = mGeneratePathRoot + "Runtime/";
@@ -19,14 +19,14 @@ namespace Core.Serializer.Editor
         private CodeGenerator_CommonSerializer          mCommonSerializer;
         private List<CodeGenerator_ClassSerializer>     mClassSerializers;
 
-        private SerializerBinaryEditor1()
+        private SerializerBinaryEditor()
         {
         }
 
         [MenuItem("Tools/Other/Auto CS Generate...")]
         public static void CodeGenerate()
         {
-            SerializerBinaryEditor1.Instance.Analysis((rText, fProgress)=> EditorUtility.DisplayProgressBar("AutoCSGenerate", rText, fProgress));
+            SerializerBinaryEditor.Instance.Analysis((rText, fProgress)=> EditorUtility.DisplayProgressBar("AutoCSGenerate", rText, fProgress));
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
