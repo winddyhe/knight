@@ -10,6 +10,13 @@ namespace Core.Serializer.Editor
 {
     public class CodeGenerator_CommonSerializer : CodeGenerator
     {
+        private List<Type>      mGeneratedArray             = new List<Type>();
+        private List<Type>      mGeneratedDynamicArray      = new List<Type>();
+        private List<Type>      mGeneratedList              = new List<Type>();
+        private List<Type>      mGeneratedDynamicList       = new List<Type>();
+        private List<Type>      mGeneratedDictionary        = new List<Type>();
+        private List<Type>      mGeneratedDynamicDictionary = new List<Type>();
+
         public CodeGenerator_CommonSerializer(string rFilePath)
             : base(rFilePath)
         {
@@ -18,7 +25,7 @@ namespace Core.Serializer.Editor
 
         public override void WriteHead()
         {
-            this.Write(@"
+            this.Write(0, @"
 using System.IO;
 using System.Collections.Generic;
 using Core;
@@ -32,168 +39,187 @@ namespace Game.Serializer
 {
     public static class CommonSerializer
     {");
-        
         }
 
         public override void WriteEnd()
         {
-            this.Write(@"    }
-}
-");
+            this.Write(1,
+  @"}
+}");
         }
 
-        public void WriteArray(Type rType)
+        public void AnalyzeGenerateCommon(Type rType, bool bDynamic)
         {
-            this.Write(
-$"        public static void Serialize(this BinaryWriter rWriter, {rType.FullName}[] value)");
-            this.Write(@"        {
-            var bValid = (null != value);
+            if (SerializerAssists.IsBaseType(rType)) return;
+
+            if (rType.IsArray)
+            {
+                WriteArray(rType, bDynamic);
+                AnalyzeGenerateCommon(rType.GetElementType(), bDynamic);
+            }
+            else if (rType.GetInterface("System.Collections.IList") != null)
+            {
+                WriteList(rType, bDynamic);
+                AnalyzeGenerateCommon(rType.GetGenericArguments()[0], bDynamic);
+            }
+            else if (rType.GetInterface("System.Collections.IDictionary") != null || rType.GetInterface("Core.IDict") != null)
+            {
+                WriteDictionary(rType, bDynamic);
+                AnalyzeGenerateCommon(rType.GetGenericArguments()[0], bDynamic);
+                AnalyzeGenerateCommon(rType.GetGenericArguments()[1], bDynamic);
+            }
+        }
+
+        public void WriteArray(Type rType, bool bDynamic)
+        {
+            if (this.ReceiveGeneratedArrayType(rType, bDynamic))
+                return;
+
+            var rTypeName = SerializerAssists.GetTypeName(rType);
+            var rElementType = rType.GetElementType();
+
+            var rTDText = bDynamic ? "Dynamic" : string.Empty;
+            var rTDEText = bDynamic && !SerializerAssists.IsBaseType(rElementType, false) ? "Dynamic" : string.Empty;
+
+            this.WriteBraceCode(2, 
+        $"public static void Serialize{rTDText}(this BinaryWriter rWriter, {rTypeName} value)",
+        "{",
+         $@"var bValid = (null != value);
 	        rWriter.Serialize(bValid);
 	        if (!bValid) return;
 
 	        rWriter.Serialize(value.Length); 
 	        for (int nIndex = 0; nIndex < value.Length; nIndex++)
-	            rWriter.Serialize(value[nIndex]);
-        }
-");
+                rWriter.Serialize{rTDEText}({(rElementType.IsEnum ? "(int)value[nIndex]" : "value[nIndex]")});", 
+        "}");
 
-            this.Write(
-$"        public static {rType.FullName}[] Deserialize(this BinaryReader rReader, {rType.FullName}[] value)");
-            this.Write(@"        {
-            var bValid = rReader.Deserialize(default(bool));
+            this.WriteBraceCode(2, 
+        $"public static {rTypeName} Deserialize(this BinaryReader rReader, {rTypeName} value)",
+        "{",
+         $@"var bValid = rReader.Deserialize(default(bool));
 			if (!bValid) return null;
 
-            var nCount  = rReader.Deserialize(default(int));");
-            this.Write(
-$"            var rResult = new {rType.FullName}[nCount];");
-            this.Write(@"
-			for (int nIndex = 0; nIndex < nCount; nIndex++)");
-            this.Write(
-$"                rResult[nIndex] = rReader.Deserialize(default({rType.FullName}));");
-            this.Write(@"
-            return rResult;
-        }
-");
+            var nCount  = rReader.Deserialize(default(int));
+            var rResult = new {rTypeName.Insert(rTypeName.IndexOf('[') + 1, "nCount")};
+			for (int nIndex = 0; nIndex < nCount; nIndex++)
+                rResult[nIndex] = {(rElementType.IsEnum ? string.Format("({0})", rElementType.FullName) : string.Empty)}rReader.Deserialize{rTDEText}({SerializerAssists.GetDeserializeUnwrap(rElementType)});
+            return rResult;",
+         "}");
         }
 
-        public void WriteList(Type rType)
+        public void WriteList(Type rType, bool bDynamic)
         {
-            this.Write(
-$"        public static void Serialize(this BinaryWriter rWriter, List<{rType.FullName}> value)");
-            this.Write(@"        {
-			var bValid = (null != value);
+            if (this.ReceiveGeneratedListType(rType, bDynamic)) return;
+
+            var rTypeName = SerializerAssists.GetTypeName(rType);
+            var rElementType = rType.GetGenericArguments()[0];
+
+            var rTDText = bDynamic ? "Dynamic" : string.Empty;
+            var rTDEText = bDynamic && !SerializerAssists.IsBaseType(rElementType, false) ? "Dynamic" : string.Empty;
+
+            this.WriteBraceCode(2, 
+        $"public static void Serialize{rTDText}(this BinaryWriter rWriter, {rTypeName} value)",
+        @"{",
+         $@"var bValid = (null != value);
 			rWriter.Serialize(bValid);
 			if (!bValid) return;
 
 			rWriter.Serialize(value.Count);
 			for (int nIndex = 0; nIndex < value.Count; ++ nIndex)
-				rWriter.Serialize(value[nIndex]);
-		}
-");
+				rWriter.Serialize{rTDEText}({(rElementType.IsEnum ? "(int)value[nIndex]" : "value[nIndex]")});",
+        @"}");
 
-            this.Write(
-$"        public static List<{rType.FullName}> Deserialize(this BinaryReader rReader, List<{rType.FullName}> value)");
-            this.Write(@"        {
-			var bValid = rReader.Deserialize(default(bool));
+            this.WriteBraceCode(2, 
+        $"public static {rTypeName} Deserialize{rTDText}(this BinaryReader rReader, {rTypeName} value)",
+        @"{",
+         $@"var bValid = rReader.Deserialize(default(bool));
 			if (!bValid) return null;
 
-			var nCount  = rReader.Deserialize(default(int));");
-            this.Write(
-$"            var rResult = new List<{rType.FullName}>(nCount);");
-            this.Write(@"
-			for (int nIndex = 0; nIndex < nCount; nIndex++)");
-            this.Write(
-$"                rResult[nIndex] = rReader.Deserialize(default({rType.FullName}));");
-            this.Write(@"
-			return rResult;
-		}
-");
+			var nCount  = rReader.Deserialize(default(int));
+            var rResult = new {rTypeName}(nCount);
+			for (int nIndex = 0; nIndex < nCount; nIndex++)
+                rResult.Add({(rElementType.IsEnum ? string.Format("({0})", rElementType.FullName) : string.Empty)}rReader.Deserialize{rTDEText}({SerializerAssists.GetDeserializeUnwrap(rType.GetGenericArguments()[0])}));
+			return rResult;",
+        @"}");
         }
 
-        public void WriteDict(Type rKeyType, Type rValueType)
+        public void WriteDictionary(Type rType, bool bDynamic)
         {
-            this.Write(
-$"        public static void Serialize(this BinaryWriter rWriter, Dict<{rKeyType.FullName}, {rValueType.FullName}> value)");
-            this.Write(@"        {
-			var bValid = (null != value);
+            if (this.ReceiveGeneratedDictionaryType(rType, bDynamic)) return;
+
+            var rTypeName = SerializerAssists.GetTypeName(rType);
+            var rKeyType = rType.GetGenericArguments()[0];
+            var rValueType = rType.GetGenericArguments()[1];
+
+            var rTDText = bDynamic ? "Dynamic" : string.Empty;
+            var rTDKText = bDynamic && !SerializerAssists.IsBaseType(rKeyType, false) ? "Dynamic" : string.Empty;
+            var rTDVText = bDynamic && !SerializerAssists.IsBaseType(rValueType, false) ? "Dynamic" : string.Empty;
+
+            this.WriteBraceCode(2,
+        $"public static void Serialize{rTDText}(this BinaryWriter rWriter, {rTypeName} value)",
+        @"{",
+         $@"var bValid = (null != value);
 			rWriter.Serialize(bValid);
 			if (!bValid) return;
 
 			rWriter.Serialize(value.Count);
-			foreach(var rPair in value)
-			{
-				rWriter.Serialize(rPair.Key);
-				rWriter.Serialize(rPair.Value);
-			}
-		}
-");
+            {this.GenerateBraceCode(0, 
+            "foreach(var rPair in value)",
+"            {",
+$@"            rWriter.Serialize{rTDKText}({(rKeyType.IsEnum ? "(int)rPair.Key" : "rPair.Key")});
+				rWriter.Serialize{rTDVText}({(rValueType.IsEnum ? "(int)rPair.Value" : "rPair.Value")});",
+"            }")}",
+        "}");
 
-            this.Write(
-$"        public static Dict<{rKeyType.FullName}, {rValueType.FullName}> Deserialize(this BinaryReader rReader, Dict<{rKeyType.FullName}, {rValueType.FullName}> value)");
-            this.Write(@"        {
-			var bValid = rReader.Deserialize(default(bool));
+            this.WriteBraceCode(2,
+        $"public static {rTypeName} Deserialize{rTDText}(this BinaryReader rReader, {rTypeName} value)",
+        @"{",
+         $@"var bValid = rReader.Deserialize(default(bool));
 			if (!bValid) return null;
 
-			var nCount  = rReader.Deserialize(default(int));");
-            this.Write(
-$"            var rResult = new Dict<{rKeyType.FullName}, {rValueType.FullName}>();");
-
-            this.Write(@"
-			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
-			{");
-            this.Write(
-$"                var rKey   = rReader.Deserialize(default({rKeyType.FullName}));");
-            this.Write(
-$"                var rValue = rReader.Deserialize(default({rValueType.FullName}));");
-			this.Write(
-@"                rResult.Add(rKey, rValue);
-			}
-			return rResult;
+			var nCount  = rReader.Deserialize(default(int));
+            var rResult = new {rTypeName}();
+            {this.GenerateBraceCode(0,
+            "for (int nIndex = 0; nIndex < nCount; ++ nIndex)",
+"            {",
+$@"            var rKey   = {(rKeyType.IsEnum ? string.Format("({0})", rKeyType.FullName) : string.Empty)}rReader.Deserialize{rTDKText}({SerializerAssists.GetDeserializeUnwrap(rKeyType)});
+                var rValue = {(rValueType.IsEnum ? string.Format("({0})", rValueType.FullName) : string.Empty)}rReader.Deserialize{rTDVText}({SerializerAssists.GetDeserializeUnwrap(rValueType)});
+                rResult.Add(rKey, rValue);",
+"            }")}
+            return rResult;",
+         "}");
 		}
-");
+
+        private bool ReceiveGeneratedArrayType(Type rType, bool bDynamic)
+        {
+            return ReceiveType(mGeneratedArray, mGeneratedDynamicArray, rType, bDynamic);
         }
 
-        public void WriteDictionary(Type rKeyType, Type rValueType)
+        private bool ReceiveGeneratedListType(Type rType, bool bDynamic)
         {
-            this.Write(
-$"        public static void Serialize(this BinaryWriter rWriter, Dictionary<{rKeyType.FullName}, {rValueType.FullName}> value)");
-            this.Write(@"        {
-			var bValid = (null != value);
-			rWriter.Serialize(bValid);
-			if (!bValid) return;
+            return ReceiveType(mGeneratedList, mGeneratedDynamicList, rType, bDynamic);
+        }
+        
+        private bool ReceiveGeneratedDictionaryType(Type rType, bool bDynamic)
+        {
+            return ReceiveType(mGeneratedDictionary, mGeneratedDynamicDictionary, rType, bDynamic);
+        }
 
-			rWriter.Serialize(value.Count);
-			foreach(var rPair in value)
-			{
-				rWriter.Serialize(rPair.Key);
-				rWriter.Serialize(rPair.Value);
-			}
-		}
-");
-
-            this.Write(
-$"        public static Dictionary<{rKeyType.FullName}, {rValueType.FullName}> Deserialize(this BinaryReader rReader, Dictionary<{rKeyType.FullName}, {rValueType.FullName}> value)");
-            this.Write(@"        {
-			var bValid = rReader.Deserialize(default(bool));
-			if (!bValid) return null;
-
-			var nCount  = rReader.Deserialize(default(int));");
-            this.Write(
-$"            var rResult = new Dictionary<{rKeyType.FullName}, {rValueType.FullName}>();");
-
-            this.Write(@"
-			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
-			{");
-            this.Write(
-$"                var rKey   = rReader.Deserialize(default({rKeyType.FullName}));");
-            this.Write(
-$"                var rValue = rReader.Deserialize(default({rValueType.FullName}));");
-            this.Write(
-@"                rResult.Add(rKey, rValue);
-			}
-			return rResult;
-		}
-");
+        private bool ReceiveType(List<Type> rGenerated, List<Type> rGeneratedDynamic, Type rType, bool bDynamic)
+        {
+            if (bDynamic)
+            {
+                if (rGeneratedDynamic.Contains(rType))
+                    return true;
+                rGeneratedDynamic.Add(rType);
+            }
+            else
+            {
+                if (rGenerated.Contains(rType))
+                    return true;
+                rGenerated.Add(rType);
+            }
+            return false;
         }
     }
 }

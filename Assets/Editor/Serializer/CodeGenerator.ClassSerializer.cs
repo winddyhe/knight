@@ -15,7 +15,7 @@ namespace Core.Serializer.Editor
 
         public override void WriteHead()
         {
-            this.Write(@"
+            this.Write(0, @"
 using System.IO;
 using Core;
 using Core.Serializer;
@@ -34,14 +34,14 @@ using Game.Serializer;
 
         public void WriteClass(Type rType)
         {
-            this.Write(
+            this.Write(0,
 $"namespace {rType.Namespace}");
-            this.Write(
+            this.Write(0,
 "{");
-            this.Write(
-$"    public partial class {rType.Name}");
-            this.Write(
-@"    {
+            this.Write(1,
+    $"public partial class {rType.Name}");
+            this.Write(1,
+    @"{
         public override void Serialize(BinaryWriter rWriter)
 	    {
             base.Serialize(rWriter);");
@@ -54,15 +54,15 @@ $"    public partial class {rType.Name}");
 
                 if (rMemberInfo.IsDefined(typeof(SBDynamicAttribute), true) && 
                     !SerializerAssists.IsBaseType(SerializerAssists.GetMemberType(rMemberInfo), false))
-                    this.Write($"            rWriter.SerializeDynamic({rParamText});");
+                    this.Write(3, $"rWriter.SerializeDynamic({rParamText});");
                 else
-                    this.Write($"            rWriter.Serialize({rParamText});");
+                    this.Write(3, $"rWriter.Serialize({rParamText});");
             }
-            this.Write(
-"        }");
+            this.Write(2,
+        "}");
 
-            this.Write(@"	
-        public override void Deserialize(BinaryReader rReader)
+            this.Write(2, 
+        @"public override void Deserialize(BinaryReader rReader)
 	    {
 		    base.Deserialize(rReader);");
 
@@ -74,12 +74,12 @@ $"    public partial class {rType.Name}");
 
                 if (rMemberInfo.IsDefined(typeof(SBDynamicAttribute), false) &&
                     !SerializerAssists.IsBaseType(SerializerAssists.GetMemberType(rMemberInfo), false))
-                    this.Write($"            this.{rMemberInfo.Name} = {rMemberText}rReader.DeserializeDynamic({rMemberDummyText});");
+                    this.Write(3, $"this.{rMemberInfo.Name} = {rMemberText}rReader.DeserializeDynamic({rMemberDummyText});");
                 else
-                    this.Write($"            this.{rMemberInfo.Name} = {rMemberText}rReader.Deserialize({rMemberDummyText});");
+                    this.Write(3, $"this.{rMemberInfo.Name} = {rMemberText}rReader.Deserialize({rMemberDummyText});");
             }
-            this.Write(
-@"        }
+            this.Write(2,
+        @"}
     }
 }
 ");

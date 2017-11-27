@@ -20,10 +20,11 @@ namespace Core.Serializer.Editor
             var rCommonSerializer = new CodeGenerator_CommonSerializer("D:/common.cs");
             
             rCommonSerializer.WriteHead();
-            rCommonSerializer.WriteArray(typeof(UnityEngine.AssetBundles.ABVersion));
-            rCommonSerializer.WriteList(typeof(UnityEngine.AssetBundles.ABVersion));
-            rCommonSerializer.WriteDict(typeof(int), typeof(UnityEngine.AssetBundles.ABVersion));
-            rCommonSerializer.WriteDictionary(typeof(int), typeof(UnityEngine.AssetBundles.ABVersion));
+            bool bIsDynamic = true;
+            rCommonSerializer.WriteArray(typeof(UnityEngine.AssetBundles.ABVersion[]), bIsDynamic);
+            rCommonSerializer.WriteList(typeof(List<UnityEngine.AssetBundles.ABVersion>), bIsDynamic);
+            rCommonSerializer.WriteDictionary(typeof(Dict<int, UnityEngine.AssetBundles.ABVersion>), bIsDynamic);
+            rCommonSerializer.WriteDictionary(typeof(Dictionary<int, UnityEngine.AssetBundles.ABVersion>), bIsDynamic);
             rCommonSerializer.WriteEnd();
             rCommonSerializer.Save();
 

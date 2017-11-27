@@ -19,9 +19,54 @@ namespace Core
             this.StringBuilder = new StringBuilder();
         }
         
-        public void Write(string rContent)
+        public void Write(int nTabCount, string rContent)
         {
+            for (int i = 0; i < nTabCount; i++)
+            {
+                this.StringBuilder?.Append("\t");
+            }
             this.StringBuilder?.AppendLine(rContent);
+        }
+
+        public void WriteBraceCode(int nTabCount, string rHeadContent, string rLeftBrace, string rContent, string rRightBrace)
+        {
+            for (int i = 0; i < nTabCount; i++)
+                this.StringBuilder?.Append("\t");
+            this.StringBuilder?.AppendLine(rHeadContent);
+
+            for (int i = 0; i < nTabCount; i++)
+                this.StringBuilder?.Append("\t");
+            this.StringBuilder?.AppendLine(rLeftBrace);
+
+            for (int i = 0; i < nTabCount + 1; i++)
+                this.StringBuilder?.Append("\t");
+            this.StringBuilder?.AppendLine(rContent);
+
+            for (int i = 0; i < nTabCount; i++)
+                this.StringBuilder?.Append("\t");
+            this.StringBuilder?.AppendLine(rRightBrace);
+        }
+
+        public string GenerateBraceCode(int nTabCount, string rHeadContent, string rLeftBrace, string rContent, string rRightBrace)
+        {
+            StringBuilder rStringbuilder = new StringBuilder();
+            for (int i = 0; i < nTabCount; i++)
+                rStringbuilder.Append("\t");
+            rStringbuilder.AppendLine(rHeadContent);
+
+            for (int i = 0; i < nTabCount; i++)
+                rStringbuilder.Append("\t");
+            rStringbuilder.AppendLine(rLeftBrace);
+
+            for (int i = 0; i < nTabCount + 1; i++)
+                rStringbuilder.Append("\t");
+            rStringbuilder.AppendLine(rContent);
+
+            for (int i = 0; i < nTabCount; i++)
+                rStringbuilder.Append("\t");
+            rStringbuilder.AppendLine(rRightBrace);
+
+            return rStringbuilder.ToString();
         }
 
         public void Write()
@@ -29,8 +74,12 @@ namespace Core
             this.StringBuilder?.AppendLine();
         }
 
-        public void Write(string rContent, params object[] rArgs)
+        public void Write(int nTabCount, string rContent, params object[] rArgs)
         {
+            for (int i = 0; i < nTabCount; i++)
+            {
+                this.StringBuilder?.Append("\t");
+            }
             this.StringBuilder?.AppendLine(string.Format(rContent, rArgs));
         }
 
