@@ -12,9 +12,9 @@ namespace Core.Serializer.Editor
 {
     public class SerializerBinaryEditor : TSingleton<SerializerBinaryEditor>
     {
-        private const string    mGeneratePathRoot      = "Assets/Generate/SerializerBinary/";
-        private const string    mGeneratePath          = mGeneratePathRoot + "Runtime/";
-        private const string    mCommonSerializerPath  = mGeneratePath     + "CommonSerializer.cs";
+        private const string    mGeneratePathRoot       = "Assets/Generate/SerializerBinary/";
+        private const string    mGeneratePath           = mGeneratePathRoot + "Runtime/";
+        private const string    mCommonSerializerPath   = mGeneratePath     + "CommonSerializer.cs";
 
         private CodeGenerator_CommonSerializer          mCommonSerializer;
         private List<CodeGenerator_ClassSerializer>     mClassSerializers;
