@@ -83,10 +83,6 @@ $"namespace {rType.Namespace}");
     }
 }
 ");
-            this.GroupName = string.Empty;
-            var rAttributes = rType.GetCustomAttributes<SBGroupAttribute>(true);
-            if (rAttributes.Length > 0)
-                this.GroupName = rAttributes[0].GroupName;
         }
     }
 }

@@ -5,13 +5,19 @@
 using System;
 using System.Text;
 using System.IO;
+using UnityEditor;
 
 namespace Core
 {
     public class CodeGenerator
     {
+        public const string     CSMD5Path = "Library/CSGenerate/";
+
         public StringBuilder    StringBuilder;
         public string           FilePath;
+        public string           MD5;
+        public string           GUID;
+        public bool             NeedReimport;
 
         public CodeGenerator(string rFilePath)
         {
@@ -85,7 +91,27 @@ namespace Core
 
         public void Save()
         {
-            File.WriteAllText(this.FilePath, this.StringBuilder.ToString());
+            if (!Directory.Exists(CSMD5Path))
+                Directory.CreateDirectory(CSMD5Path);
+
+            this.GUID = AssetDatabase.AssetPathToGUID(FilePath);
+            this.MD5  = UtilTool.GetMD5String(this.StringBuilder.ToString());
+            this.NeedReimport = false;
+
+            if (string.IsNullOrEmpty(this.GUID) ||
+                !File.Exists(CSMD5Path + this.GUID) ||
+                !File.Exists(this.FilePath) ||
+                File.ReadAllText(CSMD5Path + this.GUID) != this.MD5)
+            {
+                this.NeedReimport = true;
+                UtilTool.WriteAllText(this.FilePath, this.StringBuilder.ToString());
+            }
+
+            if (this.NeedReimport)
+                AssetDatabase.ImportAsset(this.FilePath);
+
+            this.GUID = AssetDatabase.AssetPathToGUID(this.FilePath);
+            UtilTool.WriteAllText(CSMD5Path + this.GUID, this.MD5);
         }
 
         public virtual void WriteHead()

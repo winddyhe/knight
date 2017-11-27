@@ -268,7 +268,6 @@
     <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\TaskExtensions.cs" />
     <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\WaitForBackgroundThread.cs" />
     <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\WaitForUpdate.cs" />
-    <Compile Include="Assets\Plugins\Core\CodeGen\CodeGenerator.cs" />
     <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineHandler.cs" />
     <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineManager.cs" />
     <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineRequest.cs" />

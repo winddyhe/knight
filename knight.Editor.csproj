@@ -12,12 +12,14 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <CompilerResponseFile>Library\UnityAssemblies\mcs.rsp</CompilerResponseFile>
     <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.0p1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -371,9 +373,8 @@
     <Compile Include="Assets\Editor\MultiScene\MultiSceneEditorWindow.cs" />
     <Compile Include="Assets\Editor\Serializer\CodeGenerator.ClassSerializer.cs" />
     <Compile Include="Assets\Editor\Serializer\CodeGenerator.CommonSerializer.cs" />
-    <Compile Include="Assets\Editor\Serializer\CSGenerate.cs" />
+    <Compile Include="Assets\Editor\Serializer\CodeGenerator.cs" />
     <Compile Include="Assets\Editor\Serializer\SerializerBinary.Editor.cs" />
-    <Compile Include="Assets\Editor\Serializer\SerializerBinaryEditor.cs" />
     <Compile Include="Assets\Game\Knight\Editor\AssetbundlePerprocessor.Knight.cs" />
     <Compile Include="Assets\Test\SceneABTest\Editor\SceneABTestEditor.cs" />
   </ItemGroup>
