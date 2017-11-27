@@ -27,8 +27,12 @@ namespace Core.Serializer.Editor
         public static void CodeGenerate()
         {
             SerializerBinaryEditor.Instance.Analysis((rText, fProgress)=> EditorUtility.DisplayProgressBar("AutoCSGenerate", rText, fProgress));
+            EditorUtility.ClearProgressBar();
+
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
+
+            UnityEngine.Debug.Log("Auto cs generate complete..");
         }
 
         public void Analysis(System.Action<string, float> rProgressAction = null)
