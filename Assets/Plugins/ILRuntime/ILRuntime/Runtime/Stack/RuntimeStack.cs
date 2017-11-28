@@ -18,7 +18,7 @@ namespace ILRuntime.Runtime.Stack
 
         IntPtr nativePointer;
 
-#if DEBUG
+#if DEBUG1
         IList<object> managedStack = new List<object>(32);
 #else
         IList<object> managedStack = new UncheckedList<object>(32);
@@ -83,7 +83,7 @@ namespace ILRuntime.Runtime.Stack
             res = new StackFrame();
             res.LocalVarPointer = esp;
             res.Method = method;
-#if DEBUG
+#if DEBUG1
             res.Address = new IntegerReference();
             for (int i = 0; i < method.LocalVariableCount; i++)
             {
@@ -130,7 +130,7 @@ namespace ILRuntime.Runtime.Stack
                 }
                 ret++;
             }
-#if DEBUG
+#if DEBUG1
             ((List<object>)managedStack).RemoveRange(mStackBase, managedStack.Count - mStackBase);
 #else
             ((UncheckedList<object>)managedStack).RemoveRange(mStackBase, managedStack.Count - mStackBase);
@@ -353,7 +353,7 @@ namespace ILRuntime.Runtime.Stack
             {
                 if (end == managedStack.Count - 1)
                 {
-#if DEBUG
+#if DEBUG1
                     ((List<object>)managedStack).RemoveRange(start, managedStack.Count - start);
 #else
                     ((UncheckedList<object>)managedStack).RemoveRange(start, managedStack.Count - start);

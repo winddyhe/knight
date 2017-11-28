@@ -49,7 +49,7 @@ namespace Test
 #if UNITY_EDITOR
             rTestPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath(rPrefabPath, typeof(GameObject)) as GameObject;
 #endif
-            //this.Canvas.transform.AddChild(rTestPrefab, "UI");
+            this.Canvas.transform.AddChild(rTestPrefab, "UI");
             GameObject.Instantiate(rTestPrefab);
 
             HotfixObject rHotfixObj = HotfixManager.Instance.Instantiate("WindHotfix.Test.Class3");
@@ -59,8 +59,8 @@ namespace Test
 
         private void LoadHotfixDLL()
         {
-            string rDLLPath = "Assets/Game/Knight/GameAsset/Hotfix/Debug/KnightHotfixModule.dll";
-            string rPDBPath = "Assets/Game/Knight/GameAsset/Hotfix/Debug/KnightHotfixModule.pdb";
+            string rDLLPath = "Assets/StreamingAssets/Temp/Libs/KnightHotfixModule.dll";
+            string rPDBPath = "Assets/StreamingAssets/Temp/Libs/KnightHotfixModule.pdb";
             HotfixManager.Instance.InitApp(rDLLPath, rPDBPath);
         }
     }

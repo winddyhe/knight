@@ -103,7 +103,7 @@ MonoBehaviour:
   - Name: HotfixTest1 (1)
     Object: {fileID: 114000011678847158}
     Type: UnityEngine.UI.Button
-  mNeedUpdate: 0
+  mNeedUpdate: 1
 --- !u!114 &114000011192761508
 MonoBehaviour:
   m_ObjectHideFlags: 1

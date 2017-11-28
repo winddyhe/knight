@@ -37,15 +37,15 @@ namespace Framework.Hotfix
         {
             mApp = new AppDomain();
 
-            MemoryStream rDLLMS = new MemoryStream(rDLLBytes);
-            MemoryStream rPDBMS = new MemoryStream(rPDBBytes);
+            MemoryStream rDLLMS = (rDLLBytes != null) ? new MemoryStream(rDLLBytes) : null;
+            MemoryStream rPDBMS = (rPDBBytes != null) ? new MemoryStream(rPDBBytes) : null;
 
             mApp.LoadAssembly(rDLLMS, rPDBMS, new Mono.Cecil.Pdb.PdbReaderProvider());
 
-            rDLLMS.Close();
-            rPDBMS.Close();
-            rDLLMS.Dispose();
-            rPDBMS.Dispose();
+            rDLLMS?.Close();
+            rPDBMS?.Close();
+            rDLLMS?.Dispose();
+            rPDBMS?.Dispose();
 
             // 注册Value Type Binder
             this.RegisterValueTypeBinder();
@@ -62,7 +62,9 @@ namespace Framework.Hotfix
 
         public override void InitApp(string rDLLPath, string rPDBPath)
         {
-            InitApp(File.ReadAllBytes(rDLLPath), File.ReadAllBytes(rPDBPath));
+            byte[] rDLLBytes = File.Exists(rDLLPath) ? File.ReadAllBytes(rDLLPath) : null;
+            byte[] rPDBBytes = File.Exists(rPDBPath) ? File.ReadAllBytes(rPDBPath) : null;
+            InitApp(rDLLBytes, rPDBBytes);
         }
 
         private void RegisterCrossBindingAdaptor()

@@ -37,6 +37,26 @@ namespace WindHotfix.Test
         private void OnButton1_Clicked(UnityEngine.Object rObj)
         {
             Debug.LogError(rObj.name + " Clicked...");
+            for (int i = 0; i < 1000; i++)
+            {
+                v += Vector2.one;
+                dot += Vector2.Dot(v, Vector2.zero);
+            }
+        }
+
+        Vector2 v = Vector2.zero;
+        int x = 1;
+        float dot = 0;
+
+        public override void Update()
+        {
+            v += Vector2.one;
+            dot += Vector2.Dot(v, Vector2.zero);
+            //for (int i = 0; i < 1000; i++)
+            //{
+            //    v += Vector2.one;
+            //    dot += Vector2.Dot(v, Vector2.zero);
+            //}
         }
     }
 }
