@@ -73,36 +73,36 @@ public class CoroutineTest : MonoBehaviour
 ```
 
 * async await异步模式
-```
-    public class Init : MonoBehaviour
+```C#
+public class Init : MonoBehaviour
+{
+    public string HotfixABPath = "";
+    public string HotfixModule = "";
+    
+    async void Start()
     {
-        public string HotfixABPath = "";
-        public string HotfixModule = "";
-        
-        async void Start()
-        {
-            CoroutineManager.Instance.Initialize();
-			await Start_Async();
-        }
+        CoroutineManager.Instance.Initialize();
+		wait Start_Async();
+    }
 
-        private async Task Start_Async()
-        {
-            await ABPlatform.Instance.Initialize();
-            await ABUpdater.Instance.Initialize();
-			
-            await HotfixManager.Instance.Load(this.HotfixABPath, this.HotfixModule);
+    private async Task Start_Async()
+    {
+        await ABPlatform.Instance.Initialize();
+        await ABUpdater.Instance.Initialize();
 
-            await HotfixGameMainLogic.Instance.Initialize();
-			
-            Debug.Log("End init..");
-        }
-	}
-	
-	// 直接await Assetbundle.LoadFromFileAsync API
-	rAssetLoadEntry.CacheAsset = await AssetBundle.LoadFromFileAsync(rAssetLoadUrl);
-	
-	// 直接await Assetbundle.LoadAssetAsync API
-	rRequest.Asset = await rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
+        await HotfixManager.Instance.Load(this.HotfixABPath, this.HotfixModule);
+
+        await HotfixGameMainLogic.Instance.Initialize();
+
+        Debug.Log("End init..");
+    }
+}
+
+// 直接await Assetbundle.LoadFromFileAsync API
+rAssetLoadEntry.CacheAsset = await AssetBundle.LoadFromFileAsync(rAssetLoadUrl);
+
+// 直接await Assetbundle.LoadAssetAsync API
+rRequest.Asset = await rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
 ```
 
 ## 需要注意的问题
