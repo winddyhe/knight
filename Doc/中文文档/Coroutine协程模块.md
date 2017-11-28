@@ -82,7 +82,7 @@ public class Init : MonoBehaviour
     async void Start()
     {
         CoroutineManager.Instance.Initialize();
-		wait Start_Async();
+	wait Start_Async();
     }
 
     private async Task Start_Async()
