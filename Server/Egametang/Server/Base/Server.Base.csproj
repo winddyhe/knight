@@ -15,10 +15,9 @@
     <DefineConstants>TRACE;RELEASE;NETCOREAPP2_0;SERVER</DefineConstants>
     <OutputPath>..\..\</OutputPath>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <Folder Include="Core\Assist\" />
-    <Folder Include="Core\Serializer\" />
     <Folder Include="Core\WindJson\" />
     <Folder Include="Helper\" />
     <Folder Include="Network\TNet\" />

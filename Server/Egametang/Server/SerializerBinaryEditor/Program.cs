@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using Model;
 
-namespace Core.Editor
+namespace Core.Serializer.Editor
 {
     class Program
     {
         static void Main(string[] args)
         {
             DllHelper.ReferthisDLL();
-            AutoCSGenerateMain.AutoCSGenerate();
+            SerializerBinaryEditor.CodeGenerate();
         }
     }
 }

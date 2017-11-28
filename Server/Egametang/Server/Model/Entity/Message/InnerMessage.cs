@@ -325,6 +325,7 @@ namespace Model{
     
     /// <summary>    /// 用来包装actor消息    /// </summary>    [Message(Opcode.ActorRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ActorRequest : ARequest
     {
         public long Id { get; set; }
@@ -334,18 +335,21 @@ namespace Model{
     
     /// <summary>    /// actor RPC消息响应    /// </summary>    [Message(Opcode.ActorResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ActorResponse : AResponse
     {
     }
     
     /// <summary>    /// 用来包装actor消息    /// </summary>    [Message(Opcode.ActorRpcRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ActorRpcRequest : ActorRequest
     {
     }
 
     /// <summary>    /// actor RPC消息响应带回应    /// </summary>    [Message(Opcode.ActorRpcResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ActorRpcResponse : ActorResponse
     {
         public AMessage AMessage { get; set; }
@@ -353,6 +357,7 @@ namespace Model{
     
     /// <summary>    /// 传送unit    /// </summary>    [Message(Opcode.M2M_TrasferUnitRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class M2M_TrasferUnitRequest : ARequest
     {
         public Unit Unit;
@@ -360,18 +365,21 @@ namespace Model{
 
     [Message(Opcode.M2M_TrasferUnitResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class M2M_TrasferUnitResponse : AResponse
     {
     }
     
     [Message(Opcode.M2A_Reload)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class M2A_Reload : ARequest
     {
     }
     
     [Message(Opcode.A2M_Reload)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class A2M_Reload : AResponse
     {
     }
@@ -379,6 +387,7 @@ namespace Model{
 
     [Message(Opcode.G2G_LockRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class G2G_LockRequest : ARequest
     {
         public long Id;
@@ -388,12 +397,14 @@ namespace Model{
 
     [Message(Opcode.G2G_LockResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class G2G_LockResponse : AResponse
     {
     }
 
     [Message(Opcode.G2G_LockReleaseRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class G2G_LockReleaseRequest : ARequest
     {
         public long Id;
@@ -403,12 +414,14 @@ namespace Model{
 
     [Message(Opcode.G2G_LockReleaseResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class G2G_LockReleaseResponse : AResponse
     {
     }
 
     [Message(Opcode.DBSaveRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class DBSaveRequest : ARequest
     {
         public bool NeedCache = true;
@@ -422,6 +435,7 @@ namespace Model{
 
     [Message(Opcode.DBSaveBatchResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class DBSaveBatchResponse : AResponse
     {
     }
@@ -429,6 +443,7 @@ namespace Model{
 
     [Message(Opcode.DBSaveBatchRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class DBSaveBatchRequest : ARequest
     {
         public bool NeedCache = true;
@@ -438,6 +453,7 @@ namespace Model{
 
     [Message(Opcode.DBSaveResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class DBSaveResponse : AResponse
     {
     }
@@ -445,6 +461,7 @@ namespace Model{
 
     [Message(Opcode.DBQueryRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class DBQueryRequest : ARequest
     {
         public long Id;
@@ -455,6 +472,7 @@ namespace Model{
 
     [Message(Opcode.DBQueryResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class DBQueryResponse : AResponse
     {
         public Entity Entity;
@@ -463,6 +481,7 @@ namespace Model{
 
     [Message(Opcode.DBQueryBatchRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class DBQueryBatchRequest : ARequest
     {
         public string CollectionName { get; set; }
@@ -472,6 +491,7 @@ namespace Model{
 
     [Message(Opcode.DBQueryBatchResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class DBQueryBatchResponse : AResponse
     {
         public List<Entity> Entitys;
@@ -480,6 +500,7 @@ namespace Model{
 
     [Message(Opcode.DBQueryJsonRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class DBQueryJsonRequest : ARequest
     {
         public string CollectionName { get; set; }
@@ -489,6 +510,7 @@ namespace Model{
 
     [Message(Opcode.DBQueryJsonResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class DBQueryJsonResponse : AResponse
     {
         public List<Entity> Entitys;
@@ -496,6 +518,7 @@ namespace Model{
 
     [Message(Opcode.ObjectAddRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ObjectAddRequest : ARequest
     {
         public long Key { get; set; }
@@ -504,12 +527,14 @@ namespace Model{
 
     [Message(Opcode.ObjectAddResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ObjectAddResponse : AResponse
     {
     }
 
     [Message(Opcode.ObjectRemoveRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ObjectRemoveRequest : ARequest
     {
         public long Key { get; set; }
@@ -517,12 +542,14 @@ namespace Model{
 
     [Message(Opcode.ObjectRemoveResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ObjectRemoveResponse : AResponse
     {
     }
 
     [Message(Opcode.ObjectLockRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ObjectLockRequest : ARequest
     {
         public long Key { get; set; }
@@ -532,12 +559,14 @@ namespace Model{
 
     [Message(Opcode.ObjectLockResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ObjectLockResponse : AResponse
     {
     }
 
     [Message(Opcode.ObjectUnLockRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ObjectUnLockRequest : ARequest
     {
         public long Key { get; set; }
@@ -547,12 +576,14 @@ namespace Model{
 
     [Message(Opcode.ObjectUnLockResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ObjectUnLockResponse : AResponse
     {
     }
 
     [Message(Opcode.ObjectGetRequest)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ObjectGetRequest : ARequest
     {
         public long Key { get; set; }
@@ -560,6 +591,7 @@ namespace Model{
 
     [Message(Opcode.ObjectGetResponse)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class ObjectGetResponse : AResponse
     {
         public int AppId { get; set; }
@@ -568,6 +600,7 @@ namespace Model{
 
     [Message(Opcode.R2G_GetLoginKey)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class R2G_GetLoginKey : ARequest
     {
         public string Account;
@@ -576,6 +609,7 @@ namespace Model{
 
     [Message(Opcode.G2R_GetLoginKey)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class G2R_GetLoginKey : AResponse
     {
         public long Key;
@@ -593,6 +627,7 @@ namespace Model{
 
     [Message(Opcode.G2M_CreateUnit)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class G2M_CreateUnit : ARequest
     {
         public long PlayerId;
@@ -602,6 +637,7 @@ namespace Model{
 
     [Message(Opcode.M2G_CreateUnit)]
     [BsonIgnoreExtraElements]
+    [Core.TSIgnore]
     public partial class M2G_CreateUnit : AResponse
     {
         public long UnitId;

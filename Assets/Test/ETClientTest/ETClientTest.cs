@@ -52,7 +52,7 @@ namespace Test
 
         void OnDestroy()
         {
-
+            gateSession.Dispose();
         }
     }
 }
