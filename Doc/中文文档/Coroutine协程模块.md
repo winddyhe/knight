@@ -1,6 +1,6 @@
 # Coroutine协程管理
 * （题外话） 尽管网上很多大佬并不推荐在Unity中使用协程，但是不可否认的是在U3D中使用协程来做异步处理可以让代码变得非常简洁好看。特别是在和U3D的资源加载一起配合使用的时候真的很方便。所以我还是非常推崇在U3D中使用协程来做异步处理的。
-* 如果Unity在后面的版本能够使用async await操作Unity API的时候，将会考虑把协程模块替换为async await的方式实现。
+* 目前项目中的异步操作已经全部替换为async await模式了，支持Unity Coroutine和async await相互混用，自由转变。
 
 ## 协程模块支持的功能
 * 协程使用统一管理，让携程的启动不再依赖MonoBehaviour。
@@ -70,6 +70,39 @@ public class CoroutineTest : MonoBehaviour
         Debug.Log("Done.");
     }
 }
+```
+
+* async await异步模式
+```
+    public class Init : MonoBehaviour
+    {
+        public string HotfixABPath = "";
+        public string HotfixModule = "";
+        
+        async void Start()
+        {
+            CoroutineManager.Instance.Initialize();
+			await Start_Async();
+        }
+
+        private async Task Start_Async()
+        {
+            await ABPlatform.Instance.Initialize();
+            await ABUpdater.Instance.Initialize();
+			
+            await HotfixManager.Instance.Load(this.HotfixABPath, this.HotfixModule);
+
+            await HotfixGameMainLogic.Instance.Initialize();
+			
+            Debug.Log("End init..");
+        }
+	}
+	
+	// 直接await Assetbundle.LoadFromFileAsync API
+	rAssetLoadEntry.CacheAsset = await AssetBundle.LoadFromFileAsync(rAssetLoadUrl);
+	
+	// 直接await Assetbundle.LoadAssetAsync API
+	rRequest.Asset = await rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
 ```
 
 ## 需要注意的问题
