@@ -149,22 +149,16 @@ namespace Core
         public class Enumerator : IEnumerator<CKeyValuePair<TKey, TValue>>
         {
             private Dictionary<object, object>.Enumerator   mCurrent;
-            private CKeyValuePair<TKey, TValue>             mCurrentValue;
 
             public Enumerator(Dictionary<object, object>.Enumerator rEnumerator)
             {
                 mCurrent = rEnumerator;
-                mCurrentValue = new CKeyValuePair<TKey, TValue>(default(TKey), default(TValue));
             }
 
             public CKeyValuePair<TKey, TValue> Current
             {
-                get
-                {
-                    mCurrentValue.Key   = (TKey)mCurrent.Current.Key;
-                    mCurrentValue.Value = (TValue)mCurrent.Current.Value;
-                    return mCurrentValue;
-                }
+
+                get { return new CKeyValuePair<TKey, TValue>((TKey)mCurrent.Current.Key, (TValue)mCurrent.Current.Value); }
             }
 
             object IEnumerator.Current

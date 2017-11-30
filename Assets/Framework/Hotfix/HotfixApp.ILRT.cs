@@ -130,6 +130,19 @@ namespace Framework.Hotfix
 
             this.mApp.DelegateManager.RegisterMethodDelegate<Model.AChannel, System.Net.Sockets.SocketError>();
             this.mApp.DelegateManager.RegisterMethodDelegate<System.Object>();
+            this.mApp.DelegateManager.RegisterFunctionDelegate<Core.CKeyValuePair<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>, 
+                                                               Core.CKeyValuePair<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>, 
+                                                               System.Int32>();
+            this.mApp.DelegateManager.RegisterDelegateConvertor<System.Comparison<Core.CKeyValuePair<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>>>((act) =>
+            {
+                return new System.Comparison<Core.CKeyValuePair<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>>((x, y) =>
+                {
+                    return ((Func<Core.CKeyValuePair<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>,
+                                  Core.CKeyValuePair<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>,
+                                  System.Int32>)
+                           act)(x, y);
+                });
+            });
         }
 
         public override HotfixObject Instantiate(string rTypeName, params object[] rArgs)
