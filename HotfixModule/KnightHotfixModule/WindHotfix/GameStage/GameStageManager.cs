@@ -67,7 +67,7 @@ namespace WindHotfix.GameStage
         {
             if (this.gameStages == null) return;
             
-            var rGameStageList = new List<KeyValuePair<int, GameStage>>(this.gameStages);
+            var rGameStageList = new List<CKeyValuePair<int, GameStage>>(this.gameStages);
             for (int i = 0; i < rGameStageList.Count; i++)
             {
                 await rGameStageList[i].Value.Run_Async();

@@ -16,6 +16,26 @@ namespace Core
         int Count { get; }
         Dictionary<object, object> OriginCollection { get; }
     }
+    
+    public class CKeyValuePair<TKey, TValue>
+    {
+        private TKey    mKey;
+        private TValue  mValue;
+
+        public CKeyValuePair(TKey key, TValue value)
+        {
+            this.mKey = key;
+            this.mValue = value;
+        }
+
+        public TKey     Key     { get { return mKey;    }   set { mKey = value;     } }
+        public TValue   Value   { get { return mValue;  }   set { mValue = value;   } }
+        
+        public override string ToString()
+        {
+            return $"CKeyValuePair<{typeof(TKey)},{typeof(TValue)}>({mKey}, {mValue})";
+        }
+    }
 
     public static class DictExpand
     {
@@ -61,17 +81,17 @@ namespace Core
             return (TValue)rDict.Collection.Values.First();
         }
         
-        public static KeyValuePair<TKey, TValue> First<TKey, TValue>(this Dict<TKey, TValue> rDict)
+        public static CKeyValuePair<TKey, TValue> First<TKey, TValue>(this Dict<TKey, TValue> rDict)
         {
-            if (rDict.Count == 0) return default(KeyValuePair<TKey, TValue>);
-            return new KeyValuePair<TKey, TValue>(rDict.FirstKey(), rDict.FirstValue());
+            if (rDict.Count == 0) return null;
+            return new CKeyValuePair<TKey, TValue>(rDict.FirstKey(), rDict.FirstValue());
         }
 
-        public static KeyValuePair<TKey, TValue> Last<TKey, TValue>(this Dict<TKey, TValue> rDict)
+        public static CKeyValuePair<TKey, TValue> Last<TKey, TValue>(this Dict<TKey, TValue> rDict)
         {
-            if (rDict.Count == 0) return default(KeyValuePair<TKey, TValue>);
+            if (rDict.Count == 0) return null;
 
-            return new KeyValuePair<TKey, TValue>(rDict.LastKey(), rDict.LastValue());
+            return new CKeyValuePair<TKey, TValue>(rDict.LastKey(), rDict.LastValue());
         }
 
         public static void Clear<TKey, TValue>(this Dict<TKey, TValue> rDict)
@@ -104,9 +124,9 @@ namespace Core
             return newDict;
         }
 
-        public static Dict<TKey, TValue> Sort<TKey, TValue>(this Dict<TKey, TValue> rDict, Comparison<KeyValuePair<TKey, TValue>> cmpAlgo)
+        public static Dict<TKey, TValue> Sort<TKey, TValue>(this Dict<TKey, TValue> rDict, Comparison<CKeyValuePair<TKey, TValue>> cmpAlgo)
         {
-            var list = new List<KeyValuePair<TKey, TValue>>();
+            var list = new List<CKeyValuePair<TKey, TValue>>();
             foreach (var item in rDict)
             {
                 list.Add(item);
@@ -123,24 +143,28 @@ namespace Core
             return rDict;
         }
     }
-
-    /// <summary>
-    /// 暂时还没有找到办法在Hotfix端直接使用Dict模板类，该类只能在U3D端使用，在Hotfix端直接使用Dictionary
-    /// </summary>
-    public class Dict<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>, IDict
+    
+    public class Dict<TKey, TValue> : IEnumerable<CKeyValuePair<TKey, TValue>>, IDict
     {
-        public struct Enumerator : IEnumerator<KeyValuePair<TKey, TValue>>
+        public class Enumerator : IEnumerator<CKeyValuePair<TKey, TValue>>
         {
-            private Dictionary<object, object>.Enumerator mCurrent;
+            private Dictionary<object, object>.Enumerator   mCurrent;
+            private CKeyValuePair<TKey, TValue>             mCurrentValue;
 
             public Enumerator(Dictionary<object, object>.Enumerator rEnumerator)
             {
                 mCurrent = rEnumerator;
+                mCurrentValue = new CKeyValuePair<TKey, TValue>(default(TKey), default(TValue));
             }
 
-            public KeyValuePair<TKey, TValue> Current
+            public CKeyValuePair<TKey, TValue> Current
             {
-                get { return new KeyValuePair<TKey, TValue>((TKey)mCurrent.Current.Key, (TValue)mCurrent.Current.Value); }
+                get
+                {
+                    mCurrentValue.Key   = (TKey)mCurrent.Current.Key;
+                    mCurrentValue.Value = (TValue)mCurrent.Current.Value;
+                    return mCurrentValue;
+                }
             }
 
             object IEnumerator.Current
@@ -166,7 +190,7 @@ namespace Core
 
         public Dictionary<object, object> Collection = new Dictionary<object, object>();
 
-        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+        public IEnumerator<CKeyValuePair<TKey, TValue>> GetEnumerator()
         {
             return new Enumerator(Collection.GetEnumerator());
         }

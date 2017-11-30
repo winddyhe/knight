@@ -67,6 +67,7 @@ public class ILRuntimeCLRBinding
         domain.RegisterCrossBindingAdaptor(new CoroutineAdaptor());
         domain.RegisterCrossBindingAdaptor(new IEqualityComparerAdaptor());
         domain.RegisterCrossBindingAdaptor(new IEnumerableAdaptor());
+        domain.RegisterCrossBindingAdaptor(new IAsyncStateMachineAdaptor());
     }
 }
 #endif

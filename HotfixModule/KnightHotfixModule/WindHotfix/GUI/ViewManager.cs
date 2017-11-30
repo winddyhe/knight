@@ -10,6 +10,7 @@ using UnityEngine;
 using WindHotfix.Core;
 using Framework.WindUI;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace WindHotfix.GUI
 {
@@ -18,21 +19,21 @@ namespace WindHotfix.GUI
         /// <summary>
         /// 存放各种动态节点的地方
         /// </summary>
-        public GameObject               RootCanvas;
+        public GameObject                   RootCanvas;
         /// <summary>
         /// 当前的UI中的Views，每个View是用GUID来作唯一标识
         /// 底层-->顶层 { 0 --> list.count }
         /// </summary>
-        private Dict<string, View>      mCurViews;
+        private IndexedDict<string, View>   mCurViews;
         /// <summary>
         /// 当前存在的固定View，每个View使用GUID来作唯一标识
         /// </summary>
-        private Dict<string, View>      mCurFixedViews;
+        private Dict<string, View>          mCurFixedViews;
         /// <summary>
         /// 用来存储需要删除的View，当一个View加载完之后，要删除当前需要的不再使用的View资源
         /// </summary>
-        private List<string>            mUnusedViews;
-
+        private List<string>                mUnusedViews;
+        
         private ViewManager()
         {
         }
@@ -40,7 +41,7 @@ namespace WindHotfix.GUI
         public void Initialize()
         {
             this.RootCanvas = UIRoot.Instance.DynamicRoot;
-            this.mCurViews = new Dict<string, View>();
+            this.mCurViews = new IndexedDict<string, View>();
             this.mCurFixedViews = new Dict<string, View>();
             this.mUnusedViews = new List<string>();
         }
@@ -49,9 +50,10 @@ namespace WindHotfix.GUI
         {
             if (this.mCurViews == null) return;
 
-            foreach (var rPair in mCurViews)
+            var rCurViewKeys = mCurViews.Keys;
+            for (int i = 0; i < rCurViewKeys.Count; i++)
             {
-                rPair.Value.Update();
+                this.mCurViews[rCurViewKeys[i]].Update();
             }
         }
 
@@ -79,7 +81,7 @@ namespace WindHotfix.GUI
         public void Pop(Action rCloseComplted = null)
         {
             // 得到顶层结点
-            KeyValuePair<string, View> rTopNode = this.mCurViews.Last();
+            CKeyValuePair<string, View> rTopNode = this.mCurViews.Last();
 
             string rViewGUID = rTopNode.Key;
             View rView = rTopNode.Value;
@@ -178,7 +180,7 @@ namespace WindHotfix.GUI
                     if (mCurViews.Count == 0)
                         mCurViews.Add(rViewGUID, rView);
                     else
-                        mCurViews[mCurViews.LastKey()] = rView;
+                        mCurViews[mCurViews.Last().Key] = rView;
                     break;
                 default:
                     break;
@@ -207,7 +209,11 @@ namespace WindHotfix.GUI
         private void MaybeCloseTopView(View.State rViewState)
         {
             // 得到顶层结点
-            KeyValuePair<string, View> rTopNode = this.mCurViews.Last();
+            CKeyValuePair<string, View> rTopNode = null;
+            if (this.mCurFixedViews.Count > 0)
+                rTopNode = this.mCurViews.Last();
+
+            if (rTopNode == null) return;
 
             string rViewGUID = rTopNode.Key;
             View rView = rTopNode.Value;

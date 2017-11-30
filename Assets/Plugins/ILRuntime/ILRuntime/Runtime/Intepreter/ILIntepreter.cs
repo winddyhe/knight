@@ -33,7 +33,7 @@ namespace ILRuntime.Runtime.Intepreter
             this.domain = domain;
             stack = new RuntimeStack(this);
             allowUnboundCLRMethod = domain.AllowUnboundCLRMethod;
-#if DEBUG1
+#if DEBUG_ILRT
             _lockObj = new object();
 #endif
         }
@@ -80,7 +80,7 @@ namespace ILRuntime.Runtime.Intepreter
             esp = Execute(method, esp, out unhandledException);
             object result = method.ReturnType != domain.VoidType ? method.ReturnType.TypeForCLR.CheckCLRTypes(StackObject.ToObject((esp - 1), domain, mStack)) : null;
             //ClearStack
-#if DEBUG1
+#if DEBUG_ILRT
             ((List<object>)mStack).RemoveRange(mStackBase, mStack.Count - mStackBase);
 #else
             ((UncheckedList<object>)mStack).RemoveRange(mStackBase, mStack.Count - mStackBase);
@@ -214,7 +214,7 @@ namespace ILRuntime.Runtime.Intepreter
                 {
                     try
                     {
-#if DEBUG1
+#if DEBUG_ILRT
                         if (ShouldBreak)
                             Break();
                         var insOffset = (int)(ip - ptr);
@@ -1674,7 +1674,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                     esp = redirect(this, esp, mStack, cm, false);
                                                 else
                                                 {
-#if DEBUG1
+#if DEBUG_ILRT
                                                     if (!allowUnboundCLRMethod)
                                                         throw new NotSupportedException(cm.ToString() + " is not bound!");
 #endif
@@ -3844,7 +3844,7 @@ namespace ILRuntime.Runtime.Intepreter
 
                         unhandledException = true;
                         returned = true;
-#if DEBUG1
+#if DEBUG_ILRT
                         if (!AppDomain.DebugService.Break(this, ex))
 #endif
                         {
@@ -4586,7 +4586,7 @@ namespace ILRuntime.Runtime.Intepreter
                 if (esp->Value == stack.ManagedStack.Count - 1)
                     stack.ManagedStack.RemoveAt(esp->Value);
             }
-#if DEBUG1
+#if DEBUG_ILRT
             esp->ObjectType = ObjectTypes.Null;
             esp->Value = -1;
             esp->ValueLow = 0;

@@ -246,6 +246,7 @@
     <Compile Include="Assets\Plugins\Core\Assist\Debugger.cs" />
     <Compile Include="Assets\Plugins\Core\Assist\Dict.cs" />
     <Compile Include="Assets\Plugins\Core\Assist\GameObjectPool.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\IndexedDict.cs" />
     <Compile Include="Assets\Plugins\Core\Assist\LexicalAnalysis.cs" />
     <Compile Include="Assets\Plugins\Core\Assist\ObjectExpand.cs" />
     <Compile Include="Assets\Plugins\Core\Assist\ReflectExpand.cs" />
@@ -283,8 +284,8 @@
     <Compile Include="Assets\Plugins\Core\MultiScene\SceneBlockLoader.cs" />
     <Compile Include="Assets\Plugins\Core\MultiScene\SceneTile.cs" />
     <Compile Include="Assets\Plugins\Core\Serializer\Serializer.Assists.cs" />
-    <Compile Include="Assets\Plugins\Core\Serializer\Serializer.Types.cs" />
     <Compile Include="Assets\Plugins\Core\Serializer\Serializer.Binary.cs" />
+    <Compile Include="Assets\Plugins\Core\Serializer\Serializer.Types.cs" />
     <Compile Include="Assets\Plugins\Core\WindJson\JsonData.cs" />
     <Compile Include="Assets\Plugins\Core\WindJson\JsonParser.cs" />
     <Compile Include="Assets\Plugins\ETClient\Base\DoubleMap.cs" />

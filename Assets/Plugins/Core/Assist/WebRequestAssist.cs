@@ -33,7 +33,7 @@ namespace Core
             LoaderRequest rRequest = new LoaderRequest(rURL, rDownloadProgress);
 
             UnityWebRequest rWebRequest = UnityWebRequest.Get(rRequest.Url);
-            CoroutineManager.Instance.Start(Record_DownloadProgress_Async(rRequest, rWebRequest));
+            var rProgressCoroutine = CoroutineManager.Instance.StartHandler(Record_DownloadProgress_Async(rRequest, rWebRequest));
             await rWebRequest.SendWebRequest();
 
             if (rWebRequest.isNetworkError)
@@ -57,6 +57,7 @@ namespace Core
             rDownloadHandler.Dispose();
             rWebRequest = null;
             rDownloadHandler = null;
+            CoroutineManager.Instance.Stop(rProgressCoroutine);
 
             return rRequest;
         }
@@ -66,7 +67,7 @@ namespace Core
             while (!rRequest.IsDone)
             {
                 try { UtilTool.SafeExecute(rRequest.DownloadProgress, rWebRequest.downloadProgress); }
-                catch (System.Exception) {}
+                catch (System.Exception) { break; }
 
                 yield return new WaitForEndOfFrame();
             }
