@@ -2,6 +2,7 @@
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
+//#define INPUT_EDITOR_REMOTE_DEBUG
 using UnityEngine;
 using System.Collections;
 
@@ -74,9 +75,10 @@ namespace Framework
         {
             get
             {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && !INPUT_EDITOR_REMOTE_DEBUG
                 return this.touchCount;
 #else
+                this.touchCount = Input.touchCount;
                 return Input.touchCount;
 #endif
             }
@@ -84,19 +86,24 @@ namespace Framework
         
         public TouchObject GetTouch(int nTouchIndex)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && !INPUT_EDITOR_REMOTE_DEBUG
             if (nTouchIndex == 0)
                 return this.mouseTouchMonitor.TouchObj;
             else
+            {
+                if (Input.touchCount <= nTouchIndex) return null;
                 return new TouchObject(Input.GetTouch(nTouchIndex));
+            }
+                
 #else
+            if (Input.touchCount <= nTouchIndex) return null;
             return new TouchObject(Input.GetTouch(nTouchIndex));
 #endif
         }
 
         void Update()
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && !INPUT_EDITOR_REMOTE_DEBUG
             if (Input.GetMouseButton(0))
                 this.touchCount = 1;
             else
