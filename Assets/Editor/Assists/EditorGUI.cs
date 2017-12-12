@@ -103,6 +103,7 @@ namespace Core.Editor
     public class EditorGUIObject : EditorGUIBase
     {
         private List<EditorGUIBase> mGUIControllers;
+        private List<Type>          mTypes;
 
         public EditorGUIObject(object rObject)
         {
@@ -112,8 +113,23 @@ namespace Core.Editor
 
         private void Anaysis(object rValue)
         {
+            this.mTypes = new List<Type>();
+            for (int i = 0; i < EditorGUITypes.Types.Count; i++)
+            {
+                Type rGUIType = EditorGUITypes.Types[i];
+                var rEditorAttr = rGUIType.GetCustomAttribute<EditorTypeAttribute>(false);
+                if (rEditorAttr != null)
+                    this.mTypes.Add(rEditorAttr.Type);
+            }
+
             this.mGUIControllers = new List<EditorGUIBase>();
             Type rObjType = rValue.GetType();
+
+            var rAllFields = rObjType.GetFields(System.Reflection.BindingFlags.CreateInstance);
+            for (int i = 0; i < rAllFields.Length; i++)
+            {
+                Type rType = rAllFields[i].FieldType;
+            }
         }
 
         public override void OnGUI()

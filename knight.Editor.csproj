@@ -326,8 +326,10 @@
     <Compile Include="Assets\Editor\AssetPreprocess\CustomAssetPreprocess.cs" />
     <Compile Include="Assets\Editor\Assists\EditorAssists.cs" />
     <Compile Include="Assets\Editor\Assists\EditorCoroutineManager.cs" />
+    <Compile Include="Assets\Editor\Assists\EditorGUI.cs" />
     <Compile Include="Assets\Editor\Assists\TransformInspector.cs" />
     <Compile Include="Assets\Editor\BuildPlayer\BuildDispose.cs" />
+    <Compile Include="Assets\Editor\ECSTool\ECSTool.cs" />
     <Compile Include="Assets\Editor\EffectTool\AnimatorKeyframeCopyTool.cs" />
     <Compile Include="Assets\Editor\ExcelReader\ExcelReader.cs" />
     <Compile Include="Assets\Editor\ExcelReader\ExcelReaderWindow.cs" />
