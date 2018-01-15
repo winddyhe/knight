@@ -108,6 +108,13 @@ namespace ILRuntime.Runtime.Enviorment
                     RegisterCLRMethodRedirection(i, CLRRedirections.MethodInfoInvoke);
                 }
             }
+            foreach (var i in typeof(Enum).GetMethods())
+            {
+                if (i.Name == "Parse" && i.GetParameters().Length == 2)
+                {
+                    RegisterCLRMethodRedirection(i, CLRRedirections.EnumParse);
+                }
+            }
             mi = typeof(System.Type).GetMethod("GetTypeFromHandle");
             RegisterCLRMethodRedirection(mi, CLRRedirections.GetTypeFromHandle);
             mi = typeof(object).GetMethod("GetType");
@@ -340,13 +347,14 @@ namespace ILRuntime.Runtime.Enviorment
 
             if (module.HasAssemblyReferences) //如果此模块引用了其他模块
             {
-                foreach (var ar in module.AssemblyReferences)
+                /*foreach (var ar in module.AssemblyReferences)
                 {
-                    /*if (moduleref.Contains(ar.Name) == false)
+                    if (moduleref.Contains(ar.Name) == false)
                         moduleref.Add(ar.Name);
                     if (moduleref.Contains(ar.FullName) == false)
-                        moduleref.Add(ar.FullName);*/
+                        moduleref.Add(ar.FullName);
                 }
+                */
             }
 
             if (module.HasTypes)
@@ -374,7 +382,7 @@ namespace ILRuntime.Runtime.Enviorment
                 objectType = GetType("System.Object");
             }
             module.AssemblyResolver.ResolveFailure += AssemblyResolver_ResolveFailure;
-#if DEBUG_ILRT
+#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
             debugService.NotifyModuleLoaded(module.Name);
 #endif
         }
@@ -522,7 +530,7 @@ namespace ILRuntime.Runtime.Enviorment
 
                 if (isArray)
                 {
-                    bt = bt.MakeArrayType();
+                    bt = bt.MakeArrayType(1);
                     mapType[bt.FullName] = bt;
                     mapTypeToken[bt.GetHashCode()] = bt;
                     if (!isByRef)
@@ -704,10 +712,11 @@ namespace ILRuntime.Runtime.Enviorment
                 }
                 if (_ref.IsArray)
                 {
+                    ArrayType at = (ArrayType)_ref;
                     var t = GetType(_ref.GetElementType(), contextType, contextMethod);
                     if (t != null)
                     {
-                        res = t.MakeArrayType();
+                        res = t.MakeArrayType(at.Rank);
                         if (res is ILType)
                         {
                             ///Unify the TypeReference
@@ -968,7 +977,7 @@ namespace ILRuntime.Runtime.Enviorment
                     else
                     {
                         inteptreter = new ILIntepreter(this);
-#if DEBUG_ILRT
+#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
                         intepreters[inteptreter.GetHashCode()] = inteptreter;
                         debugService.ThreadStarted(inteptreter);
 #endif
@@ -982,8 +991,8 @@ namespace ILRuntime.Runtime.Enviorment
                 {
                     lock (freeIntepreters)
                     {
-#if DEBUG_ILRT
-                        if(inteptreter.CurrentStepType!= StepTypes.None)
+#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+                        if (inteptreter.CurrentStepType!= StepTypes.None)
                         {
                             //We should resume all other threads if we are currently doing stepping operation
                             foreach(var i in intepreters)
@@ -1000,7 +1009,7 @@ namespace ILRuntime.Runtime.Enviorment
                         inteptreter.Stack.ManagedStack.Clear();
                         inteptreter.Stack.Frames.Clear();
                         freeIntepreters.Enqueue(inteptreter);
-#if DEBUG_ILRT
+#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
                         //debugService.ThreadEnded(inteptreter);
 #endif
 
