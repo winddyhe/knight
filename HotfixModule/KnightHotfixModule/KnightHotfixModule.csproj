@@ -29,7 +29,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>..\..\Assets\StreamingAssets\Temp\Libs\</OutputPath>
     <DefineConstants>
     </DefineConstants>
