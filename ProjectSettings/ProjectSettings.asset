@@ -608,7 +608,7 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
-    1: DEBUG_ILRT
+    1: DISABLE_ILRUNTIME_DEBUG
   platformArchitecture: {}
   scriptingBackend:
     Metro: 2
