@@ -26,7 +26,7 @@ namespace Framework.Hotfix.Editor
         public override void OnInspectorGUI()
         {
             EditorGUIUtility.labelWidth = 100;
-            mTarget.EventTypeMask = (HotfixEventTrigger.TriggerType)EditorGUILayout.EnumMaskField("EventTypeMask: ", mTarget.EventTypeMask);
+            mTarget.EventTypeMask = (HotfixEventTrigger.TriggerType)EditorGUILayout.EnumFlagsField("EventTypeMask: ", mTarget.EventTypeMask);
             EditorGUILayout.PropertyField(mEventObj);
              
             this.serializedObject.ApplyModifiedProperties();

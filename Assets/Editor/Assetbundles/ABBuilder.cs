@@ -19,7 +19,7 @@ namespace UnityEditor.AssetBundles
         {
             Windows     = BuildTarget.StandaloneWindows,        //Windows
             Windows64   = BuildTarget.StandaloneWindows64,      //Windows64
-            OSX         = BuildTarget.StandaloneOSXIntel,       //OSX
+            OSX         = BuildTarget.StandaloneOSX,            //OSX
             IOS         = BuildTarget.iOS,                      //IOS
             Android     = BuildTarget.Android,                  //Android
         };

@@ -34,7 +34,7 @@ namespace MemoryProfilerWindow
                 using (var scope1 = new EditorGUILayout.HorizontalScope())
                 {
                     EditorGUIUtility.labelWidth = 65;
-                    mObjectHideFlags = (HideFlags)EditorGUILayout.EnumMaskField("HideFlags: ", mObjectHideFlags, GUILayout.MaxWidth(500));
+                    mObjectHideFlags = (HideFlags)EditorGUILayout.EnumFlagsField("HideFlags: ", mObjectHideFlags, GUILayout.MaxWidth(500));
                     EditorGUILayout.Space();
                 }
 

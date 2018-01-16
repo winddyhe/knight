@@ -183,9 +183,7 @@ namespace Core
         private static List<string> GTypeNames;
 
         private static Type         _Type                = typeof(TSearchType);
-        #pragma warning disable 414
         private static Type         _IgnoreAttributeType = typeof(TIgnoreType);
-        #pragma warning restore 414
     }
 
     public class TypeSearchDefault<TSearchType> : TypeSearchFull<TSearchType, TSIgnoreAttribute> { }
