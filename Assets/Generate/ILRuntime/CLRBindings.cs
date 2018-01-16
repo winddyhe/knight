@@ -100,7 +100,6 @@ namespace ILRuntime.Runtime.Generated
             System_Collections_Generic_KeyValuePair_2_Type_Type_Binding.Register(app);
             System_Collections_Generic_List_1_KeyValuePair_2_Type_Type_Binding_Enumerator_Binding.Register(app);
             Framework_Hotfix_UnityObject_Binding.Register(app);
-            Test_HotfixMBTest_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_Int32_Int32_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_Int32_Int32_Binding_Enumerator_Binding.Register(app);
             System_Collections_Generic_KeyValuePair_2_Int32_Int32_Binding.Register(app);

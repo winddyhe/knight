@@ -7,7 +7,6 @@ using System.Collections;
 using System;
 using Core;
 using Framework.Hotfix;
-using Game.Knight;
 
 namespace Framework.WindUI
 {
