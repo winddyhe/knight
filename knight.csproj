@@ -312,21 +312,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Core.csproj">
-      <Project>{CA0D0162-F932-39F1-2A72-E5BEA803ACF8}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="Core-ETClient.csproj">
-      <Project>{EEC0052B-AA20-8882-EF7E-03DBF79AC56A}</Project>
-      <Name>Core-ETClient</Name>
-    </ProjectReference>
-    <ProjectReference Include="Core-ILRuntime.csproj">
-      <Project>{6E9E912D-7BAC-AD1C-DE58-165B0302C88D}</Project>
-      <Name>Core-ILRuntime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Core-WindJson.csproj">
-      <Project>{7EDBCDB8-DBDA-EFAD-928E-99E57579D7B6}</Project>
-      <Name>Core-WindJson</Name>
+    <ProjectReference Include="knight.Plugins.csproj">
+      <Project>{9CC3C92F-FE7E-EA45-EC53-58BD08676A52}</Project>
+      <Name>knight.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

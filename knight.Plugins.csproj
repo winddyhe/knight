@@ -5,21 +5,19 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6E9E912D-7BAC-AD1C-DE58-165B0302C88D}</ProjectGuid>
+    <ProjectGuid>{9CC3C92F-FE7E-EA45-EC53-58BD08676A52}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Core-ILRuntime.dll</AssemblyName>
+    <AssemblyName>Assembly-CSharp-firstpass.dll</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
     <CompilerResponseFile>Library\UnityAssemblies\mcs.rsp</CompilerResponseFile>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.3.0p2</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -314,6 +312,87 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\Core\Assist\CryptoUtility.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\Debugger.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\Dict.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\GameObjectPool.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\IndexedDict.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\LexicalAnalysis.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\ObjectExpand.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\ReflectExpand.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\ReflectionAssist.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\RuntimePerformance.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\StringBuilderExpand.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\TEditorUpdateMB.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\TObjectPool.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\TSingleton.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\TypeExpand.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\TypeSearch.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\UnsafeVector3Array.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\UtilTool.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\WebRequestAssist.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\WWWAssist.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\Awaiters.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\AwaitExtensions.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\IEnumeratorAwaitExtensions.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\Internal\SyncContextUtil.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\TaskExtensions.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\WaitForBackgroundThread.cs" />
+    <Compile Include="Assets\Plugins\Core\AsyncAwaitUtil\Source\WaitForUpdate.cs" />
+    <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineHandler.cs" />
+    <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineManager.cs" />
+    <Compile Include="Assets\Plugins\Core\Coroutine\CoroutineRequest.cs" />
+    <Compile Include="Assets\Plugins\Core\FrameAnimator\FrameAnimator.cs" />
+    <Compile Include="Assets\Plugins\Core\Logger\Logger.cs" />
+    <Compile Include="Assets\Plugins\Core\Math\Area\AreaOverlapAlgorithm.cs" />
+    <Compile Include="Assets\Plugins\Core\Math\Path\LinePathAlgorithm.cs" />
+    <Compile Include="Assets\Plugins\Core\Math\Utility\OBB.cs" />
+    <Compile Include="Assets\Plugins\Core\MultiScene\LargeScene.cs" />
+    <Compile Include="Assets\Plugins\Core\MultiScene\MultiSceneManager.cs" />
+    <Compile Include="Assets\Plugins\Core\MultiScene\SceneBlock.cs" />
+    <Compile Include="Assets\Plugins\Core\MultiScene\SceneBlockBuffer.cs" />
+    <Compile Include="Assets\Plugins\Core\MultiScene\SceneBlockLoader.cs" />
+    <Compile Include="Assets\Plugins\Core\MultiScene\SceneTile.cs" />
+    <Compile Include="Assets\Plugins\Core\Serializer\Serializer.Assists.cs" />
+    <Compile Include="Assets\Plugins\Core\Serializer\Serializer.Binary.cs" />
+    <Compile Include="Assets\Plugins\Core\Serializer\Serializer.Types.cs" />
+    <Compile Include="Assets\Plugins\Core\WindJson\JsonData.cs" />
+    <Compile Include="Assets\Plugins\Core\WindJson\JsonParser.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\DoubleMap.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\EQueue.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\IdGenerater.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\Log.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\LogType.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\MultiMap.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\QueueDictionary.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\StringHelper.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\TimeHelper.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\TryLocker.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Base\ZipHelper.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\AppType.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\ErrorCode.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\IMessagePacker.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\MessageAttribute.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\MessageHandlerAttribute.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\NumericType.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Message\RpcException.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\AChannel.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\AService.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\ASession.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\TNet\PacketParser.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\TNet\TBuffer.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\TNet\TChannel.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\TNet\TService.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\Library.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\NativeMethods.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\NativeStructs.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\UAddress.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\UChannel.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\UPacket.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\UPoller.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\UService.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\USocket.cs" />
+    <Compile Include="Assets\Plugins\ETClient\Network\UNet\USocketManager.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\CLR\Method\CLRMethod.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\CLR\Method\ExceptionHandler.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\CLR\Method\ILMethod.cs" />
@@ -570,6 +649,40 @@
     <Compile Include="Assets\Plugins\ILRuntime\Mono.Cecil.Pdb\pdb\Mono.Cecil.Pdb\SymWriter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlend.cginc" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlend.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlendAlpha.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlendCutOff.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\Diffuse.cginc" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\Diffuse.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\DiffuseAlpha.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Diffuse\DiffuseCutOff.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Effect\Effect.cginc" />
+    <None Include="Assets\Framework\Graphics\Shaders\Effect\TextureEffect.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Effect\ThirdTextureEffect.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Effect\TwoTextureEffect.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\Bloom.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\BlurEffectCG.cginc" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\GaussinBlur.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\HDR.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\MotionBlur.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\RadialBlur.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\SceneBoom.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\SceneTwist.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Texture\Texture.cginc" />
+    <None Include="Assets\Framework\Graphics\Shaders\Texture\Texture.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Texture\TextureAlpha.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\Texture\TextureCutOff.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\UI\Image3DUI.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\UI\Text3DUI.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\UI\ThreeDUI.cginc" />
+    <None Include="Assets\Game\Knight\GameAsset\Config\SkillConfig\Text\911.txt" />
+    <None Include="Assets\Game\Knight\GameAsset\Config\SkillConfig\Text\SkillList.txt" />
+    <None Include="Assets\Game\Knight\Resources\server_url_default.txt" />
+    <None Include="Assets\Game\OriginalRes\Scene\Top_Down_City\Water\Sources\Shaders\FX-Water.shader" />
+    <None Include="Assets\Test\GamePlayTest\game_play_config_test.txt" />
+    <None Include="Assets\Test\JsonTest\Test1.txt" />
+    <None Include="Assets\Test\RoleTest\ColorLevelsSurfaceShader.shader" />
     <None Include="Assets\link.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

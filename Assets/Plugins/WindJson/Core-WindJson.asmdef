@@ -1,9 +1,0 @@
-{
-  "name": "Core-WindJson",
-  "references": [
-    "Core",
-    "Core-ILRuntime"
-  ],
-  "includePlatforms": [],
-  "excludePlatforms": []
-}
