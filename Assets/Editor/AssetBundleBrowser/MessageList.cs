@@ -141,7 +141,7 @@ namespace UnityEditor.AssetBundles
                 color.b = 0.12f;
             }
 
-            if (Event.current.type != EventType.repaint)
+            if (Event.current.type != EventType.Repaint)
                 return;
 
             Color orgColor = GUI.color;

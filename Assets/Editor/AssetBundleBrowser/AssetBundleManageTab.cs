@@ -152,7 +152,7 @@ namespace UnityEditor.AssetBundles
             m_horizontalSplitterRect.height = m_position.height;
 
             EditorGUIUtility.AddCursorRect(m_horizontalSplitterRect, MouseCursor.ResizeHorizontal);
-            if (Event.current.type == EventType.mouseDown && m_horizontalSplitterRect.Contains(Event.current.mousePosition))
+            if (Event.current.type == EventType.MouseDown && m_horizontalSplitterRect.Contains(Event.current.mousePosition))
                 m_resizingHorizontalSplitter = true;
 
             if (m_resizingHorizontalSplitter)
@@ -174,7 +174,7 @@ namespace UnityEditor.AssetBundles
             m_verticalSplitterRect.width = m_position.width - m_horizontalSplitterRect.x;
 
             EditorGUIUtility.AddCursorRect(m_verticalSplitterRect, MouseCursor.ResizeVertical);
-            if (Event.current.type == EventType.mouseDown && m_verticalSplitterRect.Contains(Event.current.mousePosition))
+            if (Event.current.type == EventType.MouseDown && m_verticalSplitterRect.Contains(Event.current.mousePosition))
                 m_resizingVerticalSplitter = true;
 
             if (m_resizingVerticalSplitter)
