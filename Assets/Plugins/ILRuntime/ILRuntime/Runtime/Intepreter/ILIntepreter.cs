@@ -2765,7 +2765,8 @@ namespace ILRuntime.Runtime.Intepreter
                                             if (t != null)
                                             {
                                                 var type = t.TypeForCLR;
-                                                if ((t is CLRType) && type.IsPrimitive)
+                                                bool isEnumObj = obj is ILEnumTypeInstance;
+                                                if ((t is CLRType) && type.IsPrimitive && !isEnumObj)
                                                 {
                                                     if (type == typeof(int))
                                                     {
@@ -3122,6 +3123,14 @@ namespace ILRuntime.Runtime.Intepreter
                                         else
                                         {
                                             arr = new ILTypeInstance[cnt->Value];
+                                            ILTypeInstance[] ilArr = (ILTypeInstance[])arr;
+                                            if (type.IsValueType)
+                                            {
+                                                for(int i = 0; i < cnt->Value; i++)
+                                                {
+                                                    ilArr[i] = ((ILType)type).Instantiate(true);
+                                                }
+                                            }
                                         }
                                     }
                                     cnt->ObjectType = ObjectTypes.Object;
@@ -3227,7 +3236,21 @@ namespace ILRuntime.Runtime.Intepreter
                                     Free(esp - 1);
                                     Free(esp - 1 - 1);
 
-                                    esp = PushObject(esp - 1 - 1, mStack, val);
+                                    if (val is ILTypeInstance)
+                                    {
+                                        ILTypeInstance ins = (ILTypeInstance)val;
+                                        if (ins.Type.IsValueType && !ins.Boxed)
+                                        {
+                                            AllocValueType(arrRef, ins.Type);
+                                            StackObject* dst = *((StackObject**)&arrRef->Value);
+                                            ins.CopyValueTypeToStack(dst, mStack);
+                                            esp = idx;
+                                        }
+                                        else
+                                            esp = PushObject(esp - 1 - 1, mStack, val);
+                                    }
+                                    else
+                                        esp = PushObject(esp - 1 - 1, mStack, val);
                                 }
                                 break;
                             case OpCodeEnum.Stelem_I1:
