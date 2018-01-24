@@ -210,7 +210,7 @@ namespace WindHotfix.GUI
         {
             // 得到顶层结点
             CKeyValuePair<string, View> rTopNode = null;
-            if (this.mCurFixedViews.Count > 0)
+            if (this.mCurViews.Count > 0)
                 rTopNode = this.mCurViews.Last();
 
             if (rTopNode == null) return;
