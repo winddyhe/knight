@@ -125,17 +125,17 @@ namespace UnityEngine.AssetBundles
                 rRequest.Asset = null;
                 return;
             }
-            
+
+            //引用计数加1
+            rAssetLoadEntry.RefCount++;
+
             // 确认未加载完成并且正在被加载、一直等待其加载完成
             while (rAssetLoadEntry.IsLoading && !rAssetLoadEntry.IsLoadCompleted)
             {
                 await new WaitForEndOfFrame();
             }
     
-            //引用计数加1
-            rAssetLoadEntry.RefCount++;
             string rAssetLoadUrl = rAssetLoadEntry.ABPath;
-
             // 如果该资源加载完成了
             if (!rAssetLoadEntry.IsLoading && rAssetLoadEntry.IsLoadCompleted)
             {

@@ -142,6 +142,8 @@ namespace WindHotfix.GUI
             {
                 UtilTool.SafeExecute(rCloseCompleted);
             }));
+
+            this.UnloadUnusedViewAssets();
         }
 
         /// <summary>
@@ -188,7 +190,6 @@ namespace WindHotfix.GUI
 
             rView.Open((rNewView) =>
             {
-                UnloadUnusedViewAssets();
                 UtilTool.SafeExecute(rOpenCompleted, rNewView);
             });
         }
