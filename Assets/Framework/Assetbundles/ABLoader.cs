@@ -21,18 +21,22 @@ namespace UnityEngine.AssetBundles
         public class LoaderRequest
         {
             public Object                   Asset;
+            public Object[]                 AllAssets;
             public Scene                    Scene;
+
             public string                   Path;
             public string                   AssetName;
             public bool                     IsScene;
             public bool                     IsSimulate;
+            public bool                     IsLoadAllAssets;
 
-            public LoaderRequest(string rPath, string rAssetName, bool bIsScene, bool bIsSimulate)
+            public LoaderRequest(string rPath, string rAssetName, bool bIsScene, bool bIsSimulate, bool bIsLoadAllAssets)
             {
                 this.Path                   = rPath;
                 this.AssetName              = rAssetName;
                 this.IsScene                = bIsScene;
                 this.IsSimulate             = bIsSimulate;
+                this.IsLoadAllAssets        = bIsLoadAllAssets;
             }
         }
 
@@ -53,13 +57,28 @@ namespace UnityEngine.AssetBundles
                 this.LoadedScenebundles = new List<string>();
             }
         }
+
+        public async Task<LoaderRequest> LoadAssetbundle(string rAssetbundleName, bool bIsSimulate)
+        {
+            return await LoadAsset(rAssetbundleName, string.Empty, bIsSimulate);
+        }
         
         public async Task<LoaderRequest> LoadAsset(string rAssetbundleName, string rAssetName, bool bIsSimulate)
         {
             if (!this.LoadedAssetbundles.Contains(rAssetbundleName))
                 this.LoadedAssetbundles.Add(rAssetbundleName);
 
-            LoaderRequest rRequest = new LoaderRequest(rAssetbundleName, rAssetName, false, bIsSimulate);
+            LoaderRequest rRequest = new LoaderRequest(rAssetbundleName, rAssetName, false, bIsSimulate, false);
+            await LoadAsset_Async(rRequest);
+            return rRequest;
+        }
+
+        public async Task<LoaderRequest> LoadAllAssets(string rAssetbundleName, bool bIsSimulate)
+        {
+            if (!this.LoadedAssetbundles.Contains(rAssetbundleName))
+                this.LoadedAssetbundles.Add(rAssetbundleName);
+
+            LoaderRequest rRequest = new LoaderRequest(rAssetbundleName, "AllAssets", false, bIsSimulate, true);
             await LoadAsset_Async(rRequest);
             return rRequest;
         }
@@ -69,7 +88,7 @@ namespace UnityEngine.AssetBundles
             if (!this.LoadedScenebundles.Contains(rAssetbundleName))
                 this.LoadedScenebundles.Add(rAssetbundleName);
             
-            LoaderRequest rSceneRequest = new LoaderRequest(rAssetbundleName, rScenePath, true, false);
+            LoaderRequest rSceneRequest = new LoaderRequest(rAssetbundleName, rScenePath, true, false, false);
             await LoadAsset_Async(rSceneRequest);
             return rSceneRequest;
         }
@@ -151,7 +170,7 @@ namespace UnityEngine.AssetBundles
                     string rDependABPath = rAssetLoadEntry.ABDependNames[i];
                     string rDependABName = rDependABPath;
 
-                    LoaderRequest rDependAssetRequest = new LoaderRequest(rDependABName, "", false, rRequest.IsSimulate);
+                    LoaderRequest rDependAssetRequest = new LoaderRequest(rDependABName, "", false, rRequest.IsSimulate, false);
                     await LoadAsset_Async(rDependAssetRequest);
                 }
             }
@@ -176,14 +195,33 @@ namespace UnityEngine.AssetBundles
 #if UNITY_EDITOR
                 if (!string.IsNullOrEmpty(rRequest.AssetName) && !rRequest.IsScene)
                 {
-                    string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
-                    if (rAssetPaths.Length == 0)
+                    if (!rRequest.IsLoadAllAssets)
                     {
-                        Debug.LogError("There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
-                        return;
+                        string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
+                        if (rAssetPaths.Length == 0)
+                        {
+                            Debug.LogError("There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                            return;
+                        }
+                        Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
+                        rRequest.Asset = rTargetAsset;
                     }
-                    Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
-                    rRequest.Asset = rTargetAsset;
+                    else
+                    {
+                        string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(rAssetLoadEntry.ABName);
+                        if (rAssetPaths.Length == 0)
+                        {
+                            Debug.LogError("There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                            return;
+                        }
+                        rRequest.AllAssets = new Object[rAssetPaths.Length];
+                        for (int i = 0; i < rAssetPaths.Length; i++)
+                        {
+                            Object rAssetObj = UnityEditor.AssetDatabase.LoadAssetAtPath(rAssetPaths[i], typeof(Object));
+                            if (rAssetObj != null)
+                                rRequest.AllAssets[i] = rAssetObj;
+                        }
+                    }
                 }
 #endif
             }
@@ -205,7 +243,14 @@ namespace UnityEngine.AssetBundles
                 {
                     if (!rRequest.IsScene)
                     {
-                        rRequest.Asset = await rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
+                        if (!rRequest.IsLoadAllAssets)
+                        {
+                            rRequest.Asset = await rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
+                        }
+                        else
+                        {
+                            await LoadAllAssets_ByAssetbundle(rRequest, rAssetLoadEntry.CacheAsset);
+                        }
                     }
                     else
                     {
@@ -213,6 +258,13 @@ namespace UnityEngine.AssetBundles
                     }
                 }
             }
+        }
+
+        private IEnumerator LoadAllAssets_ByAssetbundle(LoaderRequest rRequest, AssetBundle rAssetbundle)
+        {
+            var rAllAssetsRequest = rAssetbundle.LoadAllAssetsAsync();
+            yield return rAllAssetsRequest;
+            rRequest.AllAssets = rAllAssetsRequest.allAssets;
         }
     }
 }
