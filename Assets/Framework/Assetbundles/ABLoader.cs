@@ -135,44 +135,11 @@ namespace UnityEngine.AssetBundles
                 await new WaitForEndOfFrame();
             }
     
-            string rAssetLoadUrl = rAssetLoadEntry.ABPath;
             // 如果该资源加载完成了
             if (!rAssetLoadEntry.IsLoading && rAssetLoadEntry.IsLoadCompleted)
             {
-                if (rRequest.IsSimulate)
-                {
-                    Debug.Log("---Simulate Load ab: " + rAssetLoadUrl);
-#if UNITY_EDITOR
-                    if (!string.IsNullOrEmpty(rRequest.AssetName) && !rRequest.IsScene)
-                    {
-                        string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
-                        if (rAssetPaths.Length == 0)
-                        {
-                            Debug.LogError("There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
-                            return;
-                        }
-                        Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
-                        rRequest.Asset = rTargetAsset;
-                    }
-#endif
-                }
-                else
-                {
-                    Debug.Log("---Load asset: " + rAssetLoadUrl);
-
-                    // 加载Object
-                    if (!string.IsNullOrEmpty(rRequest.AssetName))
-                    {
-                        if (!rRequest.IsScene)
-                        {
-                            rRequest.Asset = await rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
-                        }
-                        else
-                        {
-                            rAssetLoadEntry.CacheAsset.GetAllScenePaths();
-                        }
-                    }
-                }
+                // 从缓存的Assetbundle里面加载资源
+                await LoadAssetObject(rRequest, rAssetLoadEntry, false);
                 return;
             }
             
@@ -193,6 +160,16 @@ namespace UnityEngine.AssetBundles
             rAssetLoadEntry.IsLoading = true;
             rAssetLoadEntry.IsLoadCompleted = false;
 
+            // 真正的从AB包里面加载资源
+            await LoadAssetObject(rRequest, rAssetLoadEntry, true);
+
+            rAssetLoadEntry.IsLoading = false;
+            rAssetLoadEntry.IsLoadCompleted = true;
+        }
+
+        private async Task LoadAssetObject(LoaderRequest rRequest, ABLoadEntry rAssetLoadEntry, bool bRealLoad)
+        {
+            string rAssetLoadUrl = rAssetLoadEntry.ABPath;
             if (rRequest.IsSimulate)
             {
                 Debug.Log("---Simulate Load ab: " + rAssetLoadUrl);
@@ -212,10 +189,17 @@ namespace UnityEngine.AssetBundles
             }
             else
             {
-                Debug.Log("---Real Load ab: " + rAssetLoadUrl);
-                // 如果是一个直接的资源，将资源的对象取出来
-                rAssetLoadEntry.CacheAsset = await AssetBundle.LoadFromFileAsync(rAssetLoadUrl);
-                
+                if (bRealLoad)
+                {
+                    Debug.Log("---Real Load ab: " + rAssetLoadUrl);
+                    // 如果是一个直接的资源，将资源的对象取出来
+                    rAssetLoadEntry.CacheAsset = await AssetBundle.LoadFromFileAsync(rAssetLoadUrl);
+                }
+                else
+                {
+                    Debug.Log("---Load asset: " + rAssetLoadUrl);
+                }
+
                 // 加载Object
                 if (!string.IsNullOrEmpty(rRequest.AssetName))
                 {
@@ -229,8 +213,6 @@ namespace UnityEngine.AssetBundles
                     }
                 }
             }
-            rAssetLoadEntry.IsLoading = false;
-            rAssetLoadEntry.IsLoadCompleted = true;
         }
     }
 }
