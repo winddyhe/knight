@@ -540,12 +540,10 @@
     <Compile Include="Assets\Test\CoroutineTest\CoroutineLoadTest.cs" />
     <Compile Include="Assets\Test\CoroutineTest\CoroutineTest.cs" />
     <Compile Include="Assets\Test\ETClientTest\ETClientTest.cs" />
-    <Compile Include="Assets\Test\GamePlayTest\GamePlayTest.cs" />
     <Compile Include="Assets\Test\HotfixTest\Base\HotfixMBTest.cs" />
     <Compile Include="Assets\Test\HotfixTest\Base\HotfixTest.cs" />
     <Compile Include="Assets\Test\HotfixTest\UI\HotfixUITest.cs" />
     <Compile Include="Assets\Test\JsonTest\JsonParseTest.cs" />
-    <Compile Include="Assets\Test\NavTest\NavMeshDisplay.cs" />
     <Compile Include="Assets\Test\PathTest\PathTest.cs" />
     <Compile Include="Assets\Test\PostEffctTest\Bloom\BloomTest.cs" />
     <Compile Include="Assets\Test\PostEffctTest\GaussianBlurTest\GaussianBlurEffectTest.cs" />
@@ -554,8 +552,6 @@
     <Compile Include="Assets\Test\PostEffctTest\RadialBlur\RadialBlurTest.cs" />
     <Compile Include="Assets\Test\PostEffctTest\SceneBoom\SceneBoomTest.cs" />
     <Compile Include="Assets\Test\PostEffctTest\SceneTwist\SceneTwistTest.cs" />
-    <Compile Include="Assets\Test\SceneABTest\SceneABLoadTest.cs" />
-    <Compile Include="Assets\Test\UnsafeTest\UnsafeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlend.cginc" />
@@ -589,9 +585,7 @@
     <None Include="Assets\Game\Knight\GameAsset\Config\SkillConfig\Text\SkillList.txt" />
     <None Include="Assets\Game\Knight\Resources\server_url_default.txt" />
     <None Include="Assets\Game\OriginalRes\Scene\Top_Down_City\Water\Sources\Shaders\FX-Water.shader" />
-    <None Include="Assets\Test\GamePlayTest\game_play_config_test.txt" />
     <None Include="Assets\Test\JsonTest\Test1.txt" />
-    <None Include="Assets\Test\RoleTest\ColorLevelsSurfaceShader.shader" />
     <None Include="Assets\link.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

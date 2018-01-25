@@ -394,7 +394,6 @@
     <Compile Include="Assets\Editor\Serializer\CodeGenerator.cs" />
     <Compile Include="Assets\Editor\Serializer\SerializerBinary.Editor.cs" />
     <Compile Include="Assets\Game\Knight\Editor\AssetbundlePerprocessor.Knight.cs" />
-    <Compile Include="Assets\Test\SceneABTest\Editor\SceneABTestEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlend.cginc" />
@@ -428,9 +427,7 @@
     <None Include="Assets\Game\Knight\GameAsset\Config\SkillConfig\Text\SkillList.txt" />
     <None Include="Assets\Game\Knight\Resources\server_url_default.txt" />
     <None Include="Assets\Game\OriginalRes\Scene\Top_Down_City\Water\Sources\Shaders\FX-Water.shader" />
-    <None Include="Assets\Test\GamePlayTest\game_play_config_test.txt" />
     <None Include="Assets\Test\JsonTest\Test1.txt" />
-    <None Include="Assets\Test\RoleTest\ColorLevelsSurfaceShader.shader" />
     <None Include="Assets\link.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
