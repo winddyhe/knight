@@ -41,23 +41,6 @@ namespace Framework.Network
 			}
 		}
 
-		private async void StartAccept()
-		{
-			while (true)
-			{
-				await this.Accept();
-			}
-		}
-
-		public virtual async Task<Session> Accept()
-		{
-			AChannel rChannel = await this.mService.AcceptChannel();
-			Session rSession = new Session(this, rChannel);
-			rChannel.ErrorCallback += (c, e) => { this.Remove(rSession.Id); };
-			this.mSessions.Add(rSession.Id, rSession);
-			return rSession;
-		}
-
 		public virtual void Remove(long nId)
 		{
 			Session rSession;
