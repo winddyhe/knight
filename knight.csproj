@@ -544,6 +544,7 @@
     <Compile Include="Assets\Test\HotfixTest\Base\HotfixTest.cs" />
     <Compile Include="Assets\Test\HotfixTest\UI\HotfixUITest.cs" />
     <Compile Include="Assets\Test\JsonTest\JsonParseTest.cs" />
+    <Compile Include="Assets\Test\Logger\LoggerTest.cs" />
     <Compile Include="Assets\Test\PathTest\PathTest.cs" />
     <Compile Include="Assets\Test\PostEffctTest\Bloom\BloomTest.cs" />
     <Compile Include="Assets\Test\PostEffctTest\GaussianBlurTest\GaussianBlurEffectTest.cs" />
