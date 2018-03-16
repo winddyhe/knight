@@ -365,6 +365,8 @@
     <Compile Include="Assets\Framework\Loader\SceneConfig.cs" />
     <Compile Include="Assets\Framework\Loading\GameLoading.cs" />
     <Compile Include="Assets\Framework\Loading\ILoadingView.cs" />
+    <Compile Include="Assets\Framework\TiledMap\TiledMap.cs" />
+    <Compile Include="Assets\Framework\TiledMap\TiledMapManager.cs" />
     <Compile Include="Assets\Framework\Utility\DontDestroyOnLoad.cs" />
     <Compile Include="Assets\Framework\Utility\GameFlowLevelManager.cs" />
     <Compile Include="Assets\Framework\Utility\MainAssemblyExpand.cs" />
@@ -553,6 +555,7 @@
     <Compile Include="Assets\Test\PostEffctTest\RadialBlur\RadialBlurTest.cs" />
     <Compile Include="Assets\Test\PostEffctTest\SceneBoom\SceneBoomTest.cs" />
     <Compile Include="Assets\Test\PostEffctTest\SceneTwist\SceneTwistTest.cs" />
+    <Compile Include="Assets\Test\TiledMapTest\TiledMapTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlend.cginc" />
