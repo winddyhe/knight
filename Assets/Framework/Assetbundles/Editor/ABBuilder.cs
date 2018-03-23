@@ -32,7 +32,7 @@ namespace UnityEditor.AssetBundles
         /// <summary>
         /// 资源包配置文件路径
         /// </summary>
-        public static string ABEntryConfigPath      = "Assets/Editor/Assetbundles/Assetbundle_Settings.asset";
+        public static string ABEntryConfigPath      = "Assets/Framework/Assetbundles/Editor/Assetbundle_Settings.asset";
 
         /// <summary>
         /// 当前工程的平台
