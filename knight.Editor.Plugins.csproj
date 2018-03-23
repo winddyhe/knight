@@ -362,6 +362,7 @@
     <None Include="Assets\Game\Knight\GameAsset\Config\SkillConfig\Text\SkillList.txt" />
     <None Include="Assets\Game\Knight\Resources\server_url_default.txt" />
     <None Include="Assets\Game\OriginalRes\Scene\Top_Down_City\Water\Sources\Shaders\FX-Water.shader" />
+    <None Include="Assets\Plugins\ILRuntime\LICENSE.TXT" />
     <None Include="Assets\Test\JsonTest\Test1.txt" />
     <None Include="Assets\link.xml" />
   </ItemGroup>
