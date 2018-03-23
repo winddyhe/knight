@@ -5,16 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F24149DF-153B-2437-9787-77DE48010481}</ProjectGuid>
+    <ProjectGuid>{5C4B25E1-7B6C-62F2-C21D-FE9F6EAC1C6F}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp-Editor.dll</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor-firstpass.dll</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile></TargetFrameworkProfile>
     <CompilerResponseFile>Library\UnityAssemblies\mcs.rsp</CompilerResponseFile>
-    <UnityProjectType>Editor:5</UnityProjectType>
+    <UnityProjectType>EditorPlugins:7</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.3.0p2</UnityVersion>
     <RootNamespace></RootNamespace>
@@ -316,145 +316,19 @@
       <Project>{9CC3C92F-FE7E-EA45-EC53-58BD08676A52}</Project>
       <Name>knight.Plugins</Name>
     </ProjectReference>
-    <ProjectReference Include="knight.csproj">
-      <Project>{6E93D330-FA13-595F-34F0-1440245108EB}</Project>
-      <Name>knight</Name>
-    </ProjectReference>
-    <ProjectReference Include="knight.Editor.Plugins.csproj">
-      <Project>{5C4B25E1-7B6C-62F2-C21D-FE9F6EAC1C6F}</Project>
-      <Name>knight.Editor.Plugins</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\AssetPreprocess\CustomAssetPreprocess.cs" />
-    <Compile Include="Assets\Editor\BuildPlayer\BuildDispose.cs" />
-    <Compile Include="Assets\Editor\ECSTool\ECSTool.cs" />
-    <Compile Include="Assets\Editor\EffectTool\AnimatorKeyframeCopyTool.cs" />
-    <Compile Include="Assets\Editor\ExcelReader\ExcelReader.cs" />
-    <Compile Include="Assets\Editor\ExcelReader\ExcelReaderWindow.cs" />
-    <Compile Include="Assets\Editor\Memory\ObjectSearchWindow.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\litjson-0.9-internal\IJsonWrapper.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\litjson-0.9-internal\JsonData.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\litjson-0.9-internal\JsonException.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\litjson-0.9-internal\JsonMapper.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\litjson-0.9-internal\JsonMockWrapper.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\litjson-0.9-internal\JsonReader.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\litjson-0.9-internal\JsonWriter.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\litjson-0.9-internal\Lexer.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\litjson-0.9-internal\ParserToken.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\PAAssetUtil.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\PAChartDataSet.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\PAEditorConst.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\PAEditorUtil.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\PAGOGraphUtil.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\PAShaderCleanupWindow.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\TableView\TableView.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\TableView\TableView_Impl.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\TableView\TableViewAppr.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\TableView\TableViewColDesc.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\TableView\TableViewDemoWindow.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Editor\TestCommands\TestPACommon.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Scripts\Logging\Log.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Scripts\Logging\LogService.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Scripts\Logging\LogUtil.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Scripts\UniqueString.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\Scripts\Yielders.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Client\NetClient.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Client\NetGuardTimer.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Client\NetManager.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Client\NetUtil.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Common\UsCmd.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Common\UsCmdParsing.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Common\UsCmdUtil.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Common\UsConst.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Common\UsFrameData.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Common\UsGeneric.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Common\UsLogPacket.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Common\UsProtocol.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Common\UsUtil.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Runtime\PerfData\DataCollector.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Runtime\PerfData\MeshLut.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Runtime\PerfData\UsTextureUtil.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Runtime\UsMain.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Runtime\UsMain_NetHandlers.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Runtime\UsNet.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Runtime\UsvConsole.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Runtime\UsvConsoleCmds.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Runtime\UsvSimpleServer.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\PA_Common\usmooth\Runtime\utest.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\ArrayTools.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\BytesAndOffset.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\CrawledDataUnpacker.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\Crawler.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\HighLevelAPI.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\Inspector.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\LowLevelAPI.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\ManagedHeapExtensions.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\MemoryProfilerWindow.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PackedManagedObject.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\MemCompareTarget.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\MemConst.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\MemObjectInfoSet.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\MemObjHistory.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\MemSnapshotInfo.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\MemStackInfoSynObj.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\MemStaticDetail.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\MemTableBrowser.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\MemTypeStats.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\MemUtil.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\SnapshotUtil.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\SubWindows\MemConfigPopup.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\TrackerModes\TrackerMode_Base.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\TrackerModes\TrackerMode_Editor.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\TrackerModes\TrackerMode_File.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\TrackerModes\TrackerMode_Remote.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\TrackerModes\TrackerModeManager.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\TrackerModes\TrackerModeOwner.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PAContrib\TrackerModes\TrackerModeUtil.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\PrimitiveValueReader.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\RequestStackInfosSummary.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\ShaderComponnentScanner.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\ShortestPathToRootFinder.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\StringTools.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\Treemap\Group.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\Treemap\Item.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\Treemap\ITreemapRenderable.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\Treemap\Utility.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\TreeMapView.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\TypeTools.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\Editor\ZoomArea.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\ResourceTracker.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\ResourceTrackerConst.cs" />
-    <Compile Include="Assets\Editor\Memory\PerfAssist\ResourceTracker\ResourceTrackerUtil.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\ABBuilder.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\ABBuilderEditor.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\ABEntry.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\ABEntryConfig.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\ABHistory.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\ABHistoryEditor.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\ABPlatform.Editor.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\ABPreprocessingTab.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\ABVersion.Editor.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\AssetBundleBrowser\AssetBundleBrowserMain.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\AssetBundleBrowser\AssetBundleBuildTab.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\AssetBundleBrowser\AssetBundleManageTab.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\AssetBundleBrowser\AssetBundleModel\ABModel.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\AssetBundleBrowser\AssetBundleModel\ABModelAssetInfo.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\AssetBundleBrowser\AssetBundleModel\ABModelBundleInfo.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\AssetBundleBrowser\AssetBundleTree.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\AssetBundleBrowser\AssetListTree.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\AssetBundleBrowser\MessageList.cs" />
-    <Compile Include="Assets\Framework\Assetbundles\Editor\StreamingAssetsSync.cs" />
-    <Compile Include="Assets\Framework\Graphics\Editor\3DRender\FontDataDrawer.cs" />
-    <Compile Include="Assets\Framework\Graphics\Editor\3DRender\Image3DRendererInspector.cs" />
-    <Compile Include="Assets\Framework\Graphics\Editor\3DRender\Text3DRendererInspector.cs" />
-    <Compile Include="Assets\Framework\Graphics\Editor\3DRender\ThreeDRenderEditor.cs" />
-    <Compile Include="Assets\Framework\Hotfix\Editor\HotfixEventTriggerInspector.cs" />
-    <Compile Include="Assets\Framework\Hotfix\Editor\HotfixManager.Editor.cs" />
-    <Compile Include="Assets\Framework\Hotfix\Editor\HotfixMBContainerInspector.cs" />
-    <Compile Include="Assets\Framework\Hotfix\Editor\ILRuntime\ILRuntimeCLRBinding.cs" />
-    <Compile Include="Assets\Framework\Hotfix\Editor\ViewContainerInspector.cs" />
-    <Compile Include="Assets\Game\Knight\Editor\AssetbundlePerprocessor.Knight.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\Editor\EditorAssists.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\Editor\EditorCoroutineManager.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\Editor\EditorGUI.cs" />
+    <Compile Include="Assets\Plugins\Core\Assist\Editor\TransformInspector.cs" />
+    <Compile Include="Assets\Plugins\Core\Logger\Editor\Logger.Editor.cs" />
+    <Compile Include="Assets\Plugins\Core\MultiScene\Editor\MultiSceneEditor.cs" />
+    <Compile Include="Assets\Plugins\Core\MultiScene\Editor\MultiSceneEditorWindow.cs" />
+    <Compile Include="Assets\Plugins\Core\Serializer\Editor\CodeGenerator.ClassSerializer.cs" />
+    <Compile Include="Assets\Plugins\Core\Serializer\Editor\CodeGenerator.CommonSerializer.cs" />
+    <Compile Include="Assets\Plugins\Core\Serializer\Editor\CodeGenerator.cs" />
+    <Compile Include="Assets\Plugins\Core\Serializer\Editor\SerializerBinary.Editor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlend.cginc" />
