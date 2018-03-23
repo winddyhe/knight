@@ -452,6 +452,7 @@
     <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\Runtime\Enviorment\CLRRedirections.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\Runtime\Enviorment\CrossBindingAdaptor.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\Runtime\Enviorment\DelegateManager.cs" />
+    <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\Runtime\Enviorment\InvocationContext.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\Runtime\Enviorment\ValueTypeBinder.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\Runtime\Extensions.cs" />
     <Compile Include="Assets\Plugins\ILRuntime\ILRuntime\Runtime\Intepreter\DelegateAdapter.cs" />

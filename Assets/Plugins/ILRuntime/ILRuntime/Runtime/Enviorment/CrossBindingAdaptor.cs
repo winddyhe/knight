@@ -247,6 +247,26 @@ namespace ILRuntime.Runtime.Enviorment
         {
             get { return false; }
         }
+        public bool IsByRef
+        {
+            get
+            {
+                return type.IsByRef;
+            }
+        }
+
+        public bool IsInterface
+        {
+            get { return type.IsInterface; }
+        }
+
+        public IType ElementType
+        {
+            get
+            {
+                return type.ElementType;
+            }
+        }
 
         public int ArrayRank
         {

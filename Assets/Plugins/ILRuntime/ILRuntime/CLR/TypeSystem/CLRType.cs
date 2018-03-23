@@ -133,6 +133,11 @@ namespace ILRuntime.CLR.TypeSystem
             }
         }
 
+        public bool IsInterface
+        {
+            get { return clrType.IsInterface; }
+        }
+
         public Type TypeForCLR
         {
             get
@@ -182,6 +187,15 @@ namespace ILRuntime.CLR.TypeSystem
                 return isValueType;
             }
         }
+
+        public bool IsByRef
+        {
+            get
+            {
+                return clrType.IsByRef;
+            }
+        }
+
         public bool IsDelegate
         {
             get
@@ -637,7 +651,12 @@ namespace ILRuntime.CLR.TypeSystem
                 return true;
             }
             else
-                return false;
+            {
+                if (type is ILType)
+                    return false;
+                Type cT = type != null ? type.TypeForCLR : typeof(object);
+                return TypeForCLR.IsAssignableFrom(cT);
+            }
         }
 
         public IMethod GetConstructor(List<IType> param)
@@ -734,6 +753,7 @@ namespace ILRuntime.CLR.TypeSystem
             {
                 Type t = clrType.MakeByRefType();
                 byRefType = new CLRType(t, appdomain);
+                ((CLRType)byRefType).elementType = this;
             }
             return byRefType;
         }
