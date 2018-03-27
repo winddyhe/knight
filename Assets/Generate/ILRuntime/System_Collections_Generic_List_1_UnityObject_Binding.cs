@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -19,7 +19,6 @@ namespace ILRuntime.Runtime.Generated
         {
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
             MethodBase method;
-            FieldInfo field;
             Type[] args;
             Type type = typeof(System.Collections.Generic.List<Framework.Hotfix.UnityObject>);
             args = new Type[]{};
@@ -44,9 +43,9 @@ namespace ILRuntime.Runtime.Generated
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.List<Framework.Hotfix.UnityObject> instance_of_this_method;
-            instance_of_this_method = (System.Collections.Generic.List<Framework.Hotfix.UnityObject>)typeof(System.Collections.Generic.List<Framework.Hotfix.UnityObject>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.List<Framework.Hotfix.UnityObject> instance_of_this_method = (System.Collections.Generic.List<Framework.Hotfix.UnityObject>)typeof(System.Collections.Generic.List<Framework.Hotfix.UnityObject>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.Count;
@@ -61,11 +60,12 @@ namespace ILRuntime.Runtime.Generated
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Int32 index = ptr_of_this_method->Value;
+            System.Int32 @index = ptr_of_this_method->Value;
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Collections.Generic.List<Framework.Hotfix.UnityObject> instance_of_this_method;
-            instance_of_this_method = (System.Collections.Generic.List<Framework.Hotfix.UnityObject>)typeof(System.Collections.Generic.List<Framework.Hotfix.UnityObject>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.List<Framework.Hotfix.UnityObject> instance_of_this_method = (System.Collections.Generic.List<Framework.Hotfix.UnityObject>)typeof(System.Collections.Generic.List<Framework.Hotfix.UnityObject>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method[index];
@@ -83,14 +83,16 @@ namespace ILRuntime.Runtime.Generated
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 3);
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            Framework.Hotfix.UnityObject value = (Framework.Hotfix.UnityObject)typeof(Framework.Hotfix.UnityObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            Framework.Hotfix.UnityObject @value = (Framework.Hotfix.UnityObject)typeof(Framework.Hotfix.UnityObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Int32 index = ptr_of_this_method->Value;
+            System.Int32 @index = ptr_of_this_method->Value;
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            System.Collections.Generic.List<Framework.Hotfix.UnityObject> instance_of_this_method;
-            instance_of_this_method = (System.Collections.Generic.List<Framework.Hotfix.UnityObject>)typeof(System.Collections.Generic.List<Framework.Hotfix.UnityObject>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.List<Framework.Hotfix.UnityObject> instance_of_this_method = (System.Collections.Generic.List<Framework.Hotfix.UnityObject>)typeof(System.Collections.Generic.List<Framework.Hotfix.UnityObject>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method[index] = value;
@@ -103,9 +105,9 @@ namespace ILRuntime.Runtime.Generated
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.List<Framework.Hotfix.UnityObject> instance_of_this_method;
-            instance_of_this_method = (System.Collections.Generic.List<Framework.Hotfix.UnityObject>)typeof(System.Collections.Generic.List<Framework.Hotfix.UnityObject>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.List<Framework.Hotfix.UnityObject> instance_of_this_method = (System.Collections.Generic.List<Framework.Hotfix.UnityObject>)typeof(System.Collections.Generic.List<Framework.Hotfix.UnityObject>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.Clear();

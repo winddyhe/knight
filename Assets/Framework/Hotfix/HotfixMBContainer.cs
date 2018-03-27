@@ -88,5 +88,13 @@ namespace Framework.Hotfix
             this.mNeedUpdate = bNeedUpdate;
             this.Awake();
         }
+
+        public T Get<T>(string rName) where T : class
+        {
+            if (this.Objects == null) return null;
+            var rUObj = this.Objects.Find((rItem) => { return rItem.Name.Equals(rName); });
+            if (rUObj == null) return null;
+            return rUObj.Object as T;
+        }
     }
 }

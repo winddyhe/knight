@@ -27,7 +27,7 @@ namespace Game.Knight
             this.Parent = rParent;
             this.SelectedPlayer = rMBContainer.Objects[0].Object as Toggle;
 
-            HotfixEventManager.Instance.Binding(this.SelectedPlayer, (EventTriggerType)100, (rTarget) => { OnToggleSelectedValueChanged(); });
+            HotfixEventManager.Instance.Binding(this.SelectedPlayer, (Framework.HEventTriggerType)100, (rTarget) => { OnToggleSelectedValueChanged(); });
 
             // 获取ProfessionalID
             this.ProfessionalID = nProfessionalID;
@@ -35,7 +35,7 @@ namespace Game.Knight
 
         public void Destroy()
         {
-            HotfixEventManager.Instance.UnBinding(this.SelectedPlayer, (EventTriggerType)100, (rTarget) => { OnToggleSelectedValueChanged(); });
+            HotfixEventManager.Instance.UnBinding(this.SelectedPlayer, (Framework.HEventTriggerType)100, (rTarget) => { OnToggleSelectedValueChanged(); });
         }
         
         public void OnToggleSelectedValueChanged()

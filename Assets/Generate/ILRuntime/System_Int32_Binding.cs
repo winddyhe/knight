@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -19,7 +19,6 @@ namespace ILRuntime.Runtime.Generated
         {
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
             MethodBase method;
-            FieldInfo field;
             Type[] args;
             Type type = typeof(System.Int32);
             args = new Type[]{typeof(System.Int32)};
@@ -43,7 +42,7 @@ namespace ILRuntime.Runtime.Generated
                         var instance_of_fieldReference = __mStack[ptr_of_this_method->Value];
                         if(instance_of_fieldReference is ILTypeInstance)
                         {
-                            instance_of_this_method = (System.Int32)((ILTypeInstance)instance_of_fieldReference)[ptr_of_this_method->ValueLow];
+                            instance_of_this_method = (System.Int32)typeof(System.Int32).CheckCLRTypes(((ILTypeInstance)instance_of_fieldReference)[ptr_of_this_method->ValueLow]);
                         }
                         else
                         {
@@ -57,7 +56,7 @@ namespace ILRuntime.Runtime.Generated
                         var t = __domain.GetType(ptr_of_this_method->Value);
                         if(t is ILType)
                         {
-                            instance_of_this_method = (System.Int32)((ILType)t).StaticInstance[ptr_of_this_method->ValueLow];
+                            instance_of_this_method = (System.Int32)typeof(System.Int32).CheckCLRTypes(((ILType)t).StaticInstance[ptr_of_this_method->ValueLow]);
                         }
                         else
                         {
@@ -83,12 +82,14 @@ namespace ILRuntime.Runtime.Generated
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Int32 value = ptr_of_this_method->Value;
+            System.Int32 @value = ptr_of_this_method->Value;
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             System.Int32 instance_of_this_method = GetInstance(__domain, ptr_of_this_method, __mStack);
 
-            var result_of_this_method = instance_of_this_method.CompareTo(value);
+            var result_of_this_method = instance_of_this_method.CompareTo(@value);
 
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;
@@ -100,11 +101,13 @@ namespace ILRuntime.Runtime.Generated
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.String s = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.String @s = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = System.Int32.Parse(s);
+
+            var result_of_this_method = System.Int32.Parse(@s);
 
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;

@@ -9,6 +9,7 @@ using WindHotfix.GUI;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using WindHotfix.Core;
+using Framework;
 
 namespace Game.Knight
 {
@@ -23,7 +24,7 @@ namespace Game.Knight
         //private string        mGateHost       = "127.0.0.1";
         //private int           mGatePort       = 3010;
 
-        [HotfixBindingEvent("LoginBtn", EventTriggerType.PointerClick)]
+        [HotfixBindingEvent("LoginBtn", HEventTriggerType.PointerClick)]
         private void OnButton_Clicked(UnityEngine.Object rObj)
         {
             if (string.IsNullOrEmpty(this.AccountInput.text))

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -19,7 +19,6 @@ namespace ILRuntime.Runtime.Generated
         {
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
             MethodBase method;
-            FieldInfo field;
             Type[] args;
             Type type = typeof(Framework.Joystick);
             args = new Type[]{};
@@ -38,9 +37,9 @@ namespace ILRuntime.Runtime.Generated
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            Framework.Joystick instance_of_this_method;
-            instance_of_this_method = (Framework.Joystick)typeof(Framework.Joystick).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            Framework.Joystick instance_of_this_method = (Framework.Joystick)typeof(Framework.Joystick).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.Reset();
@@ -53,16 +52,18 @@ namespace ILRuntime.Runtime.Generated
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 3);
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Single y = *(float*)&ptr_of_this_method->Value;
+            System.Single @y = *(float*)&ptr_of_this_method->Value;
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Single x = *(float*)&ptr_of_this_method->Value;
+            System.Single @x = *(float*)&ptr_of_this_method->Value;
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            Framework.Joystick instance_of_this_method;
-            instance_of_this_method = (Framework.Joystick)typeof(Framework.Joystick).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            Framework.Joystick instance_of_this_method = (Framework.Joystick)typeof(Framework.Joystick).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            instance_of_this_method.Set(x, y);
+            instance_of_this_method.Set(@x, @y);
 
             return __ret;
         }

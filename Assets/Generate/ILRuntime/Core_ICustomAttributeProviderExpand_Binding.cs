@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -19,7 +19,6 @@ namespace ILRuntime.Runtime.Generated
         {
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
             MethodBase method;
-            FieldInfo field;
             Type[] args;
             Type type = typeof(Core.ICustomAttributeProviderExpand);
             args = new Type[]{typeof(System.Reflection.ICustomAttributeProvider), typeof(System.Type), typeof(System.Boolean)};
@@ -35,16 +34,20 @@ namespace ILRuntime.Runtime.Generated
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 3);
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Boolean bInherit = ptr_of_this_method->Value == 1;
+            System.Boolean @bInherit = ptr_of_this_method->Value == 1;
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Type rType = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            System.Reflection.ICustomAttributeProvider rProvider = (System.Reflection.ICustomAttributeProvider)typeof(System.Reflection.ICustomAttributeProvider).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Type @rType = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = Core.ICustomAttributeProviderExpand.IsApplyAttr(rProvider, rType, bInherit);
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            System.Reflection.ICustomAttributeProvider @rProvider = (System.Reflection.ICustomAttributeProvider)typeof(System.Reflection.ICustomAttributeProvider).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = Core.ICustomAttributeProviderExpand.IsApplyAttr(@rProvider, @rType, @bInherit);
 
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method ? 1 : 0;

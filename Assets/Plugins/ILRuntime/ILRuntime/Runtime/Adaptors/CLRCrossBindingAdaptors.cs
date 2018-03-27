@@ -9,7 +9,7 @@ using ILRuntime.Runtime.Intepreter;
 
 namespace ILRuntime.Runtime.Adaptors
 {
-    class AttributeAdaptor : CrossBindingAdaptor
+    public class AttributeAdaptor : CrossBindingAdaptor
     {
         public override Type AdaptorType
         {
@@ -32,7 +32,7 @@ namespace ILRuntime.Runtime.Adaptors
             return new Adaptor(appdomain, instance);
         }
 
-        class Adaptor : Attribute, CrossBindingAdaptorType
+        public class Adaptor : Attribute, CrossBindingAdaptorType
         {
             ILTypeInstance instance;
             ILRuntime.Runtime.Enviorment.AppDomain appdomain;

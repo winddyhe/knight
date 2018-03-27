@@ -349,6 +349,7 @@
     <None Include="Assets\Framework\Graphics\Shaders\PostEffect\HDR.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\PostEffect\MotionBlur.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\PostEffect\RadialBlur.shader" />
+    <None Include="Assets\Framework\Graphics\Shaders\PostEffect\RapidBlurEffect.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\PostEffect\SceneBoom.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\PostEffect\SceneTwist.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\Texture\Texture.cginc" />

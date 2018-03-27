@@ -32,12 +32,12 @@ namespace Game.Knight
             this.ActorName       = rMBContainer.Objects[2].Object as Text;
             this.SelectedToggle  = rMBContainer.Objects[3].Object as Toggle;
 
-            HotfixEventManager.Instance.Binding(this.SelectedToggle, EventTriggerType.Select, (rTarget) => { OnValueChanged(); });
+            HotfixEventManager.Instance.Binding(this.SelectedToggle, Framework.HEventTriggerType.Select, (rTarget) => { OnValueChanged(); });
         }
 
         public void Destroy()
         {
-            HotfixEventManager.Instance.UnBinding(this.SelectedToggle, EventTriggerType.Select, (rTarget) => { OnValueChanged(); });
+            HotfixEventManager.Instance.UnBinding(this.SelectedToggle, Framework.HEventTriggerType.Select, (rTarget) => { OnValueChanged(); });
         }
 
         public void Set(ActorNet rNetActor)

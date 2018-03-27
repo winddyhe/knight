@@ -6,6 +6,7 @@ using System;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using UnityEngine.EventSystems;
+using Framework;
 
 namespace WindHotfix.Core
 {
@@ -29,11 +30,11 @@ namespace WindHotfix.Core
     [AttributeUsage(AttributeTargets.Method)]
     public class HotfixBindingEventAttribute : Attribute
     {
-        public string           Name;
-        public EventTriggerType EventType;
-        public bool             NeedUnbind;
+        public string               Name;
+        public HEventTriggerType    EventType;
+        public bool                 NeedUnbind;
 
-        public HotfixBindingEventAttribute(string rName, EventTriggerType rEventType, bool bNeedUnbind = true)
+        public HotfixBindingEventAttribute(string rName, HEventTriggerType rEventType, bool bNeedUnbind = true)
         {
             this.Name           = rName;
             this.EventType      = rEventType;
@@ -43,9 +44,9 @@ namespace WindHotfix.Core
 
     public class HotfixEventObject
     {
-        public Object           TargetObject;
-        public Action<Object>   EventHandler;
-        public EventTriggerType EventType;
-        public bool             NeedUnbind;
+        public Object               TargetObject;
+        public Action<Object>       EventHandler;
+        public HEventTriggerType    EventType;
+        public bool                 NeedUnbind;
     }
 }

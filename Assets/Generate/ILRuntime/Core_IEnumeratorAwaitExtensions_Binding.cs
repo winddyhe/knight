@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -19,7 +19,6 @@ namespace ILRuntime.Runtime.Generated
         {
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
             MethodBase method;
-            FieldInfo field;
             Type[] args;
             Type type = typeof(Core.IEnumeratorAwaitExtensions);
             args = new Type[]{typeof(UnityEngine.WaitForEndOfFrame)};
@@ -35,11 +34,13 @@ namespace ILRuntime.Runtime.Generated
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.WaitForEndOfFrame instruction = (UnityEngine.WaitForEndOfFrame)typeof(UnityEngine.WaitForEndOfFrame).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.WaitForEndOfFrame @instruction = (UnityEngine.WaitForEndOfFrame)typeof(UnityEngine.WaitForEndOfFrame).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = Core.IEnumeratorAwaitExtensions.GetAwaiter(instruction);
+
+            var result_of_this_method = Core.IEnumeratorAwaitExtensions.GetAwaiter(@instruction);
 
             object obj_result_of_this_method = result_of_this_method;
             if(obj_result_of_this_method is CrossBindingAdaptorType)

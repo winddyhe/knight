@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using WindHotfix.GUI;
 using WindHotfix.Core;
 using UnityEngine.EventSystems;
+using Framework;
 
 namespace KnightHotfixModule.Test.UI
 {
@@ -32,7 +33,7 @@ namespace KnightHotfixModule.Test.UI
             Debug.LogError("OnClosing: " + this.mIsClosed);
         }
 
-        [HotfixBindingEvent("LoginBtn", EventTriggerType.PointerClick)]
+        [HotfixBindingEvent("LoginBtn", HEventTriggerType.PointerClick)]
         private void OnButton_Clicked(UnityEngine.Object rObj)
         {
             Debug.LogError("Button Clicked..." + this.AccountInput.text + ", " + this.PasswordInput.text);

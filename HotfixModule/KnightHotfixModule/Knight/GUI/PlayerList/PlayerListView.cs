@@ -49,7 +49,7 @@ namespace Game.Knight
             }
         }
 
-        [HotfixBindingEvent("StartGameBtn", EventTriggerType.PointerClick)]
+        [HotfixBindingEvent("StartGameBtn", HEventTriggerType.PointerClick)]
         public void OnStartGameBtn_Clicked(Object rTarget)
         {
             // 卸载当前场景
@@ -60,7 +60,7 @@ namespace Game.Knight
             GameFlowLevelManager.Instance.LoadLevel("World");
         }
 
-        [HotfixBindingEvent("CreatePlayerBtn", EventTriggerType.PointerClick)]
+        [HotfixBindingEvent("CreatePlayerBtn", HEventTriggerType.PointerClick)]
         public void OnCreatePlayerBtn_Clicked(Object rTarget)
         {
             ViewManager.Instance.Open("KNCreatePlayer", View.State.dispatch);

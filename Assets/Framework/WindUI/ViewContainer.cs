@@ -34,6 +34,10 @@ namespace Framework.WindUI
             /// 可切换的
             /// </summary>
             dispatch,
+            /// <summary>
+            /// 弹出框
+            /// </summary>
+            popup,
         }
 
         /// <summary>

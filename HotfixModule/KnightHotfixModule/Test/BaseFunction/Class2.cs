@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using WindHotfix.Core;
 using UnityEngine;
 using UnityEngine.UI;
+using Framework;
 
 namespace WindHotfix.Test
 {
@@ -27,13 +28,13 @@ namespace WindHotfix.Test
         {
         }
 
-        [HotfixBindingEvent("HotfixTest1", UnityEngine.EventSystems.EventTriggerType.PointerClick)]
+        [HotfixBindingEvent("HotfixTest1", HEventTriggerType.PointerClick)]
         private void OnButton_Clicked(UnityEngine.Object rObj)
         {
             Debug.LogError(rObj.name + " Clicked...");
         }
 
-        [HotfixBindingEvent("HotfixTest1 (1)", UnityEngine.EventSystems.EventTriggerType.PointerClick)]
+        [HotfixBindingEvent("HotfixTest1 (1)", HEventTriggerType.PointerClick)]
         private void OnButton1_Clicked(UnityEngine.Object rObj)
         {
             Debug.LogError(rObj.name + " Clicked...");

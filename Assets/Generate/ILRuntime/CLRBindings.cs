@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -6,6 +6,8 @@ namespace ILRuntime.Runtime.Generated
 {
     class CLRBindings
     {
+
+
         /// <summary>
         /// Initialize the CLR binding, please invoke this AFTER CLR Redirection registration
         /// </summary>
@@ -25,7 +27,6 @@ namespace ILRuntime.Runtime.Generated
             Framework_Network_OpcodeTypes_Binding.Register(app);
             System_Object_Binding.Register(app);
             Core_DictExpand_Binding.Register(app);
-            System_Action_1_Object_Binding.Register(app);
             Core_Dict_2_UInt32_Action_1_Object_Binding.Register(app);
             System_Collections_Generic_List_1_Byte_Array_Binding.Register(app);
             System_Byte_Binding.Register(app);
@@ -60,15 +61,14 @@ namespace ILRuntime.Runtime.Generated
             Framework_WindUI_UIAssetLoader_Binding.Register(app);
             System_Threading_Tasks_Task_Binding.Register(app);
             System_Runtime_CompilerServices_TaskAwaiter_Binding.Register(app);
-            System_Threading_Tasks_Task_1_LoaderRequest_Binding.Register(app);
-            System_Runtime_CompilerServices_TaskAwaiter_1_LoaderRequest_Binding.Register(app);
+            System_Threading_Tasks_Task_1_Framework_WindUI_UIAssetLoader_Binding_LoaderRequest_Binding.Register(app);
+            System_Runtime_CompilerServices_TaskAwaiter_1_Framework_WindUI_UIAssetLoader_Binding_LoaderRequest_Binding.Register(app);
             Framework_WindUI_UIAssetLoader_Binding_LoaderRequest_Binding.Register(app);
             System_Collections_Generic_List_1_ILTypeInstance_Binding.Register(app);
             Core_Dict_2_Int32_ILTypeInstance_Binding.Register(app);
             UnityEngine_WaitForEndOfFrame_Binding.Register(app);
             Core_IEnumeratorAwaitExtensions_Binding.Register(app);
             Core_IEnumeratorAwaitExtensions_Binding_SimpleCoroutineAwaiter_Binding.Register(app);
-            System_Func_1_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_IEnumerator_1_CKeyValuePair_2_Int32_ILTypeInstance_Binding.Register(app);
             Core_CKeyValuePair_2_Int32_ILTypeInstance_Binding.Register(app);
             System_Collections_IEnumerator_Binding.Register(app);
@@ -100,6 +100,7 @@ namespace ILRuntime.Runtime.Generated
             System_Collections_Generic_KeyValuePair_2_Type_Type_Binding.Register(app);
             System_Collections_Generic_List_1_KeyValuePair_2_Type_Type_Binding_Enumerator_Binding.Register(app);
             Framework_Hotfix_UnityObject_Binding.Register(app);
+            Test_HotfixMBTest_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_Int32_Int32_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_Int32_Int32_Binding_Enumerator_Binding.Register(app);
             System_Collections_Generic_KeyValuePair_2_Int32_Int32_Binding.Register(app);
@@ -116,19 +117,19 @@ namespace ILRuntime.Runtime.Generated
             Framework_SceneAssetLoader_Binding.Register(app);
             Core_TSingleton_1_GameFlowLevelManager_Binding.Register(app);
             Framework_GameFlowLevelManager_Binding.Register(app);
-            System_Threading_Tasks_Task_1_LevelRequest_Binding.Register(app);
-            System_Runtime_CompilerServices_TaskAwaiter_1_LevelRequest_Binding.Register(app);
+            System_Threading_Tasks_Task_1_Framework_GameFlowLevelManager_Binding_LevelRequest_Binding.Register(app);
+            System_Runtime_CompilerServices_TaskAwaiter_1_Framework_GameFlowLevelManager_Binding_LevelRequest_Binding.Register(app);
             Framework_GameLoading_Binding.Register(app);
-            System_Threading_Tasks_Task_1_SceneLoaderRequest_Binding.Register(app);
-            System_Runtime_CompilerServices_TaskAwaiter_1_SceneLoaderRequest_Binding.Register(app);
+            System_Threading_Tasks_Task_1_Framework_SceneAssetLoader_Binding_SceneLoaderRequest_Binding.Register(app);
+            System_Runtime_CompilerServices_TaskAwaiter_1_Framework_SceneAssetLoader_Binding_SceneLoaderRequest_Binding.Register(app);
             System_IO_File_Binding.Register(app);
             Core_Dict_2_Int32_List_1_ILTypeInstance_Binding.Register(app);
             System_IO_FileStream_Binding.Register(app);
             UnityEngine_AssetBundles_ABLoader_Binding.Register(app);
             Core_TSingleton_1_ABPlatform_Binding.Register(app);
             UnityEngine_AssetBundles_ABPlatform_Binding.Register(app);
-            System_Threading_Tasks_Task_1_LoaderRequest_Binding.Register(app);
-            System_Runtime_CompilerServices_TaskAwaiter_1_LoaderRequest_Binding.Register(app);
+            System_Threading_Tasks_Task_1_UnityEngine_AssetBundles_ABLoader_Binding_LoaderRequest_Binding.Register(app);
+            System_Runtime_CompilerServices_TaskAwaiter_1_UnityEngine_AssetBundles_ABLoader_Binding_LoaderRequest_Binding.Register(app);
             UnityEngine_AssetBundles_ABLoader_Binding_LoaderRequest_Binding.Register(app);
             UnityEngine_TextAsset_Binding.Register(app);
             System_Collections_Generic_Stack_1_ILTypeInstance_Binding.Register(app);
@@ -148,20 +149,29 @@ namespace ILRuntime.Runtime.Generated
             System_Reflection_CustomAttributeExtensions_Binding.Register(app);
             UnityEngine_UI_Toggle_Binding.Register(app);
             UnityEngine_UI_Text_Binding.Register(app);
-            Framework_WindUI_Toast_Binding.Register(app);
+            UnityEngine_UI_Toast_Binding.Register(app);
             Framework_TouchInput_Binding.Register(app);
             Framework_TouchObject_Binding.Register(app);
             UnityEngine_Screen_Binding.Register(app);
             UnityEngine_RectTransform_Binding.Register(app);
             Core_TSingleton_1_Joystick_Binding.Register(app);
             Framework_Joystick_Binding.Register(app);
-            Framework_WindUI_TextFormat_Binding.Register(app);
+            UnityEngine_UI_TextFormat_Binding.Register(app);
             System_Collections_Generic_IEnumerator_1_CKeyValuePair_2_Int32_List_1_ILTypeInstance_Binding.Register(app);
             Core_CKeyValuePair_2_Int32_List_1_ILTypeInstance_Binding.Register(app);
             System_Single_Binding.Register(app);
             System_Threading_Monitor_Binding.Register(app);
             System_InvalidOperationException_Binding.Register(app);
             System_Activator_Binding.Register(app);
+
+            ILRuntime.CLR.TypeSystem.CLRType __clrType = null;
+        }
+
+        /// <summary>
+        /// Release the CLR binding, please invoke this BEFORE ILRuntime Appdomain destroy
+        /// </summary>
+        public static void Shutdown(ILRuntime.Runtime.Enviorment.AppDomain app)
+        {
         }
     }
 }

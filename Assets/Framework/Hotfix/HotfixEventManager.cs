@@ -15,11 +15,11 @@ namespace Framework.Hotfix
         public class EventObject
         {
             public UnityEngine.Object               Target;
-            public EventTriggerType                 Type;
+            public HEventTriggerType                Type;
             public event Action<UnityEngine.Object> Event;
             public int                              ReferCount;
 
-            public EventObject(UnityEngine.Object rTarget, EventTriggerType rType)
+            public EventObject(UnityEngine.Object rTarget, HEventTriggerType rType)
             {
                 this.Target = rTarget;
                 this.Type = rType;
@@ -56,16 +56,16 @@ namespace Framework.Hotfix
         
         public class EventTypeObject
         {
-            public UnityEngine.Object                   TargetGo;
-            public Dict<EventTriggerType, EventObject>  EventTypeObjs;
+            public UnityEngine.Object                       TargetGo;
+            public Dict<HEventTriggerType, EventObject>     EventTypeObjs;
 
             public EventTypeObject(UnityEngine.Object rTargetGo)
             {
                 this.TargetGo = rTargetGo;
-                this.EventTypeObjs = new Dict<EventTriggerType, EventObject>();
+                this.EventTypeObjs = new Dict<HEventTriggerType, EventObject>();
             }
 
-            public void AddEvent(EventTriggerType rEventType, System.Action<UnityEngine.Object> rEventHandler)
+            public void AddEvent(HEventTriggerType rEventType, System.Action<UnityEngine.Object> rEventHandler)
             {
                 EventObject rEventObject = null;
                 if (!this.EventTypeObjs.TryGetValue(rEventType, out rEventObject))
@@ -80,7 +80,7 @@ namespace Framework.Hotfix
                 }
             }
 
-            public void RemoveEvent(EventTriggerType rEventType, Action<UnityEngine.Object> rAction)
+            public void RemoveEvent(HEventTriggerType rEventType, Action<UnityEngine.Object> rAction)
             {
                 EventObject rEventObject = null;
                 if (this.EventTypeObjs.TryGetValue(rEventType, out rEventObject))
@@ -103,7 +103,7 @@ namespace Framework.Hotfix
                 EventTypeObjs.Clear();
             }
 
-            public void Handle(EventTriggerType rEventType)
+            public void Handle(HEventTriggerType rEventType)
             {
                 EventObject rEventObject = null;
                 if (this.EventTypeObjs.TryGetValue(rEventType, out rEventObject))
@@ -136,7 +136,7 @@ namespace Framework.Hotfix
                 }
             }
 
-            public void Remove(EventTriggerType rEventType)
+            public void Remove(HEventTriggerType rEventType)
             {
                 EventObject rEventObject = null;
                 if (this.EventTypeObjs.TryGetValue(rEventType, out rEventObject))
@@ -160,8 +160,10 @@ namespace Framework.Hotfix
             mEvents = new Dict<UnityEngine.Object, EventTypeObject>();
         }
 
-        public void Handle(UnityEngine.Object rTargetGo, EventTriggerType rEventType)
+        public void Handle(UnityEngine.Object rTargetGo, HEventTriggerType rEventType)
         {
+            if (this.mEvents == null) return;
+
             EventTypeObject rEventObject = null;
             if (this.mEvents.TryGetValue(rTargetGo, out rEventObject))
             {
@@ -169,7 +171,7 @@ namespace Framework.Hotfix
             }
         }
         
-        public void Binding(UnityEngine.Object rTargetGo, EventTriggerType rEventType, System.Action<UnityEngine.Object> rEventHandler)
+        public void Binding(UnityEngine.Object rTargetGo, HEventTriggerType rEventType, System.Action<UnityEngine.Object> rEventHandler)
         {
             EventTypeObject rEventObject = null;
             if (!this.mEvents.TryGetValue(rTargetGo, out rEventObject))
@@ -184,7 +186,7 @@ namespace Framework.Hotfix
             }
         }
 
-        public void UnBinding(UnityEngine.Object rTargetGo, EventTriggerType rEventType, System.Action<UnityEngine.Object> rEventHandler)
+        public void UnBinding(UnityEngine.Object rTargetGo, HEventTriggerType rEventType, System.Action<UnityEngine.Object> rEventHandler)
         {
             EventTypeObject rEventObject = null;
             if (this.mEvents.TryGetValue(rTargetGo, out rEventObject))

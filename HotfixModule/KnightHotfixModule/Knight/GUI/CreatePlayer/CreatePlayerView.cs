@@ -9,6 +9,7 @@ using WindHotfix.GUI;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using WindHotfix.Core;
+using Framework;
 
 namespace Game.Knight
 {
@@ -71,7 +72,7 @@ namespace Game.Knight
             }
         }
 
-        [HotfixBindingEvent("PlayerCreateBtn", EventTriggerType.PointerClick)]
+        [HotfixBindingEvent("PlayerCreateBtn", HEventTriggerType.PointerClick)]
         private void OnPlayerCreateBtn_Clicked(UnityEngine.Object rTarget)
         {
             if (string.IsNullOrEmpty(this.PlayerName.text))
@@ -82,7 +83,7 @@ namespace Game.Knight
             Game.Knight.CreatePlayer.Instance.Create(this.PlayerName.text, this.CurSelectedItem.ProfessionalID);
         }
 
-        [HotfixBindingEvent("BackBtn", EventTriggerType.PointerClick)]
+        [HotfixBindingEvent("BackBtn", HEventTriggerType.PointerClick)]
         private void OnBackBtn_Clicked(UnityEngine.Object rTarget)
         {
             ViewManager.Instance.Open("KNPlayerList", View.State.dispatch);

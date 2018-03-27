@@ -50,5 +50,29 @@ namespace Framework.WindUI
                 SetLayer(rTrans, rLayerName);
             }
         }
+
+        /// <summary>
+        /// 删除一个节点下所有的子节点
+        /// </summary>
+        public static void DeleteChildren(this Transform rTrans, bool bNeedFilterDeactive = false)
+        {
+            if (rTrans == null) return;
+
+            for (int i = rTrans.childCount-1; i >= 0; i--)
+            {
+                Transform rChildTrans = rTrans.GetChild(i);
+
+                if (bNeedFilterDeactive && !rChildTrans.gameObject.activeSelf)
+                    continue;
+                GameObject.DestroyImmediate(rChildTrans.gameObject);
+            }
+        }
+
+        public static Vector2 ScreenPointToLocalPointInRectangle(RectTransform rRect, Vector2 rScreenPoint, Camera rCam)
+        {
+            Vector2 rLocalPos = Vector2.zero;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(rRect, rScreenPoint, rCam, out rLocalPos);
+            return rLocalPos;
+        }
     }
 }

@@ -9,6 +9,32 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+namespace Framework
+{
+    public enum HEventTriggerType
+    {
+        PointerEnter                = EventTriggerType.PointerEnter,
+        PointerExit                 = EventTriggerType.PointerExit,
+        PointerDown                 = EventTriggerType.PointerDown,
+        PointerUp                   = EventTriggerType.PointerUp,
+        PointerClick                = EventTriggerType.PointerClick,
+        Drag                        = EventTriggerType.Drag,
+        Drop                        = EventTriggerType.Drop,
+        Scroll                      = EventTriggerType.Scroll,
+        UpdateSelected              = EventTriggerType.UpdateSelected,
+        Select                      = EventTriggerType.Select,
+        Deselect                    = EventTriggerType.Deselect,
+        Move                        = EventTriggerType.Move,
+        InitializePotentialDrag     = EventTriggerType.InitializePotentialDrag,
+        BeginDrag                   = EventTriggerType.BeginDrag,
+        EndDrag                     = EventTriggerType.EndDrag,
+        Submit                      = EventTriggerType.Submit,
+        Cancel                      = EventTriggerType.Cancel,
+        ScrollRectFillCell          = 17,
+        TabChanged                  = 18,
+    }
+}
+
 namespace Framework.Hotfix
 {
     public class HotfixEventTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IInitializePotentialDragHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IScrollHandler, IUpdateSelectedHandler, ISelectHandler, IDeselectHandler, IMoveHandler, ISubmitHandler, ICancelHandler, IEventSystemHandler
@@ -31,13 +57,14 @@ namespace Framework.Hotfix
             BeginDrag               = 1 << 13,
             EndDrag                 = 1 << 14,
             Submit                  = 1 << 15,
-            Cancel                  = 1 << 16
+            Cancel                  = 1 << 16,
+            ScrollRectFillCell      = 1 << 17,
         }
         
         public TriggerType          EventTypeMask = 0;
         public UnityEngine.Object   EventObj;
         
-        private void Handle(BaseEventData eventData, EventTriggerType eventType)
+        public void Handle(BaseEventData eventData, HEventTriggerType eventType)
         {
             HotfixEventManager.Instance.Handle(this.EventObj, eventType);
         }
@@ -48,7 +75,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.BeginDrag);
+                this.Handle(eventData, HEventTriggerType.BeginDrag);
             }
         }
 
@@ -58,7 +85,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.Cancel);
+                this.Handle(eventData, HEventTriggerType.Cancel);
             }
         }
 
@@ -68,7 +95,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.Deselect);
+                this.Handle(eventData, HEventTriggerType.Deselect);
             }
         }
 
@@ -78,8 +105,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-
-                this.Handle(eventData, EventTriggerType.Drag);
+                this.Handle(eventData, HEventTriggerType.Drag);
             }
         }
 
@@ -89,8 +115,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.Drop);
-
+                this.Handle(eventData, HEventTriggerType.Drop);
             }
         }
 
@@ -100,8 +125,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-
-                this.Handle(eventData, EventTriggerType.EndDrag);
+                this.Handle(eventData, HEventTriggerType.EndDrag);
             }
         }
 
@@ -111,8 +135,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-
-                this.Handle(eventData, EventTriggerType.InitializePotentialDrag);
+                this.Handle(eventData, HEventTriggerType.InitializePotentialDrag);
             }
         }
 
@@ -122,8 +145,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-
-                this.Handle(eventData, EventTriggerType.Move);
+                this.Handle(eventData, HEventTriggerType.Move);
             }
         }
 
@@ -133,7 +155,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.PointerClick);
+                this.Handle(eventData, HEventTriggerType.PointerClick);
             }
         }
 
@@ -143,7 +165,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.PointerDown);
+                this.Handle(eventData, HEventTriggerType.PointerDown);
             }
         }
 
@@ -153,7 +175,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.PointerEnter);
+                this.Handle(eventData, HEventTriggerType.PointerEnter);
             }
         }
 
@@ -163,7 +185,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.PointerExit);
+                this.Handle(eventData, HEventTriggerType.PointerExit);
             }
         }
 
@@ -173,7 +195,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.PointerUp);
+                this.Handle(eventData, HEventTriggerType.PointerUp);
             }
         }
 
@@ -183,7 +205,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.Scroll);
+                this.Handle(eventData, HEventTriggerType.Scroll);
             }
         }
 
@@ -193,7 +215,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.Select);
+                this.Handle(eventData, HEventTriggerType.Select);
             }
         }
 
@@ -203,7 +225,7 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.Submit);
+                this.Handle(eventData, HEventTriggerType.Submit);
             }
         }
 
@@ -213,13 +235,8 @@ namespace Framework.Hotfix
             int nEventMask = (int)this.EventTypeMask;
             if ((nEventMask & nTemp) == nTemp)
             {
-                this.Handle(eventData, EventTriggerType.UpdateSelected);
+                this.Handle(eventData, HEventTriggerType.UpdateSelected);
             }
-        }
-
-        public void OnSpecial()
-        {
-            HotfixEventManager.Instance.Handle(this.EventObj, (EventTriggerType)100);
         }
     }
 }
