@@ -46,6 +46,20 @@ namespace Core
             }
         }
 
+        public GameObjectPool(GameObject rRootGo, GameObject rPrefabGo, int rInitCount = 0)
+        {
+            this.mPrefabGo = rPrefabGo;
+            this.mObjectPool = new TObjectPool<GameObject>(OnAlloc, OnFree, OnDestroy);
+
+            this.mRootGo = rRootGo;
+            this.mRootGo.SetActive(false);
+
+            for (int i = 0; i < rInitCount; i++)
+            {
+                this.mObjectPool.Alloc();
+            }
+        }
+
         public GameObject Alloc()
         {
             return this.mObjectPool.Alloc();
@@ -71,7 +85,7 @@ namespace Core
 
         private void OnFree(GameObject rGo)
         {
-            rGo.transform.parent = this.mRootGo.transform;
+            rGo.transform.SetParent(this.mRootGo.transform);
             rGo.transform.localPosition = Vector3.zero;
             rGo.transform.localRotation = Quaternion.identity;
             rGo.transform.localScale = Vector3.one;

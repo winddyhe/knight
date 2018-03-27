@@ -75,6 +75,12 @@ namespace Core.WindJson
             set { Value = value.ToString(); }
         }
 
+        public virtual ulong AsUlong
+        {
+            get { return CastULong(Value);  }
+            set { Value = value.ToString(); }
+        }
+
         public virtual float AsFloat
         {
             get { return CastFloat(Value);  }
@@ -119,6 +125,14 @@ namespace Core.WindJson
         {
             long re = 0;
             if (long.TryParse(value, out re)) return re;
+            Debug.LogError(string.Format("Value: {0} is not int type.", value));
+            return re;
+        }
+
+        public ulong CastULong(string value)
+        {
+            ulong re = 0;
+            if (ulong.TryParse(value, out re)) return re;
             Debug.LogError(string.Format("Value: {0} is not int type.", value));
             return re;
         }
@@ -559,6 +573,11 @@ namespace Core.WindJson
             AsLong = v;
         }
 
+        public JsonData(ulong v)
+        {
+            AsUlong = v;
+        }
+
         public JsonData(bool v)
         {
             AsBool = v;
@@ -606,6 +625,10 @@ namespace Core.WindJson
                 else if (rType == typeof(long))
                 {
                     return CastLong(this.value);
+                }
+                else if (rType == typeof(ulong))
+                {
+                    return CastULong(this.value);
                 }
                 else if (rType == typeof(float))
                 {

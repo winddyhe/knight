@@ -122,6 +122,8 @@ namespace WindHotfix.Core
                     rRootNode = new JsonData((uint)rObject);
                 else if (rType.Equals(typeof(long)))
                     rRootNode = new JsonData((long)rObject);
+                else if (rType.Equals(typeof(ulong)))
+                    rRootNode = new JsonData((ulong)rObject);
                 else if (rType.Equals(typeof(float)))
                     rRootNode = new JsonData((float)rObject);
                 else if (rType.Equals(typeof(double)))

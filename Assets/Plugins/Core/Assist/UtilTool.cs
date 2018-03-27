@@ -131,7 +131,7 @@ namespace Core
         {
             var rText = new StringBuilder();
             for (int nIndex = 0; nIndex < rSelf.Length; ++nIndex)
-                rText.AppendFormat("{0:X}", rSelf[nIndex]);
+                rText.AppendFormat("{0:X2}", rSelf[nIndex]);
             return rText.ToString();
         }
 
@@ -294,6 +294,55 @@ namespace Core
 
             rPath = rTrans.name + (string.IsNullOrEmpty(rPath) ? rPath : "/" + rPath);
             GetTransformPath(rTrans.parent, ref rPath);
+        }
+
+        public static Color ToColor(int r, int g, int b, int a)
+        {
+            return new Color(r / 255f, g / 255f, b / 255f, a / 255f);
+        }
+
+        public static Color ToColor(Color32 rColor32)
+        {
+            return ToColor(rColor32.r, rColor32.g, rColor32.b, rColor32.a);
+        }
+
+        /// <summary>
+        /// 颜色格式 #00FF00FF
+        /// </summary>
+        public static Color ToColor(string rColorStr)
+        {
+            if (rColorStr.Length != 9 || rColorStr[0] != '#')
+            {
+                Debug.LogErrorFormat("颜色格式错误: ", rColorStr);
+                return Color.white;
+            }
+
+            string rRStr = rColorStr.Substring(1, 2);
+            int nR = Get0XValue(rRStr[0]) * 16 + Get0XValue(rRStr[1]);
+
+            string rGStr = rColorStr.Substring(3, 2);
+            int nG = Get0XValue(rGStr[0]) * 16 + Get0XValue(rGStr[1]);
+
+            string rBStr = rColorStr.Substring(5, 2);
+            int nB = Get0XValue(rBStr[0]) * 16 + Get0XValue(rBStr[1]);
+
+            string rAStr = rColorStr.Substring(7, 2);
+            int nA = Get0XValue(rAStr[0]) * 16 + Get0XValue(rAStr[1]);
+
+            return ToColor(nR, nG, nB, nA);
+        }
+
+        public static int Get0XValue(char rChar)
+        {
+            if (rChar >= '0' && rChar <= '9')
+            {
+                return rChar - '0';
+            }
+            else if (rChar >= 'A' && rChar <= 'F')
+            {
+                return rChar - 'A' + 10;
+            }
+            return 0;
         }
     }
 }
