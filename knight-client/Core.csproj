@@ -331,13 +331,13 @@
       <HintPath>D:/Unity/Unity201810f2/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Excel">
-      <HintPath>F:/Winddy/Unity/Game/knight-dev/knight-client/Assets/Framework.Editor/Editor/ExcelReader/Excel.dll</HintPath>
+      <HintPath>F:/Winddy/Unity/Game/knight/knight-client/Assets/Framework.Editor/Editor/ExcelReader/Excel.dll</HintPath>
     </Reference>
     <Reference Include="System.Data">
-      <HintPath>F:/Winddy/Unity/Game/knight-dev/knight-client/Assets/Framework.Editor/Editor/ExcelReader/System.Data.dll</HintPath>
+      <HintPath>F:/Winddy/Unity/Game/knight/knight-client/Assets/Framework.Editor/Editor/ExcelReader/System.Data.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>F:/Winddy/Unity/Game/knight-dev/knight-client/Assets/Plugins/ThridLib/ZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>F:/Winddy/Unity/Game/knight/knight-client/Assets/Plugins/ThridLib/ZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>C:/Users/Winddy/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.7/Editor/UnityEditor.Advertisements.dll</HintPath>
