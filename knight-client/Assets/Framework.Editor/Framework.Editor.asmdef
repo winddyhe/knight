@@ -1,0 +1,15 @@
+{
+    "name": "Framework.Editor",
+    "references": [
+        "Core",
+        "Core.Editor",
+        "ThridLib",
+        "Framework"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Server.App": {
-      "commandName": "Project",
-      "workingDirectory": "../../netcoreapp2.0"
-    }
-  }
-}

@@ -1,0 +1,12 @@
+{
+    "name": "Game",
+    "references": [
+        "Core",
+        "ThridLib",
+        "Framework"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

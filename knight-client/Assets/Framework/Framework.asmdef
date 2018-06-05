@@ -1,0 +1,11 @@
+{
+    "name": "Framework",
+    "references": [
+        "ThridLib",
+        "Core"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true
+}

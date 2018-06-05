@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{18B6F8A7-0539-43D1-B642-B124E5D15911}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SerializerBinaryEditor</RootNamespace>
+    <AssemblyName>SerializerBinaryEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Core">
+      <HintPath>..\..\..\Library\ScriptAssemblies\Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Core.Editor">
+      <HintPath>..\..\..\Library\ScriptAssemblies\Core.Editor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Framework">
+      <HintPath>..\..\..\Library\ScriptAssemblies\Framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Framework.Editor">
+      <HintPath>..\..\..\Library\ScriptAssemblies\Framework.Editor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Game">
+      <HintPath>..\..\..\Library\ScriptAssemblies\Game.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Game.Editor">
+      <HintPath>..\..\..\Library\ScriptAssemblies\Game.Editor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ThridLib">
+      <HintPath>..\..\..\Library\ScriptAssemblies\ThridLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\UnityLibraries\v201810f2\Editor\UnityEditor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>..\..\UnityLibraries\v201810f2\Editor\UnityEditor.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.AccessibilityModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AIModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.AIModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.AnimationModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ARModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.ARModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.AudioModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.BaselibModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.BaselibModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClothModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.ClothModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CloudWebServicesModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.CloudWebServicesModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.ClusterInputModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.ClusterRendererModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.CoreModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.CrashReportingModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.DirectorModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.FacebookModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.FacebookModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.GameCenterModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.GridModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.HotReloadModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.HotReloadModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.InputModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ParticlesLegacyModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.ParticlesLegacyModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.PerformanceReportingModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.Physics2DModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SharedInternalsModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.SharedInternalsModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SpatialTrackingModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.SpatialTrackingModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.SpriteMaskModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteShapeModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.SpriteShapeModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.StyleSheetsModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.StyleSheetsModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SubstanceModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.SubstanceModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.TerrainModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.TilemapModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TimelineModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.TimelineModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TLSModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.TLSModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.UIElementsModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.UIModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UmbraModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.UmbraModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UNETModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.UNETModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityConnectModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VehiclesModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.VehiclesModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.VideoModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VRModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.VRModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.WebModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.WebModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.WindModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.XRModule">
+      <HintPath>..\..\UnityLibraries\v201810f2\Runtime\UnityEngine.XRModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HotfixCodeGenerator.ClassSerializer.cs" />
+    <Compile Include="HotfixCodeGenerator.CommonSerializer.cs" />
+    <Compile Include="HotfixCodeGenerator.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="HotfixSerializerBinary.Editor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\KnightHotfix\KnightHotfix.csproj">
+      <Project>{259690c2-988b-48f0-aac3-16f1ea9f00aa}</Project>
+      <Name>KnightHotfix</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

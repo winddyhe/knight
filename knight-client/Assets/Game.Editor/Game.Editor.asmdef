@@ -1,0 +1,17 @@
+{
+    "name": "Game.Editor",
+    "references": [
+        "Core",
+        "Core.Editor",
+        "Framework",
+        "Framework.Editor",
+        "ThridLib",
+        "Game"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
