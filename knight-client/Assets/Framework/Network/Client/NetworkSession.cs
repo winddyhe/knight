@@ -132,7 +132,7 @@ namespace Knight.Framework.Net
             // flag第一位为1表示这是rpc返回消息,否则交由MessageDispatcher分发
             if ((nFlag & 0x01) == 0)
             {
-                //this.mParent.MessageDispatcher.Dispatch(this, rPacket);
+                this.mParent.MessageDispatcher.Dispatch(this, rPacket);
                 return;
             }
 

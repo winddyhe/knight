@@ -41,4 +41,11 @@ namespace Knight.Framework.Net
         public string   Message     { get; set; }
         public long     PlayerId;
     }
+
+    [Message(NetworkMessageOpcode.G2C_Test1)]
+    [SBGroup("Network")]
+    public partial class G2C_TestHotfixMessage : SerializerBinary, IMessage
+    {
+        public string   Info;
+    }
 }

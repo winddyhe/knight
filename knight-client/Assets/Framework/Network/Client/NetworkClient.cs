@@ -21,6 +21,7 @@ namespace Knight.Framework.Net
         {
             this.OpcodeTypes = new NetworkOpcodeTypes();
             this.OpcodeTypes.Initialize();
+            this.MessageDispatcher = new NetworkClientDispatcher();
 
             this.MessagePacker = new NetworkMessagePacker();
 

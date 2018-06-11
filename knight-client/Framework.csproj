@@ -63,6 +63,9 @@
     <Compile Include="Assets\Framework\Assetbundles\ABPlatform.cs" />
     <Compile Include="Assets\Framework\Assetbundles\ABUpdater.cs" />
     <Compile Include="Assets\Framework\Assetbundles\ABVersion.cs" />
+    <Compile Include="Assets\Framework\Event\EventAtrribute.cs" />
+    <Compile Include="Assets\Framework\Event\EventManager.cs" />
+    <Compile Include="Assets\Framework\Game\KnightObject.cs" />
     <Compile Include="Assets\Framework\Generate\ILRuntime\CLRBindings.cs" />
     <Compile Include="Assets\Framework\Generate\ILRuntime\Knight_Core_CKeyValuePair_2_Int32_ILTypeInstance_Binding.cs" />
     <Compile Include="Assets\Framework\Generate\ILRuntime\Knight_Core_CKeyValuePair_2_String_ILTypeInstance_Binding.cs" />
@@ -148,6 +151,7 @@
     <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\Network\Knight.Framework.Net.C2G_LoginGate.Binary.cs" />
     <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\Network\Knight.Framework.Net.C2R_Login.Binary.cs" />
     <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\Network\Knight.Framework.Net.G2C_LoginGate.Binary.cs" />
+    <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\Network\Knight.Framework.Net.G2C_TestHotfixMessage.Binary.cs" />
     <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\Network\Knight.Framework.Net.R2C_Login.Binary.cs" />
     <Compile Include="Assets\Framework\Graphics\3DRenderer\Image3DRenderer.cs" />
     <Compile Include="Assets\Framework\Graphics\3DRenderer\Text3DRenderer.cs" />
