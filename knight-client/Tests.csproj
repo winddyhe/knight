@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Tests\Core.Assist\DictTest.cs" />
-    <Compile Include="Assets\Tests\Framework.Network\NetworkTest.cs" />
+    <Compile Include="Assets\Tests\Framework.Network\NetworkTest1.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity/Unity201810f2/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>

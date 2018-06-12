@@ -12,7 +12,6 @@ namespace Knight.Framework.Net
     public sealed class NetworkSession : IDisposable
     {
         private static long                                 mIdGenerator     = 1000;
-        private static int                                  mRpcId           { get; set; }
 
         private AChannel                                    mChannel;
         private readonly Dictionary<int, Action<IResponse>> mRequestCallback = new Dictionary<int, Action<IResponse>>();
@@ -22,6 +21,7 @@ namespace Knight.Framework.Net
         public long                                         Id;
         public int                                          Error;
         public bool                                         IsDisposed;
+        public static int                                   RpcId           { get; set; }
         
         public NetworkSession(NetworkClient rNet, AChannel rChannel)
         {
@@ -122,12 +122,11 @@ namespace Knight.Framework.Net
             byte nFlag = rPacket.Flag;
             ushort nOpcode = rPacket.Opcode;
 
-            //if (NetworkOpcodeTypes.IsClientHotfixMessage(nOpcode))
-            //{
-            //    Debug.LogError(nOpcode);
-            //    //this.mParent.MessageDispatcher.Dispatch(this, rPacket);
-            //    return;
-            //}
+            if (NetworkOpcodeTypes.IsClientHotfixMessage(nOpcode))
+            {
+                this.mParent.MessageDispatcher.Dispatch(this, rPacket);
+                return;
+            }
 
             // flag第一位为1表示这是rpc返回消息,否则交由MessageDispatcher分发
             if ((nFlag & 0x01) == 0)
@@ -158,7 +157,7 @@ namespace Knight.Framework.Net
 
         public Task<IResponse> Call(IRequest rRequest)
         {
-            int nRpcId = ++mRpcId;
+            int nRpcId = ++RpcId;
             var rTCS = new TaskCompletionSource<IResponse>();
 
             this.mRequestCallback[nRpcId] = (response) =>
@@ -185,7 +184,7 @@ namespace Knight.Framework.Net
 
         public Task<IResponse> Call(IRequest rRequest, CancellationToken rCancellationToken)
         {
-            int nRpcId = ++mRpcId;
+            int nRpcId = ++RpcId;
             var rTCS = new TaskCompletionSource<IResponse>();
 
             this.mRequestCallback[nRpcId] = (rResponse) =>

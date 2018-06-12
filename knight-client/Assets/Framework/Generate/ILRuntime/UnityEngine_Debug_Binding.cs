@@ -44,10 +44,10 @@ namespace ILRuntime.Runtime.Generated
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             System.Object @message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Debug.Log(@message);
-
+            
+            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
+            UnityEngine.Debug.Log(@message + "\n" + stacktrace);
+            
             return __ret;
         }
 
@@ -60,9 +60,9 @@ namespace ILRuntime.Runtime.Generated
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             System.Object @message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Debug.LogError(@message);
+            
+            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
+            UnityEngine.Debug.LogError(@message + "\n" + stacktrace);
 
             return __ret;
         }
@@ -80,9 +80,9 @@ namespace ILRuntime.Runtime.Generated
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Debug.LogErrorFormat(@format, @args);
+            
+            var stacktrace = __domain.DebugService.GetStackTrance(__intp);
+            UnityEngine.Debug.LogErrorFormat(@format + "\n" + stacktrace, @args);
 
             return __ret;
         }

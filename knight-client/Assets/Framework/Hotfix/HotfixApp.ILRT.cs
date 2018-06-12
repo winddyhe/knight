@@ -83,7 +83,7 @@ namespace Knight.Framework.Hotfix
 
         private unsafe void RegisterCLRMethodRedirection()
         {
-            //ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
+            ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
         }
 
         private unsafe void RegisterValueTypeBinder()

@@ -2,21 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Knight.Core;
+using Knight.Framework.Hotfix;
 
 namespace Knight.Framework.Net
 {
     public class NetworkClientDispatcher : IMessageDispatcher
     {
+        private HotfixObject mHotfixDispatchObject;
+
+        public NetworkClientDispatcher()
+        {
+            if (HotfixManager.Instance != null)
+            {
+                mHotfixDispatchObject = HotfixManager.Instance.Instantiate("Knight.Hotfix.Core.HotfixNetworkClientDispatcher");
+            }
+        }
+        
         public void Dispatch(NetworkSession rSession, Packet rPacket)
         {
             object rMessage;
             try
             {
-                //if (NetworkOpcodeTypes.IsClientHotfixMessage(rPacket.Opcode))
-                //{
-                //    // 处理热更新的消息分发
-                //    return;
-                //}
+                if (NetworkOpcodeTypes.IsClientHotfixMessage(rPacket.Opcode))
+                {
+                    // 处理热更新的消息分发
+                    if (mHotfixDispatchObject != null)
+                    {
+                        mHotfixDispatchObject.Invoke("Dispatch", rSession, rPacket);
+                    }
+                    return;
+                }
 
                 NetworkOpcodeTypes rOpcodeTypes = rSession.Parent.OpcodeTypes;
                 Type rResponseType = rOpcodeTypes.GetType(rPacket.Opcode);

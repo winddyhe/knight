@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Knight.Core;
+using Knight.Framework.Hotfix;
 
 namespace Knight.Framework.Net
 {
@@ -15,6 +16,10 @@ namespace Knight.Framework.Net
             for (int i = 0; i < rAllAssemblies.Length; i++)
             {
                 rTypes.AddRange(rAllAssemblies[i].GetTypes());
+            }
+            if (HotfixManager.Instance != null)
+            {
+                rTypes.AddRange(HotfixManager.Instance.GetTypes());
             }
 
             foreach (Type rType in rTypes)
@@ -31,7 +36,7 @@ namespace Knight.Framework.Net
                     continue;
                 }
 
-                this.mOpcodeTypes.Add(rMessageAttribute.Opcode, rType);
+                this.mOpcodeTypes.Add(rMessageAttribute.Opcode, rType); 
             }
         }
 

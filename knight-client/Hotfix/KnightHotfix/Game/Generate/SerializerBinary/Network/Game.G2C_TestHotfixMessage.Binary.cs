@@ -1,28 +1,25 @@
 
 using System.IO;
+using Knight.Hotfix.Core;
 using Knight.Core;
-using Knight.Core.Serializer;
-using Knight.Framework.Serializer;
 
 
 /// <summary>
 /// Auto generate code, not need modify.
 /// </summary>
-namespace Knight.Framework.Net
+namespace Game
 {
-	public partial class C2G_LoginGate
+	public partial class G2C_TestHotfixMessage
 	{
         public override void Serialize(BinaryWriter rWriter)
 	    {
             base.Serialize(rWriter);
-			rWriter.Serialize(this.RpcId);
-			rWriter.Serialize(this.Key);
+			rWriter.Serialize(this.Info);
 		}
 		public override void Deserialize(BinaryReader rReader)
 	    {
 		    base.Deserialize(rReader);
-			this.RpcId = rReader.Deserialize(this.RpcId);
-			this.Key = rReader.Deserialize(this.Key);
+			this.Info = rReader.Deserialize(this.Info);
 		}
     }
 }

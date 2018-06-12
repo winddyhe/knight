@@ -294,6 +294,7 @@
   <ItemGroup>
     <Compile Include="Core\Assist\HotfixBinding.cs" />
     <Compile Include="Core\Assist\HotfixJsonParser.cs" />
+    <Compile Include="Core\Assist\HotfixKnightObject.cs" />
     <Compile Include="Core\Assist\HotfixReflectAssists.cs" />
     <Compile Include="Core\Assist\HotfixSingleton.cs" />
     <Compile Include="Core\Assist\HotfixTypeExpand.cs" />
@@ -306,6 +307,10 @@
     <Compile Include="Core\GUI\View.cs" />
     <Compile Include="Core\GUI\ViewController.cs" />
     <Compile Include="Core\GUI\ViewManager.cs" />
+    <Compile Include="Core\Network\HotfixNetworkClient.cs" />
+    <Compile Include="Core\Network\HotfixNetworkClientDispatcher.cs" />
+    <Compile Include="Core\Network\HotfixNetworkMessagePacker.cs" />
+    <Compile Include="Core\Network\IHotfixMessage.cs" />
     <Compile Include="Core\Serializer\HotfixSerializer.Assists.cs" />
     <Compile Include="Core\Serializer\HotfixSerializer.Binary.cs" />
     <Compile Include="Core\Serializer\HotfixSerializer.Types.cs" />
@@ -318,6 +323,8 @@
     <Compile Include="Game\GameFlow\Login.cs" />
     <Compile Include="Game\GameStage\StageConfig.cs" />
     <Compile Include="Game\GUI\Login\LoginView.cs" />
+    <Compile Include="Game\Network\HotfixNetworkMessageOpcode.cs" />
+    <Compile Include="Game\Network\HotfixNetworkMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game\Generate\SerializerBinary\CommonSerializer.cs" />
     <Compile Include="Game\Generate\SerializerBinary\GameConfig\Game.ActorAvatar.Binary.cs" />
@@ -325,6 +332,12 @@
     <Compile Include="Game\Generate\SerializerBinary\GameConfig\Game.ActorProfessional.Binary.cs" />
     <Compile Include="Game\Generate\SerializerBinary\GameConfig\Game.GameConfig.Binary.cs" />
     <Compile Include="Game\Generate\SerializerBinary\GameConfig\Game.StageConfig.Binary.cs" />
+    <Compile Include="Game\Generate\SerializerBinary\Network\Game.C2G_LoginGate.Binary.cs" />
+    <Compile Include="Game\Generate\SerializerBinary\Network\Game.C2R_Login.Binary.cs" />
+    <Compile Include="Game\Generate\SerializerBinary\Network\Game.G2C_LoginGate.Binary.cs" />
+    <Compile Include="Game\Generate\SerializerBinary\Network\Game.G2C_TestHotfixMessage.Binary.cs" />
+    <Compile Include="Game\Generate\SerializerBinary\Network\Game.R2C_Login.Binary.cs" />
+    <Compile Include="Test\HotfixNetworkTest1.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

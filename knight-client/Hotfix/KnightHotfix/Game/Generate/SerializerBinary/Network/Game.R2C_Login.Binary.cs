@@ -1,16 +1,15 @@
 
 using System.IO;
+using Knight.Hotfix.Core;
 using Knight.Core;
-using Knight.Core.Serializer;
-using Knight.Framework.Serializer;
 
 
 /// <summary>
 /// Auto generate code, not need modify.
 /// </summary>
-namespace Knight.Framework.Net
+namespace Game
 {
-	public partial class G2C_LoginGate
+	public partial class R2C_Login
 	{
         public override void Serialize(BinaryWriter rWriter)
 	    {
@@ -18,7 +17,8 @@ namespace Knight.Framework.Net
 			rWriter.Serialize(this.RpcId);
 			rWriter.Serialize(this.Error);
 			rWriter.Serialize(this.Message);
-			rWriter.Serialize(this.PlayerId);
+			rWriter.Serialize(this.Address);
+			rWriter.Serialize(this.Key);
 		}
 		public override void Deserialize(BinaryReader rReader)
 	    {
@@ -26,7 +26,8 @@ namespace Knight.Framework.Net
 			this.RpcId = rReader.Deserialize(this.RpcId);
 			this.Error = rReader.Deserialize(this.Error);
 			this.Message = rReader.Deserialize(this.Message);
-			this.PlayerId = rReader.Deserialize(this.PlayerId);
+			this.Address = rReader.Deserialize(this.Address);
+			this.Key = rReader.Deserialize(this.Key);
 		}
     }
 }

@@ -148,11 +148,6 @@
     <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\CommonSerializer.cs" />
     <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\Config\Knight.Framework.AssetBundles.ABVersion.Binary.cs" />
     <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\Config\Knight.Framework.AssetBundles.ABVersionEntry.Binary.cs" />
-    <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\Network\Knight.Framework.Net.C2G_LoginGate.Binary.cs" />
-    <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\Network\Knight.Framework.Net.C2R_Login.Binary.cs" />
-    <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\Network\Knight.Framework.Net.G2C_LoginGate.Binary.cs" />
-    <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\Network\Knight.Framework.Net.G2C_TestHotfixMessage.Binary.cs" />
-    <Compile Include="Assets\Framework\Generate\SerializerBinary\Runtime\Network\Knight.Framework.Net.R2C_Login.Binary.cs" />
     <Compile Include="Assets\Framework\Graphics\3DRenderer\Image3DRenderer.cs" />
     <Compile Include="Assets\Framework\Graphics\3DRenderer\Text3DRenderer.cs" />
     <Compile Include="Assets\Framework\Graphics\Assist\FontData.cs" />

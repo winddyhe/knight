@@ -7,7 +7,7 @@ using Knight.Core;
 
 namespace Knight.Framework.Net
 {
-    public class NetworkClient : IDisposable
+    public class NetworkClient : TSingleton<NetworkClient>
     {
         private AService                                    mService;
         private readonly IndexedDict<long, NetworkSession>  mSessions           = new IndexedDict<long, NetworkSession>();
@@ -17,12 +17,16 @@ namespace Knight.Framework.Net
         public IMessageDispatcher                           MessageDispatcher   { get; set; }
         public NetworkOpcodeTypes                           OpcodeTypes         { get; set; }
 
+        private NetworkClient()
+        {
+        }
+
         public void Initialize(NetworkProtocol rProtocol)
         {
             this.OpcodeTypes = new NetworkOpcodeTypes();
             this.OpcodeTypes.Initialize();
-            this.MessageDispatcher = new NetworkClientDispatcher();
 
+            this.MessageDispatcher = new NetworkClientDispatcher();
             this.MessagePacker = new NetworkMessagePacker();
 
             switch (rProtocol)

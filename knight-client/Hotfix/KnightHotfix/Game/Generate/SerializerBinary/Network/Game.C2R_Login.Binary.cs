@@ -1,14 +1,13 @@
 
 using System.IO;
+using Knight.Hotfix.Core;
 using Knight.Core;
-using Knight.Core.Serializer;
-using Knight.Framework.Serializer;
 
 
 /// <summary>
 /// Auto generate code, not need modify.
 /// </summary>
-namespace Knight.Framework.Net
+namespace Game
 {
 	public partial class C2R_Login
 	{
