@@ -11,10 +11,6 @@ namespace Knight.Core.Serializer.Editor
 {
     public class SerializerBinaryEditor : TSingleton<SerializerBinaryEditor>
     {
-        private const string    mGeneratePathRoot       = "Assets/Framework/Generate/SerializerBinary/";
-        private const string    mGeneratePath           = mGeneratePathRoot + "Runtime/";
-        private const string    mCommonSerializerPath   = mGeneratePath     + "CommonSerializer.cs";
-
         private CodeGenerator_CommonSerializer          mCommonSerializer;
         private List<CodeGenerator_ClassSerializer>     mClassSerializers;
 
@@ -25,7 +21,11 @@ namespace Knight.Core.Serializer.Editor
         [MenuItem("Tools/Serializer/Auto CS Generate...")]
         public static void CodeGenerate()
         {
-            SerializerBinaryEditor.Instance.Analysis((rText, fProgress)=> EditorUtility.DisplayProgressBar("AutoCSGenerate", rText, fProgress));
+            string rGeneratePathRoot = "Assets/Framework/Generate/SerializerBinary/";
+            SerializerBinaryEditor.Instance.Analysis(rGeneratePathRoot, "Framework", (rText, fProgress) => EditorUtility.DisplayProgressBar("AutoCSGenerate", rText, fProgress));
+
+            rGeneratePathRoot = "Assets/Game/Script/Generate/SerializerBinary/";
+            SerializerBinaryEditor.Instance.Analysis(rGeneratePathRoot, "Game", (rText, fProgress)=> EditorUtility.DisplayProgressBar("AutoCSGenerate", rText, fProgress));
             EditorUtility.ClearProgressBar();
 
             AssetDatabase.SaveAssets();
@@ -34,21 +34,26 @@ namespace Knight.Core.Serializer.Editor
             UnityEngine.Debug.Log("Auto serializer cs generate complete..");
         }
 
-        public void Analysis(System.Action<string, float> rProgressAction = null)
+        public void Analysis(string rGeneratePathRoot, string rDLLModuleName, System.Action<string, float> rProgressAction = null)
         {
+            string rGeneratePath = rGeneratePathRoot;
+            string rCommonSerializerPath = rGeneratePath + "CommonSerializer.cs";
+
             mClassSerializers = new List<CodeGenerator_ClassSerializer>();
 
-            mCommonSerializer = new CodeGenerator_CommonSerializer(mCommonSerializerPath);
+            mCommonSerializer = new CodeGenerator_CommonSerializer(rCommonSerializerPath);
             mCommonSerializer.WriteHead();
 
             var rSBTypes = SerializerBinaryTypes.Types;
             for (int i = 0; i < rSBTypes.Count; i++)
             {
+                if (!rSBTypes[i].Assembly.GetName().Name.Equals(rDLLModuleName)) continue;
+
                 var rGroupName = string.Empty;
                 var rAttributes = rSBTypes[i].GetCustomAttributes<SBGroupAttribute>(true);
                 if (rAttributes.Length > 0)
                     rGroupName = rAttributes[0].GroupName;
-                var rClassSerializer = new CodeGenerator_ClassSerializer(UtilTool.PathCombine(mGeneratePath, rGroupName, rSBTypes[i].FullName + ".Binary.cs"));
+                var rClassSerializer = new CodeGenerator_ClassSerializer(UtilTool.PathCombine(rGeneratePath, rGroupName, rSBTypes[i].FullName + ".Binary.cs"));
                 rClassSerializer.WriteHead();
                 rClassSerializer.WriteClass(rSBTypes[i]);
                 rClassSerializer.WriteEnd();

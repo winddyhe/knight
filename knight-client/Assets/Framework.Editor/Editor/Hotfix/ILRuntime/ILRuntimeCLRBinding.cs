@@ -42,7 +42,7 @@ public class ILRuntimeCLRBinding
         types.Add(typeof(HotfixEventManager));
         types.Add(typeof(Delegate));
 
-        ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, "Assets/Framework/Generate/ILRuntime");
+        ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, "Assets/Game/Script/Generate/ILRuntime");
 
         AssetDatabase.Refresh();
     }
@@ -58,7 +58,7 @@ public class ILRuntimeCLRBinding
         }
         //Crossbind Adapter is needed to generate the correct binding code
         InitILRuntime(domain);
-        ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, "Assets/Framework/Generate/ILRuntime");
+        ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, "Assets/Game/Script/Generate/ILRuntime");
     }
 
     static void InitILRuntime(ILRuntime.Runtime.Enviorment.AppDomain domain)

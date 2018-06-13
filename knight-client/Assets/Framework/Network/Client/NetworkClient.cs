@@ -164,7 +164,10 @@ namespace Knight.Framework.Net
             {
                 this.mSessions[this.mSessions.Keys[i]].Dispose();
             }
-            this.mService.Dispose();
+            if (this.mService != null)
+            {
+                this.mService.Dispose();
+            }
         }
     }
 }

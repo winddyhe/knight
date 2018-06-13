@@ -83,7 +83,14 @@ namespace Knight.Framework.Hotfix
 
         private unsafe void RegisterCLRMethodRedirection()
         {
-            ILRuntime.Runtime.Generated.CLRBindings.Initialize(this.mApp);
+            var rCLRBindingType = System.AppDomain.CurrentDomain.GetAssemblies()
+                                 .Single(rAssembly=>rAssembly.GetName().Name.Equals("Game"))?.GetTypes()
+                                 .Single(rType=>rType.FullName.Equals("ILRuntime.Runtime.Generated.CLRBindings"));
+            if (rCLRBindingType == null)
+            {
+                return;
+            }
+            ReflectionAssist.MethodMember(rCLRBindingType, "Initialize", ReflectionAssist.flags_method_static, this.mApp);
         }
 
         private unsafe void RegisterValueTypeBinder()
