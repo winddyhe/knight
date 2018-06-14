@@ -307,6 +307,7 @@
     <Compile Include="Core\GUI\View.cs" />
     <Compile Include="Core\GUI\ViewController.cs" />
     <Compile Include="Core\GUI\ViewManager.cs" />
+    <Compile Include="Core\Network\HotfixMessageHandlerAttribute.cs" />
     <Compile Include="Core\Network\HotfixNetworkClient.cs" />
     <Compile Include="Core\Network\HotfixNetworkClientDispatcher.cs" />
     <Compile Include="Core\Network\HotfixNetworkMessagePacker.cs" />
@@ -318,6 +319,7 @@
     <Compile Include="Game\Actor\ActorHero.cs" />
     <Compile Include="Game\Actor\ActorProfessional.cs" />
     <Compile Include="Game\Common\GameConfig.cs" />
+    <Compile Include="Game\Common\GameEvent.cs" />
     <Compile Include="Game\Common\GameLogicManager.cs" />
     <Compile Include="Game\GameFlow\Init.cs" />
     <Compile Include="Game\GameFlow\Login.cs" />

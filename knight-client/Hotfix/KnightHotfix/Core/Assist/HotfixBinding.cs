@@ -48,4 +48,15 @@ namespace Knight.Hotfix.Core
         public HEventTriggerType    EventType;
         public bool                 NeedUnbind;
     }
+
+    [AttributeUsage(AttributeTargets.Method)]
+    public class HotfixEventAttribute : Attribute
+    {
+        public int                  MsgCode;
+
+        public HotfixEventAttribute(int nMsgCode)
+        {
+            this.MsgCode = nMsgCode;
+        }
+    }
 }

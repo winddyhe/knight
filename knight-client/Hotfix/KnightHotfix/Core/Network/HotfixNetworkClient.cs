@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Knight.Core;
 using Knight.Framework.Net;
 using UnityEngine;
+using Knight.Framework;
 
 namespace Knight.Hotfix.Core
 {
@@ -35,11 +36,21 @@ namespace Knight.Hotfix.Core
             }
 
             ushort nOpcode = rPacket.Opcode;
+            byte nFlag = rPacket.Flag;
+            
             NetworkOpcodeTypes rOpcodeTypeComponent = this.mSession.Parent.OpcodeTypes;
             Type rResponseType = rOpcodeTypeComponent.GetType(nOpcode);
             object rMessage = this.mMessagePacker.DeserializeFrom(rResponseType, rPacket.Bytes, Packet.Index, rPacket.Length - Packet.Index);
             Debug.LogError($"recv: {HotfixJsonParser.ToJsonNode(rMessage)}");
 
+            // 非RPC消息走这里
+            if ((nFlag & 0x01) == 0)
+            {
+                EventManager.Instance.Distribute(nOpcode, rMessage);
+                return;
+            }
+
+            // Rpc回调消息
             IHotfixResponse rResponse = rMessage as IHotfixResponse;
             if (rResponse == null)
             {
@@ -51,7 +62,6 @@ namespace Knight.Hotfix.Core
                 return;
             }
             this.mRequestCallback.Remove(rResponse.RpcId);
-
             rAction(rResponse);
         }
 

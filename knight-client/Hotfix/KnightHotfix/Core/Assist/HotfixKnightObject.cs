@@ -15,7 +15,7 @@ namespace Knight.Hotfix.Core
 
     public class KnightEvent
     {
-        public ushort               EventCode;
+        public int                  EventCode;
         public Action<EventArg>     EventHandler;
     }
 
@@ -40,10 +40,10 @@ namespace Knight.Hotfix.Core
                 var rMethodInfo = rMethodInfos[i];
 
                 // 普通消息
-                var rAttrObjs = rMethodInfo.GetCustomAttributes(typeof(EventAtrribute), false);
+                var rAttrObjs = rMethodInfo.GetCustomAttributes(typeof(HotfixEventAttribute), false);
                 if (rAttrObjs != null && rAttrObjs.Length > 0)
                 {
-                    var rEventAttr = rAttrObjs[0] as EventAtrribute;
+                    var rEventAttr = rAttrObjs[0] as HotfixEventAttribute;
                     if (rEventAttr != null)
                     {
                         Action<EventArg> rActionDelegate = (rEventArgs) => { rMethodInfo.Invoke(this, new object[] { rEventArgs }); };
@@ -59,10 +59,10 @@ namespace Knight.Hotfix.Core
                 }
 
                 // 网络消息
-                rAttrObjs = rMethodInfo.GetCustomAttributes(typeof(MessageHandlerAttribute), false);
+                rAttrObjs = rMethodInfo.GetCustomAttributes(typeof(HotfixMessageHandlerAttribute), false);
                 if (rAttrObjs != null && rAttrObjs.Length > 0)
                 {
-                    var rNetEventAttr = rAttrObjs[0] as MessageHandlerAttribute;
+                    var rNetEventAttr = rAttrObjs[0] as HotfixMessageHandlerAttribute;
                     if (rNetEventAttr != null)
                     {
                         Action<EventArg> rActionDelegate = (rEventArgs) => { rMethodInfo.Invoke(this, new object[] { rEventArgs }); };

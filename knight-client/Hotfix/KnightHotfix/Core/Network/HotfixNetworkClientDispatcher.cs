@@ -11,7 +11,6 @@ namespace Knight.Hotfix.Core
     {
         public void Dispatch(NetworkSession rSession, Packet rPacket)
         {
-            // @TODO: 非rpc消息的Dsipacth处理
             HotfixNetworkClient.Instance.Run(rSession, rPacket);
         }
     }

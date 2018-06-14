@@ -8,11 +8,11 @@ using System.Collections.Generic;
 namespace Knight.Framework
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class EventAtrribute : Attribute
+    public class EventAttribute : Attribute
     {
         public ushort  MsgCode;
 
-        public EventAtrribute(ushort nMsgCode)
+        public EventAttribute(ushort nMsgCode)
         {
             this.MsgCode = nMsgCode;
         }

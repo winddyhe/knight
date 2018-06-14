@@ -14,7 +14,7 @@ namespace Knight.Framework.Game
 
     public class KnightEvent
     {
-        public ushort               EventCode;
+        public int                  EventCode;
         public Action<EventArg>     EventHandler;
     }
     
@@ -39,10 +39,10 @@ namespace Knight.Framework.Game
                 var rMethodInfo = rMethodInfos[i];
 
                 // 普通消息
-                var rAttrObjs = rMethodInfo.GetCustomAttributes(typeof(EventAtrribute), false);
+                var rAttrObjs = rMethodInfo.GetCustomAttributes(typeof(EventAttribute), false);
                 if (rAttrObjs != null && rAttrObjs.Length > 0)
                 {
-                    var rEventAttr = rAttrObjs[0] as EventAtrribute;
+                    var rEventAttr = rAttrObjs[0] as EventAttribute;
                     if (rEventAttr != null)
                     {
                         Action<EventArg> rActionDelegate = (rEventArgs) => { rMethodInfo.Invoke(this, new object[] { rEventArgs }); };
