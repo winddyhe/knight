@@ -5,13 +5,18 @@ using UnityEngine;
 
 namespace UnityEngine.UI
 {
+    [ExecuteInEditMode]
     public class TextStyleManager : MonoBehaviour
     {
-        public static TextStyleManager __insstance;
+        private static TextStyleManager __instance;
+        public  static TextStyleManager Instance { get { return __instance; } }
+
+        public List<TextStyle>          TextStyles;
 
         private void Awake()
         {
-            
+            if (__instance != null)
+                __instance = this;
         }
     }
 }

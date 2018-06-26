@@ -150,10 +150,10 @@
     <Compile Include="Assets\Framework\WindUI\Widget\ScrollRect\LoopVerticalScrollRect.cs" />
     <Compile Include="Assets\Framework\WindUI\Widget\Tab\TabButton.cs" />
     <Compile Include="Assets\Framework\WindUI\Widget\Tab\TabView.cs" />
-    <Compile Include="Assets\Framework\WindUI\Widget\Text\TextFormat.cs" />
     <Compile Include="Assets\Framework\WindUI\Widget\Text\TextStyle.cs" />
-    <Compile Include="Assets\Framework\WindUI\Widget\Text\TextStyleGenerator.cs" />
+    <Compile Include="Assets\Framework\WindUI\Widget\Text\TextStyleCamera.cs" />
     <Compile Include="Assets\Framework\WindUI\Widget\Text\TextStyleManager.cs" />
+    <Compile Include="Assets\Framework\WindUI\Widget\Text\TextStyleSelector.cs" />
     <Compile Include="Assets\Framework\WindUI\Widget\Tips\Toast.cs" />
     <None Include="Assets\Framework\Graphics\Shaders\Texture\Texture.cginc" />
     <None Include="Assets\Framework\Graphics\Shaders\Effect\ThirdTextureEffect.shader" />

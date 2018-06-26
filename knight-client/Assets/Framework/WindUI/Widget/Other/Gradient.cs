@@ -7,8 +7,8 @@ namespace UnityEngine.UI
     [AddComponentMenu("UI/Effects/Gradient")]
     public class Gradient : BaseMeshEffect
     {
-        [SerializeField] private Color32 TopColor       = Color.white;
-        [SerializeField] private Color32 BottomColor    = Color.black;
+        [SerializeField] public Color32 TopColor       = Color.white;
+        [SerializeField] public Color32 BottomColor    = Color.black;
 
         public override void ModifyMesh(VertexHelper rVertexHelper)
         {

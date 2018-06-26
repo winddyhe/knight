@@ -191,6 +191,13 @@ namespace Knight.Core
             return Path.GetDirectoryName(rPath);
         }
 
+        public static bool PathIsSame(string rPath1, string rPath2)
+        {
+            string rFullPath1 = Path.GetFullPath(rPath1);
+            string rFullPath2 = Path.GetFullPath(rPath2);
+            return rFullPath1.Equals(rFullPath2);
+        }
+
         public static GameObject CreateGameObject(string rName, params Type[] rComps)
         {
             GameObject rGo = new GameObject(rName, rComps);
