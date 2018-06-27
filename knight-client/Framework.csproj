@@ -132,6 +132,8 @@
     <Compile Include="Assets\Framework\Utility\MainUpdate.cs" />
     <Compile Include="Assets\Framework\WindUI\Atlas\UIAtlas.cs" />
     <Compile Include="Assets\Framework\WindUI\Atlas\UIAtlasManager.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\DataBindingOneWay.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\DataSourceModel.cs" />
     <Compile Include="Assets\Framework\WindUI\UIAssetLoader.cs" />
     <Compile Include="Assets\Framework\WindUI\UIRoot.cs" />
     <Compile Include="Assets\Framework\WindUI\UITool.cs" />

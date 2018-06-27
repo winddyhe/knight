@@ -184,11 +184,12 @@
     <Compile Include="Assets\Framework.Editor\Editor\Memory\PerfAssist\ResourceTracker\ResourceTracker.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\Memory\PerfAssist\ResourceTracker\ResourceTrackerConst.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\Memory\PerfAssist\ResourceTracker\ResourceTrackerUtil.cs" />
-    <Compile Include="Assets\Framework.Editor\Editor\WindUI\TextStyleManagerInspector.cs" />
-    <Compile Include="Assets\Framework.Editor\Editor\WindUI\TextStyleSelectorInspector.cs" />
-    <Compile Include="Assets\Framework.Editor\Editor\WindUI\TextStyleSelectorWindow.cs" />
+    <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\DataBindingOneWayInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\UIAssistEditor.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\ViewContainerInspector.cs" />
+    <Compile Include="Assets\Framework.Editor\Editor\WindUI\Widget\Text\TextStyleManagerInspector.cs" />
+    <Compile Include="Assets\Framework.Editor\Editor\WindUI\Widget\Text\TextStyleSelectorInspector.cs" />
+    <Compile Include="Assets\Framework.Editor\Editor\WindUI\Widget\Text\TextStyleSelectorWindow.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity/Unity201810f2/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
