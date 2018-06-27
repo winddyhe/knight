@@ -1,8 +1,6 @@
-
 using System.IO;
 using Knight.Hotfix.Core;
 using Knight.Core;
-
 
 /// <summary>
 /// Auto generate code, not need modify.
@@ -11,9 +9,9 @@ namespace Game
 {
 	public partial class ActorHero
 	{
-        public override void Serialize(BinaryWriter rWriter)
-	    {
-            base.Serialize(rWriter);
+		public override void Serialize(BinaryWriter rWriter)
+		{
+			base.Serialize(rWriter);
 			rWriter.Serialize(this.ID);
 			rWriter.Serialize(this.Name);
 			rWriter.Serialize(this.AvatarID);
@@ -23,8 +21,8 @@ namespace Game
 			rWriter.Serialize(this.Radius);
 		}
 		public override void Deserialize(BinaryReader rReader)
-	    {
-		    base.Deserialize(rReader);
+		{
+			base.Deserialize(rReader);
 			this.ID = rReader.Deserialize(this.ID);
 			this.Name = rReader.Deserialize(this.Name);
 			this.AvatarID = rReader.Deserialize(this.AvatarID);
@@ -33,7 +31,6 @@ namespace Game
 			this.Height = rReader.Deserialize(this.Height);
 			this.Radius = rReader.Deserialize(this.Radius);
 		}
-    }
+	}
 }
-
 

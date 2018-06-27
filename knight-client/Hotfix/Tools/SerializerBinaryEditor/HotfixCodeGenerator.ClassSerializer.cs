@@ -2,6 +2,7 @@
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
+using Knight.Core;
 using System;
 using System.Collections.Generic;
 
@@ -14,20 +15,18 @@ namespace Knight.Hotfix.Core.Editor
         public HotfixCodeGenerator_ClassSerializer(string rFilePath)
             : base(rFilePath)
         {
-
         }
 
         public override void WriteHead()
         {
-            this.Write(0, @"
-using System.IO;
-using Knight.Hotfix.Core;
-using Knight.Core;
-
-
-/// <summary>
-/// Auto generate code, not need modify.
-/// </summary>");
+            this.StringBuilder?
+                .A("using System.IO;").N()
+                .A("using Knight.Hotfix.Core;").N()
+                .A("using Knight.Core;").N()
+                .L(1)
+                .A("/// <summary>").N()
+                .A("/// Auto generate code, not need modify.").N()
+                .A("/// </summary>").N();
         }
 
         public override void WriteEnd()
@@ -37,17 +36,14 @@ using Knight.Core;
 
         public void WriteClass(Type rType)
         {
-            this.Write(0,
-$"namespace {rType.Namespace}");
-            this.Write(0,
-"{");
-            this.Write(1,
-    $"public partial class {rType.Name}");
-            this.Write(1,
-    @"{
-        public override void Serialize(BinaryWriter rWriter)
-	    {
-            base.Serialize(rWriter);");
+            this.StringBuilder?
+                .F("namespace {0}", rType.Namespace).N()
+                .A("{").N()
+                .T(1).F("public partial class {0}", rType.Name).N()
+                .T(1).A("{").N()
+                    .T(2).A("public override void Serialize(BinaryWriter rWriter)").N()
+                    .T(2).A("{").N()
+                        .T(3).A("base.Serialize(rWriter);").N();
 
             var rAllSerializeMembers = HotfixSerializerAssists.FindSerializeMembers(rType);
             for (int i = 0; i < rAllSerializeMembers.Count; i++)
@@ -55,19 +51,21 @@ $"namespace {rType.Namespace}");
                 var rMemberInfo = rAllSerializeMembers[i];
                 var rParamText = HotfixSerializerAssists.GetClassMemberDummyText(rAllSerializeMembers[i]);
 
-                if (rMemberInfo.IsDefined(typeof(HotfixSBDynamicAttribute), true) && 
+                if (rMemberInfo.IsDefined(typeof(HotfixSBDynamicAttribute), true) &&
                     !HotfixSerializerAssists.IsBaseType(HotfixSerializerAssists.GetMemberType(rMemberInfo), false))
-                    this.Write(3, $"rWriter.SerializeDynamic({rParamText});");
+                    this.StringBuilder?
+                        .T(3).F("rWriter.SerializeDynamic({0});", rParamText).N();
                 else
-                    this.Write(3, $"rWriter.Serialize({rParamText});");
+                    this.StringBuilder?
+                        .T(3).F("rWriter.Serialize({0});", rParamText).N();
             }
-            this.Write(2,
-        "}");
+            this.StringBuilder
+                    .T(2).A("}").N();
 
-            this.Write(2, 
-        @"public override void Deserialize(BinaryReader rReader)
-	    {
-		    base.Deserialize(rReader);");
+            this.StringBuilder
+                    .T(2).A("public override void Deserialize(BinaryReader rReader)").N()
+                    .T(2).A("{").N()
+                        .T(3).A("base.Deserialize(rReader);").N();
 
             for (int i = 0; i < rAllSerializeMembers.Count; i++)
             {
@@ -77,15 +75,17 @@ $"namespace {rType.Namespace}");
 
                 if (rMemberInfo.IsDefined(typeof(HotfixSBDynamicAttribute), false) &&
                     !HotfixSerializerAssists.IsBaseType(HotfixSerializerAssists.GetMemberType(rMemberInfo), false))
-                    this.Write(3, $"this.{rMemberInfo.Name} = {rMemberText}rReader.DeserializeDynamic({rMemberDummyText});");
+                    this.StringBuilder
+                        .T(3).F("this.{0} = {1}rReader.DeserializeDynamic({2});", rMemberInfo.Name, rMemberText, rMemberDummyText).N();
                 else
-                    this.Write(3, $"this.{rMemberInfo.Name} = {rMemberText}rReader.Deserialize({rMemberDummyText});");
+                    this.StringBuilder
+                        .T(3).F("this.{0} = {1}rReader.Deserialize({2});", rMemberInfo.Name, rMemberText, rMemberDummyText).N();
             }
-            this.Write(2,
-        @"}
-    }
-}
-");
+
+            this.StringBuilder
+                    .T(2).A("}").N()
+                .T(1).A("}").N()
+                .A("}").N();
         }
     }
 }
