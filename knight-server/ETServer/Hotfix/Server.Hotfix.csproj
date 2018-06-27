@@ -28,5 +28,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Module\Http\" />
+    <Folder Include="Module\Message\Generate\" />
   </ItemGroup>
 </Project>
