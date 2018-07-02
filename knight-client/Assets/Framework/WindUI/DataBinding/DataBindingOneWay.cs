@@ -5,19 +5,31 @@ using UnityEngine;
 
 namespace UnityEngine.UI
 {
+    [ExecuteInEditMode]
     public class DataBindingOneWay : MonoBehaviour
     {
-        [Dropdown("xx")]
-        public string ModelPath;
-        public string ViewPath;
+        [Dropdown("ModelPaths")]
+        public  string          CurModelPath;
+        public  string          CurViewPath;
 
-        public string[] xx;
+        public  DataSourceModel CurDataSource;
 
-        void Start()
+        private string[]        ModelPaths;
+
+        private void Awake()
         {
+            var rModelPathList = new List<string>();
+            var rAllDataSources = this.gameObject.GetComponentsInParent<DataSourceModel>(true);
+            for (int i = 0; i < rAllDataSources.Length; i++)
+            {
+                var rClassName = rAllDataSources[i].ModelClass;
+                rClassName = rClassName.Replace('.', '/');
+                rModelPathList.Add(rClassName);
+            }
+            this.ModelPaths = rModelPathList.ToArray();
         }
-        
-        void Update()
+
+        private void Update()
         {
         }
     }
