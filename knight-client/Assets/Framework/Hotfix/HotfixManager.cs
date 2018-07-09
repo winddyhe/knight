@@ -16,6 +16,7 @@ namespace Knight.Framework.Hotfix
     public class HotfixManager : TSingleton<HotfixManager>
     {
         public static string    IsHotfixDebugModeKey = "HofixManager_IsHofixDebugMode";
+        public static string    HotfixDLLDir         = "Assets/StreamingAssets/Temp/Libs";
         
         private HotfixApp       mApp;
         

@@ -6,31 +6,24 @@ using UnityEngine;
 namespace UnityEngine.UI
 {
     [ExecuteInEditMode]
-    public class DataBindingOneWay : MonoBehaviour
+    public partial class DataBindingOneWay : MonoBehaviour
     {
         [Dropdown("ModelPaths")]
         public  string          CurModelPath;
+        [ShowIf("IsShowCurViewPath")]
         public  string          CurViewPath;
-
+        
+        [ReadOnly]
         public  DataSourceModel CurDataSource;
-
-        private string[]        ModelPaths;
 
         private void Awake()
         {
-            var rModelPathList = new List<string>();
-            var rAllDataSources = this.gameObject.GetComponentsInParent<DataSourceModel>(true);
-            for (int i = 0; i < rAllDataSources.Length; i++)
-            {
-                var rClassName = rAllDataSources[i].ModelClass;
-                rClassName = rClassName.Replace('.', '/');
-                rModelPathList.Add(rClassName);
-            }
-            this.ModelPaths = rModelPathList.ToArray();
+            this.GetAllModelPaths();
         }
 
-        private void Update()
+        public void GetAllModelPaths()
         {
+            this.ModelPaths = DataBindingTypeResolve.GetAllModelPaths(this.gameObject).ToArray();
         }
     }
 }

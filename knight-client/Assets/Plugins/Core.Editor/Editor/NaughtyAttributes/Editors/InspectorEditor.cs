@@ -24,7 +24,7 @@ namespace NaughtyAttributes.Editor
 
         private bool useDefaultInspector;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             this.script = this.serializedObject.FindProperty("m_Script");
 
@@ -83,7 +83,7 @@ namespace NaughtyAttributes.Editor
                 this.target, m => m.GetCustomAttributes(typeof(DrawerAttribute), true).Length > 0);
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             PropertyDrawerDatabase.ClearCache();
         }

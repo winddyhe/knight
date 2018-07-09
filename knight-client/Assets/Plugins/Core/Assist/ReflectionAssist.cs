@@ -26,7 +26,7 @@ namespace Knight.Core
         public static readonly BindingFlags flags_method_inst   = flags_method              | BindingFlags.Instance;
         public static readonly BindingFlags flags_method_static = flags_method              | BindingFlags.Static;
 
-        public static readonly Type[]       empty_types     = new Type[0];
+        public static readonly Type[]       empty_types         = new Type[0];
 
         public static ConstructorInfo GetConstructorInfo(BindingFlags rBindFlags, Type rType, Type[] rTypes)
         {

@@ -1,16 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using UnityEngine.UI;
+using NaughtyAttributes.Editor;
 
-public class DataBindingOneWayInspector : MonoBehaviour {
+namespace UnityEditor.UI
+{
+    [CustomEditor(typeof(DataBindingOneWay), true)]
+    public class DataBindingOneWayInspector : InspectorEditor
+    {
+        private DataBindingOneWay mTarget;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            mTarget = this.target as DataBindingOneWay;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            this.mTarget.GetAllModelPaths();
+            base.OnInspectorGUI();
+        }
+    }
 }

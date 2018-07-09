@@ -280,9 +280,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7efbf4cb8ed10c54682019af630272ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurModelPath: Game/Test/DataBindingTest1
+  CurModelPath: Game.Test.DataBindingTest2/C
   CurViewPath: 
   CurDataSource: {fileID: 0}
+  ModelPaths:
+  - Game.Test.DataBindingTest1/A
+  - Game.Test.DataBindingTest1/B
+  - Game.Test.DataBindingTest1/C
+  - Game.Test.DataBindingTest2/A
+  - Game.Test.DataBindingTest2/B
+  - Game.Test.DataBindingTest2/C
 --- !u!1 &1200744631
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,6 +364,7 @@ GameObject:
   - component: {fileID: 1380320659}
   - component: {fileID: 1380320658}
   - component: {fileID: 1380320662}
+  - component: {fileID: 1380320663}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -452,6 +460,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ModelClass: Game.Test.DataBindingTest1
+--- !u!114 &1380320663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1380320657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3de718901a6b564289653b6a86332e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ModelClass: Game.Test.DataBindingTest2
 --- !u!1 &1441392206
 GameObject:
   m_ObjectHideFlags: 0
