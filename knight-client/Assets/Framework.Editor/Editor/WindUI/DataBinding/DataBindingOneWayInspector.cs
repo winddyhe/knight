@@ -21,6 +21,8 @@ namespace UnityEditor.UI
         public override void OnInspectorGUI()
         {
             this.mTarget.GetAllModelPaths();
+            this.mTarget.GetAllViewPaths();
+
             base.OnInspectorGUI();
         }
     }

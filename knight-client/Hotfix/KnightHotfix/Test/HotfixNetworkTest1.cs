@@ -24,7 +24,7 @@ namespace Game.Test
             var rTestMsg = rEventArg.Get<string>(0);
             Debug.LogError("EventHandlerTest1: " + rTestMsg);
         }
-    } 
+    }
 
     public class HotfixNetworkTest1
     {
@@ -56,5 +56,11 @@ namespace Game.Test
 
             Debug.LogError("PlayerID: " + g2CLoginGate.PlayerId);
         }
+    }
+
+    public class BagItem
+    {
+        public int  id;
+        public int  Count;
     }
 }

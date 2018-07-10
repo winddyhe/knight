@@ -280,8 +280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7efbf4cb8ed10c54682019af630272ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurModelPath: Game.Test.DataBindingTest2/C
-  CurViewPath: 
+  CurModelPath: Game.Test.DataBindingTest1/A
+  CurViewPath: UnityEngine.UI.Text/text
   CurDataSource: {fileID: 0}
   ModelPaths:
   - Game.Test.DataBindingTest1/A
@@ -290,6 +290,12 @@ MonoBehaviour:
   - Game.Test.DataBindingTest2/A
   - Game.Test.DataBindingTest2/B
   - Game.Test.DataBindingTest2/C
+  ViewPaths:
+  - UnityEngine.RectTransform/tag
+  - UnityEngine.RectTransform/name
+  - UnityEngine.UI.Text/text
+  - UnityEngine.UI.Text/tag
+  - UnityEngine.UI.Text/name
 --- !u!1 &1200744631
 GameObject:
   m_ObjectHideFlags: 0
