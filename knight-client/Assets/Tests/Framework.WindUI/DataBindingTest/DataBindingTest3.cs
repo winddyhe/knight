@@ -18,10 +18,7 @@ namespace Game.Test
 
             TypeResolveManager.Instance.AddAssembly("Game");
             TypeResolveManager.Instance.AddAssembly("Tests");
-
-            string rDLLPath = "Assets/StreamingAssets/Temp/Libs/KnightHotfix.dll";
-            string rPDBPath = "Assets/StreamingAssets/Temp/Libs/KnightHotfix.pdb";
-            HotfixManager.Instance.InitApp(rDLLPath, rPDBPath);
+            TypeResolveManager.Instance.AddAssembly("KnightHotfix", true);
         }
     }
 }

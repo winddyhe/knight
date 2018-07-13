@@ -45,7 +45,7 @@ namespace Knight.Hotfix.DataBinding
         public void InitializeView(string rViewName, string rViewGUID, State rViewState)
         {
             this.ViewName = rViewName;
-            this.GUID = rViewGUID;
+            this.GUID     = rViewGUID;
             this.CurState = rViewState;
             
             // 初始化ViewModel
@@ -139,11 +139,6 @@ namespace Knight.Hotfix.DataBinding
             this.OnClosing();
         }
 
-        protected override void OnDispose()
-        {
-            this.gameObject = null;
-        }
-
         protected virtual void OnOpening()
         {
         }
@@ -170,6 +165,11 @@ namespace Knight.Hotfix.DataBinding
 
         protected virtual void OnClosed()
         {
+        }
+
+        protected override void OnDispose()
+        {
+            this.gameObject = null;
         }
     }
 }

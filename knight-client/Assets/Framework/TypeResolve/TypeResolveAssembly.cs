@@ -95,6 +95,7 @@ namespace Knight.Framework.TypeResolve
             {
                 string rDLLPath = HotfixManager.HotfixDLLDir + "/" + this.AssemblyName + ".dll";
                 string rPDBPath = HotfixManager.HotfixDLLDir + "/" + this.AssemblyName + ".pdb";
+                HotfixManager.Instance.Initialize();
                 HotfixManager.Instance.InitApp(rDLLPath, rPDBPath);
             }
 #else

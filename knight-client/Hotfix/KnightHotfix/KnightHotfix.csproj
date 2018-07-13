@@ -327,6 +327,7 @@
     <Compile Include="Game\GameFlow\Login.cs" />
     <Compile Include="Game\GameStage\StageConfig.cs" />
     <Compile Include="Game\GUI\Login\LoginView.cs" />
+    <Compile Include="Game\GUI\Login\LoginViewModel.cs" />
     <Compile Include="Game\Network\HotfixNetworkMessageOpcode.cs" />
     <Compile Include="Game\Network\HotfixNetworkMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

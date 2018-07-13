@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 22491494}
   - component: {fileID: 22224350}
   - component: {fileID: 11466826}
-  - component: {fileID: 114000014264212576}
+  - component: {fileID: 114329190534849016}
   m_Layer: 5
   m_Name: KNLogin
   m_TagString: Untagged
@@ -1051,7 +1051,7 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 167146}
   m_IsPrefabParent: 1
---- !u!114 &114000014264212576
+--- !u!114 &114329190534849016
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1059,25 +1059,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 167146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f3cc3e917ad78349b520f0be9733232, type: 3}
+  m_Script: {fileID: 11500000, guid: c3de718901a6b564289653b6a86332e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHotfixName: Game.LoginView
-  mObjects:
-  - Name: AccountInput
-    Object: {fileID: 11495156}
-    Type: UnityEngine.UI.InputField
-  - Name: PasswordInput
-    Object: {fileID: 11443390}
-    Type: UnityEngine.UI.InputField
-  - Name: LoginBtn
-    Object: {fileID: 11449816}
-    Type: UnityEngine.UI.Button
-  mNeedUpdate: 0
-  GUID: 
-  ViewName: 
-  CurState: 0
-  IsMultiView: 0
+  ViewModelClass: Game.LoginViewModel
 --- !u!114 &114777738312020300
 MonoBehaviour:
   m_ObjectHideFlags: 1

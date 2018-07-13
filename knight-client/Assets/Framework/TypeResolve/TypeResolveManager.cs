@@ -89,6 +89,7 @@ namespace Knight.Framework.TypeResolve
             {
                 TypeResolveManager.Instance.AddAssembly("Game");
                 TypeResolveManager.Instance.AddAssembly("Tests");
+                TypeResolveManager.Instance.AddAssembly("KnightHotfix", true);
             }
 #endif
         }

@@ -275,52 +275,77 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1002070012}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7efbf4cb8ed10c54682019af630272ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurModelPath: Game.Test.DataBindingTest1/A
+  CurModelPath: Game.LoginViewModel/AccountName
   CurViewPath: UnityEngine.UI.Text/text
   CurModelData:
-    Path: 
-    DataSource: {fileID: 0}
-    ClassName: 
-    VaribleName: 
+    Path: Game.LoginViewModel/AccountName
+    DataSource: {fileID: 1380320663}
+    ClassName: Game.LoginViewModel
+    VaribleName: AccountName
   CurViewData:
-    Path: 
+    Path: UnityEngine.UI.Text/text
     ViewComp: {fileID: 1002070014}
-    ClassName: 
-    VaribleName: 
-  ModelPaths: []
+    ClassName: UnityEngine.UI.Text
+    VaribleName: text
+  ModelPaths:
+  - Game.Test.DataBindingTest1/A
+  - Game.Test.DataBindingTest1/B
+  - Game.Test.DataBindingTest1/C
+  - Game.LoginViewModel/AccountName
+  - Game.LoginViewModel/Password
   ViewPaths:
   - UnityEngine.RectTransform/tag
   - UnityEngine.RectTransform/name
   - UnityEngine.UI.Text/text
   - UnityEngine.UI.Text/tag
   - UnityEngine.UI.Text/name
-  DataModelItems: []
+  DataModelItems:
+  - Path: Game.Test.DataBindingTest1/A
+    DataSource: {fileID: 1380320662}
+    ClassName: Game.Test.DataBindingTest1
+    VaribleName: A
+  - Path: Game.Test.DataBindingTest1/B
+    DataSource: {fileID: 1380320662}
+    ClassName: Game.Test.DataBindingTest1
+    VaribleName: B
+  - Path: Game.Test.DataBindingTest1/C
+    DataSource: {fileID: 1380320662}
+    ClassName: Game.Test.DataBindingTest1
+    VaribleName: C
+  - Path: Game.LoginViewModel/AccountName
+    DataSource: {fileID: 1380320663}
+    ClassName: Game.LoginViewModel
+    VaribleName: AccountName
+  - Path: Game.LoginViewModel/Password
+    DataSource: {fileID: 1380320663}
+    ClassName: Game.LoginViewModel
+    VaribleName: Password
   DataViewItems:
-  - Path: 
+  - Path: UnityEngine.RectTransform/tag
     ViewComp: {fileID: 1002070013}
-    ClassName: 
-    VaribleName: 
-  - Path: 
+    ClassName: UnityEngine.RectTransform
+    VaribleName: tag
+  - Path: UnityEngine.RectTransform/name
     ViewComp: {fileID: 1002070013}
-    ClassName: 
-    VaribleName: 
-  - Path: 
+    ClassName: UnityEngine.RectTransform
+    VaribleName: name
+  - Path: UnityEngine.UI.Text/text
     ViewComp: {fileID: 1002070014}
-    ClassName: 
-    VaribleName: 
-  - Path: 
+    ClassName: UnityEngine.UI.Text
+    VaribleName: text
+  - Path: UnityEngine.UI.Text/tag
     ViewComp: {fileID: 1002070014}
-    ClassName: 
-    VaribleName: 
-  - Path: 
+    ClassName: UnityEngine.UI.Text
+    VaribleName: tag
+  - Path: UnityEngine.UI.Text/name
     ViewComp: {fileID: 1002070014}
-    ClassName: 
-    VaribleName: 
+    ClassName: UnityEngine.UI.Text
+    VaribleName: name
 --- !u!1 &1200744631
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,7 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3de718901a6b564289653b6a86332e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewModelClass: Game.Test.DataBindingTest2
+  ViewModelClass: Game.LoginViewModel
 --- !u!114 &1380320664
 MonoBehaviour:
   m_ObjectHideFlags: 0
