@@ -22,6 +22,7 @@ namespace UnityEditor.UI
         {
             this.mTarget.GetAllModelPaths();
             this.mTarget.GetAllViewPaths();
+            this.mTarget.SetCurData();
 
             base.OnInspectorGUI();
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace UnityEngine.UI
 {
     public partial class DataBindingOneWay
-    {        
+    {
         [HideInInspector]
         public  string[]                ModelPaths;
         [HideInInspector]
@@ -26,22 +26,28 @@ namespace UnityEngine.UI
             this.ModelPaths = new string[this.DataModelItems.Count];
             for (int i = 0; i < this.DataModelItems.Count; i++)
             {
-                this.ModelPaths[i] = this.DataModelItems[i].ModelPath;
+                this.ModelPaths[i] = this.DataModelItems[i].Path;
             }
         }
 
         public void GetAllViewPaths()
         {
-            var rDataBindingItem = this.DataModelItems.Find((rItem) => { return rItem.ModelPath.Equals(this.CurModelPath); });
-            if (rDataBindingItem != null)
+            var rDataModelItem = this.DataModelItems.Find((rItem) => { return rItem.Path.Equals(this.CurModelPath); });
+            if (rDataModelItem != null)
             {
-                this.DataViewItems = DataBindingTypeResolve.GetAllViewPaths(rDataBindingItem, this.gameObject);
+                this.DataViewItems = DataBindingTypeResolve.GetAllViewPaths(rDataModelItem, this.gameObject);
                 this.ViewPaths = new string[this.DataViewItems.Count];
                 for (int i = 0; i < this.DataViewItems.Count; i++)
                 {
-                    this.ViewPaths[i] = this.DataViewItems[i].ViewPath;
+                    this.ViewPaths[i] = this.DataViewItems[i].Path;
                 }
             }
+        }
+
+        public void SetCurData()
+        {
+            this.CurModelData = this.DataModelItems.Find((rItem) => { return rItem.Path.Equals(this.CurModelPath); });
+            this.CurViewData  = this.DataViewItems.Find((rItem)  => { return rItem.Path.Equals(this.CurViewPath);   });
         }
     }
 }

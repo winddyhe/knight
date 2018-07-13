@@ -17,10 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "knight-client", "Framework.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "knight-client", "Game.Editor.csproj", "{0324F777-1EBA-74DE-7D6E-44FA1E425ECB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnightHotfix", "Hotfix\KnightHotfix\KnightHotfix.csproj", "{259690C2-988B-48F0-AAC3-16F1EA9F00AA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializerBinaryEditor", "Hotfix\Tools\SerializerBinaryEditor\SerializerBinaryEditor.csproj", "{18B6F8A7-0539-43D1-B642-B124E5D15911}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,14 +55,6 @@ Global
 		{0324F777-1EBA-74DE-7D6E-44FA1E425ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0324F777-1EBA-74DE-7D6E-44FA1E425ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0324F777-1EBA-74DE-7D6E-44FA1E425ECB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{259690C2-988B-48F0-AAC3-16F1EA9F00AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{259690C2-988B-48F0-AAC3-16F1EA9F00AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{259690C2-988B-48F0-AAC3-16F1EA9F00AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{259690C2-988B-48F0-AAC3-16F1EA9F00AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{18B6F8A7-0539-43D1-B642-B124E5D15911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18B6F8A7-0539-43D1-B642-B124E5D15911}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18B6F8A7-0539-43D1-B642-B124E5D15911}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18B6F8A7-0539-43D1-B642-B124E5D15911}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

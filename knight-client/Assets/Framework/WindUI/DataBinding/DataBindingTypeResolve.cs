@@ -87,10 +87,11 @@ namespace UnityEngine.UI
             {
                 var rModelDataItem = new ModelDataItem()
                 {
-                    DataSource       = rDataSourceModel,
-                    ModelPath        = rClassName + "/" + rAllFields[i].Name,
-                    ModelType        = rType,
-                    ModelVaribleType = rAllFields[i].FieldType
+                    DataSource  = rDataSourceModel,
+                    Path        = rClassName + "/" + rAllFields[i].Name,
+                    ClassName   = rClassName,
+                    VaribleType = rAllFields[i].FieldType,
+                    VaribleName = rAllFields[i].Name
                 };
                 rModelDataList.Add(rModelDataItem);
             }
@@ -99,10 +100,11 @@ namespace UnityEngine.UI
             {
                 var rModelDataItem = new ModelDataItem()
                 {
-                    DataSource       = rDataSourceModel,
-                    ModelPath        = rClassName + "/" + rAllProps[i].Name,
-                    ModelType        = rType,
-                    ModelVaribleType = rAllProps[i].PropertyType
+                    DataSource  = rDataSourceModel,
+                    Path        = rClassName + "/" + rAllProps[i].Name,
+                    ClassName   = rClassName,
+                    VaribleType = rAllProps[i].PropertyType,
+                    VaribleName = rAllProps[i].Name
                 };
                 rModelDataList.Add(rModelDataItem);
             }
@@ -121,28 +123,30 @@ namespace UnityEngine.UI
             var rAllFields = rCompType.GetFields(ReflectionAssist.flags_public);
             for (int i = 0; i < rAllFields.Length; i++)
             {
-                if (!rAllFields[i].FieldType.Equals(rDataModelItem.ModelVaribleType)) continue;
+                if (!rAllFields[i].FieldType.Equals(rDataModelItem.VaribleType)) continue;
 
                 var rViewDataItem   = new ViewDataItem()
                 {
-                    ViewComp        = rComp,
-                    ViewType        = rCompType,
-                    ViewVaribleType = rAllFields[i].FieldType,
-                    ViewPath        = rCompType.FullName + "/" + rAllFields[i].Name
+                    ViewComp    = rComp,
+                    ClassName   = rCompType.FullName,
+                    VaribleType = rAllFields[i].FieldType,
+                    Path        = rCompType.FullName + "/" + rAllFields[i].Name,
+                    VaribleName = rAllFields[i].Name
                 };
                 rViewDataList.Add(rViewDataItem);
             }
             var rAllProps = rCompType.GetProperties(ReflectionAssist.flags_public);
             for (int i = 0; i < rAllProps.Length; i++)
             {
-                if (!rAllProps[i].PropertyType.Equals(rDataModelItem.ModelVaribleType)) continue;
+                if (!rAllProps[i].PropertyType.Equals(rDataModelItem.VaribleType)) continue;
 
                 var rViewDataItem   = new ViewDataItem()
                 {
-                    ViewComp        = rComp,
-                    ViewType        = rCompType,
-                    ViewVaribleType = rAllProps[i].PropertyType,
-                    ViewPath        = rCompType.FullName + "/" + rAllProps[i].Name
+                    ViewComp    = rComp,
+                    ClassName   = rCompType.FullName,
+                    VaribleType = rAllProps[i].PropertyType,
+                    Path        = rCompType.FullName + "/" + rAllProps[i].Name,
+                    VaribleName = rAllProps[i].Name
                 };
                 rViewDataList.Add(rViewDataItem);
             }

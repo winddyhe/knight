@@ -25,6 +25,16 @@ namespace Knight.Framework.TypeResolve
         {
             return null;
         }
+
+        public virtual object Instantiate(string rTypeName, params object[] rArgs)
+        {
+            return null;
+        }
+
+        public virtual T Instantiate<T>(string rTypeName, params object[] rArgs)
+        {
+            return default(T);
+        }
     }
 
     public class TypeResolveAssembly_Mono : TypeResolveAssembly
@@ -55,6 +65,18 @@ namespace Knight.Framework.TypeResolve
             if (this.mAssembly == null) return new Type[0];
             return this.mAssembly.GetTypes();
         }
+
+        public override object Instantiate(string rTypeName, params object[] rArgs)
+        {
+            if (this.mAssembly == null) return null;
+            return Activator.CreateInstance(this.mAssembly.GetType(rTypeName), rArgs);
+        }
+
+        public override T Instantiate<T>(string rTypeName, params object[] rArgs)
+        {
+            if (this.mAssembly == null) return default(T);
+            return (T)Activator.CreateInstance(this.mAssembly.GetType(rTypeName), rArgs);
+        }
     }
 
     public class TypeResolveAssembly_Hotfix : TypeResolveAssembly
@@ -82,6 +104,16 @@ namespace Knight.Framework.TypeResolve
         public override Type[] GetAllTypes()
         {
             return HotfixManager.Instance.GetTypes();
+        }
+
+        public override object Instantiate(string rTypeName, params object[] rArgs)
+        {
+            return HotfixManager.Instance.Instantiate(rTypeName, rArgs);
+        }
+
+        public override T Instantiate<T>(string rTypeName, params object[] rArgs)
+        {
+            return HotfixManager.Instance.Instantiate<T>(rTypeName, rArgs);
         }
     }
 }

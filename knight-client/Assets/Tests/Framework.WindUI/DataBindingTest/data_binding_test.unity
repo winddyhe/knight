@@ -282,7 +282,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurModelPath: Game.Test.DataBindingTest1/A
   CurViewPath: UnityEngine.UI.Text/text
-  CurDataSource: {fileID: 0}
+  CurModelData:
+    ModelPath: Game.Test.DataBindingTest1/A
+    DataSource: {fileID: 1380320662}
+    ModelVaribleName: A
+  CurViewData:
+    ViewPath: UnityEngine.UI.Text/text
+    ViewComp: {fileID: 1002070014}
+    ViewVaribleName: text
   ModelPaths:
   - Game.Test.DataBindingTest1/A
   - Game.Test.DataBindingTest1/B
@@ -296,6 +303,41 @@ MonoBehaviour:
   - UnityEngine.UI.Text/text
   - UnityEngine.UI.Text/tag
   - UnityEngine.UI.Text/name
+  DataModelItems:
+  - ModelPath: Game.Test.DataBindingTest1/A
+    DataSource: {fileID: 1380320662}
+    ModelVaribleName: A
+  - ModelPath: Game.Test.DataBindingTest1/B
+    DataSource: {fileID: 1380320662}
+    ModelVaribleName: B
+  - ModelPath: Game.Test.DataBindingTest1/C
+    DataSource: {fileID: 1380320662}
+    ModelVaribleName: C
+  - ModelPath: Game.Test.DataBindingTest2/A
+    DataSource: {fileID: 1380320663}
+    ModelVaribleName: A
+  - ModelPath: Game.Test.DataBindingTest2/B
+    DataSource: {fileID: 1380320663}
+    ModelVaribleName: B
+  - ModelPath: Game.Test.DataBindingTest2/C
+    DataSource: {fileID: 1380320663}
+    ModelVaribleName: C
+  DataViewItems:
+  - ViewPath: UnityEngine.RectTransform/tag
+    ViewComp: {fileID: 1002070013}
+    ViewVaribleName: tag
+  - ViewPath: UnityEngine.RectTransform/name
+    ViewComp: {fileID: 1002070013}
+    ViewVaribleName: name
+  - ViewPath: UnityEngine.UI.Text/text
+    ViewComp: {fileID: 1002070014}
+    ViewVaribleName: text
+  - ViewPath: UnityEngine.UI.Text/tag
+    ViewComp: {fileID: 1002070014}
+    ViewVaribleName: tag
+  - ViewPath: UnityEngine.UI.Text/name
+    ViewComp: {fileID: 1002070014}
+    ViewVaribleName: name
 --- !u!1 &1200744631
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +411,7 @@ GameObject:
   - component: {fileID: 1380320660}
   - component: {fileID: 1380320659}
   - component: {fileID: 1380320658}
+  - component: {fileID: 1380320664}
   - component: {fileID: 1380320662}
   - component: {fileID: 1380320663}
   m_Layer: 5
@@ -478,6 +521,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ModelClass: Game.Test.DataBindingTest2
+--- !u!114 &1380320664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1380320657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef88ed6368b0f9e4286edcb84d030392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1441392206
 GameObject:
   m_ObjectHideFlags: 0
