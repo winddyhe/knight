@@ -23,15 +23,11 @@ namespace Knight.Hotfix.Core
         /// 当前的UI中的Views，每个View是用GUID来作唯一标识
         /// 底层-->顶层 { 0 --> list.count }
         /// </summary>
-        private IndexedDict<string, View>   mCurViews;
+        private IndexedDict<string, Knight.Hotfix.DataBinding.View>   mCurViews;
         /// <summary>
         /// 当前存在的固定View，每个View使用GUID来作唯一标识
         /// </summary>
-        private Dict<string, View>          mCurFixedViews;
-        /// <summary>
-        /// 用来存储需要删除的View，当一个View加载完之后，要删除当前需要的不再使用的View资源
-        /// </summary>
-        private List<string>                mUnusedViews;
+        private Dict<string, Knight.Hotfix.DataBinding.View>          mCurFixedViews;
         
         private ViewManager()
         {
@@ -40,9 +36,8 @@ namespace Knight.Hotfix.Core
         public void Initialize()
         {
             this.RootCanvas = UIRoot.Instance.DynamicRoot;
-            this.mCurViews = new IndexedDict<string, View>();
-            this.mCurFixedViews = new Dict<string, View>();
-            this.mUnusedViews = new List<string>();
+            this.mCurViews = new IndexedDict<string, Knight.Hotfix.DataBinding.View>();
+            this.mCurFixedViews = new Dict<string, Knight.Hotfix.DataBinding.View>();
         }
 
         public void Update()
@@ -59,7 +54,7 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 打开一个View
         /// </summary>
-        public async Task Open(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
+        public async Task Open(string rViewName, Knight.Hotfix.DataBinding.View.State rViewState, Action<Knight.Hotfix.DataBinding.View> rOpenCompleted = null)
         {
             // 企图关闭当前的View
             Debug.Log("Open " + rViewName);
@@ -68,10 +63,10 @@ namespace Knight.Hotfix.Core
             await Open_Async(rViewName, rViewState, rOpenCompleted);
         }
 
-        private async Task Open_Async(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
+        private async Task Open_Async(string rViewName, Knight.Hotfix.DataBinding.View.State rViewState, Action<Knight.Hotfix.DataBinding.View> rOpenCompleted)
         {
             var rLoaderRequest = await UIAssetLoader.Instance.LoadUI(rViewName);
-            OpenView(rViewName, rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
+            await OpenView(rViewName, rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
         }
 
         /// <summary>
@@ -80,10 +75,10 @@ namespace Knight.Hotfix.Core
         public void Pop(Action rCloseComplted = null)
         {
             // 得到顶层结点
-            CKeyValuePair<string, View> rTopNode = this.mCurViews.Last();
+            CKeyValuePair<string, Knight.Hotfix.DataBinding.View> rTopNode = this.mCurViews.Last();
 
             string rViewGUID = rTopNode.Key;
-            View rView = rTopNode.Value;
+            Knight.Hotfix.DataBinding.View rView = rTopNode.Value;
 
             if (rView == null)
             {
@@ -106,7 +101,7 @@ namespace Knight.Hotfix.Core
         public void CloseView(string rViewGUID, Action rCloseCompleted = null)
         {
             bool isFixedView = false;
-            View rView = null;
+            Knight.Hotfix.DataBinding.View rView = null;
 
             // 找到View
             if (this.mCurFixedViews.TryGetValue(rViewGUID, out rView))
@@ -141,21 +136,19 @@ namespace Knight.Hotfix.Core
             {
                 UtilTool.SafeExecute(rCloseCompleted);
             }));
-
-            this.UnloadUnusedViewAssets();
         }
 
         /// <summary>
         /// 初始化View，如果是Dispatch类型的话，只对curViews顶层View进行交换
         /// </summary>
-        public void OpenView(string rViewName, GameObject rViewPrefab, View.State rViewState, Action<View> rOpenCompleted)
+        public async Task OpenView(string rViewName, GameObject rViewPrefab, Knight.Hotfix.DataBinding.View.State rViewState, Action<Knight.Hotfix.DataBinding.View> rOpenCompleted)
         {
             if (rViewPrefab == null) return;
-            
+
             //把View的GameObject结点加到rootCanvas下
             GameObject rViewGo = this.RootCanvas.transform.AddChild(rViewPrefab, "UI");
 
-            View rView = View.CreateView(rViewGo);
+            var rView = Knight.Hotfix.DataBinding.View.CreateView(rViewGo);
             if (rView == null)
             {
                 Debug.LogErrorFormat("GameObject {0} has not View script.", rViewGo.name);
@@ -163,21 +156,20 @@ namespace Knight.Hotfix.Core
                 return;
             }
 
-            //生成GUID
-            string rViewGUID = Guid.NewGuid().ToString();
-            //为View的初始化设置
-            rView.Initialize(rViewName, rViewGUID, rViewState);
+            string rViewGUID = Guid.NewGuid().ToString();           //生成GUID
+            await rView.Initialize();
+            rView.InitializeView(rViewName, rViewGUID, rViewState); //为View的初始化设置
 
             //新的View的存储逻辑
             switch (rView.CurState)
             {
-                case View.State.fixing:
+                case Knight.Hotfix.DataBinding.View.State.fixing:
                     mCurFixedViews.Add(rViewGUID, rView);
                     break;
-                case View.State.overlap:
+                case Knight.Hotfix.DataBinding.View.State.overlap:
                     mCurViews.Add(rViewGUID, rView);
                     break;
-                case View.State.dispatch:
+                case Knight.Hotfix.DataBinding.View.State.dispatch:
                     if (mCurViews.Count == 0)
                         mCurViews.Add(rViewGUID, rView);
                     else
@@ -193,34 +185,24 @@ namespace Knight.Hotfix.Core
             });
         }
 
-        private void UnloadUnusedViewAssets()
-        {
-            if (this.mUnusedViews == null) return;
-            for (int i = 0; i < this.mUnusedViews.Count; i++)
-            {
-                UIAssetLoader.Instance.UnloadUI(this.mUnusedViews[i]);
-            }
-            this.mUnusedViews.Clear();
-        }
-
         /// <summary>
         /// 企图关闭一个当前的View，当存在当前View时候，并且传入的View是需要Dispatch的。
         /// </summary>
-        private void MaybeCloseTopView(View.State rViewState)
+        private void MaybeCloseTopView(Knight.Hotfix.DataBinding.View.State rViewState)
         {
             // 得到顶层结点
-            CKeyValuePair<string, View> rTopNode = null;
+            CKeyValuePair<string, Knight.Hotfix.DataBinding.View> rTopNode = null;
             if (this.mCurViews.Count > 0)
                 rTopNode = this.mCurViews.Last();
 
             if (rTopNode == null) return;
 
             string rViewGUID = rTopNode.Key;
-            View rView = rTopNode.Value;
+            Knight.Hotfix.DataBinding.View rView = rTopNode.Value;
 
             if (rView == null) return;
 
-            if (rViewState == View.State.dispatch)
+            if (rViewState == Knight.Hotfix.DataBinding.View.State.dispatch)
             {
                 // 移除顶层结点
                 this.mCurViews.Remove(rViewGUID);
@@ -232,15 +214,14 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 等待View关闭动画播放完后开始删除一个View
         /// </summary>
-        private IEnumerator DestroyView_Async(View rView, Action rDestroyCompleted = null)
+        private IEnumerator DestroyView_Async(Knight.Hotfix.DataBinding.View rView, Action rDestroyCompleted = null)
         {
             while (!rView.IsClosed)
             {
                 yield return 0;
             }
 
-            mUnusedViews.Add(rView.ViewName);
-            rView.Destroy();
+            rView.Dispose();
             UtilTool.SafeDestroy(rView.gameObject);
             rView = null;
             UtilTool.SafeExecute(rDestroyCompleted);

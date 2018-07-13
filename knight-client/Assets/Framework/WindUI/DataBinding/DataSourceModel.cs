@@ -36,12 +36,6 @@ namespace UnityEngine.UI
     [DefaultExecutionOrder(90)]
     public class DataSourceModel : MonoBehaviour
     {
-        public string           ModelClass;
-        public object           ModelObject;
-
-        public void Awake()
-        {
-            this.ModelObject = TypeResolveManager.Instance.Instantiate(this.ModelClass);
-        }
+        public string           ViewModelClass;
     }
 }

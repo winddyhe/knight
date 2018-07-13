@@ -31,7 +31,6 @@ namespace UnityEngine.UI
         protected void DataBinding()
         {
             if (this.CurModelData == null || this.CurViewData == null) return;
-            if (this.CurModelData.DataSource == null || this.CurModelData.DataSource.ModelObject == null) return;
 
             var rModelType = TypeResolveManager.Instance.GetType(this.CurModelData.ClassName);
             if (rModelType == null) return;
@@ -40,7 +39,7 @@ namespace UnityEngine.UI
             var rModelFiled = rModelType.GetField(this.CurModelData.VaribleName, ReflectionAssist.flags_public);
             if (rModelFiled != null)
             {
-                rModelValue = rModelFiled.GetValue(this.CurModelData.DataSource.ModelObject);
+                rModelValue = rModelFiled.GetValue(null);
             }
             else
             {

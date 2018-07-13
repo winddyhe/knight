@@ -44,7 +44,7 @@ namespace UnityEngine.UI
 
             for (int i = 0; i < rAllDataSources.Length; i++)
             {
-                var rClassName = rAllDataSources[i].ModelClass;
+                var rClassName = rAllDataSources[i].ViewModelClass;
                 if (!string.IsNullOrEmpty(rClassName))
                 {
                     rModelDataList.AddRange(GetClassAllModelPaths(rAllDataSources[i], rClassName));

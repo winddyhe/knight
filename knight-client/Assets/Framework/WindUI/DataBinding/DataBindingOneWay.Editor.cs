@@ -42,12 +42,19 @@ namespace UnityEngine.UI
                     this.ViewPaths[i] = this.DataViewItems[i].Path;
                 }
             }
+            else
+            {
+                this.DataModelItems = new List<ModelDataItem>();
+            }
         }
 
         public void SetCurData()
         {
-            this.CurModelData = this.DataModelItems.Find((rItem) => { return rItem.Path.Equals(this.CurModelPath); });
-            this.CurViewData  = this.DataViewItems.Find((rItem)  => { return rItem.Path.Equals(this.CurViewPath);   });
+            if (this.DataModelItems != null)
+                this.CurModelData = this.DataModelItems.Find((rItem) => { return rItem.Path.Equals(this.CurModelPath); });
+
+            if (this.DataViewItems != null)
+                this.CurViewData  = this.DataViewItems.Find((rItem)  => { return rItem.Path.Equals(this.CurViewPath);   });
         }
     }
 }
