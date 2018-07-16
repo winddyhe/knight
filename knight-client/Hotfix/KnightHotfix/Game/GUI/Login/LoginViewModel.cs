@@ -1,4 +1,4 @@
-﻿using Knight.Hotfix.DataBinding;
+﻿using Knight.Hotfix.Core;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;

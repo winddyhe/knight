@@ -1,147 +1,102 @@
-﻿//======================================================================
-//        Copyright (C) 2015-2020 Winddy He. All rights reserved
-//        Email: hgplan@126.com
-//======================================================================
-using Knight.Core;
+﻿using Knight.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Knight.Hotfix.Core
 {
     public class View
-    {        
-        /// <summary>
-        /// View的状态，有三种状态
-        /// </summary>
+    {
         public enum State
         {
-            /// <summary>
-            /// 固定的
-            /// </summary>
             fixing,
-            /// <summary>
-            /// 叠层
-            /// </summary>
             overlap,
-            /// <summary>
-            /// 可切换的
-            /// </summary>
             dispatch,
         }
-
-        /// <summary>
-        /// View的实例化GUID，用来唯一标识该View
-        /// </summary>
-        public string               GUID = "";
-        /// <summary>
-        /// View Name
-        /// </summary>
-        public string               ViewName = "";
-        /// <summary>
-        /// 该页面当前的状态
-        /// </summary>
-        public State                CurState = State.fixing;
-        /// <summary>
-        /// View的GameObject
-        /// </summary>
+        
+        public string               GUID        = "";
+        public string               ViewName    = "";
+        public State                CurState    = State.fixing;
         public GameObject           gameObject;
-        /// <summary>
-        /// View脚本
-        /// </summary>
-        public ViewContainer        ViewMB;
-        /// <summary>
-        /// View控制器
-        /// </summary>
-        private ViewController      mViewController;
 
-        public  ViewController      ViewController { get { return mViewController; } }
-
-        /// <summary>
-        /// 该View是否被打开？
-        /// </summary>
+        public ViewController       ViewController;
+        public List<ViewModelData>  ViewModels;
+        
         public bool                 IsOpened
         {
-            get
-            {
-                if (mViewController == null) return false;
-                return mViewController.IsOpened;
-            }
-            set
-            {
-                if (mViewController == null) return;
-                mViewController.IsOpened = value;
-            }
+            get { return this.ViewController.IsOpened;  }
+            set { this.ViewController.IsOpened = value; }
         }
-
-        /// <summary>
-        /// 该View是否被关掉？
-        /// </summary>
+        
         public bool                 IsClosed
         {
-            get
-            {
-                if (mViewController == null) return false;
-                return mViewController.IsClosed;
-            }
-            set
-            {
-                if (mViewController == null) return;
-                mViewController.IsClosed = value;
-            }
+            get { return this.ViewController.IsClosed;  }
+            set { this.ViewController.IsClosed = value; }
         }
 
-        /// <summary>
-        /// 是否被激活？
-        /// </summary>
         public bool                 IsActived
         {
-            get { return this.gameObject.activeSelf; }
-            set { this.gameObject.SetActive(value); }
+            get { return this.gameObject.activeSelf;    }
+            set { this.gameObject.SetActive(value);     }
         }
 
         public static View CreateView(GameObject rViewGo)
         {
-            ViewContainer rViewDataMB = rViewGo.GetComponent<ViewContainer>();
-            if (rViewDataMB == null) return null;
-
             View rUIView = new View();
             rUIView.gameObject = rViewGo;
-            rUIView.ViewMB = rViewDataMB;
             return rUIView;
         }
-
-        public void Initialize(string rViewName, string rViewGUID, State rViewState)
+        
+        public async Task Initialize(string rViewName, string rViewControllerName, string rViewGUID, State rViewState)
         {
             this.ViewName = rViewName;
-            this.GUID = rViewGUID;
+            this.GUID     = rViewGUID;
             this.CurState = rViewState;
+            
+            // 初始化ViewModel
+            this.Initialize_ViewModelDatas();
 
-            this.ViewMB.GUID = rViewGUID;
-            this.ViewMB.ViewName = rViewName;
-            this.ViewMB.CurState = (ViewContainer.State)rViewState;
-
-            // 初始化View controller
-            this.InitializeViewController();
+            // 初始化ViewController
+            await this.Initialize_ViewController(rViewControllerName);
         }
 
         /// <summary>
-        /// 初始化View controller
+        /// 初始化ViewModel
         /// </summary>
-        protected virtual void InitializeViewController()
+        private void Initialize_ViewModelDatas()
         {
-            this.mViewController = HotfixReflectAssists.Construct(Type.GetType(this.ViewMB.HotfixName)) as ViewController;
-            if (this.mViewController == null)
+            this.ViewModels = new List<ViewModelData>();
+            var rAllDataSources = this.gameObject.GetComponentsInChildren<DataSourceModel>(true);
+            for (int i = 0; i < rAllDataSources.Length; i++)
             {
-                Debug.LogErrorFormat("Create View controller <color=blue>{0}</color> failed..", this.ViewMB.HotfixName);
+                var rClassName = rAllDataSources[i].ViewModelClass;
+                if (string.IsNullOrEmpty(rClassName)) continue;
+
+                var rType = Type.GetType(rClassName);
+                if (rType == null) continue;
+
+                var rViewModel = HotfixReflectAssists.Construct(rType) as ViewModel;
+                this.ViewModels.Add(new ViewModelData() { DataSource = rAllDataSources[i], ViewModel = rViewModel });
             }
-            else
+        }
+
+        /// <summary>
+        /// 初始化ViewController
+        /// </summary>
+        private async Task Initialize_ViewController(string rViewControllerName)
+        {
+            var rType = Type.GetType(rViewControllerName);
+            if (rType == null)
             {
-                this.mViewController.SetHotfix(this.ViewMB.HotfixName, this.GUID);
-                this.mViewController.Initialize(this.ViewMB.Objects);
+                Debug.LogErrorFormat("Can not find ViewController Type: {0}", rType);
+                return;
             }
+            this.ViewController = HotfixReflectAssists.Construct(rType) as ViewController;
+            this.ViewController.SetData(this.GUID, this.ViewName, this.CurState);
+            await this.ViewController.Initialize();
         }
 
         /// <summary>
@@ -150,10 +105,7 @@ namespace Knight.Hotfix.Core
         public void Open(Action<View> rOpenCompleted)
         {
             this.IsOpened = false;
-
-            if (mViewController != null)
-                mViewController.Opening();
-
+            this.ViewController?.Opening();
             CoroutineManager.Instance.Start(Open_WaitforCompleted(rOpenCompleted));
         }
 
@@ -163,20 +115,17 @@ namespace Knight.Hotfix.Core
             {
                 yield return 0;
             }
-
-            if (mViewController != null)
-                mViewController.OnOpened();
-
+            this.ViewController?.Opened();
             UtilTool.SafeExecute(rOpenCompleted, this);
         }
-
+        
         /// <summary>
         /// 显示View
         /// </summary>
         public void Show()
         {
-            if (mViewController != null)
-                mViewController.OnShow();
+            this.gameObject.SetActive(true);
+            this.ViewController?.Show();
         }
 
         /// <summary>
@@ -184,26 +133,19 @@ namespace Knight.Hotfix.Core
         /// </summary>
         public void Hide()
         {
-            if (mViewController != null)
-                mViewController.OnHide();
+            this.gameObject.SetActive(false);
+            this.ViewController?.Hide();
         }
 
-        /// <summary>
-        /// Update
-        /// </summary>
         public void Update()
         {
-            if (mViewController != null)
-                mViewController.OnUpdate();
+            this.ViewController?.Update();
         }
-
-        /// <summary>
-        /// 刷新界面
-        /// </summary>
-        public void Refresh()
+        
+        public void Dispose()
         {
-            if (mViewController != null)
-                mViewController.OnRefresh();
+            this.ViewController?.Dispose();
+            this.gameObject = null;
         }
 
         /// <summary>
@@ -212,10 +154,7 @@ namespace Knight.Hotfix.Core
         public void Close()
         {
             this.IsClosed = false;
-
-            if (mViewController != null)
-                mViewController.Closing();
-
+            this.ViewController?.Closing();
             CoroutineManager.Instance.Start(Close_WaitForCompleted());
         }
 
@@ -225,15 +164,7 @@ namespace Knight.Hotfix.Core
             {
                 yield return 0;
             }
-
-            if (mViewController != null)
-                mViewController.Closed();
-        }
-
-        public void Destroy()
-        {
-            // 销毁引用
-            mViewController = null;
+            this.ViewController?.Closed();
         }
     }
 }

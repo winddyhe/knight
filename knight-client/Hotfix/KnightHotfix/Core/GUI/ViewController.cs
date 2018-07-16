@@ -1,103 +1,96 @@
-﻿//======================================================================
-//        Copyright (C) 2015-2020 Winddy He. All rights reserved
-//        Email: hgplan@126.com
-//======================================================================
-using Knight.Framework.Hotfix;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using static Knight.Hotfix.Core.View;
 
 namespace Knight.Hotfix.Core
 {
-    public class ViewController
+    public class ViewController : HotfixKnightObject
     {
-        public string HotfixName;
-        public string GUID;
-        public string ParentType = "WindHotfix.GUI.THotfixViewController`1";
+        public string               GUID        = "";
+        public string               ViewName    = "";
 
-        public ViewController()
+        public State                CurState    = State.fixing;
+
+        public bool                 IsOpened;
+        public bool                 IsClosed;
+        
+        public void SetData(string rGUID, string rViewName, State rState)
+        {
+            this.GUID     = rGUID;
+            this.ViewName = rViewName;
+            this.CurState = rState;
+        }
+
+        public void Opening()
+        {
+            this.IsOpened = true;
+            this.OnOpening();
+        }
+
+        public void Opened()
+        {
+            this.OnOpened();
+        }
+
+        public void Show()
+        {
+            this.OnShow();
+        }
+
+        public void Hide()
+        {
+            this.OnHide();
+        }
+
+        public void Closing()
+        {
+            this.IsClosed = true;
+            this.OnClosing();
+        }
+
+        public void Closed()
+        {
+            this.OnClosed();
+        }
+        
+        #region Virtual Function
+        protected override Task OnInitialize()
+        {
+            return base.OnInitialize();
+        }
+
+        protected override void OnUpdate()
         {
         }
 
-        public void SetHotfix(string rHotfixName, string rGUID)
-        {
-            this.HotfixName = rHotfixName;
-            this.GUID = rGUID;
-            this.ParentType = string.Format("WindHotfix.GUI.THotfixViewController`1<{0}>", rHotfixName);
-        }
-
-        public virtual void Initialize(List<UnityObject> rObjs)
+        protected override void OnDispose()
         {
         }
 
-        /// <summary>
-        /// 该View是否被打开
-        /// </summary>
-        public virtual bool IsOpened
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 该View是否被关掉
-        /// </summary>
-        public virtual bool IsClosed
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 开始打开View时候要做的事情
-        /// </summary>
-        public virtual void Opening()
+        protected virtual void OnOpening()
         {
         }
 
-        /// <summary>
-        /// 彻底打开View时候要做的事情
-        /// </summary>
-        public virtual void OnOpened()
+        protected virtual void OnOpened()
         {
         }
 
-        /// <summary>
-        /// 显示View要做的操作
-        /// </summary>
-        public virtual void OnShow()
+        protected virtual void OnShow()
         {
         }
 
-        /// <summary>
-        /// 隐藏View要做的事情
-        /// </summary>
-        public virtual void OnHide()
+        protected virtual void OnHide()
         {
         }
 
-        /// <summary>
-        /// 刷新页面要做的操作
-        /// </summary>
-        public virtual void OnRefresh()
+        protected virtual void OnClosing()
         {
         }
 
-        /// <summary>
-        /// 开始关闭时候要做的操作
-        /// </summary>
-        public virtual void Closing()
+        protected virtual void OnClosed()
         {
         }
-
-        /// <summary>
-        /// 彻底关闭后要做的操作
-        /// </summary>
-        public virtual void Closed()
-        {
-        }
-
-        public virtual void OnUpdate()
-        {
-        }
+        #endregion
     }
 }

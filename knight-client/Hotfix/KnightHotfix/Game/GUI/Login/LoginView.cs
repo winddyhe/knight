@@ -6,16 +6,17 @@ using UnityEngine.UI;
 using Knight.Hotfix.Core;
 using Knight.Framework;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace Game
 {
-    public class LoginView : TViewController<LoginView>
+    public class LoginView : ViewController
     {
         [HotfixBinding("AccountInput")]
         public InputField       AccountInput;
         [HotfixBinding("PasswordInput")]
         public InputField       PasswordInput;
-        
+
         [HotfixBindingEvent("LoginBtn", HEventTriggerType.PointerClick)]
         private void OnButton_Clicked(UnityEngine.Object rObj)
         {
