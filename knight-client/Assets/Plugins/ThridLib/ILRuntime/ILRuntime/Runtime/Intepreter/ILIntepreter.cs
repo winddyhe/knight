@@ -1879,7 +1879,10 @@ namespace ILRuntime.Runtime.Intepreter
                                             }
                                         }
                                         else
-                                            throw new NullReferenceException();
+                                        {
+                                            var stacktrace = this.domain.DebugService.GetStackTrance(this);
+                                            throw new NullReferenceException(stacktrace);
+                                        }
                                     }
                                     Free(esp - 1);
                                     Free(esp - 1 - 1);

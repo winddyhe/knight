@@ -95,7 +95,7 @@ namespace Knight.Hotfix.Core
                 return;
             }
             this.ViewController = HotfixReflectAssists.Construct(rType) as ViewController;
-            this.ViewController.SetData(this.GUID, this.ViewName, this.CurState);
+            this.ViewController.SetView(this);
             await this.ViewController.Initialize();
         }
 

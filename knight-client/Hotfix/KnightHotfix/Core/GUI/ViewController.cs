@@ -7,21 +7,16 @@ namespace Knight.Hotfix.Core
 {
     public class ViewController : HotfixKnightObject
     {
-        public string               GUID        = "";
-        public string               ViewName    = "";
+        public    bool              IsOpened;
+        public    bool              IsClosed;
 
-        public State                CurState    = State.fixing;
+        protected View              mView;
 
-        public bool                 IsOpened;
-        public bool                 IsClosed;
-        
-        public void SetData(string rGUID, string rViewName, State rState)
+        public void SetView(View rView)
         {
-            this.GUID     = rGUID;
-            this.ViewName = rViewName;
-            this.CurState = rState;
+            this.mView = rView;
         }
-
+        
         public void Opening()
         {
             this.IsOpened = true;
