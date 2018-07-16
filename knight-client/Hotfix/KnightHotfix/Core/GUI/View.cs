@@ -12,41 +12,40 @@ namespace Knight.Hotfix.Core
     {
         public enum State
         {
-            fixing,
-            overlap,
-            dispatch,
+            Fixing,
+            Overlap,
+            Dispatch,
         }
         
-        public string               GUID        = "";
-        public string               ViewName    = "";
-        public State                CurState    = State.fixing;
-        public GameObject           gameObject;
-
-        public ViewController       ViewController;
-        public List<ViewModelData>  ViewModels;
+        public string               GUID                = "";
+        public string               ViewName            = "";
+        public State                CurState            = State.Fixing;
+        public GameObject           GameObject;
+        
+        public ViewModel            ViewModel;
         
         public bool                 IsOpened
         {
-            get { return this.ViewController.IsOpened;  }
-            set { this.ViewController.IsOpened = value; }
+            get { return this.ViewModel.IsOpened;       }
+            set { this.ViewModel.IsOpened = value;      }
         }
         
         public bool                 IsClosed
         {
-            get { return this.ViewController.IsClosed;  }
-            set { this.ViewController.IsClosed = value; }
+            get { return this.ViewModel.IsClosed;       }
+            set { this.ViewModel.IsClosed = value;      }
         }
 
         public bool                 IsActived
         {
-            get { return this.gameObject.activeSelf;    }
-            set { this.gameObject.SetActive(value);     }
+            get { return this.GameObject.activeSelf;    }
+            set { this.GameObject.SetActive(value);     }
         }
 
         public static View CreateView(GameObject rViewGo)
         {
             View rUIView = new View();
-            rUIView.gameObject = rViewGo;
+            rUIView.GameObject = rViewGo;
             return rUIView;
         }
         
@@ -56,47 +55,54 @@ namespace Knight.Hotfix.Core
             this.GUID     = rViewGUID;
             this.CurState = rViewState;
             
-            // 初始化ViewModel
-            this.Initialize_ViewModelDatas();
-
             // 初始化ViewController
-            await this.Initialize_ViewController(rViewControllerName);
+            await this.InitializeViewModel(rViewControllerName);
+
+            // DataBinding
+            this.DataBinding();
         }
-
-        /// <summary>
-        /// 初始化ViewModel
-        /// </summary>
-        private void Initialize_ViewModelDatas()
-        {
-            this.ViewModels = new List<ViewModelData>();
-            var rAllDataSources = this.gameObject.GetComponentsInChildren<DataSourceModel>(true);
-            for (int i = 0; i < rAllDataSources.Length; i++)
-            {
-                var rClassName = rAllDataSources[i].ViewModelClass;
-                if (string.IsNullOrEmpty(rClassName)) continue;
-
-                var rType = Type.GetType(rClassName);
-                if (rType == null) continue;
-
-                var rViewModel = HotfixReflectAssists.Construct(rType) as ViewModel;
-                this.ViewModels.Add(new ViewModelData() { DataSource = rAllDataSources[i], ViewModel = rViewModel });
-            }
-        }
-
+        
         /// <summary>
         /// 初始化ViewController
         /// </summary>
-        private async Task Initialize_ViewController(string rViewControllerName)
+        private async Task InitializeViewModel(string rViewControllerName)
         {
             var rType = Type.GetType(rViewControllerName);
             if (rType == null)
             {
-                Debug.LogErrorFormat("Can not find ViewController Type: {0}", rType);
+                Debug.LogErrorFormat("Can not find ViewModel Type: {0}", rType);
                 return;
             }
-            this.ViewController = HotfixReflectAssists.Construct(rType) as ViewController;
-            this.ViewController.SetView(this);
-            await this.ViewController.Initialize();
+            this.ViewModel = HotfixReflectAssists.Construct(rType) as ViewModel;
+            this.ViewModel.SetView(this);
+            await this.ViewModel.Initialize();
+        }
+
+        private void DataBinding()
+        {
+            var rAllDataBindings = this.GameObject.GetComponentsInChildren<DataBindingOneWay>(true);
+            for (int i = 0; i < rAllDataBindings.Length; i++)
+            {
+                var rDataBinding = rAllDataBindings[i];
+
+                var rModelData = rDataBinding.CurModelData;
+                this.ModelPropertyChanged(rModelData.VaribleName, rDataBinding);
+                
+                rAllDataBindings[i].ModelPropertyChanged = (rPropName) => { this.ModelPropertyChanged(rPropName, rDataBinding); };
+                this.ViewModel.PropertyChanged += rDataBinding.ModelPropertyChanged;
+            }
+        }
+
+        private void ModelPropertyChanged(string rPropName, DataBindingOneWay rDataBindingOneWay)
+        {
+            var rModelType = this.ViewModel.GetType();
+            var rModelProp = rModelType.GetProperty(rPropName, HotfixReflectAssists.flags_public);
+            object rModelValue = null;
+            if (rModelProp != null)
+            {
+                rModelValue = rModelProp.GetValue(this.ViewModel);
+            }
+            rDataBindingOneWay.SetViewData(rModelValue);
         }
 
         /// <summary>
@@ -105,7 +111,7 @@ namespace Knight.Hotfix.Core
         public void Open(Action<View> rOpenCompleted)
         {
             this.IsOpened = false;
-            this.ViewController?.Opening();
+            this.ViewModel?.Opening();
             CoroutineManager.Instance.Start(Open_WaitforCompleted(rOpenCompleted));
         }
 
@@ -115,7 +121,7 @@ namespace Knight.Hotfix.Core
             {
                 yield return 0;
             }
-            this.ViewController?.Opened();
+            this.ViewModel?.Opened();
             UtilTool.SafeExecute(rOpenCompleted, this);
         }
         
@@ -124,8 +130,8 @@ namespace Knight.Hotfix.Core
         /// </summary>
         public void Show()
         {
-            this.gameObject.SetActive(true);
-            this.ViewController?.Show();
+            this.GameObject.SetActive(true);
+            this.ViewModel?.Show();
         }
 
         /// <summary>
@@ -133,19 +139,23 @@ namespace Knight.Hotfix.Core
         /// </summary>
         public void Hide()
         {
-            this.gameObject.SetActive(false);
-            this.ViewController?.Hide();
+            this.GameObject.SetActive(false);
+            this.ViewModel?.Hide();
         }
 
         public void Update()
         {
-            this.ViewController?.Update();
+            this.ViewModel?.Update();
         }
         
         public void Dispose()
         {
-            this.ViewController?.Dispose();
-            this.gameObject = null;
+            var rAllDataBindings = this.GameObject.GetComponentsInChildren<DataBindingOneWay>(true);
+            for (int i = 0; i < rAllDataBindings.Length; i++)
+            {
+                this.ViewModel.PropertyChanged -= rAllDataBindings[i].ModelPropertyChanged;
+            }
+            this.ViewModel?.Dispose();
         }
 
         /// <summary>
@@ -154,7 +164,7 @@ namespace Knight.Hotfix.Core
         public void Close()
         {
             this.IsClosed = false;
-            this.ViewController?.Closing();
+            this.ViewModel?.Closing();
             CoroutineManager.Instance.Start(Close_WaitForCompleted());
         }
 
@@ -164,7 +174,7 @@ namespace Knight.Hotfix.Core
             {
                 yield return 0;
             }
-            this.ViewController?.Closed();
+            this.ViewModel?.Closed();
         }
     }
 }

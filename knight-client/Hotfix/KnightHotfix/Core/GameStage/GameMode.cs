@@ -23,7 +23,7 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 游戏关卡管理器对象
         /// </summary>
-        public GameStageManager      gsm;
+        public GameStageManager      GSM;
     
         /// <summary>
         /// 初始化游戏数据
@@ -31,9 +31,9 @@ namespace Knight.Hotfix.Core
         public void InitData()
         {
             //设置GameStageManager
-            this.gsm = GameStageManager.Instance;
+            this.GSM = GameStageManager.Instance;
             // 构建GameStages
-            this.gsm.gameStages = new Dict<int, GameStage>();
+            this.GSM.gameStages = new Dict<int, GameStage>();
 
             // 构建GameStages
             this.OnBuildStages();
@@ -61,7 +61,7 @@ namespace Knight.Hotfix.Core
             rStageLoadAssets.index = nIndex;
             rStageLoadAssets.taskList = new List<StageTask>();
             rStageLoadAssets.taskList.AddRange(rStageTasks);
-            this.gsm.gameStages.Add(rStageLoadAssets.index, rStageLoadAssets);
+            this.GSM.gameStages.Add(rStageLoadAssets.index, rStageLoadAssets);
         }
     }
 }

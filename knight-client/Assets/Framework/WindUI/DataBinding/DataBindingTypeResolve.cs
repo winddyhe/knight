@@ -44,7 +44,7 @@ namespace UnityEngine.UI
 
             for (int i = 0; i < rAllDataSources.Length; i++)
             {
-                var rClassName = rAllDataSources[i].ViewModelClass;
+                var rClassName = rAllDataSources[i].ViewModelPath;
                 if (!string.IsNullOrEmpty(rClassName))
                 {
                     rModelDataList.AddRange(GetClassAllModelPaths(rAllDataSources[i], rClassName));
@@ -69,7 +69,8 @@ namespace UnityEngine.UI
         private static List<ModelDataItem> GetClassAllModelPaths(DataSourceModel rDataSourceModel, string rClassName)
         {
             var rModelDataList = new List<ModelDataItem>();
-            var rType = TypeResolveManager.Instance.GetType(rClassName);
+            bool bIsHotfix = false;
+            var rType = TypeResolveManager.Instance.GetType(rClassName, out bIsHotfix);
             if (rType == null)
             {
                 Debug.LogErrorFormat("Has not type: {0} in register assemblies.", rClassName);
@@ -91,7 +92,8 @@ namespace UnityEngine.UI
                     Path        = rClassName + "/" + rAllFields[i].Name,
                     ClassName   = rClassName,
                     VaribleType = rAllFields[i].FieldType,
-                    VaribleName = rAllFields[i].Name
+                    VaribleName = rAllFields[i].Name,
+                    IsHotfix    = bIsHotfix
                 };
                 rModelDataList.Add(rModelDataItem);
             }
@@ -104,7 +106,8 @@ namespace UnityEngine.UI
                     Path        = rClassName + "/" + rAllProps[i].Name,
                     ClassName   = rClassName,
                     VaribleType = rAllProps[i].PropertyType,
-                    VaribleName = rAllProps[i].Name
+                    VaribleName = rAllProps[i].Name,
+                    IsHotfix    = bIsHotfix
                 };
                 rModelDataList.Add(rModelDataItem);
             }

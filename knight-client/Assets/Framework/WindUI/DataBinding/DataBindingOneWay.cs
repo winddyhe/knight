@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using Knight.Core;
 using Knight.Framework.TypeResolve;
+using Knight.Framework.Hotfix;
 
 namespace UnityEngine.UI
 {
@@ -13,43 +14,48 @@ namespace UnityEngine.UI
     public partial class DataBindingOneWay : MonoBehaviour
     {
         [Dropdown("ModelPaths")]
-        public  string          CurModelPath;
+        public    string            CurModelPath;
         [Dropdown("ViewPaths")]
         [ShowIf("IsShowCurViewPath")]
-        public  string          CurViewPath;
+        public    string            CurViewPath;
         
         [HideInInspector]
-        public  ModelDataItem   CurModelData;
+        public    ModelDataItem     CurModelData;
         [HideInInspector]
-        public  ViewDataItem    CurViewData;
+        public    ViewDataItem      CurViewData;
+
+        protected HotfixObject      mHotfixBindingObj;
+        public    Action<string>    ModelPropertyChanged;
 
         private void Awake()
         {
-            this.DataBinding();
         }
 
-        protected void DataBinding()
+        //public void BindingPropertyChangedEvent(Action<string> rModelPropertyChanged)
+        //{
+        //    this.ModelPropertyChanged += rModelPropertyChanged;
+        //}
+
+        //public void UnbindingPropertyChangedEvent(Action<string> rModelPropertyChanged)
+        //{
+        //    this.ModelPropertyChanged -= rModelPropertyChanged;
+        //}
+
+        //public void ModelPropertyChanged(string rPropName)
+        //{
+        //    var rModelData = this.CurModelData;
+
+        //    var rModelProp = rModelType.GetProperty(rModelData.VaribleName, HotfixReflectAssists.flags_public);
+        //    object rModelValue = null;
+        //    if (rModelProp != null)
+        //    {
+        //        rModelValue = rModelProp.GetValue(this.ViewModel);
+        //    }
+        //    rAllDataBindings[i].SetViewData(rModelValue);
+        //}
+
+        public void SetViewData(object rModelValue)
         {
-            if (this.CurModelData == null || this.CurViewData == null) return;
-
-            var rModelType = TypeResolveManager.Instance.GetType(this.CurModelData.ClassName);
-            if (rModelType == null) return;
-
-            object rModelValue = null;
-            var rModelFiled = rModelType.GetField(this.CurModelData.VaribleName, ReflectionAssist.flags_public);
-            if (rModelFiled != null)
-            {
-                rModelValue = rModelFiled.GetValue(null);
-            }
-            else
-            {
-                var rModelProp = rModelType.GetProperty(this.CurModelData.VaribleName, ReflectionAssist.flags_public);
-                if (rModelProp != null)
-                {
-                    rModelValue = rModelProp.GetValue(this.CurModelData.DataSource);
-                }
-            }
-
             var rViewType = this.CurViewData.ViewComp.GetType();
             var rViewField = rViewType.GetField(this.CurViewData.VaribleName, ReflectionAssist.flags_public);
             if (rViewField != null)

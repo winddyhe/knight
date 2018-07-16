@@ -161,13 +161,13 @@ namespace Knight.Hotfix.Core
             //新的View的存储逻辑
             switch (rView.CurState)
             {
-                case View.State.fixing:
+                case View.State.Fixing:
                     mCurFixedViews.Add(rViewGUID, rView);
                     break;
-                case View.State.overlap:
+                case View.State.Overlap:
                     mCurViews.Add(rViewGUID, rView);
                     break;
-                case View.State.dispatch:
+                case View.State.Dispatch:
                     if (mCurViews.Count == 0)
                         mCurViews.Add(rViewGUID, rView);
                     else
@@ -200,7 +200,7 @@ namespace Knight.Hotfix.Core
 
             if (rView == null) return;
 
-            if (rViewState == View.State.dispatch)
+            if (rViewState == View.State.Dispatch)
             {
                 // 移除顶层结点
                 this.mCurViews.Remove(rViewGUID);
@@ -220,7 +220,7 @@ namespace Knight.Hotfix.Core
             }
 
             rView.Dispose();
-            UtilTool.SafeDestroy(rView.gameObject);
+            UtilTool.SafeDestroy(rView.GameObject);
             rView = null;
             UtilTool.SafeExecute(rDestroyCompleted);
         }

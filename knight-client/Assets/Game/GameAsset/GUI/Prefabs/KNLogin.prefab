@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 22207372}
   - component: {fileID: 11410674}
   - component: {fileID: 11495156}
+  - component: {fileID: 114633724913912878}
   m_Layer: 5
   m_Name: AccountInput
   m_TagString: Untagged
@@ -1062,7 +1063,82 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3de718901a6b564289653b6a86332e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewModelClass: Game.LoginViewModel
+  ViewModelPath: Game.LoginViewModel
+--- !u!114 &114633724913912878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7efbf4cb8ed10c54682019af630272ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurModelPath: Game.LoginViewModel/AccountName
+  CurViewPath: UnityEngine.UI.InputField/text
+  CurModelData:
+    Path: Game.LoginViewModel/AccountName
+    DataSource: {fileID: 114329190534849016}
+    ClassName: Game.LoginViewModel
+    VaribleName: AccountName
+    IsHotfix: 0
+  CurViewData:
+    Path: UnityEngine.UI.InputField/text
+    ViewComp: {fileID: 11495156}
+    ClassName: UnityEngine.UI.InputField
+    VaribleName: text
+  ModelPaths:
+  - Game.LoginViewModel/AccountName
+  - Game.LoginViewModel/Password
+  ViewPaths:
+  - UnityEngine.RectTransform/tag
+  - UnityEngine.RectTransform/name
+  - UnityEngine.UI.Image/tag
+  - UnityEngine.UI.Image/name
+  - UnityEngine.UI.InputField/text
+  - UnityEngine.UI.InputField/tag
+  - UnityEngine.UI.InputField/name
+  DataModelItems:
+  - Path: Game.LoginViewModel/AccountName
+    DataSource: {fileID: 114329190534849016}
+    ClassName: Game.LoginViewModel
+    VaribleName: AccountName
+    IsHotfix: 0
+  - Path: Game.LoginViewModel/Password
+    DataSource: {fileID: 114329190534849016}
+    ClassName: Game.LoginViewModel
+    VaribleName: Password
+    IsHotfix: 0
+  DataViewItems:
+  - Path: UnityEngine.RectTransform/tag
+    ViewComp: {fileID: 22456234}
+    ClassName: UnityEngine.RectTransform
+    VaribleName: tag
+  - Path: UnityEngine.RectTransform/name
+    ViewComp: {fileID: 22456234}
+    ClassName: UnityEngine.RectTransform
+    VaribleName: name
+  - Path: UnityEngine.UI.Image/tag
+    ViewComp: {fileID: 11410674}
+    ClassName: UnityEngine.UI.Image
+    VaribleName: tag
+  - Path: UnityEngine.UI.Image/name
+    ViewComp: {fileID: 11410674}
+    ClassName: UnityEngine.UI.Image
+    VaribleName: name
+  - Path: UnityEngine.UI.InputField/text
+    ViewComp: {fileID: 11495156}
+    ClassName: UnityEngine.UI.InputField
+    VaribleName: text
+  - Path: UnityEngine.UI.InputField/tag
+    ViewComp: {fileID: 11495156}
+    ClassName: UnityEngine.UI.InputField
+    VaribleName: tag
+  - Path: UnityEngine.UI.InputField/name
+    ViewComp: {fileID: 11495156}
+    ClassName: UnityEngine.UI.InputField
+    VaribleName: name
 --- !u!114 &114777738312020300
 MonoBehaviour:
   m_ObjectHideFlags: 1

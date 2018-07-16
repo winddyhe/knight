@@ -17,7 +17,7 @@ namespace Game
         public async Task Initialize()
         {
             //打开Login界面
-            await ViewManager.Instance.Open("KNLogin", "Game.LoginView", View.State.dispatch);
+            await ViewManager.Instance.Open("KNLogin", "Game.LoginViewModel", View.State.Dispatch);
             //隐藏进度条
             GameLoading.Instance.Hide();
         }

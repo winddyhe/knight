@@ -20,6 +20,7 @@ namespace UnityEngine.UI
         public string           VaribleName;
         
         public Type             VaribleType;
+        public bool             IsHotfix;
     }
 
     [System.Serializable]
@@ -36,6 +37,6 @@ namespace UnityEngine.UI
     [DefaultExecutionOrder(90)]
     public class DataSourceModel : MonoBehaviour
     {
-        public string           ViewModelClass;
+        public string           ViewModelPath;
     }
 }

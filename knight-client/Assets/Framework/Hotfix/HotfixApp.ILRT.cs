@@ -157,6 +157,7 @@ namespace Knight.Framework.Hotfix
             });
             this.mApp.DelegateManager.RegisterMethodDelegate<Knight.Framework.EventArg>();
             this.mApp.DelegateManager.RegisterMethodDelegate<Knight.Framework.Hotfix.CoroutineAdaptor.Adaptor>();
+            this.mApp.DelegateManager.RegisterMethodDelegate<System.String>();
         }
 
         public override HotfixObject Instantiate(string rTypeName, params object[] rArgs)

@@ -23,7 +23,7 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// Stage的名字
         /// </summary>
-        public string                   name = "";
+        public string                   name        = "";
     
         /// <summary>
         /// 初始化GameStage
