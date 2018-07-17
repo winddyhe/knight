@@ -205,7 +205,6 @@ GameObject:
   - component: {fileID: 1002070015}
   - component: {fileID: 1002070014}
   - component: {fileID: 1002070016}
-  - component: {fileID: 1002070017}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -276,81 +275,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1002070012}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7efbf4cb8ed10c54682019af630272ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewPath: 
-  ModelPath: 
-  ViewPaths:
-  - 'UnityEngine.RectTransform/anchorMin : Vector2'
-  - 'UnityEngine.RectTransform/anchorMax : Vector2'
-  - 'UnityEngine.RectTransform/anchoredPosition3D : Vector3'
-  - 'UnityEngine.RectTransform/anchoredPosition : Vector2'
-  - 'UnityEngine.RectTransform/sizeDelta : Vector2'
-  - 'UnityEngine.RectTransform/pivot : Vector2'
-  - 'UnityEngine.RectTransform/offsetMin : Vector2'
-  - 'UnityEngine.RectTransform/offsetMax : Vector2'
-  - 'UnityEngine.RectTransform/position : Vector3'
-  - 'UnityEngine.RectTransform/localPosition : Vector3'
-  - 'UnityEngine.RectTransform/eulerAngles : Vector3'
-  - 'UnityEngine.RectTransform/localEulerAngles : Vector3'
-  - 'UnityEngine.RectTransform/right : Vector3'
-  - 'UnityEngine.RectTransform/up : Vector3'
-  - 'UnityEngine.RectTransform/forward : Vector3'
-  - 'UnityEngine.RectTransform/rotation : Quaternion'
-  - 'UnityEngine.RectTransform/localRotation : Quaternion'
-  - 'UnityEngine.RectTransform/localScale : Vector3'
-  - 'UnityEngine.RectTransform/parent : Transform'
-  - 'UnityEngine.RectTransform/hasChanged : Boolean'
-  - 'UnityEngine.RectTransform/hierarchyCapacity : Int32'
-  - 'UnityEngine.RectTransform/tag : String'
-  - 'UnityEngine.RectTransform/name : String'
-  - 'UnityEngine.RectTransform/hideFlags : HideFlags'
-  - 'UnityEngine.UI.Text/font : Font'
-  - 'UnityEngine.UI.Text/text : String'
-  - 'UnityEngine.UI.Text/supportRichText : Boolean'
-  - 'UnityEngine.UI.Text/resizeTextForBestFit : Boolean'
-  - 'UnityEngine.UI.Text/resizeTextMinSize : Int32'
-  - 'UnityEngine.UI.Text/resizeTextMaxSize : Int32'
-  - 'UnityEngine.UI.Text/alignment : TextAnchor'
-  - 'UnityEngine.UI.Text/alignByGeometry : Boolean'
-  - 'UnityEngine.UI.Text/fontSize : Int32'
-  - 'UnityEngine.UI.Text/horizontalOverflow : HorizontalWrapMode'
-  - 'UnityEngine.UI.Text/verticalOverflow : VerticalWrapMode'
-  - 'UnityEngine.UI.Text/lineSpacing : Single'
-  - 'UnityEngine.UI.Text/fontStyle : FontStyle'
-  - 'UnityEngine.UI.Text/onCullStateChanged : CullStateChangedEvent'
-  - 'UnityEngine.UI.Text/maskable : Boolean'
-  - 'UnityEngine.UI.Text/color : Color'
-  - 'UnityEngine.UI.Text/raycastTarget : Boolean'
-  - 'UnityEngine.UI.Text/material : Material'
-  - 'UnityEngine.UI.Text/useGUILayout : Boolean'
-  - 'UnityEngine.UI.Text/runInEditMode : Boolean'
-  - 'UnityEngine.UI.Text/enabled : Boolean'
-  - 'UnityEngine.UI.Text/tag : String'
-  - 'UnityEngine.UI.Text/name : String'
-  - 'UnityEngine.UI.Text/hideFlags : HideFlags'
-  ModelPaths:
-  - Game.Test.DataBindingTest1/A
-  - Game.Test.DataBindingTest1/B
-  - Game.Test.DataBindingTest1/C
-  - Game.LoginViewModel/AccountName
-  - Game.LoginViewModel/Password
---- !u!114 &1002070017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1002070012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79e215666c5b54649b0f0026dc74c91d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   ViewPath: 'UnityEngine.UI.Text/text : String'
-  ModelPath: 'Type: LoginViewModel/Password : String'
+  ModelPath: 'Type: LoginViewModel/AccountName : String'
   ViewPaths:
   - 'UnityEngine.RectTransform/anchorMin : Vector2'
   - 'UnityEngine.RectTransform/anchorMax : Vector2'
@@ -401,8 +332,8 @@ MonoBehaviour:
   - 'UnityEngine.UI.Text/name : String'
   - 'UnityEngine.UI.Text/hideFlags : HideFlags'
   ModelPaths:
-  - 'Type: LoginViewModel/AccountName : String'
-  - 'Type: LoginViewModel/Password : String'
+  - 'Game.LoginViewModel/AccountName : String'
+  - 'Game.LoginViewModel/Password : String'
 --- !u!1 &1200744631
 GameObject:
   m_ObjectHideFlags: 0
