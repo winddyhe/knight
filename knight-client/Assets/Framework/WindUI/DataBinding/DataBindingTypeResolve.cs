@@ -15,31 +15,7 @@ namespace UnityEngine.UI
             typeof(UnityEngine.UI.MemberBindingAbstract),
             typeof(UnityEngine.UI.MemberBindingOneWay)
         };
-            
-        public static string PathDot2Oblique(string rSrcPath)
-        {
-            return rSrcPath.Replace('.', '/');
-        }
-
-        public static string PathOblique2Dot(string rSrcPath)
-        {
-            return rSrcPath.Replace('/', '.');
-        }
-
-        public static bool CheckViewComponentBlackList(Type rType)
-        {
-            bool bIsInBlackList = false;
-            for (int i = 0; i < ViewComponentBlackList.Count; i++)
-            {
-                if (rType.Equals(ViewComponentBlackList[i]))
-                {
-                    bIsInBlackList = true;
-                    break;
-                }
-            }
-            return bIsInBlackList;
-        }
-
+        
         public static List<string> GetAllModelPaths(GameObject rGo, Type rViewPropType)
         {
             return new List<string>(GetViewModelProperties(rGo, rViewPropType).Select(prop =>
