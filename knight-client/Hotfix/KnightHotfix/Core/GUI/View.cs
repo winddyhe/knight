@@ -75,30 +75,56 @@ namespace Knight.Hotfix.Core
             await this.ViewModel.Initialize();
 
             // ViewModel和View之间的数据绑定
-            this.DataBinding();
+            this.DataBindingConnect();
         }
 
-        private void DataBinding()
+        private void DataBindingConnect()
         {
-            var rAllDataBindings = this.GameObject.GetComponentsInChildren<DataBindingOneWay>(true);
-            for (int i = 0; i < rAllDataBindings.Length; i++)
+            var rAllMemberBindings = this.GameObject.GetComponentsInChildren<MemberBindingAbstract>(true);
+            for (int i = 0; i < rAllMemberBindings.Length; i++)
             {
-                var rDataBinding = rAllDataBindings[i];
+                var rMemberBinding = rAllMemberBindings[i];
 
-                var rModelData = rDataBinding.CurModelData;
-                this.ModelPropertyChanged(rModelData.VaribleName, rDataBinding);
+                rMemberBinding.ViewProp = DataBindingTypeResolve.MakeViewDataBindingProperty(rMemberBinding.gameObject, rMemberBinding.ViewPath);
+                if (rMemberBinding.ViewProp == null)
+                {
+                    Debug.LogErrorFormat("View Path: {0} error..", rMemberBinding.ViewPath);
+                }
+                
+                rMemberBinding.ViewModelProp = HotfixDataBindingTypeResolve.MakeViewModelDataBindingProperty(this.ViewModel, rMemberBinding.ViewModelPath);
+                if (rMemberBinding.ViewModelProp == null)
+                {
+                    Debug.LogErrorFormat("View Model Path: {0} error..", rMemberBinding.ViewModelPath);
+                }
 
-                rDataBinding.ModelPropertyChanged = (rPropName) => { this.ModelPropertyChanged(rPropName, rDataBinding); };
-                this.ViewModel.PropertyChanged += rDataBinding.ModelPropertyChanged;
+                rMemberBinding.SyncFromViewModel();
+
+                ViewModel rViewModel = rMemberBinding.ViewModelProp.PropertyOwner as ViewModel;
+                if (rViewModel != null)
+                {
+                    rMemberBinding.ViewModelPropertyWatcher = new DataBindingPropertyWatcher(rViewModel, rMemberBinding.ViewModelProp.PropertyName, () =>
+                    {
+                        rMemberBinding.SyncFromViewModel();
+                    });
+                    rViewModel.PropertyChanged += rMemberBinding.ViewModelPropertyWatcher.PropertyChanged;
+                }
             }
         }
 
-        private void ModelPropertyChanged(string rPropName, DataBindingOneWay rDataBindingOneWay)
+        private void DataBindingDisconnect()
         {
-            if (!rDataBindingOneWay.CurModelData.VaribleName.Equals(rPropName)) return;
+            var rAllMemberBindings = this.GameObject.GetComponentsInChildren<MemberBindingAbstract>(true);
+            for (int i = 0; i < rAllMemberBindings.Length; i++)
+            {
+                var rMemberBinding = rAllMemberBindings[i];
+                if (rMemberBinding.ViewModelProp == null) continue;
 
-            var rModelValue = this.ViewModel.GetPropValue(rPropName);
-            rDataBindingOneWay.SetViewData(rModelValue);
+                ViewModel rViewModel = rMemberBinding.ViewModelProp.PropertyOwner as ViewModel;
+                if (rViewModel != null)
+                {
+                    rViewModel.PropertyChanged -= rMemberBinding.ViewModelPropertyWatcher.PropertyChanged;
+                }
+            }
         }
 
         /// <summary>
@@ -146,11 +172,7 @@ namespace Knight.Hotfix.Core
         
         public void Dispose()
         {
-            var rAllDataBindings = this.GameObject.GetComponentsInChildren<DataBindingOneWay>(true);
-            for (int i = 0; i < rAllDataBindings.Length; i++)
-            {
-                this.ViewModel.PropertyChanged -= rAllDataBindings[i].ModelPropertyChanged;
-            }
+            this.DataBindingDisconnect();
             this.ViewModel?.Dispose();
         }
 

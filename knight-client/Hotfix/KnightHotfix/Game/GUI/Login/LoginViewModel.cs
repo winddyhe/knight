@@ -9,7 +9,7 @@ namespace Game
     [DataBinding]
     public class LoginViewModel : ViewModel
     {
-        private string      mAccountName;
+        private string      mAccountName    = "Test111";
         private string      mPassword       = "xxxxxxx";
 
         [DataBinding]

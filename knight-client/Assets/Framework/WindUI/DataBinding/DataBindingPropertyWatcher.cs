@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Knight.Core;
 
 namespace UnityEngine.UI
 {
@@ -12,13 +11,19 @@ namespace UnityEngine.UI
         private string  mPropertyName;
 
         private Action  mAction;
-        private bool    mIsDispose;
-
+        
         public DataBindingPropertyWatcher(object rPropOwner, string rPropName, Action rAction)
         {
             this.mPropertyOwner = rPropOwner;
             this.mPropertyName  = rPropName;
             this.mAction        = rAction;
+        }
+
+        public void PropertyChanged(string rPropName)
+        {
+            if (!this.mPropertyName.Equals(rPropName)) return;
+
+            UtilTool.SafeExecute(this.mAction);
         }
     }
 }

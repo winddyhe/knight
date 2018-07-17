@@ -303,11 +303,11 @@
     <Compile Include="Core\GameStage\GameMode.cs" />
     <Compile Include="Core\GameStage\GameStage.cs" />
     <Compile Include="Core\GameStage\GameStageManager.cs" />
+    <Compile Include="Core\GUI\HotfixDataBindingTypeResolve.cs" />
     <Compile Include="Core\GUI\View.cs" />
     <Compile Include="Core\GUI\ViewController.cs" />
     <Compile Include="Core\GUI\ViewModel.cs" />
     <Compile Include="Core\GUI\ViewManager.cs" />
-    <Compile Include="Core\GUI\ViewModelDataBinding.cs" />
     <Compile Include="Core\Network\HotfixMessageHandlerAttribute.cs" />
     <Compile Include="Core\Network\HotfixNetworkClient.cs" />
     <Compile Include="Core\Network\HotfixNetworkClientDispatcher.cs" />

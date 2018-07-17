@@ -49,15 +49,15 @@ namespace UnityEngine.UI
 
             var rViewPropName = rViewPropStrs[0].Trim();
 
-            DataBindingProperty rViewDatabindingProp = rGo.GetComponents<Component>()
-                            .Where(comp => comp != null &&
-                                   comp.GetType().FullName.Equals(rViewClassName) &&
-                                   comp.GetType().GetProperty(rViewPropName) != null)
-                            .Select(comp =>
-                            {
-                                return new DataBindingProperty(comp, rViewPropName);
-                            })
-                            .First();
+            var rViewDatabindingProp = rGo.GetComponents<Component>()
+                .Where(comp => comp != null &&
+                       comp.GetType().FullName.Equals(rViewClassName) &&
+                       comp.GetType().GetProperty(rViewPropName) != null)
+                .Select(comp =>
+                {
+                    return new DataBindingProperty(comp, rViewPropName);
+                })
+                .FirstOrDefault();
             return rViewDatabindingProp;
         }
 

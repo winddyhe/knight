@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ViewPath: 'UnityEngine.UI.Text/text : String'
-  ModelPath: 'Type: LoginViewModel/AccountName : String'
+  ViewModelPath: 
   ViewPaths:
   - 'UnityEngine.RectTransform/anchorMin : Vector2'
   - 'UnityEngine.RectTransform/anchorMax : Vector2'

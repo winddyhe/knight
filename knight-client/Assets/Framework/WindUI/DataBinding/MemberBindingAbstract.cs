@@ -10,11 +10,25 @@ namespace UnityEngine.UI
     public partial class MemberBindingAbstract : MonoBehaviour
     {
         [Dropdown("ViewPaths")]
-        public string               ViewPath;
+        public string                       ViewPath;
         [Dropdown("ModelPaths")]
-        public string               ModelPath;
+        public string                       ViewModelPath;
 
-        public DataBindingProperty  ViewProp;
-        public DataBindingProperty  ViewModelProp;
+        public DataBindingProperty          ViewProp;
+        public DataBindingProperty          ViewModelProp;
+
+        public DataBindingPropertyWatcher   ViewModelPropertyWatcher;
+
+        public void SyncFromViewModel()
+        {
+            var rValue = this.ViewModelProp?.GetValue();
+            this.ViewProp?.SetValue(rValue);
+        }
+
+        public void SyncFromView()
+        {
+            var rValue = this.ViewProp?.GetValue();
+            this.ViewModelProp?.SetValue(rValue);
+        }
     }
 }
