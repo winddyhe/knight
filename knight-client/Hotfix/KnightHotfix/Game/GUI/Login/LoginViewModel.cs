@@ -10,8 +10,9 @@ namespace Game
     public class LoginViewModel : ViewModel
     {
         private string      mAccountName;
-        private string      mPassword;
+        private string      mPassword       = "xxxxxxx";
 
+        [DataBinding]
         public  string      AccountName
         {
             get { return mAccountName;  }
@@ -22,10 +23,15 @@ namespace Game
             }
         }
 
+        [DataBinding]
         public  string      Password
         {
             get { return mPassword;     }
-            set { mPassword = value;    }
+            set
+            {
+                mPassword = value;
+                UtilTool.SafeExecute(this.PropertyChanged, "Password");
+            }
         }
 
         int i = 0;

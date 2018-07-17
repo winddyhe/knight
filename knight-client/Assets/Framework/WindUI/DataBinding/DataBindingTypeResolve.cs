@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Knight.Framework.TypeResolve;
 using Knight.Core;
+using System.Linq;
+using System.Reflection;
 
 namespace UnityEngine.UI
 {
@@ -10,7 +12,8 @@ namespace UnityEngine.UI
         public static List<Type> ViewComponentBlackList = new List<Type>()
         {
             typeof(UnityEngine.CanvasRenderer),
-            typeof(UnityEngine.UI.DataBindingOneWay)
+            typeof(UnityEngine.UI.MemberBindingAbstract),
+            typeof(UnityEngine.UI.MemberBindingOneWay)
         };
             
         public static string PathDot2Oblique(string rSrcPath)
@@ -37,123 +40,92 @@ namespace UnityEngine.UI
             return bIsInBlackList;
         }
 
-        public static List<ModelDataItem> GetAllModelPaths(GameObject rGo)
+        public static List<string> GetAllModelPaths(GameObject rGo, Type rViewPropType)
         {
-            var rModelDataList = new List<ModelDataItem>();
-            var rAllDataSources = rGo.GetComponentsInParent<DataSourceModel>(true);
-
-            for (int i = 0; i < rAllDataSources.Length; i++)
+            return new List<string>(GetViewModelProperties(rGo, rViewPropType).Select(prop =>
             {
-                var rClassName = rAllDataSources[i].ViewModelPath;
-                if (!string.IsNullOrEmpty(rClassName))
-                {
-                    rModelDataList.AddRange(GetClassAllModelPaths(rAllDataSources[i], rClassName));
-                }
-            }
-            return rModelDataList;
+                return string.Format("{0}/{1} : {2}", prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
+            }));
         }
 
-        public static List<ViewDataItem> GetAllViewPaths(ModelDataItem rDataModelItem, GameObject rGo)
+        public static List<string> GetAllViewPaths(GameObject rGo)
         {
-            var rViewDataList = new List<ViewDataItem>();
-            var rAllComps = rGo.GetComponents<Component>();
-            for (int i = 0; i < rAllComps.Length; i++)
+            return new List<string>(GetViewProperties(rGo).Select(prop => 
             {
-                Type rCompType = rAllComps[i].GetType();
-                if (CheckViewComponentBlackList(rCompType)) continue;
-                rViewDataList.AddRange(GetComponentAllViewPaths(rDataModelItem, rAllComps[i]));
-            }
-            return rViewDataList;
+                return string.Format("{0}/{1} : {2}", prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
+            }));
+        }
+
+        public static DataBindingProperty MakeViewDataBindingProperty(GameObject rGo, string rViewPath)
+        {
+            if (string.IsNullOrEmpty(rViewPath)) return null;
+
+            var rViewPathStrs = rViewPath.Split('/');
+            if (rViewPathStrs.Length < 2) return null;
+
+            var rViewClassName = rViewPathStrs[0].Trim();
+            var rViewProp = rViewPathStrs[1].Trim();
+
+            var rViewPropStrs = rViewProp.Split(':');
+            if (rViewPropStrs.Length < 1) return null;
+
+            var rViewPropName = rViewPropStrs[0].Trim();
+
+            DataBindingProperty rViewDatabindingProp = rGo.GetComponents<Component>()
+                            .Where(comp => comp != null &&
+                                   comp.GetType().FullName.Equals(rViewClassName) &&
+                                   comp.GetType().GetProperty(rViewPropName) != null)
+                            .Select(comp =>
+                            {
+                                return new DataBindingProperty(comp, rViewPropName);
+                            })
+                            .First();
+            return rViewDatabindingProp;
+        }
+
+        private static IEnumerable<BindableMember<PropertyInfo>> GetViewProperties(GameObject rGo)
+        {
+            var rBindableMembers = rGo.GetComponents<Component>()
+                .Where(comp => comp != null)
+                .SelectMany(comp =>
+                {
+                    var rType = comp.GetType();
+                    return rType
+                            .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                            .Select(prop => new BindableMember<PropertyInfo>(prop, rType));
+                })
+                .Where(prop => prop.Member.GetSetMethod(false) != null &&
+                               prop.Member.GetGetMethod(false) != null &&
+                               !ViewComponentBlackList.Contains(prop.ViewModelType) && 
+                               !prop.Member.GetCustomAttributes(typeof(ObsoleteAttribute), true).Any()
+                      );
+
+            return rBindableMembers;
         }
         
-        private static List<ModelDataItem> GetClassAllModelPaths(DataSourceModel rDataSourceModel, string rClassName)
+        private static IEnumerable<BindableMember<PropertyInfo>> GetViewModelProperties(GameObject rGo, Type rViewPropType)
         {
-            var rModelDataList = new List<ModelDataItem>();
-            bool bIsHotfix = false;
-            var rType = TypeResolveManager.Instance.GetType(rClassName, out bIsHotfix);
-            if (rType == null)
-            {
-                Debug.LogErrorFormat("Has not type: {0} in register assemblies.", rClassName);
-                return rModelDataList;
-            }
-            var rDataBindingAttr = rType.GetCustomAttribute<DataBindingAttribute>(false);
-            if (rDataBindingAttr == null)
-            {
-                Debug.LogErrorFormat("Type: {0} not has attribute DataBindingAttribute.", rClassName);
-                return rModelDataList;
-            }
-
-            var rAllFields = rType.GetFields(ReflectionAssist.flags_public);
-            for (int i = 0; i < rAllFields.Length; i++)
-            {
-                var rModelDataItem = new ModelDataItem()
+            var rBindableMembers = rGo.GetComponentsInParent<ViewModelDataSource>(true)
+                .Where(ds => ds != null &&
+                       !string.IsNullOrEmpty(ds.ViewModelPath))
+                .SelectMany(ds =>
                 {
-                    DataSource  = rDataSourceModel,
-                    Path        = rClassName + "/" + rAllFields[i].Name,
-                    ClassName   = rClassName,
-                    VaribleType = rAllFields[i].FieldType,
-                    VaribleName = rAllFields[i].Name,
-                    IsHotfix    = bIsHotfix
-                };
-                rModelDataList.Add(rModelDataItem);
-            }
-            var rAllProps = rType.GetProperties(ReflectionAssist.flags_public);
-            for (int i = 0; i < rAllProps.Length; i++)
-            {
-                var rModelDataItem = new ModelDataItem()
-                {
-                    DataSource  = rDataSourceModel,
-                    Path        = rClassName + "/" + rAllProps[i].Name,
-                    ClassName   = rClassName,
-                    VaribleType = rAllProps[i].PropertyType,
-                    VaribleName = rAllProps[i].Name,
-                    IsHotfix    = bIsHotfix
-                };
-                rModelDataList.Add(rModelDataItem);
-            }
-            return rModelDataList;
-        }
+                    var rType = TypeResolveManager.Instance.GetType(ds.ViewModelPath);
+                    return rType
+                            .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                            .Select(prop => new BindableMember<PropertyInfo>(prop, rType));
+                })
+                .Where(prop => 
+                               prop.Member.PropertyType.Equals(rViewPropType) &&
+                               prop.Member.GetSetMethod(false) != null &&
+                               prop.Member.GetGetMethod(false) != null &&
+                               !ViewComponentBlackList.Contains(prop.ViewModelType) &&
+                               !prop.Member.GetCustomAttributes(typeof(ObsoleteAttribute), true).Any()
+                      );
 
-        private static List<ViewDataItem> GetComponentAllViewPaths(ModelDataItem rDataModelItem, Component rComp)
-        {
-            var rViewDataList = new List<ViewDataItem>();
-            if (rComp == null)
-            {
-                return rViewDataList;
-            }
+            var t = new List<BindableMember<PropertyInfo>>(rBindableMembers);
 
-            var rCompType = rComp.GetType();
-            var rAllFields = rCompType.GetFields(ReflectionAssist.flags_public);
-            for (int i = 0; i < rAllFields.Length; i++)
-            {
-                if (!rAllFields[i].FieldType.Equals(rDataModelItem.VaribleType)) continue;
-
-                var rViewDataItem   = new ViewDataItem()
-                {
-                    ViewComp    = rComp,
-                    ClassName   = rCompType.FullName,
-                    VaribleType = rAllFields[i].FieldType,
-                    Path        = rCompType.FullName + "/" + rAllFields[i].Name,
-                    VaribleName = rAllFields[i].Name
-                };
-                rViewDataList.Add(rViewDataItem);
-            }
-            var rAllProps = rCompType.GetProperties(ReflectionAssist.flags_public);
-            for (int i = 0; i < rAllProps.Length; i++)
-            {
-                if (!rAllProps[i].PropertyType.Equals(rDataModelItem.VaribleType)) continue;
-
-                var rViewDataItem   = new ViewDataItem()
-                {
-                    ViewComp    = rComp,
-                    ClassName   = rCompType.FullName,
-                    VaribleType = rAllProps[i].PropertyType,
-                    Path        = rCompType.FullName + "/" + rAllProps[i].Name,
-                    VaribleName = rAllProps[i].Name
-                };
-                rViewDataList.Add(rViewDataItem);
-            }
-            return rViewDataList;
+            return rBindableMembers;
         }
     }
 }

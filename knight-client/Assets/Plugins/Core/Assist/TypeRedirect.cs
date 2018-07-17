@@ -10,7 +10,7 @@ namespace Knight.Core
     public class ITypeRedirect
     {
         public static Func<Type, Type> GetRedirectTypeHandler;
-
+        
         public static Type GetRedirectType(Type rSrcType)
         {
             if (GetRedirectTypeHandler == null)

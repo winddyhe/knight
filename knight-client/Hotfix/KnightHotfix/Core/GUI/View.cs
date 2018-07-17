@@ -49,33 +49,33 @@ namespace Knight.Hotfix.Core
             return rUIView;
         }
         
-        public async Task Initialize(string rViewName, string rViewControllerName, string rViewGUID, State rViewState)
+        public async Task Initialize(string rViewName, string rViewModelName, string rViewGUID, State rViewState)
         {
             this.ViewName = rViewName;
             this.GUID     = rViewGUID;
             this.CurState = rViewState;
             
             // 初始化ViewController
-            await this.InitializeViewModel(rViewControllerName);
-
-            // DataBinding
-            this.DataBinding();
+            await this.InitializeViewModel(rViewModelName);
         }
         
         /// <summary>
         /// 初始化ViewController
         /// </summary>
-        private async Task InitializeViewModel(string rViewControllerName)
+        private async Task InitializeViewModel(string rViewModelName)
         {
-            var rType = Type.GetType(rViewControllerName);
+            var rType = Type.GetType(rViewModelName);
             if (rType == null)
             {
                 Debug.LogErrorFormat("Can not find ViewModel Type: {0}", rType);
                 return;
             }
+            // 构建ViewModel
             this.ViewModel = HotfixReflectAssists.Construct(rType) as ViewModel;
-            this.ViewModel.SetView(this);
             await this.ViewModel.Initialize();
+
+            // ViewModel和View之间的数据绑定
+            this.DataBinding();
         }
 
         private void DataBinding()
@@ -87,21 +87,17 @@ namespace Knight.Hotfix.Core
 
                 var rModelData = rDataBinding.CurModelData;
                 this.ModelPropertyChanged(rModelData.VaribleName, rDataBinding);
-                
-                rAllDataBindings[i].ModelPropertyChanged = (rPropName) => { this.ModelPropertyChanged(rPropName, rDataBinding); };
+
+                rDataBinding.ModelPropertyChanged = (rPropName) => { this.ModelPropertyChanged(rPropName, rDataBinding); };
                 this.ViewModel.PropertyChanged += rDataBinding.ModelPropertyChanged;
             }
         }
 
         private void ModelPropertyChanged(string rPropName, DataBindingOneWay rDataBindingOneWay)
         {
-            var rModelType = this.ViewModel.GetType();
-            var rModelProp = rModelType.GetProperty(rPropName, HotfixReflectAssists.flags_public);
-            object rModelValue = null;
-            if (rModelProp != null)
-            {
-                rModelValue = rModelProp.GetValue(this.ViewModel);
-            }
+            if (!rDataBindingOneWay.CurModelData.VaribleName.Equals(rPropName)) return;
+
+            var rModelValue = this.ViewModel.GetPropValue(rPropName);
             rDataBindingOneWay.SetViewData(rModelValue);
         }
 

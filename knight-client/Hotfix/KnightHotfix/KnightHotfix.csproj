@@ -307,6 +307,7 @@
     <Compile Include="Core\GUI\ViewController.cs" />
     <Compile Include="Core\GUI\ViewModel.cs" />
     <Compile Include="Core\GUI\ViewManager.cs" />
+    <Compile Include="Core\GUI\ViewModelDataBinding.cs" />
     <Compile Include="Core\Network\HotfixMessageHandlerAttribute.cs" />
     <Compile Include="Core\Network\HotfixNetworkClient.cs" />
     <Compile Include="Core\Network\HotfixNetworkClientDispatcher.cs" />

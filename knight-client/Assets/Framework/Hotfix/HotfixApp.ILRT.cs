@@ -64,6 +64,8 @@ namespace Knight.Framework.Hotfix
 
             // 注册委托
             this.RegisterDelegates();
+
+            Debug.Log("ILRT Initialize complete.");
         }
 
         public override void InitApp(string rDLLPath, string rPDBPath)

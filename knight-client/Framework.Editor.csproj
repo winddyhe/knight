@@ -184,7 +184,8 @@
     <Compile Include="Assets\Framework.Editor\Editor\Memory\PerfAssist\ResourceTracker\ResourceTracker.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\Memory\PerfAssist\ResourceTracker\ResourceTrackerConst.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\Memory\PerfAssist\ResourceTracker\ResourceTrackerUtil.cs" />
-    <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\DataBindingOneWayInspector.cs" />
+    <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\MemberBindingAbstractInspector.cs" />
+    <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\MemberBindingOneWayInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\UIAssistEditor.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\ViewContainerInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\Widget\Text\TextStyleManagerInspector.cs" />

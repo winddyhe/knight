@@ -11,13 +11,18 @@ namespace Knight.Hotfix.Core
         public    bool              IsOpened;
         public    bool              IsClosed;
 
-        protected View              mView;
-
-        public void SetView(View rView)
+        public object GetPropValue(string rVaribleName)
         {
-            this.mView = rView;
+            Type rType = this.GetType();
+            var rModelProp = rType.GetProperty(rVaribleName, HotfixReflectAssists.flags_public);
+            object rModelValue = null;
+            if (rModelProp != null)
+            {
+                rModelValue = rModelProp.GetValue(this);
+            }
+            return rModelValue;
         }
-        
+
         public void Opening()
         {
             this.IsOpened = true;
