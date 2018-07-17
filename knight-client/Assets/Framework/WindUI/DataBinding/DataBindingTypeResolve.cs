@@ -16,20 +16,22 @@ namespace UnityEngine.UI
             typeof(UnityEngine.UI.MemberBindingOneWay)
         };
         
-        public static List<string> GetAllModelPaths(GameObject rGo, Type rViewPropType)
+        public static List<string> GetAllViewModelPaths(GameObject rGo, Type rViewPropType)
         {
-            return new List<string>(GetViewModelProperties(rGo, rViewPropType).Select(prop =>
+            var rBindableMembers = GetViewModelProperties(rGo, rViewPropType).Select(prop =>
             {
                 return string.Format("{0}/{1} : {2}", prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
-            }));
+            });
+            return new List<string>(rBindableMembers);
         }
 
         public static List<string> GetAllViewPaths(GameObject rGo)
         {
-            return new List<string>(GetViewProperties(rGo).Select(prop => 
+            var rBindableMembers = GetViewProperties(rGo).Select(prop =>
             {
                 return string.Format("{0}/{1} : {2}", prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
-            }));
+            });
+            return new List<string>(rBindableMembers);
         }
 
         public static DataBindingProperty MakeViewDataBindingProperty(GameObject rGo, string rViewPath)
@@ -87,20 +89,18 @@ namespace UnityEngine.UI
                 .SelectMany(ds =>
                 {
                     var rType = TypeResolveManager.Instance.GetType(ds.ViewModelPath);
-                    return rType
+                    return rType?
                             .GetProperties(BindingFlags.Instance | BindingFlags.Public)
                             .Select(prop => new BindableMember<PropertyInfo>(prop, rType));
                 })
-                .Where(prop => 
+                .Where(prop => prop != null &&
                                prop.Member.PropertyType.Equals(rViewPropType) &&
                                prop.Member.GetSetMethod(false) != null &&
                                prop.Member.GetGetMethod(false) != null &&
                                !ViewComponentBlackList.Contains(prop.ViewModelType) &&
-                               !prop.Member.GetCustomAttributes(typeof(ObsoleteAttribute), true).Any()
+                               prop.Member.GetCustomAttributes(typeof(DataBindingAttribute), true).Any()
                       );
-
-            var t = new List<BindableMember<PropertyInfo>>(rBindableMembers);
-
+            
             return rBindableMembers;
         }
     }

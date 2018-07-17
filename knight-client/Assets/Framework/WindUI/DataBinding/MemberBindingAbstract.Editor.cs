@@ -20,7 +20,7 @@ namespace UnityEngine.UI
 
             if (this.ViewProp != null)
             {
-                this.ModelPaths = DataBindingTypeResolve.GetAllModelPaths(this.gameObject, this.ViewProp.Property.PropertyType).ToArray();
+                this.ModelPaths = DataBindingTypeResolve.GetAllViewModelPaths(this.gameObject, this.ViewProp.Property.PropertyType).ToArray();
             }
         }
     }

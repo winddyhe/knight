@@ -15,6 +15,11 @@ namespace Knight.Framework.TypeResolve
             this.mAssemblies = new Dict<string, TypeResolveAssembly>();
         }
 
+        public void Initialize()
+        {
+            this.mAssemblies.Clear();
+        }
+
         public void AddAssembly(string rAssemblyName, bool bIsHotfix = false)
         {
             TypeResolveAssembly rTypeResolveAsssembly = null;
@@ -105,6 +110,7 @@ namespace Knight.Framework.TypeResolve
 #if UNITY_EDITOR
             if (!Application.isPlaying)
             {
+                TypeResolveManager.Instance.Initialize();
                 TypeResolveManager.Instance.AddAssembly("Game");
                 TypeResolveManager.Instance.AddAssembly("Tests");
                 TypeResolveManager.Instance.AddAssembly("KnightHotfix", true);

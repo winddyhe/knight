@@ -32,12 +32,8 @@ namespace Knight.Framework.Editor
         {
             for (int i = 0; i < importedAssets.Length; i++)
             {
-                if (!importedAssets[i].Contains("Assets/Game/Knight/GameAsset/Hotfix/Libs")) continue;
-
-                PluginImporter rPluginImporter = AssetImporter.GetAtPath(importedAssets[i]) as PluginImporter;
-                if (rPluginImporter == null) continue;
-
-                rPluginImporter.SetCompatibleWithAnyPlatform(false);
+                if (!importedAssets[i].Contains(Knight.Framework.Hotfix.HotfixManager.HotfixDllDir)) continue;
+                Knight.Framework.TypeResolve.TypeResolveManager.ScriptsReloaded();
             }
         }
     }

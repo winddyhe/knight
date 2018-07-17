@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Knight.Framework.Hotfix;
 using UnityEngine;
+using System.IO;
 
 namespace Knight.Framework.TypeResolve
 {
@@ -93,12 +94,15 @@ namespace Knight.Framework.TypeResolve
             // 编辑器下初始化
             if (!Application.isPlaying)
             {
-                string rDLLPath = HotfixManager.HotfixDLLDir + "/" + this.AssemblyName + ".dll";
-                string rPDBPath = HotfixManager.HotfixDLLDir + "/" + this.AssemblyName + ".pdb";
+                string rDLLPath = HotfixManager.HotfixDllDir + this.AssemblyName + ".bytes";
+                string rPDBPath = HotfixManager.HotfixDllDir + this.AssemblyName + "_PDB.bytes";
+
+                var rDLLBytes = File.ReadAllBytes(rDLLPath);
+                var rPDBBytes = File.ReadAllBytes(rPDBPath);
+
                 HotfixManager.Instance.Initialize();
-                HotfixManager.Instance.InitApp(rDLLPath, rPDBPath);
+                HotfixManager.Instance.InitApp(rDLLBytes, rPDBBytes); 
             }
-#else
 #endif
         }
 

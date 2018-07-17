@@ -32,24 +32,21 @@ namespace Knight.Framework.Hotfix
 
     public class HotfixAssetLoader : TSingleton<HotfixAssetLoader>
     {
-        private string mHotfixDllDir        = "Assets/Game/GameAsset/Hotfix/Libs/";
-        private string mHotfixDebugDllDir   = "Assets/StreamingAssets/Temp/Libs/";
-
         private HotfixAssetLoader() { }
 
         public async Task<HotfixLoaderRequest> Load(string rABPath, string rHotfixModuleName)
         {
             var rRequest = new HotfixLoaderRequest(rABPath, rHotfixModuleName);
 
-            string rDLLPath = mHotfixDllDir + rRequest.ModuleName + ".bytes";
-            string rPDBPath = mHotfixDllDir + rRequest.ModuleName + "_PDB.bytes";
+            string rDLLPath = HotfixManager.HotfixDllDir + rRequest.ModuleName + ".bytes";
+            string rPDBPath = HotfixManager.HotfixDllDir + rRequest.ModuleName + "_PDB.bytes";
 
 #if UNITY_EDITOR
             // 编辑器下的HotfixDebug模式直接加载DLL文件，方便做断点调试
             if (HotfixManager.Instance.IsHotfixDebugMode())
             {
-                rDLLPath = mHotfixDebugDllDir + rRequest.ModuleName + ".dll";
-                rPDBPath = mHotfixDebugDllDir + rRequest.ModuleName + ".pdb";
+                rDLLPath = HotfixManager.HotfixDebugDllDir + rRequest.ModuleName + ".dll";
+                rPDBPath = HotfixManager.HotfixDebugDllDir + rRequest.ModuleName + ".pdb";
 
                 Debug.Log("---Simulate load hotfix dll: " + rDLLPath);
                 rRequest.DLLPath = rDLLPath;
