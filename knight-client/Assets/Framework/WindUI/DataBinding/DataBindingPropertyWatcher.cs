@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UnityEngine.UI
 {
-    public class DataBindingPropertyWatcher : IDisposable
+    public class DataBindingPropertyWatcher
     {
         private object  mPropertyOwner;
         private string  mPropertyName;
@@ -19,10 +19,6 @@ namespace UnityEngine.UI
             this.mPropertyOwner = rPropOwner;
             this.mPropertyName  = rPropName;
             this.mAction        = rAction;
-        }
-
-        public void Dispose()
-        {
         }
     }
 }
