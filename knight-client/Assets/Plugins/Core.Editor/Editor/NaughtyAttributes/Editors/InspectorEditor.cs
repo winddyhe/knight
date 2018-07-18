@@ -186,9 +186,9 @@ namespace NaughtyAttributes.Editor
 
         private void ValidateAndDrawField(FieldInfo field)
         {
+            this.DrawField(field);
             this.ValidateField(field);
             this.ApplyFieldMeta(field);
-            this.DrawField(field);
         }
 
         private void ValidateField(FieldInfo field)

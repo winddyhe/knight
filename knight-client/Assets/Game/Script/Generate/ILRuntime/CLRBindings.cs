@@ -84,7 +84,6 @@ namespace ILRuntime.Runtime.Generated
             System_Int32_Binding.Register(app);
             System_Collections_Generic_List_1_CKeyValuePair_2_Int32_ILTypeInstance_Binding.Register(app);
             UnityEngine_GameObject_Binding.Register(app);
-            UnityEngine_UI_ViewContainer_Binding.Register(app);
             Knight_Framework_Hotfix_HotfixMBContainer_Binding.Register(app);
             Knight_Core_TSingleton_1_CoroutineManager_Binding.Register(app);
             Knight_Core_CoroutineManager_Binding.Register(app);

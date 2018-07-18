@@ -9,16 +9,23 @@ namespace UnityEngine.UI
 {
     public class DataBindingProperty
     {
+        public string           PropertyOwnerKey;
         public object           PropertyOwner;
 
         public string           PropertyName;
         public PropertyInfo     Property;
         
         public DataBindingProperty(object rPropOwner, string rPropName)
+            : this(rPropOwner, "", rPropName)
         {
-            this.PropertyOwner  = rPropOwner;
-            this.PropertyName   = rPropName;
-            this.Property       = rPropOwner.GetType().GetProperty(rPropName);
+        }
+
+        public DataBindingProperty(object rPropOwner, string rPropOwnerKey, string rPropName)
+        {
+            this.PropertyOwnerKey   = rPropOwnerKey;
+            this.PropertyOwner      = rPropOwner;
+            this.PropertyName       = rPropName;
+            this.Property           = rPropOwner.GetType().GetProperty(rPropName);
         }
 
         public object GetValue()

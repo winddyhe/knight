@@ -16,11 +16,12 @@ namespace UnityEngine.UI
             typeof(UnityEngine.UI.MemberBindingOneWay)
         };
         
-        public static List<string> GetAllViewModelPaths(GameObject rGo, Type rViewPropType)
+        public static List<string> GetAllViewModelPaths(IEnumerable<BindableMember<PropertyInfo>> rViewModelProps)
         {
-            var rBindableMembers = GetViewModelProperties(rGo, rViewPropType).Select(prop =>
+            var rBindableMembers = rViewModelProps.Select(prop =>
             {
-                return string.Format("{0}/{1} : {2}", prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
+                var rDataSource = prop.PropOwner as ViewModelDataSource;
+                return string.Format("{0}@{1}/{2} : {3}", rDataSource.Key, prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
             });
             return new List<string>(rBindableMembers);
         }
@@ -70,7 +71,7 @@ namespace UnityEngine.UI
                     var rType = comp.GetType();
                     return rType
                             .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                            .Select(prop => new BindableMember<PropertyInfo>(prop, rType));
+                            .Select(prop => new BindableMember<PropertyInfo>(comp, prop, rType));
                 })
                 .Where(prop => prop.Member.GetSetMethod(false) != null &&
                                prop.Member.GetGetMethod(false) != null &&
@@ -81,17 +82,18 @@ namespace UnityEngine.UI
             return rBindableMembers;
         }
         
-        private static IEnumerable<BindableMember<PropertyInfo>> GetViewModelProperties(GameObject rGo, Type rViewPropType)
+        public static IEnumerable<BindableMember<PropertyInfo>> GetViewModelProperties(GameObject rGo, Type rViewPropType)
         {
             var rBindableMembers = rGo.GetComponentsInParent<ViewModelDataSource>(true)
                 .Where(ds => ds != null &&
-                       !string.IsNullOrEmpty(ds.ViewModelPath))
+                       !string.IsNullOrEmpty(ds.ViewModelPath) &&
+                       !string.IsNullOrEmpty(ds.Key))
                 .SelectMany(ds =>
                 {
                     var rType = TypeResolveManager.Instance.GetType(ds.ViewModelPath);
                     return rType?
                             .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                            .Select(prop => new BindableMember<PropertyInfo>(prop, rType));
+                            .Select(prop => new BindableMember<PropertyInfo>(ds, prop, rType));
                 })
                 .Where(prop => prop != null &&
                                prop.Member.PropertyType.Equals(rViewPropType) &&

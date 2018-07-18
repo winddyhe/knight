@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Knight.Core;
 
 namespace Knight.Hotfix.Core
 {
     public class ViewController : HotfixKnightObject
     {
-        public    bool              IsOpened;
-        public    bool              IsClosed;
-
-        protected View              mView;
-
-        public void SetView(View rView)
-        {
-            this.mView = rView;
-        }
+        public    bool                      IsOpened;
+        public    bool                      IsClosed;
         
         public void Opening()
         {
@@ -49,9 +43,9 @@ namespace Knight.Hotfix.Core
         }
         
         #region Virtual Function
-        protected override Task OnInitialize()
+        protected override async Task OnInitialize()
         {
-            return base.OnInitialize();
+            await base.OnInitialize();
         }
 
         protected override void OnUpdate()

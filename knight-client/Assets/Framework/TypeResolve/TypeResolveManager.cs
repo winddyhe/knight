@@ -53,6 +53,8 @@ namespace Knight.Framework.TypeResolve
             foreach (var rPair in this.mAssemblies)
             {
                 var rTypes = rPair.Value.GetAllTypes();
+                if (rTypes == null) continue;
+
                 for (int i = 0; i < rTypes.Length; i++)
                 {
                     if (rTypes[i].FullName.Equals(rTypeName))

@@ -332,8 +332,11 @@ MonoBehaviour:
   - 'UnityEngine.UI.Text/name : String'
   - 'UnityEngine.UI.Text/hideFlags : HideFlags'
   ModelPaths:
-  - 'Game.LoginViewModel/AccountName : String'
-  - 'Game.LoginViewModel/Password : String'
+  - 'Login@Game.LoginViewModel/AccountName : String'
+  - 'Login@Game.LoginViewModel/Password : String'
+  - 'Login1@Game.LoginViewModel/AccountName : String'
+  - 'Login1@Game.LoginViewModel/Password : String'
+  DataSource: {fileID: 0}
 --- !u!1 &1200744631
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +412,8 @@ GameObject:
   - component: {fileID: 1380320658}
   - component: {fileID: 1380320664}
   - component: {fileID: 1380320662}
+  - component: {fileID: 1380320665}
+  - component: {fileID: 1380320663}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -503,7 +508,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3de718901a6b564289653b6a86332e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Key: Login
   ViewModelPath: Game.LoginViewModel
+--- !u!114 &1380320663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1380320657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eac82c585ec2f74a855dd6c1abbff01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ViewModelClass: Game.LoginView
+  ViewModels:
+  - {fileID: 1380320662}
+  - {fileID: 1380320665}
 --- !u!114 &1380320664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,6 +536,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef88ed6368b0f9e4286edcb84d030392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1380320665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1380320657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3de718901a6b564289653b6a86332e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Key: Login1
+  ViewModelPath: Game.LoginViewModel
 --- !u!1 &1441392206
 GameObject:
   m_ObjectHideFlags: 0

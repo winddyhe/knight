@@ -9,6 +9,7 @@ namespace UnityEngine.UI
 {
     public class BindableMember<T> where T : MemberInfo
     {
+        public readonly object  PropOwner;
         public readonly T       Member;
         public readonly Type    ViewModelType;
 
@@ -22,8 +23,9 @@ namespace UnityEngine.UI
             get { return this.Member.Name;          }
         }
 
-        public BindableMember(T rMember, Type rViewModelType)
+        public BindableMember(object rPropOwner, T rMember, Type rViewModelType)
         {
+            this.PropOwner      = rPropOwner;
             this.Member         = rMember;
             this.ViewModelType  = rViewModelType;
         }

@@ -47,7 +47,7 @@ namespace UnityEditor.UI
             //获取选择的prefab
             var rUIPrefab = AssetDatabase.LoadAssetAtPath(rAssetPath, typeof(GameObject)) as GameObject;
             //获取脚本
-            var rViewContainer = rUIPrefab.GetComponent<ViewContainer>();
+            //var rViewContainer = rUIPrefab.GetComponent<ViewContainer>();
 
             //if (rViewContainer)
             //{

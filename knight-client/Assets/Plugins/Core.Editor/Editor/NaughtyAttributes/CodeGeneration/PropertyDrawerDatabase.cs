@@ -16,6 +16,7 @@ namespace NaughtyAttributes.Editor
 drawersByAttributeType[typeof(MinMaxSliderAttribute)] = new MinMaxSliderPropertyDrawer();
 drawersByAttributeType[typeof(ProgressBarAttribute)] = new ProgressBarPropertyDrawer();
 drawersByAttributeType[typeof(ReadOnlyAttribute)] = new ReadOnlyPropertyDrawer();
+drawersByAttributeType[typeof(ReorderableKeyListAttribute)] = new ReorderableKeyListPropertyDrawer();
 drawersByAttributeType[typeof(ReorderableListAttribute)] = new ReorderableListPropertyDrawer();
 drawersByAttributeType[typeof(ResizableTextAreaAttribute)] = new ResizableTextAreaPropertyDrawer();
 drawersByAttributeType[typeof(ShowAssetPreviewAttribute)] = new ShowAssetPreviewPropertyDrawer();

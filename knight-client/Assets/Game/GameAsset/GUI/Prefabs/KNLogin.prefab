@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 22207372}
   - component: {fileID: 11410674}
   - component: {fileID: 11495156}
-  - component: {fileID: 114633724913912878}
+  - component: {fileID: 114939995074144428}
   m_Layer: 5
   m_Name: AccountInput
   m_TagString: Untagged
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 22241686}
   - component: {fileID: 11450454}
   - component: {fileID: 11443390}
-  - component: {fileID: 114459459196704098}
+  - component: {fileID: 114974333857488532}
   m_Layer: 5
   m_Name: PasswordInput
   m_TagString: Untagged
@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 22224350}
   - component: {fileID: 11466826}
   - component: {fileID: 114329190534849016}
+  - component: {fileID: 114973383402463050}
   m_Layer: 5
   m_Name: KNLogin
   m_TagString: Untagged
@@ -1064,205 +1065,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3de718901a6b564289653b6a86332e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Key: Login
   ViewModelPath: Game.LoginViewModel
---- !u!114 &114459459196704098
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7efbf4cb8ed10c54682019af630272ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ViewPath: 'UnityEngine.UI.InputField/text : String'
-  ViewModelPath: 'Game.LoginViewModel/Password : String'
-  ViewPaths:
-  - 'UnityEngine.RectTransform/anchorMin : Vector2'
-  - 'UnityEngine.RectTransform/anchorMax : Vector2'
-  - 'UnityEngine.RectTransform/anchoredPosition3D : Vector3'
-  - 'UnityEngine.RectTransform/anchoredPosition : Vector2'
-  - 'UnityEngine.RectTransform/sizeDelta : Vector2'
-  - 'UnityEngine.RectTransform/pivot : Vector2'
-  - 'UnityEngine.RectTransform/offsetMin : Vector2'
-  - 'UnityEngine.RectTransform/offsetMax : Vector2'
-  - 'UnityEngine.RectTransform/position : Vector3'
-  - 'UnityEngine.RectTransform/localPosition : Vector3'
-  - 'UnityEngine.RectTransform/eulerAngles : Vector3'
-  - 'UnityEngine.RectTransform/localEulerAngles : Vector3'
-  - 'UnityEngine.RectTransform/right : Vector3'
-  - 'UnityEngine.RectTransform/up : Vector3'
-  - 'UnityEngine.RectTransform/forward : Vector3'
-  - 'UnityEngine.RectTransform/rotation : Quaternion'
-  - 'UnityEngine.RectTransform/localRotation : Quaternion'
-  - 'UnityEngine.RectTransform/localScale : Vector3'
-  - 'UnityEngine.RectTransform/parent : Transform'
-  - 'UnityEngine.RectTransform/hasChanged : Boolean'
-  - 'UnityEngine.RectTransform/hierarchyCapacity : Int32'
-  - 'UnityEngine.RectTransform/tag : String'
-  - 'UnityEngine.RectTransform/name : String'
-  - 'UnityEngine.RectTransform/hideFlags : HideFlags'
-  - 'UnityEngine.UI.Image/sprite : Sprite'
-  - 'UnityEngine.UI.Image/overrideSprite : Sprite'
-  - 'UnityEngine.UI.Image/type : Type'
-  - 'UnityEngine.UI.Image/preserveAspect : Boolean'
-  - 'UnityEngine.UI.Image/fillCenter : Boolean'
-  - 'UnityEngine.UI.Image/fillMethod : FillMethod'
-  - 'UnityEngine.UI.Image/fillAmount : Single'
-  - 'UnityEngine.UI.Image/fillClockwise : Boolean'
-  - 'UnityEngine.UI.Image/fillOrigin : Int32'
-  - 'UnityEngine.UI.Image/alphaHitTestMinimumThreshold : Single'
-  - 'UnityEngine.UI.Image/material : Material'
-  - 'UnityEngine.UI.Image/onCullStateChanged : CullStateChangedEvent'
-  - 'UnityEngine.UI.Image/maskable : Boolean'
-  - 'UnityEngine.UI.Image/color : Color'
-  - 'UnityEngine.UI.Image/raycastTarget : Boolean'
-  - 'UnityEngine.UI.Image/useGUILayout : Boolean'
-  - 'UnityEngine.UI.Image/runInEditMode : Boolean'
-  - 'UnityEngine.UI.Image/enabled : Boolean'
-  - 'UnityEngine.UI.Image/tag : String'
-  - 'UnityEngine.UI.Image/name : String'
-  - 'UnityEngine.UI.Image/hideFlags : HideFlags'
-  - 'UnityEngine.UI.InputField/shouldHideMobileInput : Boolean'
-  - 'UnityEngine.UI.InputField/text : String'
-  - 'UnityEngine.UI.InputField/caretBlinkRate : Single'
-  - 'UnityEngine.UI.InputField/caretWidth : Int32'
-  - 'UnityEngine.UI.InputField/textComponent : Text'
-  - 'UnityEngine.UI.InputField/placeholder : Graphic'
-  - 'UnityEngine.UI.InputField/caretColor : Color'
-  - 'UnityEngine.UI.InputField/customCaretColor : Boolean'
-  - 'UnityEngine.UI.InputField/selectionColor : Color'
-  - 'UnityEngine.UI.InputField/onEndEdit : SubmitEvent'
-  - 'UnityEngine.UI.InputField/onValueChanged : OnChangeEvent'
-  - 'UnityEngine.UI.InputField/onValidateInput : OnValidateInput'
-  - 'UnityEngine.UI.InputField/characterLimit : Int32'
-  - 'UnityEngine.UI.InputField/contentType : ContentType'
-  - 'UnityEngine.UI.InputField/lineType : LineType'
-  - 'UnityEngine.UI.InputField/inputType : InputType'
-  - 'UnityEngine.UI.InputField/keyboardType : TouchScreenKeyboardType'
-  - 'UnityEngine.UI.InputField/characterValidation : CharacterValidation'
-  - 'UnityEngine.UI.InputField/readOnly : Boolean'
-  - 'UnityEngine.UI.InputField/asteriskChar : Char'
-  - 'UnityEngine.UI.InputField/caretPosition : Int32'
-  - 'UnityEngine.UI.InputField/selectionAnchorPosition : Int32'
-  - 'UnityEngine.UI.InputField/selectionFocusPosition : Int32'
-  - 'UnityEngine.UI.InputField/navigation : Navigation'
-  - 'UnityEngine.UI.InputField/transition : Transition'
-  - 'UnityEngine.UI.InputField/colors : ColorBlock'
-  - 'UnityEngine.UI.InputField/spriteState : SpriteState'
-  - 'UnityEngine.UI.InputField/animationTriggers : AnimationTriggers'
-  - 'UnityEngine.UI.InputField/targetGraphic : Graphic'
-  - 'UnityEngine.UI.InputField/interactable : Boolean'
-  - 'UnityEngine.UI.InputField/image : Image'
-  - 'UnityEngine.UI.InputField/useGUILayout : Boolean'
-  - 'UnityEngine.UI.InputField/runInEditMode : Boolean'
-  - 'UnityEngine.UI.InputField/enabled : Boolean'
-  - 'UnityEngine.UI.InputField/tag : String'
-  - 'UnityEngine.UI.InputField/name : String'
-  - 'UnityEngine.UI.InputField/hideFlags : HideFlags'
-  ModelPaths:
-  - 'Game.LoginViewModel/AccountName : String'
-  - 'Game.LoginViewModel/Password : String'
---- !u!114 &114633724913912878
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 144944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7efbf4cb8ed10c54682019af630272ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ViewPath: 'UnityEngine.UI.InputField/text : String'
-  ViewModelPath: 'Game.LoginViewModel/AccountName : String'
-  ViewPaths:
-  - 'UnityEngine.RectTransform/anchorMin : Vector2'
-  - 'UnityEngine.RectTransform/anchorMax : Vector2'
-  - 'UnityEngine.RectTransform/anchoredPosition3D : Vector3'
-  - 'UnityEngine.RectTransform/anchoredPosition : Vector2'
-  - 'UnityEngine.RectTransform/sizeDelta : Vector2'
-  - 'UnityEngine.RectTransform/pivot : Vector2'
-  - 'UnityEngine.RectTransform/offsetMin : Vector2'
-  - 'UnityEngine.RectTransform/offsetMax : Vector2'
-  - 'UnityEngine.RectTransform/position : Vector3'
-  - 'UnityEngine.RectTransform/localPosition : Vector3'
-  - 'UnityEngine.RectTransform/eulerAngles : Vector3'
-  - 'UnityEngine.RectTransform/localEulerAngles : Vector3'
-  - 'UnityEngine.RectTransform/right : Vector3'
-  - 'UnityEngine.RectTransform/up : Vector3'
-  - 'UnityEngine.RectTransform/forward : Vector3'
-  - 'UnityEngine.RectTransform/rotation : Quaternion'
-  - 'UnityEngine.RectTransform/localRotation : Quaternion'
-  - 'UnityEngine.RectTransform/localScale : Vector3'
-  - 'UnityEngine.RectTransform/parent : Transform'
-  - 'UnityEngine.RectTransform/hasChanged : Boolean'
-  - 'UnityEngine.RectTransform/hierarchyCapacity : Int32'
-  - 'UnityEngine.RectTransform/tag : String'
-  - 'UnityEngine.RectTransform/name : String'
-  - 'UnityEngine.RectTransform/hideFlags : HideFlags'
-  - 'UnityEngine.UI.Image/sprite : Sprite'
-  - 'UnityEngine.UI.Image/overrideSprite : Sprite'
-  - 'UnityEngine.UI.Image/type : Type'
-  - 'UnityEngine.UI.Image/preserveAspect : Boolean'
-  - 'UnityEngine.UI.Image/fillCenter : Boolean'
-  - 'UnityEngine.UI.Image/fillMethod : FillMethod'
-  - 'UnityEngine.UI.Image/fillAmount : Single'
-  - 'UnityEngine.UI.Image/fillClockwise : Boolean'
-  - 'UnityEngine.UI.Image/fillOrigin : Int32'
-  - 'UnityEngine.UI.Image/alphaHitTestMinimumThreshold : Single'
-  - 'UnityEngine.UI.Image/material : Material'
-  - 'UnityEngine.UI.Image/onCullStateChanged : CullStateChangedEvent'
-  - 'UnityEngine.UI.Image/maskable : Boolean'
-  - 'UnityEngine.UI.Image/color : Color'
-  - 'UnityEngine.UI.Image/raycastTarget : Boolean'
-  - 'UnityEngine.UI.Image/useGUILayout : Boolean'
-  - 'UnityEngine.UI.Image/runInEditMode : Boolean'
-  - 'UnityEngine.UI.Image/enabled : Boolean'
-  - 'UnityEngine.UI.Image/tag : String'
-  - 'UnityEngine.UI.Image/name : String'
-  - 'UnityEngine.UI.Image/hideFlags : HideFlags'
-  - 'UnityEngine.UI.InputField/shouldHideMobileInput : Boolean'
-  - 'UnityEngine.UI.InputField/text : String'
-  - 'UnityEngine.UI.InputField/caretBlinkRate : Single'
-  - 'UnityEngine.UI.InputField/caretWidth : Int32'
-  - 'UnityEngine.UI.InputField/textComponent : Text'
-  - 'UnityEngine.UI.InputField/placeholder : Graphic'
-  - 'UnityEngine.UI.InputField/caretColor : Color'
-  - 'UnityEngine.UI.InputField/customCaretColor : Boolean'
-  - 'UnityEngine.UI.InputField/selectionColor : Color'
-  - 'UnityEngine.UI.InputField/onEndEdit : SubmitEvent'
-  - 'UnityEngine.UI.InputField/onValueChanged : OnChangeEvent'
-  - 'UnityEngine.UI.InputField/onValidateInput : OnValidateInput'
-  - 'UnityEngine.UI.InputField/characterLimit : Int32'
-  - 'UnityEngine.UI.InputField/contentType : ContentType'
-  - 'UnityEngine.UI.InputField/lineType : LineType'
-  - 'UnityEngine.UI.InputField/inputType : InputType'
-  - 'UnityEngine.UI.InputField/keyboardType : TouchScreenKeyboardType'
-  - 'UnityEngine.UI.InputField/characterValidation : CharacterValidation'
-  - 'UnityEngine.UI.InputField/readOnly : Boolean'
-  - 'UnityEngine.UI.InputField/asteriskChar : Char'
-  - 'UnityEngine.UI.InputField/caretPosition : Int32'
-  - 'UnityEngine.UI.InputField/selectionAnchorPosition : Int32'
-  - 'UnityEngine.UI.InputField/selectionFocusPosition : Int32'
-  - 'UnityEngine.UI.InputField/navigation : Navigation'
-  - 'UnityEngine.UI.InputField/transition : Transition'
-  - 'UnityEngine.UI.InputField/colors : ColorBlock'
-  - 'UnityEngine.UI.InputField/spriteState : SpriteState'
-  - 'UnityEngine.UI.InputField/animationTriggers : AnimationTriggers'
-  - 'UnityEngine.UI.InputField/targetGraphic : Graphic'
-  - 'UnityEngine.UI.InputField/interactable : Boolean'
-  - 'UnityEngine.UI.InputField/image : Image'
-  - 'UnityEngine.UI.InputField/useGUILayout : Boolean'
-  - 'UnityEngine.UI.InputField/runInEditMode : Boolean'
-  - 'UnityEngine.UI.InputField/enabled : Boolean'
-  - 'UnityEngine.UI.InputField/tag : String'
-  - 'UnityEngine.UI.InputField/name : String'
-  - 'UnityEngine.UI.InputField/hideFlags : HideFlags'
-  ModelPaths:
-  - 'Game.LoginViewModel/AccountName : String'
-  - 'Game.LoginViewModel/Password : String'
 --- !u!114 &114777738312020300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1276,3 +1080,215 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EventTypeMask: 16
   EventObj: {fileID: 11449816}
+--- !u!114 &114939995074144428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7efbf4cb8ed10c54682019af630272ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ViewPath: 'UnityEngine.UI.InputField/text : String'
+  ViewModelPath: 'Login@Game.LoginViewModel/AccountName : String'
+  ViewPaths:
+  - 'UnityEngine.RectTransform/anchorMin : Vector2'
+  - 'UnityEngine.RectTransform/anchorMax : Vector2'
+  - 'UnityEngine.RectTransform/anchoredPosition3D : Vector3'
+  - 'UnityEngine.RectTransform/anchoredPosition : Vector2'
+  - 'UnityEngine.RectTransform/sizeDelta : Vector2'
+  - 'UnityEngine.RectTransform/pivot : Vector2'
+  - 'UnityEngine.RectTransform/offsetMin : Vector2'
+  - 'UnityEngine.RectTransform/offsetMax : Vector2'
+  - 'UnityEngine.RectTransform/position : Vector3'
+  - 'UnityEngine.RectTransform/localPosition : Vector3'
+  - 'UnityEngine.RectTransform/eulerAngles : Vector3'
+  - 'UnityEngine.RectTransform/localEulerAngles : Vector3'
+  - 'UnityEngine.RectTransform/right : Vector3'
+  - 'UnityEngine.RectTransform/up : Vector3'
+  - 'UnityEngine.RectTransform/forward : Vector3'
+  - 'UnityEngine.RectTransform/rotation : Quaternion'
+  - 'UnityEngine.RectTransform/localRotation : Quaternion'
+  - 'UnityEngine.RectTransform/localScale : Vector3'
+  - 'UnityEngine.RectTransform/parent : Transform'
+  - 'UnityEngine.RectTransform/hasChanged : Boolean'
+  - 'UnityEngine.RectTransform/hierarchyCapacity : Int32'
+  - 'UnityEngine.RectTransform/tag : String'
+  - 'UnityEngine.RectTransform/name : String'
+  - 'UnityEngine.RectTransform/hideFlags : HideFlags'
+  - 'UnityEngine.UI.Image/sprite : Sprite'
+  - 'UnityEngine.UI.Image/overrideSprite : Sprite'
+  - 'UnityEngine.UI.Image/type : Type'
+  - 'UnityEngine.UI.Image/preserveAspect : Boolean'
+  - 'UnityEngine.UI.Image/fillCenter : Boolean'
+  - 'UnityEngine.UI.Image/fillMethod : FillMethod'
+  - 'UnityEngine.UI.Image/fillAmount : Single'
+  - 'UnityEngine.UI.Image/fillClockwise : Boolean'
+  - 'UnityEngine.UI.Image/fillOrigin : Int32'
+  - 'UnityEngine.UI.Image/alphaHitTestMinimumThreshold : Single'
+  - 'UnityEngine.UI.Image/material : Material'
+  - 'UnityEngine.UI.Image/onCullStateChanged : CullStateChangedEvent'
+  - 'UnityEngine.UI.Image/maskable : Boolean'
+  - 'UnityEngine.UI.Image/color : Color'
+  - 'UnityEngine.UI.Image/raycastTarget : Boolean'
+  - 'UnityEngine.UI.Image/useGUILayout : Boolean'
+  - 'UnityEngine.UI.Image/runInEditMode : Boolean'
+  - 'UnityEngine.UI.Image/enabled : Boolean'
+  - 'UnityEngine.UI.Image/tag : String'
+  - 'UnityEngine.UI.Image/name : String'
+  - 'UnityEngine.UI.Image/hideFlags : HideFlags'
+  - 'UnityEngine.UI.InputField/shouldHideMobileInput : Boolean'
+  - 'UnityEngine.UI.InputField/text : String'
+  - 'UnityEngine.UI.InputField/caretBlinkRate : Single'
+  - 'UnityEngine.UI.InputField/caretWidth : Int32'
+  - 'UnityEngine.UI.InputField/textComponent : Text'
+  - 'UnityEngine.UI.InputField/placeholder : Graphic'
+  - 'UnityEngine.UI.InputField/caretColor : Color'
+  - 'UnityEngine.UI.InputField/customCaretColor : Boolean'
+  - 'UnityEngine.UI.InputField/selectionColor : Color'
+  - 'UnityEngine.UI.InputField/onEndEdit : SubmitEvent'
+  - 'UnityEngine.UI.InputField/onValueChanged : OnChangeEvent'
+  - 'UnityEngine.UI.InputField/onValidateInput : OnValidateInput'
+  - 'UnityEngine.UI.InputField/characterLimit : Int32'
+  - 'UnityEngine.UI.InputField/contentType : ContentType'
+  - 'UnityEngine.UI.InputField/lineType : LineType'
+  - 'UnityEngine.UI.InputField/inputType : InputType'
+  - 'UnityEngine.UI.InputField/keyboardType : TouchScreenKeyboardType'
+  - 'UnityEngine.UI.InputField/characterValidation : CharacterValidation'
+  - 'UnityEngine.UI.InputField/readOnly : Boolean'
+  - 'UnityEngine.UI.InputField/asteriskChar : Char'
+  - 'UnityEngine.UI.InputField/caretPosition : Int32'
+  - 'UnityEngine.UI.InputField/selectionAnchorPosition : Int32'
+  - 'UnityEngine.UI.InputField/selectionFocusPosition : Int32'
+  - 'UnityEngine.UI.InputField/navigation : Navigation'
+  - 'UnityEngine.UI.InputField/transition : Transition'
+  - 'UnityEngine.UI.InputField/colors : ColorBlock'
+  - 'UnityEngine.UI.InputField/spriteState : SpriteState'
+  - 'UnityEngine.UI.InputField/animationTriggers : AnimationTriggers'
+  - 'UnityEngine.UI.InputField/targetGraphic : Graphic'
+  - 'UnityEngine.UI.InputField/interactable : Boolean'
+  - 'UnityEngine.UI.InputField/image : Image'
+  - 'UnityEngine.UI.InputField/useGUILayout : Boolean'
+  - 'UnityEngine.UI.InputField/runInEditMode : Boolean'
+  - 'UnityEngine.UI.InputField/enabled : Boolean'
+  - 'UnityEngine.UI.InputField/tag : String'
+  - 'UnityEngine.UI.InputField/name : String'
+  - 'UnityEngine.UI.InputField/hideFlags : HideFlags'
+  ModelPaths:
+  - 'Login@Game.LoginViewModel/AccountName : String'
+  - 'Login@Game.LoginViewModel/Password : String'
+--- !u!114 &114973383402463050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eac82c585ec2f74a855dd6c1abbff01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ViewModelClass: Game.LoginView
+  ViewModels:
+  - {fileID: 114329190534849016}
+--- !u!114 &114974333857488532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7efbf4cb8ed10c54682019af630272ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ViewPath: 'UnityEngine.UI.InputField/text : String'
+  ViewModelPath: 'Login@Game.LoginViewModel/Password : String'
+  ViewPaths:
+  - 'UnityEngine.RectTransform/anchorMin : Vector2'
+  - 'UnityEngine.RectTransform/anchorMax : Vector2'
+  - 'UnityEngine.RectTransform/anchoredPosition3D : Vector3'
+  - 'UnityEngine.RectTransform/anchoredPosition : Vector2'
+  - 'UnityEngine.RectTransform/sizeDelta : Vector2'
+  - 'UnityEngine.RectTransform/pivot : Vector2'
+  - 'UnityEngine.RectTransform/offsetMin : Vector2'
+  - 'UnityEngine.RectTransform/offsetMax : Vector2'
+  - 'UnityEngine.RectTransform/position : Vector3'
+  - 'UnityEngine.RectTransform/localPosition : Vector3'
+  - 'UnityEngine.RectTransform/eulerAngles : Vector3'
+  - 'UnityEngine.RectTransform/localEulerAngles : Vector3'
+  - 'UnityEngine.RectTransform/right : Vector3'
+  - 'UnityEngine.RectTransform/up : Vector3'
+  - 'UnityEngine.RectTransform/forward : Vector3'
+  - 'UnityEngine.RectTransform/rotation : Quaternion'
+  - 'UnityEngine.RectTransform/localRotation : Quaternion'
+  - 'UnityEngine.RectTransform/localScale : Vector3'
+  - 'UnityEngine.RectTransform/parent : Transform'
+  - 'UnityEngine.RectTransform/hasChanged : Boolean'
+  - 'UnityEngine.RectTransform/hierarchyCapacity : Int32'
+  - 'UnityEngine.RectTransform/tag : String'
+  - 'UnityEngine.RectTransform/name : String'
+  - 'UnityEngine.RectTransform/hideFlags : HideFlags'
+  - 'UnityEngine.UI.Image/sprite : Sprite'
+  - 'UnityEngine.UI.Image/overrideSprite : Sprite'
+  - 'UnityEngine.UI.Image/type : Type'
+  - 'UnityEngine.UI.Image/preserveAspect : Boolean'
+  - 'UnityEngine.UI.Image/fillCenter : Boolean'
+  - 'UnityEngine.UI.Image/fillMethod : FillMethod'
+  - 'UnityEngine.UI.Image/fillAmount : Single'
+  - 'UnityEngine.UI.Image/fillClockwise : Boolean'
+  - 'UnityEngine.UI.Image/fillOrigin : Int32'
+  - 'UnityEngine.UI.Image/alphaHitTestMinimumThreshold : Single'
+  - 'UnityEngine.UI.Image/material : Material'
+  - 'UnityEngine.UI.Image/onCullStateChanged : CullStateChangedEvent'
+  - 'UnityEngine.UI.Image/maskable : Boolean'
+  - 'UnityEngine.UI.Image/color : Color'
+  - 'UnityEngine.UI.Image/raycastTarget : Boolean'
+  - 'UnityEngine.UI.Image/useGUILayout : Boolean'
+  - 'UnityEngine.UI.Image/runInEditMode : Boolean'
+  - 'UnityEngine.UI.Image/enabled : Boolean'
+  - 'UnityEngine.UI.Image/tag : String'
+  - 'UnityEngine.UI.Image/name : String'
+  - 'UnityEngine.UI.Image/hideFlags : HideFlags'
+  - 'UnityEngine.UI.InputField/shouldHideMobileInput : Boolean'
+  - 'UnityEngine.UI.InputField/text : String'
+  - 'UnityEngine.UI.InputField/caretBlinkRate : Single'
+  - 'UnityEngine.UI.InputField/caretWidth : Int32'
+  - 'UnityEngine.UI.InputField/textComponent : Text'
+  - 'UnityEngine.UI.InputField/placeholder : Graphic'
+  - 'UnityEngine.UI.InputField/caretColor : Color'
+  - 'UnityEngine.UI.InputField/customCaretColor : Boolean'
+  - 'UnityEngine.UI.InputField/selectionColor : Color'
+  - 'UnityEngine.UI.InputField/onEndEdit : SubmitEvent'
+  - 'UnityEngine.UI.InputField/onValueChanged : OnChangeEvent'
+  - 'UnityEngine.UI.InputField/onValidateInput : OnValidateInput'
+  - 'UnityEngine.UI.InputField/characterLimit : Int32'
+  - 'UnityEngine.UI.InputField/contentType : ContentType'
+  - 'UnityEngine.UI.InputField/lineType : LineType'
+  - 'UnityEngine.UI.InputField/inputType : InputType'
+  - 'UnityEngine.UI.InputField/keyboardType : TouchScreenKeyboardType'
+  - 'UnityEngine.UI.InputField/characterValidation : CharacterValidation'
+  - 'UnityEngine.UI.InputField/readOnly : Boolean'
+  - 'UnityEngine.UI.InputField/asteriskChar : Char'
+  - 'UnityEngine.UI.InputField/caretPosition : Int32'
+  - 'UnityEngine.UI.InputField/selectionAnchorPosition : Int32'
+  - 'UnityEngine.UI.InputField/selectionFocusPosition : Int32'
+  - 'UnityEngine.UI.InputField/navigation : Navigation'
+  - 'UnityEngine.UI.InputField/transition : Transition'
+  - 'UnityEngine.UI.InputField/colors : ColorBlock'
+  - 'UnityEngine.UI.InputField/spriteState : SpriteState'
+  - 'UnityEngine.UI.InputField/animationTriggers : AnimationTriggers'
+  - 'UnityEngine.UI.InputField/targetGraphic : Graphic'
+  - 'UnityEngine.UI.InputField/interactable : Boolean'
+  - 'UnityEngine.UI.InputField/image : Image'
+  - 'UnityEngine.UI.InputField/useGUILayout : Boolean'
+  - 'UnityEngine.UI.InputField/runInEditMode : Boolean'
+  - 'UnityEngine.UI.InputField/enabled : Boolean'
+  - 'UnityEngine.UI.InputField/tag : String'
+  - 'UnityEngine.UI.InputField/name : String'
+  - 'UnityEngine.UI.InputField/hideFlags : HideFlags'
+  ModelPaths:
+  - 'Login@Game.LoginViewModel/AccountName : String'
+  - 'Login@Game.LoginViewModel/Password : String'

@@ -54,18 +54,18 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 打开一个View
         /// </summary>
-        public async Task Open(string rViewName, string rViewModelName, View.State rViewState, Action<View> rOpenCompleted = null)
+        public async Task Open(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
         {
             // 企图关闭当前的View
             Debug.Log("Open " + rViewName);
             MaybeCloseTopView(rViewState);
-            await Open_Async(rViewName, rViewModelName, rViewState, rOpenCompleted);
+            await Open_Async(rViewName, rViewState, rOpenCompleted);
         }
 
-        private async Task Open_Async(string rViewName, string rViewModelName, View.State rViewState, Action<View> rOpenCompleted)
+        private async Task Open_Async(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
         {
             var rLoaderRequest = await UIAssetLoader.Instance.LoadUI(rViewName);
-            await OpenView(rViewName, rViewModelName, rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
+            await OpenView(rViewName, rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 初始化View，如果是Dispatch类型的话，只对curViews顶层View进行交换
         /// </summary>
-        public async Task OpenView(string rViewName, string rViewModelName, GameObject rViewPrefab, View.State rViewState, Action<View> rOpenCompleted)
+        public async Task OpenView(string rViewName, GameObject rViewPrefab, View.State rViewState, Action<View> rOpenCompleted)
         {
             if (rViewPrefab == null) return;
 
@@ -156,7 +156,7 @@ namespace Knight.Hotfix.Core
             }
 
             string rViewGUID = Guid.NewGuid().ToString();               //生成GUID
-            await rView.Initialize(rViewName, rViewModelName, rViewGUID, rViewState);   //为View的初始化设置
+            await rView.Initialize(rViewName, rViewGUID, rViewState);   //为View的初始化设置
 
             //新的View的存储逻辑
             switch (rView.CurState)
