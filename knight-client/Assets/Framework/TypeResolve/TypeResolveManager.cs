@@ -104,10 +104,10 @@ namespace Knight.Framework.TypeResolve
             return rAssembly.Instantiate<T>(rTypeName, rArgs);
         }
 
+#if UNITY_EDITOR
         [UnityEditor.Callbacks.DidReloadScripts]
         public static void ScriptsReloaded()
         {
-#if UNITY_EDITOR
             if (!Application.isPlaying)
             {
                 TypeResolveManager.Instance.Initialize();
@@ -115,7 +115,7 @@ namespace Knight.Framework.TypeResolve
                 TypeResolveManager.Instance.AddAssembly("Tests");
                 TypeResolveManager.Instance.AddAssembly("KnightHotfix", true);
             }
-#endif
         }
+#endif
     }
 }
