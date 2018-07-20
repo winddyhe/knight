@@ -8,9 +8,7 @@ namespace Knight.Hotfix.Core
     public class ViewModel
     {
         public    Action<string>    PropertyChanged;
-        public    bool              IsOpened;
-        public    bool              IsClosed;
-
+        
         public object GetPropValue(string rVaribleName)
         {
             Type rType = this.GetType();
