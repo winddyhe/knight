@@ -33,12 +33,5 @@ namespace Game
                 UtilTool.SafeExecute(this.PropertyChanged, "Password");
             }
         }
-
-        int i = 0;
-        protected override void OnUpdate()
-        {
-            i++;
-            this.AccountName = i.ToString();
-        }
     }
 }

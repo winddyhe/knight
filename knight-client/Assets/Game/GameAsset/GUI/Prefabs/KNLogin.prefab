@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 22224350}
   - component: {fileID: 11466826}
   - component: {fileID: 114329190534849016}
+  - component: {fileID: 114026615879659606}
   - component: {fileID: 114973383402463050}
   m_Layer: 5
   m_Name: KNLogin
@@ -1003,7 +1004,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 729, y: 437}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22493688
@@ -1054,6 +1055,19 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 167146}
   m_IsPrefabParent: 1
+--- !u!114 &114026615879659606
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3de718901a6b564289653b6a86332e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Key: Login1
+  ViewModelPath: Game.LoginViewModel
 --- !u!114 &114329190534849016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1179,6 +1193,8 @@ MonoBehaviour:
   ModelPaths:
   - 'Login@Game.LoginViewModel/AccountName : String'
   - 'Login@Game.LoginViewModel/Password : String'
+  - 'Login1@Game.LoginViewModel/AccountName : String'
+  - 'Login1@Game.LoginViewModel/Password : String'
 --- !u!114 &114973383402463050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1193,6 +1209,7 @@ MonoBehaviour:
   ViewModelClass: Game.LoginView
   ViewModels:
   - {fileID: 114329190534849016}
+  - {fileID: 114026615879659606}
 --- !u!114 &114974333857488532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1205,7 +1222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ViewPath: 'UnityEngine.UI.InputField/text : String'
-  ViewModelPath: 'Login@Game.LoginViewModel/Password : String'
+  ViewModelPath: 'Login1@Game.LoginViewModel/Password : String'
   ViewPaths:
   - 'UnityEngine.RectTransform/anchorMin : Vector2'
   - 'UnityEngine.RectTransform/anchorMax : Vector2'
@@ -1292,3 +1309,5 @@ MonoBehaviour:
   ModelPaths:
   - 'Login@Game.LoginViewModel/AccountName : String'
   - 'Login@Game.LoginViewModel/Password : String'
+  - 'Login1@Game.LoginViewModel/AccountName : String'
+  - 'Login1@Game.LoginViewModel/Password : String'

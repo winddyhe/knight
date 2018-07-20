@@ -161,6 +161,7 @@ namespace Knight.Framework.Hotfix
             this.mApp.DelegateManager.RegisterMethodDelegate<Knight.Framework.Hotfix.CoroutineAdaptor.Adaptor>();
             this.mApp.DelegateManager.RegisterMethodDelegate<System.String>();
             this.mApp.DelegateManager.RegisterFunctionDelegate<System.Reflection.PropertyInfo, System.Boolean>();
+            this.mApp.DelegateManager.RegisterFunctionDelegate<System.Reflection.FieldInfo, System.Boolean>();
         }
 
         public override HotfixObject Instantiate(string rTypeName, params object[] rArgs)

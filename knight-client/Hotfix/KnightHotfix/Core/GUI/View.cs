@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System.Reflection;
 
 namespace Knight.Hotfix.Core
 {
@@ -113,14 +114,16 @@ namespace Knight.Hotfix.Core
                 if (rViewModel != null)
                 {
                     // 把ViewModel绑定到ViewController里面
-                    var rViewModelProp = this.ViewController.GetType().GetProperties()
+                    var rViewModelProp = this.ViewController.GetType().GetFields(HotfixReflectAssists.flags_public)
                         .Where(prop =>
                         {
                             var rAttrObjs = prop.GetCustomAttributes(typeof(HotfixBindingAttribute), false);
                             if (rAttrObjs == null || rAttrObjs.Length == 0) return false;
                             var rBindingAttr = rAttrObjs[0] as HotfixBindingAttribute;
 
-                            return prop.PropertyType.IsSubclassOf(typeof(ViewModel)) && rBindingAttr != null;
+                            return prop.FieldType.IsSubclassOf(typeof(ViewModel)) &&
+                                                               rBindingAttr != null &&
+                                                               rBindingAttr.Name.Equals(rMemberBinding.ViewModelProp.PropertyOwnerKey);
                         }).FirstOrDefault();
 
                     if (rViewModelProp != null)
