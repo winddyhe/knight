@@ -142,6 +142,7 @@
     <Compile Include="Assets\Framework\WindUI\DataBinding\MemberBindingAbstract.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\MemberBindingAbstract.Editor.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\MemberBindingOneWay.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\UnityEventBinder.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModelContainer.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModelDataSource.cs" />
     <Compile Include="Assets\Framework\WindUI\UIAssetLoader.cs" />
