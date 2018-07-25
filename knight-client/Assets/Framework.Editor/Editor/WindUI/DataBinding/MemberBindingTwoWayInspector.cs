@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine.UI;
 using NaughtyAttributes.Editor;
 
 namespace UnityEditor.UI
 {
-    [CustomEditor(typeof(MemberBindingAbstract), true)]
-    public class MemberBindingAbstractInspector : InspectorEditor
+    [CustomEditor(typeof(MemberBindingTwoWay), true)]
+    public class MemberBindingTwoWayInspector : MemberBindingAbstractInspector
     {
-        private MemberBindingAbstract     mTargetAbstract;
+        private MemberBindingTwoWay     mTargetTwoWay;
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            mTargetAbstract = this.target as MemberBindingAbstract;
+            this.mTargetTwoWay = this.target as MemberBindingTwoWay;
         }
 
         public override void OnInspectorGUI()
         {
-            this.mTargetAbstract.GetPaths();
+            this.mTargetTwoWay.GetEventPaths();
             base.OnInspectorGUI();
         }
     }

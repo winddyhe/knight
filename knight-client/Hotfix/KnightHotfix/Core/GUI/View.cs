@@ -73,6 +73,7 @@ namespace Knight.Hotfix.Core
                 Debug.LogErrorFormat("Prefab {0} has not ViewContainer Component..", this.ViewName);
                 return;
             }
+
             var rType = Type.GetType(this.ViewModelContainer.ViewModelClass);
             if (rType == null)
             {
@@ -82,12 +83,31 @@ namespace Knight.Hotfix.Core
 
             // 构建ViewController
             this.ViewController = HotfixReflectAssists.Construct(rType) as ViewController;
+            // 把ViewModel绑定到ViewController里面
+            for (int i = 0; i < this.ViewModelContainer.ViewModels.Count; i++)
+            {
+                var rViewModelDataSource = this.ViewModelContainer.ViewModels[i];
+                ViewModel rViewModel = null;
+                Type rViewModelType = Type.GetType(rViewModelDataSource.ViewModelPath);
+                if (rViewModelType != null)
+                {
+                    rViewModel = HotfixReflectAssists.Construct(rViewModelType) as ViewModel;
+                }
+                if (rViewModel != null)
+                {
+                    this.ViewController.AddViewModel(rViewModelDataSource.Key, rViewModel);
+                }
+                else
+                {
+                    Debug.LogErrorFormat("Can not find ViewModel {0}.", rViewModelDataSource.ViewModelPath);
+                }
+            }
             await this.ViewController.Initialize();
-        
+
             // ViewModel和View之间的数据绑定
             this.DataBindingConnect();
         }
-
+        
         private void DataBindingConnect()
         {
             var rAllMemberBindings = this.GameObject.GetComponentsInChildren<MemberBindingAbstract>(true);
@@ -103,7 +123,7 @@ namespace Knight.Hotfix.Core
                 }
 
                 ViewModel rViewModel = null;
-                rMemberBinding.ViewModelProp = HotfixDataBindingTypeResolve.MakeViewModelDataBindingProperty(rMemberBinding.ViewModelPath, out rViewModel);
+                rMemberBinding.ViewModelProp = HotfixDataBindingTypeResolve.MakeViewModelDataBindingProperty(rMemberBinding.ViewModelPath, this.ViewController, out rViewModel);
                 if (rMemberBinding.ViewModelProp == null)
                 {
                     Debug.LogErrorFormat("View Model Path: {0} error..", rMemberBinding.ViewModelPath);
@@ -113,34 +133,19 @@ namespace Knight.Hotfix.Core
                 
                 if (rViewModel != null)
                 {
-                    // 把ViewModel绑定到ViewController里面
-                    var rViewModelProp = this.ViewController.GetType().GetFields(HotfixReflectAssists.flags_public)
-                        .Where(prop =>
-                        {
-                            var rAttrObjs = prop.GetCustomAttributes(typeof(HotfixBindingAttribute), false);
-                            if (rAttrObjs == null || rAttrObjs.Length == 0) return false;
-                            var rBindingAttr = rAttrObjs[0] as HotfixBindingAttribute;
-
-                            return prop.FieldType.IsSubclassOf(typeof(ViewModel)) &&
-                                                               rBindingAttr != null &&
-                                                               rBindingAttr.Name.Equals(rMemberBinding.ViewModelProp.PropertyOwnerKey);
-                        }).FirstOrDefault();
-
-                    if (rViewModelProp != null)
-                    {
-                        rViewModelProp.SetValue(this.ViewController, rViewModel);
-                    }
-                    else
-                    {
-                        Debug.LogErrorFormat("ViewModel {0} is not define in ViewController({1})", rViewModel.GetType(), this.ViewController.GetType());
-                    }
-
                     // ViewModel绑定View
                     rMemberBinding.ViewModelPropertyWatcher = new DataBindingPropertyWatcher(rViewModel, rMemberBinding.ViewModelProp.PropertyName, () =>
                     {
                         rMemberBinding.SyncFromViewModel();
                     });
                     rViewModel.PropertyChanged += rMemberBinding.ViewModelPropertyWatcher.PropertyChanged;
+                }
+
+                // View绑定ViewModel
+                var rMemberBindingTwoWay = rMemberBinding as MemberBindingTwoWay;
+                if (rMemberBindingTwoWay != null)
+                {
+                    rMemberBindingTwoWay.InitUnityEventWatcher();
                 }
             }
         }

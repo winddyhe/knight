@@ -141,7 +141,6 @@
     <Compile Include="Assets\Framework\WindUI\DataBinding\DataBindingPropertyWatcher.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\DataBindingTypeResolve.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\MemberBindingAbstract.cs" />
-    <Compile Include="Assets\Framework\WindUI\DataBinding\MemberBindingAbstract.Editor.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\MemberBindingOneWay.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\MemberBindingTwoWay.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\UnityEventBinder.cs" />

@@ -95,6 +95,7 @@
     <Compile Include="Assets\Plugins\Core\Math\Path\LinePathAlgorithm.cs" />
     <Compile Include="Assets\Plugins\Core\Math\Utility\OBB.cs" />
     <Compile Include="Assets\Plugins\Core\NaughtyAttributes\DrawConditionAttributes\DrawConditionAttribute.cs" />
+    <Compile Include="Assets\Plugins\Core\NaughtyAttributes\DrawConditionAttributes\DrawOrderAttribute.cs" />
     <Compile Include="Assets\Plugins\Core\NaughtyAttributes\DrawConditionAttributes\HideIfAttribute.cs" />
     <Compile Include="Assets\Plugins\Core\NaughtyAttributes\DrawConditionAttributes\ShowIfAttribute.cs" />
     <Compile Include="Assets\Plugins\Core\NaughtyAttributes\DrawerAttributes\ButtonAttribute.cs" />

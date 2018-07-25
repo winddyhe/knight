@@ -28,8 +28,17 @@ namespace NaughtyAttributes.Editor
         {
             this.script = this.serializedObject.FindProperty("m_Script");
 
-            // Cache serialized fields
-            this.fields = ReflectionUtility.GetAllFields(this.target, f => this.serializedObject.FindProperty(f.Name) != null);
+            // Cache serialized fields and order
+            this.fields = ReflectionUtility.GetAllFields(this.target, f => this.serializedObject.FindProperty(f.Name) != null).OrderByDescending(field=> 
+            {
+                int order = 0;
+                var drawOrderAttr = field.GetCustomAttributes(typeof(DrawOrderAttribute), true).FirstOrDefault() as DrawOrderAttribute;
+                if (drawOrderAttr != null)
+                {
+                    order = drawOrderAttr.Order;
+                }
+                return order;
+            });
 
             // If there are no NaughtyAttributes use default inspector
             if (this.fields.All(f => f.GetCustomAttributes(typeof(NaughtyAttribute), true).Length == 0))

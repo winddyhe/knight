@@ -14,14 +14,14 @@ namespace Game
 
         protected override void OnOpening()
         {
-            this.ViewModel1.Password = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
+            //this.ViewModel1.Password = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
         }
 
-        int i = 0;
+        //int i = 0;
         protected override void OnUpdate()
         {
-            i++;
-            this.ViewModel.AccountName = i.ToString();
+            //i++;
+            //this.ViewModel.AccountName = i.ToString();
         }
     }
 }

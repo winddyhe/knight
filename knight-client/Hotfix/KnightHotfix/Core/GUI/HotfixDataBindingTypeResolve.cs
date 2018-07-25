@@ -8,7 +8,7 @@ namespace Knight.Hotfix.Core
 {
     public class HotfixDataBindingTypeResolve
     {
-        public static DataBindingProperty MakeViewModelDataBindingProperty(string rViewModelPath, out ViewModel rViewModel)
+        public static DataBindingProperty MakeViewModelDataBindingProperty(string rViewModelPath, ViewController rViewController, out ViewModel rViewModel)
         {
             rViewModel = null;
             if (string.IsNullOrEmpty(rViewModelPath)) return null;
@@ -30,10 +30,9 @@ namespace Knight.Hotfix.Core
 
             var rViewModelPropName = rViewModelPropStrs[0].Trim();
 
-            Type rViewModelType = Type.GetType(rViewModelClassName);
-            if (rViewModelType == null) return null;
-            rViewModel = HotfixReflectAssists.Construct(rViewModelType) as ViewModel;
-            
+            // 取到ViewModel
+            rViewModel = rViewController.GetViewModel(rViewModelClassKey);
+
             var rViewModelProperty = new DataBindingProperty(rViewModel, rViewModelClassKey, rViewModelPropName);
             rViewModelProperty.Property = rViewModel.GetType().GetProperty(rViewModelPropName);
             return rViewModelProperty; 

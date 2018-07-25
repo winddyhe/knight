@@ -1699,7 +1699,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                 {
                                                     var objRef = GetObjectAndResolveReference(Minus(esp, ilm.ParameterCount + 1));
                                                     if (objRef->ObjectType == ObjectTypes.Null)
-                                                        throw new NullReferenceException();
+                                                        throw new NullReferenceException(this.domain.DebugService.GetStackTrance(this));
                                                     if (objRef->ObjectType == ObjectTypes.ValueTypeObjectReference)
                                                     {
                                                         StackObject* dst = *(StackObject**)&objRef->Value;

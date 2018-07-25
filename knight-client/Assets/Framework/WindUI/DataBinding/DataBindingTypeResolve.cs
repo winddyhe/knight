@@ -63,6 +63,22 @@ namespace UnityEngine.UI
             return rViewDatabindingProp;
         }
 
+        public static BindableEvent MakeViewDataBindingEvent(GameObject rGo, string rEventPath)
+        {
+            if (string.IsNullOrEmpty(rEventPath)) return null;
+
+            var rEventPathStrs = rEventPath.Split('/');
+            if (rEventPathStrs.Length < 2) return null;
+
+            var rEventClassName = rEventPathStrs[0].Trim();
+            var rEventName = rEventPathStrs[1].Trim();
+
+            var rViewEventBindingComp = rGo.GetComponents<Component>()
+                .Where(comp => comp != null && comp.GetType().FullName.Equals(rEventClassName)).FirstOrDefault();
+
+            return GetBoundEvent(rEventName, rViewEventBindingComp);
+        }
+
         private static IEnumerable<BindableMember<PropertyInfo>> GetViewProperties(GameObject rGo)
         {
             var rBindableMembers = rGo.GetComponents<Component>()
@@ -113,13 +129,21 @@ namespace UnityEngine.UI
 
             var rCompType = rComp.GetType();
             var rBoundEvent = GetBindableEvents(rComp)?.FirstOrDefault();
-
             if (rBoundEvent == null)
             {
                 throw new Exception(string.Format("Could not bind to event \"{0}\" on component \"{1}\".", rBoundEventName, rCompType));
             }
-
             return rBoundEvent;
+        }
+
+        public static string[] GetBindableEventPaths(GameObject rGo)
+        {
+            if (rGo == null) return new string[0];
+            var rEventPaths = GetBindableEvents(rGo).Select(rEvent => 
+            {
+                return string.Format("{0}/{1}", rEvent.ComponentType.FullName, rEvent.Name);
+            });
+            return new List<string>(rEventPaths).ToArray();
         }
 
         public static BindableEvent[] GetBindableEvents(GameObject rGo)
@@ -147,7 +171,8 @@ namespace UnityEngine.UI
                     UnityEvent      = (UnityEventBase)rPropInfo.GetValue(rComp, null),
                     Name            = rPropInfo.Name,
                     DeclaringType   = rPropInfo.DeclaringType,
-                    ComponentType   = rComp.GetType()
+                    ComponentType   = rComp.GetType(),
+                    Component       = rComp
                 });
 
             var rBindableEventsFromFields = rType.GetFields(ReflectionAssist.flags_public)
@@ -158,7 +183,8 @@ namespace UnityEngine.UI
                     UnityEvent      = (UnityEventBase)rFieldInfo.GetValue(rComp),
                     Name            = rFieldInfo.Name,
                     DeclaringType   = rFieldInfo.DeclaringType,
-                    ComponentType   = rComp.GetType()
+                    ComponentType   = rComp.GetType(),
+                    Component       = rComp
                 });
 
             return rBindableEventsFromFields.Concat(rBindableEventsFromProperties);

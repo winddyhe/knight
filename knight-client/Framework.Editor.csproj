@@ -186,6 +186,7 @@
     <Compile Include="Assets\Framework.Editor\Editor\Memory\PerfAssist\ResourceTracker\ResourceTrackerUtil.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\MemberBindingAbstractInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\MemberBindingOneWayInspector.cs" />
+    <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\MemberBindingTwoWayInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\ViewModelContainerInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\UIAssistEditor.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\Widget\Text\TextStyleManagerInspector.cs" />

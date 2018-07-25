@@ -1,14 +1,11 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
 
 namespace UnityEngine.UI
 {
     [ExecuteInEditMode]
     [DefaultExecutionOrder(100)]
-    public partial class MemberBindingOneWay : MemberBindingAbstract
+    public class MemberBindingOneWay : MemberBindingAbstract
     {
     }
 }

@@ -11,6 +11,5 @@ namespace UnityEditor.UI
     [CustomEditor(typeof(MemberBindingOneWay), true)]
     public class MemberBindingOneWayInspector : MemberBindingAbstractInspector
     {
-
     }
 }
