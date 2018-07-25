@@ -101,6 +101,12 @@ namespace Knight.Hotfix.Core
 
         protected override void OnDispose()
         {
+            foreach (var rPair in this.ViewModels)
+            {
+                rPair.Value.PropertyChanged = null;
+                rPair.Value = null;
+            }
+            this.ViewModels.Clear();
         }
 
         protected virtual void OnOpening()
