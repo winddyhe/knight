@@ -93,6 +93,9 @@ namespace Knight.Hotfix.Core
                     Debug.LogErrorFormat("ViewModel {0} is not define in ViewController({1})", rViewModel.GetType(), this.GetType());
                 }
             }
+
+            // 绑定EventBinding的事件
+
         }
 
         protected override void OnUpdate()

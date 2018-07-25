@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 22208872}
   - component: {fileID: 11411224}
   - component: {fileID: 11449816}
-  - component: {fileID: 114777738312020300}
+  - component: {fileID: 114529888239479510}
   m_Layer: 5
   m_Name: LoginBtn
   m_TagString: Untagged
@@ -1067,7 +1067,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Key: Login
   ViewModelPath: Game.LoginViewModel
---- !u!114 &114777738312020300
+--- !u!114 &114529888239479510
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1075,11 +1075,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 170406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f07e6454f69666648b84630ae9b5e069, type: 3}
+  m_Script: {fileID: 11500000, guid: 035c3462e1c7c784fa4c78be384d4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EventTypeMask: 16
-  EventObj: {fileID: 11449816}
+  ViewEvent: UnityEngine.UI.Button/onClick
+  ViewModelMethod: Game.LoginView/OnBtnButton_Clicked
+  ViewEvents:
+  - UnityEngine.UI.Image/onCullStateChanged
+  - UnityEngine.UI.Button/onClick
+  ViewModelMethods:
+  - Game.LoginView/OnBtnButton_Clicked
 --- !u!114 &114782252420310870
 MonoBehaviour:
   m_ObjectHideFlags: 1

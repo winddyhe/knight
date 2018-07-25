@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine.UI;
+using UnityEngine;
 
 namespace Game
 {
@@ -14,14 +16,16 @@ namespace Game
 
         protected override void OnOpening()
         {
-            //this.ViewModel1.Password = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
         }
-
-        //int i = 0;
+        
         protected override void OnUpdate()
         {
-            //i++;
-            //this.ViewModel.AccountName = i.ToString();
+        }
+
+        [DataBinding]
+        private void OnBtnButton_Clicked()
+        {
+            Debug.LogError("OnBtnButton_Clicked...");
         }
     }
 }

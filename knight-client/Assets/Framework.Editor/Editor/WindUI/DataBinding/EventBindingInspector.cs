@@ -6,20 +6,20 @@ using NaughtyAttributes.Editor;
 
 namespace UnityEditor.UI
 {
-    [CustomEditor(typeof(MemberBindingAbstract), true)]
-    public class MemberBindingAbstractInspector : InspectorEditor
+    [CustomEditor(typeof(EventBinding), true)]
+    public class EventBindingInspector : InspectorEditor
     {
-        private MemberBindingAbstract mTarget;
+        private EventBinding mTargetAbstract;
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            mTarget = this.target as MemberBindingAbstract;
+            mTargetAbstract = this.target as EventBinding;
         }
 
         public override void OnInspectorGUI()
         {
-            this.mTarget.GetPaths();
+            this.mTargetAbstract.GetPaths();
             base.OnInspectorGUI();
         }
     }

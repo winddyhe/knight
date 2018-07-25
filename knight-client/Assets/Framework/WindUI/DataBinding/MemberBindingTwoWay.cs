@@ -17,7 +17,7 @@ namespace UnityEngine.UI
         public void InitUnityEventWatcher()
         {
             var rBoundEvent = DataBindingTypeResolve.MakeViewDataBindingEvent(this.gameObject, this.EventPath);
-            this.mUnityEventWatcher = new UnityEventWatcher(rBoundEvent.Component, rBoundEvent.Name, () => this.SyncFromView());
+            this.mUnityEventWatcher = new UnityEventWatcher(rBoundEvent.Component, rBoundEvent.Name, this.SyncFromView);
         }
     }
 

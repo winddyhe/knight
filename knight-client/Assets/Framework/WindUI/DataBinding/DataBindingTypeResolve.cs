@@ -189,5 +189,27 @@ namespace UnityEngine.UI
 
             return rBindableEventsFromFields.Concat(rBindableEventsFromProperties);
         }
+
+        public static string[] GetViewModelBindingEvents(GameObject rGo)
+        {
+            var rBindableEvents = new List<string>();
+
+            var rViewModelContainer = rGo.GetComponentInParent<ViewModelContainer>();
+            if (rViewModelContainer == null) return rBindableEvents.ToArray();
+
+            var rViewModelType = TypeResolveManager.Instance.GetType(rViewModelContainer.ViewModelClass);
+            var rAllMethods = rViewModelType.GetMethods(ReflectionAssist.flags_method_inst);
+            for (int i = 0; i < rAllMethods.Length; i++)
+            {
+                var rAttrs = rAllMethods[i].GetCustomAttributes(false);
+                if (rAttrs.Length == 0) continue;
+
+                var rDataBindingAttr = rAttrs[0] as DataBindingAttribute;
+                if (rDataBindingAttr == null) continue;
+
+                rBindableEvents.Add(string.Format("{0}/{1}", rViewModelContainer.ViewModelClass, rAllMethods[i].Name));
+            }
+            return rBindableEvents.ToArray();
+        }
     }
 }
