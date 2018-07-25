@@ -134,6 +134,7 @@
     <Compile Include="Assets\Framework\Utility\MainUpdate.cs" />
     <Compile Include="Assets\Framework\WindUI\Atlas\UIAtlas.cs" />
     <Compile Include="Assets\Framework\WindUI\Atlas\UIAtlasManager.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\BindableEvent.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\BindableMember.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\DataBindingAttribute.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\DataBindingProperty.cs" />
@@ -142,7 +143,9 @@
     <Compile Include="Assets\Framework\WindUI\DataBinding\MemberBindingAbstract.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\MemberBindingAbstract.Editor.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\MemberBindingOneWay.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\MemberBindingTwoWay.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\UnityEventBinder.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\UnityEventWatcher.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModelContainer.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModelDataSource.cs" />
     <Compile Include="Assets\Framework\WindUI\UIAssetLoader.cs" />

@@ -4,6 +4,7 @@ using Knight.Framework.TypeResolve;
 using Knight.Core;
 using System.Linq;
 using System.Reflection;
+using UnityEngine.Events;
 
 namespace UnityEngine.UI
 {
@@ -104,6 +105,63 @@ namespace UnityEngine.UI
                       );
             
             return rBindableMembers;
+        }
+
+        public static BindableEvent GetBoundEvent(string rBoundEventName, Component rComp)
+        {
+            if (rComp == null || string.IsNullOrEmpty(rBoundEventName)) return null;
+
+            var rCompType = rComp.GetType();
+            var rBoundEvent = GetBindableEvents(rComp)?.FirstOrDefault();
+
+            if (rBoundEvent == null)
+            {
+                throw new Exception(string.Format("Could not bind to event \"{0}\" on component \"{1}\".", rBoundEventName, rCompType));
+            }
+
+            return rBoundEvent;
+        }
+
+        public static BindableEvent[] GetBindableEvents(GameObject rGo)
+        {
+            if (rGo == null) return new BindableEvent[0];
+
+            return rGo
+                .GetComponents(typeof(Component))
+                .Where(rComp => rComp != null)
+                .SelectMany(GetBindableEvents)
+                .ToArray();
+        }
+
+        private static IEnumerable<BindableEvent> GetBindableEvents(Component rComp)
+        {
+            if (rComp == null) return new BindableEvent[0];
+
+            var rType = rComp.GetType();
+
+            var rBindableEventsFromProperties = rType.GetProperties(ReflectionAssist.flags_public)
+                .Where(rPropInfo => rPropInfo.PropertyType.IsSubclassOf(typeof(UnityEventBase)))
+                .Where(rPropInfo => !rPropInfo.GetCustomAttributes(typeof(ObsoleteAttribute), true).Any())
+                .Select(rPropInfo => new BindableEvent()
+                {
+                    UnityEvent      = (UnityEventBase)rPropInfo.GetValue(rComp, null),
+                    Name            = rPropInfo.Name,
+                    DeclaringType   = rPropInfo.DeclaringType,
+                    ComponentType   = rComp.GetType()
+                });
+
+            var rBindableEventsFromFields = rType.GetFields(ReflectionAssist.flags_public)
+                .Where(rFieldInfo => rFieldInfo.FieldType.IsSubclassOf(typeof(UnityEventBase)))
+                .Where(rFieldInfo => !rFieldInfo.GetCustomAttributes(typeof(ObsoleteAttribute), true).Any())
+                .Select(rFieldInfo => new BindableEvent()
+                {
+                    UnityEvent      = (UnityEventBase)rFieldInfo.GetValue(rComp),
+                    Name            = rFieldInfo.Name,
+                    DeclaringType   = rFieldInfo.DeclaringType,
+                    ComponentType   = rComp.GetType()
+                });
+
+            return rBindableEventsFromFields.Concat(rBindableEventsFromProperties);
         }
     }
 }
