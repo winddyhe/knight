@@ -33,7 +33,7 @@ namespace Knight.Hotfix.Core
             var rType = this.GetType();
             if (rType == null) return;
 
-            var rBindingFlags = BindingFlags.GetField | BindingFlags.SetField | BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
+            var rBindingFlags = BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
             var rMethodInfos = rType.GetMethods(rBindingFlags);
             for (int i = 0; i < rMethodInfos.Length; i++)
             {
