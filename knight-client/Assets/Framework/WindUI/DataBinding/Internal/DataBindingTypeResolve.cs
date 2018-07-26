@@ -14,7 +14,9 @@ namespace UnityEngine.UI
         {
             typeof(UnityEngine.CanvasRenderer),
             typeof(UnityEngine.UI.MemberBindingAbstract),
-            typeof(UnityEngine.UI.MemberBindingOneWay)
+            typeof(UnityEngine.UI.MemberBindingOneWay),
+            typeof(UnityEngine.UI.MemberBindingTwoWay),
+            typeof(UnityEngine.UI.EventBinding)
         };
         
         public static List<string> GetAllViewModelPaths(IEnumerable<BindableMember<PropertyInfo>> rViewModelProps)
