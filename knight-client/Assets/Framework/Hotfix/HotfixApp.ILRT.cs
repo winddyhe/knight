@@ -162,6 +162,7 @@ namespace Knight.Framework.Hotfix
             this.mApp.DelegateManager.RegisterMethodDelegate<System.String>();
             this.mApp.DelegateManager.RegisterFunctionDelegate<System.Reflection.PropertyInfo, System.Boolean>();
             this.mApp.DelegateManager.RegisterFunctionDelegate<System.Reflection.FieldInfo, System.Boolean>();
+            this.mApp.DelegateManager.RegisterFunctionDelegate<System.Reflection.MethodInfo, System.Boolean>();
         }
 
         public override HotfixObject Instantiate(string rTypeName, params object[] rArgs)

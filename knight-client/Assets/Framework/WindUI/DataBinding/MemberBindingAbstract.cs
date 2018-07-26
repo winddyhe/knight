@@ -31,6 +31,10 @@ namespace UnityEngine.UI
             var rValue = this.ViewProp?.GetValue();
             this.ViewModelProp?.SetValue(rValue);
         }
+
+        public virtual void OnDestroy()
+        {
+        }
     }
 
     public partial class MemberBindingAbstract
@@ -51,6 +55,15 @@ namespace UnityEngine.UI
                     DataBindingTypeResolve.GetViewModelProperties(this.gameObject, this.ViewProp.Property.PropertyType));
 
                 this.ModelPaths = DataBindingTypeResolve.GetAllViewModelPaths(rViewModelProps).ToArray();
+            }
+
+            if (string.IsNullOrEmpty(this.ViewPath))
+            {
+                this.ViewPath = this.ViewPaths.Length > 0 ? this.ViewPaths[0] : "";
+            }
+            if (string.IsNullOrEmpty(this.ViewModelPath))
+            {
+                this.ViewModelPath = this.ModelPaths.Length > 0 ? this.ModelPaths[0] : "";
             }
         }
     }

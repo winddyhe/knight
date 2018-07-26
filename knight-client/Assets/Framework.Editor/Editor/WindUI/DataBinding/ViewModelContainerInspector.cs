@@ -18,7 +18,10 @@ namespace UnityEditor.UI
 
         public override void OnInspectorGUI()
         {
+            this.mTarget.GetAllViewModelDataSources();
+
             base.OnInspectorGUI();
+            this.serializedObject.ApplyModifiedProperties();
         }
     }
 }

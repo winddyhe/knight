@@ -78,7 +78,7 @@ namespace UnityEngine.UI
 
             return GetBoundEvent(rEventName, rViewEventBindingComp);
         }
-
+        
         private static IEnumerable<BindableMember<PropertyInfo>> GetViewProperties(GameObject rGo)
         {
             var rBindableMembers = rGo.GetComponents<Component>()

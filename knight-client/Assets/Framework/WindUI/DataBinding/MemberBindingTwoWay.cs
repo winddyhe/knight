@@ -14,10 +14,15 @@ namespace UnityEngine.UI
 
         private UnityEventWatcher   mUnityEventWatcher;
 
-        public void InitUnityEventWatcher()
+        public void InitEventWatcher()
         {
             var rBoundEvent = DataBindingTypeResolve.MakeViewDataBindingEvent(this.gameObject, this.EventPath);
             this.mUnityEventWatcher = new UnityEventWatcher(rBoundEvent.Component, rBoundEvent.Name, this.SyncFromView);
+        }
+
+        public override void OnDestroy()
+        {
+            this.mUnityEventWatcher?.Dispose();
         }
     }
 
@@ -29,6 +34,10 @@ namespace UnityEngine.UI
         public void GetEventPaths()
         {
             this.EventPaths = DataBindingTypeResolve.GetBindableEventPaths(this.gameObject);
+            if (string.IsNullOrEmpty(this.EventPath))
+            {
+                this.EventPath = this.EventPaths.Length > 0 ? this.EventPaths[0] : "";
+            }
         }
     }
 }

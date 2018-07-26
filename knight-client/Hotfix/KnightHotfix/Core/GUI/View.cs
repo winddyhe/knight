@@ -104,6 +104,17 @@ namespace Knight.Hotfix.Core
             }
             await this.ViewController.Initialize();
 
+            // 把Event绑定到ViewController里面
+            for (int i = 0; i < this.ViewModelContainer.EventBindings.Count; i++)
+            {
+                var rEventBinding = this.ViewModelContainer.EventBindings[i];
+                var bResult = HotfixDataBindingTypeResolve.MakeViewModelDataBindingEvent(this.ViewController, rEventBinding);
+                if (!bResult)
+                {
+                    Debug.LogErrorFormat("Make view model binding event {0} failed..", rEventBinding.ViewModelMethod);
+                }
+            }
+
             // ViewModel和View之间的数据绑定
             this.DataBindingConnect();
         }
@@ -145,7 +156,7 @@ namespace Knight.Hotfix.Core
                 var rMemberBindingTwoWay = rMemberBinding as MemberBindingTwoWay;
                 if (rMemberBindingTwoWay != null)
                 {
-                    rMemberBindingTwoWay.InitUnityEventWatcher();
+                    rMemberBindingTwoWay.InitEventWatcher();
                 }
             }
         }
@@ -163,6 +174,13 @@ namespace Knight.Hotfix.Core
                 {
                     rViewModel.PropertyChanged -= rMemberBinding.ViewModelPropertyWatcher.PropertyChanged;
                 }
+                rMemberBinding.OnDestroy();
+            }
+
+            var rAllEventBindings = this.GameObject.GetComponentsInChildren<EventBinding>(true);
+            for (int i = 0; i < rAllEventBindings.Length; i++)
+            {
+                rAllEventBindings[i].OnDestroy();
             }
         }
 

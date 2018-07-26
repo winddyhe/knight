@@ -13,6 +13,15 @@ namespace UnityEngine.UI
         [ReorderableKeyList]
         [InfoBox("Hei bro!!!!! Some ViewModel has same key.", InfoBoxType.Error, "IsViewModelKeyRepeated")]
         public List<ViewModelDataSource>    ViewModels;
+        
+        [ReorderableList]
+        public List<EventBinding>           EventBindings;
+
+        public void GetAllViewModelDataSources()
+        {
+            this.ViewModels = new List<ViewModelDataSource>(this.GetComponentsInChildren<ViewModelDataSource>(true));
+            this.EventBindings = new List<EventBinding>(this.GetComponentsInChildren<EventBinding>(true));
+        }
 
         private bool IsViewModelClassNull()
         {

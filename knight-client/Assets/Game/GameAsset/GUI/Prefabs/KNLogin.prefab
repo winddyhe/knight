@@ -1308,3 +1308,5 @@ MonoBehaviour:
   ViewModelClass: Game.LoginView
   ViewModels:
   - {fileID: 114329190534849016}
+  EventBindings:
+  - {fileID: 114529888239479510}
