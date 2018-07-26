@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{C21DE096-A4AB-1B46-2B8F-7C5DF7FCB948}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -135,20 +134,20 @@
     <Compile Include="Assets\Framework\Utility\MainUpdate.cs" />
     <Compile Include="Assets\Framework\WindUI\Atlas\UIAtlas.cs" />
     <Compile Include="Assets\Framework\WindUI\Atlas\UIAtlasManager.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\Binding\EventBinding.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\Binding\MemberBindingAbstract.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\Binding\MemberBindingOneWay.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\Binding\MemberBindingTwoWay.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\Internal\BindableEvent.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\Internal\BindableMember.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\Internal\DataBindingAttribute.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\Internal\DataBindingProperty.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\Internal\DataBindingPropertyWatcher.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\Internal\DataBindingTypeResolve.cs" />
-    <Compile Include="Assets\Framework\WindUI\DataBinding\Binding\EventBinding.cs" />
-    <Compile Include="Assets\Framework\WindUI\DataBinding\Binding\MemberBindingAbstract.cs" />
-    <Compile Include="Assets\Framework\WindUI\DataBinding\Binding\MemberBindingOneWay.cs" />
-    <Compile Include="Assets\Framework\WindUI\DataBinding\Binding\MemberBindingTwoWay.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\Internal\UnityEventBinder.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\Internal\UnityEventWatcher.cs" />
-    <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModelContainer.cs" />
-    <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModelDataSource.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelContainer.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelDataSource.cs" />
     <Compile Include="Assets\Framework\WindUI\UIAssetLoader.cs" />
     <Compile Include="Assets\Framework\WindUI\UIRoot.cs" />
     <Compile Include="Assets\Framework\WindUI\UITool.cs" />
@@ -812,9 +811,6 @@
       <Project>{B936C8AC-5D63-A14B-C759-1A0757F34D98}</Project>
       <Name>Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Framework\WindUI\DataBinding\ViewModel\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
