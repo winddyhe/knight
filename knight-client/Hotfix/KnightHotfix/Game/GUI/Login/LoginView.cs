@@ -25,7 +25,7 @@ namespace Game
         [DataBinding]
         private void OnBtnButton_Clicked()
         {
-            Debug.LogError("OnBtnButton_Clicked...");
+            ViewManager.Instance.Open("KNListTest", View.State.Dispatch);
         }
     }
 }

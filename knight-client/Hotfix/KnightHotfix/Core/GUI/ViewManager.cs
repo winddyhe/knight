@@ -54,12 +54,19 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 打开一个View
         /// </summary>
-        public async Task Open(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
+        public async Task OpenAsync(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
         {
             // 企图关闭当前的View
             Debug.Log("Open " + rViewName);
             MaybeCloseTopView(rViewState);
             await Open_Async(rViewName, rViewState, rOpenCompleted);
+        }
+
+        public void Open(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
+        {
+#pragma warning disable 4014
+            this.OpenAsync(rViewName, rViewState, rOpenCompleted);
+#pragma warning restore 4014
         }
 
         private async Task Open_Async(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
