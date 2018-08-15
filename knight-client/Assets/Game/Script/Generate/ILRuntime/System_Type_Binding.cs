@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -84,30 +85,33 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.String), typeof(System.Reflection.BindingFlags)};
             method = type.GetMethod("GetProperty", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, GetProperty_20);
-            args = new Type[]{};
-            method = type.GetMethod("get_FullName", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_FullName_21);
-            args = new Type[]{typeof(System.Reflection.BindingFlags)};
-            method = type.GetMethod("GetMembers", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetMembers_22);
-            args = new Type[]{};
-            method = type.GetMethod("get_IsEnum", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_IsEnum_23);
-            args = new Type[]{};
-            method = type.GetMethod("GetElementType", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetElementType_24);
-            args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("GetInterface", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetInterface_25);
-            args = new Type[]{};
-            method = type.GetMethod("GetGenericArguments", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGenericArguments_26);
-            args = new Type[]{typeof(System.Reflection.BindingFlags), typeof(System.Reflection.Binder), typeof(System.Type[]), typeof(System.Reflection.ParameterModifier[])};
-            method = type.GetMethod("GetConstructor", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetConstructor_27);
             args = new Type[]{typeof(System.Reflection.BindingFlags)};
             method = type.GetMethod("GetMethods", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetMethods_28);
+            app.RegisterCLRMethodRedirection(method, GetMethods_21);
+            args = new Type[]{typeof(System.Type)};
+            method = type.GetMethod("IsSubclassOf", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, IsSubclassOf_22);
+            args = new Type[]{};
+            method = type.GetMethod("get_FullName", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_FullName_23);
+            args = new Type[]{typeof(System.Reflection.BindingFlags)};
+            method = type.GetMethod("GetMembers", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetMembers_24);
+            args = new Type[]{};
+            method = type.GetMethod("get_IsEnum", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_IsEnum_25);
+            args = new Type[]{};
+            method = type.GetMethod("GetElementType", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetElementType_26);
+            args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("GetInterface", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetInterface_27);
+            args = new Type[]{};
+            method = type.GetMethod("GetGenericArguments", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetGenericArguments_28);
+            args = new Type[]{typeof(System.Reflection.BindingFlags), typeof(System.Reflection.Binder), typeof(System.Type[]), typeof(System.Reflection.ParameterModifier[])};
+            method = type.GetMethod("GetConstructor", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetConstructor_29);
 
             app.RegisterCLRCreateArrayInstance(type, s => new System.Type[s]);
 
@@ -572,7 +576,47 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_FullName_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetMethods_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Reflection.BindingFlags @bindingAttr = (System.Reflection.BindingFlags)typeof(System.Reflection.BindingFlags).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Type instance_of_this_method = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.GetMethods(@bindingAttr);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* IsSubclassOf_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Type @c = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Type instance_of_this_method = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.IsSubclassOf(@c);
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method ? 1 : 0;
+            return __ret + 1;
+        }
+
+        static StackObject* get_FullName_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -587,7 +631,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetMembers_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetMembers_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -606,7 +650,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_IsEnum_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_IsEnum_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -623,7 +667,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetElementType_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetElementType_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -643,7 +687,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetInterface_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetInterface_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -667,7 +711,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetGenericArguments_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGenericArguments_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -682,7 +726,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetConstructor_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetConstructor_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -715,25 +759,6 @@ namespace ILRuntime.Runtime.Generated
             {    
                 return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
             }
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* GetMethods_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Reflection.BindingFlags @bindingAttr = (System.Reflection.BindingFlags)typeof(System.Reflection.BindingFlags).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Type instance_of_this_method = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.GetMethods(@bindingAttr);
-
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 

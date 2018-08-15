@@ -9,14 +9,15 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Game</RootNamespace>
     <AssemblyName>KnightHotfix</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Assets\StreamingAssets\Temp\Libs\</OutputPath>
+    <OutputPath>..\..\Library\Temp\Libs\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -55,239 +56,251 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AccessibilityModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.AccessibilityModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.AccessibilityModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.AIModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.AIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.AnimationModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ARModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.ARModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.ARModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.AssetBundleModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AudioModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.AudioModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.AudioModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.BaselibModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.BaselibModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.BaselibModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ClothModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.ClothModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.ClothModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CloudWebServicesModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.CloudWebServicesModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.CloudWebServicesModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ClusterInputModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.ClusterInputModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.ClusterInputModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ClusterRendererModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.ClusterRendererModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.ClusterRendererModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CrashReportingModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.CrashReportingModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.CrashReportingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.DirectorModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.DirectorModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.DirectorModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.FacebookModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.FacebookModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.FacebookModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.FileSystemHttpModule">
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.FileSystemHttpModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.GameCenterModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.GameCenterModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.GameCenterModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.GridModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.GridModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.GridModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.HotReloadModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.HotReloadModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.HotReloadModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.ImageConversionModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.ImageConversionModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.InputModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.InputModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.InputModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.JSONSerializeModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule">
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.LocalizationModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ParticlesLegacyModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.ParticlesLegacyModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.ParticlesLegacyModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.ParticleSystemModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.PerformanceReportingModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.PerformanceReportingModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.PerformanceReportingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.Physics2DModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.Physics2DModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.Physics2DModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ProfilerModule">
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.ProfilerModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ScreenCaptureModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.ScreenCaptureModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.SharedInternalsModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.SharedInternalsModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.SharedInternalsModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.SpatialTrackingModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.SpatialTrackingModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.SpatialTrackingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.SpriteMaskModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.SpriteMaskModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.SpriteMaskModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.SpriteShapeModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.SpriteShapeModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.SpriteShapeModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.StreamingModule">
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.StreamingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.StyleSheetsModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.StyleSheetsModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.StyleSheetsModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.SubstanceModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.SubstanceModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.SubstanceModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TerrainModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.TerrainModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.TerrainModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TerrainPhysicsModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.TerrainPhysicsModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TilemapModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.TilemapModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.TilemapModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TimelineModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.TimelineModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.TimelineModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TLSModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.TLSModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.TLSModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UIElementsModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.UIElementsModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.UIElementsModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UIModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.UIModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.UIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UmbraModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.UmbraModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.UmbraModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UNETModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.UNETModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.UNETModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityAnalyticsModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.UnityAnalyticsModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityConnectModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityConnectModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.UnityConnectModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestAudioModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.UnityWebRequestModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestTextureModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestWWWModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.VehiclesModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.VehiclesModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.VehiclesModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.VideoModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.VideoModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.VideoModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.VRModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.VRModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.WebModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.WebModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.VRModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.WindModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.WindModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.WindModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.XRModule">
-      <HintPath>..\UnityLibraries\v201810f2\Runtime\UnityEngine.XRModule.dll</HintPath>
+      <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.XRModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -325,6 +338,8 @@
     <Compile Include="Game\GameFlow\Init.cs" />
     <Compile Include="Game\GameFlow\Login.cs" />
     <Compile Include="Game\GameStage\StageConfig.cs" />
+    <Compile Include="Game\GUI\Login\ListTestView.cs" />
+    <Compile Include="Game\GUI\Login\ListTestViewModel.cs" />
     <Compile Include="Game\GUI\Login\LoginView.cs" />
     <Compile Include="Game\GUI\Login\LoginViewModel.cs" />
     <Compile Include="Game\Network\HotfixNetworkMessageOpcode.cs" />

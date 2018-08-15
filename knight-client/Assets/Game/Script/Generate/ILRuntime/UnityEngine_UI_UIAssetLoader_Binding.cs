@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -22,36 +23,14 @@ namespace ILRuntime.Runtime.Generated
             Type[] args;
             Type type = typeof(UnityEngine.UI.UIAssetLoader);
             args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("UnloadUI", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, UnloadUI_0);
-            args = new Type[]{typeof(System.String)};
             method = type.GetMethod("LoadUI", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LoadUI_1);
+            app.RegisterCLRMethodRedirection(method, LoadUI_0);
 
 
         }
 
 
-        static StackObject* UnloadUI_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.String @rViewName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.UI.UIAssetLoader instance_of_this_method = (UnityEngine.UI.UIAssetLoader)typeof(UnityEngine.UI.UIAssetLoader).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.UnloadUI(@rViewName);
-
-            return __ret;
-        }
-
-        static StackObject* LoadUI_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadUI_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

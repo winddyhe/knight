@@ -19,7 +19,7 @@ namespace Game
             set
             {
                 mAccountName = value;
-                UtilTool.SafeExecute(this.PropertyChanged, "AccountName");
+                this.PropChanged("AccountName");
             }
         }
 
@@ -30,7 +30,7 @@ namespace Game
             set
             {
                 mPassword = value;
-                UtilTool.SafeExecute(this.PropertyChanged, "Password");
+                this.PropChanged("Password");
             }
         }
     }

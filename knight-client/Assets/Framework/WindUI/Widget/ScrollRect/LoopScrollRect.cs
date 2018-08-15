@@ -17,7 +17,7 @@ namespace UnityEngine.UI
 
         [Tooltip("Total count, negative means INFINITE mode")]
         public int totalCount;
-        
+
         public Action<Transform, int> OnFillCellFunc;
 
         [Tooltip("Threshold for preloading")]
@@ -293,7 +293,7 @@ namespace UnityEngine.UI
                 {
                     if (itemTypeEnd < totalCount)
                     {
-                        UtilTool.SafeExecute(OnFillCellFunc, content.GetChild(i), itemTypeEnd);
+                        UtilTool.SafeExecute(this.OnFillCellFunc, content.GetChild(i), itemTypeEnd);
                         itemTypeEnd++;
                     }
                     else
@@ -515,7 +515,7 @@ namespace UnityEngine.UI
             nextItem.transform.SetParent(content, false);
             nextItem.transform.SetAsLastSibling();
             nextItem.gameObject.SetActive(true);
-            UtilTool.SafeExecute(OnFillCellFunc, nextItem, itemIdx);
+            UtilTool.SafeExecute(this.OnFillCellFunc, nextItem, itemIdx);
             return nextItem;
         }
         //==========LoopScrollRect==========

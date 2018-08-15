@@ -24,6 +24,8 @@ namespace Knight.Framework.Hotfix
 
         ~HotfixApp_ILRT()
         {
+            if (mApp.DebugService != null)
+                mApp.DebugService.StopDebugService();
             mApp = null;
         }
 
@@ -47,6 +49,10 @@ namespace Knight.Framework.Hotfix
             rDLLMS?.Dispose();
             rPDBMS?.Dispose();
 
+            // 启用调试
+            if (this.mApp.DebugService != null)
+                this.mApp.DebugService.StartDebugService(56000);
+            
             // 重定向Json解析器的传入的类型
             ITypeRedirect.GetRedirectTypeHandler = (rType) =>
             {
@@ -163,6 +169,7 @@ namespace Knight.Framework.Hotfix
             this.mApp.DelegateManager.RegisterFunctionDelegate<System.Reflection.PropertyInfo, System.Boolean>();
             this.mApp.DelegateManager.RegisterFunctionDelegate<System.Reflection.FieldInfo, System.Boolean>();
             this.mApp.DelegateManager.RegisterFunctionDelegate<System.Reflection.MethodInfo, System.Boolean>();
+            this.mApp.DelegateManager.RegisterMethodDelegate<UnityEngine.Transform, int>();
         }
 
         public override HotfixObject Instantiate(string rTypeName, params object[] rArgs)

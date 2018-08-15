@@ -25,7 +25,7 @@ namespace UnityEngine.UI
             this.PropertyOwnerKey   = rPropOwnerKey;
             this.PropertyOwner      = rPropOwner;
             this.PropertyName       = rPropName;
-            this.Property           = rPropOwner.GetType().GetProperty(rPropName);
+            this.Property           = rPropOwner?.GetType()?.GetProperty(rPropName);
         }
 
         public object GetValue()

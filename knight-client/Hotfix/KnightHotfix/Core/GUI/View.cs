@@ -83,105 +83,9 @@ namespace Knight.Hotfix.Core
 
             // 构建ViewController
             this.ViewController = HotfixReflectAssists.Construct(rType) as ViewController;
-            // 把ViewModel绑定到ViewController里面
-            for (int i = 0; i < this.ViewModelContainer.ViewModels.Count; i++)
-            {
-                var rViewModelDataSource = this.ViewModelContainer.ViewModels[i];
-                ViewModel rViewModel = null;
-                Type rViewModelType = Type.GetType(rViewModelDataSource.ViewModelPath);
-                if (rViewModelType != null)
-                {
-                    rViewModel = HotfixReflectAssists.Construct(rViewModelType) as ViewModel;
-                }
-                if (rViewModel != null)
-                {
-                    this.ViewController.AddViewModel(rViewModelDataSource.Key, rViewModel);
-                }
-                else
-                {
-                    Debug.LogErrorFormat("Can not find ViewModel {0}.", rViewModelDataSource.ViewModelPath);
-                }
-            }
+            this.ViewController.BindingViewModels(this.ViewModelContainer);
             await this.ViewController.Initialize();
-
-            // 把Event绑定到ViewController里面
-            for (int i = 0; i < this.ViewModelContainer.EventBindings.Count; i++)
-            {
-                var rEventBinding = this.ViewModelContainer.EventBindings[i];
-                var bResult = HotfixDataBindingTypeResolve.MakeViewModelDataBindingEvent(this.ViewController, rEventBinding);
-                if (!bResult)
-                {
-                    Debug.LogErrorFormat("Make view model binding event {0} failed..", rEventBinding.ViewModelMethod);
-                }
-            }
-
-            // ViewModel和View之间的数据绑定
-            this.DataBindingConnect();
-        }
-        
-        private void DataBindingConnect()
-        {
-            var rAllMemberBindings = this.GameObject.GetComponentsInChildren<MemberBindingAbstract>(true);
-            for (int i = 0; i < rAllMemberBindings.Length; i++)
-            {
-                var rMemberBinding = rAllMemberBindings[i];
-
-                rMemberBinding.ViewProp = DataBindingTypeResolve.MakeViewDataBindingProperty(rMemberBinding.gameObject, rMemberBinding.ViewPath);
-                if (rMemberBinding.ViewProp == null)
-                {
-                    Debug.LogErrorFormat("View Path: {0} error..", rMemberBinding.ViewPath);
-                    return;
-                }
-
-                ViewModel rViewModel = null;
-                rMemberBinding.ViewModelProp = HotfixDataBindingTypeResolve.MakeViewModelDataBindingProperty(rMemberBinding.ViewModelPath, this.ViewController, out rViewModel);
-                if (rMemberBinding.ViewModelProp == null)
-                {
-                    Debug.LogErrorFormat("View Model Path: {0} error..", rMemberBinding.ViewModelPath);
-                    return;
-                }
-                rMemberBinding.SyncFromViewModel();
-                
-                if (rViewModel != null)
-                {
-                    // ViewModel绑定View
-                    rMemberBinding.ViewModelPropertyWatcher = new DataBindingPropertyWatcher(rViewModel, rMemberBinding.ViewModelProp.PropertyName, () =>
-                    {
-                        rMemberBinding.SyncFromViewModel();
-                    });
-                    rViewModel.PropertyChanged += rMemberBinding.ViewModelPropertyWatcher.PropertyChanged;
-                }
-
-                // View绑定ViewModel
-                var rMemberBindingTwoWay = rMemberBinding as MemberBindingTwoWay;
-                if (rMemberBindingTwoWay != null)
-                {
-                    rMemberBindingTwoWay.InitEventWatcher();
-                }
-            }
-        }
-
-        private void DataBindingDisconnect()
-        {
-            var rAllMemberBindings = this.GameObject.GetComponentsInChildren<MemberBindingAbstract>(true);
-            for (int i = 0; i < rAllMemberBindings.Length; i++)
-            {
-                var rMemberBinding = rAllMemberBindings[i];
-                if (rMemberBinding.ViewModelProp == null) continue;
-
-                ViewModel rViewModel = rMemberBinding.ViewModelProp.PropertyOwner as ViewModel;
-                if (rViewModel != null)
-                {
-                    rViewModel.PropertyChanged -= rMemberBinding.ViewModelPropertyWatcher.PropertyChanged;
-                }
-                rMemberBinding.OnDestroy();
-            }
-
-            var rAllEventBindings = this.GameObject.GetComponentsInChildren<EventBinding>(true);
-            for (int i = 0; i < rAllEventBindings.Length; i++)
-            {
-                rAllEventBindings[i].OnDestroy();
-            }
+            this.ViewController.DataBindingConnect(this.ViewModelContainer);
         }
 
         /// <summary>
@@ -229,7 +133,7 @@ namespace Knight.Hotfix.Core
         
         public void Dispose()
         {
-            this.DataBindingDisconnect();
+            this.ViewController?.DataBindingDisconnect(this.ViewModelContainer);
             this.ViewController?.Dispose();
         }
 

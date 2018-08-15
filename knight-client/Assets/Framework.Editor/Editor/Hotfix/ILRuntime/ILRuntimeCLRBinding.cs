@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Knight.Core;
 using Knight.Core.WindJson;
 using Knight.Framework.Hotfix;
+using System.Linq;
 
 [System.Reflection.Obfuscation(Exclude = true)]
 public class ILRuntimeCLRBinding

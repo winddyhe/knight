@@ -10,7 +10,9 @@ namespace UnityEngine.UI
 {
     public partial class MemberBindingAbstract : MonoBehaviour
     {
+        public bool                         IsListTemplate;
         [Dropdown("ViewPaths")]
+        [HideIf("IsHideViewPath")]
         public string                       ViewPath;
         [Dropdown("ModelPaths")]
         public string                       ViewModelPath;
@@ -44,7 +46,7 @@ namespace UnityEngine.UI
         [HideInInspector]
         public  string[]                    ModelPaths  = new string[0];
         
-        public void GetPaths()
+        public virtual void GetPaths()
         {
             this.ViewPaths  = DataBindingTypeResolve.GetAllViewPaths(this.gameObject).ToArray();
             this.ViewProp   = DataBindingTypeResolve.MakeViewDataBindingProperty(this.gameObject, this.ViewPath);
@@ -52,7 +54,7 @@ namespace UnityEngine.UI
             if (this.ViewProp != null)
             {
                 var rViewModelProps = new List<BindableMember<PropertyInfo>>(
-                    DataBindingTypeResolve.GetViewModelProperties(this.gameObject, this.ViewProp.Property.PropertyType));
+                    DataBindingTypeResolve.GetViewModelProperties(this.gameObject, this.ViewProp.Property.PropertyType, this.IsListTemplate));
 
                 this.ModelPaths = DataBindingTypeResolve.GetAllViewModelPaths(rViewModelProps).ToArray();
             }
@@ -65,6 +67,11 @@ namespace UnityEngine.UI
             {
                 this.ViewModelPath = this.ModelPaths.Length > 0 ? this.ModelPaths[0] : "";
             }
+        }
+
+        protected virtual bool IsHideViewPath()
+        {
+            return false;
         }
     }
 }

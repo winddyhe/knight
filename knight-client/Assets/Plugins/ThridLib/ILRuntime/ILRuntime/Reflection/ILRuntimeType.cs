@@ -61,9 +61,9 @@ namespace ILRuntime.Reflection
                 ILRuntimePropertyInfo pi = new ILRuntimePropertyInfo(pd, type);
                 properties[i] = pi;
                 if (pd.GetMethod != null)
-                    pi.Getter = type.GetMethod(pd.GetMethod.Name, 0) as ILMethod;
+                    pi.Getter = type.GetMethod(pd.GetMethod.Name, pd.GetMethod.Parameters.Count) as ILMethod;
                 if (pd.SetMethod != null)
-                    pi.Setter = type.GetMethod(pd.SetMethod.Name, 1) as ILMethod;
+                    pi.Setter = type.GetMethod(pd.SetMethod.Name, pd.SetMethod.Parameters.Count) as ILMethod;
             }
         }
 
@@ -233,6 +233,10 @@ namespace ILRuntime.Reflection
                 if (i.Name == name)
                     return i;
             }
+            if (BaseType != null && BaseType is ILRuntimeWrapperType)
+            {
+                return BaseType.GetField(name, bindingAttr);
+            }
             return null;
         }
 
@@ -252,6 +256,13 @@ namespace ILRuntime.Reflection
                 if ((isStatic != i.IsStatic) && (isInstance != !i.IsStatic))
                     continue;
                 res.Add(i);
+            }
+            if ((bindingAttr & BindingFlags.DeclaredOnly) != BindingFlags.DeclaredOnly)
+            {
+                if (BaseType != null && BaseType is ILRuntimeWrapperType)
+                {
+                    res.AddRange(BaseType.GetFields(bindingAttr));
+                }
             }
             return res.ToArray();
         }
@@ -335,6 +346,13 @@ namespace ILRuntime.Reflection
                 if ((isStatic != i.IsStatic) && (isInstance != !i.IsStatic))
                     continue;
                 res.Add(i);
+            }
+            if ((bindingAttr & BindingFlags.DeclaredOnly) != BindingFlags.DeclaredOnly)
+            {
+                if (BaseType != null && BaseType is ILRuntimeWrapperType)
+                {
+                    res.AddRange(BaseType.GetProperties(bindingAttr));
+                }
             }
             return res.ToArray();
         }
@@ -478,7 +496,7 @@ namespace ILRuntime.Reflection
         {
             get
             {
-                return type.HasGenericParameter;
+                return type.HasGenericParameter || type.GenericArguments != null;
             }
         }
 

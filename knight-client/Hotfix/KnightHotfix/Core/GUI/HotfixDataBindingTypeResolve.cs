@@ -9,9 +9,8 @@ namespace Knight.Hotfix.Core
 {
     public class HotfixDataBindingTypeResolve
     {
-        public static DataBindingProperty MakeViewModelDataBindingProperty(string rViewModelPath, ViewController rViewController, out ViewModel rViewModel)
+        public static DataBindingProperty MakeViewModelDataBindingProperty(string rViewModelPath)
         {
-            rViewModel = null;
             if (string.IsNullOrEmpty(rViewModelPath)) return null;
 
             var rViewModelPathStrs = rViewModelPath.Split('/');
@@ -23,22 +22,18 @@ namespace Knight.Hotfix.Core
 
             var rViewModelClassKey = rViewModelClassStrs[0].Trim();
             var rViewModelClassName = rViewModelClassStrs[1].Trim();
-            
+
             var rViewModelProp = rViewModelPathStrs[1].Trim();
 
             var rViewModelPropStrs = rViewModelProp.Split(':');
             if (rViewModelPropStrs.Length < 1) return null;
 
             var rViewModelPropName = rViewModelPropStrs[0].Trim();
-
-            // 取到ViewModel
-            rViewModel = rViewController.GetViewModel(rViewModelClassKey);
-
-            var rViewModelProperty = new DataBindingProperty(rViewModel, rViewModelClassKey, rViewModelPropName);
-            rViewModelProperty.Property = rViewModel.GetType().GetProperty(rViewModelPropName);
-            return rViewModelProperty; 
+            var rViewModelProperty = new DataBindingProperty(null, rViewModelClassKey, rViewModelPropName);
+            rViewModelProperty.Property = Type.GetType(rViewModelClassName).GetProperty(rViewModelPropName);
+            return rViewModelProperty;
         }
-
+        
         public static bool MakeViewModelDataBindingEvent(ViewController rViewController, EventBinding rEventBinding)
         {
             if (string.IsNullOrEmpty(rEventBinding.ViewModelMethod)) return false;
