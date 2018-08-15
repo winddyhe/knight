@@ -2,6 +2,10 @@
 * ILRuntime库是一个使用C#编写的解释运行C# IL代码的库，可以运行在IOS系统下。框架中使用ILRuntime来时实现基于C# DLL的代码逻辑热更新。
 * ILRuntime库的地址：https://github.com/Ourpalm/ILRuntime。
 
+## 热更新模块
+* 热更新模块的代码在Assets/Framework/Hotfix下。
+* 分别通过ILRuntime和反射调用实现了热更新功能，并且这两种模式可以通过一个开关一键切换。
+
 ## MonoBehaviour代理类HotfixMBContainer
 * ILRuntime库并不推荐在热更新端直接使用MonoBehaviour。因此框架中提供了一个HofixMBContainer类来获取Prefab中对象的引用，同时代理执行MonoBehaviour类中的Awake Start Update Destroy Enable Disable等API。
 * ![HofixMBContainer](https://github.com/winddyhe/knight/blob/master/Doc/res/images/hofix_1.png)
@@ -20,3 +24,4 @@
 * ![THotfixMB](https://github.com/winddyhe/knight/blob/master/Doc/res/images/hofix_3.png)
 
 * 以上的功能让热更新端具备正常Unity编程的能力。在此基础上可以在热更新端构建自己任意想要的游戏逻辑结构。
+* 目前框架中游戏逻辑结构采用的是使用一个单个的总控制脚本来控制游戏逻辑的初始化和更新操作。脚本名字是GameLogicManager。

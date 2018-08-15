@@ -1,7 +1,7 @@
 # knight
 Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易用的游戏框架接口，目的让开发者更加专注于游戏内容的开发。
 
-本框架目前以知识积累和功能预研为主，将会持续更新。目前使用的Unity版本为Unity2018.1.0f2
+本框架目前以知识积累和功能预研为主，将会持续更新。目前使用最新的Unity版本为Unity2018.2.2f1
 
 ### 运行游戏
 * 运行菜单Tools/Assetbundle/Assetbundle Build命令，构建Assetbundle资源包。
