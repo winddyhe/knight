@@ -6,7 +6,7 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 
 ### 运行游戏
 * 运行菜单Tools/Assetbundle/Assetbundle Build命令，构建Assetbundle资源包。
-* 打开Assets/Game/Scene/Game.scene场景，点Play运行游戏Demo。
+* 打开Assets/Game/Scene/Game.unity场景，点Play运行游戏Demo。
 
 ### 主要功能介绍
 * [框架结构](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84.md)
