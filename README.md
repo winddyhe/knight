@@ -1,11 +1,12 @@
 # knight
-Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易用的游戏框架接口，目的让开发者更加专注于游戏内容的开发。它包含了一个完整的资源管理模块（打包、下载、加载、版本管理），一个基于ILRuntime的C#热更模块，一个基于MVVM的UI框架（支持热更新）以及其他基础功能的支持。
+Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易用的游戏框架接口，目的让开发者更加专注于游戏内容的开发。
+它包含了一个完整的资源管理模块（打包、下载、加载、版本管理），一个基于ILRuntime的C#热更模块，一个基于MVVM的UI框架（支持热更新）以及其他基础功能的支持。
 
 本框架将会持续更新，后期会不断修改和完善框架中的内容。目前使用最新的Unity版本为Unity2018.2.2f1
 
 ### 运行游戏
 * 运行菜单Tools/Assetbundle/Assetbundle Build命令，构建Assetbundle资源包。
-* 打开Assets/Game/Knight/Scene/Init.scene场景，点Play运行游戏Demo。
+* 打开Assets/Game/Scene/Game.scene场景，点Play运行游戏Demo。
 
 ### 主要功能介绍
 * [框架结构](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84.md)
