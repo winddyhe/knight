@@ -10,7 +10,7 @@ namespace Knight.Framework
     public class GameLoading : MonoBehaviour
     {
         private static GameLoading __instance;
-        public static GameLoading Instance { get { return __instance; } }
+        public  static GameLoading Instance { get { return __instance; } }
 
         /// <summary>
         /// 加载界面

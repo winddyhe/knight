@@ -3,14 +3,38 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor.Callbacks;
 using Knight.Core;
+using System.Collections.Generic;
 
 namespace UnityEditor.UI
 {
     public class UIAssistEditor
     {
-        private const string UI_ROOT_PATH = "Assets/Game/GameAsset/GUI/UIRoot.prefab";
+        private static readonly string  mUIRootPath         = "Assets/Game/GameAsset/GUI/UIRoot.prefab";
+        private static readonly string  mUIPrefabAssetsDir  = "Assets/Game/GameAsset/GUI/Prefabs";
 
-        private const string UI_PREFAB_FOLDER = "Assets/Game/GameAsset/GUI/Prefabs";
+        [MenuItem("Assets/Select GameObject Active &a")]
+        public static void SelectGameObjectAcitve()
+        {
+            List<GameObject> rSelectGos = new List<GameObject>();
+            if (Selection.activeGameObject != null)
+                rSelectGos.Add(Selection.activeGameObject);
+            if (Selection.gameObjects != null)
+            {
+                for (int i = 0; i < Selection.gameObjects.Length; i++)
+                {
+                    var rTempGo = Selection.gameObjects[i];
+                    if (rTempGo != null && !rSelectGos.Contains(rTempGo))
+                        rSelectGos.Add(rTempGo);
+                }
+            }
+
+            if (rSelectGos.Count == 0) return;
+
+            for (int i = 0; i < rSelectGos.Count; i++)
+            {
+                rSelectGos[i].SetActive(!rSelectGos[i].activeSelf);
+            }
+        }
 
         [OnOpenAsset(0)]
         public static bool CreatUIPrefabInstance(int nInstanceId, int nLine)
@@ -25,7 +49,7 @@ namespace UnityEditor.UI
             var rCatalog = UtilTool.GetParentPath(rAssetPath);
 
             //UIPrefab是否在指定路径下
-            if (!UtilTool.PathIsSame(rCatalog, UI_PREFAB_FOLDER))
+            if (!UtilTool.PathIsSame(rCatalog, mUIPrefabAssetsDir))
             {
                 return false;
             }
@@ -36,55 +60,33 @@ namespace UnityEditor.UI
             if (!rUIRoot)
             {
                 //创建UIRoot
-                rUIRoot = AssetDatabase.LoadAssetAtPath(UI_ROOT_PATH, typeof(GameObject)) as GameObject;
+                rUIRoot = AssetDatabase.LoadAssetAtPath(mUIRootPath, typeof(GameObject)) as GameObject;
                 PrefabUtility.InstantiatePrefab(rUIRoot);
             }
 
             //寻找根节点
-            var rPopupRoot = GameObject.Find("__popupRoot").transform;
             var rDynamicRoot = GameObject.Find("__dynamicRoot").transform;
 
             //获取选择的prefab
             var rUIPrefab = AssetDatabase.LoadAssetAtPath(rAssetPath, typeof(GameObject)) as GameObject;
-            //获取脚本
-            //var rViewContainer = rUIPrefab.GetComponent<ViewContainer>();
 
-            //if (rViewContainer)
-            //{
-            //    var curState = rViewContainer.CurState;
-            //    var rInstance = null as GameObject;
-            //    bool bIsDynamic = curState == ViewState.dispatch || curState == ViewState.overlap || curState == ViewState.fixing;
-            //    AddItem(bIsDynamic, rDynamicRoot, rPopupRoot, rUIPrefab, out rInstance);
-            //}
+            //获取脚本
+            AddItem(rDynamicRoot, rUIPrefab);
 
             return true;
         }
 
-        private static void AddItem(bool bIsDynamic, Transform rDynamicRoot, Transform rPopupRoot, GameObject rUIPrefab, out GameObject rInstance)
+        private static void AddItem(Transform rDynamicRoot, GameObject rUIPrefab)
         {
-            Transform rDynamicGo = rDynamicRoot.Find(rUIPrefab.name);
-            Transform rPopupGo = rPopupRoot.Find(rUIPrefab.name);
-
-            bool bDynamicExist = (rDynamicGo != null);
-            bool bPopupExist = (rPopupGo != null);
-
             //root下存在就删除该物体
-            if (bDynamicExist)
-                GameObject.DestroyImmediate(rDynamicGo.gameObject, true);
-            if (bPopupExist)
-                GameObject.DestroyImmediate(rPopupGo.gameObject, true);
-
+            Transform rExistGo = rDynamicRoot.Find(rUIPrefab.name);
+            if (rExistGo != null)
+                GameObject.DestroyImmediate(rExistGo.gameObject, true);
+            
             //创建
-            if (bIsDynamic)
-            {
-                rInstance = PrefabUtility.InstantiatePrefab(rUIPrefab) as GameObject;
-                rInstance.transform.SetParent(rDynamicRoot);
-            }
-            else
-            {
-                rInstance = PrefabUtility.InstantiatePrefab(rUIPrefab) as GameObject;
-                rInstance.transform.SetParent(rPopupRoot);
-            }
+            var rInstance = PrefabUtility.InstantiatePrefab(rUIPrefab) as GameObject;
+            rInstance.transform.SetParent(rDynamicRoot, false);
+            
             rInstance.transform.localScale = Vector3.one;
             rInstance.transform.localPosition = Vector3.zero;
             rInstance.transform.localRotation = Quaternion.identity;

@@ -11,6 +11,7 @@ using Object = UnityEngine.Object;
 
 namespace Knight.Framework.Hotfix
 {
+    [DefaultExecutionOrder(80)]
     public class HotfixMBContainer : MonoBehaviour
     {
         [HideInInspector][SerializeField]
@@ -27,7 +28,7 @@ namespace Knight.Framework.Hotfix
         public bool                         NeedUpdate      { get { return mNeedUpdate;         } set { mNeedUpdate = value; } }
         public List<UnityObject>            Objects         { get { return mObjects;            } }
 
-        private string mParentType = "WindHotfix.Core.THotfixMB`1<{0}>";
+        private string mParentType = "Knight.Hotfix.Core.THotfixMB`1<{0}>";
 
         protected virtual void Awake()
         {
