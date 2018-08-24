@@ -18,7 +18,16 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 存放各种动态节点的地方
         /// </summary>
-        public GameObject                   RootCanvas;
+        public GameObject                   DynamicRoot;
+        /// <summary>
+        /// 存放各种弹出框节点的地方
+        /// </summary>
+        public GameObject                   PopupRoot;
+        /// <summary>
+        /// 存放各种Page页面的地方
+        /// </summary>
+        public GameObject                   PageRoot;
+
         /// <summary>
         /// 当前的UI中的Views，每个View是用GUID来作唯一标识
         /// 底层-->顶层 { 0 --> list.count }
@@ -35,7 +44,9 @@ namespace Knight.Hotfix.Core
 
         public void Initialize()
         {
-            this.RootCanvas = UIRoot.Instance.DynamicRoot;
+            this.DynamicRoot = UIRoot.Instance.DynamicRoot;
+            this.PopupRoot = UIRoot.Instance.PopupRoot;
+
             this.mCurViews = new IndexedDict<string, View>();
             this.mCurFixedViews = new Dict<string, View>();
         }
@@ -54,12 +65,12 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 打开一个View
         /// </summary>
-        public async Task OpenAsync(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
+        public async Task<View> OpenAsync(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
         {
             // 企图关闭当前的View
             Debug.Log("Open " + rViewName);
             MaybeCloseTopView(rViewState);
-            await Open_Async(rViewName, rViewState, rOpenCompleted);
+            return await Open_Async(rViewName, rViewState, rOpenCompleted);
         }
 
         public void Open(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
@@ -69,10 +80,10 @@ namespace Knight.Hotfix.Core
 #pragma warning restore 4014
         }
 
-        private async Task Open_Async(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
+        private async Task<View> Open_Async(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
         {
             var rLoaderRequest = await UIAssetLoader.Instance.LoadUI(rViewName);
-            await OpenView(rViewName, rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
+            return await OpenView(rViewName, rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
         }
 
         /// <summary>
@@ -147,19 +158,32 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 初始化View，如果是Dispatch类型的话，只对curViews顶层View进行交换
         /// </summary>
-        public async Task OpenView(string rViewName, GameObject rViewPrefab, View.State rViewState, Action<View> rOpenCompleted)
+        public async Task<View> OpenView(string rViewName, GameObject rViewPrefab, View.State rViewState, Action<View> rOpenCompleted)
         {
-            if (rViewPrefab == null) return;
+            if (rViewPrefab == null) return null;
 
             //把View的GameObject结点加到rootCanvas下
-            GameObject rViewGo = this.RootCanvas.transform.AddChild(rViewPrefab, "UI");
+            GameObject rViewGo = null;
+            switch (rViewState)
+            {
+                case View.State.Fixing:
+                case View.State.Dispatch:
+                    rViewGo = this.DynamicRoot.transform.AddChild(rViewPrefab, "UI");
+                    break;
+                case View.State.Popup:
+                    rViewGo = this.PopupRoot.transform.AddChild(rViewPrefab, "UI");
+                    break;
+                case View.State.Page:
+                    rViewGo = this.PageRoot.transform.AddChild(rViewPrefab, "UI");
+                    break;
+            }
 
             var rView = View.CreateView(rViewGo);
             if (rView == null)
             {
-                Debug.LogErrorFormat("GameObject {0} has not View script.", rViewGo.name);
+                Debug.LogErrorFormat("GameObject {0} is null.", rViewGo.name);
                 UtilTool.SafeExecute(rOpenCompleted, null);
-                return;
+                return null;
             }
 
             string rViewGUID = Guid.NewGuid().ToString();               //生成GUID
@@ -171,14 +195,15 @@ namespace Knight.Hotfix.Core
                 case View.State.Fixing:
                     mCurFixedViews.Add(rViewGUID, rView);
                     break;
-                case View.State.Overlap:
-                    mCurViews.Add(rViewGUID, rView);
-                    break;
                 case View.State.Dispatch:
+                case View.State.Page:
                     if (mCurViews.Count == 0)
                         mCurViews.Add(rViewGUID, rView);
                     else
                         mCurViews[mCurViews.Last().Key] = rView;
+                    break;
+                case View.State.Popup:
+                    mCurViews.Add(rViewGUID, rView);
                     break;
                 default:
                     break;
@@ -188,6 +213,8 @@ namespace Knight.Hotfix.Core
             {
                 UtilTool.SafeExecute(rOpenCompleted, rNewView);
             });
+
+            return rView;
         }
 
         /// <summary>

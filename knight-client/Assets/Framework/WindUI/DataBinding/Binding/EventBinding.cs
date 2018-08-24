@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Knight.Framework;
 using NaughtyAttributes;
 
 namespace UnityEngine.UI
@@ -8,6 +9,7 @@ namespace UnityEngine.UI
     [DefaultExecutionOrder(100)]
     public partial class EventBinding : MonoBehaviour
     {
+        public bool                 IsListTemplate;
         [Dropdown("ViewEvents")]
         public  string              ViewEvent;
         [Dropdown("ViewModelMethods")]
@@ -15,7 +17,7 @@ namespace UnityEngine.UI
         
         private UnityEventWatcher   mUnityEventWatcher;
 
-        public void InitEventWatcher(Action rAction)
+        public void InitEventWatcher(Action<EventArg> rAction)
         {
             var rBoundEvent = DataBindingTypeResolve.MakeViewDataBindingEvent(this.gameObject, this.ViewEvent);
             if (rBoundEvent != null)

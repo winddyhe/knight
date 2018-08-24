@@ -22,18 +22,21 @@ namespace UnityEngine.UI
         
         public static List<string> GetAllViewModelPaths(IEnumerable<BindableMember<PropertyInfo>> rViewModelProps)
         {
-            var rBindableMembers = rViewModelProps.Select(prop =>
-            {
-                var rDataSource = prop.PropOwner as ViewModelDataSource;
-                if (rDataSource != null)
+            var rBindableMembers = rViewModelProps
+                .Where(prop => prop != null)
+                .Select(prop =>
                 {
-                    return string.Format("{0}@{1}/{2} : {3}", rDataSource.Key, prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
-                }
-                else
-                {
-                    return string.Format("ListTemplate@{0}/{1} : {2}", prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
-                }
-            });
+                    var rDataSource = prop.PropOwner as ViewModelDataSource;
+                    if (rDataSource != null)
+                    {
+                        return string.Format("{0}@{1}/{2} : {3}", rDataSource.Key, prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
+                    }
+                    else
+                    {
+                        return string.Format("ListTemplate@{0}/{1} : {2}", prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
+                    }
+                });
+
             return new List<string>(rBindableMembers);
         }
         
@@ -126,13 +129,13 @@ namespace UnityEngine.UI
             IEnumerable<BindableMember<PropertyInfo>> rBindableMembers = null;
             if (bIsList)
             {
-                rBindableMembers = rGo.GetComponentsInParent<ViewModelDataSourceList>(true)
+                rBindableMembers = rGo.GetComponentsInParent<ViewModelDataSourceTemplate>(true)
                     .Where(ds => ds != null &&
                            !string.IsNullOrEmpty(ds.ViewModelPath) &&
-                           !string.IsNullOrEmpty(ds.ListItemPath))
+                           !string.IsNullOrEmpty(ds.TemplatePath))
                     .SelectMany(ds =>
                     {
-                        var rType = TypeResolveManager.Instance.GetType(ds.ListItemPath);
+                        var rType = TypeResolveManager.Instance.GetType(ds.TemplatePath);
                         return rType?
                                 .GetProperties(BindingFlags.Instance | BindingFlags.Public)
                                 .Select(prop => new BindableMember<PropertyInfo>(ds, prop, rType));
@@ -171,13 +174,13 @@ namespace UnityEngine.UI
 
         public static IEnumerable<BindableMember<PropertyInfo>> GetListItemViewModelProperties(GameObject rGo, Type rViewPropType)
         { 
-            var rBindableMembers = rGo.GetComponentsInParent<ViewModelDataSourceList>(true)
+            var rBindableMembers = rGo.GetComponentsInParent<ViewModelDataSourceTemplate>(true)
                 .Where(ds => ds != null &&
-                             !string.IsNullOrEmpty(ds.ListItemPath))
+                             !string.IsNullOrEmpty(ds.TemplatePath))
                 .DefaultIfEmpty()
                 .SelectMany(ds =>
                 {
-                    var rType = TypeResolveManager.Instance.GetType(ds.ListItemPath);
+                    var rType = TypeResolveManager.Instance.GetType(ds.TemplatePath);
                     if (rType == null) return new BindableMember<PropertyInfo>[0];
                     return rType
                                 .GetProperties(BindingFlags.Instance | BindingFlags.Public)
@@ -206,11 +209,15 @@ namespace UnityEngine.UI
                 .SelectMany(ds =>
                 {
                     var rType = TypeResolveManager.Instance.GetType(ds.ViewModelPath);
+                    if (rType == null) return new BindableMember<PropertyInfo>[0];
                     return rType?
                             .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                            .DefaultIfEmpty()
                             .Select(prop => new BindableMember<PropertyInfo>(ds, prop, rType));
                 })
+                .DefaultIfEmpty()
                 .Where(prop => {
+                    if (prop == null) return false;
                     var rPropType = ITypeRedirect.GetRedirectType(prop.Member.PropertyType);
                     return 
                         prop != null &&
@@ -221,7 +228,9 @@ namespace UnityEngine.UI
                         !ViewComponentBlackList.Contains(prop.ViewModelType) &&
                         prop.Member.GetCustomAttributes(typeof(DataBindingAttribute), true).Any();
                 }
-            );
+            )
+            .DefaultIfEmpty();
+
             return rBindableMembers;
         }
 

@@ -14,6 +14,7 @@ namespace Knight.Hotfix.Core
     {
         public    bool                      IsOpened;
         public    bool                      IsClosed;
+        public    string                    GUID;
 
         protected Dict<string, ViewModel>   ViewModels;
 
@@ -32,6 +33,9 @@ namespace Knight.Hotfix.Core
 
             // ListViewModel和View之间的数据绑定
             this.BindingListViewAndViewModels(rViewModelContainer);
+
+            // TabViewModel和View之间的数据绑定
+            this.BindingTabViewAndViewModels(rViewModelContainer);
         }
 
         public void DataBindingDisconnect(ViewModelContainer rViewModelContainer)
@@ -117,6 +121,8 @@ namespace Knight.Hotfix.Core
             for (int i = 0; i < rViewModelContainer.EventBindings.Count; i++)
             {
                 var rEventBinding = rViewModelContainer.EventBindings[i];
+                if (rEventBinding.IsListTemplate) continue;
+
                 var bResult = HotfixDataBindingTypeResolve.MakeViewModelDataBindingEvent(this, rEventBinding);
                 if (!bResult)
                 {
@@ -210,42 +216,62 @@ namespace Knight.Hotfix.Core
 
                 // 初始化list
                 var rViewModelObj = rViewModelDataSource.ViewModelProp.GetValue();
-                var rListObservableObj = rViewModelObj as IObservableEvent;
-                rListObservableObj.ChangedHandler += () =>
+                if (rViewModelObj != null)
                 {
-                    var rListObj2 = (IList)rViewModelDataSource.ViewModelProp.GetValue();
-                    var nListCount2 = rListObj2 != null ? rListObj2.Count : 0;
-                    
-                    var nOldCount = rViewModelDataSource.ListView.totalCount;
-                    rViewModelDataSource.ListView.totalCount = nListCount2;
-                    if (nListCount2 == nOldCount)
-                        rViewModelDataSource.ListView.RefreshCells();
-                    else
-                        rViewModelDataSource.ListView.RefillCells();
-                };
+                    var rListObservableObj = rViewModelObj as IObservableEvent;
+                    rListObservableObj.ChangedHandler += () =>
+                    {
+                        var rListObj2 = (IList)rViewModelDataSource.ViewModelProp.GetValue();
+                        var nListCount2 = rListObj2 != null ? rListObj2.Count : 0;
 
-                var rListObj = rViewModelObj as IList;
-                var nListCount = rListObj != null ? rListObj.Count : 0;
-                rViewModelDataSource.ListView.OnFillCellFunc = (rTrans, nIndex) =>
+                        var nOldCount = rViewModelDataSource.ListView.totalCount;
+                        rViewModelDataSource.ListView.totalCount = nListCount2;
+                        if (nListCount2 == nOldCount)
+                            rViewModelDataSource.ListView.RefreshCells();
+                        else
+                            rViewModelDataSource.ListView.RefillCells();
+                    };
+
+                    var rListObj = rViewModelObj as IList;
+                    var nListCount = rListObj != null ? rListObj.Count : 0;
+                    rViewModelDataSource.ListView.OnFillCellFunc = (rTrans, nIndex) =>
+                    {
+                        this.OnListViewFillCellFunc(rTrans, nIndex, rListObj);
+                    };
+                    rViewModelDataSource.ListView.totalCount = nListCount;
+                    rViewModelDataSource.ListView.RefillCells();
+                }
+                else
                 {
-                    this.OnListViewFillCellFunc(rTrans, nIndex, rListObj);
-                };
-                rViewModelDataSource.ListView.totalCount = nListCount;
-                rViewModelDataSource.ListView.RefillCells();
+                    Debug.LogError($"ViewModel {rViewModelDataSource.ViewModelPath} getValue is null..");
+                }
             }
         }
 
         private void OnListViewFillCellFunc(Transform rTrans, int nIndex, IList rListObj)
         {
             if (rListObj == null || nIndex >= rListObj.Count) return;
-
+            
             var rListItem = rListObj[nIndex] as ViewModel;
             if (rListItem == null) return;
 
+            var rAllEventBindings = rTrans.GetComponentsInChildren<EventBinding>(true);
+            for (int i = 0; i < rAllEventBindings.Length; i++)
+            {
+                var rEventBinding = rAllEventBindings[i];
+                if (!rEventBinding.IsListTemplate) continue;
+                rEventBinding.OnDestroy();
+                var bResult = HotfixDataBindingTypeResolve.MakeListViewModelDataBindingEvent(this, rEventBinding, nIndex);
+                if (!bResult)
+                {
+                    Debug.LogErrorFormat("Make view model binding event {0} failed..", rEventBinding.ViewModelMethod);
+                }
+            }
+            
             // 清除已有的事件监听
             rListItem.PropChangedHandler = null;
 
-            var rAllMemberBindings = rTrans.GetComponentsInChildren<MemberBindingAbstract>();
+            var rAllMemberBindings = rTrans.GetComponentsInChildren<MemberBindingAbstract>(true);
             for (int i = 0; i < rAllMemberBindings.Length; i++)
             {
                 var rMemberBinding = rAllMemberBindings[i];
@@ -285,7 +311,62 @@ namespace Knight.Hotfix.Core
                 }
             }
         }
-        
+
+        private void BindingTabViewAndViewModels(ViewModelContainer rViewModelContainer)
+        {
+            var rViewModelDataSources = rViewModelContainer.gameObject.GetComponentsInChildren<ViewModelDataSourceTab>(true);
+            for (int i = 0; i < rViewModelDataSources.Length; i++)
+            {
+                var rViewModelDataSource = rViewModelDataSources[i];
+                rViewModelDataSource.ViewModelProp = HotfixDataBindingTypeResolve.MakeViewModelDataBindingProperty(rViewModelDataSource.ViewModelPath);
+                if (rViewModelDataSource.ViewModelProp == null)
+                {
+                    Debug.LogErrorFormat("View Model Path: {0} error..", rViewModelDataSource.ViewModelPath);
+                    return;
+                }
+                ViewModel rViewModel = this.GetViewModel(rViewModelDataSource.ViewModelProp.PropertyOwnerKey);
+                if (rViewModel == null)
+                {
+                    Debug.LogErrorFormat("View Model: {0} error..", rViewModelDataSource.ViewModelPath);
+                    return;
+                }
+
+                rViewModelDataSource.ViewModelProp.PropertyOwner = rViewModel;
+
+                // 绑定Watcher
+                rViewModelDataSource.ViewModelPropertyWatcher = new DataBindingPropertyWatcher(rViewModel, rViewModelDataSource.ViewModelProp.PropertyName, () =>
+                {
+                    this.FillTabItems(rViewModelDataSource);
+                });
+                this.FillTabItems(rViewModelDataSource);
+            }
+        }
+
+        public void FillTabItems(ViewModelDataSourceTab rViewModelDataSource)
+        {                    
+            // 重新设置Tab数据时候，改变个数
+            var rListObj = (IList)rViewModelDataSource.ViewModelProp.GetValue();
+            var nListCount = rListObj != null ? rListObj.Count : 0;
+
+            rViewModelDataSource.TabView.transform.DeleteChildren(true);
+            rViewModelDataSource.TabView.TabButtons = new List<TabButton>();
+
+            for (int k = 0; k < nListCount; k++)
+            {
+                GameObject rTabInstGo = GameObject.Instantiate(rViewModelDataSource.TabView.TabTemplateGo);
+                rTabInstGo.SetActive(true);
+                rTabInstGo.name = "tab_" + k;
+                rTabInstGo.transform.SetParent(rViewModelDataSource.TabView.transform, false);
+                this.OnListViewFillCellFunc(rTabInstGo.transform, k, rListObj);
+
+                var rTabButton = rTabInstGo.ReceiveComponent<TabButton>();
+                rTabButton.group = rViewModelDataSource.TabView;
+                rTabButton.TabIndex = k;
+                rTabButton.isOn = k == 0;
+                rViewModelDataSource.TabView.TabButtons.Add(rTabButton);
+            }
+        }
+
         public ViewModel GetViewModel(string rKey)
         {
             ViewModel rViewModel = null;

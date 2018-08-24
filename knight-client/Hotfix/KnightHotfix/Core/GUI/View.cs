@@ -15,8 +15,9 @@ namespace Knight.Hotfix.Core
         public enum State
         {
             Fixing,
-            Overlap,
             Dispatch,
+            Popup,
+            Page,
         }
         
         public string               GUID                = "";
@@ -47,6 +48,7 @@ namespace Knight.Hotfix.Core
 
         public static View CreateView(GameObject rViewGo)
         {
+            if (rViewGo == null) return null;
             View rUIView = new View();
             rUIView.GameObject = rViewGo;
             return rUIView;
@@ -83,6 +85,7 @@ namespace Knight.Hotfix.Core
 
             // 构建ViewController
             this.ViewController = HotfixReflectAssists.Construct(rType) as ViewController;
+            this.ViewController.GUID = this.GUID;
             this.ViewController.BindingViewModels(this.ViewModelContainer);
             await this.ViewController.Initialize();
             this.ViewController.DataBindingConnect(this.ViewModelContainer);

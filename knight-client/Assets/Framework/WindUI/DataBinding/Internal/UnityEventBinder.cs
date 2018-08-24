@@ -5,13 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.Events;
 using Knight.Core;
+using Knight.Framework;
 
 namespace UnityEngine.UI
 {
     public static class UnityEventBinderFactory
     {
-        public static UnityEventBinderBase Create(UnityEventBase rUnityEventBase, Action rAction)
+        public static UnityEventBinderBase Create(UnityEventBase rUnityEventBase, Action<EventArg> rAction)
         {
+            if (rUnityEventBase == null)
+                return null;
+
             var eventArgumentTypes = rUnityEventBase.GetType().BaseType.GetGenericArguments();
 
             if (!eventArgumentTypes.Any())
@@ -38,10 +42,10 @@ namespace UnityEngine.UI
 
     public class UnityEventBinder : UnityEventBinderBase
     {
-        private UnityEvent      mUnityEvent;
-        private readonly Action mAction;
+        private UnityEvent                  mUnityEvent;
+        private readonly Action<EventArg>   mAction;
 
-        public UnityEventBinder(UnityEventBase rUnityEvent, Action rAction)
+        public UnityEventBinder(UnityEventBase rUnityEvent, Action<EventArg> rAction)
         {
             this.mUnityEvent = (UnityEvent)rUnityEvent;
             this.mAction     = rAction;
@@ -59,16 +63,16 @@ namespace UnityEngine.UI
 
         private void EventHandler()
         {
-            UtilTool.SafeExecute(this.mAction);
+            UtilTool.SafeExecute(this.mAction, new EventArg());
         }
     }
 
     public class UnityEventBinder<T0> : UnityEventBinderBase
     {
-        private UnityEvent<T0>      mUnityEvent;
-        private readonly Action     mAction;
+        private UnityEvent<T0>              mUnityEvent;
+        private readonly Action<EventArg>   mAction;
     
-        public UnityEventBinder(UnityEventBase rUnityEvent, Action rAction)
+        public UnityEventBinder(UnityEventBase rUnityEvent, Action<EventArg> rAction)
         {
             this.mUnityEvent = (UnityEvent<T0>)rUnityEvent;
             this.mAction     = rAction;
@@ -86,16 +90,16 @@ namespace UnityEngine.UI
 
         private void EventHandler(T0 rArg0)
         {
-            UtilTool.SafeExecute(this.mAction);
+            UtilTool.SafeExecute(this.mAction, new EventArg(rArg0));
         }
     }
 
     public class UnityEventBinder<T0, T1> : UnityEventBinderBase
     {
-        private UnityEvent<T0, T1>      mUnityEvent;
-        private readonly Action         mAction;
+        private UnityEvent<T0, T1>          mUnityEvent;
+        private readonly Action<EventArg>   mAction;
 
-        public UnityEventBinder(UnityEventBase rUnityEvent, Action rAction)
+        public UnityEventBinder(UnityEventBase rUnityEvent, Action<EventArg> rAction)
         {
             this.mUnityEvent = (UnityEvent<T0, T1>)rUnityEvent;
             this.mAction     = rAction;
@@ -113,16 +117,16 @@ namespace UnityEngine.UI
 
         private void EventHandler(T0 rArg0, T1 rArg1)
         {
-            UtilTool.SafeExecute(this.mAction);
+            UtilTool.SafeExecute(this.mAction, new EventArg(rArg0, rArg1));
         }
     }
 
     public class UnityEventBinder<T0, T1, T2> : UnityEventBinderBase
     {
         private UnityEvent<T0, T1, T2>      mUnityEvent;
-        private readonly Action             mAction;
+        private readonly Action<EventArg>   mAction;
 
-        public UnityEventBinder(UnityEventBase rUnityEvent, Action rAction)
+        public UnityEventBinder(UnityEventBase rUnityEvent, Action<EventArg> rAction)
         {
             this.mUnityEvent = (UnityEvent<T0, T1, T2>)rUnityEvent;
             this.mAction = rAction;
@@ -140,16 +144,16 @@ namespace UnityEngine.UI
 
         private void EventHandler(T0 rArg0, T1 rArg1, T2 rArg2)
         {
-            UtilTool.SafeExecute(this.mAction);
+            UtilTool.SafeExecute(this.mAction, new EventArg(rArg0, rArg1, rArg2));
         }
     }
 
     public class UnityEventBinder<T0, T1, T2, T3> : UnityEventBinderBase
     {
         private UnityEvent<T0, T1, T2, T3>      mUnityEvent;
-        private readonly Action                 mAction;
+        private readonly Action<EventArg>       mAction;
 
-        public UnityEventBinder(UnityEventBase rUnityEvent, Action rAction)
+        public UnityEventBinder(UnityEventBase rUnityEvent, Action<EventArg> rAction)
         {
             this.mUnityEvent = (UnityEvent<T0, T1, T2, T3>)rUnityEvent;
             this.mAction = rAction;
@@ -167,7 +171,7 @@ namespace UnityEngine.UI
 
         private void EventHandler(T0 rArg0, T1 rArg1, T2 rArg2, T3 rArg3)
         {
-            UtilTool.SafeExecute(this.mAction);
+            UtilTool.SafeExecute(this.mAction, new EventArg(rArg0, rArg1, rArg2, rArg3));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Knight.Hotfix.Core;
+﻿using Knight.Framework;
+using Knight.Hotfix.Core;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,18 +29,25 @@ namespace Game
         }
 
         [DataBinding]
-        public void OnBtnAdd_Clicked()
+        protected void OnBtnAdd_Clicked(EventArg rEventArg)
         {
             var rListItem = new ListDataItem() { Value1 = "hhh", Value2 = 300 };
+            Debug.LogError(this.ListTest.ItemDatas.GetType());
             this.ListTest.ItemDatas.Insert(0, rListItem);
             this.ListTest.ItemDatas.Refresh();
         }
 
         [DataBinding]
-        public void OnBtnDelete_Clicked()
+        protected void OnBtnDelete_Clicked(EventArg rEventArg)
         {
             this.ListTest.ItemDatas.RemoveAt(0);
             this.ListTest.ItemDatas.Refresh();
+        }
+
+        [DataBinding]
+        protected void OnListItem_Clicked(int nIndex, EventArg rEventArg)
+        {
+            Debug.LogError($"Item {nIndex} clicked.. {this.ListTest.ItemDatas[nIndex].Value1}");
         }
     }
 }

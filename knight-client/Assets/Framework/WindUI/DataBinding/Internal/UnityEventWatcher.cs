@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Knight.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -11,7 +12,7 @@ namespace UnityEngine.UI
         private UnityEventBinderBase    mUnityEventBinder;
         private bool                    mIsDisposed;
 
-        public UnityEventWatcher(Component rComp, string rEventName, Action rAction)
+        public UnityEventWatcher(Component rComp, string rEventName, Action<EventArg> rAction)
         {
             var rBindableEvent = DataBindingTypeResolve.GetBoundEvent(rEventName, rComp);
             this.mUnityEventBinder = UnityEventBinderFactory.Create(rBindableEvent?.UnityEvent, rAction);

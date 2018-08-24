@@ -31,7 +31,7 @@ namespace Game
         public int      RpcId       { get; set; }
         public long     Key;
     }
-
+    
     [Message(HotfixNetworkMessageOpcode.G2C_LoginGate)]
     [HotfixSBGroup("Network")]
     public partial class G2C_LoginGate : HotfixSerializerBinary, IHotfixResponse

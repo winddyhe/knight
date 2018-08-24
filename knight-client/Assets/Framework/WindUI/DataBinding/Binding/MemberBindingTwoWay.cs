@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Knight.Framework;
 using NaughtyAttributes;
 
 namespace UnityEngine.UI
@@ -17,12 +18,24 @@ namespace UnityEngine.UI
         public void InitEventWatcher()
         {
             var rBoundEvent = DataBindingTypeResolve.MakeViewDataBindingEvent(this.gameObject, this.EventPath);
-            this.mUnityEventWatcher = new UnityEventWatcher(rBoundEvent.Component, rBoundEvent.Name, this.SyncFromView);
+            if (rBoundEvent != null)
+            {
+                this.mUnityEventWatcher = new UnityEventWatcher(rBoundEvent.Component, rBoundEvent.Name, this.SyncFromView);
+            }
+            else
+            {
+                Debug.LogErrorFormat("Can not parse bound event: {0}.", this.EventPath);
+            }
         }
 
         public override void OnDestroy()
         {
             this.mUnityEventWatcher?.Dispose();
+        }
+
+        private void SyncFromView(EventArg rEventArg)
+        {
+            this.SyncFromView();
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Knight.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -44,14 +45,14 @@ namespace Knight.Hotfix.Core
             var rViewModelEventClass = rViewModelMethods[0];
             var rViewModelEventName = rViewModelMethods[1];
 
-            var rBindingFlags = BindingFlags.GetField | BindingFlags.SetField | BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
+            var rBindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.InvokeMethod;
             var rMethodInfo = rViewController.GetType().GetMethods(rBindingFlags)
                 .Where(method => method.Name.Equals(rViewModelEventName)
             ).FirstOrDefault();
 
             if (rMethodInfo != null)
             {
-                Action rActionDelegate = () => { rMethodInfo.Invoke(rViewController, new object[] { }); };
+                Action<EventArg> rActionDelegate = (rEventArg) => { rMethodInfo.Invoke(rViewController, new object[] { rEventArg }); };
                 rEventBinding.InitEventWatcher(rActionDelegate);
             }
             else
@@ -59,6 +60,35 @@ namespace Knight.Hotfix.Core
                 Debug.LogErrorFormat("Can not find Method: {0} in ViewController.", rEventBinding.ViewModelMethod);
                 return false;
             }
+            return true;
+        }
+
+        public static bool MakeListViewModelDataBindingEvent(ViewController rViewController, EventBinding rEventBinding, int nIndex)
+        {
+            if (string.IsNullOrEmpty(rEventBinding.ViewModelMethod)) return false;
+
+            var rViewModelMethods = rEventBinding.ViewModelMethod.Split('/');
+            if (rViewModelMethods.Length < 2) return false;
+
+            var rViewModelEventClass = rViewModelMethods[0];
+            var rViewModelEventName = rViewModelMethods[1];
+
+            var rBindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.InvokeMethod;
+            var rMethodInfo = rViewController.GetType().GetMethods(rBindingFlags)
+                .Where(method => method.Name.Equals(rViewModelEventName)
+            ).FirstOrDefault();
+
+            if (rMethodInfo != null)
+            {
+                Action<EventArg> rActionDelegate = (rEventArg) => { rMethodInfo.Invoke(rViewController, new object[] { nIndex, rEventArg }); };
+                rEventBinding.InitEventWatcher(rActionDelegate);
+            }
+            else
+            {
+                Debug.LogErrorFormat("Can not find Method: {0} in ViewController.", rEventBinding.ViewModelMethod);
+                return false;
+            }
+
             return true;
         }
     }
