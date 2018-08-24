@@ -1,21 +1,24 @@
-﻿using System;
+﻿using NaughtyAttributes;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
-using NaughtyAttributes;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace UnityEngine.UI
 {
     [ExecuteInEditMode]
     [DefaultExecutionOrder(100)]
-    public partial class ViewModelDataSourceList : ViewModelDataSourceTemplate
+    public class ViewModelDataSourceTab : ViewModelDataSourceTemplate
     {
         [DrawOrder(2)]
-        public LoopScrollRect   ListView;
-        
+        public TabView  TabView;
+
         public override void GetPaths()
         {
-            this.ListView = this.GetComponent<LoopScrollRect>();            
-            if (this.ListView != null)
+            this.TabView = this.GetComponent<TabView>();
+            if (this.TabView != null)
             {
                 var rViewModelProps = new List<BindableMember<PropertyInfo>>(
                     DataBindingTypeResolve.GetListViewModelProperties(this.gameObject));

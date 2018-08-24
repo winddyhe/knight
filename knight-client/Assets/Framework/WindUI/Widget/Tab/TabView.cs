@@ -1,27 +1,29 @@
-﻿using Knight.Framework.Hotfix;
+﻿using Knight.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace UnityEngine.UI
 {
     public class TabView : ToggleGroup
     {
-        public TabButton            CurTabBtn;
-        public bool                 NeedHotfix;
-
-        public Action<TabButton>    OnTabChangedFunc;
+        public GameObject               TabTemplateGo;
+        public TabButton                CurTabBtn;
+        
+        public UnityEvent<EventArg>     OnTabChangedFunc;
+        
+        [HideInInspector]
+        public List<TabButton>          TabButtons;
         
         public void OnTabChanged(TabButton rTabBtn)
         {
             this.CurTabBtn = rTabBtn;
-
-            if (NeedHotfix)
+            if (OnTabChangedFunc != null)
             {
-                HotfixEventManager.Instance.Handle(this, Knight.Framework.HEventTriggerType.TabChanged);
+                this.OnTabChangedFunc.Invoke(new EventArg(this.CurTabBtn.TabIndex));
             }
-            Knight.Core.UtilTool.SafeExecute(OnTabChangedFunc, rTabBtn);
         }
     }
 }
