@@ -76,6 +76,7 @@
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_IndexedDict_2_String_ILTypeInstance_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_IndexedDictExpand_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_IObservableEvent_Binding.cs" />
+    <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_ObjectExpand_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_ObservableList_1_ILTypeInstance_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_ReflectionAssist_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_TSingleton_1_ABPlatform_Binding.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_KeyValuePair_2_Type_Type_Bin_t_t.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_MemberInfo_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_String_Binding.cs" />
+    <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_TabButton_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_Type_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_ViewModelDataSource_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Hashtable_Binding.cs" />
@@ -176,6 +178,7 @@
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_GameObject_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_Object_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_TextAsset_Binding.cs" />
+    <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_Transform_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_DataBindingProperty_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_DataBindingPropertyWatcher_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_DataBindingTypeResolve_Binding.cs" />
@@ -183,6 +186,9 @@
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_LoopScrollRect_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_MemberBindingAbstract_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_MemberBindingTwoWay_Binding.cs" />
+    <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_TabButton_Binding.cs" />
+    <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_TabView_Binding.cs" />
+    <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_Toggle_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_UIAssetLoader_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_UIAssetLoader_Binding_LoaderRequest_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_UIRoot_Binding.cs" />
@@ -190,6 +196,8 @@
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_ViewModelContainer_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_ViewModelDataSource_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_ViewModelDataSourceList_Binding.cs" />
+    <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_ViewModelDataSourceTab_Binding.cs" />
+    <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_UI_ViewModelDataSourceTemplate_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\UnityEngine_WaitForEndOfFrame_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\SerializerBinary\CommonSerializer.cs" />
     <Compile Include="Assets\Game\Script\Loading\LoadingView_Knight.cs" />
@@ -419,6 +427,9 @@
     </Reference>
     <Reference Include="UnityEditor.Android.Extensions">
       <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WebGL.Extensions">
+      <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>

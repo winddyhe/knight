@@ -192,7 +192,9 @@
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\MemberBindingTwoWayInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\ViewModelContainerInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\ViewModelDataSourceListInspector.cs" />
+    <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\ViewModelDataSourceTabInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\UIAssistEditor.cs" />
+    <Compile Include="Assets\Framework.Editor\Editor\WindUI\Widget\Tab\TabButtonInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\Widget\Text\TextStyleManagerInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\Widget\Text\TextStyleSelectorInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\Widget\Text\TextStyleSelectorWindow.cs" />
@@ -426,6 +428,9 @@
     </Reference>
     <Reference Include="UnityEditor.Android.Extensions">
       <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WebGL.Extensions">
+      <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>

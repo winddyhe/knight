@@ -151,6 +151,8 @@
     <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelContainer.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelDataSource.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelDataSourceList.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelDataSourceTab.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelDataSourceTemplate.cs" />
     <Compile Include="Assets\Framework\WindUI\UIAssetLoader.cs" />
     <Compile Include="Assets\Framework\WindUI\UIRoot.cs" />
     <Compile Include="Assets\Framework\WindUI\UITool.cs" />
@@ -426,6 +428,9 @@
     </Reference>
     <Reference Include="UnityEditor.Android.Extensions">
       <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WebGL.Extensions">
+      <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
