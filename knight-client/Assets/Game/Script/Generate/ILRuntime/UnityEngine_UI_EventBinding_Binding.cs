@@ -23,7 +23,7 @@ namespace ILRuntime.Runtime.Generated
             FieldInfo field;
             Type[] args;
             Type type = typeof(UnityEngine.UI.EventBinding);
-            args = new Type[]{typeof(System.Action)};
+            args = new Type[]{typeof(System.Action<Knight.Framework.EventArg>)};
             method = type.GetMethod("InitEventWatcher", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, InitEventWatcher_0);
             args = new Type[]{};
@@ -45,7 +45,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Action @rAction = (System.Action)typeof(System.Action).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Action<Knight.Framework.EventArg> @rAction = (System.Action<Knight.Framework.EventArg>)typeof(System.Action<Knight.Framework.EventArg>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);

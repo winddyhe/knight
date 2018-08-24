@@ -14,31 +14,31 @@ using ILRuntime.CLR.Utils;
 
 namespace ILRuntime.Runtime.Generated
 {
-    unsafe class UnityEngine_UI_ViewModelDataSourceList_Binding
+    unsafe class UnityEngine_UI_ViewModelDataSourceTab_Binding
     {
         public static void Register(ILRuntime.Runtime.Enviorment.AppDomain app)
         {
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
             FieldInfo field;
             Type[] args;
-            Type type = typeof(UnityEngine.UI.ViewModelDataSourceList);
+            Type type = typeof(UnityEngine.UI.ViewModelDataSourceTab);
 
-            field = type.GetField("ListView", flag);
-            app.RegisterCLRFieldGetter(field, get_ListView_0);
-            app.RegisterCLRFieldSetter(field, set_ListView_0);
+            field = type.GetField("TabView", flag);
+            app.RegisterCLRFieldGetter(field, get_TabView_0);
+            app.RegisterCLRFieldSetter(field, set_TabView_0);
 
 
         }
 
 
 
-        static object get_ListView_0(ref object o)
+        static object get_TabView_0(ref object o)
         {
-            return ((UnityEngine.UI.ViewModelDataSourceList)o).ListView;
+            return ((UnityEngine.UI.ViewModelDataSourceTab)o).TabView;
         }
-        static void set_ListView_0(ref object o, object v)
+        static void set_TabView_0(ref object o, object v)
         {
-            ((UnityEngine.UI.ViewModelDataSourceList)o).ListView = (UnityEngine.UI.LoopScrollRect)v;
+            ((UnityEngine.UI.ViewModelDataSourceTab)o).TabView = (UnityEngine.UI.TabView)v;
         }
 
 

@@ -46,6 +46,7 @@ namespace ILRuntime.Runtime.Generated
             System_Runtime_CompilerServices_TaskAwaiter_Binding.Register(app);
             UnityEngine_Debug_Binding.Register(app);
             Knight_Framework_GameLoading_Binding.Register(app);
+            System_Collections_Generic_List_1_ILTypeInstance_Binding.Register(app);
             Knight_Core_ObservableList_1_ILTypeInstance_Binding.Register(app);
             System_Int32_Binding.Register(app);
             Knight_Core_Dict_2_Int32_ILTypeInstance_Binding.Register(app);
@@ -80,7 +81,6 @@ namespace ILRuntime.Runtime.Generated
             System_Reflection_Assembly_Binding.Register(app);
             System_Collections_Generic_KeyValuePair_2_Type_Type_Binding.Register(app);
             System_Collections_Generic_List_1_KeyValuePair_2_Type_Type_Binding_Enumerator_Binding.Register(app);
-            System_Collections_Generic_List_1_ILTypeInstance_Binding.Register(app);
             UnityEngine_WaitForEndOfFrame_Binding.Register(app);
             Knight_Core_IEnumeratorAwaitExtensions_Binding.Register(app);
             Knight_Core_IEnumeratorAwaitExtensions_Binding_SimpleCoroutineAwaiter_Binding.Register(app);
@@ -108,11 +108,20 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_UI_DataBindingTypeResolve_Binding.Register(app);
             UnityEngine_UI_DataBindingPropertyWatcher_Binding.Register(app);
             UnityEngine_UI_MemberBindingTwoWay_Binding.Register(app);
-            UnityEngine_UI_ViewModelDataSourceList_Binding.Register(app);
+            UnityEngine_UI_ViewModelDataSourceTemplate_Binding.Register(app);
             Knight_Core_IObservableEvent_Binding.Register(app);
             System_Collections_ICollection_Binding.Register(app);
+            UnityEngine_UI_ViewModelDataSourceList_Binding.Register(app);
             UnityEngine_UI_LoopScrollRect_Binding.Register(app);
             System_Collections_IList_Binding.Register(app);
+            UnityEngine_UI_ViewModelDataSourceTab_Binding.Register(app);
+            UnityEngine_UI_UITool_Binding.Register(app);
+            System_Collections_Generic_List_1_TabButton_Binding.Register(app);
+            UnityEngine_UI_TabView_Binding.Register(app);
+            UnityEngine_Transform_Binding.Register(app);
+            Knight_Core_ObjectExpand_Binding.Register(app);
+            UnityEngine_UI_Toggle_Binding.Register(app);
+            UnityEngine_UI_TabButton_Binding.Register(app);
             UnityEngine_UI_UIRoot_Binding.Register(app);
             Knight_Core_IndexedDict_2_String_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_List_1_String_Binding.Register(app);
@@ -122,7 +131,6 @@ namespace ILRuntime.Runtime.Generated
             System_Threading_Tasks_Task_1_UnityEngine_UI_UIAssetLoader_Binding_LoaderRequest_Binding.Register(app);
             System_Runtime_CompilerServices_TaskAwaiter_1_UnityEngine_UI_UIAssetLoader_Binding_LoaderRequest_Binding.Register(app);
             UnityEngine_UI_UIAssetLoader_Binding_LoaderRequest_Binding.Register(app);
-            UnityEngine_UI_UITool_Binding.Register(app);
             System_Guid_Binding.Register(app);
             Knight_Framework_Net_Packet_Binding.Register(app);
             Knight_Framework_Net_NetworkSession_Binding.Register(app);

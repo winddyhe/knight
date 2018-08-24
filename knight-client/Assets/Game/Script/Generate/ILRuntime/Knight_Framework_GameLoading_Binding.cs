@@ -28,6 +28,9 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{};
             method = type.GetMethod("Hide", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Hide_1);
+            args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("StartLoading", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, StartLoading_2);
 
 
         }
@@ -60,6 +63,25 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.Hide();
+
+            return __ret;
+        }
+
+        static StackObject* StartLoading_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.String @rTextTips = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            Knight.Framework.GameLoading instance_of_this_method = (Knight.Framework.GameLoading)typeof(Knight.Framework.GameLoading).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.StartLoading(@rTextTips);
 
             return __ret;
         }
