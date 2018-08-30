@@ -447,6 +447,12 @@ namespace Knight.Core.WindJson
                     rRootNode = new JsonData((bool)rObject);
                 else if (rType == typeof(string))
                     rRootNode = new JsonData((string)rObject);
+                else if (rType == typeof(byte))
+                    rRootNode = new JsonData((byte)rObject);
+                else if (rType == typeof(short))
+                    rRootNode = new JsonData((short)rObject);
+                else if (rType == typeof(ushort))
+                    rRootNode = new JsonData((ushort)rObject);
                 else
                     Debug.LogError(string.Format("Type = {0}, 不支持序列化的变量类型!", rObject.GetType()));
             }

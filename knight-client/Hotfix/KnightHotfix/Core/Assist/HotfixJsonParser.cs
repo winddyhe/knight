@@ -132,6 +132,12 @@ namespace Knight.Hotfix.Core
                     rRootNode = new JsonData((bool)rObject);
                 else if (rType.Equals(typeof(string)))
                     rRootNode = new JsonData((string)rObject);
+                else if (rType.Equals(typeof(byte)))
+                    rRootNode = new JsonData((byte)rObject);
+                else if (rType.Equals(typeof(short)))
+                    rRootNode = new JsonData((short)rObject);
+                else if (rType.Equals(typeof(ushort)))
+                    rRootNode = new JsonData((ushort)rObject);
                 else
                     Debug.LogError(string.Format("Type = {0}, 不支持序列化的变量类型!", rObject.GetType()));
             }

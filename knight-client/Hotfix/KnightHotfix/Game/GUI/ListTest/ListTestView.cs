@@ -32,7 +32,7 @@ namespace Game
         protected void OnBtnAdd_Clicked(EventArg rEventArg)
         {
             var rListItem = new ListDataItem() { Value1 = "hhh", Value2 = 300 };
-            Debug.LogError(this.ListTest.ItemDatas.GetType());
+            Debug.LogError("==================== " + this.ListTest.ItemDatas.GetType());
             this.ListTest.ItemDatas.Insert(0, rListItem);
             this.ListTest.ItemDatas.Refresh();
         }

@@ -57,6 +57,24 @@ namespace Knight.Core.WindJson
             return (Dictionary<TKey, TValue>)ToObject(typeof(Dictionary<TKey, TValue>));
         }
 
+        public virtual byte AsByte
+        {
+            get { return CastByte(Value);   }
+            set { Value = value.ToString(); }
+        }
+
+        public virtual short AsShort
+        {
+            get { return CastShort(Value);  }
+            set { Value = value.ToString(); }
+        }
+
+        public virtual ushort AsUShort
+        {
+            get { return CastUShort(Value); }
+            set { Value = value.ToString(); }
+        }
+
         public virtual int AsInt
         {
             get { return CastInt(Value);    }
@@ -103,6 +121,30 @@ namespace Knight.Core.WindJson
         {
             get { return Value;  }
             set { Value = value; }
+        }
+        
+        public byte CastByte(string value)
+        {
+            byte re = 0;
+            if (byte.TryParse(value, out re)) return re;
+            Debug.LogError(string.Format("Value: {0} is not byte type.", value));
+            return re;
+        }
+
+        public short CastShort(string value)
+        {
+            short re = 0;
+            if (short.TryParse(value, out re)) return re;
+            Debug.LogError(string.Format("Value: {0} is not short type.", value));
+            return re;
+        }
+
+        public ushort CastUShort(string value)
+        {
+            ushort re = 0;
+            if (ushort.TryParse(value, out re)) return re;
+            Debug.LogError(string.Format("Value: {0} is not ushort type.", value));
+            return re;
         }
 
         public int CastInt(string value)
@@ -541,7 +583,7 @@ namespace Knight.Core.WindJson
 
     public class JsonData : JsonNode
     {
-        private string  value;
+        private string value;
 
         public JsonData(string v)
         {
@@ -581,6 +623,21 @@ namespace Knight.Core.WindJson
         public JsonData(bool v)
         {
             AsBool = v;
+        }
+
+        public JsonData(byte v)
+        {
+            AsByte = v;
+        }
+
+        public JsonData(short v)
+        {
+            AsShort = v;
+        }
+
+        public JsonData(ushort v)
+        {
+            AsUShort = v;
         }
 
         public override string Value
@@ -641,6 +698,18 @@ namespace Knight.Core.WindJson
                 else if (rType == typeof(bool))
                 {
                     return CastBool(this.value);
+                }
+                else if (rType == typeof(byte))
+                {
+                    return CastByte(this.value);
+                }
+                else if (rType == typeof(short))
+                {
+                    return CastShort(this.value);
+                }
+                else if (rType == typeof(ushort))
+                {
+                    return CastUShort(this.value);
                 }
             }
             else if (rType.IsEnum)
