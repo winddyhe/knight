@@ -30,6 +30,9 @@ namespace ILRuntime.Runtime.Generated
             field = type.GetField("DynamicRoot", flag);
             app.RegisterCLRFieldGetter(field, get_DynamicRoot_0);
             app.RegisterCLRFieldSetter(field, set_DynamicRoot_0);
+            field = type.GetField("PopupRoot", flag);
+            app.RegisterCLRFieldGetter(field, get_PopupRoot_1);
+            app.RegisterCLRFieldSetter(field, set_PopupRoot_1);
 
 
         }
@@ -59,6 +62,14 @@ namespace ILRuntime.Runtime.Generated
         static void set_DynamicRoot_0(ref object o, object v)
         {
             ((UnityEngine.UI.UIRoot)o).DynamicRoot = (UnityEngine.GameObject)v;
+        }
+        static object get_PopupRoot_1(ref object o)
+        {
+            return ((UnityEngine.UI.UIRoot)o).PopupRoot;
+        }
+        static void set_PopupRoot_1(ref object o, object v)
+        {
+            ((UnityEngine.UI.UIRoot)o).PopupRoot = (UnityEngine.GameObject)v;
         }
 
 

@@ -56,15 +56,15 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{};
             method = type.GetMethod("get_Task", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_Task_2);
-            args = new Type[]{typeof(System.Runtime.CompilerServices.TaskAwaiter<Knight.Framework.AssetBundles.ABLoader.LoaderRequest>), typeof(Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor)};
-            if (genericMethods.TryGetValue("AwaitUnsafeOnCompleted", out lst))
+            args = new Type[]{typeof(UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Framework.AssetBundles.ABLoader.LoaderRequest>), typeof(Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor)};
+            if (genericMethods.TryGetValue("AwaitOnCompleted", out lst))
             {
                 foreach(var m in lst)
                 {
                     if(m.GetParameters().Length == 2)
                     {
                         method = m.MakeGenericMethod(args);
-                        app.RegisterCLRMethodRedirection(method, AwaitUnsafeOnCompleted_3);
+                        app.RegisterCLRMethodRedirection(method, AwaitOnCompleted_3);
 
                         break;
                     }
@@ -104,7 +104,7 @@ namespace ILRuntime.Runtime.Generated
                     }
                 }
             }
-            args = new Type[]{typeof(Knight.Core.IEnumeratorAwaitExtensions.SimpleCoroutineAwaiter), typeof(Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor)};
+            args = new Type[]{typeof(UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Core.WaitAsync.WaitForSecondsRequest>), typeof(Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor)};
             if (genericMethods.TryGetValue("AwaitOnCompleted", out lst))
             {
                 foreach(var m in lst)
@@ -118,15 +118,15 @@ namespace ILRuntime.Runtime.Generated
                     }
                 }
             }
-            args = new Type[]{typeof(System.Runtime.CompilerServices.TaskAwaiter<UnityEngine.UI.UIAssetLoader.LoaderRequest>), typeof(Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor)};
-            if (genericMethods.TryGetValue("AwaitUnsafeOnCompleted", out lst))
+            args = new Type[]{typeof(UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Core.WaitAsync.WaitForEndOfFrameRequest>), typeof(Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor)};
+            if (genericMethods.TryGetValue("AwaitOnCompleted", out lst))
             {
                 foreach(var m in lst)
                 {
                     if(m.GetParameters().Length == 2)
                     {
                         method = m.MakeGenericMethod(args);
-                        app.RegisterCLRMethodRedirection(method, AwaitUnsafeOnCompleted_9);
+                        app.RegisterCLRMethodRedirection(method, AwaitOnCompleted_9);
 
                         break;
                     }
@@ -296,7 +296,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* AwaitUnsafeOnCompleted_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* AwaitOnCompleted_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -306,13 +306,13 @@ namespace ILRuntime.Runtime.Generated
             Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor @stateMachine = (Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor)typeof(Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack));
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Runtime.CompilerServices.TaskAwaiter<Knight.Framework.AssetBundles.ABLoader.LoaderRequest> @awaiter = (System.Runtime.CompilerServices.TaskAwaiter<Knight.Framework.AssetBundles.ABLoader.LoaderRequest>)typeof(System.Runtime.CompilerServices.TaskAwaiter<Knight.Framework.AssetBundles.ABLoader.LoaderRequest>).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack));
+            UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Framework.AssetBundles.ABLoader.LoaderRequest> @awaiter = (UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Framework.AssetBundles.ABLoader.LoaderRequest>)typeof(UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Framework.AssetBundles.ABLoader.LoaderRequest>).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack));
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
             ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
             System.Runtime.CompilerServices.AsyncTaskMethodBuilder instance_of_this_method = (System.Runtime.CompilerServices.AsyncTaskMethodBuilder)typeof(System.Runtime.CompilerServices.AsyncTaskMethodBuilder).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
 
-            instance_of_this_method.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<Knight.Framework.AssetBundles.ABLoader.LoaderRequest>, Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor>(ref @awaiter, ref @stateMachine);
+            instance_of_this_method.AwaitOnCompleted<UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Framework.AssetBundles.ABLoader.LoaderRequest>, Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor>(ref @awaiter, ref @stateMachine);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             switch(ptr_of_this_method->ObjectType)
@@ -417,7 +417,7 @@ namespace ILRuntime.Runtime.Generated
                     break;
                  case ObjectTypes.ArrayReference:
                     {
-                        var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as System.Runtime.CompilerServices.TaskAwaiter<Knight.Framework.AssetBundles.ABLoader.LoaderRequest>[];
+                        var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Framework.AssetBundles.ABLoader.LoaderRequest>[];
                         instance_of_arrayReference[ptr_of_this_method->ValueLow] = @awaiter;
                     }
                     break;
@@ -753,13 +753,13 @@ namespace ILRuntime.Runtime.Generated
             Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor @stateMachine = (Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor)typeof(Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack));
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            Knight.Core.IEnumeratorAwaitExtensions.SimpleCoroutineAwaiter @awaiter = (Knight.Core.IEnumeratorAwaitExtensions.SimpleCoroutineAwaiter)typeof(Knight.Core.IEnumeratorAwaitExtensions.SimpleCoroutineAwaiter).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack));
+            UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Core.WaitAsync.WaitForSecondsRequest> @awaiter = (UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Core.WaitAsync.WaitForSecondsRequest>)typeof(UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Core.WaitAsync.WaitForSecondsRequest>).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack));
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
             ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
             System.Runtime.CompilerServices.AsyncTaskMethodBuilder instance_of_this_method = (System.Runtime.CompilerServices.AsyncTaskMethodBuilder)typeof(System.Runtime.CompilerServices.AsyncTaskMethodBuilder).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
 
-            instance_of_this_method.AwaitOnCompleted<Knight.Core.IEnumeratorAwaitExtensions.SimpleCoroutineAwaiter, Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor>(ref @awaiter, ref @stateMachine);
+            instance_of_this_method.AwaitOnCompleted<UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Core.WaitAsync.WaitForSecondsRequest>, Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor>(ref @awaiter, ref @stateMachine);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             switch(ptr_of_this_method->ObjectType)
@@ -864,7 +864,7 @@ namespace ILRuntime.Runtime.Generated
                     break;
                  case ObjectTypes.ArrayReference:
                     {
-                        var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as Knight.Core.IEnumeratorAwaitExtensions.SimpleCoroutineAwaiter[];
+                        var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Core.WaitAsync.WaitForSecondsRequest>[];
                         instance_of_arrayReference[ptr_of_this_method->ValueLow] = @awaiter;
                     }
                     break;
@@ -878,7 +878,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* AwaitUnsafeOnCompleted_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* AwaitOnCompleted_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -888,13 +888,13 @@ namespace ILRuntime.Runtime.Generated
             Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor @stateMachine = (Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor)typeof(Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack));
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Runtime.CompilerServices.TaskAwaiter<UnityEngine.UI.UIAssetLoader.LoaderRequest> @awaiter = (System.Runtime.CompilerServices.TaskAwaiter<UnityEngine.UI.UIAssetLoader.LoaderRequest>)typeof(System.Runtime.CompilerServices.TaskAwaiter<UnityEngine.UI.UIAssetLoader.LoaderRequest>).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack));
+            UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Core.WaitAsync.WaitForEndOfFrameRequest> @awaiter = (UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Core.WaitAsync.WaitForEndOfFrameRequest>)typeof(UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Core.WaitAsync.WaitForEndOfFrameRequest>).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack));
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
             ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
             System.Runtime.CompilerServices.AsyncTaskMethodBuilder instance_of_this_method = (System.Runtime.CompilerServices.AsyncTaskMethodBuilder)typeof(System.Runtime.CompilerServices.AsyncTaskMethodBuilder).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
 
-            instance_of_this_method.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<UnityEngine.UI.UIAssetLoader.LoaderRequest>, Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor>(ref @awaiter, ref @stateMachine);
+            instance_of_this_method.AwaitOnCompleted<UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Core.WaitAsync.WaitForEndOfFrameRequest>, Knight.Framework.Hotfix.IAsyncStateMachineAdaptor.Adaptor>(ref @awaiter, ref @stateMachine);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             switch(ptr_of_this_method->ObjectType)
@@ -999,7 +999,7 @@ namespace ILRuntime.Runtime.Generated
                     break;
                  case ObjectTypes.ArrayReference:
                     {
-                        var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as System.Runtime.CompilerServices.TaskAwaiter<UnityEngine.UI.UIAssetLoader.LoaderRequest>[];
+                        var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as UnityFx.Async.AsyncExtensions.AsyncAwaiter<Knight.Core.WaitAsync.WaitForEndOfFrameRequest>[];
                         instance_of_arrayReference[ptr_of_this_method->ValueLow] = @awaiter;
                     }
                     break;

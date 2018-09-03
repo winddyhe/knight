@@ -33,6 +33,9 @@ namespace ILRuntime.Runtime.Generated
             field = type.GetField("ViewModelMethod", flag);
             app.RegisterCLRFieldGetter(field, get_ViewModelMethod_0);
             app.RegisterCLRFieldSetter(field, set_ViewModelMethod_0);
+            field = type.GetField("IsListTemplate", flag);
+            app.RegisterCLRFieldGetter(field, get_IsListTemplate_1);
+            app.RegisterCLRFieldSetter(field, set_IsListTemplate_1);
 
 
         }
@@ -80,6 +83,14 @@ namespace ILRuntime.Runtime.Generated
         static void set_ViewModelMethod_0(ref object o, object v)
         {
             ((UnityEngine.UI.EventBinding)o).ViewModelMethod = (System.String)v;
+        }
+        static object get_IsListTemplate_1(ref object o)
+        {
+            return ((UnityEngine.UI.EventBinding)o).IsListTemplate;
+        }
+        static void set_IsListTemplate_1(ref object o, object v)
+        {
+            ((UnityEngine.UI.EventBinding)o).IsListTemplate = (System.Boolean)v;
         }
 
 

@@ -8,6 +8,7 @@ using Knight.Core;
 using System.IO;
 using Knight.Core.WindJson;
 using System.Threading.Tasks;
+using UnityFx.Async;
 
 namespace Knight.Framework.AssetBundles
 {
@@ -108,7 +109,7 @@ namespace Knight.Framework.AssetBundles
             this.CurRuntimePlatform = RuntimePlatform_To_Plaform(Application.platform);
 
             // 加载更新服务器的地址
-            await LoadServerURL_Async();
+            await LoadServerURL();
         }
 
         /// <summary>
@@ -290,15 +291,31 @@ namespace Knight.Framework.AssetBundles
             return bIsSimulateMode && this.IsDevelopeMode();
         }
 
+        private IAsyncOperation<ResourceRequest> LoadServerURL()
+        {
+            var rACS = new AsyncCompletionSource<ResourceRequest>();
+            var rCoroutineHandler = CoroutineManager.Instance.StartHandler(LoadServerURL_Async(rACS));
+            rACS.AddCompletionCallback((rContinuation) =>
+            {
+                if (rContinuation.IsCanceled || rContinuation.IsFaulted)
+                {
+                    CoroutineManager.Instance.Stop(rCoroutineHandler);
+                }
+            });
+            return rACS.Operation;
+        }
+
         /// <summary>
         /// 加载更新服务器的地址
         /// </summary>
-        private async Task LoadServerURL_Async()
+        private IEnumerator LoadServerURL_Async(IAsyncCompletionSource<ResourceRequest> rOperation)
         {
             var rResourceRequest = Resources.LoadAsync<TextAsset>("server_url_default");
-            await rResourceRequest;
+            yield return rResourceRequest;
 
             string rServerContent = (rResourceRequest.asset as TextAsset).text;
+
+            rOperation.SetResult(rResourceRequest);
 
             JsonNode rJsonNode = JsonParser.Parse(rServerContent);
             this.ServerURL = rJsonNode.ToObject<ABServerURL>();

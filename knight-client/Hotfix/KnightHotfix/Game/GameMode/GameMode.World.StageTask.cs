@@ -4,6 +4,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using Knight.Core;
+using UnityFx.Async;
 
 namespace Game
 {
@@ -55,7 +56,7 @@ namespace Game
             {
                 //打开Login界面
                 await ViewManager.Instance.OpenAsync("KNFrame", View.State.Fixing);
-                await new WaitForSeconds(1.0f);
+                await WaitAsync.WaitForSeconds(1.0f);
 
                 //隐藏进度条
                 GameLoading.Instance.Hide();

@@ -6,72 +6,64 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
+using UnityFx.Async;
+using System;
 
 namespace Knight.Core
 {
     public class WebRequestAssist
     {
-        public class LoaderRequest
+        public class LoaderRequest : AsyncRequest<LoaderRequest>
         {
             public string               Text;
             public byte[]               Bytes;
             public bool                 IsDone;
 
             public string               Url;
-            public System.Action<float> DownloadProgress;
 
-            public LoaderRequest(string rURL, System.Action<float> rDownloadProgress)
+            public LoaderRequest(string rURL)
             {
                 this.IsDone = false;
                 this.Url = rURL;
-                this.DownloadProgress = rDownloadProgress;
             }
         }
 
-        public static async Task<LoaderRequest> DownloadFile(string rURL, System.Action<float> rDownloadProgress = null)
+        public static IAsyncOperation<LoaderRequest> DownloadFile(string rURL, System.Action<float> rDownloadProgress = null)
         {
-            LoaderRequest rRequest = new LoaderRequest(rURL, rDownloadProgress);
+            var rRequest = new LoaderRequest(rURL);
+            return rRequest.Start(DownloadFile(rRequest));
+        }
 
+        private static IEnumerator DownloadFile(LoaderRequest rRequest)
+        {
             UnityWebRequest rWebRequest = UnityWebRequest.Get(rRequest.Url);
-            var rProgressCoroutine = CoroutineManager.Instance.StartHandler(Record_DownloadProgress_Async(rRequest, rWebRequest));
-            await rWebRequest.SendWebRequest();
+            yield return rWebRequest.SendWebRequest();
 
             if (rWebRequest.isNetworkError)
             {
                 Debug.Log(rWebRequest.error);
                 rWebRequest.Dispose();
-                return null;
+                rRequest.SetResult(rRequest);
+                yield break;
             }
 
             var rDownloadHandler = rWebRequest.downloadHandler;
             if (rDownloadHandler == null)
             {
-                return null;
+                rRequest.SetResult(rRequest);
+                yield break;
             }
 
             rRequest.IsDone = true;
             rRequest.Text = rDownloadHandler.text;
             rRequest.Bytes = rDownloadHandler.data;
 
+            rRequest.SetResult(rRequest);
+
             rWebRequest.Dispose();
             rDownloadHandler.Dispose();
             rWebRequest = null;
             rDownloadHandler = null;
-            CoroutineManager.Instance.Stop(rProgressCoroutine);
-
-            return rRequest;
-        }
-
-        private static IEnumerator Record_DownloadProgress_Async(LoaderRequest rRequest, UnityWebRequest rWebRequest)
-        {
-            while (!rRequest.IsDone)
-            {
-                try { UtilTool.SafeExecute(rRequest.DownloadProgress, rWebRequest.downloadProgress); }
-                catch (System.Exception) { break; }
-
-                yield return new WaitForEndOfFrame();
-            }
-            rWebRequest = null;
         }
     }
 }

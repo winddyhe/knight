@@ -7,6 +7,7 @@ using System.Collections;
 using Knight.Core;
 using System.Threading.Tasks;
 using Knight.Framework.AssetBundles;
+using UnityFx.Async;
 
 namespace UnityEngine.UI
 {

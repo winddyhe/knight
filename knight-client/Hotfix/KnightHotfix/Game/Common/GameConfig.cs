@@ -12,6 +12,7 @@ using Knight.Hotfix.Core;
 using Knight.Core;
 using Knight.Core.WindJson;
 using Knight.Framework.AssetBundles;
+using UnityFx.Async;
 
 namespace Game
 {

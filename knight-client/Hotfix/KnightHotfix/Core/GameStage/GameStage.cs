@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using Knight.Core;
 using System.Threading.Tasks;
+using UnityFx.Async;
 
 namespace Knight.Hotfix.Core
 {
@@ -110,7 +111,7 @@ namespace Knight.Hotfix.Core
             //等待这个索引的所有的Task执行完成后，才进入下一个索引
             while (!CheckStageIsCompleted())
             {
-                await new WaitForEndOfFrame();
+                await WaitAsync.WaitForEndOfFrame();
             }
             this.isStageCompleted = true;
         }

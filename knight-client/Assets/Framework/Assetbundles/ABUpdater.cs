@@ -8,6 +8,7 @@ using Knight.Core;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityFx.Async;
 
 namespace Knight.Framework.AssetBundles
 {

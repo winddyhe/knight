@@ -9,6 +9,7 @@ using Knight.Core;
 using System.IO;
 using System.Threading.Tasks;
 using Knight.Framework.AssetBundles;
+using UnityFx.Async;
 
 namespace Knight.Framework.Hotfix
 {

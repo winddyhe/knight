@@ -8,6 +8,7 @@ using System.IO;
 using System.Collections;
 using Knight.Core.WindJson;
 using System.Threading.Tasks;
+using UnityFx.Async;
 
 namespace Knight.Framework.AssetBundles
 {

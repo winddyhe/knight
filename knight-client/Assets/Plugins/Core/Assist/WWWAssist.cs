@@ -5,6 +5,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Threading.Tasks;
+using UnityFx.Async;
 
 namespace Knight.Core
 {
@@ -13,7 +14,7 @@ namespace Knight.Core
     /// </summary> 
     public class WWWAssist
     {
-        public class LoaderRequest
+        public class LoaderRequest : AsyncRequest<LoaderRequest>
         {
             public string       Text;
             public byte[]       Bytes;
@@ -50,18 +51,23 @@ namespace Knight.Core
             www = null;
         }
 
-        public async static Task<LoaderRequest> LoadFile(string rURL)
+        public static IAsyncOperation<LoaderRequest> LoadFile(string rURL)
         {
-            LoaderRequest rRequest = new LoaderRequest(rURL);
+            var rRequest = new LoaderRequest(rURL);
+            return rRequest.Start(LoadFile(rRequest));
+        }
 
+        public static IEnumerator LoadFile(LoaderRequest rRequest)
+        {
             WWW www = WWWAssist.Load(rRequest.Url);
-            await www;
+            yield return www;
 
             rRequest.Text = www.text;
             rRequest.Bytes = www.bytes;
-            WWWAssist.Destroy(ref www);
 
-            return rRequest;
+            rRequest.SetResult(rRequest);
+
+            WWWAssist.Destroy(ref www);
         }
     }
 }

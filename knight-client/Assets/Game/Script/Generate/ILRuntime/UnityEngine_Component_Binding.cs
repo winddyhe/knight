@@ -39,7 +39,7 @@ namespace ILRuntime.Runtime.Generated
                     lst.Add(m);
                 }
             }
-            args = new Type[]{typeof(UnityEngine.UI.MemberBindingAbstract)};
+            args = new Type[]{typeof(UnityEngine.UI.EventBinding)};
             if (genericMethods.TryGetValue("GetComponentsInChildren", out lst))
             {
                 foreach(var m in lst)
@@ -53,9 +53,23 @@ namespace ILRuntime.Runtime.Generated
                     }
                 }
             }
+            args = new Type[]{typeof(UnityEngine.UI.MemberBindingAbstract)};
+            if (genericMethods.TryGetValue("GetComponentsInChildren", out lst))
+            {
+                foreach(var m in lst)
+                {
+                    if(m.GetParameters().Length == 1)
+                    {
+                        method = m.MakeGenericMethod(args);
+                        app.RegisterCLRMethodRedirection(method, GetComponentsInChildren_2);
+
+                        break;
+                    }
+                }
+            }
             args = new Type[]{};
             method = type.GetMethod("get_transform", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_transform_2);
+            app.RegisterCLRMethodRedirection(method, get_transform_3);
 
 
         }
@@ -89,12 +103,30 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.Component instance_of_this_method = (UnityEngine.Component)typeof(UnityEngine.Component).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
+            var result_of_this_method = instance_of_this_method.GetComponentsInChildren<UnityEngine.UI.EventBinding>(@includeInactive);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* GetComponentsInChildren_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Boolean @includeInactive = ptr_of_this_method->Value == 1;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Component instance_of_this_method = (UnityEngine.Component)typeof(UnityEngine.Component).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
             var result_of_this_method = instance_of_this_method.GetComponentsInChildren<UnityEngine.UI.MemberBindingAbstract>(@includeInactive);
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_transform_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_transform_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

@@ -318,6 +318,22 @@
     <Compile Include="Assets\Plugins\ThridLib\RecyclableMemoryStream\Events.cs" />
     <Compile Include="Assets\Plugins\ThridLib\RecyclableMemoryStream\RecyclableMemoryStream.cs" />
     <Compile Include="Assets\Plugins\ThridLib\RecyclableMemoryStream\RecyclableMemoryStreamManager.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\AsyncUtility.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\AsyncWww.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\Helpers\AssetBundleCreateRequestResult.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\Helpers\AssetBundleRequestResult{T}.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\Helpers\AsyncOperationResult.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\Helpers\AsyncOperationResult{T}.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\Helpers\PlayAnimationResult.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\Helpers\PlayAnimatorResult.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\Helpers\ResourceRequestResult{T}.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\Helpers\WaitAnimatorResult.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\Helpers\WebRequestException.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\Helpers\WebRequestResult{T}.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\Helpers\WwwResult{T}.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\UnityFx.Async\Scripts\UnityExtensions.cs" />
+    <None Include="Assets\Plugins\ThridLib\UnityFx.Async\README.txt" />
+    <None Include="Assets\Plugins\ThridLib\UnityFx.Async\Bin\UnityFx.Async.xml" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -560,6 +576,9 @@
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityFx.Async">
+      <HintPath>D:/Project/knight/knight-client/Assets/Plugins/ThridLib/UnityFx.Async/Bin/UnityFx.Async.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

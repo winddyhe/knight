@@ -47,6 +47,15 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetConstructor(flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Ctor_7);
+            args = new Type[]{typeof(System.Byte)};
+            method = type.GetConstructor(flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Ctor_8);
+            args = new Type[]{typeof(System.Int16)};
+            method = type.GetConstructor(flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Ctor_9);
+            args = new Type[]{typeof(System.UInt16)};
+            method = type.GetConstructor(flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Ctor_10);
 
         }
 
@@ -158,6 +167,48 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             System.Boolean @v = ptr_of_this_method->Value == 1;
+
+
+            var result_of_this_method = new Knight.Core.WindJson.JsonData(@v);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* Ctor_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Byte @v = (byte)ptr_of_this_method->Value;
+
+
+            var result_of_this_method = new Knight.Core.WindJson.JsonData(@v);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* Ctor_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Int16 @v = (short)ptr_of_this_method->Value;
+
+
+            var result_of_this_method = new Knight.Core.WindJson.JsonData(@v);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* Ctor_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.UInt16 @v = (ushort)ptr_of_this_method->Value;
 
 
             var result_of_this_method = new Knight.Core.WindJson.JsonData(@v);

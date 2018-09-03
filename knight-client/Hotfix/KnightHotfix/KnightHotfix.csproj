@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Game</RootNamespace>
     <AssemblyName>KnightHotfix</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -301,6 +301,10 @@
     </Reference>
     <Reference Include="UnityEngine.XRModule">
       <HintPath>..\UnityLibraries\v201822f1\Runtime\UnityEngine.XRModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityFx.Async">
+      <HintPath>..\..\Assets\Plugins\ThridLib\UnityFx.Async\Bin\UnityFx.Async.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

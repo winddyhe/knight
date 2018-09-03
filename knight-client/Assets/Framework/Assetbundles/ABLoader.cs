@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Knight.Core; 
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
+using UnityFx.Async;
 
 namespace Knight.Framework.AssetBundles
 {    
@@ -18,7 +19,7 @@ namespace Knight.Framework.AssetBundles
     /// </summary>
     public class ABLoader : MonoBehaviour
     {
-        public class LoaderRequest
+        public class LoaderRequest : AsyncRequest<LoaderRequest>
         {
             public Object                   Asset;
             public Object[]                 AllAssets;
@@ -58,39 +59,36 @@ namespace Knight.Framework.AssetBundles
             }
         }
 
-        public async Task<LoaderRequest> LoadAssetbundle(string rAssetbundleName, bool bIsSimulate)
+        public IAsyncOperation<LoaderRequest> LoadAssetbundle(string rAssetbundleName, bool bIsSimulate)
         {
-            return await LoadAsset(rAssetbundleName, string.Empty, bIsSimulate);
+            return LoadAsset(rAssetbundleName, string.Empty, bIsSimulate);
         }
         
-        public async Task<LoaderRequest> LoadAsset(string rAssetbundleName, string rAssetName, bool bIsSimulate)
+        public IAsyncOperation<LoaderRequest> LoadAsset(string rAssetbundleName, string rAssetName, bool bIsSimulate)
         {
             if (!this.LoadedAssetbundles.Contains(rAssetbundleName))
                 this.LoadedAssetbundles.Add(rAssetbundleName);
 
             LoaderRequest rRequest = new LoaderRequest(rAssetbundleName, rAssetName, false, bIsSimulate, false);
-            await LoadAsset_Async(rRequest);
-            return rRequest;
+            return rRequest.Start(LoadAsset_Async(rRequest));
         }
 
-        public async Task<LoaderRequest> LoadAllAssets(string rAssetbundleName, bool bIsSimulate)
+        public IAsyncOperation<LoaderRequest> LoadAllAssets(string rAssetbundleName, bool bIsSimulate)
         {
             if (!this.LoadedAssetbundles.Contains(rAssetbundleName))
                 this.LoadedAssetbundles.Add(rAssetbundleName);
 
             LoaderRequest rRequest = new LoaderRequest(rAssetbundleName, "AllAssets", false, bIsSimulate, true);
-            await LoadAsset_Async(rRequest);
-            return rRequest;
+            return rRequest.Start(LoadAsset_Async(rRequest));
         }
 
-        public async Task<LoaderRequest> LoadScene(string rAssetbundleName, string rScenePath)
+        public IAsyncOperation<LoaderRequest> LoadScene(string rAssetbundleName, string rScenePath)
         {
             if (!this.LoadedScenebundles.Contains(rAssetbundleName))
                 this.LoadedScenebundles.Add(rAssetbundleName);
             
             LoaderRequest rSceneRequest = new LoaderRequest(rAssetbundleName, rScenePath, true, false, false);
-            await LoadAsset_Async(rSceneRequest);
-            return rSceneRequest;
+            return rSceneRequest.Start(LoadAsset_Async(rSceneRequest));
         }
         
         public void UnloadAllLoadedAssetbundles()
@@ -135,14 +133,15 @@ namespace Knight.Framework.AssetBundles
             }
         }
     
-        private async Task LoadAsset_Async(LoaderRequest rRequest)
+        private IEnumerator LoadAsset_Async(LoaderRequest rRequest)
         {
             ABLoadEntry rAssetLoadEntry = null;
             if (!ABLoaderVersion.Instance.TryGetValue(rRequest.Path, out rAssetLoadEntry))
             {
                 Debug.LogErrorFormat("Can not find assetbundle: -- {0}", rRequest.Path);
                 rRequest.Asset = null;
-                return;
+                rRequest.SetResult(rRequest);
+                yield break;
             }
 
             //引用计数加1
@@ -151,15 +150,16 @@ namespace Knight.Framework.AssetBundles
             // 确认未加载完成并且正在被加载、一直等待其加载完成
             while (rAssetLoadEntry.IsLoading && !rAssetLoadEntry.IsLoadCompleted)
             {
-                await new WaitForEndOfFrame();
+                yield return new WaitForEndOfFrame();
             }
     
             // 如果该资源加载完成了
             if (!rAssetLoadEntry.IsLoading && rAssetLoadEntry.IsLoadCompleted)
             {
                 // 从缓存的Assetbundle里面加载资源
-                await LoadAssetObject(rRequest, rAssetLoadEntry, false);
-                return;
+                yield return LoadAssetObject(rRequest, rAssetLoadEntry, false);
+                rRequest.SetResult(rRequest);
+                yield break;
             }
             
             // 开始加载资源依赖项
@@ -171,7 +171,7 @@ namespace Knight.Framework.AssetBundles
                     string rDependABName = rDependABPath;
 
                     LoaderRequest rDependAssetRequest = new LoaderRequest(rDependABName, "", false, rRequest.IsSimulate, false);
-                    await LoadAsset_Async(rDependAssetRequest);
+                    yield return LoadAsset_Async(rDependAssetRequest);
                 }
             }
 
@@ -180,13 +180,15 @@ namespace Knight.Framework.AssetBundles
             rAssetLoadEntry.IsLoadCompleted = false;
 
             // 真正的从AB包里面加载资源
-            await LoadAssetObject(rRequest, rAssetLoadEntry, true);
+            yield return LoadAssetObject(rRequest, rAssetLoadEntry, true);
+
+            rRequest.SetResult(rRequest);
 
             rAssetLoadEntry.IsLoading = false;
             rAssetLoadEntry.IsLoadCompleted = true;
         }
 
-        private async Task LoadAssetObject(LoaderRequest rRequest, ABLoadEntry rAssetLoadEntry, bool bRealLoad)
+        private IEnumerator LoadAssetObject(LoaderRequest rRequest, ABLoadEntry rAssetLoadEntry, bool bRealLoad)
         {
             string rAssetLoadUrl = rAssetLoadEntry.ABPath;
             if (rRequest.IsSimulate)
@@ -201,7 +203,7 @@ namespace Knight.Framework.AssetBundles
                         if (rAssetPaths.Length == 0)
                         {
                             Debug.LogError("There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
-                            return;
+                            yield break;
                         }
                         Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
                         rRequest.Asset = rTargetAsset;
@@ -212,7 +214,7 @@ namespace Knight.Framework.AssetBundles
                         if (rAssetPaths.Length == 0)
                         {
                             Debug.LogError("There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
-                            return;
+                            yield break;
                         }
                         rRequest.AllAssets = new Object[rAssetPaths.Length];
                         for (int i = 0; i < rAssetPaths.Length; i++)
@@ -230,8 +232,11 @@ namespace Knight.Framework.AssetBundles
                 if (bRealLoad)
                 {
                     Debug.Log("---Real Load ab: " + rAssetLoadUrl);
+                    
                     // 如果是一个直接的资源，将资源的对象取出来
-                    rAssetLoadEntry.CacheAsset = await AssetBundle.LoadFromFileAsync(rAssetLoadUrl);
+                    var rABCreateRequest = AssetBundle.LoadFromFileAsync(rAssetLoadUrl);
+                    yield return rABCreateRequest;
+                    rAssetLoadEntry.CacheAsset = rABCreateRequest.assetBundle;
                 }
                 else
                 {
@@ -245,11 +250,13 @@ namespace Knight.Framework.AssetBundles
                     {
                         if (!rRequest.IsLoadAllAssets)
                         {
-                            rRequest.Asset = await rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
+                            var rABRequest = rAssetLoadEntry.CacheAsset.LoadAssetAsync(rRequest.AssetName);
+                            yield return rABRequest;
+                            rRequest.Asset = rABRequest.asset;
                         }
                         else
                         {
-                            await LoadAllAssets_ByAssetbundle(rRequest, rAssetLoadEntry.CacheAsset);
+                            yield return LoadAllAssets_ByAssetbundle(rRequest, rAssetLoadEntry.CacheAsset);
                         }
                     }
                     else

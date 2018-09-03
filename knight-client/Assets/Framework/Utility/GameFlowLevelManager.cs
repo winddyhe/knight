@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using Knight.Core;
 using System.Threading.Tasks;
+using UnityFx.Async;
 
 namespace Knight.Framework
 {
@@ -15,7 +16,7 @@ namespace Knight.Framework
     /// </summary>
     public class GameFlowLevelManager : TSingleton<GameFlowLevelManager>
     {
-        public class LevelRequest
+        public class LevelRequest : AsyncRequest<LevelRequest>
         {
             public Scene    Level;
             public string   LevelName;
@@ -28,12 +29,17 @@ namespace Knight.Framework
 
         GameFlowLevelManager() {}
 
-        public async Task<LevelRequest> LoadLevel(string rLevelName)
+        public IAsyncOperation<LevelRequest> LoadLevel(string rLevelName)
         {
-            var rLevelRequest = new LevelRequest(rLevelName);
-            await SceneManager.LoadSceneAsync(rLevelRequest.LevelName);
-            rLevelRequest.Level = SceneManager.GetSceneByName(rLevelRequest.LevelName);
-            return rLevelRequest;
+            var rRequest = new LevelRequest(rLevelName);
+            return rRequest.Start(LoadLevel(rRequest));
+        }
+
+        public IEnumerator LoadLevel(LevelRequest rRequest)
+        {
+            yield return SceneManager.LoadSceneAsync(rRequest.LevelName);
+            rRequest.Level = SceneManager.GetSceneByName(rRequest.LevelName);
+            rRequest.SetResult(rRequest);
         }
         
         public Camera GetMainCamera()
