@@ -186,8 +186,8 @@ namespace Knight.Hotfix.Core
         /// </summary>
         private void BindingListViewAndViewModels(ViewModelContainer rViewModelContainer)
         {
-            var rViewModelDataSources = rViewModelContainer.gameObject.GetComponentsInChildren<ViewModelDataSourceList>(true);
-            for (int i = 0; i < rViewModelDataSources.Length; i++)
+            var rViewModelDataSources = UtilTool.GetComponentsInChildrenUtilOrigin<ViewModelDataSourceList>(rViewModelContainer);
+            for (int i = 0; i < rViewModelDataSources.Count; i++)
             {
                 var rViewModelDataSource = rViewModelDataSources[i];
                 rViewModelDataSource.ViewModelProp = HotfixDataBindingTypeResolve.MakeViewModelDataBindingProperty(rViewModelDataSource.ViewModelPath);

@@ -60,6 +60,100 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\AutoPlay.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\AxisConstraint.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Color2.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\ABSSequentiable.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Debugger.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Delegates.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\DOTweenComponent.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\DOTweenSettings.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Easing\Bounce.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Easing\EaseCurve.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Easing\EaseManager.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Easing\Flash.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Enums\FilterType.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Enums\OperationType.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Enums\RewindCallbackMode.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Enums\SpecialStartupMode.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Enums\UpdateMode.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Enums\UpdateNotice.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Extensions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\SequenceCallback.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Surrogates\ColorWrapper.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Surrogates\QuaternionWrapper.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Surrogates\Vector2Wrapper.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Surrogates\Vector3Wrapper.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Surrogates\Vector4Wrapper.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\TweenerCore.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\TweenManager.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Core\Utils.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\CustomPlugins\PureQuaternionPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\DOTween.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\DOVirtual.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Ease.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\EaseFactory.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\IDOTweenInit.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\LogBehaviour.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\LoopType.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\PathMode.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\PathType.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Color2Plugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\ColorPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\ColorWrapperPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Core\ABSTweenPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Core\IPlugSetter.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Core\ITPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Core\ITweenPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Core\PathCore\ABSPathDecoder.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Core\PathCore\CatmullRomDecoder.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Core\PathCore\ControlPoint.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Core\PathCore\LinearDecoder.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Core\PathCore\Path.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Core\PluginsManager.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Core\SpecialPluginsUtils.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\DoublePlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\FloatPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\IntPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\LongPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Options\ColorOptions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Options\FloatOptions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Options\IPlugOptions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Options\NoOptions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Options\PathOptions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Options\QuaternionOptions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Options\RectOptions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Options\StringOptions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Options\UintOptions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Options\Vector3ArrayOptions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Options\VectorOptions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\PathPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\QuaternionPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\QuaternionWrapperPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\RectOffsetPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\RectPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\StringPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\UintPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\UlongPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Vector2Plugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Vector2WrapperPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Vector3ArrayPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Vector3Plugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Vector3WrapperPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Vector4Plugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Plugins\Vector4WrapperPlugin.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\RotateMode.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\ScrambleMode.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Sequence.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\ShortcutExtensions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\ShortcutExtensions50.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Tween.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\Tweener.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\TweenExtensions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\TweenParams.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\TweenSettingsExtensions.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\TweenType.cs" />
+    <Compile Include="Assets\Plugins\ThridLib\DOTween\UpdateType.cs" />
     <Compile Include="Assets\Plugins\ThridLib\ILRuntime\ILRuntime\CLR\Method\CLRMethod.cs" />
     <Compile Include="Assets\Plugins\ThridLib\ILRuntime\ILRuntime\CLR\Method\ExceptionHandler.cs" />
     <Compile Include="Assets\Plugins\ThridLib\ILRuntime\ILRuntime\CLR\Method\ILMethod.cs" />
@@ -571,14 +665,14 @@
     <Reference Include="System.Data">
       <HintPath>D:/Project/knight/knight-client/Assets/Framework.Editor/Editor/ExcelReader/System.Data.dll</HintPath>
     </Reference>
+    <Reference Include="UnityFx.Async">
+      <HintPath>D:/Project/knight/knight-client/Assets/Plugins/ThridLib/UnityFx.Async/Bin/UnityFx.Async.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>D:/Project/knight/knight-client/Assets/Plugins/ThridLib/ZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityFx.Async">
-      <HintPath>D:/Project/knight/knight-client/Assets/Plugins/ThridLib/UnityFx.Async/Bin/UnityFx.Async.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

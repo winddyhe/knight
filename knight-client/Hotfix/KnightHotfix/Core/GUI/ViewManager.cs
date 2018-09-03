@@ -62,6 +62,32 @@ namespace Knight.Hotfix.Core
             }
         }
 
+        public void Show(string rViewGUID)
+        {
+            View rView = null;
+            if (this.mCurFixedViews.TryGetValue(rViewGUID, out rView))
+            {
+                rView.Show();
+            }
+            if (this.mCurViews.TryGetValue(rViewGUID, out rView))
+            {
+                rView.Show();
+            }
+        }
+        
+        public void Hide(string rViewGUID)
+        {
+            View rView = null;
+            if (this.mCurFixedViews.TryGetValue(rViewGUID, out rView))
+            {
+                rView.Hide();
+            }
+            if (this.mCurViews.TryGetValue(rViewGUID, out rView))
+            {
+                rView.Hide();
+            }
+        }
+
         /// <summary>
         /// 打开一个View
         /// </summary>
@@ -85,7 +111,7 @@ namespace Knight.Hotfix.Core
             var rLoaderRequest = await UIAssetLoader.Instance.LoadUI(rViewName);
             return await OpenView(rViewName, rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
         }
-
+        
         /// <summary>
         /// 移除顶层View
         /// </summary>
@@ -196,12 +222,12 @@ namespace Knight.Hotfix.Core
                     mCurFixedViews.Add(rViewGUID, rView);
                     break;
                 case View.State.Dispatch:
-                case View.State.Page:
                     if (mCurViews.Count == 0)
                         mCurViews.Add(rViewGUID, rView);
                     else
                         mCurViews[mCurViews.Last().Key] = rView;
                     break;
+                case View.State.Page:
                 case View.State.Popup:
                     mCurViews.Add(rViewGUID, rView);
                     break;

@@ -9,20 +9,25 @@ namespace UnityEngine.UI
 {
     public class TabView : ToggleGroup
     {
-        public GameObject               TabTemplateGo;
-        public TabButton                CurTabBtn;
+        [Serializable]
+        public class ToggleEvent : UnityEvent<int>
+        {
+        }
+
+        public GameObject       TabTemplateGo;
+        public TabButton        CurTabBtn;
         
-        public UnityEvent<EventArg>     OnTabChangedFunc;
+        public ToggleEvent      OnTabChangedFunc = new ToggleEvent();
         
         [HideInInspector]
-        public List<TabButton>          TabButtons;
+        public List<TabButton>  TabButtons;
         
         public void OnTabChanged(TabButton rTabBtn)
         {
             this.CurTabBtn = rTabBtn;
             if (OnTabChangedFunc != null)
             {
-                this.OnTabChangedFunc.Invoke(new EventArg(this.CurTabBtn.TabIndex));
+                this.OnTabChangedFunc.Invoke(this.CurTabBtn.TabIndex);
             }
         }
     }

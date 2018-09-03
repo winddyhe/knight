@@ -309,6 +309,34 @@ namespace Knight.Core
             GetTransformPath(rTrans.parent, ref rPath);
         }
 
+        public static List<T> GetComponentsInChildrenUtilOrigin<T>(Component rComp) where T : Component
+        {
+            List<T> rCompResults = new List<T>();
+            rCompResults.AddRange(rComp.transform.GetComponents<T>());
+            int nChildCount = rComp.transform.childCount;
+            for (int i = 0; i < nChildCount; i++)
+            {
+                var rChildTrans = rComp.transform.GetChild(i);
+                GetComponentsInChildrenUtilOrigin(rCompResults, rComp.GetType(), rChildTrans);
+            }
+            return rCompResults;
+        }
+
+        private static void GetComponentsInChildrenUtilOrigin<T>(List<T> rComps, Type rOriginCompType, Transform rTrans) where T : Component
+        {
+            var rOriginComps = rTrans.GetComponents(rOriginCompType);
+            if (rOriginComps.Length > 0) return;
+
+            rComps.AddRange(rTrans.GetComponents<T>());
+
+            int nChildCount = rTrans.childCount;
+            for (int i = 0; i < nChildCount; i++)
+            {
+                var rChildTrans = rTrans.GetChild(i);
+                GetComponentsInChildrenUtilOrigin(rComps, rOriginCompType, rChildTrans);
+            }
+        }
+
         public static Color ToColor(int r, int g, int b, int a)
         {
             return new Color(r / 255f, g / 255f, b / 255f, a / 255f);

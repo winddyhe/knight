@@ -24,9 +24,9 @@ namespace Game
             ViewManager.Instance.PageRoot = this.ContentMiddlePanel.gameObject;
         }
 
-        public async Task OpenPageUIAsync(string rViewName, Action<View> rOpenCompleted = null)
+        public async Task<View> OpenPageUIAsync(string rViewName, Action<View> rOpenCompleted = null)
         {
-            await ViewManager.Instance.OpenAsync(rViewName, View.State.Page, rOpenCompleted);
+            return await ViewManager.Instance.OpenAsync(rViewName, View.State.Page, rOpenCompleted);
         }
 
         public void OpenPageUI(string rViewName, Action<View> rOpenCompleted = null)
@@ -34,14 +34,22 @@ namespace Game
             ViewManager.Instance.Open(rViewName, View.State.Page, rOpenCompleted);
         }
 
-        public async Task OpenPopUIAsync(string rViewName, Action<View> rOpenCompleted = null)
+        public async Task<View> OpenPopUIAsync(string rViewName, Action<View> rOpenCompleted = null)
         {
-            await ViewManager.Instance.OpenAsync(rViewName, View.State.Popup, rOpenCompleted);
+            return await ViewManager.Instance.OpenAsync(rViewName, View.State.Popup, rOpenCompleted);
         }
 
         public void OpenPopUI(string rViewName, Action<View> rOpenCompleted = null)
         {
             ViewManager.Instance.Open(rViewName, View.State.Popup, rOpenCompleted);
+        }
+
+        public void SetActive(string rViewGUID, bool bIsActive)
+        {
+            if (bIsActive)
+                ViewManager.Instance.Show(rViewGUID);
+            else
+                ViewManager.Instance.Hide(rViewGUID);
         }
     }
 }

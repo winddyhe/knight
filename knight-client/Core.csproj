@@ -361,14 +361,14 @@
     <Reference Include="System.Data">
       <HintPath>D:/Project/knight/knight-client/Assets/Framework.Editor/Editor/ExcelReader/System.Data.dll</HintPath>
     </Reference>
+    <Reference Include="UnityFx.Async">
+      <HintPath>D:/Project/knight/knight-client/Assets/Plugins/ThridLib/UnityFx.Async/Bin/UnityFx.Async.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>D:/Project/knight/knight-client/Assets/Plugins/ThridLib/ZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityFx.Async">
-      <HintPath>D:/Project/knight/knight-client/Assets/Plugins/ThridLib/UnityFx.Async/Bin/UnityFx.Async.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Software/Unity/2018.2.2f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

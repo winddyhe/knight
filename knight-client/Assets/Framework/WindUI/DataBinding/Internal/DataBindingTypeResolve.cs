@@ -242,7 +242,7 @@ namespace UnityEngine.UI
             var rBoundEvent = GetBindableEvents(rComp)?.FirstOrDefault();
             if (rBoundEvent == null)
             {
-                throw new Exception(string.Format("Could not bind to event \"{0}\" on component \"{1}\".", rBoundEventName, rCompType));
+                Debug.LogErrorFormat("Could not bind to event \"{0}\" on component \"{1}\".", rBoundEventName, rCompType);
             }
             return rBoundEvent;
         }
