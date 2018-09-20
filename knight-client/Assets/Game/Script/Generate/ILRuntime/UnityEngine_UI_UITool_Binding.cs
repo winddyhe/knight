@@ -26,8 +26,8 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("DeleteChildren", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DeleteChildren_0);
             args = new Type[]{typeof(UnityEngine.Transform), typeof(UnityEngine.GameObject), typeof(System.String)};
-            method = type.GetMethod("AddChild", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, AddChild_1);
+            method = type.GetMethod("AddChildNoScale", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, AddChildNoScale_1);
 
 
         }
@@ -52,7 +52,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* AddChild_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* AddChildNoScale_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -71,7 +71,7 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            var result_of_this_method = UnityEngine.UI.UITool.AddChild(@rParent, @rPrefabGo, @rLayerName);
+            var result_of_this_method = UnityEngine.UI.UITool.AddChildNoScale(@rParent, @rPrefabGo, @rLayerName);
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }

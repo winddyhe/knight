@@ -53,6 +53,34 @@ namespace ILRuntime.Runtime.Generated
                     }
                 }
             }
+            args = new Type[]{typeof(UnityEngine.UI.MemberBindingAbstract)};
+            if (genericMethods.TryGetValue("GetComponentsInChildrenUtilOrigin", out lst))
+            {
+                foreach(var m in lst)
+                {
+                    if(m.GetParameters().Length == 1)
+                    {
+                        method = m.MakeGenericMethod(args);
+                        app.RegisterCLRMethodRedirection(method, GetComponentsInChildrenUtilOrigin_2);
+
+                        break;
+                    }
+                }
+            }
+            args = new Type[]{typeof(UnityEngine.UI.ViewModelDataSourceList)};
+            if (genericMethods.TryGetValue("GetComponentsInChildrenUtilOrigin", out lst))
+            {
+                foreach(var m in lst)
+                {
+                    if(m.GetParameters().Length == 1)
+                    {
+                        method = m.MakeGenericMethod(args);
+                        app.RegisterCLRMethodRedirection(method, GetComponentsInChildrenUtilOrigin_3);
+
+                        break;
+                    }
+                }
+            }
             args = new Type[]{typeof(System.String)};
             if (genericMethods.TryGetValue("SafeExecute", out lst))
             {
@@ -61,7 +89,7 @@ namespace ILRuntime.Runtime.Generated
                     if(m.GetParameters().Length == 2)
                     {
                         method = m.MakeGenericMethod(args);
-                        app.RegisterCLRMethodRedirection(method, SafeExecute_2);
+                        app.RegisterCLRMethodRedirection(method, SafeExecute_4);
 
                         break;
                     }
@@ -69,10 +97,10 @@ namespace ILRuntime.Runtime.Generated
             }
             args = new Type[]{typeof(System.Action)};
             method = type.GetMethod("SafeExecute", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SafeExecute_3);
+            app.RegisterCLRMethodRedirection(method, SafeExecute_5);
             args = new Type[]{typeof(UnityEngine.Object)};
             method = type.GetMethod("SafeDestroy", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SafeDestroy_4);
+            app.RegisterCLRMethodRedirection(method, SafeDestroy_6);
 
 
         }
@@ -114,7 +142,49 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SafeExecute_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetComponentsInChildrenUtilOrigin_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Component @rComp = (UnityEngine.Component)typeof(UnityEngine.Component).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = Knight.Core.UtilTool.GetComponentsInChildrenUtilOrigin<UnityEngine.UI.MemberBindingAbstract>(@rComp);
+
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* GetComponentsInChildrenUtilOrigin_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Component @rComp = (UnityEngine.Component)typeof(UnityEngine.Component).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = Knight.Core.UtilTool.GetComponentsInChildrenUtilOrigin<UnityEngine.UI.ViewModelDataSourceList>(@rComp);
+
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* SafeExecute_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -134,7 +204,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SafeExecute_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SafeExecute_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -150,7 +220,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SafeDestroy_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SafeDestroy_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

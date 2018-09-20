@@ -64,7 +64,6 @@
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\CLRBindings.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_CKeyValuePair_2_Int32_ILTypeInstance_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_CKeyValuePair_2_String_ILTypeInstance_Binding.cs" />
-    <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_CoroutineManager_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_Dict_2_Int32_Action_1_ILTypeInstance_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_Dict_2_Int32_ILTypeInstance_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_Dict_2_String_ILTypeInstance_Binding.cs" />
@@ -78,7 +77,6 @@
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_ObservableList_1_ILTypeInstance_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_ReflectionAssist_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_TSingleton_1_ABPlatform_Binding.cs" />
-    <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_TSingleton_1_CoroutineManager_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_TSingleton_1_EventManager_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_TSingleton_1_HotfixEventManager_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\Knight_Core_TSingleton_1_UIAssetLoader_Binding.cs" />
@@ -121,12 +119,15 @@
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_ILTypeInstance_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_KeyValuePair_2_Type_Type_Bin_t.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_KeyValuePair_2_Type_Type_Bin_t_t.cs" />
+    <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_MemberBindingAbstract_Bindin_t.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_MemberInfo_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_String_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_TabButton_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_Type_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_UnityObject_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_ViewModelDataSource_Binding.cs" />
+    <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_List_1_ViewModelDataSourceList_Bind_t.cs" />
+    <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Generic_Stack_1_ILTypeInstance_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_Hashtable_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_ICollection_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Collections_IDictionary_Binding.cs" />
@@ -147,7 +148,6 @@
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_IO_FileStream_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_IO_MemoryStream_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Linq_Enumerable_Binding.cs" />
-    <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_NotSupportedException_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Object_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Reflection_Assembly_Binding.cs" />
     <Compile Include="Assets\Game\Script\Generate\ILRuntime\System_Reflection_ConstructorInfo_Binding.cs" />

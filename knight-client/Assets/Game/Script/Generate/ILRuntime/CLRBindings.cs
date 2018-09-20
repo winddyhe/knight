@@ -52,6 +52,8 @@ namespace ILRuntime.Runtime.Generated
             Knight_Core_WaitAsync_Binding.Register(app);
             UnityFx_Async_AsyncExtensions_Binding_AsyncAwaiter_1_Knight_Core_WaitAsync_Binding_WaitForSecondsRequest_Binding.Register(app);
             UnityEngine_Component_Binding.Register(app);
+            System_Collections_Generic_Stack_1_ILTypeInstance_Binding.Register(app);
+            System_Runtime_CompilerServices_AsyncTaskMethodBuilder_1_ILTypeInstance_Binding.Register(app);
             Knight_Framework_EventArg_Binding.Register(app);
             System_Collections_Generic_List_1_ILTypeInstance_Binding.Register(app);
             Knight_Core_ObservableList_1_ILTypeInstance_Binding.Register(app);
@@ -94,10 +96,7 @@ namespace ILRuntime.Runtime.Generated
             System_Reflection_MethodInfo_Binding.Register(app);
             System_Reflection_MethodBase_Binding.Register(app);
             UnityEngine_GameObject_Binding.Register(app);
-            Knight_Core_TSingleton_1_CoroutineManager_Binding.Register(app);
-            Knight_Core_CoroutineManager_Binding.Register(app);
             UnityEngine_UI_ViewModelContainer_Binding.Register(app);
-            System_NotSupportedException_Binding.Register(app);
             UnityEngine_UI_MemberBindingAbstract_Binding.Register(app);
             System_Collections_Generic_List_1_ViewModelDataSource_Binding.Register(app);
             UnityEngine_UI_ViewModelDataSource_Binding.Register(app);
@@ -105,9 +104,11 @@ namespace ILRuntime.Runtime.Generated
             System_Collections_Generic_IEnumerator_1_CKeyValuePair_2_String_ILTypeInstance_Binding.Register(app);
             Knight_Core_CKeyValuePair_2_String_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_List_1_EventBinding_Binding.Register(app);
+            System_Collections_Generic_List_1_MemberBindingAbstract_Binding.Register(app);
             UnityEngine_UI_DataBindingTypeResolve_Binding.Register(app);
             UnityEngine_UI_DataBindingPropertyWatcher_Binding.Register(app);
             UnityEngine_UI_MemberBindingTwoWay_Binding.Register(app);
+            System_Collections_Generic_List_1_ViewModelDataSourceList_Binding.Register(app);
             UnityEngine_UI_ViewModelDataSourceTemplate_Binding.Register(app);
             Knight_Core_IObservableEvent_Binding.Register(app);
             System_Collections_ICollection_Binding.Register(app);
@@ -125,7 +126,6 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_UI_UIRoot_Binding.Register(app);
             Knight_Core_IndexedDict_2_String_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_List_1_String_Binding.Register(app);
-            System_Runtime_CompilerServices_AsyncTaskMethodBuilder_1_ILTypeInstance_Binding.Register(app);
             Knight_Core_IndexedDictExpand_Binding.Register(app);
             Knight_Core_TSingleton_1_UIAssetLoader_Binding.Register(app);
             UnityEngine_UI_UIAssetLoader_Binding.Register(app);
@@ -133,11 +133,11 @@ namespace ILRuntime.Runtime.Generated
             System_Runtime_CompilerServices_TaskAwaiter_1_UnityEngine_UI_UIAssetLoader_Binding_LoaderRequest_Binding.Register(app);
             UnityEngine_UI_UIAssetLoader_Binding_LoaderRequest_Binding.Register(app);
             System_Guid_Binding.Register(app);
+            System_Exception_Binding.Register(app);
             Knight_Framework_Net_Packet_Binding.Register(app);
             Knight_Framework_Net_NetworkSession_Binding.Register(app);
             Knight_Framework_Net_NetworkClient_Binding.Register(app);
             Knight_Framework_Net_NetworkOpcodeTypes_Binding.Register(app);
-            System_Exception_Binding.Register(app);
             System_Action_1_ILTypeInstance_Binding.Register(app);
             System_Threading_Tasks_TaskCompletionSource_1_ILTypeInstance_Binding.Register(app);
             Knight_Core_Dict_2_Int32_Action_1_ILTypeInstance_Binding.Register(app);
