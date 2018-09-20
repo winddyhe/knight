@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEditor;
 using System;
 using Object = UnityEngine.Object;
+using System.Collections.Generic;
 
 namespace Knight.Core.Editor
 {
@@ -60,6 +61,18 @@ namespace Knight.Core.Editor
                 rObj = AssetDatabase.LoadAssetAtPath<T>(rAssetPath) as T;
             }
             return rObj;
+        }
+
+        public static List<string> GetAssetPaths(string rSearch, string[] rPaths)
+        {
+            var rResultPaths = new List<string>();
+            var rGUIDS = AssetDatabase.FindAssets(rSearch, rPaths);
+            for (int i = 0; i < rGUIDS.Length; i++)
+            {
+                var rAssetPath = AssetDatabase.GUIDToAssetPath(rGUIDS[i]);
+                rResultPaths.Add(rAssetPath);
+            }
+            return rResultPaths;
         }
 
         /// <summary>

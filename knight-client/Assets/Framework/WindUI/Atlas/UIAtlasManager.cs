@@ -10,7 +10,7 @@ namespace UnityEngine.UI
 {
     public class UIAtlasManager : TSingleton<UIAtlasManager>
     {
-        public class SpriteRequest : CoroutineRequest<SpriteRequest>
+        public class SpriteRequest : AsyncRequest<SpriteRequest>
         {
             public Sprite   Sprite;
             public Texture  Texture;
@@ -51,7 +51,7 @@ namespace UnityEngine.UI
             }
         }
 
-        public async Task<SpriteRequest> LoadSprite(string rSpriteName)
+        public IAsyncOperation<SpriteRequest> LoadSprite(string rSpriteName)
         {
             UIAtlas rSearchAtlas = this.SearchAtlas(rSpriteName);
             if (rSearchAtlas == null) return null;
@@ -59,18 +59,15 @@ namespace UnityEngine.UI
             SpriteRequest rRequest = new SpriteRequest(rSearchAtlas.ABName, rSpriteName);
             if (rSearchAtlas.Mode == UIAtlasMode.Atlas)
             {
-                await LoadSprite_AtlasMode_Async(rRequest);
-                return rRequest;
+                return rRequest.Start(LoadSprite_AtlasMode_Async(rRequest));
             }
             else if (rSearchAtlas.Mode == UIAtlasMode.FullBG)
             {
-                await LoadSprite_FullBGMode_Async(rRequest);
-                return rRequest;
+                return rRequest.Start(LoadSprite_FullBGMode_Async(rRequest));
             }
             else if (rSearchAtlas.Mode == UIAtlasMode.Icons)
             {
-                await LoadSprite_IconsMode_Async(rRequest);
-                return rRequest;
+                return rRequest.Start(LoadSprite_IconsMode_Async(rRequest));
             }
             return null;
         }
@@ -87,39 +84,63 @@ namespace UnityEngine.UI
             ABLoader.Instance.UnloadAsset(rABPAth);
         }
 
-        private async Task LoadSprite_AtlasMode_Async(SpriteRequest rSpriteRequest)
+        private IEnumerator LoadSprite_AtlasMode_Async(SpriteRequest rSpriteRequest)
         {
             bool bIsSumilate = ABPlatform.Instance.IsSumilateMode_GUI();
-            var rLoadRequest = await ABLoader.Instance.LoadAsset(rSpriteRequest.Path, rSpriteRequest.AssetName, bIsSumilate);
-            if (rLoadRequest.Asset == null) return;
-            
+            var rLoadRequest = ABLoader.Instance.LoadAsset(rSpriteRequest.Path, rSpriteRequest.AssetName, bIsSumilate);
+            yield return rLoadRequest;
+
+            if (rLoadRequest.Result.Asset == null)
+            {
+                rSpriteRequest.SetResult(rSpriteRequest);
+                yield break;
+            }            
             if (!bIsSumilate)
             {
-                rSpriteRequest.Sprite = rLoadRequest.Asset as Sprite;
+                rSpriteRequest.Sprite = rLoadRequest.Result.Asset as Sprite;
             }
             else
             {
-                Texture2D rTex2D = rLoadRequest.Asset as Texture2D;
+                Texture2D rTex2D = rLoadRequest.Result.Asset as Texture2D;
                 rSpriteRequest.Sprite = Sprite.Create(rTex2D, new Rect(0, 0, rTex2D.width, rTex2D.height), new Vector2(0.5f, 0.5f));
             }
-
+            rSpriteRequest.SetResult(rSpriteRequest);
             ABLoader.Instance.UnloadAsset(rSpriteRequest.Path);
         }
 
-        private async Task LoadSprite_FullBGMode_Async(SpriteRequest rSpriteRequest)
+        private IEnumerator LoadSprite_FullBGMode_Async(SpriteRequest rSpriteRequest)
         {
             string rABPath = rSpriteRequest.Path + "/" + rSpriteRequest.AssetName.ToLower() + ".ab";
-            var rLoadRequest = await ABLoader.Instance.LoadAsset(rABPath, rSpriteRequest.AssetName, ABPlatform.Instance.IsSumilateMode_GUI());
-            if (rLoadRequest.Asset == null) return;
-            rSpriteRequest.Texture = rLoadRequest.Asset as Texture2D;
+
+            var rLoadRequest = ABLoader.Instance.LoadAsset(rABPath, rSpriteRequest.AssetName, ABPlatform.Instance.IsSumilateMode_GUI());
+            yield return rLoadRequest;
+
+            if (rLoadRequest.Result == null || rLoadRequest.Result.Asset == null)
+            {
+                rSpriteRequest.SetResult(rSpriteRequest);
+                yield break;
+            }
+
+            rSpriteRequest.Texture = rLoadRequest.Result.Asset as Texture2D;
+
+            rSpriteRequest.SetResult(rSpriteRequest);
         }
 
-        private async Task LoadSprite_IconsMode_Async(SpriteRequest rSpriteRequest)
+        private IEnumerator LoadSprite_IconsMode_Async(SpriteRequest rSpriteRequest)
         {
-            var rLoadRequest = await ABLoader.Instance.LoadAsset(rSpriteRequest.Path, rSpriteRequest.AssetName, ABPlatform.Instance.IsSumilateMode_GUI());
-            if (rLoadRequest.Asset == null) return;
-            rSpriteRequest.Sprite = rLoadRequest.Asset as Sprite;
+            var rLoadRequest = ABLoader.Instance.LoadAsset(rSpriteRequest.Path, rSpriteRequest.AssetName, ABPlatform.Instance.IsSumilateMode_GUI());
+            yield return rLoadRequest;
+
+            if (rLoadRequest.Result == null || rLoadRequest.Result.Asset == null)
+            {
+                rSpriteRequest.SetResult(rSpriteRequest);
+                yield break;
+            }
+
+            rSpriteRequest.Sprite = rLoadRequest.Result.Asset as Sprite;
             ABLoader.Instance.UnloadAsset(rSpriteRequest.Path);
+
+            rSpriteRequest.SetResult(rSpriteRequest);
         }
 
         public UIAtlas SearchAtlas(string rSpriteName)

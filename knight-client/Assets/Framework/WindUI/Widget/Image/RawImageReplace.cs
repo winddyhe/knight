@@ -1,7 +1,9 @@
 ﻿using Knight.Core;
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace UnityEngine.UI
 {
@@ -9,65 +11,86 @@ namespace UnityEngine.UI
     [ExecuteInEditMode]
     public class RawImageReplace : MonoBehaviour
     {
-        [SerializeField]
-        private string              SpriteName;
-        public  RawImage            RawImage;
+        private class LoadRequest : AsyncRequest<LoadRequest>
+        {
+            private string              mSpriteName;
 
-        private CoroutineHandler    mLoadHandler;
+            public LoadRequest(string rSpriteName)
+            {
+                this.mSpriteName = rSpriteName;
+            }
+        }
+
+        [SerializeField][ReadOnly]
+        private string                  mSpriteName;
+        public  RawImage                RawImage;
+
+        private LoadRequest             mLoadRequest;
         
         private void Awake()
         {
             this.RawImage = this.gameObject.ReceiveComponent<RawImage>();
-            this.SpriteName = this.RawImage.texture.name;
+            this.mSpriteName = this.RawImage.texture.name;
+            this.mLoadRequest = new LoadRequest(this.mSpriteName);
         }
 
         private void OnDestroy()
         {
-            CoroutineManager.Instance.Stop(mLoadHandler);
+            if (this.mLoadRequest != null)
+                this.mLoadRequest.Stop();
         }
 
-        public void ReplaceSprite(string rSpriteName)
+        public string SpriteName
         {
-            if (this.SpriteName == rSpriteName)
+            get { return this.mSpriteName; }
+            set
             {
-                return;
+                if (this.mSpriteName == value)
+                {
+                    return;
+                }
+                this.UnloadSprite();
+                this.mSpriteName = value;
+                if (string.IsNullOrEmpty(value))
+                {
+                    this.RawImage.texture = null;
+                    return;
+                }
+                if (CoroutineManager.Instance != null)
+                {
+                    this.mLoadRequest.Stop();
+
+                    this.mLoadRequest = new LoadRequest(this.mSpriteName);
+                    this.mLoadRequest.Start(LoadSprite_Async(this.mLoadRequest));
+                }
             }
-
-            this.UnloadSprite();
-
-            this.SpriteName = rSpriteName;
-            if (string.IsNullOrEmpty(rSpriteName))
-            {
-                this.RawImage.texture = null;
-                return;
-            }
-
-            CoroutineManager.Instance.Stop(this.mLoadHandler);
-            this.mLoadHandler = CoroutineManager.Instance.StartHandler(LoadSprite_Async());
         }
 
         public void UnloadSprite()
         {
-            UIAtlasManager.Instance.UnloadSprite(this.SpriteName);
+            UIAtlasManager.Instance.UnloadSprite(this.mSpriteName);
         }
 
-        private IEnumerator LoadSprite_Async()
+        private IEnumerator LoadSprite_Async(LoadRequest rRequest)
         {
-            if (string.IsNullOrEmpty(this.SpriteName))
+            if (string.IsNullOrEmpty(this.mSpriteName))
             {
                 this.RawImage.texture = null;
+                rRequest.SetResult(rRequest);
                 yield break;
             }
 
-            var rRequest = UIAtlasManager.Instance.LoadSprite(this.SpriteName);
-            yield return rRequest;
+            var rLoadRequest = UIAtlasManager.Instance.LoadSprite(this.mSpriteName);
+            yield return rLoadRequest;
             
-            if (rRequest == null || rRequest.Result == null || rRequest.Result.Texture == null)
+            if (rLoadRequest == null || rLoadRequest.Result == null || rLoadRequest.Result.Texture == null)
             {
-                Debug.LogErrorFormat("not find sprite: {0}", this.SpriteName);
+                Debug.LogErrorFormat("not find sprite: {0}", this.mSpriteName);
+                rRequest.SetResult(rRequest);
                 yield break;
             }
-            this.RawImage.texture = rRequest.Result.Texture;
+            this.RawImage.texture = rLoadRequest.Result.Texture;
+            rRequest.SetResult(rRequest);
         }
     }
 }

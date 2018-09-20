@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using Knight.Core;
 using System.Collections;
+using NaughtyAttributes;
+using System.Threading.Tasks;
+using System.Threading;
+using UnityFx.Async;
 
 namespace UnityEngine.UI
 {
@@ -9,64 +13,90 @@ namespace UnityEngine.UI
     [ExecuteInEditMode]
     public class ImageReplace : MonoBehaviour
     {
-        [SerializeField]
-        private string              SpriteName;
-        public  Image               Image;
+        private class LoadRequest : AsyncRequest<LoadRequest>
+        {
+            private string              mSpriteName;
 
-        private CoroutineHandler    mLoadHandler;
+            public LoadRequest(string rSpriteName)
+            {
+                this.mSpriteName = rSpriteName;
+            }
+        }
+
+        [SerializeField][ReadOnly]
+        private string                  mSpriteName;
+        public  Image                   Image;
+
+        private LoadRequest             mLoadRequest;
 
         private void Awake()
         {
             this.Image = this.gameObject.ReceiveComponent<Image>();
-            this.SpriteName = this.Image.sprite.name;
+            this.mSpriteName = this.Image?.sprite.name;
+            this.mLoadRequest = new LoadRequest(this.mSpriteName);
         }
 
         private void OnDestroy()
         {
-            CoroutineManager.Instance.Stop(mLoadHandler);
+            this.Stop();
         }
 
-        public void ReplaceSprite(string rSpriteName)
+        public void Stop()
         {
-            if (this.SpriteName == rSpriteName)
+            if (this.mLoadRequest != null)
+                this.mLoadRequest.Stop();
+        }
+        
+        public string SpriteName
+        {
+            get { return this.mSpriteName; }
+            set
             {
-                return;
-            }
-            
-            this.SpriteName = rSpriteName;
-            if (string.IsNullOrEmpty(rSpriteName))
-            {
-                this.Image.sprite = null;
-                return;
-            }
+                if (this.mSpriteName == value)
+                {
+                    return;
+                }
+                this.mSpriteName = value;
+                if (string.IsNullOrEmpty(value))
+                {
+                    this.Image.sprite = null;
+                    return;
+                }
+                if (this.mLoadRequest != null)
+                {
+                    this.mLoadRequest.Stop();
 
-            CoroutineManager.Instance.Stop(mLoadHandler);
-            mLoadHandler = CoroutineManager.Instance.StartHandler(LoadSprite_Async());
+                    this.mLoadRequest = new LoadRequest(this.mSpriteName);
+                    this.mLoadRequest.Start(LoadSprite_Async(this.mLoadRequest));
+                }
+            }
         }
 
         public void UnloadSprite()
         {
-            UIAtlasManager.Instance.UnloadSprite(this.SpriteName);
+            UIAtlasManager.Instance.UnloadSprite(this.mSpriteName);
         }
 
-        private IEnumerator LoadSprite_Async()
+        private IEnumerator LoadSprite_Async(LoadRequest rRequest)
         {
-            if (string.IsNullOrEmpty(this.SpriteName))
+            if (string.IsNullOrEmpty(this.mSpriteName))
             {
                 this.Image.sprite = null;
+                rRequest.SetResult(rRequest);
                 yield break;
             }
 
-            var rRequest = UIAtlasManager.Instance.LoadSprite(this.SpriteName);
-            yield return rRequest;
+            var rLoadRequest = UIAtlasManager.Instance.LoadSprite(this.mSpriteName);
+            yield return rLoadRequest;
 
-            if (rRequest == null || rRequest.Result == null || rRequest.Result.Sprite == null)
+            if (rLoadRequest == null || rLoadRequest.Result == null || rLoadRequest.Result.Sprite == null)
             {
-                //Debug.LogErrorFormat("not find sprite: {0}", this.SpriteName);
+                Debug.LogErrorFormat("not find sprite: {0}", this.SpriteName);
                 this.Image.sprite = null;
+                rRequest.SetResult(rRequest);
                 yield break;
             }
-            this.Image.sprite = rRequest.Result.Sprite;
+            this.Image.sprite = rLoadRequest.Result.Sprite;
         }
     }
 }

@@ -24,7 +24,19 @@ namespace UnityEngine.UI
     
             return rTargetGo;
         }
-    
+
+        public static GameObject AddChildNoScale(this Transform rParent, GameObject rPrefabGo, string rLayerName = "UI")
+        {
+            if (rParent == null || rPrefabGo == null) return null;
+
+            GameObject rTargetGo = GameObject.Instantiate(rPrefabGo);
+            rTargetGo.name = rPrefabGo.name;
+            rTargetGo.transform.SetParent(rParent, false);
+            rTargetGo.SetLayer(rLayerName);
+
+            return rTargetGo;
+        }
+
         /// <summary>
         /// 递归设置一个节点的层
         /// </summary>

@@ -114,7 +114,10 @@ namespace Knight.Framework.AssetBundles.Editor
         {
             this.ABEntries = this.GenerateABEntries();
             if (ABEntries == null) ABEntries = new List<ABEntry>();
-    
+
+            // 预处理图集配置
+            UnityEditor.UI.UIAtlasTools.GenerateAtlas();
+
             // 资源预处理
             List<ABEntryProcessor> rABEntryProcessors = new List<ABEntryProcessor>();
             foreach (var rEntry in ABEntries)

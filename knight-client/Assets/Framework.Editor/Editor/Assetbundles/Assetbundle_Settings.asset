@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Assetbundle_Settings
   m_EditorClassIdentifier: 
   ABEntries:
-  - abName: game/ui
+  - abName: game/ui/prefabs
     abVariant: ab
     assetResPath: Assets/Game/GameAsset/GUI/Prefabs
     assetType: t:Prefab
@@ -22,7 +22,7 @@ MonoBehaviour:
     abOriginalResPath: 
   - abName: game/ui/texture
     abVariant: ab
-    assetResPath: Assets/Game/GameAsset/GUI/Textures
+    assetResPath: Assets/Game/GameAsset/GUI/Textures/Atlas
     assetType: t:Texture2D
     filerAssets: []
     assetSrcType: 0
@@ -60,3 +60,11 @@ MonoBehaviour:
     assetSrcType: 3
     abClassName: Game.Editor.ABEntryProcessor_GameConfig
     abOriginalResPath: Assets/Game/GameAsset/Config/GameConfig/Text
+  - abName: game/ui/atlas_config
+    abVariant: ab
+    assetResPath: Assets/Game/GameAsset/GUI/Textures/Config
+    assetType: t:TextAsset
+    filerAssets: []
+    assetSrcType: 2
+    abClassName: UnityEditor.AssetBundles.ABEntryProcessor
+    abOriginalResPath: 
