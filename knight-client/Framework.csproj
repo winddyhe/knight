@@ -165,6 +165,7 @@
     <Compile Include="Assets\Framework\WindUI\Widget\Image\ImageReplace.cs" />
     <Compile Include="Assets\Framework\WindUI\Widget\Image\RawImageReplace.cs" />
     <Compile Include="Assets\Framework\WindUI\Widget\Other\EmptyGraphics.cs" />
+    <Compile Include="Assets\Framework\WindUI\Widget\Other\GameObjectActive.cs" />
     <Compile Include="Assets\Framework\WindUI\Widget\Other\Gradient.cs" />
     <Compile Include="Assets\Framework\WindUI\Widget\Other\GrayGraphics.cs" />
     <Compile Include="Assets\Framework\WindUI\Widget\Other\RectTransformSizeFollow.cs" />
@@ -199,6 +200,7 @@
     <None Include="Assets\Framework\Graphics\Shaders\PostEffect\RadialBlur.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\UI\Image3DUI.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlend.cginc" />
+    <None Include="Assets\Framework\Graphics\Shaders\UI\GrayUI.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\PostEffect\HDR.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\Effect\TwoTextureEffect.shader" />
     <None Include="Assets\Framework\Graphics\Shaders\Diffuse\ColorBlendAlpha.shader" />

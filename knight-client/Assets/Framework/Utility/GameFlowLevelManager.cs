@@ -41,7 +41,7 @@ namespace Knight.Framework
             rRequest.Level = SceneManager.GetSceneByName(rRequest.LevelName);
             rRequest.SetResult(rRequest);
         }
-        
+
         public Camera GetMainCamera()
         {
             var rMainCameraGo = GameObject.FindGameObjectWithTag("MainCamera");

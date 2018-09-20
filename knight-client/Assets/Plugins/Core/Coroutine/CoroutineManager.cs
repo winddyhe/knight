@@ -43,8 +43,8 @@ namespace Knight.Core
             {
                 rCoroutineHandler.StopAllCoroutines();
                 GameObject.DestroyImmediate(rCoroutineHandler.gameObject);
+                rCoroutineHandler.Coroutine = null;
             }
-            rCoroutineHandler.Coroutine = null;
             rCoroutineHandler = null;
         }
     }

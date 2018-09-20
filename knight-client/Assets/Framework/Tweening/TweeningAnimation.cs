@@ -24,8 +24,13 @@ namespace Knight.Framework.Tweening
         public    TweenCallback   OnPlayCompleted;
         
         protected Tweener         mTweener;
+        
+        protected void OnEnable()
+        {
+            this.CreateTweener();
+        }
 
-        private void Awake()
+        protected void CreateTweener()
         {
             // 创建一个Tweener对象
             this.OnCreateTweener();
@@ -37,7 +42,7 @@ namespace Knight.Framework.Tweening
             }
             // 构建Tweener的各种参数
             this.SetUpTweener();
-            
+
             // 是否自动执行 在Awake的时候
             if (this.IsAutoExecute)
             {
@@ -49,7 +54,7 @@ namespace Knight.Framework.Tweening
         {
             this.Stop();
         }
-
+        
         public void SetCompleted(Action rPlayCompleted)
         {
             this.OnPlayCompleted = ()=> { UtilTool.SafeExecute(rPlayCompleted); };

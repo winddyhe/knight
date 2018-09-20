@@ -192,6 +192,7 @@
     <Compile Include="Assets\Framework.Editor\Editor\Tweening\RotateTweeningInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\Tweening\ScaleTweeningInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\Tweening\TweeningAnimationInspector.cs" />
+    <Compile Include="Assets\Framework.Editor\Editor\WindUI\Atlas\UIAtlasTools.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\EventBindingInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\MemberBindingAbstractInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\MemberBindingOneWayInspector.cs" />

@@ -26,6 +26,8 @@ namespace UnityEngine.UI
                 SetGraphicGray(rGraphics[i], this.IsGray);
             }
 
+            if (this.WillGrayGraphics == null)
+                this.WillGrayGraphics = new List<Graphic>();
             for (int i = 0; i < this.WillGrayGraphics.Count; i++)
             {
                 this.WillGrayGraphics[i].material = this.GrayMat;

@@ -46,6 +46,8 @@ namespace Knight.Hotfix.Core
         
         public static JsonNode ToJsonNode(object rObject)
         {
+            if (rObject == null) return null;
+
             Type rType = rObject.GetType();
             JsonNode rRootNode = null;
             

@@ -68,14 +68,17 @@ namespace UnityEngine.UI
                 if (!rShadow)
                     rShadow = gameObject.AddComponent<Shadow>();
 
-                rShadow.effectColor = rStyle.ShadowColor;
-                rShadow.effectDistance = rStyle.ShadowDistance;
-                rShadow.useGraphicAlpha = rStyle.ShadowGraphicAlpha;
+                if (!(rShadow is Outline))
+                {
+                    rShadow.effectColor = rStyle.ShadowColor;
+                    rShadow.effectDistance = rStyle.ShadowDistance;
+                    rShadow.useGraphicAlpha = rStyle.ShadowGraphicAlpha;
+                }
             }
             else
             {
                 Shadow rShadow = Text.GetComponent<Shadow>();
-                if (rShadow)
+                if (rShadow && !(rShadow is Outline))
                     DestroyImmediate(rShadow);
             }
         }

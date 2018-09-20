@@ -10,6 +10,7 @@ using Knight.Framework.Hotfix;
 using System.Threading.Tasks;
 using UnityEngine.UI;
 using Knight.Framework.AssetBundles;
+using Knight.Framework.Net;
 
 namespace Game
 {
@@ -25,6 +26,9 @@ namespace Game
         {
             //限帧
             Application.targetFrameRate = 30;
+
+            // 初始化事件管理器
+            EventManager.Instance.Initialize();
 
             // 初始化热更新模块
             HotfixManager.Instance.Initialize();
