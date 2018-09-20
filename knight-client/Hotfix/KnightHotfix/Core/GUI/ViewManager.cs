@@ -26,13 +26,15 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 存放各种Page页面的地方
         /// </summary>
+        public GameObject                   FrameRoot;
         public GameObject                   PageRoot;
 
         /// <summary>
         /// 当前的UI中的Views，每个View是用GUID来作唯一标识
         /// 底层-->顶层 { 0 --> list.count }
         /// </summary>
-        private IndexedDict<string, View>   mCurViews;
+        private IndexedDict<string, View>   mCurFrameViews;
+        private IndexedDict<string, View>   mCurPageViews;
         /// <summary>
         /// 当前存在的固定View，每个View使用GUID来作唯一标识
         /// </summary>
@@ -47,18 +49,28 @@ namespace Knight.Hotfix.Core
             this.DynamicRoot = UIRoot.Instance.DynamicRoot;
             this.PopupRoot = UIRoot.Instance.PopupRoot;
 
-            this.mCurViews = new IndexedDict<string, View>();
+            this.mCurFrameViews = new IndexedDict<string, View>();
+            this.mCurPageViews = new IndexedDict<string, View>();
             this.mCurFixedViews = new Dict<string, View>();
         }
 
         public void Update()
         {
-            if (this.mCurViews == null) return;
-
-            var rCurViewKeys = mCurViews.Keys;
-            for (int i = 0; i < rCurViewKeys.Count; i++)
+            if (this.mCurFrameViews != null)
             {
-                this.mCurViews[rCurViewKeys[i]].Update();
+                var rCurViewKeys = mCurFrameViews.Keys;
+                for (int i = 0; i < rCurViewKeys.Count; i++)
+                {
+                    this.mCurFrameViews[rCurViewKeys[i]].Update();
+                }
+            }
+            if (this.mCurPageViews != null)
+            {
+                var rCurViewKeys = mCurPageViews.Keys;
+                for (int i = 0; i < rCurViewKeys.Count; i++)
+                {
+                    this.mCurPageViews[rCurViewKeys[i]].Update();
+                }
             }
         }
 
@@ -69,7 +81,11 @@ namespace Knight.Hotfix.Core
             {
                 rView.Show();
             }
-            if (this.mCurViews.TryGetValue(rViewGUID, out rView))
+            if (this.mCurFrameViews.TryGetValue(rViewGUID, out rView))
+            {
+                rView.Show();
+            }
+            if (this.mCurPageViews.TryGetValue(rViewGUID, out rView))
             {
                 rView.Show();
             }
@@ -82,7 +98,11 @@ namespace Knight.Hotfix.Core
             {
                 rView.Hide();
             }
-            if (this.mCurViews.TryGetValue(rViewGUID, out rView))
+            if (this.mCurFrameViews.TryGetValue(rViewGUID, out rView))
+            {
+                rView.Hide();
+            }
+            if (this.mCurPageViews.TryGetValue(rViewGUID, out rView))
             {
                 rView.Hide();
             }
@@ -96,7 +116,7 @@ namespace Knight.Hotfix.Core
             // 企图关闭当前的View
             Debug.Log("Open " + rViewName);
             MaybeCloseTopView(rViewState);
-            return await Open_Async(rViewName, rViewState, rOpenCompleted);
+            return await OpenViewAsync(rViewName, rViewState, rOpenCompleted);
         }
 
         public void Open(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
@@ -106,7 +126,7 @@ namespace Knight.Hotfix.Core
 #pragma warning restore 4014
         }
 
-        private async Task<View> Open_Async(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
+        private async Task<View> OpenViewAsync(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
         {
             var rLoaderRequest = await UIAssetLoader.Instance.LoadUI(rViewName);
             return await OpenView(rViewName, rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
@@ -118,7 +138,7 @@ namespace Knight.Hotfix.Core
         public void Pop(Action rCloseComplted = null)
         {
             // 得到顶层结点
-            CKeyValuePair<string, View> rTopNode = this.mCurViews.Last();
+            CKeyValuePair<string, View> rTopNode = this.mCurPageViews.Last();
 
             string rViewGUID = rTopNode.Key;
             View rView = rTopNode.Value;
@@ -130,12 +150,19 @@ namespace Knight.Hotfix.Core
             }
 
             // 移除顶层结点
-            this.mCurViews.Remove(rViewGUID);
+            this.mCurPageViews.Remove(rViewGUID);
             rView.Close();
-            CoroutineManager.Instance.Start(DestroyView_Async(rView, () =>
+            DestroyView(rView);
+            UtilTool.SafeExecute(rCloseComplted);
+        }
+
+        public void CloseAllPageViews()
+        {
+            var rViewKeys = this.mCurPageViews.Keys;
+            for (int i = 0; i < rViewKeys.Count; i++)
             {
-                UtilTool.SafeExecute(rCloseComplted);
-            }));
+                this.CloseView(rViewKeys[i]);
+            }
         }
 
         /// <summary>
@@ -151,7 +178,11 @@ namespace Knight.Hotfix.Core
             {
                 isFixedView = true;
             }
-            else if (this.mCurViews.TryGetValue(rViewGUID, out rView))
+            else if (this.mCurFrameViews.TryGetValue(rViewGUID, out rView))
+            {
+                isFixedView = false;
+            }
+            else if (this.mCurPageViews.TryGetValue(rViewGUID, out rView))
             {
                 isFixedView = false;
             }
@@ -170,15 +201,17 @@ namespace Knight.Hotfix.Core
             }
             else
             {
-                this.mCurViews.Remove(rViewGUID);
+                if (rView.CurState == View.State.Frame)
+                    this.mCurFrameViews.Remove(rViewGUID);
+                else if (rView.CurState == View.State.PageSwitch || rView.CurState == View.State.PageSwitch)
+                    this.mCurPageViews.Remove(rViewGUID);
             }
 
             // 移除顶层结点
             rView.Close();
-            CoroutineManager.Instance.Start(DestroyView_Async(rView, () =>
-            {
-                UtilTool.SafeExecute(rCloseCompleted);
-            }));
+
+            DestroyView(rView);
+            UtilTool.SafeExecute(rCloseCompleted);
         }
 
         /// <summary>
@@ -193,18 +226,22 @@ namespace Knight.Hotfix.Core
             switch (rViewState)
             {
                 case View.State.Fixing:
-                case View.State.Dispatch:
-                    rViewGo = this.DynamicRoot.transform.AddChild(rViewPrefab, "UI");
+                    rViewGo = this.DynamicRoot.transform.AddChildNoScale(rViewPrefab, "UI");
                     break;
                 case View.State.Popup:
-                    rViewGo = this.PopupRoot.transform.AddChild(rViewPrefab, "UI");
+                    rViewGo = this.PopupRoot.transform.AddChildNoScale(rViewPrefab, "UI");
                     break;
-                case View.State.Page:
-                    rViewGo = this.PageRoot.transform.AddChild(rViewPrefab, "UI");
+                case View.State.Frame:
+                    rViewGo = this.FrameRoot.transform.AddChildNoScale(rViewPrefab, "UI");
+                    break;
+                case View.State.PageSwitch:
+                case View.State.PageOverlap:
+                    rViewGo = this.PageRoot.transform.AddChildNoScale(rViewPrefab, "UI");
                     break;
             }
 
             var rView = View.CreateView(rViewGo);
+            string rViewGUID = Guid.NewGuid().ToString();   //生成GUID
             if (rView == null)
             {
                 Debug.LogErrorFormat("GameObject {0} is null.", rViewGo.name);
@@ -212,34 +249,48 @@ namespace Knight.Hotfix.Core
                 return null;
             }
 
-            string rViewGUID = Guid.NewGuid().ToString();               //生成GUID
-            await rView.Initialize(rViewName, rViewGUID, rViewState);   //为View的初始化设置
-
             //新的View的存储逻辑
-            switch (rView.CurState)
+            switch (rViewState)
             {
                 case View.State.Fixing:
                     mCurFixedViews.Add(rViewGUID, rView);
                     break;
-                case View.State.Dispatch:
-                    if (mCurViews.Count == 0)
-                        mCurViews.Add(rViewGUID, rView);
-                    else
-                        mCurViews[mCurViews.Last().Key] = rView;
+                case View.State.Frame:
+                    mCurFrameViews.Add(rViewGUID, rView);
                     break;
-                case View.State.Page:
+                case View.State.PageSwitch:
+                    if (mCurPageViews.Count == 0)
+                    {
+                        mCurPageViews.Add(rViewGUID, rView);
+                    }
+                    else
+                    {
+                        var rTopNode = this.mCurPageViews.Last();
+                        mCurPageViews.Remove(rTopNode.Key);
+                        mCurPageViews.Add(rViewGUID, rView);
+                    }
+                    break;
+                case View.State.PageOverlap:
+                    mCurPageViews.Add(rViewGUID, rView);
+                    break;
                 case View.State.Popup:
-                    mCurViews.Add(rViewGUID, rView);
+                    mCurPageViews.Add(rViewGUID, rView);
                     break;
                 default:
                     break;
             }
 
-            rView.Open((rNewView) =>
+            try
             {
-                UtilTool.SafeExecute(rOpenCompleted, rNewView);
-            });
-
+                await rView.Initialize(rViewName, rViewGUID, rViewState);   //为View的初始化设置
+                await rView.Open();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message + "\n" + e.StackTrace);
+            }
+            UtilTool.SafeExecute(rOpenCompleted, rView);
+            
             return rView;
         }
 
@@ -250,39 +301,31 @@ namespace Knight.Hotfix.Core
         {
             // 得到顶层结点
             CKeyValuePair<string, View> rTopNode = null;
-            if (this.mCurViews.Count > 0)
-                rTopNode = this.mCurViews.Last();
-
+            if (this.mCurPageViews.Count > 0)
+                rTopNode = this.mCurPageViews.Last();
             if (rTopNode == null) return;
 
             string rViewGUID = rTopNode.Key;
             View rView = rTopNode.Value;
-
             if (rView == null) return;
 
-            if (rViewState == View.State.Dispatch)
+            if (rViewState == View.State.PageSwitch)
             {
                 // 移除顶层结点
-                this.mCurViews.Remove(rViewGUID);
+                this.mCurPageViews.Remove(rViewGUID);
                 rView.Close();
-                CoroutineManager.Instance.Start(DestroyView_Async(rView));
+                DestroyView(rView);
             }
         }
 
         /// <summary>
         /// 等待View关闭动画播放完后开始删除一个View
         /// </summary>
-        private IEnumerator DestroyView_Async(View rView, Action rDestroyCompleted = null)
+        private void DestroyView(View rView)
         {
-            while (!rView.IsClosed)
-            {
-                yield return 0;
-            }
-
             rView.Dispose();
             UtilTool.SafeDestroy(rView.GameObject);
             rView = null;
-            UtilTool.SafeExecute(rDestroyCompleted);
         }
     }
 }

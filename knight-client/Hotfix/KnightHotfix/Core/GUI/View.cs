@@ -15,30 +15,21 @@ namespace Knight.Hotfix.Core
         public enum State
         {
             Fixing,
-            Dispatch,
+            Frame,
             Popup,
-            Page,
+            PageSwitch,
+            PageOverlap,
         }
         
         public string               GUID                = "";
         public string               ViewName            = "";
         public State                CurState            = State.Fixing;
+        public bool                 IsBackCache         = false;
+
         public GameObject           GameObject;
         
         public ViewModelContainer   ViewModelContainer;
         public ViewController       ViewController;
-        
-        public bool                 IsOpened
-        {
-            get { return this.ViewController.IsOpened;      }
-            set { this.ViewController.IsOpened = value;     }
-        }
-        
-        public bool                 IsClosed
-        {
-            get { return this.ViewController.IsClosed;      }
-            set { this.ViewController.IsClosed = value;     }
-        }
 
         public bool                 IsActived
         {
@@ -85,30 +76,19 @@ namespace Knight.Hotfix.Core
 
             // 构建ViewController
             this.ViewController = HotfixReflectAssists.Construct(rType) as ViewController;
-            this.ViewController.GUID = this.GUID;
+            this.ViewController.View = this;
             this.ViewController.BindingViewModels(this.ViewModelContainer);
             await this.ViewController.Initialize();
+
             this.ViewController.DataBindingConnect(this.ViewModelContainer);
         }
 
         /// <summary>
         /// 打开View, 此时View对应的GameObject已经加载出来了, 用于做View的初始化。
         /// </summary>
-        public void Open(Action<View> rOpenCompleted)
+        public async Task Open()
         {
-            this.IsOpened = false;
-            this.ViewController?.Opening();
-            CoroutineManager.Instance.Start(Open_WaitforCompleted(rOpenCompleted));
-        }
-
-        private IEnumerator Open_WaitforCompleted(Action<View> rOpenCompleted)
-        {
-            while (!this.IsOpened)
-            {
-                yield return 0;
-            }
-            this.ViewController?.Opened();
-            UtilTool.SafeExecute(rOpenCompleted, this);
+            await this.ViewController?.Open();
         }
         
         /// <summary>
@@ -145,18 +125,7 @@ namespace Knight.Hotfix.Core
         /// </summary>
         public void Close()
         {
-            this.IsClosed = false;
             this.ViewController?.Closing();
-            CoroutineManager.Instance.Start(Close_WaitForCompleted());
-        }
-
-        private IEnumerator Close_WaitForCompleted()
-        {
-            while (!this.IsClosed)
-            {
-                yield return 0;
-            }
-            this.ViewController?.Closed();
         }
     }
 }

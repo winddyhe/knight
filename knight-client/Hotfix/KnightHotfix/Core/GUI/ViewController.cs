@@ -12,10 +12,7 @@ namespace Knight.Hotfix.Core
 {
     public class ViewController : HotfixKnightObject
     {
-        public    bool                      IsOpened;
-        public    bool                      IsClosed;
-        public    string                    GUID;
-
+        public    View                      View;
         protected Dict<string, ViewModel>   ViewModels;
 
         public ViewController()
@@ -23,8 +20,19 @@ namespace Knight.Hotfix.Core
             this.ViewModels = new Dict<string, ViewModel>();
         }
 
+        public string GUID
+        {
+            get
+            {
+                if (this.View == null) return "";
+                return this.View.GUID;
+            }
+        }
+
         public void DataBindingConnect(ViewModelContainer rViewModelContainer)
         {
+            if (rViewModelContainer == null) return;
+
             // 把Event绑定到ViewController里面
             this.BindingEvents(rViewModelContainer);
 
@@ -40,6 +48,8 @@ namespace Knight.Hotfix.Core
 
         public void DataBindingDisconnect(ViewModelContainer rViewModelContainer)
         {
+            if (!rViewModelContainer) return;
+
             var rAllMemberBindings = rViewModelContainer.gameObject.GetComponentsInChildren<MemberBindingAbstract>(true);
             for (int i = 0; i < rAllMemberBindings.Length; i++)
             {
@@ -136,8 +146,8 @@ namespace Knight.Hotfix.Core
         /// </summary>
         private void BindingViewAndViewModels(ViewModelContainer rViewModelContainer)
         {
-            var rAllMemberBindings = rViewModelContainer.gameObject.GetComponentsInChildren<MemberBindingAbstract>(true);
-            for (int i = 0; i < rAllMemberBindings.Length; i++)
+            var rAllMemberBindings = UtilTool.GetComponentsInChildrenUtilOrigin<MemberBindingAbstract>(rViewModelContainer);
+            for (int i = 0; i < rAllMemberBindings.Count; i++)
             {
                 var rMemberBinding = rAllMemberBindings[i];
                 if (rMemberBinding.IsListTemplate) continue;    // 过滤掉ListTemplate标记得Binding Script
@@ -202,49 +212,53 @@ namespace Knight.Hotfix.Core
                     Debug.LogErrorFormat("View Model: {0} error..", rViewModelDataSource.ViewModelPath);
                     return;
                 }
-
                 rViewModelDataSource.ViewModelProp.PropertyOwner = rViewModel;
 
                 // 绑定Watcher
                 rViewModelDataSource.ViewModelPropertyWatcher = new DataBindingPropertyWatcher(rViewModel, rViewModelDataSource.ViewModelProp.PropertyName, () =>
                 {
                     // 重新设置List数据时候，改变个数
-                    var rListObj1 = (IList)rViewModelDataSource.ViewModelProp.GetValue();
-                    rViewModelDataSource.ListView.totalCount = rListObj1 != null ? rListObj1.Count : 0;
-                    rViewModelDataSource.ListView.RefillCells();
+                    this.BindingList(rViewModelDataSource);
                 });
+                rViewModel.PropChangedHandler += rViewModelDataSource.ViewModelPropertyWatcher.PropertyChanged;
 
                 // 初始化list
-                var rViewModelObj = rViewModelDataSource.ViewModelProp.GetValue();
-                if (rViewModelObj != null)
-                {
-                    var rListObservableObj = rViewModelObj as IObservableEvent;
-                    rListObservableObj.ChangedHandler += () =>
-                    {
-                        var rListObj2 = (IList)rViewModelDataSource.ViewModelProp.GetValue();
-                        var nListCount2 = rListObj2 != null ? rListObj2.Count : 0;
+                this.BindingList(rViewModelDataSource);
+            }
+        }
 
-                        var nOldCount = rViewModelDataSource.ListView.totalCount;
-                        rViewModelDataSource.ListView.totalCount = nListCount2;
-                        if (nListCount2 == nOldCount)
-                            rViewModelDataSource.ListView.RefreshCells();
-                        else
-                            rViewModelDataSource.ListView.RefillCells();
-                    };
-
-                    var rListObj = rViewModelObj as IList;
-                    var nListCount = rListObj != null ? rListObj.Count : 0;
-                    rViewModelDataSource.ListView.OnFillCellFunc = (rTrans, nIndex) =>
-                    {
-                        this.OnListViewFillCellFunc(rTrans, nIndex, rListObj);
-                    };
-                    rViewModelDataSource.ListView.totalCount = nListCount;
-                    rViewModelDataSource.ListView.RefillCells();
-                }
-                else
+        private void BindingList(ViewModelDataSourceList rViewModelDataSource)
+        {
+            var rViewModelObj = rViewModelDataSource.ViewModelProp.GetValue();
+            if (rViewModelObj != null)
+            {
+                var rListObservableObj = rViewModelObj as IObservableEvent;
+                rListObservableObj.ChangedHandler += () =>
                 {
-                    Debug.LogError($"ViewModel {rViewModelDataSource.ViewModelPath} getValue is null..");
-                }
+                    var rListObj2 = (IList)rViewModelDataSource.ViewModelProp.GetValue();
+                    var nListCount2 = rListObj2 != null ? rListObj2.Count : 0;
+
+                    var nOldCount = rViewModelDataSource.ListView.totalCount;
+                    rViewModelDataSource.ListView.totalCount = nListCount2;
+                    if (nListCount2 == nOldCount)
+                        rViewModelDataSource.ListView.RefreshCells();
+                    else
+                        rViewModelDataSource.ListView.RefillCells();
+                };
+
+                var rListObj = rViewModelObj as IList;
+                var nListCount = rListObj != null ? rListObj.Count : 0;
+
+                rViewModelDataSource.ListView.OnFillCellFunc = (rTrans, nIndex) =>
+                {
+                    this.OnListViewFillCellFunc(rTrans, nIndex, rListObj);
+                };
+                rViewModelDataSource.ListView.totalCount = nListCount;
+                rViewModelDataSource.ListView.RefillCells();
+            }
+            else
+            {
+                Debug.LogError($"ViewModel {rViewModelDataSource.ViewModelPath} getValue is null..");
             }
         }
 
@@ -254,7 +268,7 @@ namespace Knight.Hotfix.Core
             
             var rListItem = rListObj[nIndex] as ViewModel;
             if (rListItem == null) return;
-
+            
             var rAllEventBindings = rTrans.GetComponentsInChildren<EventBinding>(true);
             for (int i = 0; i < rAllEventBindings.Length; i++)
             {
@@ -338,6 +352,8 @@ namespace Knight.Hotfix.Core
                 {
                     this.FillTabItems(rViewModelDataSource);
                 });
+                rViewModel.PropChangedHandler += rViewModelDataSource.ViewModelPropertyWatcher.PropertyChanged;
+
                 this.FillTabItems(rViewModelDataSource);
             }
         }
@@ -379,17 +395,11 @@ namespace Knight.Hotfix.Core
             this.ViewModels.Add(rKey, rViewModel);
         }
 
-        public void Opening()
+        public async Task Open()
         {
-            this.IsOpened = true;
-            this.OnOpening();
+            await this.OnOpen();
         }
-
-        public void Opened()
-        {
-            this.OnOpened();
-        }
-
+        
         public void Show()
         {
             this.OnShow();
@@ -399,18 +409,15 @@ namespace Knight.Hotfix.Core
         {
             this.OnHide();
         }
-
+        
         public void Closing()
         {
-            this.IsClosed = true;
-            this.OnClosing();
+            this.OnClose();
         }
 
-        public void Closed()
-        {
-            this.OnClosed();
-        }
-
+        /// <summary>
+        /// 数据绑定前
+        /// </summary>
         #region Virtual Function
         protected override async Task OnInitialize()
         {
@@ -431,11 +438,12 @@ namespace Knight.Hotfix.Core
             this.ViewModels.Clear();
         }
 
-        protected virtual void OnOpening()
-        {
-        }
-
-        protected virtual void OnOpened()
+        /// <summary>
+        /// 数据绑定之后
+        /// </summary>
+#pragma warning disable 1998
+        protected virtual async Task OnOpen()
+#pragma warning restore 1998
         {
         }
 
@@ -446,12 +454,8 @@ namespace Knight.Hotfix.Core
         protected virtual void OnHide()
         {
         }
-
-        protected virtual void OnClosing()
-        {
-        }
-
-        protected virtual void OnClosed()
+        
+        protected virtual void OnClose()
         {
         }
         #endregion

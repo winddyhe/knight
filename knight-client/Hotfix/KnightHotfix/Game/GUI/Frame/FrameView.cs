@@ -35,10 +35,11 @@ namespace Game
             };
         }
 
-        protected override void OnOpened()
+        protected override async Task OnOpen()
         {
+            await base.OnOpen();
             // 打开故事大厅
-            FrameManager.Instance.OpenPageUI("KNListTest");
+            FrameManager.Instance.OpenPageUI("KNListTest", View.State.PageSwitch);
         }
 
         [DataBinding]
@@ -52,7 +53,8 @@ namespace Game
 
             if (this.mCurIndex == 0)
             {
-                FrameManager.Instance.OpenPageUI("KNListTest");
+                // 打开故事大厅
+                FrameManager.Instance.OpenPageUI("KNListTest", View.State.PageSwitch);
             }
         }
     }

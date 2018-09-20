@@ -14,15 +14,7 @@ namespace Game
         public LoginViewModel   ViewModel;
         [HotfixBinding("Login1")]
         public LoginViewModel   ViewModel1;
-
-        protected override void OnOpening()
-        {
-        }
         
-        protected override void OnUpdate()
-        {
-        }
-
         [DataBinding]
         private void OnBtnButton_Clicked(EventArg rEventArg)
         {
