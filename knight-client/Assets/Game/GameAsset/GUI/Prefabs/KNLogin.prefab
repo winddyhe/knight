@@ -347,6 +347,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Key: Login
   ViewModelPath: Game.LoginViewModel
+  ViewModelClasses:
+  - Game.MainFrameTabItem
+  - Game.FrameViewModel
+  - Game.ListDataItem
+  - Game.ListTestViewModel
+  - Game.LoginViewModel
 --- !u!114 &114114771150135394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -779,6 +785,10 @@ MonoBehaviour:
   - {fileID: 114078118911409214}
   EventBindings:
   - {fileID: 114610293518404770}
+  ViewModelClasses:
+  - Game.FrameView
+  - Game.ListTestView
+  - Game.LoginView
 --- !u!114 &114666587040686830
 MonoBehaviour:
   m_ObjectHideFlags: 1

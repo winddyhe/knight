@@ -61,6 +61,31 @@ namespace UnityEngine.UI
             return new List<string>(rBindableMembers);
         }
 
+        public static List<string> GetAllViewModels()
+        {
+            var rTypeNames = TypeResolveManager.Instance.GetAllTypes(true)
+                   .Where(rType => rType != null &&
+                                   rType.GetCustomAttributes(typeof(DataBindingAttribute), true).Any() &&
+                                   rType.BaseType?.FullName == "Knight.Hotfix.Core.ViewModel")
+                   .Select(rType =>
+                   {
+                       return rType.FullName;
+                   });
+            return new List<string>(rTypeNames);
+        }
+
+        public static List<string> GetAllViews()
+        {
+            var rTypeNames = TypeResolveManager.Instance.GetAllTypes(true)
+                .Where(rType => rType != null &&
+                                rType.BaseType?.FullName == "Knight.Hotfix.Core.ViewController")
+                .Select(rType => 
+                {
+                    return rType.FullName;
+                });
+            return new List<string>(rTypeNames);
+        }
+
         public static DataBindingProperty MakeViewDataBindingProperty(GameObject rGo, string rViewPath)
         {
             if (string.IsNullOrEmpty(rViewPath)) return null;

@@ -14,6 +14,8 @@ namespace UnityEngine.UI
         
         public override void GetPaths()
         {
+            base.GetPaths();
+
             this.ListView = this.GetComponent<LoopScrollRect>();            
             if (this.ListView != null)
             {

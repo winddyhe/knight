@@ -8,6 +8,7 @@ namespace UnityEngine.UI
     public class ViewModelContainer : MonoBehaviour
     {
         [InfoBox("ViewModelClass can not be null.", InfoBoxType.Error, "IsViewModelClassNull")]
+        [Dropdown("ViewModelClasses")]
         public string                       ViewModelClass;
 
         [ReorderableKeyList]
@@ -17,10 +18,14 @@ namespace UnityEngine.UI
         [ReorderableList]
         public List<EventBinding>           EventBindings;
 
+        [HideInInspector]
+        public string[]                     ViewModelClasses = new string[0];
+
         public void GetAllViewModelDataSources()
         {
             this.ViewModels = new List<ViewModelDataSource>(this.GetComponentsInChildren<ViewModelDataSource>(true));
             this.EventBindings = new List<EventBinding>(this.GetComponentsInChildren<EventBinding>(true));
+            this.ViewModelClasses = DataBindingTypeResolve.GetAllViews().ToArray();
         }
 
         private bool IsViewModelClassNull()

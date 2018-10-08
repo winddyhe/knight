@@ -17,6 +17,8 @@ namespace UnityEngine.UI
 
         public override void GetPaths()
         {
+            base.GetPaths();
+
             this.TabView = this.GetComponent<TabView>();
             if (this.TabView != null)
             {

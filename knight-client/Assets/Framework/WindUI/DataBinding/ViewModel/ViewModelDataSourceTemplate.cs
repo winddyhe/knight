@@ -10,6 +10,7 @@ namespace UnityEngine.UI
     {
         [Dropdown("ModelPaths")]
         public string                       ViewModelPath;
+        [Dropdown("TemplateViewModels")]
         public string                       TemplatePath;
 
         public DataBindingProperty          ViewModelProp;
@@ -17,9 +18,12 @@ namespace UnityEngine.UI
         
         [HideInInspector]
         protected string[]                  ModelPaths = new string[0];
+        [HideInInspector]
+        protected string[]                  TemplateViewModels = new string[0];                  
 
         public virtual void GetPaths()
         {
+            this.TemplateViewModels = DataBindingTypeResolve.GetAllViewModels().ToArray();
         }
     }
 }

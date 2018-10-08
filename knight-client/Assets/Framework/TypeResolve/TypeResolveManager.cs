@@ -84,6 +84,17 @@ namespace Knight.Framework.TypeResolve
             return null;
         }
 
+        public List<Type> GetAllTypes(bool bIsHotfix)
+        {
+            var rTypes = new List<Type>();
+            foreach (var rPair in this.mAssemblies)
+            {
+                if (rPair.Value.IsHotfix == bIsHotfix)
+                    rTypes.AddRange(rPair.Value.GetAllTypes());
+            }
+            return rTypes;
+        }
+
         public object Instantiate(string rTypeName, params object[] rArgs)
         {
             var rType = this.GetType(rTypeName);
