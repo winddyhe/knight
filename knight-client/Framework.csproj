@@ -156,6 +156,7 @@
     <Compile Include="Assets\Framework\WindUI\DataBinding\Internal\UnityEventWatcher.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelContainer.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelDataSource.cs" />
+    <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelDataSourceArray.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelDataSourceList.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelDataSourceTab.cs" />
     <Compile Include="Assets\Framework\WindUI\DataBinding\ViewModel\ViewModelDataSourceTemplate.cs" />

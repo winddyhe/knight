@@ -139,6 +139,11 @@ namespace Knight.Hotfix.Core
         {
             // 得到顶层结点
             CKeyValuePair<string, View> rTopNode = this.mCurPageViews.Last();
+            if (rTopNode == null)
+            {
+                UtilTool.SafeExecute(rCloseComplted);
+                return;
+            }
 
             string rViewGUID = rTopNode.Key;
             View rView = rTopNode.Value;

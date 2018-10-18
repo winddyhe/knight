@@ -198,6 +198,7 @@
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\MemberBindingOneWayInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\MemberBindingTwoWayInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\ViewModelContainerInspector.cs" />
+    <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\ViewModelDataSourceArrayInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\ViewModelDataSourceInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\ViewModelDataSourceListInspector.cs" />
     <Compile Include="Assets\Framework.Editor\Editor\WindUI\DataBinding\ViewModelDataSourceTabInspector.cs" />

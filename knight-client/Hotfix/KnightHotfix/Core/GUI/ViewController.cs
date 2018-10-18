@@ -44,6 +44,9 @@ namespace Knight.Hotfix.Core
 
             // TabViewModel和View之间的数据绑定
             this.BindingTabViewAndViewModels(rViewModelContainer);
+
+            // ArrayViewModel和View之间的数据绑定
+            this.BindingArrayViewAndViewModels(rViewModelContainer);
         }
 
         public void DataBindingDisconnect(ViewModelContainer rViewModelContainer)
@@ -358,7 +361,57 @@ namespace Knight.Hotfix.Core
             }
         }
 
-        public void FillTabItems(ViewModelDataSourceTab rViewModelDataSource)
+        private void BindingArrayViewAndViewModels(ViewModelContainer rViewModelContainer)
+        {
+            var rViewModelDataSources = rViewModelContainer.gameObject.GetComponentsInChildren<ViewModelDataSourceArray>(true);
+            for (int i = 0; i < rViewModelDataSources.Length; i++)
+            {
+                var rViewModelDataSource = rViewModelDataSources[i];
+                rViewModelDataSource.ViewModelProp = HotfixDataBindingTypeResolve.MakeViewModelDataBindingProperty(rViewModelDataSource.ViewModelPath);
+                if (rViewModelDataSource.ViewModelProp == null)
+                {
+                    Debug.LogErrorFormat("View Model Path: {0} error..", rViewModelDataSource.ViewModelPath);
+                    return;
+                }
+                ViewModel rViewModel = this.GetViewModel(rViewModelDataSource.ViewModelProp.PropertyOwnerKey);
+                if (rViewModel == null)
+                {
+                    Debug.LogErrorFormat("View Model: {0} error..", rViewModelDataSource.ViewModelPath);
+                    return;
+                }
+
+                rViewModelDataSource.ViewModelProp.PropertyOwner = rViewModel;
+
+                // 绑定watcher
+                rViewModelDataSource.ViewModelPropertyWatcher = new DataBindingPropertyWatcher(rViewModel, rViewModelDataSource.ViewModelProp.PropertyName, () => 
+                {
+                    this.FillArrayItems(rViewModelDataSource);
+                });
+                rViewModel.PropChangedHandler += rViewModelDataSource.ViewModelPropertyWatcher.PropertyChanged;
+
+                this.FillArrayItems(rViewModelDataSource);
+            }
+        }
+
+        private void FillArrayItems(ViewModelDataSourceArray rViewModelDataSource)
+        {
+            var rListObj = (IList)rViewModelDataSource.ViewModelProp.GetValue();
+            var nListCount = rListObj != null ? rListObj.Count : 0;
+
+            // 删除节点下的所有数据
+            rViewModelDataSource.transform.DeleteChildren(true);
+
+            for (int i = 0; i < nListCount; i++)
+            {
+                GameObject rItemInstGo = GameObject.Instantiate(rViewModelDataSource.ItemTemplateGo);
+                rItemInstGo.SetActive(true);
+                rItemInstGo.name = "list_" + i;
+                rItemInstGo.transform.SetParent(rViewModelDataSource.transform, false);
+                this.OnListViewFillCellFunc(rItemInstGo.transform, i, rListObj);
+            }
+        }
+        
+        private void FillTabItems(ViewModelDataSourceTab rViewModelDataSource)
         {                    
             // 重新设置Tab数据时候，改变个数
             var rListObj = (IList)rViewModelDataSource.ViewModelProp.GetValue();
