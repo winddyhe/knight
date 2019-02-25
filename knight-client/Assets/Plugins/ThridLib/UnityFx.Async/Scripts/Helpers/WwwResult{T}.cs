@@ -7,11 +7,13 @@ using UnityEngine;
 
 namespace UnityFx.Async.Helpers
 {
+#if !UNITY_2018_3_OR_NEWER
+
 	/// <summary>
 	/// A wrapper for <see cref="WWW"/> with result value.
 	/// </summary>
 	/// <typeparam name="T">Type of the request result.</typeparam>
-	public class WwwResult<T> : AsyncResult<T> where T : class
+	internal class WwwResult<T> : AsyncResult<T> where T : class
 	{
 		#region data
 
@@ -140,7 +142,15 @@ namespace UnityFx.Async.Helpers
 				if (string.IsNullOrEmpty(_www.error))
 				{
 					var result = GetResult(_www);
-					TrySetResult(result);
+
+					if (result != null)
+					{
+						TrySetResult(result);
+					}
+					else
+					{
+						throw new WebRequestException(string.Format("Failed to load {0} from URL: {1}.", typeof(T).Name, _www.url));
+					}
 				}
 				else
 				{
@@ -155,4 +165,6 @@ namespace UnityFx.Async.Helpers
 
 		#endregion
 	}
+
+#endif
 }

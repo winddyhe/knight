@@ -9,7 +9,7 @@ namespace UnityFx.Async.Helpers
 	/// <summary>
 	/// A wrapper for <see cref="AssetBundleCreateRequest"/>.
 	/// </summary>
-	public class AssetBundleCreateRequestResult : AsyncOperationResult<AssetBundle>
+	internal class AssetBundleCreateRequestResult : AsyncOperationResult<AssetBundle>
 	{
 		#region data
 		#endregion

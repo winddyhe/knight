@@ -4,7 +4,84 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/); this project adheres to [Semantic Versioning](http://semver.org/).
 
 -----------------------
-## [0.9.6] - unreleased
+## [1.0.0] - 2019.02.23
+
+### Added
+- Added more comments throughout the code.
+- Added Unity 2018.3 support (esp. support all target .NET frameworks in a single Asset Store package).
+- Added `await` support to `YieldInstruction` Unity class.
+- Added coroutine helpers (`AsyncUtility.FromCoroutine`).
+- Added helpers for loading assets from an `AssetBundle`.
+- Added `AsyncUtility.FrameTime` await helper.
+
+### Changed
+- Added `DebuggerHidden` attribute to some properties/methods to make stack traces a bit more friendly.
+- Renamed `AsyncContinuationContext` to `AsyncCallbackOptions`.
+- Renamed web request helper methods (added `Async` postfix to their names).
+- Moved Unity extension methods to `UnityFx.Async.Extensions` namespace (previously they were in namespace `UnityFx.Async`).
+
+### Fixed
+- Fixed web requests `null` result in cases when downloaded file failed to open.
+- Fixed `AsyncUtility.AddCompletionCallback` exception when adding new callbacks from another callback.
+- Fixed `AsyncUpdateSource` implementation to allow adding listeners from a callback.
+- Fixed `AsyncCompletionSource.SetProgress` implementation to allow setting progress when the operation is not started.
+
+### Removed
+- Removed many specialized `IAsyncOperationCallbacks` methods to make the interface as minimalistic as possible (new extension methods are added to compensate).
+- Removed `(Try)SetExceptions` methods/extensions and `FromExceptions` helpers.
+- Removed extension methods of the `Animation` class.
+- Removed `WaitAsync` extension methods of the `Animator` class.
+- Dropped `MovieTexture` support.
+
+-----------------------
+## [0.9.8] - 2018.11.09
+
+### Added
+- `AsyncResult` is now Task-like type and can be used as `async` method result value (requires C# 7.2).
+- Added new `AsyncResult.FromAction` overloads.
+- Added new `SynchronizationContext` extension methods (`PostAsync`, `InvokeAsync` etc).
+- Added extension methods for `Socket`, `WebRequest`, `Stream` BCL classes.
+
+### Changed
+- Moved BCL extension methods to namespace `UnityFx.Async.Extensions` (previously they were in namespace `UnityFx.Async`).
+
+### Fixed
+- Fixed `AsyncResult` completion callbacks to be called event if `OnCompleted` throws.
+- Fixed exception not been set for `AsyncResult.FaultedOperation` and `AsyncResult.CanceledOperation`.
+- Disabled `MovieTexture` helpers for iOS/Android (as it is not supported on mobiles).
+
+### Removed
+- Removed `AsyncResultQueue`.
+- Removed `AsyncLazy`.
+
+-----------------------
+## [0.9.7] - 2018.09.27
+
+### Added
+- Added convenience overloads for `SetException`-like methods accepting as error message string.
+- Added allocation optimizations for single-threaded applications (particularly for Unity3d). See `AsyncResult.DefaultSynchronizationContext` for more info.
+- Added new overloads for `ConfigureAwait` extensions accepting continuation options instead of boolean flag.
+- Added `SynchronizationContext` extension methods for `Send`/`Post` accepting `Action` as the delegate.
+- Added `AsyncResult.Yield` static method (workd exactly as `Task.Yield`).
+- Added `AsyncUtility.AddFrameCallback` helper for scheduling delegates for `MonoBehaviour` update loop.
+- Signed the assembly with a strong name.
+- Added performance benchmarks.
+- Added sandbox Unity project.
+
+### Changed
+- Moved several of `IAsyncOperationEvents` methods to the interface extensions.
+- Simplified `AsyncLazy` interface.
+
+### Fixed
+- Fixed error handling in `AsyncOperationResult`.
+
+### Removed
+- Removed Asset Store samples.
+- Dropped Unity 5.0 support (the minimum version supported is now 5.4).
+- Dropped `WWW` support for Unity 2018.3+ (it has been deprecated in Unity).
+
+-----------------------
+## [0.9.6] - 2018.08.31
 
 ### Added
 - Added `Play`/`Wait` extension methods for `Animation` and `Animator`.

@@ -11,7 +11,7 @@ namespace UnityFx.Async.Helpers
 	/// <summary>
 	/// A wrapper for <see cref="AsyncOperation"/> with result value.
 	/// </summary>
-	public abstract class AsyncOperationResult<T> : AsyncResult<T>
+	internal abstract class AsyncOperationResult<T> : AsyncResult<T>
 	{
 		#region data
 
@@ -116,7 +116,15 @@ namespace UnityFx.Async.Helpers
 			try
 			{
 				var result = GetResult(op);
-				TrySetResult(result);
+
+				if (result != null)
+				{
+					TrySetResult(result);
+				}
+				else
+				{
+					throw new InvalidOperationException();
+				}
 			}
 			catch (Exception e)
 			{

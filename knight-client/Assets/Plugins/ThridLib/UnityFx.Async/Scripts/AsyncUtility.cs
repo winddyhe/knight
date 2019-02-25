@@ -4,14 +4,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-#if !NET_2_0 && !NET_2_0_SUBSET
+#if NET_4_6 || NET_STANDARD_2_0
 using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
+using System.Threading.Tasks;
 #endif
 using System.Threading;
 using UnityEngine;
-#if UNITY_5_4_OR_NEWER
 using UnityEngine.Networking;
-#endif
+using UnityFx.Async.Extensions;
 
 namespace UnityFx.Async
 {
@@ -22,81 +24,70 @@ namespace UnityFx.Async
 	{
 		#region data
 
-		private static GameObject _go;
+		private static SynchronizationContext _mainThreadContext;
+		private static AsyncUtilityBehaviour _rootBehaviour;
 
 		#endregion
 
 		#region interface
 
 		/// <summary>
-		/// Name of a <see cref="GameObject"/> used by the library tools.
-		/// </summary>
-		public const string RootGoName = "UnityFx.Async";
-
-		/// <summary>
-		/// Returns a <see cref="GameObject"/> used by the library tools.
-		/// </summary>
-		public static GameObject GetRootGo()
-		{
-			if (ReferenceEquals(_go, null))
-			{
-				_go = new GameObject(RootGoName);
-				GameObject.DontDestroyOnLoad(_go);
-			}
-
-			return _go;
-		}
-
-		/// <summary>
-		/// Initializes the utilities. If skipped the utilities are lazily initialized.
-		/// </summary>
-		public static void Initialize()
-		{
-			GetRootBehaviour();
-		}
-
-		/// <summary>
 		/// Returns an instance of an <see cref="IAsyncUpdateSource"/> for Update.
 		/// </summary>
-		/// <seealso cref="GetLateUpdateSource"/>
-		/// <seealso cref="GetFixedUpdateSource"/>
-		/// <seealso cref="GetEndOfFrameUpdateSource"/>
+		/// <seealso cref="GetUpdateSource(FrameTiming)"/>
 		public static IAsyncUpdateSource GetUpdateSource()
 		{
-			return GetRootBehaviour().UpdateSource;
+			return _rootBehaviour.UpdateSource;
 		}
 
 		/// <summary>
-		/// Returns an instance of an <see cref="IAsyncUpdateSource"/> for LateUpdate.
+		/// Returns an instance of an <see cref="IAsyncUpdateSource"/> for the specified <paramref name="frameTiming"/>.
 		/// </summary>
-		/// <seealso cref="GetUpdateSource"/>
-		/// <seealso cref="GetFixedUpdateSource"/>
-		/// <seealso cref="GetEndOfFrameUpdateSource"/>
-		public static IAsyncUpdateSource GetLateUpdateSource()
+		/// <seealso cref="GetUpdateSource()"/>
+		public static IAsyncUpdateSource GetUpdateSource(FrameTiming frameTiming)
 		{
-			return GetRootBehaviour().LateUpdateSource;
+			switch (frameTiming)
+			{
+				case FrameTiming.FixedUpdate:
+					return _rootBehaviour.FixedUpdateSource;
+
+				case FrameTiming.LateUpdate:
+					return _rootBehaviour.LateUpdateSource;
+
+				case FrameTiming.EndOfFrame:
+					return _rootBehaviour.EofUpdateSource;
+			}
+
+			return _rootBehaviour.UpdateSource;
 		}
 
 		/// <summary>
-		/// Returns an instance of an <see cref="IAsyncUpdateSource"/> for FixedUpdate.
+		/// Register a completion callback that is triggered on a specific time during next frame.
 		/// </summary>
-		/// <seealso cref="GetUpdateSource"/>
-		/// <seealso cref="GetLateUpdateSource"/>
-		/// <seealso cref="GetEndOfFrameUpdateSource"/>
-		public static IAsyncUpdateSource GetFixedUpdateSource()
+		/// <param name="callback">A delegate to be called on the next frame.</param>
+		/// <param name="timing">Time to call the <paramref name="callback"/>.</param>
+		/// <exception cref="ArgumentNullException">Thrown if <paramref name="callback"/> is <see langword="null"/>.</exception>
+		public static void AddFrameCallback(Action callback, FrameTiming timing)
 		{
-			return GetRootBehaviour().FixedUpdateSource;
+			if (callback == null)
+			{
+				throw new ArgumentNullException("callback");
+			}
+
+			_rootBehaviour.AddFrameCallback(callback, timing);
 		}
 
 		/// <summary>
-		/// Returns an instance of an <see cref="IAsyncUpdateSource"/> for end of frame.
+		/// Dispatches a synchronous message to the main thread.
 		/// </summary>
-		/// <seealso cref="GetUpdateSource"/>
-		/// <seealso cref="GetLateUpdateSource"/>
-		/// <seealso cref="GetFixedUpdateSource"/>
-		public static IAsyncUpdateSource GetEndOfFrameUpdateSource()
+		/// <param name="action">The delegate to invoke.</param>
+		/// <exception cref="ArgumentNullException">Thrown if <paramref name="action"/> is <see langword="null"/>.</exception>
+		/// <seealso cref="SendToMainThread(SendOrPostCallback, object)"/>
+		/// <seealso cref="PostToMainThread(Action)"/>
+		/// <seealso cref="InvokeOnMainThread(Action)"/>
+		public static void SendToMainThread(Action action)
 		{
-			return GetRootBehaviour().EofUpdateSource;
+			_mainThreadContext.Send(action);
 		}
 
 		/// <summary>
@@ -105,11 +96,25 @@ namespace UnityFx.Async
 		/// <param name="d">The delegate to invoke.</param>
 		/// <param name="state">The object passed to the delegate.</param>
 		/// <exception cref="ArgumentNullException">Thrown if <paramref name="d"/> is <see langword="null"/>.</exception>
+		/// <seealso cref="SendToMainThread(Action)"/>
 		/// <seealso cref="PostToMainThread(SendOrPostCallback, object)"/>
 		/// <seealso cref="InvokeOnMainThread(SendOrPostCallback, object)"/>
 		public static void SendToMainThread(SendOrPostCallback d, object state)
 		{
-			GetRootBehaviour().Send(d, state);
+			_mainThreadContext.Send(d, state);
+		}
+
+		/// <summary>
+		/// Dispatches an asynchronous message to the main thread.
+		/// </summary>
+		/// <param name="action">The delegate to invoke.</param>
+		/// <exception cref="ArgumentNullException">Thrown if <paramref name="action"/> is <see langword="null"/>.</exception>
+		/// <seealso cref="PostToMainThread(SendOrPostCallback, object)"/>
+		/// <seealso cref="SendToMainThread(Action)"/>
+		/// <seealso cref="InvokeOnMainThread(Action)"/>
+		public static void PostToMainThread(Action action)
+		{
+			_mainThreadContext.Post(action);
 		}
 
 		/// <summary>
@@ -118,11 +123,25 @@ namespace UnityFx.Async
 		/// <param name="d">The delegate to invoke.</param>
 		/// <param name="state">The object passed to the delegate.</param>
 		/// <exception cref="ArgumentNullException">Thrown if <paramref name="d"/> is <see langword="null"/>.</exception>
+		/// <seealso cref="PostToMainThread(Action)"/>
 		/// <seealso cref="SendToMainThread(SendOrPostCallback, object)"/>
 		/// <seealso cref="InvokeOnMainThread(SendOrPostCallback, object)"/>
-		public static IAsyncOperation PostToMainThread(SendOrPostCallback d, object state)
+		public static void PostToMainThread(SendOrPostCallback d, object state)
 		{
-			return GetRootBehaviour().Post(d, state);
+			_mainThreadContext.Post(d, state);
+		}
+
+		/// <summary>
+		/// Dispatches the specified delegate on the main thread.
+		/// </summary>
+		/// <param name="action">The delegate to invoke.</param>
+		/// <exception cref="ArgumentNullException">Thrown if <paramref name="action"/> is <see langword="null"/>.</exception>
+		/// <seealso cref="InvokeOnMainThread(SendOrPostCallback, object)"/>
+		/// <seealso cref="SendToMainThread(Action)"/>
+		/// <seealso cref="PostToMainThread(Action)"/>
+		public static void InvokeOnMainThread(Action action)
+		{
+			_mainThreadContext.Invoke(action);
 		}
 
 		/// <summary>
@@ -131,11 +150,12 @@ namespace UnityFx.Async
 		/// <param name="d">The delegate to invoke.</param>
 		/// <param name="state">The object passed to the delegate.</param>
 		/// <exception cref="ArgumentNullException">Thrown if <paramref name="d"/> is <see langword="null"/>.</exception>
+		/// <seealso cref="InvokeOnMainThread(Action)"/>
 		/// <seealso cref="SendToMainThread(SendOrPostCallback, object)"/>
 		/// <seealso cref="PostToMainThread(SendOrPostCallback, object)"/>
-		public static IAsyncOperation InvokeOnMainThread(SendOrPostCallback d, object state)
+		public static void InvokeOnMainThread(SendOrPostCallback d, object state)
 		{
-			return GetRootBehaviour().Invoke(d, state);
+			_mainThreadContext.Invoke(d, state);
 		}
 
 		/// <summary>
@@ -144,7 +164,7 @@ namespace UnityFx.Async
 		/// <returns>Returns <see langword="true"/> if current thread is Unity main thread; <see langword="false"/> otherwise.</returns>
 		public static bool IsMainThread()
 		{
-			return GetRootBehaviour().MainThreadContext == SynchronizationContext.Current;
+			return _mainThreadContext == SynchronizationContext.Current;
 		}
 
 		/// <summary>
@@ -157,7 +177,7 @@ namespace UnityFx.Async
 		/// <seealso cref="Delay(TimeSpan)"/>
 		public static IAsyncOperation Delay(int millisecondsDelay)
 		{
-			return AsyncResult.Delay(millisecondsDelay, GetRootBehaviour().UpdateSource);
+			return AsyncResult.Delay(millisecondsDelay, _rootBehaviour.UpdateSource);
 		}
 
 		/// <summary>
@@ -170,7 +190,7 @@ namespace UnityFx.Async
 		/// <seealso cref="Delay(TimeSpan)"/>
 		public static IAsyncOperation Delay(float secondsDelay)
 		{
-			return AsyncResult.Delay(secondsDelay, GetRootBehaviour().UpdateSource);
+			return AsyncResult.Delay(secondsDelay, _rootBehaviour.UpdateSource);
 		}
 
 		/// <summary>
@@ -183,7 +203,47 @@ namespace UnityFx.Async
 		/// <seealso cref="Delay(float)"/>
 		public static IAsyncOperation Delay(TimeSpan delay)
 		{
-			return AsyncResult.Delay(delay, GetRootBehaviour().UpdateSource);
+			return AsyncResult.Delay(delay, _rootBehaviour.UpdateSource);
+		}
+
+		/// <summary>
+		/// Starts a coroutine and wraps it with <see cref="IAsyncOperation"/>.
+		/// </summary>
+		/// <param name="coroutineFunc">The coroutine delegate.</param>
+		/// <param name="userState">User-defined state.</param>
+		/// <returns>Returns the coroutine handle.</returns>
+		/// <exception cref="ArgumentNullException">Thrown if <paramref name="coroutineFunc"/> is <see langword="null"/>.</exception>
+		/// <seealso cref="FromCoroutine(Func{IAsyncCompletionSource, IEnumerator}, object)"/>
+		public static IAsyncOperation FromCoroutine(Func<IAsyncCompletionSource, IEnumerator> coroutineFunc, object userState = null)
+		{
+			if (coroutineFunc == null)
+			{
+				throw new ArgumentNullException("coroutineFunc");
+			}
+
+			var result = new Helpers.CoroutineResult(_rootBehaviour, coroutineFunc, userState);
+			result.Start();
+			return result;
+		}
+
+		/// <summary>
+		/// Starts a coroutine and wraps it with <see cref="IAsyncOperation{TResult}"/>.
+		/// </summary>
+		/// <param name="coroutineFunc">The coroutine delegate.</param>
+		/// <param name="userState">User-defined state.</param>
+		/// <returns>Returns the coroutine handle.</returns>
+		/// <exception cref="ArgumentNullException">Thrown if <paramref name="coroutineFunc"/> is <see langword="null"/>.</exception>
+		/// <seealso cref="FromCoroutine{TResult}(Func{IAsyncCompletionSource{TResult}, IEnumerator}, object)"/>
+		public static IAsyncOperation<TResult> FromCoroutine<TResult>(Func<IAsyncCompletionSource<TResult>, IEnumerator> coroutineFunc, object userState = null)
+		{
+			if (coroutineFunc == null)
+			{
+				throw new ArgumentNullException("coroutineFunc");
+			}
+
+			var result = new Helpers.CoroutineResult<TResult>(_rootBehaviour, coroutineFunc, userState);
+			result.Start();
+			return result;
 		}
 
 		/// <summary>
@@ -202,7 +262,7 @@ namespace UnityFx.Async
 				throw new ArgumentNullException("enumerator");
 			}
 
-			return GetRootBehaviour().StartCoroutine(enumerator);
+			return _rootBehaviour.StartCoroutine(enumerator);
 		}
 
 		/// <summary>
@@ -214,14 +274,9 @@ namespace UnityFx.Async
 		/// <seealso cref="StopAllCoroutines"/>
 		public static void StopCoroutine(Coroutine coroutine)
 		{
-			if (coroutine != null)
+			if (coroutine != null && _rootBehaviour)
 			{
-				var runner = TryGetRootBehaviour();
-
-				if (runner)
-				{
-					runner.StopCoroutine(coroutine);
-				}
+				_rootBehaviour.StopCoroutine(coroutine);
 			}
 		}
 
@@ -234,14 +289,9 @@ namespace UnityFx.Async
 		/// <seealso cref="StopAllCoroutines"/>
 		public static void StopCoroutine(IEnumerator enumerator)
 		{
-			if (enumerator != null)
+			if (enumerator != null && _rootBehaviour)
 			{
-				var runner = TryGetRootBehaviour();
-
-				if (runner)
-				{
-					runner.StopCoroutine(enumerator);
-				}
+				_rootBehaviour.StopCoroutine(enumerator);
 			}
 		}
 
@@ -253,11 +303,9 @@ namespace UnityFx.Async
 		/// <seealso cref="StopCoroutine(IEnumerator)"/>
 		public static void StopAllCoroutines()
 		{
-			var runner = TryGetRootBehaviour();
-
-			if (runner)
+			if (_rootBehaviour)
 			{
-				runner.StopAllCoroutines();
+				_rootBehaviour.StopAllCoroutines();
 			}
 		}
 
@@ -268,7 +316,6 @@ namespace UnityFx.Async
 		/// <param name="op">The request to register completion callback for.</param>
 		/// <param name="completionCallback">A delegate to be called when the <paramref name="op"/> has completed.</param>
 		/// <exception cref="ArgumentNullException">Thrown if <paramref name="op"/> or <paramref name="completionCallback"/> is <see langword="null"/>.</exception>
-		/// <seealso cref="AddCompletionCallback(WWW, Action)"/>
 		public static void AddCompletionCallback(AsyncOperation op, Action completionCallback)
 		{
 			if (op == null)
@@ -294,13 +341,11 @@ namespace UnityFx.Async
 
 #else
 
-				GetRootBehaviour().AddCompletionCallback(op, completionCallback);
+				_rootBehaviour.AddCompletionCallback(op, completionCallback);
 
 #endif
 			}
 		}
-
-#if UNITY_5_4_OR_NEWER
 
 		/// <summary>
 		/// Register a completion callback for the specified <see cref="UnityWebRequest"/> instance.
@@ -309,7 +354,6 @@ namespace UnityFx.Async
 		/// <param name="completionCallback">A delegate to be called when the <paramref name="request"/> has completed.</param>
 		/// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> or <paramref name="completionCallback"/> is <see langword="null"/>.</exception>
 		/// <seealso cref="AddCompletionCallback(AsyncOperation, Action)"/>
-		/// <seealso cref="AddCompletionCallback(WWW, Action)"/>
 		public static void AddCompletionCallback(UnityWebRequest request, Action completionCallback)
 		{
 			if (request == null)
@@ -322,10 +366,10 @@ namespace UnityFx.Async
 				throw new ArgumentNullException("completionCallback");
 			}
 
-			GetRootBehaviour().AddCompletionCallback(request, completionCallback);
+			_rootBehaviour.AddCompletionCallback(request, completionCallback);
 		}
 
-#endif
+#if !UNITY_2018_3_OR_NEWER
 
 		/// <summary>
 		/// Register a completion callback for the specified <see cref="WWW"/> instance.
@@ -346,70 +390,110 @@ namespace UnityFx.Async
 				throw new ArgumentNullException("completionCallback");
 			}
 
-			GetRootBehaviour().AddCompletionCallback(request, completionCallback);
+			_rootBehaviour.AddCompletionCallback(request, completionCallback);
+		}
+
+#endif
+
+#if NET_4_6 || NET_STANDARD_2_0
+
+		/// <summary>
+		/// Provides an object that awaits for the specified <see cref="FrameTiming"/>. This type and its members are intended for compiler use only.
+		/// </summary>
+		/// <seealso cref="FrameAwaitable"/>
+		public struct FrameAwaiter : INotifyCompletion
+		{
+			private readonly FrameTiming _frameTiming;
+
+			/// <summary>
+			/// Initializes a new instance of the <see cref="FrameAwaiter"/> struct.
+			/// </summary>
+			public FrameAwaiter(FrameTiming frameTiming)
+			{
+				_frameTiming = frameTiming;
+			}
+
+			/// <summary>
+			/// Gets a value indicating whether the underlying operation is completed.
+			/// </summary>
+			/// <value>The operation completion flag.</value>
+			public bool IsCompleted
+			{
+				get
+				{
+					return false;
+				}
+			}
+
+			/// <summary>
+			/// Returns the source result value.
+			/// </summary>
+			public void GetResult()
+			{
+			}
+
+			/// <inheritdoc/>
+			public void OnCompleted(Action continuation)
+			{
+				_rootBehaviour.AddFrameCallback(continuation, _frameTiming);
+			}
+		}
+
+		/// <summary>
+		/// Provides an awaitable object that allows awaits for the specified <see cref="FrameTiming"/>. This type is intended for compiler use only.
+		/// </summary>
+		/// <seealso cref="FrameAwaiter"/>
+		public struct FrameAwaitable
+		{
+			private readonly FrameAwaiter _awaiter;
+
+			/// <summary>
+			/// Initializes a new instance of the <see cref="FrameAwaitable"/> struct.
+			/// </summary>
+			public FrameAwaitable(FrameTiming frameTime)
+			{
+				_awaiter = new FrameAwaiter(frameTime);
+			}
+
+			/// <summary>
+			/// Returns the awaiter.
+			/// </summary>
+			public FrameAwaiter GetAwaiter()
+			{
+				return _awaiter;
+			}
+		}
+
+		/// <summary>
+		/// Waits until the specified <paramref name="frameTime"/>.
+		/// </summary>
+		/// <param name="frameTime">The frame time to await.</param>
+		public static FrameAwaitable FrameUpdate(FrameTiming frameTime = FrameTiming.Update)
+		{
+			return new FrameAwaitable(frameTime);
+		}
+
+#endif
+
+		/// <summary>
+		/// Initializes utilities. This method is intended for internal use only. DO NOT use.
+		/// </summary>
+		internal static void Initialize(GameObject go, SynchronizationContext mainThreadContext)
+		{
+			_mainThreadContext = mainThreadContext;
+			_rootBehaviour = go.AddComponent<AsyncUtilityBehaviour>();
 		}
 
 		#endregion
 
 		#region implementation
 
-		private sealed class InvokeResult : AsyncResult
-		{
-			private readonly SendOrPostCallback _callback;
-
-			public InvokeResult(SendOrPostCallback d, object asyncState)
-				: base(AsyncOperationStatus.Scheduled, asyncState)
-			{
-				_callback = d;
-			}
-
-			public void SetCompleted()
-			{
-				TrySetCompleted();
-			}
-
-			public void SetException(Exception e)
-			{
-				TrySetException(e);
-			}
-
-			protected override void OnStarted()
-			{
-				_callback.Invoke(AsyncState);
-			}
-		}
-
-		private sealed class MainThreadSynchronizationContext : SynchronizationContext
-		{
-			private readonly AsyncRootBehaviour _scheduler;
-
-			public MainThreadSynchronizationContext(AsyncRootBehaviour scheduler)
-			{
-				_scheduler = scheduler;
-			}
-
-			public override SynchronizationContext CreateCopy()
-			{
-				return new MainThreadSynchronizationContext(_scheduler);
-			}
-
-			public override void Send(SendOrPostCallback d, object state)
-			{
-				_scheduler.Send(d, state);
-			}
-
-			public override void Post(SendOrPostCallback d, object state)
-			{
-				_scheduler.Post(d, state);
-			}
-		}
-
-		private sealed class AsyncRootBehaviour : MonoBehaviour
+		private sealed class AsyncUtilityBehaviour : MonoBehaviour
 		{
 			#region data
 
 			private Dictionary<object, Action> _ops;
-			private List<object> _opsToRemove;
+			private List<KeyValuePair<object, Action>> _opsToRemove;
 
 			private AsyncUpdateSource _updateSource;
 			private AsyncUpdateSource _lateUpdateSource;
@@ -417,25 +501,25 @@ namespace UnityFx.Async
 			private AsyncUpdateSource _eofUpdateSource;
 			private WaitForEndOfFrame _eof;
 
-			private SynchronizationContext _context;
-			private SynchronizationContext _mainThreadContext;
-#if NET_2_0 || NET_2_0_SUBSET
-			private Queue<InvokeResult> _actionQueue;
+#if NET_4_6 || NET_STANDARD_2_0
+
+			private ConcurrentQueue<Action> _updateActions;
+			private ConcurrentQueue<Action> _lateUpdateActions;
+			private ConcurrentQueue<Action> _fixedUpdateActions;
+			private ConcurrentQueue<Action> _eofUpdateActions;
+
 #else
-			private ConcurrentQueue<InvokeResult> _actionQueue;
+
+			private Queue<Action> _updateActions;
+			private Queue<Action> _lateUpdateActions;
+			private Queue<Action> _fixedUpdateActions;
+			private Queue<Action> _eofUpdateActions;
+
 #endif
 
 			#endregion
 
 			#region interface
-
-			public SynchronizationContext MainThreadContext
-			{
-				get
-				{
-					return _mainThreadContext;
-				}
-			}
 
 			public IAsyncUpdateSource UpdateSource
 			{
@@ -496,89 +580,31 @@ namespace UnityFx.Async
 				if (_ops == null)
 				{
 					_ops = new Dictionary<object, Action>();
-					_opsToRemove = new List<object>();
+					_opsToRemove = new List<KeyValuePair<object, Action>>();
 				}
 
 				_ops.Add(op, cb);
 			}
 
-			public void Send(SendOrPostCallback d, object state)
+			public void AddFrameCallback(Action callback, FrameTiming timing)
 			{
-				if (d == null)
+				switch (timing)
 				{
-					throw new ArgumentNullException("d");
-				}
+					case FrameTiming.FixedUpdate:
+						AddFrameCallback(ref _fixedUpdateActions, callback);
+						break;
 
-				if (!this)
-				{
-					throw new ObjectDisposedException(GetType().Name);
-				}
+					case FrameTiming.Update:
+						AddFrameCallback(ref _updateActions, callback);
+						break;
 
-				if (_mainThreadContext == SynchronizationContext.Current)
-				{
-					d.Invoke(state);
-				}
-				else
-				{
-					using (var asyncResult = new InvokeResult(d, state))
-					{
-#if NET_2_0 || NET_2_0_SUBSET
+					case FrameTiming.LateUpdate:
+						AddFrameCallback(ref _lateUpdateActions, callback);
+						break;
 
-						lock (_actionQueue)
-						{
-							_actionQueue.Enqueue(asyncResult);
-						}
-
-#else
-
-						_actionQueue.Enqueue(asyncResult);
-
-#endif
-
-						asyncResult.Wait();
-					}
-				}
-			}
-
-			public IAsyncOperation Post(SendOrPostCallback d, object state)
-			{
-				if (d == null)
-				{
-					throw new ArgumentNullException("d");
-				}
-
-				if (!this)
-				{
-					throw new ObjectDisposedException(GetType().Name);
-				}
-
-				var asyncResult = new InvokeResult(d, state);
-
-#if NET_2_0 || NET_2_0_SUBSET
-
-				lock (_actionQueue)
-				{
-					_actionQueue.Enqueue(asyncResult);
-				}
-
-#else
-
-				_actionQueue.Enqueue(asyncResult);
-
-#endif
-
-				return asyncResult;
-			}
-
-			public IAsyncOperation Invoke(SendOrPostCallback d, object state)
-			{
-				if (_mainThreadContext == SynchronizationContext.Current)
-				{
-					return AsyncResult.FromAction(d, state);
-				}
-				else
-				{
-					return Post(d, state);
+					case FrameTiming.EndOfFrame:
+						AddFrameCallback(ref _eofUpdateActions, callback);
+						break;
 				}
 			}
 
@@ -586,83 +612,55 @@ namespace UnityFx.Async
 
 			#region MonoBehavoiur
 
-			private void Awake()
-			{
-				var currentContext = SynchronizationContext.Current;
-
-				if (currentContext == null)
-				{
-					var context = new MainThreadSynchronizationContext(this);
-					SynchronizationContext.SetSynchronizationContext(context);
-					_context = context;
-					_mainThreadContext = context;
-				}
-				else
-				{
-					_mainThreadContext = currentContext;
-				}
-
-#if NET_2_0 || NET_2_0_SUBSET
-
-				_actionQueue = new Queue<InvokeResult>();
-
-#else
-
-				_actionQueue = new ConcurrentQueue<InvokeResult>();
-
-#endif
-			}
-
 			private void Update()
 			{
 				if (_ops != null && _ops.Count > 0)
 				{
-					try
+					foreach (var item in _ops)
 					{
-						foreach (var item in _ops)
+						if (item.Key is AsyncOperation)
 						{
-							if (item.Key is AsyncOperation)
-							{
-								var asyncOp = item.Key as AsyncOperation;
+							var asyncOp = item.Key as AsyncOperation;
 
-								if (asyncOp.isDone)
-								{
-									_opsToRemove.Add(asyncOp);
-									item.Value();
-								}
-							}
-#if UNITY_5_4_OR_NEWER
-							else if (item.Key is UnityWebRequest)
+							if (asyncOp.isDone)
 							{
-								var asyncOp = item.Key as UnityWebRequest;
-
-								if (asyncOp.isDone)
-								{
-									_opsToRemove.Add(asyncOp);
-									item.Value();
-								}
-							}
-#endif
-							else if (item.Key is WWW)
-							{
-								var asyncOp = item.Key as WWW;
-
-								if (asyncOp.isDone)
-								{
-									_opsToRemove.Add(asyncOp);
-									item.Value();
-								}
+								_opsToRemove.Add(item);
 							}
 						}
-					}
-					catch (Exception e)
-					{
-						Debug.LogException(e, this);
+						else if (item.Key is UnityWebRequest)
+						{
+							var asyncOp = item.Key as UnityWebRequest;
+
+							if (asyncOp.isDone)
+							{
+								_opsToRemove.Add(item);
+							}
+						}
+#if !UNITY_2018_3_OR_NEWER
+						else if (item.Key is WWW)
+						{
+							var asyncOp = item.Key as WWW;
+
+							if (asyncOp.isDone)
+							{
+								_opsToRemove.Add(item);
+							}
+						}
+#endif
 					}
 
 					foreach (var item in _opsToRemove)
 					{
-						_ops.Remove(item);
+						_ops.Remove(item.Key);
+
+						try
+						{
+							item.Value();
+						}
+						catch (Exception e)
+						{
+							Debug.LogException(e, this);
+						}
 					}
 
 					_opsToRemove.Clear();
@@ -680,55 +678,34 @@ namespace UnityFx.Async
 					}
 				}
 
-#if NET_2_0 || NET_2_0_SUBSET
-
-				if (_actionQueue.Count > 0)
+				if (_updateActions != null)
 				{
-					lock (_actionQueue)
-					{
-						while (_actionQueue.Count > 0)
-						{
-							var asyncResult = _actionQueue.Dequeue();
-
-							try
-							{
-								asyncResult.Start();
-								asyncResult.SetCompleted();
-							}
-							catch (Exception e)
-							{
-								asyncResult.SetException(e);
-								Debug.LogException(e, this);
-							}
-						}
-					}
+					InvokeFrameCallbacks(_updateActions, this);
 				}
 
-#else
-
-                InvokeResult invokeResult = null;
-                while (_actionQueue.TryDequeue(out invokeResult))
+				if (_mainThreadContext is Helpers.MainThreadSynchronizationContext)
 				{
-					try
-					{
-						invokeResult.Start();
-						invokeResult.SetCompleted();
-					}
-					catch (Exception e)
-					{
-						invokeResult.SetException(e);
-						Debug.LogException(e, this);
-					}
+					(_mainThreadContext as Helpers.MainThreadSynchronizationContext).Update(this);
 				}
-
-#endif
 			}
 
 			private void LateUpdate()
 			{
 				if (_lateUpdateSource != null)
 				{
-					_lateUpdateSource.OnNext(Time.deltaTime);
+					try
+					{
+						_lateUpdateSource.OnNext(Time.deltaTime);
+					}
+					catch (Exception e)
+					{
+						Debug.LogException(e, this);
+					}
+				}
+
+				if (_lateUpdateActions != null)
+				{
+					InvokeFrameCallbacks(_lateUpdateActions, this);
 				}
 			}
 
@@ -736,7 +713,19 @@ namespace UnityFx.Async
 			{
 				if (_fixedUpdateSource != null)
 				{
-					_fixedUpdateSource.OnNext(Time.fixedDeltaTime);
+					try
+					{
+						_fixedUpdateSource.OnNext(Time.fixedDeltaTime);
+					}
+					catch (Exception e)
+					{
+						Debug.LogException(e, this);
+					}
+				}
+
+				if (_fixedUpdateActions != null)
+				{
+					InvokeFrameCallbacks(_fixedUpdateActions, this);
 				}
 			}
 
@@ -765,28 +754,71 @@ namespace UnityFx.Async
 					_eofUpdateSource.Dispose();
 					_eofUpdateSource = null;
 				}
-
-				if (_context != null && _context == SynchronizationContext.Current)
-				{
-					SynchronizationContext.SetSynchronizationContext(null);
-				}
-
-#if NET_2_0 || NET_2_0_SUBSET
-
-				lock (_actionQueue)
-				{
-					_actionQueue.Clear();
-				}
-
-#endif
-
-				_mainThreadContext = null;
-				_context = null;
 			}
 
 			#endregion
 
 			#region implementation
+
+#if NET_4_6 || NET_STANDARD_2_0
+
+			private static void AddFrameCallback(ref ConcurrentQueue<Action> actionQueue, Action callback)
+			{
+				Interlocked.CompareExchange(ref actionQueue, new ConcurrentQueue<Action>(), null);
+				actionQueue.Enqueue(callback);
+			}
+
+			private static void InvokeFrameCallbacks(ConcurrentQueue<Action> actionQueue, UnityEngine.Object context)
+			{
+				Action action;
+
+				while (actionQueue.TryDequeue(out action))
+				{
+					try
+					{
+						action.Invoke();
+					}
+					catch (Exception e)
+					{
+						Debug.LogException(e, context);
+					}
+				}
+			}
+
+#else
+
+			private void AddFrameCallback(ref Queue<Action> actionQueue, Action callback)
+			{
+				Interlocked.CompareExchange(ref actionQueue, new Queue<Action>(), null);
+
+				lock (actionQueue)
+				{
+					actionQueue.Enqueue(callback);
+				}
+			}
+
+			private static void InvokeFrameCallbacks(Queue<Action> actionQueue, UnityEngine.Object context)
+			{
+				if (actionQueue.Count > 0)
+				{
+					lock (actionQueue)
+					{
+						while (actionQueue.Count > 0)
+						{
+							try
+							{
+								actionQueue.Dequeue().Invoke();
+							}
+							catch (Exception e)
+							{
+								Debug.LogException(e, context);
+							}
+						}
+					}
+				}
+			}
+
+#endif
 
 			private IEnumerator EofEnumerator()
 			{
@@ -794,49 +826,23 @@ namespace UnityFx.Async
 
 				if (_eofUpdateSource != null)
 				{
-					_eofUpdateSource.OnNext(Time.deltaTime);
+					try
+					{
+						_eofUpdateSource.OnNext(Time.deltaTime);
+					}
+					catch (Exception e)
+					{
+						Debug.LogException(e, this);
+					}
+				}
+
+				if (_eofUpdateActions != null)
+				{
+					InvokeFrameCallbacks(_eofUpdateActions, this);
 				}
 			}
 
 			#endregion
-		}
-
-		private static AsyncRootBehaviour TryGetRootBehaviour()
-		{
-			var go = GetRootGo();
-
-			if (go)
-			{
-				var runner = go.GetComponent<AsyncRootBehaviour>();
-
-				if (runner)
-				{
-					return runner;
-				}
-			}
-
-			return null;
-		}
-
-		private static AsyncRootBehaviour GetRootBehaviour()
-		{
-			var go = GetRootGo();
-
-			if (go)
-			{
-				var runner = go.GetComponent<AsyncRootBehaviour>();
-
-				if (!runner)
-				{
-					runner = go.AddComponent<AsyncRootBehaviour>();
-				}
-
-				return runner;
-			}
-			else
-			{
-				throw new ObjectDisposedException(RootGoName);
-			}
 		}
 
 		#endregion

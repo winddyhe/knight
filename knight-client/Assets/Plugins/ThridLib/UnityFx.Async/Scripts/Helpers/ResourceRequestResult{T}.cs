@@ -10,7 +10,7 @@ namespace UnityFx.Async.Helpers
 	/// A wrapper for <see cref="ResourceRequest"/> with result value.
 	/// </summary>
 	/// <typeparam name="T">Result type.</typeparam>
-	public class ResourceRequestResult<T> : AsyncOperationResult<T> where T : UnityEngine.Object
+	internal class ResourceRequestResult<T> : AsyncOperationResult<T> where T : UnityEngine.Object
 	{
 		#region data
 		#endregion

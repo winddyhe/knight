@@ -11,7 +11,7 @@ namespace UnityFx.Async.Helpers
 	/// <summary>
 	/// A wrapper for <see cref="AsyncOperation"/> with result value.
 	/// </summary>
-	public class AsyncOperationResult : AsyncResult
+	internal class AsyncOperationResult : AsyncResult
 	{
 		#region data
 

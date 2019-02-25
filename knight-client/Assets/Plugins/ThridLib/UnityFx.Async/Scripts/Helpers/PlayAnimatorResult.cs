@@ -11,7 +11,7 @@ namespace UnityFx.Async.Helpers
 	/// <summary>
 	/// A wrapper for <see cref="Animator"/>.
 	/// </summary>
-	public class PlayAnimatorResult : AsyncResult, IAsyncUpdatable
+	internal class PlayAnimatorResult : AsyncResult, IAsyncUpdatable
 	{
 		#region data
 
@@ -23,6 +23,20 @@ namespace UnityFx.Async.Helpers
 		#endregion
 
 		#region interface
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="PlayAnimatorResult"/> class.
+		/// </summary>
+		public PlayAnimatorResult(Animator anim, int stateNameHash, int layer, IAsyncUpdateSource updateSource)
+		{
+			Debug.Assert(anim != null);
+			Debug.Assert(updateSource != null);
+
+			_updateSource = updateSource;
+			_anim = anim;
+			_stateNameHash = stateNameHash;
+			_layer = layer;
+		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PlayAnimatorResult"/> class.

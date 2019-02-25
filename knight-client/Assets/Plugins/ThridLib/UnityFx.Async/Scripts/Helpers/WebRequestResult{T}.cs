@@ -4,19 +4,15 @@
 using System;
 using System.Text;
 using UnityEngine;
-#if UNITY_5_4_OR_NEWER
 using UnityEngine.Networking;
-#endif
 
 namespace UnityFx.Async.Helpers
 {
-#if UNITY_5_4_OR_NEWER
-
 	/// <summary>
 	/// A wrapper for <see cref="UnityWebRequest"/> with result value.
 	/// </summary>
 	/// <typeparam name="T">Type of the request result.</typeparam>
-	public class WebRequestResult<T> : AsyncResult<T> where T : class
+	internal class WebRequestResult<T> : AsyncResult<T> where T : class
 	{
 		#region data
 
@@ -185,11 +181,21 @@ namespace UnityFx.Async.Helpers
 				if (_request.isHttpError || _request.isNetworkError)
 #endif
 				{
-					TrySetException(new WebRequestException(_request.error, _request.responseCode));
+					throw new WebRequestException(_request.error, _request.responseCode);
 				}
 				else if (_request.downloadHandler != null)
 				{
 					var result = GetResult(_request);
+
+					if (result != null)
+					{
+						TrySetResult(result);
+					}
+					else
+					{
+						throw new WebRequestException(string.Format("Failed to load {0} from URL: {1}.", typeof(T).Name, _request.url));
+					}
+
 					TrySetResult(result);
 				}
 				else
@@ -205,6 +211,4 @@ namespace UnityFx.Async.Helpers
 
 		#endregion
 	}
-
-#endif
 }

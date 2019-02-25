@@ -12,7 +12,7 @@ namespace UnityFx.Async.Helpers
 	/// A wrapper for <see cref="AssetBundleRequest"/> with result value.
 	/// </summary>
 	/// <typeparam name="T">Result type.</typeparam>
-	public class AssetBundleRequestResult<T> : AsyncOperationResult<T> where T : UnityEngine.Object
+	internal class AssetBundleRequestResult<T> : AsyncOperationResult<T> where T : UnityEngine.Object
 	{
 		#region data
 
@@ -55,7 +55,7 @@ namespace UnityFx.Async.Helpers
 		/// <param name="assetbundle">The asset bundle to load asset from.</param>
 		/// <param name="assetName">Name of an asset to load.</param>
 		public AssetBundleRequestResult(AssetBundle assetbundle, string assetName)
-			: base(assetbundle.LoadAssetAsync(assetName))
+			: base(string.IsNullOrEmpty(assetName) ? assetbundle.LoadAllAssetsAsync() : assetbundle.LoadAssetAsync(assetName))
 		{
 			_assetName = assetName;
 		}
@@ -67,7 +67,7 @@ namespace UnityFx.Async.Helpers
 		/// <param name="assetName">Name of an asset to load.</param>
 		/// <param name="userState">User-defined data.</param>
 		public AssetBundleRequestResult(AssetBundle assetbundle, string assetName, object userState)
-			: base(assetbundle.LoadAssetAsync(assetName), userState)
+			: base(string.IsNullOrEmpty(assetName) ? assetbundle.LoadAllAssetsAsync() : assetbundle.LoadAssetAsync(assetName), userState)
 		{
 			_assetName = assetName;
 		}
@@ -98,7 +98,24 @@ namespace UnityFx.Async.Helpers
 		/// <inheritdoc/>
 		protected override T GetResult(AsyncOperation op)
 		{
-			return (op as AssetBundleRequest).asset as T;
+			var abr = op as AssetBundleRequest;
+
+			if (abr.asset != null)
+			{
+				return abr.asset as T;
+			}
+			else if (abr.allAssets != null)
+			{
+				foreach (var asset in abr.allAssets)
+				{
+					if (asset is T)
+					{
+						return asset as T;
+					}
+				}
+			}
+
+			return null;
 		}
 
 		#endregion
@@ -113,9 +130,16 @@ namespace UnityFx.Async.Helpers
 			if (abr != null && abr.IsCompletedSuccessfully)
 			{
 				Debug.Assert(Operation == null);
-				Debug.Assert(_assetName != null);
 
-				Operation = abr.Result.LoadAssetAsync(_assetName);
+				if (string.IsNullOrEmpty(_assetName))
+				{
+					Operation = abr.Result.LoadAllAssetsAsync();
+				}
+				else
+				{
+					Operation = abr.Result.LoadAssetAsync(_assetName);
+				}
+
 				Start();
 			}
 			else
