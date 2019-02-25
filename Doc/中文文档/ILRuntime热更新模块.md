@@ -1,6 +1,6 @@
 # ILRuntime热更新管理
 * ILRuntime库是一个使用C#编写的解释运行C# IL代码的库，可以运行在IOS系统下。框架中使用ILRuntime来时实现基于C# DLL的代码逻辑热更新。
-* ILRuntime库的地址：https://github.com/Ourpalm/ILRuntime。
+* ILRuntime库的地址：https://github.com/Ourpalm/ILRuntime
 
 ## 热更新模块
 * 热更新模块的代码在Assets/Framework/Hotfix下。
