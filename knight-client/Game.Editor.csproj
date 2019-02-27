@@ -301,11 +301,11 @@
     <Reference Include="Excel">
       <HintPath>D:/Project/knight/knight-client/Assets/Framework.Editor/Editor/ExcelReader/Excel.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>D:/Project/knight/knight-client/Assets/Plugins/ThridLib/ZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="UnityFx.Async">
       <HintPath>D:/Project/knight/knight-client/Assets/Plugins/ThridLib/UnityFx.Async/Bin/net46/UnityFx.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>D:/Project/knight/knight-client/Assets/Plugins/ThridLib/ZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Software/Unity/Unity201836f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
