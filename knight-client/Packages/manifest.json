@@ -1,6 +1,14 @@
 {
   "dependencies": {
     "com.unity.package-manager-ui": "2.0.3",
+	"knight.core": "file:./Knight-Lib/Knight.Core",
+    "knight.framework.assetbundle": "file:./Knight-Lib/Knight.Framework.Assetbundle",
+    "knight.framework.input": "file:./Knight-Lib/Knight.Framework.Input",
+	"knight.framework.graphics": "file:./Knight-Lib/Knight.Framework.Graphics",
+	"knight.framework.ui": "file:./Knight-Lib/Knight.Framework.UI",
+	"knight.framework.tweening": "file:./Knight-Lib/Knight.Framework.Tweening",
+	"knight.framework.network": "file:./Knight-Lib/Knight.Framework.Network",
+	"knight.framework.hotfix": "file:./Knight-Lib/Knight.Framework.Hotfix",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.assetbundle": "1.0.0",

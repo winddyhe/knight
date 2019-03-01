@@ -6,8 +6,6 @@ using UnityEngine;
 using System.Collections;
 using Knight.Core;
 using UnityEngine.UI;
-using Knight.Framework;
-using System;
 
 namespace Game
 {

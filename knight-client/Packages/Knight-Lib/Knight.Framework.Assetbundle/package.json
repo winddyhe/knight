@@ -1,0 +1,11 @@
+{
+  "name": "knight.framework.assetbundle",
+  "displayName":  "Knight.Framework.AssetBundle",
+  "version": "0.0.1",
+  "description": "Knight framework assetbundle library.",
+  "keywords": [ "unity3d", "framework" ],
+  "category": "FRAMEWORK",
+  "dependencies": {
+	"knight.core":"0.0.1"
+  }
+}

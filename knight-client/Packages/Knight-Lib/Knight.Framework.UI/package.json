@@ -1,0 +1,11 @@
+{
+  "name": "knight.framework.ui",
+  "displayName":  "Knight.Framework.UI",
+  "version": "0.0.1",
+  "description": "Knight framework ui library.",
+  "keywords": [ "unity3d", "framework" ],
+  "category": "FRAMEWORK",
+  "dependencies": {
+	"knight.core":"0.0.1"
+  }
+}

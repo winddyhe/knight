@@ -1,0 +1,24 @@
+{
+    "name": "Game.Hotfix",
+    "references": [
+        "Core",
+        "Framework.AssetBundle",
+        "Framework.Graphics",
+        "Framework.Hotfix",
+        "Framework.Input",
+        "Framework.Network",
+        "Framework.Tweening",
+        "Framework.UI",
+        "Game"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

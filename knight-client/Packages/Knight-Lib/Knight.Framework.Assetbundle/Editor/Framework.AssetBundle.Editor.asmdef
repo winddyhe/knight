@@ -1,0 +1,16 @@
+{
+    "name": "Framework.AssetBundle.Editor",
+    "references": [
+        "Core",
+        "Core.Editor",
+        "Framework.AssetBundle"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": []
+}

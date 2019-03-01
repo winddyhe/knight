@@ -1,0 +1,11 @@
+{
+  "name": "knight.framework.hotfix",
+  "displayName":  "Knight.Framework.Hotfix",
+  "version": "0.0.1",
+  "description": "Knight framework hotfix library.",
+  "keywords": [ "unity3d", "framework" ],
+  "category": "FRAMEWORK",
+  "dependencies": {
+	"knight.core":"0.0.1"
+  }
+}

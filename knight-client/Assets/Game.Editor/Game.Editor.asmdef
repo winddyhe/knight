@@ -3,15 +3,17 @@
     "references": [
         "Core",
         "Core.Editor",
-        "Framework",
-        "Framework.Editor",
-        "ThridLib",
-        "Game"
+        "Framework.AssetBundle",
+        "Framework.AssetBundle.Editor"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [
         "Editor"
     ],
     "excludePlatforms": [],
-    "allowUnsafeCode": false
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
 }

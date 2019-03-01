@@ -1,7 +1,6 @@
 ﻿using Knight.Core;
 using Knight.Framework;
 using Knight.Framework.Hotfix;
-using Knight.Framework.TypeResolve;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

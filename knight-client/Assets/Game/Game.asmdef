@@ -2,11 +2,17 @@
     "name": "Game",
     "references": [
         "Core",
-        "ThridLib",
-        "Framework"
+        "Framework.AssetBundle",
+        "Framework.Hotfix",
+        "Framework.UI",
+        "Framework.Network"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": false
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
 }

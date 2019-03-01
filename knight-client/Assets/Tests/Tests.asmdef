@@ -3,13 +3,21 @@
     "references": [
         "Core",
         "Core.Editor",
-        "Framework",
-        "Framework.Editor"
+        "Framework.AssetBundle",
+        "Framework.Tweening",
+        "Framework.UI",
+        "Framework.Network",
+        "Framework.Hotfix",
+        "Game"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": true
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
 }

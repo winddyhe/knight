@@ -1,0 +1,11 @@
+{
+  "name": "knight.framework.input",
+  "displayName":  "Knight.Framework.Input",
+  "version": "0.0.1",
+  "description": "Knight framework input library.",
+  "keywords": [ "unity3d", "framework" ],
+  "category": "FRAMEWORK",
+  "dependencies": {
+	"knight.core":"0.0.1"
+  }
+}

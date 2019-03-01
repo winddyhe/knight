@@ -1,0 +1,10 @@
+{
+  "name": "knight.core",
+  "displayName":  "Knight.Core",
+  "version": "0.0.2",
+  "description": "Knight core library.",
+  "keywords": [ "unity3d", "framework" ],
+  "category": "FRAMEWORK",
+  "dependencies": {
+  }
+}
