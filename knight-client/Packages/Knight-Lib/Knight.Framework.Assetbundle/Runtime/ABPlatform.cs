@@ -324,7 +324,7 @@ namespace Knight.Framework.AssetBundles
         /// <summary>
         /// 平台的对应关系转换
         /// </summary>
-        private Platform RuntimePlatform_To_Plaform(RuntimePlatform rRuntimePlatform)
+        public static Platform RuntimePlatform_To_Plaform(RuntimePlatform rRuntimePlatform)
         {
             switch (rRuntimePlatform)
             {

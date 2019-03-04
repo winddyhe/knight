@@ -78,28 +78,35 @@ namespace Knight.Core.Editor
         /// <summary>
         /// 加载Manifest
         /// </summary>
-        public static IEnumerator LoadManifest(string rManifestURL, Action<AssetBundleManifest> rLoadCompleted)
+        public static IEnumerator LoadManifest(string rManifestPath, Action<AssetBundleManifest> rLoadCompleted)
         {
-            WWW www = new WWW(rManifestURL);
-            yield return www;
+            var rABRequest = AssetBundle.LoadFromFileAsync(rManifestPath);
+            yield return rABRequest;
 
-            if (www == null || !string.IsNullOrEmpty(www.error))
+            if (rABRequest == null || rABRequest.assetBundle == null)
             {
-                Debug.Log("加载Manifest出错: " + www.error);
+                Debug.Log("加载Manifest出错: " + rManifestPath);
                 UtilTool.SafeExecute(rLoadCompleted, null);
                 yield break;
             }
-            var rABManifest = www.assetBundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest") as AssetBundleManifest;
-            WWWAssist.Dispose(ref www);
-            UtilTool.SafeExecute(rLoadCompleted, rABManifest);
+            var rABManifestRequest = rABRequest.assetBundle.LoadAssetAsync<AssetBundleManifest>(rManifestPath);
+            yield return rABManifestRequest;
+            if (rABManifestRequest.asset == null)
+            {
+                Debug.Log("加载Manifest出错：" + rManifestPath);
+                yield break;
+            }
+            UtilTool.SafeExecute(rLoadCompleted, rABManifestRequest.asset as AssetBundleManifest);
+            rABRequest.assetBundle.Unload(false);
         }
 
-        public static AssetBundleManifest LoadManifest(string rManifestURL)
+        public static AssetBundleManifest LoadManifest(string rManifestPath)
         {
-            var rAssetBundle = AssetBundle.LoadFromFile(rManifestURL);
+            var rAssetBundle = AssetBundle.LoadFromFile(rManifestPath);
             if (rAssetBundle == null) return null;
             
             var rABManifest = rAssetBundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest") as AssetBundleManifest;
+            rAssetBundle.Unload(false);
             return rABManifest;
         }
     }

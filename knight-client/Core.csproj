@@ -95,7 +95,6 @@
     <Compile Include="Packages\Knight-Lib\Knight.Core\Runtime\Game\TObjectPool.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Core\Runtime\Game\UIAtlas.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Core\Runtime\Game\WebRequestAssist.cs" />
-    <Compile Include="Packages\Knight-Lib\Knight.Core\Runtime\Game\WWWAssist.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Core\Runtime\Math\Area\AreaOverlapAlgorithm.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Core\Runtime\Math\Path\LinePathAlgorithm.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Core\Runtime\Math\Utility\OBB.cs" />

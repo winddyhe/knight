@@ -15,25 +15,63 @@ namespace Knight.Core
         public string               Path;
         public string               AssetName;
         public bool                 IsScene;
+        public LoadSceneMode        SceneMode;
+
         public bool                 IsSimulate;
         public bool                 IsLoadAllAssets;
 
-        public AssetLoaderRequest(string rPath, string rAssetName, bool bIsScene, bool bIsSimulate, bool bIsLoadAllAssets)
+        public bool                 IsDependence;
+
+        /// <summary>
+        /// 加载非场景资源
+        /// </summary>
+        public AssetLoaderRequest(string rPath, string rAssetName, bool bIsDependence, bool bIsSimulate, bool bIsLoadAllAssets)
         {
             this.Path               = rPath;
             this.AssetName          = rAssetName;
-            this.IsScene            = bIsScene;
+            this.IsScene            = false;
+            this.SceneMode          = LoadSceneMode.Single;
             this.IsSimulate         = bIsSimulate;
+            this.IsDependence       = bIsDependence;
             this.IsLoadAllAssets    = bIsLoadAllAssets;
+
+            if (this.IsLoadAllAssets)
+            {
+                this.AssetName = "AllAssets";
+            }
+        }
+
+        /// <summary>
+        /// 加载场景资源
+        /// </summary>
+        public AssetLoaderRequest(string rPath, string rAssetName, LoadSceneMode rSceneMode, bool bIsDependence, bool bIsSimulate)
+        {
+            this.Path               = rPath;
+            this.AssetName          = "Assets/" + rPath.Replace(".ab", "") + ".unity";
+            this.IsScene            = true;
+            this.SceneMode          = rSceneMode;
+            this.IsSimulate         = bIsSimulate;
+            this.IsDependence       = bIsDependence;
+            this.IsLoadAllAssets    = false;
+
+            if (this.IsLoadAllAssets)
+            {
+                this.AssetName = "AllAssets";
+            }
         }
     }
 
     public interface IAssetLoader
     {
-        IAsyncOperation<AssetLoaderRequest> LoadAsset(string rAssetPath);
-        IAsyncOperation<AssetLoaderRequest> LoadAllAssets(string rAssetsPath);
-        IAsyncOperation<AssetLoaderRequest> LoadScene(string rScenePath);
+        void Initialize();
+        void UnloadAsset(string rABPath);
 
-        void UnloadAsset(string rAssetPath);
+        IAsyncOperation<AssetLoaderRequest> LoadAssetAsync(string rABName, string rAssetName, bool bIsSimulate);
+        IAsyncOperation<AssetLoaderRequest> LoadAllAssetsAsync(string rABName, bool bIsSimulate);
+        IAsyncOperation<AssetLoaderRequest> LoadSceneAsync(string rABName, string rAssetName, LoadSceneMode rLoadSceneMode, bool bIsSimulate);
+
+        AssetLoaderRequest LoadAsset(string rABName, string rAssetName, bool bIsSimulate);
+        AssetLoaderRequest LoadAsset(string rABName, bool bIsSimulate);
+        AssetLoaderRequest LoadScene(string rABName, string rAssetName, LoadSceneMode rLoadSceneMode, bool bIsSimulate);
     }
 }

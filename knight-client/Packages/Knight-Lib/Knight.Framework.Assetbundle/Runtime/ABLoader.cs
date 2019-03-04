@@ -10,159 +10,208 @@ using Knight.Core;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 using UnityFx.Async;
+using System;
+using Object = UnityEngine.Object;
 
 namespace Knight.Framework.AssetBundles
-{    
+{
     /// <summary>
     /// 加载资源的管理类，用作资源的加载管理
     /// 采用缓存Assetbundle对象的策略，半自动的引用计数
     /// </summary>
     public class ABLoader : TSingleton<ABLoader>
     {
-        private List<string>    LoadedAssetbundles;
-        private List<string>    LoadedScenebundles;
+        private int mIsLoadingRefCount = 0;
 
-        private ABLoader()
+        public void Initialize()
         {
-            this.LoadedAssetbundles = new List<string>();
-            this.LoadedScenebundles = new List<string>();
+            this.mIsLoadingRefCount = 0;
+            CoroutineManager.Instance.Start(this.Update());
         }
 
-        public IAsyncOperation<AssetLoaderRequest> LoadAssetbundle(string rAssetbundleName, bool bIsSimulate)
+        /// <summary>
+        /// 每隔一秒钟检测如果ABLoader没有在加载的话，就把所有引用为0的资源包全部卸载掉
+        /// </summary>
+        private IEnumerator Update()
         {
-            return LoadAsset(rAssetbundleName, string.Empty, bIsSimulate);
-        }
-        
-        public IAsyncOperation<AssetLoaderRequest> LoadAsset(string rAssetbundleName, string rAssetName, bool bIsSimulate)
-        {
-            if (!this.LoadedAssetbundles.Contains(rAssetbundleName))
-                this.LoadedAssetbundles.Add(rAssetbundleName);
-
-            var rRequest = new AssetLoaderRequest(rAssetbundleName, rAssetName, false, bIsSimulate, false);
-            return rRequest.Start(LoadAsset_Async(rRequest));
-        }
-
-        public IAsyncOperation<AssetLoaderRequest> LoadAllAssets(string rAssetbundleName, bool bIsSimulate)
-        {
-            if (!this.LoadedAssetbundles.Contains(rAssetbundleName))
-                this.LoadedAssetbundles.Add(rAssetbundleName);
-
-            var rRequest = new AssetLoaderRequest(rAssetbundleName, "AllAssets", false, bIsSimulate, true);
-            return rRequest.Start(LoadAsset_Async(rRequest));
-        }
-
-        public IAsyncOperation<AssetLoaderRequest> LoadScene(string rAssetbundleName, string rScenePath)
-        {
-            if (!this.LoadedScenebundles.Contains(rAssetbundleName))
-                this.LoadedScenebundles.Add(rAssetbundleName);
-            
-            var rSceneRequest = new AssetLoaderRequest(rAssetbundleName, rScenePath, true, false, false);
-            return rSceneRequest.Start(LoadAsset_Async(rSceneRequest));
-        }
-        
-        public void UnloadAllLoadedAssetbundles()
-        {
-            for (int i = 0; i < this.LoadedAssetbundles.Count; i++)
+            while (true)
             {
-                UnloadAsset(this.LoadedAssetbundles[i]);
+                if (this.mIsLoadingRefCount == 0)
+                {
+                    foreach (var rPair in ABLoaderVersion.Instance.Entries)
+                    {
+                        var rABLoadEntry = rPair.Value;
+                        this.AutoCheckUnloadAsset(rABLoadEntry);
+                    }
+                }
+                yield return new WaitForSeconds(1.0f);
             }
-            this.LoadedAssetbundles.Clear();
-            Resources.UnloadUnusedAssets();
         }
-    
-        public void UnloadAsset(string rAssetbundleName)
+
+        public void UnloadAsset(string rABPath)
         {
+            if (ABPlatform.Instance.IsDevelopeMode()) return;
+
             ABLoadEntry rAssetLoadEntry = null;
-            if (!ABLoaderVersion.Instance.TryGetValue(rAssetbundleName, out rAssetLoadEntry))
+            if (!ABLoaderVersion.Instance.TryGetValue(rABPath, out rAssetLoadEntry))
             {
-                Debug.LogErrorFormat("Can not find assetbundle: -- {0}", rAssetbundleName);
+                Debug.LogErrorFormat("---Can not find assetbundle: -- {0}", rABPath);
                 return;
             }
-    
-            // 递归遍历该资源的依赖项
-            for (int i = 0; i < rAssetLoadEntry.ABDependNames.Length; i++)
+
+            // 得到该资源的所有依赖项
+            var rABAllDependenceEntries = this.GetABEntryAllDependencies(rAssetLoadEntry);
+            for (int i = 0; i < rABAllDependenceEntries.Count; i++)
             {
-                UnloadAsset(rAssetLoadEntry.ABDependNames[i]);
+                rABAllDependenceEntries[i].RefCount--;
+                if (rABAllDependenceEntries[i].RefCount < 0)
+                    rABAllDependenceEntries[i].RefCount = 0;
             }
-    
-            // 引用计数减1
-            rAssetLoadEntry.RefCount--;
-            
-            //确定该Info的引用计数是否为0，如果为0则删除它
+        }
+
+        /// <summary>
+        /// 自动检测引用计数
+        /// </summary>
+        private void AutoCheckUnloadAsset(ABLoadEntry rAssetLoadEntry)
+        {
             if (rAssetLoadEntry.RefCount == 0)
             {
                 if (rAssetLoadEntry.CacheAsset != null)
                 {
-                    Debug.LogFormat("-- Real unload assetbundle: {0}", rAssetbundleName);
+                    Debug.LogFormat("---Auto Real unload assetbundle: {0}", rAssetLoadEntry.ABName);
                     rAssetLoadEntry.CacheAsset.Unload(true);
                     rAssetLoadEntry.CacheAsset = null;
+                    rAssetLoadEntry.IsLoadCompleted = false;
+                    rAssetLoadEntry.IsLoading = false;
                 }
-                rAssetLoadEntry.IsLoadCompleted = false;
-                rAssetLoadEntry.IsLoading = false;
             }
         }
 
-        public bool IsSumilateMode_GUI()
+        /// <summary>
+        /// 计算引用计数
+        /// </summary>
+        private void CalcRefCount(string rABName, int nDeltaRefCount)
         {
-            return ABPlatform.Instance.IsSumilateMode_GUI();
+            ABLoadEntry rABLoadEntry = null;
+            if (!ABLoaderVersion.Instance.TryGetValue(rABName, out rABLoadEntry))
+            {
+                return;
+            }
+            rABLoadEntry.RefCount += nDeltaRefCount;
+            for (int i = 0; i < rABLoadEntry.ABDependNames.Length; i++)
+            {
+                this.CalcRefCount(rABLoadEntry.ABDependNames[i], nDeltaRefCount);
+            }
         }
-        
-        private IEnumerator LoadAsset_Async(AssetLoaderRequest rRequest)
+
+        private List<ABLoadEntry> GetABEntryAllDependencies(ABLoadEntry rABLoadEntry)
         {
-            ABLoadEntry rAssetLoadEntry = null;
-            if (!ABLoaderVersion.Instance.TryGetValue(rRequest.Path, out rAssetLoadEntry))
-            {
-                Debug.LogErrorFormat("Can not find assetbundle: -- {0}", rRequest.Path);
-                rRequest.Asset = null;
-                rRequest.SetResult(rRequest);
-                yield break;
-            }
+            var rABAllDependenceEntries = new List<ABLoadEntry>();
+            this.GetABEntryAllDependencies(rABLoadEntry, ref rABAllDependenceEntries);
+            return rABAllDependenceEntries;
+        }
 
-            //引用计数加1
-            rAssetLoadEntry.RefCount++;
-
-            // 确认未加载完成并且正在被加载、一直等待其加载完成
-            while (rAssetLoadEntry.IsLoading && !rAssetLoadEntry.IsLoadCompleted)
+        private void GetABEntryAllDependencies(ABLoadEntry rABLoadEntry, ref List<ABLoadEntry> rABAllDependenceEntries)
+        {
+            for (int i = 0; i < rABLoadEntry.ABDependNames.Length; i++)
             {
-                yield return new WaitForEndOfFrame();
-            }
-    
-            // 如果该资源加载完成了
-            if (!rAssetLoadEntry.IsLoading && rAssetLoadEntry.IsLoadCompleted)
-            {
-                // 从缓存的Assetbundle里面加载资源
-                yield return LoadAssetObject(rRequest, rAssetLoadEntry, false);
-                rRequest.SetResult(rRequest);
-                yield break;
-            }
-            
-            // 开始加载资源依赖项
-            if (rAssetLoadEntry.ABDependNames != null && !rRequest.IsSimulate)
-            {
-                for (int i = rAssetLoadEntry.ABDependNames.Length - 1; i >= 0; i--)
+                ABLoadEntry rDependenceEntry = null;
+                if (ABLoaderVersion.Instance.TryGetValue(rABLoadEntry.ABDependNames[i], out rDependenceEntry))
                 {
-                    string rDependABPath = rAssetLoadEntry.ABDependNames[i];
-                    string rDependABName = rDependABPath;
-
-                    var rDependAssetRequest = new AssetLoaderRequest(rDependABName, "", false, rRequest.IsSimulate, false);
-                    yield return LoadAsset_Async(rDependAssetRequest);
+                    this.GetABEntryAllDependencies(rDependenceEntry, ref rABAllDependenceEntries);
                 }
             }
-
-            //开始加载当前的资源包
-            rAssetLoadEntry.IsLoading = true;
-            rAssetLoadEntry.IsLoadCompleted = false;
-
-            // 真正的从AB包里面加载资源
-            yield return LoadAssetObject(rRequest, rAssetLoadEntry, true);
-
-            rRequest.SetResult(rRequest);
-
-            rAssetLoadEntry.IsLoading = false;
-            rAssetLoadEntry.IsLoadCompleted = true;
+            rABAllDependenceEntries.Add(rABLoadEntry);
         }
 
-        private IEnumerator LoadAssetObject(AssetLoaderRequest rRequest, ABLoadEntry rAssetLoadEntry, bool bRealLoad)
+        #region async Load 异步加载
+        public IAsyncOperation<AssetLoaderRequest> LoadAssetAsync(string rABName, string rAssetName, bool bIsSimulate)
+        {
+            var rRequest = new AssetLoaderRequest(rABName, rAssetName, false, bIsSimulate, false);
+            return rRequest.Start(this.LoadAssetAsync(rRequest));
+        }
+
+        public IAsyncOperation<AssetLoaderRequest> LoadAllAssetsAsync(string rABName, bool bIsSimulate)
+        {
+            var rRequest = new AssetLoaderRequest(rABName, string.Empty, false, bIsSimulate, true);
+            return rRequest.Start(this.LoadAssetAsync(rRequest));
+        }
+
+        public IAsyncOperation<AssetLoaderRequest> LoadSceneAsync(string rABName, string rAssetName, LoadSceneMode rLoadSceneMode, bool bIsSimulate)
+        {
+            var rRequest = new AssetLoaderRequest(rABName, rAssetName, rLoadSceneMode, false, bIsSimulate);
+            return rRequest.Start(this.LoadAssetAsync(rRequest));
+        }
+
+        private IEnumerator LoadAssetAsync(AssetLoaderRequest rRequest)
+        {
+            this.mIsLoadingRefCount++;
+
+            ABLoadEntry rAssetLoadEntry = null;
+            if (!rRequest.IsSimulate)
+            {
+                if (!ABLoaderVersion.Instance.TryGetValue(rRequest.Path, out rAssetLoadEntry))
+                {
+                    Debug.LogErrorFormat("---Can not find assetbundle: -- {0}", rRequest.Path);
+                    rRequest.Asset = null;
+                    this.mIsLoadingRefCount--;
+                    yield break;
+                }
+            }
+            else
+            {
+                rAssetLoadEntry = new ABLoadEntry()
+                {
+                    ABName = rRequest.Path,
+                    ABPath = ABLoaderVersion.Instance.GetABPath_With_Space(LoaderSpace.Streaming, rRequest.Path),
+                    ABDependNames = new string[0],
+                };
+            }
+
+            // 得到该资源的所有依赖项
+            var rABAllDependenceEntries = this.GetABEntryAllDependencies(rAssetLoadEntry);
+            for (int i = 0; i < rABAllDependenceEntries.Count; i++)
+            {
+                rABAllDependenceEntries[i].RefCount++;
+            }
+
+            for (int i = 0; i < rABAllDependenceEntries.Count - 1; i++)
+            {
+                // 构建依赖项的Request
+                var rDependenceLoaderRequest = new AssetLoaderRequest(
+                    rABAllDependenceEntries[i].ABPath, string.Empty, true, rRequest.IsSimulate, rRequest.IsLoadAllAssets);
+                yield return this.LoadAssetAsync_OneEntry(rDependenceLoaderRequest, rABAllDependenceEntries[i]);
+            }
+            yield return this.LoadAssetAsync_OneEntry(rRequest, rABAllDependenceEntries[rABAllDependenceEntries.Count - 1]);
+
+            this.mIsLoadingRefCount--;
+        }
+
+        private IEnumerator LoadAssetAsync_OneEntry(AssetLoaderRequest rRequest, ABLoadEntry rABLoadEntry)
+        {
+            // 确认未加载完成并且正在被加载、一直等待其加载完成
+            while (rABLoadEntry.IsLoading && !rABLoadEntry.IsLoadCompleted)
+            {
+                // 如果两个都为false，则断开协程停下来
+                if (rABLoadEntry.RefCount == 0)
+                {
+                    yield break;
+                }
+                yield return 0;
+            }
+
+            // 从缓存的Assetbundle里面加载资源
+            rABLoadEntry.IsLoading = true;
+            rABLoadEntry.IsLoadCompleted = false;
+            yield return LoadAssetObjectAsync(rRequest, rABLoadEntry);
+            rABLoadEntry.IsLoading = false;
+            rABLoadEntry.IsLoadCompleted = true;
+
+            // 如果判断此时的RefCount为0的话，那么就unload掉该项资源
+            this.AutoCheckUnloadAsset(rABLoadEntry);
+        }
+
+        private IEnumerator LoadAssetObjectAsync(AssetLoaderRequest rRequest, ABLoadEntry rAssetLoadEntry)
         {
             string rAssetLoadUrl = rAssetLoadEntry.ABPath;
             if (rRequest.IsSimulate)
@@ -176,7 +225,7 @@ namespace Knight.Framework.AssetBundles
                         string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
                         if (rAssetPaths.Length == 0)
                         {
-                            Debug.LogError("There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                            Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
                             yield break;
                         }
                         Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
@@ -187,7 +236,7 @@ namespace Knight.Framework.AssetBundles
                         string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(rAssetLoadEntry.ABName);
                         if (rAssetPaths.Length == 0)
                         {
-                            Debug.LogError("There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                            Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
                             yield break;
                         }
                         rRequest.AllAssets = new Object[rAssetPaths.Length];
@@ -199,15 +248,23 @@ namespace Knight.Framework.AssetBundles
                         }
                     }
                 }
+                else
+                {
+                    yield return UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(
+                        rRequest.AssetName, new LoadSceneParameters() { loadSceneMode = rRequest.SceneMode });
+
+                    string rSceneName = Path.GetFileNameWithoutExtension(rRequest.AssetName);
+                    rRequest.Scene = SceneManager.GetSceneByName(rSceneName);
+                    SceneManager.SetActiveScene(rRequest.Scene);
+                }
 #endif
             }
             else
             {
-                if (bRealLoad)
+                // 如果是一个直接的资源，将资源的对象取出来
+                if (rAssetLoadEntry.CacheAsset == null)
                 {
                     Debug.Log("---Real Load ab: " + rAssetLoadUrl);
-                    
-                    // 如果是一个直接的资源，将资源的对象取出来
                     var rABCreateRequest = AssetBundle.LoadFromFileAsync(rAssetLoadUrl);
                     yield return rABCreateRequest;
                     rAssetLoadEntry.CacheAsset = rABCreateRequest.assetBundle;
@@ -230,22 +287,205 @@ namespace Knight.Framework.AssetBundles
                         }
                         else
                         {
-                            yield return LoadAllAssets_ByAssetbundle(rRequest, rAssetLoadEntry.CacheAsset);
+                            yield return LoadAllAssets_ByAssetbundle_Async(rRequest, rAssetLoadEntry.CacheAsset);
                         }
                     }
                     else
                     {
+                        // 如果不是场景的依赖项
                         rAssetLoadEntry.CacheAsset.GetAllScenePaths();
+
+                        string rSceneName = Path.GetFileNameWithoutExtension(rRequest.AssetName);
+                        var rSceneLoadRequest = SceneManager.LoadSceneAsync(rSceneName, rRequest.SceneMode);
+                        yield return rSceneLoadRequest;
+
+                        rRequest.Scene = SceneManager.GetSceneByName(rSceneName);
+                        SceneManager.SetActiveScene(rRequest.Scene);
                     }
                 }
             }
         }
 
-        private IEnumerator LoadAllAssets_ByAssetbundle(AssetLoaderRequest rRequest, AssetBundle rAssetbundle)
+        private IEnumerator LoadAllAssets_ByAssetbundle_Async(AssetLoaderRequest rRequest, AssetBundle rAssetbundle)
         {
             var rAllAssetsRequest = rAssetbundle.LoadAllAssetsAsync();
             yield return rAllAssetsRequest;
             rRequest.AllAssets = rAllAssetsRequest.allAssets;
         }
+        #endregion
+
+        #region sync Load 同步加载
+        public AssetLoaderRequest LoadAsset(string rABName, string rAssetName, bool bIsSimulate)
+        {
+            var rRequest = new AssetLoaderRequest(rABName, rAssetName, false, bIsSimulate, false);
+            this.LoadAssetSync(rRequest);
+            return rRequest;
+        }
+
+        public AssetLoaderRequest LoadAsset(string rABName, bool bIsSimulate)
+        {
+            var rRequest = new AssetLoaderRequest(rABName, string.Empty, false, bIsSimulate, true);
+            this.LoadAssetSync(rRequest);
+            return rRequest;
+        }
+
+        public AssetLoaderRequest LoadScene(string rABName, string rAssetName, LoadSceneMode rLoadSceneMode, bool bIsSimulate)
+        {
+            var rRequest = new AssetLoaderRequest(rABName, rAssetName, rLoadSceneMode, false, bIsSimulate);
+            this.LoadAssetSync(rRequest);
+            return rRequest;
+        }
+
+        private void LoadAssetSync(AssetLoaderRequest rRequest)
+        {
+            this.mIsLoadingRefCount++;
+
+            ABLoadEntry rAssetLoadEntry = null;
+            if (!rRequest.IsSimulate)
+            {
+                if (!ABLoaderVersion.Instance.TryGetValue(rRequest.Path, out rAssetLoadEntry))
+                {
+                    Debug.LogErrorFormat("---Can not find assetbundle: -- {0}", rRequest.Path);
+                    rRequest.Asset = null;
+                    this.mIsLoadingRefCount--;
+                    return;
+                }
+            }
+            else
+            {
+                rAssetLoadEntry = new ABLoadEntry()
+                {
+                    ABName = rRequest.Path,
+                    ABPath = ABLoaderVersion.Instance.GetABPath_With_Space(LoaderSpace.Streaming, rRequest.Path),
+                    ABDependNames = new string[0],
+                };
+            }
+
+            // 得到该资源的所有依赖项
+            var rABAllDependenceEntries = this.GetABEntryAllDependencies(rAssetLoadEntry);
+            for (int i = 0; i < rABAllDependenceEntries.Count; i++)
+            {
+                rABAllDependenceEntries[i].RefCount++;
+            }
+
+            for (int i = 0; i < rABAllDependenceEntries.Count - 1; i++)
+            {
+                // 构建依赖项的Request
+                var rDependenceLoaderRequest = new AssetLoaderRequest(
+                    rABAllDependenceEntries[i].ABPath, rABAllDependenceEntries[i].ABName, true, rRequest.IsSimulate, rRequest.IsLoadAllAssets);
+                this.LoadAssetSync_OneEntry(rDependenceLoaderRequest, rABAllDependenceEntries[i]);
+            }
+            this.LoadAssetSync_OneEntry(rRequest, rABAllDependenceEntries[rABAllDependenceEntries.Count - 1]);
+
+            this.mIsLoadingRefCount--;
+        }
+
+        private void LoadAssetSync_OneEntry(AssetLoaderRequest rRequest, ABLoadEntry rABLoadEntry)
+        {
+            // 从缓存的Assetbundle里面加载资源
+            rABLoadEntry.IsLoading = true;
+            rABLoadEntry.IsLoadCompleted = false;
+            this.LoadAssetObjectSync(rRequest, rABLoadEntry);
+            rABLoadEntry.IsLoading = false;
+            rABLoadEntry.IsLoadCompleted = true;
+
+            // 如果判断此时的RefCount为0的话，那么就unload掉该项资源
+            this.AutoCheckUnloadAsset(rABLoadEntry);
+        }
+
+        private void LoadAssetObjectSync(AssetLoaderRequest rRequest, ABLoadEntry rAssetLoadEntry)
+        {
+            string rAssetLoadUrl = rAssetLoadEntry.ABPath;
+            if (rRequest.IsSimulate)
+            {
+                Debug.Log("---Simulate Load ab: " + rAssetLoadUrl);
+#if UNITY_EDITOR
+                if (!string.IsNullOrEmpty(rRequest.AssetName) && !rRequest.IsScene)
+                {
+                    if (!rRequest.IsLoadAllAssets)
+                    {
+                        string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
+                        if (rAssetPaths.Length == 0)
+                        {
+                            Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                            return;
+                        }
+                        Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
+                        rRequest.Asset = rTargetAsset;
+                    }
+                    else
+                    {
+                        string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(rAssetLoadEntry.ABName);
+                        if (rAssetPaths.Length == 0)
+                        {
+                            Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                            return;
+                        }
+                        rRequest.AllAssets = new Object[rAssetPaths.Length];
+                        for (int i = 0; i < rAssetPaths.Length; i++)
+                        {
+                            Object rAssetObj = UnityEditor.AssetDatabase.LoadAssetAtPath(rAssetPaths[i], typeof(Object));
+                            if (rAssetObj != null)
+                                rRequest.AllAssets[i] = rAssetObj;
+                        }
+                    }
+                }
+                else
+                {
+                    UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(
+                        rRequest.AssetName, new LoadSceneParameters() { loadSceneMode = rRequest.SceneMode });
+                    
+                    string rSceneName = Path.GetFileNameWithoutExtension(rRequest.AssetName);
+                    rRequest.Scene = SceneManager.GetSceneByName(rSceneName);
+                    SceneManager.SetActiveScene(rRequest.Scene);
+                }
+#endif
+            }
+            else
+            {
+                if (rAssetLoadEntry.CacheAsset == null)
+                {
+                    Debug.Log("---Real Load ab: " + rAssetLoadUrl);
+                    // 如果是一个直接的资源，将资源的对象取出来
+                    rAssetLoadEntry.CacheAsset = AssetBundle.LoadFromFile(rAssetLoadUrl);
+                }
+                else
+                {
+                    Debug.Log("---Load asset: " + rAssetLoadUrl);
+                }
+
+                // 加载Object
+                if (!string.IsNullOrEmpty(rRequest.AssetName))
+                {
+                    if (!rRequest.IsScene)
+                    {
+                        if (!rRequest.IsLoadAllAssets)
+                        {
+                            rRequest.Asset = rAssetLoadEntry.CacheAsset.LoadAsset(rRequest.AssetName);
+                        }
+                        else
+                        {
+                            LoadAllAssets_ByAssetbundle_Sync(rRequest, rAssetLoadEntry.CacheAsset);
+                        }
+                    }
+                    else
+                    {
+                        rAssetLoadEntry.CacheAsset.GetAllScenePaths();
+
+                        string rSceneName = Path.GetFileNameWithoutExtension(rRequest.AssetName);
+                        SceneManager.LoadScene(rSceneName, rRequest.SceneMode);
+
+                        rRequest.Scene = SceneManager.GetSceneByName(rSceneName);
+                        SceneManager.SetActiveScene(rRequest.Scene);
+                    }
+                }
+            }
+        }
+
+        private void LoadAllAssets_ByAssetbundle_Sync(AssetLoaderRequest rRequest, AssetBundle rAssetbundle)
+        {
+            rRequest.AllAssets = rAssetbundle.LoadAllAssets();
+        }
+        #endregion
     }
 }

@@ -32,14 +32,14 @@ namespace Knight.Framework.AssetBundles
             GameLoading.Instance.StartLoading(1.0f, "游戏初始化阶段，开始检查资源更新...");
 
             // 加载Streaming空间下的版本MD5码
-            var rStreamingMD5Request = WWWAssist.LoadFile(ABPlatform.Instance.GetStreamingUrl_CurPlatform(ABVersion.ABVersion_File_MD5));
+            var rStreamingMD5Request = WebRequestAssist.DownloadFile(ABPlatform.Instance.GetStreamingFile_CurPlatform(ABVersion.ABVersion_File_MD5));
             mStreamingMD5 = (await rStreamingMD5Request).Text;
             Debug.Log("--- Streaming MD5: " + mStreamingMD5);
 
             if (!ABPlatform.Instance.IsDevelopeMode())
             {   
                 // 加载Persitent空间下的版本MD5码
-                var rPersistentMD5Request = await WWWAssist.LoadFile(ABPlatform.Instance.GetPersistentUrl_CurPlatform(ABVersion.ABVersion_File_MD5));
+                var rPersistentMD5Request = await WebRequestAssist.DownloadFile(ABPlatform.Instance.GetPersistentFile_CurPlatform(ABVersion.ABVersion_File_MD5));
                 mPersistentMD5 = rPersistentMD5Request.Text;
                 Debug.Log("--- Persistent MD5: " + mPersistentMD5);
 

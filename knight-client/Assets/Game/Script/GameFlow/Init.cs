@@ -36,12 +36,12 @@ namespace Game
             // 初始化UI管理器
             UIRoot.Instance.Initialize();
 
+            //初始化协程管理器
+            CoroutineManager.Instance.Initialize();
+
             // 初始化加载进度条
             GameLoading.Instance.LoadingView = LoadingView_Knight.Instance;
             GameLoading.Instance.StartLoading(0.5f, "游戏初始化阶段，开始加载资源...");
-
-            //初始化协程管理器
-            CoroutineManager.Instance.Initialize();
 
             //异步初始化代码
             await Start_Async();

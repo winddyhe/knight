@@ -68,7 +68,7 @@ namespace Knight.Framework.AssetBundles
             LoaderRequest rRequest = new LoaderRequest(rURL);
             string rVersionURL = rRequest.Url;
 
-            WWWAssist.LoaderRequest rWWWVersionRequest = await WWWAssist.LoadFile(rVersionURL);
+            var rWWWVersionRequest = await WebRequestAssist.DownloadFile(rVersionURL);
             if (rWWWVersionRequest.Bytes == null || rWWWVersionRequest.Bytes.Length == 0)
             {
                 return null;

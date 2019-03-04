@@ -9,8 +9,9 @@ using UnityEditor;
 using Knight.Core;
 using Knight.Core.Editor;
 using Knight.Core.WindJson;
+using Knight.Framework.AssetBundles.Editor;
 
-namespace Knight.Framework.AssetBundles.Editor
+namespace AssetBundleBrowser
 {
     [System.Serializable]
     public class ABPreprocessingTab

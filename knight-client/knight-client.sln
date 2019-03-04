@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27703.2042
-MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.UI", "Framework.UI.csproj", "{D3B5A287-0683-A9ED-5D6B-601E7FD304CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Tweening", "Framework.Tweening.csproj", "{2309682F-D599-7610-8E2F-5301A95F2F53}"
@@ -25,9 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game.csproj", "{0B5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Graphics", "Framework.Graphics.csproj", "{7E5A37BF-7148-BDC4-A450-994BE6B4786C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.UI.Editor", "Framework.UI.Editor.csproj", "{F257FB21-A0AE-648A-FE6A-FE80386AFA99}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Editor", "Core.Editor.csproj", "{A83D30B0-EBA0-3F6C-A397-6301D310D1C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.UI.Editor", "Framework.UI.Editor.csproj", "{F257FB21-A0AE-648A-FE6A-FE80386AFA99}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Hotfix", "Game.Hotfix.csproj", "{D0D8B25C-DC85-F955-953D-0059FC6DD71F}"
 EndProject
@@ -87,14 +85,14 @@ Global
 		{7E5A37BF-7148-BDC4-A450-994BE6B4786C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E5A37BF-7148-BDC4-A450-994BE6B4786C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E5A37BF-7148-BDC4-A450-994BE6B4786C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F257FB21-A0AE-648A-FE6A-FE80386AFA99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F257FB21-A0AE-648A-FE6A-FE80386AFA99}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F257FB21-A0AE-648A-FE6A-FE80386AFA99}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F257FB21-A0AE-648A-FE6A-FE80386AFA99}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A83D30B0-EBA0-3F6C-A397-6301D310D1C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A83D30B0-EBA0-3F6C-A397-6301D310D1C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A83D30B0-EBA0-3F6C-A397-6301D310D1C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A83D30B0-EBA0-3F6C-A397-6301D310D1C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F257FB21-A0AE-648A-FE6A-FE80386AFA99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F257FB21-A0AE-648A-FE6A-FE80386AFA99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F257FB21-A0AE-648A-FE6A-FE80386AFA99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F257FB21-A0AE-648A-FE6A-FE80386AFA99}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D0D8B25C-DC85-F955-953D-0059FC6DD71F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D0D8B25C-DC85-F955-953D-0059FC6DD71F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0D8B25C-DC85-F955-953D-0059FC6DD71F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -114,8 +112,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B983B887-7B7B-4D33-8694-8A17EA7E9AAF}
 	EndGlobalSection
 EndGlobal

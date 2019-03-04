@@ -57,7 +57,7 @@ namespace Knight.Framework.AssetBundles
         /// <summary>
         /// 加载的资源信息
         /// </summary>
-        private Dict<string, ABLoadEntry>    Entries;
+        public Dict<string, ABLoadEntry>    Entries;
 
         private ABLoaderVersion()
         {
@@ -88,7 +88,7 @@ namespace Knight.Framework.AssetBundles
             return this.Entries.TryGetValue(rABName, out rABLoadEntry);
         }
 
-        private string GetABPath_With_Space(LoaderSpace rLoaderSpace, string rABName)
+        public string GetABPath_With_Space(LoaderSpace rLoaderSpace, string rABName)
         {
             switch (rLoaderSpace)
             {
