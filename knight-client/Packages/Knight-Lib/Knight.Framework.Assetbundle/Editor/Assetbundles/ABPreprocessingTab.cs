@@ -74,7 +74,7 @@ namespace AssetBundleBrowser
                         using (var space3 = new EditorGUILayout.HorizontalScope())
                         {
                             mEntryDatas[i].IsSettingOpen = EditorGUILayout.Foldout(mEntryDatas[i].IsSettingOpen, mEntryDatas[i].Entry.abName);
-                            if (GUILayout.Button("Del", GUILayout.Width(30)))
+                            if (GUILayout.Button("Del", GUILayout.Width(40)))
                             {
                                 mEntryDatas.RemoveAt(i);
                                 return;
