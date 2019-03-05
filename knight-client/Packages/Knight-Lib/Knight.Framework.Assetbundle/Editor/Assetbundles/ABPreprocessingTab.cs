@@ -38,6 +38,12 @@ namespace AssetBundleBrowser
             mRefreshTexture = EditorGUIUtility.FindTexture("Refresh");
         }
 
+        public void Refresh()
+        {
+            mABEntryConfig = EditorAssists.ReceiveAsset<ABEntryConfig>(ABBuilder.ABEntryConfigPath);
+            mEntryDatas = this.ToEntryDatas(mABEntryConfig);
+        }
+
         public void Update()
         {
         }
@@ -55,8 +61,7 @@ namespace AssetBundleBrowser
                     EditorGUILayout.TextField("Target: ", ABBuilder.Instance.CurBuildPlatform.ToString());
                     if (GUILayout.Button(mRefreshTexture, GUILayout.Width(30)))
                     {
-                        mABEntryConfig = EditorAssists.ReceiveAsset<ABEntryConfig>(ABBuilder.ABEntryConfigPath);
-                        mEntryDatas = this.ToEntryDatas(mABEntryConfig);
+                        this.Refresh();
                     }
                 }
                 EditorGUILayout.Space();

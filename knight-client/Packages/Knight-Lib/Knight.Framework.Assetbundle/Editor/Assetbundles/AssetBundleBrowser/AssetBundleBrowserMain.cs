@@ -53,7 +53,7 @@ namespace AssetBundleBrowser
         const float k_ToolbarPadding = 15;
         const float k_MenubarPadding = 32;
 
-        [MenuItem("Window/AssetBundle Browser", priority = 2050)]
+        [MenuItem("Tools/AssetBundle/AssetBundle Browser", priority = 2050)]
         static void ShowWindow()
         {
             s_instance = null;
@@ -190,8 +190,8 @@ namespace AssetBundleBrowser
                     break;
                 case Mode.Preprocess:
                     clicked = GUILayout.Button(m_RefreshTexture);
-                    //if (clicked)
-                    //    m_PreprocessTab.RefreshConfig();
+                    if (clicked)
+                        m_PreprocessTab.Refresh();
                     break;
                 case Mode.Builder:
                     GUILayout.Space(m_RefreshTexture.width + k_ToolbarPadding);
