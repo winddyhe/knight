@@ -18,8 +18,9 @@ namespace Knight.Framework.AssetBundles
     /// <summary>
     /// 加载资源的管理类，用作资源的加载管理
     /// 采用缓存Assetbundle对象的策略，半自动的引用计数
+    /// @TODO: 目前该资源加载还有一个问题，那就是场景x.unity不能依赖另一个场景x.unity，要不然会报错加载不出来
     /// </summary>
-    public class ABLoader : TSingleton<ABLoader>
+    public class ABLoader : IAssetLoader
     {
         private int mIsLoadingRefCount = 0;
 

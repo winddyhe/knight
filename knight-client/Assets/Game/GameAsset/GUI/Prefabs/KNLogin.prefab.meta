@@ -1,8 +1,7 @@
 fileFormatVersion: 2
 guid: 273ebbc937a0ae84a95c1181b8ebbfe3
-NativeFormatImporter:
+PrefabImporter:
   externalObjects: {}
-  mainObjectFileID: 100100000
   userData: 
   assetBundleName: game/ui/prefabs/knlogin
   assetBundleVariant: ab

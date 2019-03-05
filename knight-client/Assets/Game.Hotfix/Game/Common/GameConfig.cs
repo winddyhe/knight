@@ -97,7 +97,7 @@ namespace Game
         /// </summary>
         public async Task Load(string rConfigABPath, string rConfigName)
         {
-            var rAssetRequesst = await ABLoader.Instance.LoadAssetAsync(rConfigABPath, rConfigName, ABPlatform.Instance.IsSumilateMode_Config());
+            var rAssetRequesst = await AssetLoader.Instance.LoadAssetAsync(rConfigABPath, rConfigName, ABPlatform.Instance.IsSumilateMode_Config());
             if (rAssetRequesst.Asset == null) return;
 
             TextAsset rConfigAsset = rAssetRequesst.Asset as TextAsset;
@@ -117,7 +117,7 @@ namespace Game
         /// </summary>
         public void Unload(string rConfigABPath)
         {
-            ABLoader.Instance.UnloadAsset(rConfigABPath);
+            AssetLoader.Instance.UnloadAsset(rConfigABPath);
         }
         #endregion
 

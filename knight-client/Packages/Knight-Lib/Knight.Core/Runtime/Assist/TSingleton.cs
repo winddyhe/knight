@@ -37,26 +37,29 @@ namespace Knight.Core
 
     public class Singleton<T> where T : new()
     {
-        private static T __instance;
-        private static object __lock = new object();
+        private static T        __instance;
+        private static object   __lock = new object();
 
         private Singleton()
         {
         }
 
-        public static T GetInstance()
+        public static T Instance
         {
-            if (__instance == null)
+            get
             {
-                lock (__lock)
+                if (__instance == null)
                 {
-                    if (__instance == null)
+                    lock (__lock)
                     {
-                        __instance = new T();
+                        if (__instance == null)
+                        {
+                            __instance = new T();
+                        }
                     }
                 }
+                return __instance;
             }
-            return __instance;
         }
     }
 }

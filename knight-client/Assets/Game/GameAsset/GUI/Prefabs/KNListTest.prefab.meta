@@ -1,8 +1,7 @@
 fileFormatVersion: 2
 guid: 5e9d1bb9af199bf41afdfdc1f66c6b22
-NativeFormatImporter:
+PrefabImporter:
   externalObjects: {}
-  mainObjectFileID: 100100000
   userData: 
   assetBundleName: game/ui/prefabs/knlisttest
   assetBundleVariant: ab

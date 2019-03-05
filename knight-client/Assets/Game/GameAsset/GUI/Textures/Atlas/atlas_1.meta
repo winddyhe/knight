@@ -1,9 +1,8 @@
 fileFormatVersion: 2
 guid: a07c87f39ecb4cf45aa2ea2778242f57
 folderAsset: yes
-timeCreated: 1496504652
-licenseType: Pro
 DefaultImporter:
+  externalObjects: {}
   userData: 
   assetBundleName: game/ui/texture/atlas_1
   assetBundleVariant: ab
