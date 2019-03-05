@@ -125,6 +125,31 @@ namespace Knight.Framework.AssetBundles
             rABAllDependenceEntries.Add(rABLoadEntry);
         }
 
+        public bool IsSumilateMode_Script()
+        {
+            return ABPlatform.Instance.IsSumilateMode_Script();
+        }
+
+        public bool IsSumilateMode_Config()
+        {
+            return ABPlatform.Instance.IsSumilateMode_Config();
+        }
+
+        public bool IsSumilateMode_GUI()
+        {
+            return ABPlatform.Instance.IsSumilateMode_GUI();
+        }
+
+        public bool IsSumilateMode_Avatar()
+        {
+            return ABPlatform.Instance.IsSumilateMode_Avatar();
+        }
+
+        public bool IsSumilateMode_Scene()
+        {
+            return ABPlatform.Instance.IsSumilateMode_Scene();
+        }
+
         #region async Load 异步加载
         public IAsyncOperation<AssetLoaderRequest> LoadAssetAsync(string rABName, string rAssetName, bool bIsSimulate)
         {

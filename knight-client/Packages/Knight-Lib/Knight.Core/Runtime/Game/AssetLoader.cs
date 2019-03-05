@@ -73,6 +73,12 @@ namespace Knight.Core
         AssetLoaderRequest LoadAsset(string rABName, string rAssetName, bool bIsSimulate);
         AssetLoaderRequest LoadAsset(string rABName, bool bIsSimulate);
         AssetLoaderRequest LoadScene(string rABName, string rAssetName, LoadSceneMode rLoadSceneMode, bool bIsSimulate);
+
+        bool IsSumilateMode_Script();
+        bool IsSumilateMode_Config();
+        bool IsSumilateMode_GUI();
+        bool IsSumilateMode_Avatar();
+        bool IsSumilateMode_Scene();
     }
 
     public class AssetLoader

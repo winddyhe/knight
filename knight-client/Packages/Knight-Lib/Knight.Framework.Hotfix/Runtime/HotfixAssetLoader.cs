@@ -56,32 +56,32 @@ namespace Knight.Framework.Hotfix
             }
 #endif
 
-            //if (ABPlatform.Instance.IsSumilateMode_Script())
-            //{
-            //    Debug.Log("---Simulate load ab: " + rRequest.ABPath);
-            //    rRequest.DllBytes = File.ReadAllBytes(rDLLPath);
-            //    rRequest.PdbBytes = File.ReadAllBytes(rPDBPath);
-            //}
-            //else
-            //{
-            //    var rDLLAssetRequest = await ABLoader.Instance.LoadAsset(rRequest.ABPath, rDLLPath, false);
-            //    if (rDLLAssetRequest.Asset != null)
-            //    {
-            //        var rTextAsset = rDLLAssetRequest.Asset as TextAsset;
-            //        if (rTextAsset != null)
-            //            rRequest.DllBytes = rTextAsset.bytes;
-            //    }
-            //    ABLoader.Instance.UnloadAsset(rRequest.ABPath);
+            if (AssetLoader.Instance.IsSumilateMode_Script())
+            {
+                Debug.Log("---Simulate load ab: " + rRequest.ABPath);
+                rRequest.DllBytes = File.ReadAllBytes(rDLLPath);
+                rRequest.PdbBytes = File.ReadAllBytes(rPDBPath);
+            }
+            else
+            {
+                var rDLLAssetRequest = await AssetLoader.Instance.LoadAssetAsync(rRequest.ABPath, rDLLPath, false);
+                if (rDLLAssetRequest.Asset != null)
+                {
+                    var rTextAsset = rDLLAssetRequest.Asset as TextAsset;
+                    if (rTextAsset != null)
+                        rRequest.DllBytes = rTextAsset.bytes;
+                }
+                AssetLoader.Instance.UnloadAsset(rRequest.ABPath);
 
-            //    var rPDBAssetRequest = await ABLoader.Instance.LoadAsset(rRequest.ABPath, rPDBPath, false);
-            //    if (rPDBAssetRequest.Asset != null)
-            //    {
-            //        var rTextAsset = rPDBAssetRequest.Asset as TextAsset;
-            //        if (rTextAsset != null)
-            //            rRequest.PdbBytes = rTextAsset.bytes;
-            //    }
-            //    ABLoader.Instance.UnloadAsset(rRequest.ABPath);
-            //}
+                var rPDBAssetRequest = await AssetLoader.Instance.LoadAssetAsync(rRequest.ABPath, rPDBPath, false);
+                if (rPDBAssetRequest.Asset != null)
+                {
+                    var rTextAsset = rPDBAssetRequest.Asset as TextAsset;
+                    if (rTextAsset != null)
+                        rRequest.PdbBytes = rTextAsset.bytes;
+                }
+                AssetLoader.Instance.UnloadAsset(rRequest.ABPath);
+            }
 
             return rRequest;
         }

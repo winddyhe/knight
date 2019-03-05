@@ -30,13 +30,17 @@ namespace Game
             // 初始化事件管理器
             EventManager.Instance.Initialize();
 
+            // 初始化资源加载模块
+            AssetLoader.Instance = new ABLoader();
+            AssetLoader.Instance.Initialize();
+
             // 初始化热更新模块
             HotfixManager.Instance.Initialize();
 
             // 初始化UI管理器
             UIRoot.Instance.Initialize();
 
-            //初始化协程管理器
+            // 初始化协程管理器
             CoroutineManager.Instance.Initialize();
 
             // 初始化加载进度条
