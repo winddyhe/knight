@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using UnityEngine.UI;
 using Knight.Framework.AssetBundles;
 using Knight.Framework.Net;
+using UnityFx.Async;
 
 namespace Game
 {
@@ -30,18 +31,14 @@ namespace Game
             // 初始化事件管理器
             EventManager.Instance.Initialize();
 
-            // 初始化资源加载模块
-            AssetLoader.Instance = new ABLoader();
-            AssetLoader.Instance.Initialize();
+            // 初始化协程管理器
+            CoroutineManager.Instance.Initialize();
 
             // 初始化热更新模块
             HotfixManager.Instance.Initialize();
 
-            // 初始化UI管理器
+            // 初始化UI模块
             UIRoot.Instance.Initialize();
-
-            // 初始化协程管理器
-            CoroutineManager.Instance.Initialize();
 
             // 初始化加载进度条
             GameLoading.Instance.LoadingView = LoadingView_Knight.Instance;
@@ -55,10 +52,14 @@ namespace Game
         {
             // 平台初始化
             await ABPlatform.Instance.Initialize();
-            
+
             // 资源下载模块初始化
             await ABUpdater.Instance.Initialize();
-            
+
+            // 初始化资源加载模块
+            AssetLoader.Instance = new ABLoader();
+            AssetLoader.Instance.Initialize();
+
             GameLoading.Instance.Hide();
             GameLoading.Instance.StartLoading(1.0f, "游戏初始化阶段，开始加载资源...");
 

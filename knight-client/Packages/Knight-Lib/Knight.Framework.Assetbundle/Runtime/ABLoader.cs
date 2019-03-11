@@ -181,6 +181,7 @@ namespace Knight.Framework.AssetBundles
                     Debug.LogErrorFormat("---Can not find assetbundle: -- {0}", rRequest.Path);
                     rRequest.Asset = null;
                     this.mIsLoadingRefCount--;
+                    rRequest.SetResult(rRequest);
                     yield break;
                 }
             }
@@ -209,8 +210,8 @@ namespace Knight.Framework.AssetBundles
                 yield return this.LoadAssetAsync_OneEntry(rDependenceLoaderRequest, rABAllDependenceEntries[i]);
             }
             yield return this.LoadAssetAsync_OneEntry(rRequest, rABAllDependenceEntries[rABAllDependenceEntries.Count - 1]);
-
             this.mIsLoadingRefCount--;
+            rRequest.SetResult(rRequest);
         }
 
         private IEnumerator LoadAssetAsync_OneEntry(AssetLoaderRequest rRequest, ABLoadEntry rABLoadEntry)

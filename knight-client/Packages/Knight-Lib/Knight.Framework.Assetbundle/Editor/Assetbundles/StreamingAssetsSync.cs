@@ -63,8 +63,8 @@ namespace Knight.Framework.AssetBundles.Editor
             string rBuildABDir = Path.GetFullPath(ABBuilder.Instance.GetPathPrefix_Assetbundle()).Replace('\\', '/');
             string rStreamingDir = Path.GetFullPath("Assets/StreamingAssets/Assetbundles/" + rManifestName).Replace('\\', '/');
     
-            string rBuildManifestURL = "file:///" + rBuildABDir + "/" + rManifestName;
-            string rStreamingManifestURL = "file:///" + rStreamingDir + "/" + rManifestName;
+            string rBuildManifestURL = rBuildABDir + "/" + rManifestName;
+            string rStreamingManifestURL = rStreamingDir + "/" + rManifestName;
 
             yield return EditorCoroutineManager.Start(EditorAssists.LoadManifest(rBuildManifestURL, (rABManifest) => 
             {
