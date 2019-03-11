@@ -48,7 +48,7 @@ namespace Knight.Core
         public static object Construct(Type rType, Type[] rTypes, params object[] rParams)
         {
             ConstructorInfo rConstructorInfo = GetConstructorInfo(flags_all, rType, rTypes);
-            return rConstructorInfo.Invoke(null, rParams);
+            return rConstructorInfo.Invoke(rParams);
         }
 
         public static object GetAttrMember(object rObject, string rMemberName, BindingFlags rBindFlags)

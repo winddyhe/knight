@@ -78,6 +78,7 @@
     <Compile Include="Packages\Knight-Lib\Knight.Framework.Hotfix\Runtime\HotfixManager.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Framework.Hotfix\Runtime\HotfixMBContainer.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Framework.Hotfix\Runtime\HotfixObject.cs" />
+    <Compile Include="Packages\Knight-Lib\Knight.Framework.Hotfix\Runtime\HotfixTypeResolveAssemblyProxy.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Framework.Hotfix\Runtime\ILRuntime\ILRuntime\CLR\Method\CLRMethod.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Framework.Hotfix\Runtime\ILRuntime\ILRuntime\CLR\Method\ExceptionHandler.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Framework.Hotfix\Runtime\ILRuntime\ILRuntime\CLR\Method\ILMethod.cs" />

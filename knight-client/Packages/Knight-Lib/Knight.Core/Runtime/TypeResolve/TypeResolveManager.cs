@@ -6,7 +6,7 @@ namespace Knight.Core
 {
     public class TypeResolveManager : TSingleton<TypeResolveManager>
     {
-        private Dict<string, TypeResolveAssembly> mAssemblies;
+        private Dict<string, TypeResolveAssembly>   mAssemblies;
 
         private TypeResolveManager()
         {

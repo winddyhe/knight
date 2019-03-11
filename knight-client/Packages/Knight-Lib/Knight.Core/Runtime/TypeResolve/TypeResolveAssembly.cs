@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Knight.Core
@@ -93,6 +94,14 @@ namespace Knight.Core
             : base(rAssemblyName)
         {
             this.IsHotfix = true;
+            var rProxyType = System.AppDomain.CurrentDomain.GetAssemblies()
+                             .Single(rAssembly => rAssembly.GetName().Name.Equals("Framework.Hotfix"))?.GetTypes()?
+                             .SingleOrDefault(rType => rType.FullName.Equals("Knight.Framework.Hotfix.HotfixTypeResolveAssemblyProxy"));
+
+            if (rProxyType != null)
+            {
+                this.Proxy = ReflectionAssist.Construct(rProxyType, new Type[] { typeof(string) }, rAssemblyName) as ITypeResolveAssemblyProxy;
+            }
         }
 
         public override void Load()
