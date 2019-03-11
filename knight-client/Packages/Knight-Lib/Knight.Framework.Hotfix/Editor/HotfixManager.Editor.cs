@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.IO;
 
 namespace Knight.Framework.Hotfix.Editor
 {
@@ -26,6 +27,18 @@ namespace Knight.Framework.Hotfix.Editor
         {
             Menu.SetChecked(mSelectHotfixDebugModeMenuPath, EditorPrefs.GetBool(HotfixManager.IsHotfixDebugModeKey));
             return true;
+        }
+
+        [UnityEditor.Callbacks.DidReloadScripts]
+        public static void AllScriptsReloaded()
+        {
+            string rDLLRootPath = "Library/ScriptAssemblies/Game.Hotfix.dll";
+            string rPDBRootPath = "Library/ScriptAssemblies/Game.Hotfix.pdb";
+            string rNewDLLRootPath = HotfixManager.HotfixDllDir + "KnightHotfix.bytes";
+            string rNewPDBRootPath = HotfixManager.HotfixDllDir + "KnightHotfix_PDB.bytes";
+
+            File.Copy(rDLLRootPath, rNewDLLRootPath, true);
+            File.Copy(rPDBRootPath, rNewPDBRootPath, true);
         }
     }
 }
