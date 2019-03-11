@@ -2,6 +2,7 @@
 //        Copyright (C) 2015-2020 Winddy He. All rights reserved
 //        Email: hgplan@126.com
 //======================================================================
+using ILRuntime.Reflection;
 using Knight.Framework.Hotfix;
 using System;
 using System.Collections.Generic;
@@ -142,7 +143,7 @@ namespace Knight.Hotfix.Core
                         UnityEngine.Debug.LogErrorFormat("Not find binding data, please check prefab and hofix script. {0}", rFiledInfos[i].Name);
                     else
                     {
-                        if (!rUnityObject.Type.Equals(rFiledInfos[i].FieldType.ToString()))
+                        if (!rUnityObject.Type.Equals(rFiledInfos[i].FieldType.FullName))
                             UnityEngine.Debug.LogErrorFormat("Binding data type is not match. {0}", rFiledInfos[i].Name);
                         else
                             rFiledInfos[i].SetValue(this, rUnityObject.Object);
