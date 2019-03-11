@@ -306,6 +306,15 @@
     <Reference Include="UnityFx.Async">
       <HintPath>D:/Project/knight/knight-client/Packages/Knight-Lib/Knight.Core/Runtime/UnityFx.Async/Bin/net46/UnityFx.Async.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>D:/Project/knight/knight-client/Packages/Knight-Lib/Knight.Framework.Hotfix/Runtime/ILRuntime/Dependencies/Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb">
+      <HintPath>D:/Project/knight/knight-client/Packages/Knight-Lib/Knight.Framework.Hotfix/Runtime/ILRuntime/Dependencies/Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb">
+      <HintPath>D:/Project/knight/knight-client/Packages/Knight-Lib/Knight.Framework.Hotfix/Runtime/ILRuntime/Dependencies/Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Software/Unity/Unity201836f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
     </Reference>
