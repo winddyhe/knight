@@ -17,6 +17,8 @@ namespace Knight.Framework.Hotfix
     public class HotfixApp_ILRT : HotfixApp
     {
         private AppDomain               mApp;
+        private MemoryStream            mDLLMS;
+        private MemoryStream            mPDBMS;
         
         public HotfixApp_ILRT()
         {
@@ -39,15 +41,10 @@ namespace Knight.Framework.Hotfix
         {
             mApp = new AppDomain();
 
-            MemoryStream rDLLMS = (rDLLBytes != null) ? new MemoryStream(rDLLBytes) : null;
-            MemoryStream rPDBMS = (rPDBBytes != null) ? new MemoryStream(rPDBBytes) : null;
+            mDLLMS = (rDLLBytes != null) ? new MemoryStream(rDLLBytes) : null;
+            mPDBMS = (rPDBBytes != null) ? new MemoryStream(rPDBBytes) : null;
 
-            mApp.LoadAssembly(rDLLMS, rPDBMS, new Mono.Cecil.Pdb.PdbReaderProvider());
-
-            rDLLMS?.Close();
-            rPDBMS?.Close();
-            rDLLMS?.Dispose();
-            rPDBMS?.Dispose();
+            mApp.LoadAssembly(mDLLMS, mPDBMS, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
 
             // 启用调试
             if (this.mApp.DebugService != null)

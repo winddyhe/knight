@@ -6,7 +6,7 @@ using System.Text;
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.CLR.Method;
 using ILRuntime.Other;
-using Mono.Cecil;
+using ILRuntime.Mono.Cecil;
 using ILRuntime.Runtime.Intepreter;
 using System.Reflection;
 
@@ -30,7 +30,7 @@ namespace ILRuntime.CLR.Utils
                     if ((t == null && def.IsGenericInstance) || (t != null && t.HasGenericParameter))
                     {
                         GenericInstanceMethod gim = (GenericInstanceMethod)def;
-                        string name = i.ParameterType.IsByReference ? i.ParameterType.GetElementType().FullName : i.ParameterType.FullName;
+                        string name = i.ParameterType.IsByReference ? ((ByReferenceType)i.ParameterType).ElementType.FullName : i.ParameterType.FullName;
                         
                         for (int j = 0; j < gim.GenericArguments.Count; j++)
                         {
@@ -78,6 +78,8 @@ namespace ILRuntime.CLR.Utils
                         }
                         if (t == null)
                             t = appdomain.GetType(name);
+                        if (t != null && i.ParameterType.IsByReference)
+                            t = t.MakeByRefType();
                     }
 
                     param.Add(t);

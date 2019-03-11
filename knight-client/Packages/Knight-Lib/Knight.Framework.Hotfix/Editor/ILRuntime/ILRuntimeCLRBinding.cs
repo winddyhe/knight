@@ -53,13 +53,17 @@ public class ILRuntimeCLRBinding
     {
         //用新的分析热更dll调用引用来生成绑定代码
         ILRuntime.Runtime.Enviorment.AppDomain domain = new ILRuntime.Runtime.Enviorment.AppDomain();
+
         using (System.IO.FileStream fs = new System.IO.FileStream("Assets/Game/GameAsset/Hotfix/Libs/KnightHotfix.bytes", System.IO.FileMode.Open, System.IO.FileAccess.Read))
         {
             domain.LoadAssembly(fs);
+        
+            //Crossbind Adapter is needed to generate the correct binding code
+            InitILRuntime(domain);
+            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, "Assets/Game/Script/Generate/ILRuntime");
         }
-        //Crossbind Adapter is needed to generate the correct binding code
-        InitILRuntime(domain);
-        ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, "Assets/Game/Script/Generate/ILRuntime");
+
+        AssetDatabase.Refresh();
     }
 
     static void InitILRuntime(ILRuntime.Runtime.Enviorment.AppDomain domain)
