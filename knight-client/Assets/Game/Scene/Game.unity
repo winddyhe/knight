@@ -330,6 +330,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1623059167456220, guid: 3d709f3fa8640904e87a8a5566d21887, type: 3}
+      propertyPath: m_Name
+      value: UIRoot
+      objectReference: {fileID: 0}
     - target: {fileID: 4282453036703478, guid: 3d709f3fa8640904e87a8a5566d21887, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -361,6 +365,18 @@ PrefabInstance:
     - target: {fileID: 4282453036703478, guid: 3d709f3fa8640904e87a8a5566d21887, type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282453036703478, guid: 3d709f3fa8640904e87a8a5566d21887, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282453036703478, guid: 3d709f3fa8640904e87a8a5566d21887, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282453036703478, guid: 3d709f3fa8640904e87a8a5566d21887, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d709f3fa8640904e87a8a5566d21887, type: 3}

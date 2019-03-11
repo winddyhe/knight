@@ -37,7 +37,7 @@ namespace Knight.Framework.AssetBundles
             Debug.Log("--- Streaming MD5: " + mStreamingMD5);
 
             if (!ABPlatform.Instance.IsDevelopeMode())
-            {   
+            {
                 // 加载Persitent空间下的版本MD5码
                 var rPersistentMD5Request = await WebRequestAssist.DownloadFile(ABPlatform.Instance.GetPersistentFile_CurPlatform(ABVersion.ABVersion_File_MD5));
                 mPersistentMD5 = rPersistentMD5Request.Text;
@@ -48,7 +48,7 @@ namespace Knight.Framework.AssetBundles
                 if (rServerMD5Request != null)
                     mServerMD5 = rServerMD5Request.Text;
                 Debug.Log("--- Server MD5: " + mServerMD5);
-                
+
                 // 加载Persisntent空间的版本信息文件
                 var rPersistentVersionRequest = await ABVersion.Load(ABPlatform.Instance.GetPersistentUrl_CurPlatform(ABVersion.ABVersion_File_Bin));
                 if (rPersistentVersionRequest != null)
@@ -67,11 +67,16 @@ namespace Knight.Framework.AssetBundles
 
             // 加载Streaming空间的版本信息文件
             var rStreamingVersionRequest = await ABVersion.Load(ABPlatform.Instance.GetStreamingUrl_CurPlatform(ABVersion.ABVersion_File_Bin));
-            mStreamingVersion = rStreamingVersionRequest.Version;
+            if (rStreamingVersionRequest != null && rStreamingVersionRequest.Version != null)
+            {
+                mStreamingVersion = rStreamingVersionRequest.Version;
+            }
 
             // 生成最终用于资源加载的版本信息
-            this.GenerateCombineVersion();
-
+            if (mStreamingVersion != null)
+            {
+                this.GenerateCombineVersion();
+            }
             GameLoading.Instance.Hide();
         }
 

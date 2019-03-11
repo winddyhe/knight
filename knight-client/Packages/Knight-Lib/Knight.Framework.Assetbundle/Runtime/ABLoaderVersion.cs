@@ -61,11 +61,12 @@ namespace Knight.Framework.AssetBundles
 
         private ABLoaderVersion()
         {
+            this.Entries = new Dict<string, ABLoadEntry>();
         }
 
         public void Initialize()
         {
-            this.Entries = new Dict<string, ABLoadEntry>();
+            this.Entries.Clear();
         }
 
         public void AddEntry(LoaderSpace rLoaderSpace, ABVersionEntry rAVEntry)

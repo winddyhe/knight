@@ -35,11 +35,11 @@ namespace UnityEngine.UI
         {
             LoaderRequest rRequest = new LoaderRequest(rViewName);
             string rUIABPath = "game/ui/prefabs/" + rRequest.ViewName.ToLower() + ".ab";
-            //var rAssetRequest = await ABLoader.Instance.LoadAsset(rUIABPath, rRequest.ViewName, ABPlatform.Instance.IsSumilateMode_GUI());
-            //if (rAssetRequest.Asset != null)
-            //{
-            //    rRequest.ViewPrefabGo = rAssetRequest.Asset as GameObject;
-            //}
+            var rAssetRequest = await AssetLoader.Instance.LoadAssetAsync(rUIABPath, rRequest.ViewName, AssetLoader.Instance.IsSumilateMode_GUI());
+            if (rAssetRequest.Asset != null)
+            {
+                rRequest.ViewPrefabGo = rAssetRequest.Asset as GameObject;
+            }
             return rRequest;
         }
 
@@ -49,7 +49,7 @@ namespace UnityEngine.UI
         public void UnloadUI(string rViewName)
         {
             string rUIABPath = "game/ui/prefabs/" + rViewName.ToLower() + ".ab";
-            //ABLoader.Instance.UnloadAsset(rUIABPath);
+            AssetLoader.Instance.UnloadAsset(rUIABPath);
         }
     }
 }

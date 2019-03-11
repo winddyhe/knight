@@ -39,6 +39,8 @@ namespace Knight.Framework.AssetBundles
             {
                 if (this.mIsLoadingRefCount == 0)
                 {
+                    if (ABLoaderVersion.Instance.Entries == null) continue;
+
                     foreach (var rPair in ABLoaderVersion.Instance.Entries)
                     {
                         var rABLoadEntry = rPair.Value;
