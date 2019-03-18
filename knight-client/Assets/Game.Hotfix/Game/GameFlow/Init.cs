@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections;
 using System.Threading.Tasks;
 using Knight.Framework;
+using UnityEngine.UI;
 
 namespace Game
 {
@@ -15,9 +16,12 @@ namespace Game
         {
             // 加载GameConfig
             await GameConfig.Instance.Load("game/gameconfig.ab", "GameConfig");
+            // 加载图集配置
+            await UIAtlasManager.Instance.Load("game/ui/atlas_config.ab");
 
             //切换到Login场景
             await Login.Instance.Initialize();
+
             Debug.Log("End hotfix init...");
         }
     }

@@ -23,7 +23,7 @@ namespace Game
                 this.ListTest.ItemDatas.Add(new ListDataItem()
                 {
                     Value1 = (i * 11111).ToString(),
-                    Value2 = i * 1111
+                    Value2 = (i % 3).ToString()
                 });
             }
         }
@@ -31,7 +31,7 @@ namespace Game
         [DataBinding]
         protected void OnBtnAdd_Clicked(EventArg rEventArg)
         {
-            var rListItem = new ListDataItem() { Value1 = "hhh", Value2 = 300 };
+            var rListItem = new ListDataItem() { Value1 = "hhh", Value2 = "0" };
             Debug.LogError("==================== " + this.ListTest.ItemDatas.GetType());
             this.ListTest.ItemDatas.Insert(0, rListItem);
             this.ListTest.ItemDatas.Refresh();

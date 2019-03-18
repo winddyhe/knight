@@ -10,7 +10,7 @@ namespace Game
     public class ListDataItem : ViewModel
     {
         private string                          mValue1;
-        private int                             mValue2;
+        private string                          mValue2;
 
         [DataBinding]
         public string Value1
@@ -20,7 +20,7 @@ namespace Game
         }
 
         [DataBinding]
-        public int Value2
+        public string Value2
         {
             get { return mValue2;       }
             set { mValue2 = value;      }

@@ -15,6 +15,9 @@ MonoBehaviour:
   Mode: 0
   ABName: game/ui/atlas/atlas_2.ab
   Sprites:
+  - 0
+  - 1
+  - 2
   - bg1[8,8,8,8]
   - jindutiao_bg[3,3,10,10]
   - jindutiao_front

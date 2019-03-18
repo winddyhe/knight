@@ -7,6 +7,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using Knight.Framework.Hotfix;
 using Knight.Hotfix.Core;
+using UnityEngine.UI;
 
 namespace Game
 {

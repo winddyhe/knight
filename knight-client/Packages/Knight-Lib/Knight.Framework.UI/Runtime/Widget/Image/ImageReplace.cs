@@ -32,7 +32,8 @@ namespace UnityEngine.UI
         private void Awake()
         {
             this.Image = this.gameObject.ReceiveComponent<Image>();
-            this.mSpriteName = this.Image?.sprite.name;
+            if (this.Image && this.Image.sprite)
+                this.mSpriteName = this.Image.sprite.name;
             this.mLoadRequest = new LoadRequest(this.mSpriteName);
         }
 
