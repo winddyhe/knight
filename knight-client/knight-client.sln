@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.UI", "Framework.UI.csproj", "{D3B5A287-0683-A9ED-5D6B-601E7FD304CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game.csproj", "{0B5D3648-7C73-90F9-CA0D-1197434BCF47}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Tweening", "Framework.Tweening.csproj", "{2309682F-D599-7610-8E2F-5301A95F2F53}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests.csproj", "{D9955016-366F-87C9-CE78-1384321BAFCC}"
@@ -16,8 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Network", "Framework.Network.csproj", "{9A22AAD4-53A6-3440-ADB2-D45668EC958C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Input", "Framework.Input.csproj", "{84E0BC2B-DAED-5AF2-A1B0-E035B65DF067}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game.csproj", "{0B5D3648-7C73-90F9-CA0D-1197434BCF47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Graphics", "Framework.Graphics.csproj", "{7E5A37BF-7148-BDC4-A450-994BE6B4786C}"
 EndProject
@@ -45,6 +45,10 @@ Global
 		{D3B5A287-0683-A9ED-5D6B-601E7FD304CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3B5A287-0683-A9ED-5D6B-601E7FD304CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3B5A287-0683-A9ED-5D6B-601E7FD304CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B5D3648-7C73-90F9-CA0D-1197434BCF47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B5D3648-7C73-90F9-CA0D-1197434BCF47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B5D3648-7C73-90F9-CA0D-1197434BCF47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B5D3648-7C73-90F9-CA0D-1197434BCF47}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2309682F-D599-7610-8E2F-5301A95F2F53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2309682F-D599-7610-8E2F-5301A95F2F53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2309682F-D599-7610-8E2F-5301A95F2F53}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -73,10 +77,6 @@ Global
 		{84E0BC2B-DAED-5AF2-A1B0-E035B65DF067}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84E0BC2B-DAED-5AF2-A1B0-E035B65DF067}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84E0BC2B-DAED-5AF2-A1B0-E035B65DF067}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B5D3648-7C73-90F9-CA0D-1197434BCF47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B5D3648-7C73-90F9-CA0D-1197434BCF47}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B5D3648-7C73-90F9-CA0D-1197434BCF47}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B5D3648-7C73-90F9-CA0D-1197434BCF47}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7E5A37BF-7148-BDC4-A450-994BE6B4786C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7E5A37BF-7148-BDC4-A450-994BE6B4786C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E5A37BF-7148-BDC4-A450-994BE6B4786C}.Release|Any CPU.ActiveCfg = Release|Any CPU
