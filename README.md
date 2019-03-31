@@ -3,11 +3,18 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 
 它包含了一个完整的资源管理模块（打包、下载、加载、版本管理），一个基于ILRuntime的C#热更模块，一个基于MVVM的UI框架（支持热更新）以及其他基础功能的支持。
 
-本框架将会持续更新，后期会不断修改和完善框架中的内容。目前使用最新的Unity版本为Unity2018.3.6f1。
-目前Master分支中将所有的模块全部移到Packages里面去了，并使用PackageManager来管理他们，以实现使用时可随时插拔。但是每一个模块都需要再重构一次，所以Master分支可能会在一段时间内会运行不起来，要可以运行的框架可以切换到其他稳定分支。
+本框架将会持续更新，后期会不断修改和完善框架中的内容。目前使用最新的Unity版本为Unity2018.3.11f1。
+目前Master分支中将所有的模块全部移到Packages里面去了，并使用PackageManager来管理他们，以实现使用时可随时插拔。
+
+### 更新日志（2019/3/31）
+* 框架中所有模块完全解耦，除了Knight.Core模块是必须的公共依赖模块之外，每个模块被分成了单个的Package包，可以自己选择性的使用这些框架模块。
+* ILRunTime更新到最新版本，支持Unity2018.3以上的版本，并且可以断点调试异步逻辑了。
+* 热更新逻辑放在Assets中进行管理，使用Unity自身进行编译并自动生成.bytes的DLL文件，无需另开vs再对热更工程进行手动编译了。
+* Assetbundle资源管理模块，支持Editor完全无需构建Assetbundle操作就可以直接运行游戏。
+* 暂时去掉ET服务器部分，但是客户端网络模块继续保留。
 
 ### 运行游戏
-* 运行菜单Tools/Assetbundle/Assetbundle Build命令，构建Assetbundle资源包。
+* 运行菜单Tools/Assetbundle/Assetbundle Build命令，构建Assetbundle资源包，如果勾上Tools/Develope Mode和Simulate Mode的话，就可以不用该步骤。
 * 打开Assets/Game/Scene/Game.unity场景，点Play运行游戏Demo。
 
 ### 主要功能介绍
@@ -27,3 +34,4 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 
 ### 联系方式
 * Email: hgplan@126.com 
+* QQ: 532815352
