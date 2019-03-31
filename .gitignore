@@ -42,10 +42,12 @@ knight-client/Hotfix/Tools/SerializerBinaryEditor/bin
 knight-client/Hotfix/Tools/SerializerBinaryEditor/obj
 knight-client/Hotfix/Tools/DLLInjectEditor/bin
 knight-client/Hotfix/Tools/DLLInjectEditor/obj
+knight-client/Logs
 knight-server/Bin
 knight-server/Logs
 knight-server/ETServer/SerializerTool/bin
-Assets/StreamingAssets.meta
+knight-client/Assets/StreamingAssets.meta
+knight-client/Assets/StreamingAssets/Temp.meta
 Server/Egametang/Logs
 Server/Egametang/netcoreapp2.0
 Server/Egametang/Temp

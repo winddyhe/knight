@@ -401,7 +401,7 @@ namespace Knight.Framework.AssetBundles
             {
                 // 构建依赖项的Request
                 var rDependenceLoaderRequest = new AssetLoaderRequest(
-                    rABAllDependenceEntries[i].ABPath, rABAllDependenceEntries[i].ABName, true, rRequest.IsSimulate, rRequest.IsLoadAllAssets);
+                    rABAllDependenceEntries[i].ABPath, string.Empty, true, rRequest.IsSimulate, rRequest.IsLoadAllAssets);
                 this.LoadAssetSync_OneEntry(rDependenceLoaderRequest, rABAllDependenceEntries[i]);
             }
             this.LoadAssetSync_OneEntry(rRequest, rABAllDependenceEntries[rABAllDependenceEntries.Count - 1]);
