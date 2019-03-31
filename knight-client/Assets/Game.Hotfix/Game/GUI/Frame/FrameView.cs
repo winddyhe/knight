@@ -17,6 +17,8 @@ namespace Game
         private int                 mCurIndex;
         private int                 mPrevIndex;
 
+        private View                mListTestView;
+
         protected override async Task OnInitialize()
         {
             await base.OnInitialize();
@@ -39,7 +41,7 @@ namespace Game
         {
             await base.OnOpen();
             // 打开故事大厅
-            FrameManager.Instance.OpenPageUI("KNListTest", View.State.PageSwitch);
+            this.mListTestView = await FrameManager.Instance.OpenPageUIAsync("KNListTest", View.State.PageSwitch);
         }
 
         [DataBinding]
@@ -54,7 +56,11 @@ namespace Game
             if (this.mCurIndex == 0)
             {
                 // 打开故事大厅
-                FrameManager.Instance.OpenPageUI("KNListTest", View.State.PageSwitch);
+                this.mListTestView.Show();
+            }
+            else
+            {
+                this.mListTestView.Hide();
             }
         }
     }
