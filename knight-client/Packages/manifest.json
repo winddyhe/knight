@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.unity.package-manager-ui": "2.0.3",
+    "com.unity.package-manager-ui": "2.0.7",
     "knight.core": "file:./Knight-Lib/Knight.Core",
     "knight.framework.assetbundle": "file:./Knight-Lib/Knight.Framework.Assetbundle",
     "knight.framework.graphics": "file:./Knight-Lib/Knight.Framework.Graphics",
