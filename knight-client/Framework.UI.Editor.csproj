@@ -60,7 +60,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Packages\Knight-Lib\Knight.Framework.UI\Editor\Atlas\UIAtlasTools.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Framework.UI\Editor\DataBinding\EventBindingInspector.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Framework.UI\Editor\DataBinding\MemberBindingAbstractInspector.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Framework.UI\Editor\DataBinding\MemberBindingOneWayInspector.cs" />

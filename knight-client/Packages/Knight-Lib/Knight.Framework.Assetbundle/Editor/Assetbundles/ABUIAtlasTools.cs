@@ -28,7 +28,7 @@ namespace Knight.Framework.AssetBundles.Editor
             {
                 var rUIAtlas = GetAtlas(rConfigRoot + "/config_" + rAllDirs[i].Name + ".asset");
                 rUIAtlas.Mode = UIAtlasMode.Atlas;
-                rUIAtlas.ABName = "game/ui/atlas/" + rAllDirs[i].Name + ".ab";
+                rUIAtlas.ABName = "game/ui/texture/" + rAllDirs[i].Name + ".ab";
 
                 string rAtlasPath = rAtlasRoot + "/" + rAllDirs[i].Name;
                 rUIAtlas.Sprites = new List<string>();

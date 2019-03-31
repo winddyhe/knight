@@ -60,7 +60,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Packages\Knight-Lib\Knight.Framework.UI\Runtime\Atlas\UIAtlas.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Framework.UI\Runtime\Atlas\UIAtlasManager.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Framework.UI\Runtime\DataBinding\Binding\EventBinding.cs" />
     <Compile Include="Packages\Knight-Lib\Knight.Framework.UI\Runtime\DataBinding\Binding\MemberBindingAbstract.cs" />

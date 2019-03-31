@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: config_atlas_2
   m_EditorClassIdentifier: 
   Mode: 0
-  ABName: game/ui/atlas/atlas_2.ab
+  ABName: game/ui/texture/atlas_2.ab
   Sprites:
   - 0
   - 1
