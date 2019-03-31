@@ -1,4 +1,7 @@
 # knight
+支持一波996.ICU
+<a href="https://996.icu"><img src="https://img.shields.io/badge/link-996.icu-red.svg" alt="996.icu"></a>
+
 Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易用的游戏框架接口，目的让开发者更加专注于游戏内容的开发。
 
 它包含了一个完整的资源管理模块（打包、下载、加载、版本管理），一个基于ILRuntime的C#热更模块，一个基于MVVM的UI框架（支持热更新）以及其他基础功能的支持。
