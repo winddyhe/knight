@@ -37,4 +37,4 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 
 ### 联系方式
 * Email: hgplan@126.com 
-* QQ: 532815352
+* QQ群: 651543479
