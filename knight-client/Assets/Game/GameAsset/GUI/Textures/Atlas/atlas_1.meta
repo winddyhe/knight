@@ -4,5 +4,5 @@ folderAsset: yes
 DefaultImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: game/ui/texture/atlas_1
+  assetBundleName: game/gui/textures/atlas/atlas_1
   assetBundleVariant: ab

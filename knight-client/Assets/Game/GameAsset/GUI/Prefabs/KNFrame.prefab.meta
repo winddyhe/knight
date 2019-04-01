@@ -3,5 +3,5 @@ guid: 67741a4f13b84cf4c8ec5b2f312b7595
 PrefabImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: game/ui/prefabs/knframe
+  assetBundleName: game/gui/prefabs/knframe
   assetBundleVariant: ab

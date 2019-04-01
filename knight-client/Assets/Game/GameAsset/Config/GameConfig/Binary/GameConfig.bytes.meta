@@ -3,5 +3,5 @@ guid: 4f4887d2b830a004f895ea16e2697d91
 TextScriptImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: game/gameconfig
+  assetBundleName: game/config/gameconfig/binary/gameconfig
   assetBundleVariant: ab

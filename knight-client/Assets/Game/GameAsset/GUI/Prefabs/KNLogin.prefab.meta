@@ -3,5 +3,5 @@ guid: 273ebbc937a0ae84a95c1181b8ebbfe3
 PrefabImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: game/ui/prefabs/knlogin
+  assetBundleName: game/gui/prefabs/knlogin
   assetBundleVariant: ab

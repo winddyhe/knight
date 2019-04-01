@@ -3,5 +3,5 @@ guid: 3e304819b4614ba4c891d895fc38e015
 PrefabImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: game/ui/prefabs/textstylemanager
+  assetBundleName: game/gui/prefabs/textstylemanager
   assetBundleVariant: ab

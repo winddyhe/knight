@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Assetbundle_Settings
   m_EditorClassIdentifier: 
   ABEntries:
-  - abName: game/ui/prefabs
+  - abName: game/gui/prefabs
     abVariant: ab
     assetResPath: Assets/Game/GameAsset/GUI/Prefabs
     assetType: t:Prefab
@@ -21,7 +21,7 @@ MonoBehaviour:
     assetSrcType: 1
     abClassName: UnityEditor.AssetBundles.ABEntryProcessor
     abOriginalResPath: 
-  - abName: game/ui/texture
+  - abName: game/gui/textures/atlas
     abVariant: ab
     assetResPath: Assets/Game/GameAsset/GUI/Textures/Atlas
     assetType: t:Texture2D
@@ -29,7 +29,7 @@ MonoBehaviour:
     assetSrcType: 0
     abClassName: UnityEditor.AssetBundles.ABEntryProcessor
     abOriginalResPath: 
-  - abName: game/ui/font
+  - abName: game/gui/fonts
     abVariant: ab
     assetResPath: Assets/Game/GameAsset/GUI/Fonts
     assetType: t:Font
@@ -37,7 +37,7 @@ MonoBehaviour:
     assetSrcType: 1
     abClassName: UnityEditor.AssetBundles.ABEntryProcessor
     abOriginalResPath: 
-  - abName: game/knight
+  - abName: game/hotfix/libs
     abVariant: ab
     assetResPath: Assets/Game/GameAsset/Hotfix/Libs
     assetType: t:TextAsset
@@ -45,7 +45,7 @@ MonoBehaviour:
     assetSrcType: 2
     abClassName: UnityEditor.AssetBundles.ABEntryProcessor
     abOriginalResPath: 
-  - abName: game/gameconfig
+  - abName: game/config/gameconfig/binary/gameconfig
     abVariant: ab
     assetResPath: Assets/Game/GameAsset/Config/GameConfig/Binary/GameConfig.bytes
     assetType: t:TextAsset
@@ -53,7 +53,7 @@ MonoBehaviour:
     assetSrcType: 3
     abClassName: Game.Editor.ABEntryProcessor_GameConfig
     abOriginalResPath: Assets/Game/GameAsset/Config/GameConfig/Text
-  - abName: game/ui/atlas_config
+  - abName: game/gui/textures/config
     abVariant: ab
     assetResPath: Assets/Game/GameAsset/GUI/Textures/Config
     assetType: t:TextAsset

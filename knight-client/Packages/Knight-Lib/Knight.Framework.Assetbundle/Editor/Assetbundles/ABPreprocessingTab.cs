@@ -6,10 +6,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using Knight.Core;
 using Knight.Core.Editor;
-using Knight.Core.WindJson;
 using Knight.Framework.AssetBundles.Editor;
+using System.IO;
 
 namespace AssetBundleBrowser
 {
@@ -31,11 +30,14 @@ namespace AssetBundleBrowser
 
         private List<EntryData>         mEntryDatas;
 
+        private string                  mOpenFilePath;
+
         public void OnEnable(UnityEngine.Rect rSubPos, EditorWindow rEditorWindow)
         {
             mABEntryConfig = EditorAssists.ReceiveAsset<ABEntryConfig>(ABBuilder.ABEntryConfigPath);
             mEntryDatas = this.ToEntryDatas(mABEntryConfig);
             mRefreshTexture = EditorGUIUtility.FindTexture("Refresh");
+            mOpenFilePath = Application.dataPath + "/Game/GameAsset";
         }
 
         public void Refresh()
@@ -85,10 +87,36 @@ namespace AssetBundleBrowser
                         if (mEntryDatas[i].IsSettingOpen)
                         {
                             EditorGUIUtility.labelWidth = 150;
+                            mEntryDatas[i].Entry.assetSrcType = (ABEntry.AssetSourceType)EditorGUILayout.EnumPopup("Asset Src Type: ", mEntryDatas[i].Entry.assetSrcType);
+                            using (var space3 = new EditorGUILayout.HorizontalScope())
+                            {
+                                mEntryDatas[i].Entry.assetResPath = EditorGUILayout.TextField("Asset Res Path: ", mEntryDatas[i].Entry.assetResPath);
+                                if (GUILayout.Button("+", GUILayout.Width(28)))
+                                {
+                                    if (mEntryDatas[i].Entry.assetSrcType == ABEntry.AssetSourceType.File)
+                                    {
+                                        this.mOpenFilePath = EditorUtility.OpenFilePanel("Asset File", this.mOpenFilePath, "*.*");
+                                        mEntryDatas[i].Entry.assetResPath = FileUtil.GetProjectRelativePath(this.mOpenFilePath);
+                                    }
+                                    else
+                                    {
+                                        this.mOpenFilePath = EditorUtility.OpenFolderPanel("Asset Folder", this.mOpenFilePath, string.Empty);
+                                        mEntryDatas[i].Entry.assetResPath = FileUtil.GetProjectRelativePath(this.mOpenFilePath);
+                                    }
+                                }
+                            }
+
+                            var rABPath = mEntryDatas[i].Entry.assetResPath.Replace(ABBuilder.ABAssetPrefixRoot, ABBuilder.ABPrefixRoot).ToLower();
+                            if (mEntryDatas[i].Entry.assetSrcType == ABEntry.AssetSourceType.File)
+                            {
+                                mEntryDatas[i].Entry.abName = rABPath.Replace(Path.GetExtension(rABPath), "");
+                            }
+                            else
+                            {
+                                mEntryDatas[i].Entry.abName = rABPath;
+                            }
                             mEntryDatas[i].Entry.abName = EditorGUILayout.TextField("Assetbundle Name: ", mEntryDatas[i].Entry.abName);
                             mEntryDatas[i].Entry.abVariant = EditorGUILayout.TextField("Assetbundle Variant: ", mEntryDatas[i].Entry.abVariant);
-                            mEntryDatas[i].Entry.assetResPath = EditorGUILayout.TextField("Asset Res Path: ", mEntryDatas[i].Entry.assetResPath);
-                            mEntryDatas[i].Entry.assetSrcType = (ABEntry.AssetSourceType)EditorGUILayout.EnumPopup("Asset Src Type: ", mEntryDatas[i].Entry.assetSrcType);
                             mEntryDatas[i].Entry.assetType = EditorGUILayout.TextField("Asset Type: ", mEntryDatas[i].Entry.assetType);
                             mEntryDatas[i].Entry.abClassName = EditorGUILayout.TextField("Assetbundle Class: ", mEntryDatas[i].Entry.abClassName);
                             mEntryDatas[i].Entry.abOriginalResPath = EditorGUILayout.TextField("Assetbundle Original Res: ", mEntryDatas[i].Entry.abOriginalResPath);

@@ -34,6 +34,16 @@ namespace Knight.Framework.AssetBundles.Editor
         /// 资源包配置文件路径
         /// </summary>
         public static string ABEntryConfigPath      = "Assets/Game.Editor/Editor/Assetbundle_Settings.asset";
+        
+        /// <summary>
+        /// 资源包的前缀
+        /// </summary>
+        public static string ABPrefixRoot           = "game/";
+
+        /// <summary>
+        /// 资源路径前缀
+        /// </summary>
+        public static string ABAssetPrefixRoot      = "Assets/Game/GameAsset/";
 
         /// <summary>
         /// 当前工程的平台

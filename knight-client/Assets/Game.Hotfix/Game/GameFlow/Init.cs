@@ -15,9 +15,9 @@ namespace Game
         public static async Task Start_Async()
         {
             // 加载GameConfig
-            await GameConfig.Instance.Load("game/gameconfig.ab", "GameConfig");
+            await GameConfig.Instance.Load("game/config/gameconfig/binary/gameconfig.ab", "GameConfig");
             // 加载图集配置
-            await UIAtlasManager.Instance.Load("game/ui/atlas_config.ab");
+            await UIAtlasManager.Instance.Load("game/gui/textures/config.ab");
 
             //切换到Login场景
             await Login.Instance.Initialize();

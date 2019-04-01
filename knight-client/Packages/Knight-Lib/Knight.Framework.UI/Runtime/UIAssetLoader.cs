@@ -34,7 +34,7 @@ namespace UnityEngine.UI
         public async Task<LoaderRequest> LoadUI(string rViewName)
         {
             LoaderRequest rRequest = new LoaderRequest(rViewName);
-            string rUIABPath = "game/ui/prefabs/" + rRequest.ViewName.ToLower() + ".ab";
+            string rUIABPath = "game/gui/prefabs/" + rRequest.ViewName.ToLower() + ".ab";
             var rAssetRequest = await AssetLoader.Instance.LoadAssetAsync(rUIABPath, rRequest.ViewName, AssetLoader.Instance.IsSumilateMode_GUI());
             if (rAssetRequest.Asset != null)
             {
@@ -48,7 +48,7 @@ namespace UnityEngine.UI
         /// </summary>
         public void UnloadUI(string rViewName)
         {
-            string rUIABPath = "game/ui/prefabs/" + rViewName.ToLower() + ".ab";
+            string rUIABPath = "game/gui/prefabs/" + rViewName.ToLower() + ".ab";
             AssetLoader.Instance.UnloadAsset(rUIABPath);
         }
     }

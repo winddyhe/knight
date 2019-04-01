@@ -18,5 +18,5 @@ TrueTypeFontImporter:
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1
   userData: 
-  assetBundleName: game/ui/font/syht
+  assetBundleName: game/gui/fonts/syht
   assetBundleVariant: ab
