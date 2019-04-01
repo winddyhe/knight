@@ -9,7 +9,8 @@
 ExportedObj/
 #*.csproj
 *.unityproj
-#*.sln
+*.sln
+*.csproj
 *.suo
 *.tmp
 *.user
