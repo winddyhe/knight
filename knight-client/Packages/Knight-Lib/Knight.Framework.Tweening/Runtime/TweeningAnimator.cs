@@ -1,9 +1,11 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using NaughtyAttributes;
 
 namespace Knight.Framework.Tweening
 {
@@ -22,65 +24,68 @@ namespace Knight.Framework.Tweening
     [System.Serializable]
     public class TweeningAction
     {
-        public TweeningActionType ActionType;
+        public Tweener              Tweener;
+        public TweeningActionType   ActionType;
+        public float                Duration;
     }
 
     [System.Serializable]
     public class TweeningAction_Position : TweeningAction
     {
-        public Vector3  Start;
-        public Vector3  End;
+        public Vector3              Start;
+        public Vector3              End;
     }
 
     [System.Serializable]
     public class TweeningAction_LocalPosition : TweeningAction
     {
-        public Vector3  Start;
-        public Vector3  End;
+        public Vector3              Start;
+        public Vector3              End;
     }
 
     [System.Serializable]
     public class TweeningAction_Rotate : TweeningAction
     {
-        public Vector3  Start;
-        public Vector3  End;
+        public Vector3              Start;
+        public Vector3              End;
     }
 
     [System.Serializable]
     public class TweeningAction_LocalRotate : TweeningAction
     {
-        public Vector3  Start;
-        public Vector3  End;
+        public Vector3              Start;
+        public Vector3              End;
     }
 
     [System.Serializable]
     public class TweeningAction_LocalScale : TweeningAction
     {
-        public Vector3  Start;
-        public Vector3  End;
+        public Vector3              Start;
+        public Vector3              End;
     }
 
     [System.Serializable]
     public class TweeningAction_Color : TweeningAction
     {
-        public Color    Start;
-        public Color    End;
+        public Color                Start;
+        public Color                End;
     }
 
     [System.Serializable]
     public class TweeningAction_CanvasAlpha : TweeningAction
     {
-        public float    Start;
-        public float    End;
+        public float                Start;
+        public float                End;
     }
 
     [System.Serializable]
     public class TweeningAction_Delay : TweeningAction
     {
-        public float    DelayTime;
     }
     
     public class TweeningAnimator : MonoBehaviour
     {
+        [ReorderableObjectList]
+        public List<TweeningAction> Actions;
     }
 }

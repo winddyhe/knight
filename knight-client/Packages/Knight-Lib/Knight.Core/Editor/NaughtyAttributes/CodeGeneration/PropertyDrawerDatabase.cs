@@ -18,6 +18,7 @@ drawersByAttributeType[typeof(ProgressBarAttribute)] = new ProgressBarPropertyDr
 drawersByAttributeType[typeof(ReadOnlyAttribute)] = new ReadOnlyPropertyDrawer();
 drawersByAttributeType[typeof(ReorderableKeyListAttribute)] = new ReorderableKeyListPropertyDrawer();
 drawersByAttributeType[typeof(ReorderableListAttribute)] = new ReorderableListPropertyDrawer();
+drawersByAttributeType[typeof(ReorderableObjectListAttribute)] = new ReorderableObjectListPropertyDrawer();
 drawersByAttributeType[typeof(ResizableTextAreaAttribute)] = new ResizableTextAreaPropertyDrawer();
 drawersByAttributeType[typeof(ShowAssetPreviewAttribute)] = new ShowAssetPreviewPropertyDrawer();
 drawersByAttributeType[typeof(SliderAttribute)] = new SliderPropertyDrawer();
