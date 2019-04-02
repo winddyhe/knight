@@ -24,8 +24,9 @@ namespace Knight.Framework.Tweening
     [System.Serializable]
     public class TweeningAction
     {
+        [NonSerialized]
         public Tweener              Tweener;
-        public TweeningActionType   ActionType;
+        public TweeningActionType   Type;
         public float                Duration;
     }
 
