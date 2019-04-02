@@ -4,28 +4,32 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(RotateTweening), true)]
-public class RotateTweeningInspector : TweeningAnimationInspector
+namespace Knight.Framework.Tweening.Editor
 {
-    private void OnEnable()
-    {
-        this.mTweening = this.target as RotateTweening;
-    }
 
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(RotateTweening), true)]
+    public class RotateTweeningInspector : TweeningAnimationInspector
     {
-        base.OnInspectorGUI();
-        using (var rVerticalScope = new EditorGUILayout.VerticalScope("box"))
+        private void OnEnable()
         {
-            EditorGUILayout.PropertyField(this.serializedObject.FindProperty("IsLocal"),
-                new GUIContent("IsLocal"));
-
-            EditorGUILayout.PropertyField(this.serializedObject.FindProperty("Start"),
-                new GUIContent("Start"));
-
-            EditorGUILayout.PropertyField(this.serializedObject.FindProperty("End"),
-                new GUIContent("End"));
+            this.mTweening = this.target as RotateTweening;
         }
-        this.serializedObject.ApplyModifiedProperties();
+
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            using (var rVerticalScope = new EditorGUILayout.VerticalScope("box"))
+            {
+                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("IsLocal"),
+                    new GUIContent("IsLocal"));
+
+                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("Start"),
+                    new GUIContent("Start"));
+
+                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("End"),
+                    new GUIContent("End"));
+            }
+            this.serializedObject.ApplyModifiedProperties();
+        }
     }
 }

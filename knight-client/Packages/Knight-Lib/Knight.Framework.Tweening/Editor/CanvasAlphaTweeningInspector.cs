@@ -4,26 +4,28 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(CanvasAlphaTweening), true)]
-public class CanvasAlphaTweeningInspector : TweeningAnimationInspector
+namespace Knight.Framework.Tweening.Editor
 {
-    private void OnEnable()
+    [CustomEditor(typeof(CanvasAlphaTweening), true)]
+    public class CanvasAlphaTweeningInspector : TweeningAnimationInspector
     {
-        this.mTweening = this.target as CanvasAlphaTweening;
-    }
-
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        using (var rVerticalScope = new EditorGUILayout.VerticalScope("box"))
+        private void OnEnable()
         {
-            EditorGUILayout.PropertyField(this.serializedObject.FindProperty("Start"),
-                new GUIContent("Start"));
-
-            EditorGUILayout.PropertyField(this.serializedObject.FindProperty("End"),
-                new GUIContent("End"));
+            this.mTweening = this.target as CanvasAlphaTweening;
         }
-        this.serializedObject.ApplyModifiedProperties();
-    }
 
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            using (var rVerticalScope = new EditorGUILayout.VerticalScope("box"))
+            {
+                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("Start"),
+                    new GUIContent("Start"));
+
+                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("End"),
+                    new GUIContent("End"));
+            }
+            this.serializedObject.ApplyModifiedProperties();
+        }
+    }
 }
