@@ -63,13 +63,7 @@ namespace Knight.Framework.AssetBundles
             }
 
             // 得到该资源的所有依赖项
-            var rABAllDependenceEntries = this.GetABEntryAllDependencies(rAssetLoadEntry);
-            for (int i = 0; i < rABAllDependenceEntries.Count; i++)
-            {
-                rABAllDependenceEntries[i].RefCount--;
-                if (rABAllDependenceEntries[i].RefCount < 0)
-                    rABAllDependenceEntries[i].RefCount = 0;
-            }
+            this.CalcRefCount(rAssetLoadEntry.ABName, -1);
         }
 
         /// <summary>
@@ -100,7 +94,14 @@ namespace Knight.Framework.AssetBundles
             {
                 return;
             }
+            if (rABLoadEntry.RefCount == 0)
+            {
+                return;
+            }
+
             rABLoadEntry.RefCount += nDeltaRefCount;
+            if (rABLoadEntry.RefCount < 0) rABLoadEntry.RefCount = 0;
+
             for (int i = 0; i < rABLoadEntry.ABDependNames.Length; i++)
             {
                 this.CalcRefCount(rABLoadEntry.ABDependNames[i], nDeltaRefCount);
