@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Knight.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -19,6 +20,8 @@ namespace Knight.Framework.Tweening.Editor
         protected GUIContent            mLoopCountContent;
         protected GUIContent            mDurationContent;
         protected GUIContent            mTimeCureveContent;
+        protected GUIContent            mStartContent;
+        protected GUIContent            mEndContent;
 
         private void OnEnable()
         {
@@ -27,6 +30,8 @@ namespace Knight.Framework.Tweening.Editor
             this.mLoopCountContent = new GUIContent("Count");
             this.mDurationContent = new GUIContent("Duration: ");
             this.mTimeCureveContent = new GUIContent("TimeCurve: ");
+            this.mStartContent = new GUIContent("Start: ");
+            this.mEndContent = new GUIContent("End: ");
 
             this.mTweeningAnimator = this.target as TweeningAnimator;
             this.mActionsProp = this.serializedObject.FindProperty("Actions");
@@ -35,19 +40,34 @@ namespace Knight.Framework.Tweening.Editor
 
         public override void OnInspectorGUI()
         {
-            if (GUILayout.Button("Add Tweening Action"))
+            EditorGUILayout.Space();
+            using (var rHorizontalScope = new EditorGUILayout.HorizontalScope("box"))
             {
-                this.AddNewAction();
+                EditorGUIUtility.labelWidth = 65;
+                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("IsIgnoreTimeScale"),
+                    new GUIContent("TimeScale"), GUILayout.Width(75));
+                EditorGUIUtility.labelWidth = 35;
+                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("IsUseFixedUpdate"),
+                    new GUIContent("Fixed"), GUILayout.Width(45));
+                EditorGUIUtility.labelWidth = 30;
+                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("IsAutoExecute"),
+                    new GUIContent("Auto"), GUILayout.Width(45));
+
+                if (GUILayout.Button("Play"))
+                {
+                }
+
+                if (GUILayout.Button("Stop"))
+                {
+                }
             }
-
             this.mReorderableActionList.DoLayoutList();
-
             this.serializedObject.ApplyModifiedProperties();
         }
 
         private void BuildReorderableActionList()
         {
-            this.mReorderableActionList = new ReorderableList(this.serializedObject, this.mActionsProp, true, true, false, true);
+            this.mReorderableActionList = new ReorderableList(this.serializedObject, this.mActionsProp, true, true, true, true);
             this.mReorderableActionList.drawHeaderCallback = this.ReorderableActionList_DrawHeader;
             this.mReorderableActionList.drawElementCallback = this.ReorderableActionList_DrawElement;
             this.mReorderableActionList.elementHeightCallback = this.ReorderableActionList_ElementHeight;
@@ -144,6 +164,50 @@ namespace Knight.Framework.Tweening.Editor
                 EditorGUI.PropertyField(rCurRect, rTimeCurveProp, GUIContent.none);
 
                 // 后面的画动画类型参数
+                var rActionType = (TweeningActionType)rTypeProp.enumValueIndex;
+                SerializedProperty rStartProp = null;
+                SerializedProperty rEndProp = null;
+                switch (rActionType)
+                {
+                    case TweeningActionType.Position:
+                    case TweeningActionType.LocalPosition:
+                    case TweeningActionType.Rotate:
+                    case TweeningActionType.LocalRotate:
+                    case TweeningActionType.LocalScale:
+                        rStartProp = rElementProp.FindPropertyRelative("StartV3");
+                        rEndProp = rElementProp.FindPropertyRelative("EndV3");
+                        break;
+                    case TweeningActionType.Color:
+                        rStartProp = rElementProp.FindPropertyRelative("StartCol");
+                        rEndProp = rElementProp.FindPropertyRelative("EndCol");
+                        break;
+                    case TweeningActionType.CanvasAlpha:
+                        rStartProp = rElementProp.FindPropertyRelative("StartF");
+                        rEndProp = rElementProp.FindPropertyRelative("EndF");
+                        break;
+                }
+                if (rStartProp != null)
+                {
+                    // 画矩形背景
+                    var rTmpRect = new Rect(rRect.x + 25, rRect.y + 20 * 5 + 48, 350, 40);
+                    EditorGUI.DrawRect(rTmpRect, new Color(0.2f, 0.2f, 0.2f, 0.2f));
+                    // 第6行 画Start Prop
+                    rCurRect = rRect;
+                    rCurRect.y += 20 * 5 + 50;
+                    rCurRect.x += 25;
+                    rCurRect.width = 280;
+                    rCurRect.height = 16;
+                    EditorGUIUtility.labelWidth = 70;
+                    EditorGUI.PropertyField(rCurRect, rStartProp, this.mStartContent);
+                    // 第7行 画End Prop
+                    rCurRect = rRect;
+                    rCurRect.y += 20 * 6 + 50;
+                    rCurRect.x += 25;
+                    rCurRect.width = 280;
+                    rCurRect.height = 16;
+                    EditorGUIUtility.labelWidth = 70;
+                    EditorGUI.PropertyField(rCurRect, rEndProp, this.mEndContent);
+                }
             }
 
             GUI.enabled = true;
@@ -154,9 +218,22 @@ namespace Knight.Framework.Tweening.Editor
         {
             var rElementProp = this.mActionsProp.GetArrayElementAtIndex(nIndex);
             var rIsFoldProp = rElementProp.FindPropertyRelative("IsFold");
+            var rTypeProp = rElementProp.FindPropertyRelative("Type");
             if (rIsFoldProp.boolValue)
             {
-                return 144f;
+                var rActionType = (TweeningActionType)rTypeProp.enumValueIndex;
+                switch (rActionType)
+                {
+                    case TweeningActionType.Position:
+                    case TweeningActionType.LocalPosition:
+                    case TweeningActionType.Rotate:
+                    case TweeningActionType.LocalRotate:
+                    case TweeningActionType.LocalScale:
+                    case TweeningActionType.Color:
+                    case TweeningActionType.CanvasAlpha:
+                        return 194;
+                }
+                return 154f;
             }
             else
             {

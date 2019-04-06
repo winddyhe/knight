@@ -81,5 +81,19 @@ namespace Knight.Core
         {
             return Convert.ChangeType(rValueStr, rType);
         }
+
+        public static Type FindType(string rTypeName)
+        {
+            var rAllAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+            for (int i = 0; i < rAllAssemblies.Length; i++)
+            {
+                var rType = rAllAssemblies[i].GetType(rTypeName);
+                if (rType != null)
+                {
+                    return rType;
+                }
+            }
+            return null;
+        }
     }
 }

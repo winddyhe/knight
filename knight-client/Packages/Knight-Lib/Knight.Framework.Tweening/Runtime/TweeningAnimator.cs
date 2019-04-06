@@ -21,73 +21,14 @@ namespace Knight.Framework.Tweening
         CanvasAlpha,
         Delay,
     }
-    
-    [System.Serializable]
-    public class TweeningActionBase
-    {
-    }
-
-    [System.Serializable]
-    public class TweeningAction_Position : TweeningActionBase
-    {
-        public Vector3              Start;
-        public Vector3              End;
-    }
-
-    [System.Serializable]
-    public class TweeningAction_LocalPosition : TweeningActionBase
-    {
-        public Vector3              Start;
-        public Vector3              End;
-    }
-
-    [System.Serializable]
-    public class TweeningAction_Rotate : TweeningActionBase
-    {
-        public Vector3              Start;
-        public Vector3              End;
-    }
-
-    [System.Serializable]
-    public class TweeningAction_LocalRotate : TweeningActionBase
-    {
-        public Vector3              Start;
-        public Vector3              End;
-    }
-
-    [System.Serializable]
-    public class TweeningAction_LocalScale : TweeningActionBase
-    {
-        public Vector3              Start;
-        public Vector3              End;
-    }
-
-    [System.Serializable]
-    public class TweeningAction_Color : TweeningActionBase
-    {
-        public Color                Start;
-        public Color                End;
-    }
-
-    [System.Serializable]
-    public class TweeningAction_CanvasAlpha : TweeningActionBase
-    {
-        public float                Start;
-        public float                End;
-    }
-
-    [System.Serializable]
-    public class TweeningAction_Delay : TweeningActionBase
-    {
-    }
 
     [System.Serializable]
     public class TweeningAction
     {
-        public bool                 IsEnable;
-        public bool                 IsFold;
+        public bool                 IsEnable = false;
+        public bool                 IsFold = false;
 
-        public bool                 IsLoop;
+        public bool                 IsLoop = false;
         public LoopType             LoopType;
         public int                  LoopCount;
 
@@ -95,14 +36,67 @@ namespace Knight.Framework.Tweening
         public AnimationCurve       TimeCurve;
 
         public TweeningActionType   Type;
-        public TweeningActionBase   Action;
 
-        [NonSerialized]
+        public float                StartF = 0.0f;
+        public float                EndF = 0.0f;
+
+        public Vector3              StartV3 = Vector3.zero;
+        public Vector3              EndV3 = Vector3.zero;
+
+        public Color                StartCol = Color.white;
+        public Color                EndCol = Color.white;
+        
         public Tweener              Tweener;
     }
     
     public class TweeningAnimator : MonoBehaviour
     {
+        public bool                 IsIgnoreTimeScale;
+        public bool                 IsUseFixedUpdate;
+        public bool                 IsAutoExecute;
         public List<TweeningAction> Actions;
+
+        private void CreateActionTweeners()
+        {
+            for (int i = 0; i < this.Actions.Count; i++)
+            {
+                var rActionType = this.Actions[i].Type;
+                switch (rActionType)
+                {
+                    case TweeningActionType.Position:
+                        break;
+                    case TweeningActionType.LocalPosition:
+                        break;
+                    case TweeningActionType.Rotate:
+                        break;
+                    case TweeningActionType.LocalRotate:
+                        break;
+                    case TweeningActionType.LocalScale:
+                        break;
+                    case TweeningActionType.Color:
+                        break;
+                    case TweeningActionType.CanvasAlpha:
+                        break;
+                    case TweeningActionType.Delay:
+                        break;
+                }
+            }
+        }
+
+        private void SetUpTweener(TweeningAction rTweenAction)
+        {
+            if (rTweenAction.Tweener == null) return;
+
+            // 先暂停
+            rTweenAction.Tweener.Pause();
+            rTweenAction.Tweener.SetUpdate(this.IsUseFixedUpdate ? UpdateType.Fixed : UpdateType.Normal, false);
+            rTweenAction.Tweener.timeScale = this.IsIgnoreTimeScale ? Time.timeScale : 1;
+            rTweenAction.Tweener.SetEase(rTweenAction.TimeCurve);
+            // 是否循环
+            if (rTweenAction.IsLoop)
+            {
+                rTweenAction.Tweener.SetLoops(rTweenAction.LoopCount, rTweenAction.LoopType);
+            }
+        }
     }
 }
