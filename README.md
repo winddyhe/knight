@@ -8,7 +8,7 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 
 本框架将会持续更新，后期会不断修改和完善框架中的内容。目前使用最新的Unity版本为Unity2018.3.11f1。
 目前Master分支中将所有的模块全部移到Packages里面去了，并使用PackageManager来管理他们，以实现使用时可随时插拔。
-
+![knight的框架结构](https://github.com/winddyhe/knight/blob/master/Doc/res/images/img_1.png)
 ### 更新日志（2019/3/31）
 * 框架中所有模块完全解耦，除了Knight.Core模块是必须的公共依赖模块之外，每个模块被分成了单个的Package包，可以自己选择性的使用这些框架模块。
 * ILRuntime更新到最新版本，支持Unity2018.3以上的版本，并且可以断点调试异步逻辑了。
