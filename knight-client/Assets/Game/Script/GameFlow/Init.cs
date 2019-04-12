@@ -70,7 +70,7 @@ namespace Game
 
             // 加载热更新代码资源
             await HotfixManager.Instance.Load(this.HotfixABPath, this.HotfixModule);
-
+            
             // 开始热更新端的游戏主逻辑
             await HotfixGameMainLogic.Instance.Initialize();
 

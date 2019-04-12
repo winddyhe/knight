@@ -37,15 +37,6 @@ namespace Knight.Core
             }
         }
 
-        public TypeResolveAssembly GetAssembly(Type rType)
-        {
-            var rTypeAssemblyName = rType.Assembly.GetName().Name;
-
-            TypeResolveAssembly rAssembly = null;
-            this.mAssemblies.TryGetValue(rTypeAssemblyName, out rAssembly);
-            return rAssembly;
-        }
-
         public Type GetType(string rTypeName)
         {
             foreach (var rPair in this.mAssemblies)
@@ -82,6 +73,24 @@ namespace Knight.Core
             return null;
         }
 
+        public Type GetType(string rTypeName, out TypeResolveAssembly rTypeResolveAssembly)
+        {
+            rTypeResolveAssembly = null;
+            foreach (var rPair in this.mAssemblies)
+            {
+                var rTypes = rPair.Value.GetAllTypes();
+                for (int i = 0; i < rTypes.Length; i++)
+                {
+                    if (rTypes[i].FullName.Equals(rTypeName))
+                    {
+                        rTypeResolveAssembly = rPair.Value;
+                        return rTypes[i];
+                    }
+                }
+            }
+            return null;
+        }
+
         public List<Type> GetAllTypes(bool bIsHotfix)
         {
             var rTypes = new List<Type>();
@@ -95,33 +104,27 @@ namespace Knight.Core
 
         public object Instantiate(string rTypeName, params object[] rArgs)
         {
-            var rType = this.GetType(rTypeName);
+            TypeResolveAssembly rAssembly = null;
+            var rType = this.GetType(rTypeName, out rAssembly);
             if (rType == null) return null;
-
-            var rAssembly = this.GetAssembly(rType);
-            if (rAssembly == null) return null;
 
             return rAssembly.Instantiate(rTypeName, rArgs);
         }
 
         public T Instantiate<T>(string rTypeName, params object[] rArgs)
         {
-            var rType = this.GetType(rTypeName);
+            TypeResolveAssembly rAssembly = null;
+            var rType = this.GetType(rTypeName, out rAssembly);
             if (rType == null) return default(T);
-
-            var rAssembly = this.GetAssembly(rType);
-            if (rAssembly == null) return default(T);
 
             return rAssembly.Instantiate<T>(rTypeName, rArgs);
         }
 
         public object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
         {
-            var rType = this.GetType(rTypeName);
+            TypeResolveAssembly rAssembly = null;
+            var rType = this.GetType(rTypeName, out rAssembly);
             if (rType == null) return null;
-
-            var rAssembly = this.GetAssembly(rType);
-            if (rAssembly == null) return null;
 
             return rAssembly.Invoke(rObj, rTypeName, rMethodName, rArgs);
         }
