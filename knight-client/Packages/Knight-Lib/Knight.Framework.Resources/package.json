@@ -1,0 +1,11 @@
+{
+  "name": "knight.framework.resources",
+  "displayName":  "Knight.Framework.Resources",
+  "version": "0.0.1",
+  "description": "Knight framework resources library.",
+  "keywords": [ "unity3d", "framework" ],
+  "category": "FRAMEWORK",
+  "dependencies": {
+	"knight.core":"0.0.1"
+  }
+}
