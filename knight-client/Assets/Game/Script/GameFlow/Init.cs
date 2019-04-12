@@ -34,6 +34,11 @@ namespace Game
             // 初始化协程管理器
             CoroutineManager.Instance.Initialize();
 
+            // 初始化TypeResolveManager
+            TypeResolveManager.Instance.Initialize();
+            TypeResolveManager.Instance.AddAssembly("Game");
+            TypeResolveManager.Instance.AddAssembly("KnightHotfix", true);
+
             // 初始化热更新模块
             HotfixManager.Instance.Initialize();
 
