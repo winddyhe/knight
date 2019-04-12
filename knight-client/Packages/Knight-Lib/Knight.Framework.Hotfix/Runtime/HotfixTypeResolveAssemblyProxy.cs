@@ -43,7 +43,7 @@ namespace Knight.Framework.Hotfix
 
         public object Instantiate(string rTypeName, params object[] rArgs)
         {
-            return HotfixManager.Instance.Instantiate(rTypeName, rArgs);
+            return HotfixManager.Instance.Instantiate(rTypeName, rArgs)?.Object;
         }
 
         public T Instantiate<T>(string rTypeName, params object[] rArgs)
