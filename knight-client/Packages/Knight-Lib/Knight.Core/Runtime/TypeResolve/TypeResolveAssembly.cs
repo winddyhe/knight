@@ -16,13 +16,13 @@ namespace Knight.Core
 
     public abstract class TypeResolveAssembly
     {
-        public string AssemblyName;
-        public bool IsHotfix;
+        public string       AssemblyName;
+        public bool         IsHotfix;
 
         public TypeResolveAssembly(string rAssemblyName)
         {
             this.AssemblyName = rAssemblyName;
-            this.IsHotfix = false;
+            this.IsHotfix     = false;
         }
 
         public virtual void Load()
