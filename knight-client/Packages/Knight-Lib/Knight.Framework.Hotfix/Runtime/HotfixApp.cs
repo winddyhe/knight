@@ -42,6 +42,11 @@ namespace Knight.Framework.Hotfix
             return null;
         }
 
+        public virtual object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
+        {
+            return null;
+        }
+
         public virtual object InvokeParent(HotfixObject rHotfixObj, string rParentType, string rMethodName, params object[] rArgs)
         {
             return null;

@@ -71,6 +71,12 @@ namespace Knight.Framework.Hotfix
             return mApp.Invoke(rHotfixObj, rMethodName, rArgs);
         }
 
+        public object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
+        {
+            if (mApp == null) return null;
+            return mApp.Invoke(rObj, rTypeName, rMethodName, rArgs);
+        }
+
         public object InvokeParent(HotfixObject rHotfixObj, string rParentType, string rMethodName, params object[] rArgs)
         {
             if (mApp == null) return null;

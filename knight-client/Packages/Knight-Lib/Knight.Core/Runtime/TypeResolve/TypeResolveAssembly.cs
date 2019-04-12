@@ -11,17 +11,18 @@ namespace Knight.Core
         Type[] GetAllTypes();
         object Instantiate(string rTypeName, params object[] rArgs);
         T Instantiate<T>(string rTypeName, params object[] rArgs);
+        object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs);
     }
-    
+
     public abstract class TypeResolveAssembly
     {
-        public string       AssemblyName;
-        public bool         IsHotfix;
+        public string AssemblyName;
+        public bool IsHotfix;
 
         public TypeResolveAssembly(string rAssemblyName)
         {
             this.AssemblyName = rAssemblyName;
-            this.IsHotfix     = false;
+            this.IsHotfix = false;
         }
 
         public virtual void Load()
@@ -41,6 +42,11 @@ namespace Knight.Core
         public virtual T Instantiate<T>(string rTypeName, params object[] rArgs)
         {
             return default(T);
+        }
+
+        public virtual object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
+        {
+            return null;
         }
     }
 
@@ -84,6 +90,17 @@ namespace Knight.Core
             if (this.mAssembly == null) return default(T);
             return (T)Activator.CreateInstance(this.mAssembly.GetType(rTypeName), rArgs);
         }
+
+        public override object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
+        {
+            if (this.mAssembly == null) return null;
+            if (rObj == null) return null;
+
+            var rType = this.mAssembly.GetType(rTypeName);
+            if (rType == null) return null;
+
+            return rType.InvokeMember(rMethodName, ReflectionAssist.flags_method_inst, null, rObj, rArgs);
+        }
     }
 
     public class TypeResolveAssembly_Hotfix : TypeResolveAssembly
@@ -123,6 +140,12 @@ namespace Knight.Core
         {
             if (this.Proxy == null) return default(T);
             return this.Proxy.Instantiate<T>(rTypeName, rArgs);
+        }
+
+        public override object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
+        {
+            if (this.Proxy == null) return null;
+            return this.Proxy.Invoke(rObj, rTypeName, rMethodName, rArgs);
         }
     }
 }
