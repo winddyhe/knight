@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿//======================================================================
+//        Copyright (C) 2015-2020 Winddy He. All rights reserved
+//        Email: hgplan@126.com
+//======================================================================
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Knight.Core;
@@ -6,7 +10,7 @@ using UnityFx.Async;
 using System;
 using Object = UnityEngine.Object;
 
-namespace Knight.Framework
+namespace Knight.Framework.TinyMode
 {
     public class ResourcesLoader : TSingleton<ResourcesLoader>
     {
