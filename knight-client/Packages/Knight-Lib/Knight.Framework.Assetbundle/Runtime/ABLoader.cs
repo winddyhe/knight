@@ -531,5 +531,17 @@ namespace Knight.Framework.AssetBundles
             rRequest.AllAssets = rAssetbundle.LoadAllAssets();
         }
         #endregion
+        
+        #region NotImplemented
+        public IAsyncOperation<ResourcesLoaderRequest> LoadAsset(string rAssetPath, Type rAssetType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ResourcesLoaderRequest LoadAllAssets(string rAssetFolderPath, Type rAssetType)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion // NotImplemented
     }
 }

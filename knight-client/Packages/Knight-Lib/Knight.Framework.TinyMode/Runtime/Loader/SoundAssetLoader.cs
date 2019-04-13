@@ -20,7 +20,7 @@ namespace Knight.Framework.TinyMode
         {
             this.mSoundPrefabs = new Dict<string, AudioClip>();
             
-            var rAllEffectsRequest = ResourcesLoader.Instance.LoadAllAssets(rABPath, typeof(AudioClip));
+            var rAllEffectsRequest = AssetLoader.Instance.LoadAllAssets(rABPath, typeof(AudioClip));
             if (rAllEffectsRequest.AllAssets == null)
             {
                 Debug.LogError("Cannot find sound folder.");

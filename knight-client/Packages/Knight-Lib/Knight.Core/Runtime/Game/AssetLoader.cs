@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityFx.Async;
+using Object = UnityEngine.Object;
 
 namespace Knight.Core
 {
@@ -60,6 +62,20 @@ namespace Knight.Core
             }
         }
     }
+	
+	public class ResourcesLoaderRequest : AsyncRequest<ResourcesLoaderRequest>
+    {
+        public Object       Asset;
+        public Object[]     AllAssets;
+
+        public string       AssetPath;
+        public Type         AssetType;
+
+        public ResourcesLoaderRequest(string rAssetPath, Type rAssetType)
+        {
+            this.AssetPath = rAssetPath;
+        }
+    }
 
     public interface IAssetLoader
     {
@@ -79,6 +95,9 @@ namespace Knight.Core
         bool IsSumilateMode_GUI();
         bool IsSumilateMode_Avatar();
         bool IsSumilateMode_Scene();
+		
+		IAsyncOperation<ResourcesLoaderRequest> LoadAsset(string rAssetPath, Type rAssetType);
+        ResourcesLoaderRequest LoadAllAssets(string rAssetFolderPath, Type rAssetType);
     }
 
     public class AssetLoader

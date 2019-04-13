@@ -20,7 +20,7 @@ namespace Knight.Framework.TinyMode
         {
             this.mActorPrefabs = new Dict<string, GameObject>();
 
-            var rAllActorRequest = ResourcesLoader.Instance.LoadAllAssets(rAssetPath, typeof(GameObject));
+            var rAllActorRequest = AssetLoader.Instance.LoadAllAssets(rAssetPath, typeof(GameObject));
             if (rAllActorRequest.AllAssets == null)
             {
                 Debug.LogError("Cannot find actor assets.");

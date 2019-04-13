@@ -19,7 +19,7 @@ namespace Knight.Framework.TinyMode
         {
             this.mScenePrefabs = new Dict<string, GameObject>();
 
-            var rAllScenesRequest = ResourcesLoader.Instance.LoadAllAssets(rABPath, typeof(GameObject));
+            var rAllScenesRequest = AssetLoader.Instance.LoadAllAssets(rABPath, typeof(GameObject));
             if (rAllScenesRequest.AllAssets == null)
             {
                 Debug.LogError("Cannot find effect assets.");

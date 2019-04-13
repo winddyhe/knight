@@ -9,49 +9,97 @@ using Knight.Core;
 using UnityFx.Async;
 using System;
 using Object = UnityEngine.Object;
+using UnityEngine.SceneManagement;
 
 namespace Knight.Framework.TinyMode
 {
-    public class ResourcesLoader : TSingleton<ResourcesLoader>
+    public class ResourcesLoader : IAssetLoader
     {
-        public class LoaderRequest : AsyncRequest<LoaderRequest>
-        {
-            public Object   Asset;
-            public Object[] AllAssets;
-
-            public string   AssetPath;
-            public Type     AssetType;
-
-            public LoaderRequest(string rAssetPath, Type rAssetType)
-            {
-                this.AssetPath = rAssetPath;
-            }
-        }
-
-        private ResourcesLoader()
+        public void Initialize()
         {
         }
 
-        public IAsyncOperation<LoaderRequest> LoadAsset(string rAssetPath, Type rAssetType)
+        public void UnloadAsset(string rABPath)
         {
-            var rRequest = new LoaderRequest(rAssetPath, rAssetType);
+        }
+
+        public IAsyncOperation<ResourcesLoaderRequest> LoadAsset(string rAssetPath, Type rAssetType)
+        {
+            var rRequest = new ResourcesLoaderRequest(rAssetPath, rAssetType);
             return rRequest.Start(LoadAsset_Async(rRequest, rAssetType));
         }
 
-        public LoaderRequest LoadAllAssets(string rAssetFolderPath, Type rAssetType)
+        public ResourcesLoaderRequest LoadAllAssets(string rAssetFolderPath, Type rAssetType)
         {
-            var rRequest = new LoaderRequest(rAssetFolderPath, rAssetType);
+            var rRequest = new ResourcesLoaderRequest(rAssetFolderPath, rAssetType);
             rRequest.AllAssets = Resources.LoadAll(rAssetFolderPath, rAssetType);
             return rRequest;
         }
 
-        private IEnumerator LoadAsset_Async(LoaderRequest rRequest, Type rAssetType)
+        private IEnumerator LoadAsset_Async(ResourcesLoaderRequest rRequest, Type rAssetType)
         {
             var rResourceRequest = Resources.LoadAsync(rRequest.AssetPath, rAssetType);
             yield return rResourceRequest;
-
             rRequest.Asset = rResourceRequest.asset;
             rRequest.SetResult(rRequest);
         }
+
+        #region NotImplemented
+        public IAsyncOperation<AssetLoaderRequest> LoadAssetAsync(string rABName, string rAssetName, bool bIsSimulate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncOperation<AssetLoaderRequest> LoadAllAssetsAsync(string rABName, bool bIsSimulate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncOperation<AssetLoaderRequest> LoadSceneAsync(string rABName, string rAssetName, LoadSceneMode rLoadSceneMode, bool bIsSimulate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AssetLoaderRequest LoadAsset(string rABName, string rAssetName, bool bIsSimulate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AssetLoaderRequest LoadAsset(string rABName, bool bIsSimulate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AssetLoaderRequest LoadScene(string rABName, string rAssetName, LoadSceneMode rLoadSceneMode, bool bIsSimulate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsSumilateMode_Script()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsSumilateMode_Config()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsSumilateMode_GUI()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsSumilateMode_Avatar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsSumilateMode_Scene()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion // NotImplemented
+
     }
 }
