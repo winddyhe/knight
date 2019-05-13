@@ -9,6 +9,15 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 本框架将会持续更新，后期会不断修改和完善框架中的内容。目前使用最新的Unity版本为Unity2018.3.11f1。
 目前Master分支中将所有的模块全部移到Packages里面去了，并使用PackageManager来管理他们，以实现使用时可随时插拔。
 ![knight的框架结构](https://github.com/winddyhe/knight/blob/master/Doc/res/images/img_1.png)
+### 更新日志（2019/5/13）
+* 更新Unity版本到Unity2019.1.0f2。
+* UI模块重构，ViewModel可以在UI模块间复用，纯数据信息在全局任意地方通过ViewModelManager访问。
+* UI模块重构，新增DatabindingConvert转换器，可以支持BindOneWay两个不同类型变量之间的转化。
+* UI模块重构，新增DatabindingRelated关联标签，支持ViewModel中一个变量改变了，其关联的其他变量也会随着一起更新到UI中。
+* UI模块重构，通过Mono.Ceil静态注入的方法，让ViewModel不用再手写this.PropChanged了。
+* UI模块重构，UI的资源加载方式变成同步加载，以避免界面闪烁。
+* Tweening模块重构，新增多段式的补间动画类，TweeningAnimator。
+
 ### 更新日志（2019/3/31）
 * 框架中所有模块完全解耦，除了Knight.Core模块是必须的公共依赖模块之外，每个模块被分成了单个的Package包，可以自己选择性的使用这些框架模块。
 * ILRuntime更新到最新版本，支持Unity2018.3以上的版本，并且可以断点调试异步逻辑了。
