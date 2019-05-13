@@ -62,6 +62,8 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
 --- !u!1 &1193079404155524
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +127,8 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
 --- !u!114 &114536426841300836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154cf9a872284844aa159f5618796133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewModelPath: 'MainFrame@Game.FrameViewModel/MainFrameTab : ObservableList`1'
+  ViewModelPath: 'Game.FrameViewModel/MainFrameTab : List`1'
   TemplatePath: Game.MainFrameTabItem
   TabView: {fileID: 114536426841300836}
 --- !u!114 &114523937426132942
@@ -347,6 +351,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsListTemplate: 1
   ViewPath: 'UnityEngine.UI.Text/text : String'
+  IsDataConvert: 0
+  DataConverterMethodPath: 
   ViewModelPath: 'ListTemplate@Game.MainFrameTabItem/Name : String'
   ViewPaths:
   - 'UnityEngine.RectTransform/anchorMin : Vector2'
@@ -405,6 +411,7 @@ MonoBehaviour:
   - 'UnityEngine.UI.TextStyleSelector/hideFlags : HideFlags'
   ModelPaths:
   - 'ListTemplate@Game.MainFrameTabItem/Name : String'
+  ModelConvertMethods: []
 --- !u!1 &1366419948340832
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,12 +464,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c3ac5a211b59e48a515b839897d5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewModelClass: Game.FrameView
+  ViewControllerClass: Game.FrameView
   ViewModels:
   - {fileID: 114237394750433066}
   EventBindings:
   - {fileID: 114523937426132942}
-  ViewModelClasses:
+  ViewControllerClasses:
   - Game.FrameView
   - Game.ListTestView
   - Game.LoginView
@@ -478,7 +485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e09e41216fc56645974c70d2147071d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Key: MainFrame
   ViewModelPath: Game.FrameViewModel
   ViewModelClasses:
   - Game.MainFrameTabItem
@@ -589,17 +595,20 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 114681567063712814}
@@ -801,9 +810,9 @@ RectTransform:
   m_Father: {fileID: 224144680731920582}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 243.70001, y: -33.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &222677346067458376
@@ -890,7 +899,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsListTemplate: 0
   ViewPath: 'UnityEngine.UI.Text/text : String'
-  ViewModelPath: 'MainFrame@Game.FrameViewModel/CoinCount : String'
+  IsDataConvert: 0
+  DataConverterMethodPath: 
+  ViewModelPath: 'Game.FrameViewModel/CoinCount : String'
   ViewPaths:
   - 'UnityEngine.RectTransform/anchorMin : Vector2'
   - 'UnityEngine.RectTransform/anchorMax : Vector2'
@@ -955,8 +966,9 @@ MonoBehaviour:
   - 'UnityEngine.UI.TextStyleSelector/name : String'
   - 'UnityEngine.UI.TextStyleSelector/hideFlags : HideFlags'
   ModelPaths:
-  - 'MainFrame@Game.FrameViewModel/PlayerName : String'
-  - 'MainFrame@Game.FrameViewModel/CoinCount : String'
+  - 'Game.FrameViewModel/PlayerName : String'
+  - 'Game.FrameViewModel/CoinCount : String'
+  ModelConvertMethods: []
 --- !u!1 &1752387652151420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,6 +1065,8 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
 --- !u!1 &1766227748206082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,6 +1434,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsListTemplate: 1
   ViewPath: 'UnityEngine.UI.Text/text : String'
+  IsDataConvert: 0
+  DataConverterMethodPath: 
   ViewModelPath: 'ListTemplate@Game.MainFrameTabItem/Name : String'
   ViewPaths:
   - 'UnityEngine.RectTransform/anchorMin : Vector2'
@@ -1478,6 +1494,7 @@ MonoBehaviour:
   - 'UnityEngine.UI.TextStyleSelector/hideFlags : HideFlags'
   ModelPaths:
   - 'ListTemplate@Game.MainFrameTabItem/Name : String'
+  ModelConvertMethods: []
 --- !u!1 &1901032846691724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1817,7 +1834,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsListTemplate: 0
   ViewPath: 'UnityEngine.UI.Text/text : String'
-  ViewModelPath: 'MainFrame@Game.FrameViewModel/PlayerName : String'
+  IsDataConvert: 0
+  DataConverterMethodPath: 
+  ViewModelPath: 'Game.FrameViewModel/PlayerName : String'
   ViewPaths:
   - 'UnityEngine.RectTransform/anchorMin : Vector2'
   - 'UnityEngine.RectTransform/anchorMax : Vector2'
@@ -1874,5 +1893,6 @@ MonoBehaviour:
   - 'UnityEngine.UI.TextStyleSelector/name : String'
   - 'UnityEngine.UI.TextStyleSelector/hideFlags : HideFlags'
   ModelPaths:
-  - 'MainFrame@Game.FrameViewModel/PlayerName : String'
-  - 'MainFrame@Game.FrameViewModel/CoinCount : String'
+  - 'Game.FrameViewModel/PlayerName : String'
+  - 'Game.FrameViewModel/CoinCount : String'
+  ModelConvertMethods: []

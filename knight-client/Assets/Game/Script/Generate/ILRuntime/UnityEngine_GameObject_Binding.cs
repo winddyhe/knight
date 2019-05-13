@@ -42,12 +42,12 @@ namespace ILRuntime.Runtime.Generated
                     lst.Add(m);
                 }
             }
-            args = new Type[]{typeof(UnityEngine.UI.ViewModelContainer)};
+            args = new Type[]{typeof(UnityEngine.UI.ViewControllerContainer)};
             if (genericMethods.TryGetValue("GetComponent", out lst))
             {
                 foreach(var m in lst)
                 {
-                    if(m.MatchGenericParameters(args, typeof(UnityEngine.UI.ViewModelContainer)))
+                    if(m.MatchGenericParameters(args, typeof(UnityEngine.UI.ViewControllerContainer)))
                     {
                         method = m.MakeGenericMethod(args);
                         app.RegisterCLRMethodRedirection(method, GetComponent_2);
@@ -165,7 +165,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.GameObject instance_of_this_method = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = instance_of_this_method.GetComponent<UnityEngine.UI.ViewModelContainer>();
+            var result_of_this_method = instance_of_this_method.GetComponent<UnityEngine.UI.ViewControllerContainer>();
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }

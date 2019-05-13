@@ -15,6 +15,11 @@ namespace UnityEngine.UI
 
         private UnityEventWatcher   mUnityEventWatcher;
 
+        private void Awake()
+        {
+            this.IsDataConvert = false;
+        }
+
         public void InitEventWatcher()
         {
             var rBoundEvent = DataBindingTypeResolve.MakeViewDataBindingEvent(this.gameObject, this.EventPath);

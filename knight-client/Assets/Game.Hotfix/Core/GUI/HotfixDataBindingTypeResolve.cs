@@ -17,24 +17,35 @@ namespace Knight.Hotfix.Core
             var rViewModelPathStrs = rViewModelPath.Split('/');
             if (rViewModelPathStrs.Length < 2) return null;
 
-            var rViewModelClass = rViewModelPathStrs[0].Trim();
-            var rViewModelClassStrs = rViewModelClass.Split('@');
-            if (rViewModelClassStrs.Length < 1) return null;
-
-            var rViewModelClassKey = rViewModelClassStrs[0].Trim();
-            var rViewModelClassName = rViewModelClassStrs[1].Trim();
-
+            var rViewModelClassName = rViewModelPathStrs[0].Trim();
             var rViewModelProp = rViewModelPathStrs[1].Trim();
 
             var rViewModelPropStrs = rViewModelProp.Split(':');
             if (rViewModelPropStrs.Length < 1) return null;
 
+            rViewModelClassName = rViewModelClassName.Replace("ListTemplate@", "");
+
             var rViewModelPropName = rViewModelPropStrs[0].Trim();
-            var rViewModelProperty = new DataBindingProperty(null, rViewModelClassKey, rViewModelPropName);
-            rViewModelProperty.Property = Type.GetType(rViewModelClassName).GetProperty(rViewModelPropName);
+            var rViewModelProperty = new DataBindingProperty(null, rViewModelClassName, rViewModelPropName);
+            rViewModelProperty.Property = Type.GetType(rViewModelClassName)?.GetProperty(rViewModelPropName);
+            if (rViewModelProperty.Property == null)
+            {
+                Debug.LogError("ViewModelClass: " + rViewModelPath + " get property error." + rViewModelClassName + ", " + rViewModelPropName);
+            }
             return rViewModelProperty;
         }
-        
+
+        public static MethodInfo MakeViewModelDataBindingConvertMethod(string rDataConverterMethodPath)
+        {
+            var rMethodPathStrs = rDataConverterMethodPath.Split('/');
+            if (rMethodPathStrs.Length < 2) return null;
+
+            var rViewModelClassName = rMethodPathStrs[0].Trim();
+            var rMethodName = rMethodPathStrs[1].Trim();
+
+            return Type.GetType(rViewModelClassName)?.GetMethod(rMethodName);
+        }
+
         public static bool MakeViewModelDataBindingEvent(ViewController rViewController, EventBinding rEventBinding)
         {
             if (string.IsNullOrEmpty(rEventBinding.ViewModelMethod)) return false;
@@ -62,7 +73,7 @@ namespace Knight.Hotfix.Core
             }
             return true;
         }
-
+        
         public static bool MakeListViewModelDataBindingEvent(ViewController rViewController, EventBinding rEventBinding, int nIndex)
         {
             if (string.IsNullOrEmpty(rEventBinding.ViewModelMethod)) return false;

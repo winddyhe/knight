@@ -38,7 +38,7 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 当前存在的固定View，每个View使用GUID来作唯一标识
         /// </summary>
-        private Dict<string, View>          mCurFixedViews;
+        private IndexedDict<string, View>   mCurFixedViews;
         
         private ViewManager()
         {
@@ -51,25 +51,25 @@ namespace Knight.Hotfix.Core
 
             this.mCurFrameViews = new IndexedDict<string, View>();
             this.mCurPageViews = new IndexedDict<string, View>();
-            this.mCurFixedViews = new Dict<string, View>();
+            this.mCurFixedViews = new IndexedDict<string, View>();
         }
 
         public void Update()
         {
-            if (this.mCurFrameViews != null)
-            {
-                var rCurViewKeys = mCurFrameViews.Keys;
-                for (int i = 0; i < rCurViewKeys.Count; i++)
-                {
-                    this.mCurFrameViews[rCurViewKeys[i]].Update();
-                }
-            }
             if (this.mCurPageViews != null)
             {
                 var rCurViewKeys = mCurPageViews.Keys;
                 for (int i = 0; i < rCurViewKeys.Count; i++)
                 {
                     this.mCurPageViews[rCurViewKeys[i]].Update();
+                }
+            }
+            if (this.mCurFixedViews != null)
+            {
+                var rCurViewKeys = this.mCurFixedViews.Keys;
+                for (int i = 0; i < rCurViewKeys.Count; i++)
+                {
+                    this.mCurFixedViews[rCurViewKeys[i]].Update();
                 }
             }
         }
@@ -111,25 +111,23 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 打开一个View
         /// </summary>
-        public async Task<View> OpenAsync(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
+        public async Task<View> OpenAsync(string rViewName, View.State rViewState, ViewModel rViewModel = null, Action<View> rOpenCompleted = null)
         {
             // 企图关闭当前的View
             Debug.Log("Open " + rViewName);
-            MaybeCloseTopView(rViewState);
-            return await OpenViewAsync(rViewName, rViewState, rOpenCompleted);
+            this.MaybeCloseTopView(rViewState);
+            return await OpenViewAsync(rViewName, rViewState, rViewModel, rOpenCompleted);
         }
 
-        public void Open(string rViewName, View.State rViewState, Action<View> rOpenCompleted = null)
+        public void Open(string rViewName, View.State rViewState, ViewModel rViewModel, Action<View> rOpenCompleted = null)
         {
-#pragma warning disable 4014
-            this.OpenAsync(rViewName, rViewState, rOpenCompleted);
-#pragma warning restore 4014
+            this.OpenAsync(rViewName, rViewState, rViewModel, rOpenCompleted).WarpErrors();
         }
 
-        private async Task<View> OpenViewAsync(string rViewName, View.State rViewState, Action<View> rOpenCompleted)
+        private async Task<View> OpenViewAsync(string rViewName, View.State rViewState, ViewModel rViewModel, Action<View> rOpenCompleted)
         {
-            var rLoaderRequest = await UIAssetLoader.Instance.LoadUI(rViewName);
-            return await OpenView(rViewName, rLoaderRequest.ViewPrefabGo, rViewState, rOpenCompleted);
+            var rLoaderRequest = UIAssetLoader.Instance.LoadUI(rViewName);
+            return await OpenView(rViewName, rLoaderRequest.ViewPrefabGo, rViewState, rViewModel, rOpenCompleted);
         }
         
         /// <summary>
@@ -183,10 +181,6 @@ namespace Knight.Hotfix.Core
             {
                 isFixedView = true;
             }
-            else if (this.mCurFrameViews.TryGetValue(rViewGUID, out rView))
-            {
-                isFixedView = false;
-            }
             else if (this.mCurPageViews.TryGetValue(rViewGUID, out rView))
             {
                 isFixedView = false;
@@ -222,7 +216,7 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 初始化View，如果是Dispatch类型的话，只对curViews顶层View进行交换
         /// </summary>
-        public async Task<View> OpenView(string rViewName, GameObject rViewPrefab, View.State rViewState, Action<View> rOpenCompleted)
+        public async Task<View> OpenView(string rViewName, GameObject rViewPrefab, View.State rViewState, ViewModel rViewModel, Action<View> rOpenCompleted)
         {
             if (rViewPrefab == null) return null;
 
@@ -253,6 +247,8 @@ namespace Knight.Hotfix.Core
                 UtilTool.SafeExecute(rOpenCompleted, null);
                 return null;
             }
+            // 设置Default ViewModel
+            rView.DefaultViewModel = rViewModel;
 
             //新的View的存储逻辑
             switch (rViewState)
@@ -292,10 +288,10 @@ namespace Knight.Hotfix.Core
             }
             catch (Exception e)
             {
-                Debug.LogError(e.Message + "\n" + e.StackTrace);
+                Debug.LogException(e);
             }
+
             UtilTool.SafeExecute(rOpenCompleted, rView);
-            
             return rView;
         }
 

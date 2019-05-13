@@ -22,7 +22,7 @@ namespace Game
     {
         public string HotfixABPath = "";
         public string HotfixModule = "";
-        
+
         async void Start()
         {
             //限帧
@@ -34,12 +34,13 @@ namespace Game
             // 初始化协程管理器
             CoroutineManager.Instance.Initialize();
 
-            // 初始化TypeResolveManager
             TypeResolveManager.Instance.Initialize();
+
             TypeResolveManager.Instance.AddAssembly("Game");
-            TypeResolveManager.Instance.AddAssembly("KnightHotfix", true);
+            TypeResolveManager.Instance.AddAssembly("Game.Hotfix" , true);
 
             // 初始化热更新模块
+            HotfixRegister.Register();
             HotfixManager.Instance.Initialize();
 
             // 初始化UI模块
@@ -52,6 +53,7 @@ namespace Game
             //异步初始化代码
             await Start_Async();
         }
+
 
         private async Task Start_Async()
         {
@@ -70,7 +72,7 @@ namespace Game
 
             // 加载热更新代码资源
             await HotfixManager.Instance.Load(this.HotfixABPath, this.HotfixModule);
-            
+
             // 开始热更新端的游戏主逻辑
             await HotfixGameMainLogic.Instance.Initialize();
 

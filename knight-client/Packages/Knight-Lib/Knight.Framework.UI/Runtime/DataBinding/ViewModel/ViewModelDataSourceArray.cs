@@ -13,7 +13,8 @@ namespace UnityEngine.UI
     public class ViewModelDataSourceArray : ViewModelDataSourceTemplate
     {
         [DrawOrder(2)]
-        public GameObject ItemTemplateGo;
+        public GameObject   ItemTemplateGo;
+        public bool         HasInitData;
 
         public override void GetPaths()
         {

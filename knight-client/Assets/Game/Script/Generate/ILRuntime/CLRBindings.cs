@@ -47,6 +47,8 @@ namespace ILRuntime.Runtime.Generated
             System_Runtime_CompilerServices_TaskAwaiter_Binding.Register(app);
             UnityEngine_Debug_Binding.Register(app);
             System_Int32_Binding.Register(app);
+            Knight_Core_TSingleton_1_UIAtlasManager_Binding.Register(app);
+            UnityEngine_UI_UIAtlasManager_Binding.Register(app);
             System_Threading_Tasks_Task_1_ILTypeInstance_Binding.Register(app);
             System_Runtime_CompilerServices_TaskAwaiter_1_ILTypeInstance_Binding.Register(app);
             Knight_Core_GameLoading_Binding.Register(app);
@@ -83,8 +85,8 @@ namespace ILRuntime.Runtime.Generated
             System_Collections_Hashtable_Binding.Register(app);
             System_Collections_Generic_List_1_Type_Binding.Register(app);
             System_Collections_Generic_List_1_KeyValuePair_2_Type_Type_Binding.Register(app);
-            System_AppDomain_Binding.Register(app);
-            System_Reflection_Assembly_Binding.Register(app);
+            Knight_Core_TSingleton_1_TypeResolveManager_Binding.Register(app);
+            Knight_Core_TypeResolveManager_Binding.Register(app);
             System_Collections_Generic_KeyValuePair_2_Type_Type_Binding.Register(app);
             System_Collections_Generic_List_1_KeyValuePair_2_Type_Type_Binding_Enumerator_Binding.Register(app);
             UnityFx_Async_CompilerServices_AsyncAwaiter_1_Knight_Core_WaitAsync_Binding_WaitForEndOfFrameRequest_Binding.Register(app);
@@ -97,13 +99,10 @@ namespace ILRuntime.Runtime.Generated
             System_Reflection_MethodInfo_Binding.Register(app);
             System_Reflection_MethodBase_Binding.Register(app);
             UnityEngine_GameObject_Binding.Register(app);
-            UnityEngine_UI_ViewModelContainer_Binding.Register(app);
+            UnityEngine_UI_ViewControllerContainer_Binding.Register(app);
             UnityEngine_UI_MemberBindingAbstract_Binding.Register(app);
             System_Collections_Generic_List_1_ViewModelDataSource_Binding.Register(app);
             UnityEngine_UI_ViewModelDataSource_Binding.Register(app);
-            Knight_Core_Dict_2_String_ILTypeInstance_Binding.Register(app);
-            System_Collections_Generic_IEnumerator_1_CKeyValuePair_2_String_ILTypeInstance_Binding.Register(app);
-            Knight_Core_CKeyValuePair_2_String_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_List_1_EventBinding_Binding.Register(app);
             System_Collections_Generic_List_1_MemberBindingAbstract_Binding.Register(app);
             UnityEngine_UI_DataBindingTypeResolve_Binding.Register(app);
@@ -116,8 +115,8 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_UI_ViewModelDataSourceList_Binding.Register(app);
             UnityEngine_UI_LoopScrollRect_Binding.Register(app);
             System_Collections_IList_Binding.Register(app);
-            UnityEngine_UI_UITool_Binding.Register(app);
             UnityEngine_UI_ViewModelDataSourceArray_Binding.Register(app);
+            UnityEngine_UI_UITool_Binding.Register(app);
             UnityEngine_Transform_Binding.Register(app);
             UnityEngine_UI_ViewModelDataSourceTab_Binding.Register(app);
             System_Collections_Generic_List_1_TabButton_Binding.Register(app);
@@ -125,21 +124,25 @@ namespace ILRuntime.Runtime.Generated
             Knight_Core_ObjectExpand_Binding.Register(app);
             UnityEngine_UI_Toggle_Binding.Register(app);
             UnityEngine_UI_TabButton_Binding.Register(app);
+            Knight_Core_Dict_2_String_ILTypeInstance_Binding.Register(app);
+            System_Collections_Generic_IEnumerator_1_CKeyValuePair_2_String_ILTypeInstance_Binding.Register(app);
+            Knight_Core_CKeyValuePair_2_String_ILTypeInstance_Binding.Register(app);
             UnityEngine_UI_UIRoot_Binding.Register(app);
             Knight_Core_IndexedDict_2_String_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_List_1_String_Binding.Register(app);
             Knight_Core_IndexedDictExpand_Binding.Register(app);
             Knight_Core_TSingleton_1_UIAssetLoader_Binding.Register(app);
             UnityEngine_UI_UIAssetLoader_Binding.Register(app);
-            System_Threading_Tasks_Task_1_UnityEngine_UI_UIAssetLoader_Binding_LoaderRequest_Binding.Register(app);
-            System_Runtime_CompilerServices_TaskAwaiter_1_UnityEngine_UI_UIAssetLoader_Binding_LoaderRequest_Binding.Register(app);
             UnityEngine_UI_UIAssetLoader_Binding_LoaderRequest_Binding.Register(app);
             System_Guid_Binding.Register(app);
-            System_Exception_Binding.Register(app);
+            UnityEngine_UI_DataBindingRelatedAttribute_Binding.Register(app);
+            Knight_Core_Dict_2_String_List_1_String_Binding.Register(app);
+            System_Action_1_String_Binding.Register(app);
             Knight_Framework_Net_Packet_Binding.Register(app);
             Knight_Framework_Net_NetworkSession_Binding.Register(app);
             Knight_Framework_Net_NetworkClient_Binding.Register(app);
             Knight_Framework_Net_NetworkOpcodeTypes_Binding.Register(app);
+            System_Exception_Binding.Register(app);
             System_Action_1_ILTypeInstance_Binding.Register(app);
             System_Threading_Tasks_TaskCompletionSource_1_ILTypeInstance_Binding.Register(app);
             Knight_Core_Dict_2_Int32_Action_1_ILTypeInstance_Binding.Register(app);
@@ -155,6 +158,7 @@ namespace ILRuntime.Runtime.Generated
             System_Activator_Binding.Register(app);
             System_Collections_Generic_List_1_UnityObject_Binding.Register(app);
             Knight_Framework_Hotfix_UnityObject_Binding.Register(app);
+            System_Collections_Generic_List_1_Type_Binding_Enumerator_Binding.Register(app);
 
             ILRuntime.CLR.TypeSystem.CLRType __clrType = null;
         }

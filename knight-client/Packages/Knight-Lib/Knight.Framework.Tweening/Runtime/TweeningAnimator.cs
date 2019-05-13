@@ -30,10 +30,10 @@ namespace Knight.Framework.Tweening
 
         public bool                 IsLoop = false;
         public LoopType             LoopType;
-        public int                  LoopCount;
+        public int                  LoopCount = -1;
 
-        public float                Duration;
-        public AnimationCurve       TimeCurve;
+        public float                Duration = 0.35f;
+        public AnimationCurve       TimeCurve = AnimationCurve.EaseInOut(0 , 0 , 1 , 1);
 
         public TweeningActionType   Type;
 
@@ -49,38 +49,64 @@ namespace Knight.Framework.Tweening
         public Tweener              Tweener;
     }
     
+    [AddComponentMenu("UI Animation/TweeningAnimator")]
     public class TweeningAnimator : MonoBehaviour
     {
         public bool                 IsIgnoreTimeScale;
         public bool                 IsUseFixedUpdate;
-        public bool                 IsAutoExecute;
+        public bool                 IsAutoExecute = true;
+        public bool                 IsLoopAnimator;
+
         public List<TweeningAction> Actions;
 
+        private int                 mAnimationCount;
+        
         private void CreateActionTweeners()
         {
+            mAnimationCount = 0;
             for (int i = 0; i < this.Actions.Count; i++)
             {
-                var rActionType = this.Actions[i].Type;
-                switch (rActionType)
+                TweeningAnimationFactory.CreateTweenBehaviour(Actions[i] , this.gameObject);
+                this.SetUpTweener(Actions[i]);
+                if (this.Actions[i].Tweener != null)
                 {
-                    case TweeningActionType.Position:
-                        break;
-                    case TweeningActionType.LocalPosition:
-                        break;
-                    case TweeningActionType.Rotate:
-                        break;
-                    case TweeningActionType.LocalRotate:
-                        break;
-                    case TweeningActionType.LocalScale:
-                        break;
-                    case TweeningActionType.Color:
-                        break;
-                    case TweeningActionType.CanvasAlpha:
-                        break;
-                    case TweeningActionType.Delay:
-                        break;
+                    this.Actions[i].Tweener.onComplete = this.nextAnimation;
                 }
             }
+            if (IsAutoExecute)
+            {
+                 this.Play();
+            }
+        }
+
+        public void Play()
+        {
+            if (this.Actions == null || this.Actions.Count == 0) return;
+            this.Actions[mAnimationCount].Tweener.Play();
+        }
+
+        public void Stop()
+        {
+            if (this.Actions == null) return;
+            for (int i = 0; i < this.Actions.Count; i++)
+            {
+                if (this.Actions[i].Tweener == null) return;
+                this.Actions[i].Tweener.Kill(false);
+            }
+            this.mAnimationCount = 0;
+        }
+
+        public void Pause()
+        {
+            if (this.Actions == null) return;
+            this.Actions[mAnimationCount].Tweener.Pause();
+        }
+
+        public Tweener GetPlayingTweener()
+        {
+            if (this.Actions == null || this.Actions.Count == 0)
+                return null;
+            return this.Actions[mAnimationCount].Tweener;
         }
 
         private void SetUpTweener(TweeningAction rTweenAction)
@@ -97,6 +123,31 @@ namespace Knight.Framework.Tweening
             {
                 rTweenAction.Tweener.SetLoops(rTweenAction.LoopCount, rTweenAction.LoopType);
             }
+        }
+
+        private void nextAnimation()
+        {
+
+            this.mAnimationCount++;
+            if (this.mAnimationCount == this.Actions.Count)
+            {
+                if (this.IsLoopAnimator)
+                    this.CreateActionTweeners();
+            }
+            else if (this.Actions[mAnimationCount].Tweener != null)
+                this.Actions[mAnimationCount].Tweener.Play();
+            else
+                this.nextAnimation();
+        }
+
+        private void OnEnable()
+        {
+            this.CreateActionTweeners();
+        }
+
+        private void OnDisable()
+        {
+            this.Stop();    
         }
     }
 }

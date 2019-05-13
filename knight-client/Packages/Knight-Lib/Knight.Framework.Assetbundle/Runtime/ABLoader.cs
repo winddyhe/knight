@@ -22,13 +22,11 @@ namespace Knight.Framework.AssetBundles
     /// </summary>
     public class ABLoader : IAssetLoader
     {
-        private int                 mIsLoadingRefCount = 0;
-        private List<ABLoadEntry>   mTempEntries;
+        private int mIsLoadingRefCount = 0;
 
         public void Initialize()
         {
             this.mIsLoadingRefCount = 0;
-            this.mTempEntries = new List<ABLoadEntry>();
             CoroutineManager.Instance.Start(this.Update());
         }
 
@@ -65,7 +63,13 @@ namespace Knight.Framework.AssetBundles
             }
 
             // 得到该资源的所有依赖项
-            this.CalcRefCount(rAssetLoadEntry.ABName, -1);
+            var rABAllDependenceEntries = this.GetABEntryAllDependencies(rAssetLoadEntry);
+            for (int i = 0; i < rABAllDependenceEntries.Count; i++)
+            {
+                rABAllDependenceEntries[i].RefCount--;
+                if (rABAllDependenceEntries[i].RefCount < 0)
+                    rABAllDependenceEntries[i].RefCount = 0;
+            }
         }
 
         /// <summary>
@@ -96,14 +100,7 @@ namespace Knight.Framework.AssetBundles
             {
                 return;
             }
-            if (rABLoadEntry.RefCount == 0)
-            {
-                return;
-            }
-
             rABLoadEntry.RefCount += nDeltaRefCount;
-            if (rABLoadEntry.RefCount < 0) rABLoadEntry.RefCount = 0;
-
             for (int i = 0; i < rABLoadEntry.ABDependNames.Length; i++)
             {
                 this.CalcRefCount(rABLoadEntry.ABDependNames[i], nDeltaRefCount);
@@ -202,20 +199,17 @@ namespace Knight.Framework.AssetBundles
 
             // 得到该资源的所有依赖项
             var rABAllDependenceEntries = this.GetABEntryAllDependencies(rAssetLoadEntry);
-            this.mTempEntries.Clear();
             for (int i = 0; i < rABAllDependenceEntries.Count; i++)
             {
                 rABAllDependenceEntries[i].RefCount++;
-                if (!this.mTempEntries.Contains(rABAllDependenceEntries[i]))
-                    this.mTempEntries.Add(rABAllDependenceEntries[i]);
             }
-            for (int i = 0; i < this.mTempEntries.Count; i++)
+
+            for (int i = 0; i < rABAllDependenceEntries.Count - 1; i++)
             {
                 // 构建依赖项的Request
-                var rItem = this.mTempEntries[i];
                 var rDependenceLoaderRequest = new AssetLoaderRequest(
-                    rItem.ABPath, string.Empty, true, rRequest.IsSimulate, rRequest.IsLoadAllAssets);
-                yield return this.LoadAssetAsync_OneEntry(rDependenceLoaderRequest, rItem);
+                    rABAllDependenceEntries[i].ABPath, string.Empty, true, rRequest.IsSimulate, rRequest.IsLoadAllAssets);
+                yield return this.LoadAssetAsync_OneEntry(rDependenceLoaderRequest, rABAllDependenceEntries[i]);
             }
             yield return this.LoadAssetAsync_OneEntry(rRequest, rABAllDependenceEntries[rABAllDependenceEntries.Count - 1]);
             this.mIsLoadingRefCount--;
@@ -253,47 +247,44 @@ namespace Knight.Framework.AssetBundles
             {
                 Debug.Log("---Simulate Load ab: " + rAssetLoadUrl);
 #if UNITY_EDITOR
-                if (!string.IsNullOrEmpty(rRequest.AssetName))
+                if (!string.IsNullOrEmpty(rRequest.AssetName) && !rRequest.IsScene)
                 {
-                    if (!rRequest.IsScene)
+                    if (!rRequest.IsLoadAllAssets)
                     {
-                        if (!rRequest.IsLoadAllAssets)
+                        string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
+                        if (rAssetPaths.Length == 0)
                         {
-                            string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
-                            if (rAssetPaths.Length == 0)
-                            {
-                                Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
-                                yield break;
-                            }
-                            Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
-                            rRequest.Asset = rTargetAsset;
+                            Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                            yield break;
                         }
-                        else
-                        {
-                            string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(rAssetLoadEntry.ABName);
-                            if (rAssetPaths.Length == 0)
-                            {
-                                Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
-                                yield break;
-                            }
-                            rRequest.AllAssets = new Object[rAssetPaths.Length];
-                            for (int i = 0; i < rAssetPaths.Length; i++)
-                            {
-                                Object rAssetObj = UnityEditor.AssetDatabase.LoadAssetAtPath(rAssetPaths[i], typeof(Object));
-                                if (rAssetObj != null)
-                                    rRequest.AllAssets[i] = rAssetObj;
-                            }
-                        }
+                        Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
+                        rRequest.Asset = rTargetAsset;
                     }
                     else
                     {
-                        yield return UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(
-                            rRequest.AssetName, new LoadSceneParameters() { loadSceneMode = rRequest.SceneMode });
-
-                        string rSceneName = Path.GetFileNameWithoutExtension(rRequest.AssetName);
-                        rRequest.Scene = SceneManager.GetSceneByName(rSceneName);
-                        SceneManager.SetActiveScene(rRequest.Scene);
+                        string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(rAssetLoadEntry.ABName);
+                        if (rAssetPaths.Length == 0)
+                        {
+                            Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                            yield break;
+                        }
+                        rRequest.AllAssets = new Object[rAssetPaths.Length];
+                        for (int i = 0; i < rAssetPaths.Length; i++)
+                        {
+                            Object rAssetObj = UnityEditor.AssetDatabase.LoadAssetAtPath(rAssetPaths[i], typeof(Object));
+                            if (rAssetObj != null)
+                                rRequest.AllAssets[i] = rAssetObj;
+                        }
                     }
+                }
+                else
+                {
+                    yield return UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(
+                        rRequest.AssetName, new LoadSceneParameters() { loadSceneMode = rRequest.SceneMode });
+
+                    string rSceneName = Path.GetFileNameWithoutExtension(rRequest.AssetName);
+                    rRequest.Scene = SceneManager.GetSceneByName(rSceneName);
+                    SceneManager.SetActiveScene(rRequest.Scene);
                 }
 #endif
             }
@@ -401,20 +392,17 @@ namespace Knight.Framework.AssetBundles
 
             // 得到该资源的所有依赖项
             var rABAllDependenceEntries = this.GetABEntryAllDependencies(rAssetLoadEntry);
-            this.mTempEntries.Clear();
             for (int i = 0; i < rABAllDependenceEntries.Count; i++)
             {
                 rABAllDependenceEntries[i].RefCount++;
-                if (!this.mTempEntries.Contains(rABAllDependenceEntries[i]))
-                    this.mTempEntries.Add(rABAllDependenceEntries[i]);
             }
-            for (int i = 0; i < this.mTempEntries.Count; i++)
+
+            for (int i = 0; i < rABAllDependenceEntries.Count - 1; i++)
             {
                 // 构建依赖项的Request
-                var rItem = this.mTempEntries[i];
                 var rDependenceLoaderRequest = new AssetLoaderRequest(
-                    rItem.ABPath, string.Empty, true, rRequest.IsSimulate, rRequest.IsLoadAllAssets);
-                this.LoadAssetSync_OneEntry(rDependenceLoaderRequest, rItem);
+                    rABAllDependenceEntries[i].ABPath, string.Empty, true, rRequest.IsSimulate, rRequest.IsLoadAllAssets);
+                this.LoadAssetSync_OneEntry(rDependenceLoaderRequest, rABAllDependenceEntries[i]);
             }
             this.LoadAssetSync_OneEntry(rRequest, rABAllDependenceEntries[rABAllDependenceEntries.Count - 1]);
 
@@ -441,47 +429,44 @@ namespace Knight.Framework.AssetBundles
             {
                 Debug.Log("---Simulate Load ab: " + rAssetLoadUrl);
 #if UNITY_EDITOR
-                if (!string.IsNullOrEmpty(rRequest.AssetName))
+                if (!string.IsNullOrEmpty(rRequest.AssetName) && !rRequest.IsScene)
                 {
-                    if (!rRequest.IsScene)
+                    if (!rRequest.IsLoadAllAssets)
                     {
-                        if (!rRequest.IsLoadAllAssets)
+                        string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
+                        if (rAssetPaths.Length == 0)
                         {
-                            string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
-                            if (rAssetPaths.Length == 0)
-                            {
-                                Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
-                                return;
-                            }
-                            Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
-                            rRequest.Asset = rTargetAsset;
+                            Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                            return;
                         }
-                        else
-                        {
-                            string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(rAssetLoadEntry.ABName);
-                            if (rAssetPaths.Length == 0)
-                            {
-                                Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
-                                return;
-                            }
-                            rRequest.AllAssets = new Object[rAssetPaths.Length];
-                            for (int i = 0; i < rAssetPaths.Length; i++)
-                            {
-                                Object rAssetObj = UnityEditor.AssetDatabase.LoadAssetAtPath(rAssetPaths[i], typeof(Object));
-                                if (rAssetObj != null)
-                                    rRequest.AllAssets[i] = rAssetObj;
-                            }
-                        }
+                        Object rTargetAsset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(rAssetPaths[0]);
+                        rRequest.Asset = rTargetAsset;
                     }
                     else
                     {
-                        UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(
-                            rRequest.AssetName, new LoadSceneParameters() { loadSceneMode = rRequest.SceneMode });
-
-                        string rSceneName = Path.GetFileNameWithoutExtension(rRequest.AssetName);
-                        rRequest.Scene = SceneManager.GetSceneByName(rSceneName);
-                        SceneManager.SetActiveScene(rRequest.Scene);
+                        string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(rAssetLoadEntry.ABName);
+                        if (rAssetPaths.Length == 0)
+                        {
+                            Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                            return;
+                        }
+                        rRequest.AllAssets = new Object[rAssetPaths.Length];
+                        for (int i = 0; i < rAssetPaths.Length; i++)
+                        {
+                            Object rAssetObj = UnityEditor.AssetDatabase.LoadAssetAtPath(rAssetPaths[i], typeof(Object));
+                            if (rAssetObj != null)
+                                rRequest.AllAssets[i] = rAssetObj;
+                        }
                     }
+                }
+                else
+                {
+                    UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(
+                        rRequest.AssetName, new LoadSceneParameters() { loadSceneMode = rRequest.SceneMode });
+                    
+                    string rSceneName = Path.GetFileNameWithoutExtension(rRequest.AssetName);
+                    rRequest.Scene = SceneManager.GetSceneByName(rSceneName);
+                    SceneManager.SetActiveScene(rRequest.Scene);
                 }
 #endif
             }

@@ -11,9 +11,6 @@ namespace Game
 {
     public class FrameView : ViewController
     {
-        [HotfixBinding("MainFrame")]
-        public  FrameViewModel      MainFrame;
-
         private int                 mCurIndex;
         private int                 mPrevIndex;
 
@@ -26,10 +23,11 @@ namespace Game
             this.mCurIndex  = 0;
             this.mPrevIndex = 0;
 
-            this.MainFrame.PlayerName = Account.Instance.PlayerName;
-            this.MainFrame.CoinCount  = LogicUtilTool.ToCountString(Account.Instance.CoinCount);
+            var rMainFrame = ViewModelManager.Instance.ReceiveViewModel<FrameViewModel>();
+            rMainFrame.PlayerName = Account.Instance.PlayerName;
+            rMainFrame.CoinCount  = LogicUtilTool.ToCountString(Account.Instance.CoinCount);
 
-            this.MainFrame.MainFrameTab = new List<MainFrameTabItem>()
+            rMainFrame.MainFrameTab = new List<MainFrameTabItem>()
             {
                 new MainFrameTabItem(){ Name = "战 斗"  },
                 new MainFrameTabItem(){ Name = "基 地"  },

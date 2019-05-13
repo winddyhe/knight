@@ -5,13 +5,13 @@ using NaughtyAttributes;
 
 namespace UnityEngine.UI
 {
-    public class ViewModelContainer : MonoBehaviour
+    public class ViewControllerContainer : MonoBehaviour
     {
-        [InfoBox("ViewModelClass can not be null.", InfoBoxType.Error, "IsViewModelClassNull")]
-        [Dropdown("ViewModelClasses")]
-        public string                       ViewModelClass;
+        [InfoBox("ViewModelClass can not be null.", InfoBoxType.Error, "IsViewControllerClassNull")]
+        [Dropdown("ViewControllerClasses")]
+        public string                       ViewControllerClass;
 
-        [ReorderableKeyList]
+        [ReorderableList]
         [InfoBox("Hei bro!!!!! Some ViewModel has same key.", InfoBoxType.Error, "IsViewModelKeyRepeated")]
         public List<ViewModelDataSource>    ViewModels;
         
@@ -19,31 +19,26 @@ namespace UnityEngine.UI
         public List<EventBinding>           EventBindings;
 
         [HideInInspector]
-        public string[]                     ViewModelClasses = new string[0];
+        public string[]                     ViewControllerClasses = new string[0];
 
         public void GetAllViewModelDataSources()
         {
             this.ViewModels = new List<ViewModelDataSource>(this.GetComponentsInChildren<ViewModelDataSource>(true));
             this.EventBindings = new List<EventBinding>(this.GetComponentsInChildren<EventBinding>(true));
-            this.ViewModelClasses = DataBindingTypeResolve.GetAllViews().ToArray();
+            this.ViewControllerClasses = DataBindingTypeResolve.GetAllViews().ToArray();
         }
 
-        private bool IsViewModelClassNull()
+        private bool IsViewControllerClassNull()
         {
-            return string.IsNullOrEmpty(this.ViewModelClass);
+            return string.IsNullOrEmpty(this.ViewControllerClass);
         }
 
         private bool IsViewModelKeyRepeated()
         {
             if (this.ViewModels == null) return false;
 
-            HashSet<string> rKeys = new HashSet<string>();
-            for (int i = 0; i < this.ViewModels.Count; i++)
-            {
-                var rKey = this.ViewModels[i].Key;
-                rKeys.Add(rKey);
-            }
-            return rKeys.Count < this.ViewModels.Count;
+            var rTempViewModels = new HashSet<ViewModelDataSource>(this.ViewModels);            
+            return rTempViewModels.Count < this.ViewModels.Count;
         }
     }
 }

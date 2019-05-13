@@ -16,10 +16,12 @@ namespace Knight.Framework.Hotfix
 {
     public class HotfixApp_ILRT : HotfixApp
     {
-        private AppDomain               mApp;
-        private MemoryStream            mDLLMS;
-        private MemoryStream            mPDBMS;
-        
+        public  static Action<AppDomain>    OnHotfixRegisterFunc = null;
+
+        private AppDomain                   mApp;
+        private MemoryStream                mDLLMS;
+        private MemoryStream                mPDBMS;
+
         public HotfixApp_ILRT()
         {
         }
@@ -90,12 +92,17 @@ namespace Knight.Framework.Hotfix
         {
             var rCLRBindingType = System.AppDomain.CurrentDomain.GetAssemblies()
                                  .Single(rAssembly=>rAssembly.GetName().Name.Equals("Game"))?.GetTypes()?
-                                 .SingleOrDefault(rType=>rType.FullName.Equals("ILRuntime.Runtime.CLRBinding"));
+                                 .SingleOrDefault(rType=>rType.FullName.Equals("ILRuntime.Runtime.Generated.CLRBindings"));
             if (rCLRBindingType == null)
             {
                 return;
             }
             ReflectionAssist.MethodMember(rCLRBindingType, "Initialize", ReflectionAssist.flags_method_static, this.mApp);
+        }
+        public override object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
+        {
+            if (mApp == null || rObj == null) return null;
+            return this.mApp.Invoke(rTypeName, rMethodName, rObj, rArgs);
         }
 
         private unsafe void RegisterValueTypeBinder()
@@ -167,6 +174,17 @@ namespace Knight.Framework.Hotfix
             this.mApp.DelegateManager.RegisterFunctionDelegate<System.Reflection.FieldInfo, System.Boolean>();
             this.mApp.DelegateManager.RegisterFunctionDelegate<System.Reflection.MethodInfo, System.Boolean>();
             this.mApp.DelegateManager.RegisterMethodDelegate<UnityEngine.Transform, int>();
+            this.mApp.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>();
+            this.mApp.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
+            {
+                return new System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>((x, y) =>
+                {
+                    return ((Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>)act)(x, y);
+                });
+            });
+            
+            // 注册额外的Delegate
+            HotfixApp_ILRT.OnHotfixRegisterFunc?.Invoke(this.mApp);
         }
 
         public override HotfixObject Instantiate(string rTypeName, params object[] rArgs)
@@ -187,12 +205,6 @@ namespace Knight.Framework.Hotfix
         {
             if (mApp == null || rHotfixObj == null) return null;
             return this.mApp.Invoke(rHotfixObj.TypeName, rMethodName, rHotfixObj.Object, rArgs);
-        }
-
-        public override object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
-        {
-            if (mApp == null || rObj == null) return null;
-            return this.mApp.Invoke(rTypeName, rMethodName, rObj, rArgs);
         }
 
         public override object InvokeParent(HotfixObject rHotfixObj, string rParentType, string rMethodName, params object[] rArgs)

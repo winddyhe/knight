@@ -29,31 +29,31 @@ namespace Knight.Hotfix.Core
             }
         }
 
-        public void DataBindingConnect(ViewModelContainer rViewModelContainer)
+        public void DataBindingConnect(ViewControllerContainer rViewControllerContainer)
         {
-            if (rViewModelContainer == null) return;
-
+            if (rViewControllerContainer == null) return;
+            
             // 把Event绑定到ViewController里面
-            this.BindingEvents(rViewModelContainer);
-
+            this.BindingEvents(rViewControllerContainer);
+            
             // ViewModel和View之间的数据绑定
-            this.BindingViewAndViewModels(rViewModelContainer);
-
+            this.BindingViewAndViewModels(rViewControllerContainer);
+            
             // ListViewModel和View之间的数据绑定
-            this.BindingListViewAndViewModels(rViewModelContainer);
-
+            this.BindingListViewAndViewModels(rViewControllerContainer);
+            
             // TabViewModel和View之间的数据绑定
-            this.BindingTabViewAndViewModels(rViewModelContainer);
-
+            this.BindingTabViewAndViewModels(rViewControllerContainer);
+            
             // ArrayViewModel和View之间的数据绑定
-            this.BindingArrayViewAndViewModels(rViewModelContainer);
+            this.BindingArrayViewAndViewModels(rViewControllerContainer);
         }
 
-        public void DataBindingDisconnect(ViewModelContainer rViewModelContainer)
+        public void DataBindingDisconnect(ViewControllerContainer rViewControllerContainer)
         {
-            if (!rViewModelContainer) return;
+            if (!rViewControllerContainer) return;
 
-            var rAllMemberBindings = rViewModelContainer.gameObject.GetComponentsInChildren<MemberBindingAbstract>(true);
+            var rAllMemberBindings = rViewControllerContainer.gameObject.GetComponentsInChildren<MemberBindingAbstract>(true);
             for (int i = 0; i < rAllMemberBindings.Length; i++)
             {
                 var rMemberBinding = rAllMemberBindings[i];
@@ -67,7 +67,7 @@ namespace Knight.Hotfix.Core
                 rMemberBinding.OnDestroy();
             }
 
-            var rAllEventBindings = rViewModelContainer.gameObject.GetComponentsInChildren<EventBinding>(true);
+            var rAllEventBindings = rViewControllerContainer.gameObject.GetComponentsInChildren<EventBinding>(true);
             for (int i = 0; i < rAllEventBindings.Length; i++)
             {
                 rAllEventBindings[i].OnDestroy();
@@ -77,51 +77,26 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 把ViewModel绑定到ViewController里面
         /// </summary>
-        public void BindingViewModels(ViewModelContainer rViewModelContainer)
+        public void BindingViewModels(ViewControllerContainer rViewControllerContainer)
         {
-            for (int i = 0; i < rViewModelContainer.ViewModels.Count; i++)
+            for (int i = 0; i < rViewControllerContainer.ViewModels.Count; i++)
             {
-                var rViewModelDataSource = rViewModelContainer.ViewModels[i];
-                ViewModel rViewModel = null;
-                Type rViewModelType = Type.GetType(rViewModelDataSource.ViewModelPath);
-                if (rViewModelType != null)
+                var rViewModelDataSource = rViewControllerContainer.ViewModels[i];
+                ViewModel rViewModel = ViewModelManager.Instance.ReceiveViewModel(rViewModelDataSource.ViewModelPath);
+                
+                // 匹配DefaultViewModel
+                if (this.View.DefaultViewModel != null && this.View.DefaultViewModel.GetType().FullName.Equals(rViewModelDataSource.ViewModelPath))
                 {
-                    rViewModel = HotfixReflectAssists.Construct(rViewModelType) as ViewModel;
+                    rViewModel = this.View.DefaultViewModel;
                 }
+
                 if (rViewModel != null)
                 {
-                    this.AddViewModel(rViewModelDataSource.Key, rViewModel);
+                    this.AddViewModel(rViewModelDataSource.ViewModelPath, rViewModel);
                 }
                 else
                 {
                     Debug.LogErrorFormat("Can not find ViewModel {0}.", rViewModelDataSource.ViewModelPath);
-                }
-            }
-
-            // 指定ViewModel给子类的变量 通过HotfixBinding属性标签绑定
-            foreach (var rPair in this.ViewModels)
-            {
-                ViewModel rViewModel = rPair.Value;
-
-                var rViewModelProp = this.GetType().GetFields(HotfixReflectAssists.flags_public)
-                    .Where(prop =>
-                    {
-                        var rAttrObjs = prop.GetCustomAttributes(typeof(HotfixBindingAttribute), false);
-                        if (rAttrObjs == null || rAttrObjs.Length == 0) return false;
-                        var rBindingAttr = rAttrObjs[0] as HotfixBindingAttribute;
-
-                        return prop.FieldType.IsSubclassOf(typeof(ViewModel)) &&
-                                                           rBindingAttr != null &&
-                                                           rBindingAttr.Name.Equals(rPair.Key);
-                    }).FirstOrDefault();
-
-                if (rViewModelProp != null)
-                {
-                    rViewModelProp.SetValue(this, rViewModel);
-                }
-                else
-                {
-                    Debug.LogErrorFormat("ViewModel {0} is not define in ViewController({1})", rViewModel.GetType(), this.GetType());
                 }
             }
         }
@@ -129,13 +104,13 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 把Event绑定到ViewController里面
         /// </summary>
-        private void BindingEvents(ViewModelContainer rViewModelContainer)
+        private void BindingEvents(ViewControllerContainer rViewControllerContainer)
         {
-            for (int i = 0; i < rViewModelContainer.EventBindings.Count; i++)
+            for (int i = 0; i < rViewControllerContainer.EventBindings.Count; i++)
             {
-                var rEventBinding = rViewModelContainer.EventBindings[i];
+                var rEventBinding = rViewControllerContainer.EventBindings[i];
                 if (rEventBinding.IsListTemplate) continue;
-
+                
                 var bResult = HotfixDataBindingTypeResolve.MakeViewModelDataBindingEvent(this, rEventBinding);
                 if (!bResult)
                 {
@@ -147,9 +122,9 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// ViewModel和View之间的数据绑定
         /// </summary>
-        private void BindingViewAndViewModels(ViewModelContainer rViewModelContainer)
+        private void BindingViewAndViewModels(ViewControllerContainer rViewControllerContainer)
         {
-            var rAllMemberBindings = UtilTool.GetComponentsInChildrenUtilOrigin<MemberBindingAbstract>(rViewModelContainer);
+            var rAllMemberBindings = UtilTool.GetComponentsInChildrenUtilOrigin<MemberBindingAbstract>(rViewControllerContainer);
             for (int i = 0; i < rAllMemberBindings.Count; i++)
             {
                 var rMemberBinding = rAllMemberBindings[i];
@@ -161,7 +136,7 @@ namespace Knight.Hotfix.Core
                     Debug.LogErrorFormat("View Path: {0} error..", rMemberBinding.ViewPath);
                     return;
                 }
-
+                
                 rMemberBinding.ViewModelProp = HotfixDataBindingTypeResolve.MakeViewModelDataBindingProperty(rMemberBinding.ViewModelPath);
                 if (rMemberBinding.ViewModelProp == null)
                 {
@@ -175,6 +150,21 @@ namespace Knight.Hotfix.Core
                     return;
                 }
 
+                // 设置类型转换器
+                if (rMemberBinding.IsDataConvert)
+                {
+                    rMemberBinding.ViewModelProp.ConvertMethod = HotfixDataBindingTypeResolve.MakeViewModelDataBindingConvertMethod(rMemberBinding.DataConverterMethodPath);
+                    if (rMemberBinding.IsDataConvert && rMemberBinding.ViewModelProp.ConvertMethod == null)
+                    {
+                        Debug.LogError("Cannot find convert method: {0}.." + rMemberBinding.DataConverterMethodPath);
+                        return;
+                    }
+                }
+                else
+                {
+                    rMemberBinding.ViewModelProp.ConvertMethod = null;
+                }
+                
                 rMemberBinding.ViewModelProp.PropertyOwner = rViewModel;
                 rMemberBinding.SyncFromViewModel();
 
@@ -197,9 +187,9 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// ListViewModel和View之间的数据绑定
         /// </summary>
-        private void BindingListViewAndViewModels(ViewModelContainer rViewModelContainer)
+        private void BindingListViewAndViewModels(ViewControllerContainer rViewControllerContainer)
         {
-            var rViewModelDataSources = UtilTool.GetComponentsInChildrenUtilOrigin<ViewModelDataSourceList>(rViewModelContainer);
+            var rViewModelDataSources = UtilTool.GetComponentsInChildrenUtilOrigin<ViewModelDataSourceList>(rViewControllerContainer);
             for (int i = 0; i < rViewModelDataSources.Count; i++)
             {
                 var rViewModelDataSource = rViewModelDataSources[i];
@@ -313,7 +303,22 @@ namespace Knight.Hotfix.Core
                         return;
                     }
                 }
-                
+
+                // 设置类型转换器
+                if (rMemberBinding.IsDataConvert)
+                {
+                    rMemberBinding.ViewModelProp.ConvertMethod = HotfixDataBindingTypeResolve.MakeViewModelDataBindingConvertMethod(rMemberBinding.DataConverterMethodPath);
+                    if (rMemberBinding.IsDataConvert && rMemberBinding.ViewModelProp.ConvertMethod == null)
+                    {
+                        Debug.LogError("Cannot find convert method: {0}.." + rMemberBinding.DataConverterMethodPath);
+                        return;
+                    }
+                }
+                else
+                {
+                    rMemberBinding.ViewModelProp.ConvertMethod = null;
+                }
+
                 rMemberBinding.ViewModelProp.PropertyOwner = rListItem;
                 rMemberBinding.SyncFromViewModel();
 
@@ -329,9 +334,9 @@ namespace Knight.Hotfix.Core
             }
         }
 
-        private void BindingTabViewAndViewModels(ViewModelContainer rViewModelContainer)
+        private void BindingTabViewAndViewModels(ViewControllerContainer rViewControllerContainer)
         {
-            var rViewModelDataSources = rViewModelContainer.gameObject.GetComponentsInChildren<ViewModelDataSourceTab>(true);
+            var rViewModelDataSources = rViewControllerContainer.gameObject.GetComponentsInChildren<ViewModelDataSourceTab>(true);
             for (int i = 0; i < rViewModelDataSources.Length; i++)
             {
                 var rViewModelDataSource = rViewModelDataSources[i];
@@ -361,7 +366,7 @@ namespace Knight.Hotfix.Core
             }
         }
 
-        private void BindingArrayViewAndViewModels(ViewModelContainer rViewModelContainer)
+        private void BindingArrayViewAndViewModels(ViewControllerContainer rViewModelContainer)
         {
             var rViewModelDataSources = rViewModelContainer.gameObject.GetComponentsInChildren<ViewModelDataSourceArray>(true);
             for (int i = 0; i < rViewModelDataSources.Length; i++)
@@ -398,16 +403,33 @@ namespace Knight.Hotfix.Core
             var rListObj = (IList)rViewModelDataSource.ViewModelProp.GetValue();
             var nListCount = rListObj != null ? rListObj.Count : 0;
 
-            // 删除节点下的所有数据
-            rViewModelDataSource.transform.DeleteChildren(true);
-
-            for (int i = 0; i < nListCount; i++)
+            if (!rViewModelDataSource.HasInitData)
             {
-                GameObject rItemInstGo = GameObject.Instantiate(rViewModelDataSource.ItemTemplateGo);
-                rItemInstGo.SetActive(true);
-                rItemInstGo.name = "list_" + i;
-                rItemInstGo.transform.SetParent(rViewModelDataSource.transform, false);
-                this.OnListViewFillCellFunc(rItemInstGo.transform, i, rListObj);
+                // 删除节点下的所有数据
+                rViewModelDataSource.transform.DeleteChildren(true);
+
+                for (int i = 0; i < nListCount; i++)
+                {
+                    GameObject rItemInstGo = GameObject.Instantiate(rViewModelDataSource.ItemTemplateGo);
+                    rItemInstGo.SetActive(true);
+                    rItemInstGo.name = "list_" + i;
+                    rItemInstGo.transform.SetParent(rViewModelDataSource.transform, false);
+                    this.OnListViewFillCellFunc(rItemInstGo.transform, i, rListObj);
+                }
+            }
+            else
+            {
+                int k = 0;
+                for (int i = 0; i < rViewModelDataSource.transform.childCount; i++)
+                {
+                    var rTrans = rViewModelDataSource.transform.GetChild(i);
+                    if (rTrans.gameObject.activeSelf)
+                    {
+                        rTrans.name = "list_" + k;
+                        this.OnListViewFillCellFunc(rTrans, k, rListObj);
+                        k++;
+                    }
+                }
             }
         }
         

@@ -43,23 +43,35 @@ namespace Knight.Framework.Tweening.Editor
             EditorGUILayout.Space();
             using (var rHorizontalScope = new EditorGUILayout.HorizontalScope("box"))
             {
-                EditorGUIUtility.labelWidth = 65;
-                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("IsIgnoreTimeScale"),
-                    new GUIContent("TimeScale"), GUILayout.Width(75));
-                EditorGUIUtility.labelWidth = 35;
-                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("IsUseFixedUpdate"),
-                    new GUIContent("Fixed"), GUILayout.Width(45));
-                EditorGUIUtility.labelWidth = 30;
-                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("IsAutoExecute"),
-                    new GUIContent("Auto"), GUILayout.Width(45));
-
+                
                 if (GUILayout.Button("Play"))
                 {
+                    this.mTweeningAnimator.Play();
+                }
+
+                if (GUILayout.Button("Pause"))
+                {
+                    this.mTweeningAnimator.Pause();
                 }
 
                 if (GUILayout.Button("Stop"))
                 {
+                    this.mTweeningAnimator.Stop();
                 }
+            }
+            using (var rHorizontalScope = new EditorGUILayout.HorizontalScope("box")) {
+                EditorGUIUtility.labelWidth = 65;
+                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("IsIgnoreTimeScale"),
+                    new GUIContent("TimeScale: "), GUILayout.Width(75));
+                EditorGUIUtility.labelWidth = 35;
+                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("IsUseFixedUpdate"),
+                    new GUIContent("Fixed: "), GUILayout.Width(45));
+                EditorGUIUtility.labelWidth = 30;
+                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("IsAutoExecute"),
+                    new GUIContent("Auto: "), GUILayout.Width(45));
+                EditorGUIUtility.labelWidth = 30;
+                EditorGUILayout.PropertyField(this.serializedObject.FindProperty("IsLoopAnimator"),
+                    new GUIContent("Loop: "), GUILayout.Width(45));
             }
             this.mReorderableActionList.DoLayoutList();
             this.serializedObject.ApplyModifiedProperties();

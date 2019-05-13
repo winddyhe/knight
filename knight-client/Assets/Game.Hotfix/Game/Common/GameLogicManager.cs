@@ -19,6 +19,9 @@ namespace Game
             // 事件模块管理器
             HotfixEventManager.Instance.Initialize();
 
+            // ViewModel管理器
+            ViewModelManager.Instance.Initialize();
+
             // UI模块管理器
             ViewManager.Instance.Initialize();
             

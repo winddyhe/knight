@@ -83,13 +83,8 @@ namespace Knight.Framework.Editor
             return Vector4.zero;
         }
 
-        //static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
-        //{
-        //    for (int i = 0; i < importedAssets.Length; i++)
-        //    {
-        //        if (!importedAssets[i].Contains(Knight.Framework.Hotfix.HotfixManager.HotfixDllDir)) continue;
-        //        Knight.Framework.TypeResolve.TypeResolveManager.ScriptsReloaded();
-        //    }
-        //}
+        static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+        {
+        }
     }
 }

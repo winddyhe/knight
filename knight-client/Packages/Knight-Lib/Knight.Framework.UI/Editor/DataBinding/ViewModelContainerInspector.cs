@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 namespace UnityEditor.UI
 {
-    [CustomEditor(typeof(ViewModelContainer), true)]
+    [CustomEditor(typeof(ViewControllerContainer), true)]
     public class ViewModelContainerInspector : InspectorEditor
     {
-        private ViewModelContainer mTarget;
+        private ViewControllerContainer mTarget;
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            mTarget = this.target as ViewModelContainer;
+            mTarget = this.target as ViewControllerContainer;
         }
 
         public override void OnInspectorGUI()

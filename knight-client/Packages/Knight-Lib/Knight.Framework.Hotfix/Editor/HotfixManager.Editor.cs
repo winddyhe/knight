@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using Knight.Core.Editor;
 
 namespace Knight.Framework.Hotfix.Editor
 {
@@ -32,13 +33,18 @@ namespace Knight.Framework.Hotfix.Editor
         [UnityEditor.Callbacks.DidReloadScripts]
         public static void AllScriptsReloaded()
         {
-            string rDLLRootPath = "Library/ScriptAssemblies/Game.Hotfix.dll";
-            string rPDBRootPath = "Library/ScriptAssemblies/Game.Hotfix.pdb";
+            ViewModelInjectEditor.Inject();
+
+            string rInjectDLLRootPath = "Library/ScriptAssemblies/Game.Hotfix.Inject.dll";
+            string rInjectPDBRootPath = "Library/ScriptAssemblies/Game.Hotfix.Inject.pdb";
+
             string rNewDLLRootPath = HotfixManager.HotfixDllDir + "KnightHotfix.bytes";
             string rNewPDBRootPath = HotfixManager.HotfixDllDir + "KnightHotfix_PDB.bytes";
 
-            File.Copy(rDLLRootPath, rNewDLLRootPath, true);
-            File.Copy(rPDBRootPath, rNewPDBRootPath, true);
+            File.Copy(rInjectDLLRootPath, rNewDLLRootPath, true);
+            File.Copy(rInjectPDBRootPath, rNewPDBRootPath, true);
+
+            Debug.Log("Generate hotfix bytes file success!!!");
         }
     }
 }

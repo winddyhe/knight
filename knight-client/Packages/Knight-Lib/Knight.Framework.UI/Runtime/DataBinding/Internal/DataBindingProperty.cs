@@ -9,11 +9,16 @@ namespace UnityEngine.UI
 {
     public class DataBindingProperty
     {
-        public string           PropertyOwnerKey;
+        /// <summary>
+        /// 这个Key是ViewModelClassName
+        /// </summary>
+        public string           PropertyOwnerKey;   
         public object           PropertyOwner;
 
         public string           PropertyName;
         public PropertyInfo     Property;
+
+        public MethodInfo       ConvertMethod;
         
         public DataBindingProperty(object rPropOwner, string rPropName)
             : this(rPropOwner, "", rPropName)
@@ -30,7 +35,12 @@ namespace UnityEngine.UI
 
         public object GetValue()
         {
-            return this.Property?.GetValue(this.PropertyOwner);
+            var rValue = this.Property?.GetValue(this.PropertyOwner);
+            if (this.ConvertMethod != null)
+            {
+                rValue = this.ConvertMethod.Invoke(null, new object[] { rValue });
+            }
+            return rValue;
         }
 
         public void SetValue(object rValue)

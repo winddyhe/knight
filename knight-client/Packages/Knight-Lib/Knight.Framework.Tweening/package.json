@@ -1,7 +1,7 @@
 {
   "name": "knight.framework.tweening",
   "displayName":  "Knight.Framework.Tweening",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Knight framework tweening library.",
   "keywords": [ "unity3d", "framework" ],
   "category": "FRAMEWORK",

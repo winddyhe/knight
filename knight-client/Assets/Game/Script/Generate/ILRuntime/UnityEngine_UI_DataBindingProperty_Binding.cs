@@ -36,9 +36,12 @@ namespace ILRuntime.Runtime.Generated
             field = type.GetField("PropertyOwnerKey", flag);
             app.RegisterCLRFieldGetter(field, get_PropertyOwnerKey_2);
             app.RegisterCLRFieldSetter(field, set_PropertyOwnerKey_2);
+            field = type.GetField("ConvertMethod", flag);
+            app.RegisterCLRFieldGetter(field, get_ConvertMethod_3);
+            app.RegisterCLRFieldSetter(field, set_ConvertMethod_3);
             field = type.GetField("PropertyName", flag);
-            app.RegisterCLRFieldGetter(field, get_PropertyName_3);
-            app.RegisterCLRFieldSetter(field, set_PropertyName_3);
+            app.RegisterCLRFieldGetter(field, get_PropertyName_4);
+            app.RegisterCLRFieldSetter(field, set_PropertyName_4);
 
             args = new Type[]{typeof(System.Object), typeof(System.String), typeof(System.String)};
             method = type.GetConstructor(flag, null, args, null);
@@ -92,11 +95,19 @@ namespace ILRuntime.Runtime.Generated
         {
             ((UnityEngine.UI.DataBindingProperty)o).PropertyOwnerKey = (System.String)v;
         }
-        static object get_PropertyName_3(ref object o)
+        static object get_ConvertMethod_3(ref object o)
+        {
+            return ((UnityEngine.UI.DataBindingProperty)o).ConvertMethod;
+        }
+        static void set_ConvertMethod_3(ref object o, object v)
+        {
+            ((UnityEngine.UI.DataBindingProperty)o).ConvertMethod = (System.Reflection.MethodInfo)v;
+        }
+        static object get_PropertyName_4(ref object o)
         {
             return ((UnityEngine.UI.DataBindingProperty)o).PropertyName;
         }
-        static void set_PropertyName_3(ref object o, object v)
+        static void set_PropertyName_4(ref object o, object v)
         {
             ((UnityEngine.UI.DataBindingProperty)o).PropertyName = (System.String)v;
         }

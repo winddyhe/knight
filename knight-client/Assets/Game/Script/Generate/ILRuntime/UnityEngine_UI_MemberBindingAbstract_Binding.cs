@@ -48,6 +48,12 @@ namespace ILRuntime.Runtime.Generated
             field = type.GetField("ViewModelPath", flag);
             app.RegisterCLRFieldGetter(field, get_ViewModelPath_5);
             app.RegisterCLRFieldSetter(field, set_ViewModelPath_5);
+            field = type.GetField("IsDataConvert", flag);
+            app.RegisterCLRFieldGetter(field, get_IsDataConvert_6);
+            app.RegisterCLRFieldSetter(field, set_IsDataConvert_6);
+            field = type.GetField("DataConverterMethodPath", flag);
+            app.RegisterCLRFieldGetter(field, get_DataConverterMethodPath_7);
+            app.RegisterCLRFieldSetter(field, set_DataConverterMethodPath_7);
 
 
         }
@@ -131,6 +137,22 @@ namespace ILRuntime.Runtime.Generated
         static void set_ViewModelPath_5(ref object o, object v)
         {
             ((UnityEngine.UI.MemberBindingAbstract)o).ViewModelPath = (System.String)v;
+        }
+        static object get_IsDataConvert_6(ref object o)
+        {
+            return ((UnityEngine.UI.MemberBindingAbstract)o).IsDataConvert;
+        }
+        static void set_IsDataConvert_6(ref object o, object v)
+        {
+            ((UnityEngine.UI.MemberBindingAbstract)o).IsDataConvert = (System.Boolean)v;
+        }
+        static object get_DataConverterMethodPath_7(ref object o)
+        {
+            return ((UnityEngine.UI.MemberBindingAbstract)o).DataConverterMethodPath;
+        }
+        static void set_DataConverterMethodPath_7(ref object o, object v)
+        {
+            ((UnityEngine.UI.MemberBindingAbstract)o).DataConverterMethodPath = (System.String)v;
         }
 
 

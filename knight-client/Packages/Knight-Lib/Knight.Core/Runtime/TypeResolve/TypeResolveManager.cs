@@ -18,6 +18,15 @@ namespace Knight.Core
             this.mAssemblies.Clear();
         }
 
+        public object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
+        {
+            TypeResolveAssembly rAssembly = null;
+            var rType = this.GetType(rTypeName, out rAssembly);
+            if (rType == null) return null;
+
+            return rAssembly.Invoke(rObj, rTypeName, rMethodName, rArgs);
+        }
+
         public void AddAssembly(string rAssemblyName, bool bIsHotfix = false)
         {
             TypeResolveAssembly rTypeResolveAsssembly = null;
@@ -37,6 +46,25 @@ namespace Knight.Core
             }
         }
 
+        public Type[] GetTypes(string rAssemblyName)
+        {
+            TypeResolveAssembly rAssembly = null;
+            if (this.mAssemblies.TryGetValue(rAssemblyName, out rAssembly))
+            {
+                return rAssembly.GetAllTypes();
+            }
+            return null;
+        }
+
+        public TypeResolveAssembly GetAssembly(Type rType)
+        {
+            var rTypeAssemblyName = rType.Assembly.GetName().Name;
+
+            TypeResolveAssembly rAssembly = null;
+            this.mAssemblies.TryGetValue(rTypeAssemblyName, out rAssembly);
+            return rAssembly;
+        }
+
         public Type GetType(string rTypeName)
         {
             foreach (var rPair in this.mAssemblies)
@@ -48,24 +76,6 @@ namespace Knight.Core
                 {
                     if (rTypes[i].FullName.Equals(rTypeName))
                     {
-                        return rTypes[i];
-                    }
-                }
-            }
-            return null;
-        }
-
-        public Type GetType(string rTypeName, out bool bIsHotfix)
-        {
-            bIsHotfix = false;
-            foreach (var rPair in this.mAssemblies)
-            {
-                var rTypes = rPair.Value.GetAllTypes();
-                for (int i = 0; i < rTypes.Length; i++)
-                {
-                    if (rTypes[i].FullName.Equals(rTypeName))
-                    {
-                        bIsHotfix = rPair.Value.IsHotfix;
                         return rTypes[i];
                     }
                 }
@@ -107,6 +117,7 @@ namespace Knight.Core
             TypeResolveAssembly rAssembly = null;
             var rType = this.GetType(rTypeName, out rAssembly);
             if (rType == null) return null;
+            if (rAssembly == null) return null;
 
             return rAssembly.Instantiate(rTypeName, rArgs);
         }
@@ -118,15 +129,6 @@ namespace Knight.Core
             if (rType == null) return default(T);
 
             return rAssembly.Instantiate<T>(rTypeName, rArgs);
-        }
-
-        public object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
-        {
-            TypeResolveAssembly rAssembly = null;
-            var rType = this.GetType(rTypeName, out rAssembly);
-            if (rType == null) return null;
-
-            return rAssembly.Invoke(rObj, rTypeName, rMethodName, rArgs);
         }
 
 #if UNITY_EDITOR

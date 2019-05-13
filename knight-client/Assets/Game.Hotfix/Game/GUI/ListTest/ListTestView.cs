@@ -17,6 +17,8 @@ namespace Game
         {
             await base.OnInitialize();
 
+            this.ListTest = ViewModelManager.Instance.ReceiveViewModel<ListTestViewModel>();
+
             this.ListTest.ItemDatas = new Knight.Core.ObservableList<ListDataItem>();
             for (int i = 0; i < 10; i++)
             {

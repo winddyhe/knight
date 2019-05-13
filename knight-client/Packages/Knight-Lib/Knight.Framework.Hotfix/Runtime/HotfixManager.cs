@@ -15,9 +15,9 @@ namespace Knight.Framework.Hotfix
 {
     public class HotfixManager : TSingleton<HotfixManager>
     {
-        public static string    IsHotfixDebugModeKey    = "HofixManager_IsHofixDebugMode";
-        public static string    HotfixDebugDllDir       = "Library/Temp/Libs/";
-        public static string    HotfixDllDir            = "Assets/Game/GameAsset/Hotfix/Libs/";
+        public  static string   IsHotfixDebugModeKey    = "HofixManager_IsHofixDebugMode";
+        public  static string   HotfixDebugDllDir       = "Library/ScriptAssemblies/";
+        public  static string   HotfixDllDir            = "Assets/Game/GameAsset/Hotfix/Libs/";
 
         private HotfixApp       mApp;
         
@@ -65,16 +65,16 @@ namespace Knight.Framework.Hotfix
             return mApp.Instantiate<T>(rTypeName, rArgs);
         }
 
-        public object Invoke(HotfixObject rHotfixObj, string rMethodName, params object[] rArgs)
-        {
-            if (mApp == null) return null;
-            return mApp.Invoke(rHotfixObj, rMethodName, rArgs);
-        }
-
         public object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
         {
             if (mApp == null) return null;
             return mApp.Invoke(rObj, rTypeName, rMethodName, rArgs);
+        }
+
+        public object Invoke(HotfixObject rHotfixObj, string rMethodName, params object[] rArgs)
+        {
+            if (mApp == null) return null;
+            return mApp.Invoke(rHotfixObj, rMethodName, rArgs);
         }
 
         public object InvokeParent(HotfixObject rHotfixObj, string rParentType, string rMethodName, params object[] rArgs)

@@ -7,4 +7,20 @@ namespace UnityEngine.UI
     public class DataBindingAttribute : Attribute
     {
     }
+
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    public class DataBindingConvertAttribute : Attribute
+    {
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class DataBindingRelatedAttribute : Attribute
+    {
+        public string RelatedProp;
+
+        public DataBindingRelatedAttribute(string rRelatedProp)
+        {
+            this.RelatedProp = rRelatedProp;
+        }
+    }
 }

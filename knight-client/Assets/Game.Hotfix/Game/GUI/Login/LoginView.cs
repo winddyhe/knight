@@ -10,11 +10,6 @@ namespace Game
 {
     public class LoginView : ViewController
     {
-        [HotfixBinding("Login")]
-        public LoginViewModel   ViewModel;
-        [HotfixBinding("Login1")]
-        public LoginViewModel   ViewModel1;
-        
         [DataBinding]
         private void OnBtnButton_Clicked(EventArg rEventArg)
         {
@@ -24,7 +19,7 @@ namespace Game
             // @TODO: 账户数据通过网络初始化
             Account.Instance.Initialize();
 
-            World.Instance.Initialize();
+            World.Instance.Initialize().WarpErrors();
         }
     }
 }

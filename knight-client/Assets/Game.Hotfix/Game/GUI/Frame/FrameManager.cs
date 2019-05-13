@@ -16,6 +16,7 @@ namespace Game
             public string               ViewName;
             public string               ViewGUID;
             public View.State           State;
+            public ViewModel            DefaultViewModel;
         }
 
         private static FrameManager     __instance;
@@ -74,14 +75,14 @@ namespace Game
             }
 
             if (rBackCache.State == View.State.Popup)
-                this.OpenPopupUI(rBackCache.ViewName, rOpenCompleted);
+                this.OpenPopupUI(rBackCache.ViewName, rBackCache.DefaultViewModel, rOpenCompleted);
             else
-                this.OpenPageUI(rBackCache.ViewName, rBackCache.State, rOpenCompleted);
+                this.OpenPageUI(rBackCache.ViewName, rBackCache.State, rBackCache.DefaultViewModel, rOpenCompleted);
         }
 
-        public async Task<View> OpenPageUIAsync(string rViewName, View.State rState, Action<View> rOpenCompleted = null)
+        public async Task<View> OpenPageUIAsync(string rViewName, View.State rState, ViewModel rDefaultViewModel = null, Action<View> rOpenCompleted = null)
         {
-            var rView = await ViewManager.Instance.OpenAsync(rViewName, rState, rOpenCompleted);
+            var rView = await ViewManager.Instance.OpenAsync(rViewName, rState, rDefaultViewModel, rOpenCompleted);
             if (rView != null && rView.IsBackCache)
             {
                 this.mBackCaches.Push(new BackCache()
@@ -89,14 +90,15 @@ namespace Game
                     ViewName = rView.ViewName,
                     ViewGUID = rView.GUID,
                     State    = rView.CurState,
+                    DefaultViewModel = rView.DefaultViewModel
                 });
             }
             return rView;
         }
 
-        public void OpenPageUI(string rViewName, View.State rState, Action<View> rOpenCompleted = null)
+        public void OpenPageUI(string rViewName, View.State rState, ViewModel rDefaultViewModel = null, Action<View> rOpenCompleted = null)
         {
-            ViewManager.Instance.Open(rViewName, rState, (rView)=> 
+            ViewManager.Instance.Open(rViewName, rState, rDefaultViewModel, (rView)=> 
             {
                 if (rView != null && rView.IsBackCache)
                 {
@@ -105,15 +107,16 @@ namespace Game
                         ViewName = rView.ViewName,
                         ViewGUID = rView.GUID,
                         State = rView.CurState,
+                        DefaultViewModel = rView.DefaultViewModel
                     });
                 }
                 UtilTool.SafeExecute(rOpenCompleted, rView);
             });
         }
 
-        public async Task<View> OpenPopUIAsync(string rViewName, Action<View> rOpenCompleted = null)
+        public async Task<View> OpenPopUIAsync(string rViewName, ViewModel rDefaultViewModel = null, Action<View> rOpenCompleted = null)
         {
-            var rView = await ViewManager.Instance.OpenAsync(rViewName, View.State.Popup, rOpenCompleted);
+            var rView = await ViewManager.Instance.OpenAsync(rViewName, View.State.Popup, rDefaultViewModel, rOpenCompleted);
             if (rView != null && rView.IsBackCache)
             {
                 this.mBackCaches.Push(new BackCache()
@@ -121,14 +124,15 @@ namespace Game
                     ViewName = rView.ViewName,
                     ViewGUID = rView.GUID,
                     State = rView.CurState,
+                    DefaultViewModel = rView.DefaultViewModel
                 });
             }
             return rView;
         }
 
-        public void OpenPopupUI(string rViewName, Action<View> rOpenCompleted = null)
+        public void OpenPopupUI(string rViewName, ViewModel rDefaultViewModel = null, Action<View> rOpenCompleted = null)
         {
-            ViewManager.Instance.Open(rViewName, View.State.Popup, (rView)=> 
+            ViewManager.Instance.Open(rViewName, View.State.Popup, rDefaultViewModel, (rView)=> 
             {
                 if (rView != null && rView.IsBackCache)
                 {
@@ -137,6 +141,7 @@ namespace Game
                         ViewName = rView.ViewName,
                         ViewGUID = rView.GUID,
                         State = rView.CurState,
+                        DefaultViewModel = rView.DefaultViewModel
                     });
                 }
                 UtilTool.SafeExecute(rOpenCompleted, rView);

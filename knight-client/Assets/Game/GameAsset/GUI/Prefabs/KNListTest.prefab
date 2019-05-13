@@ -179,17 +179,20 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 114826768274069730}
@@ -388,6 +391,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsListTemplate: 1
   ViewPath: 'UnityEngine.UI.Text/text : String'
+  IsDataConvert: 0
+  DataConverterMethodPath: 
   ViewModelPath: 'ListTemplate@Game.ListDataItem/Value1 : String'
   ViewPaths:
   - 'UnityEngine.RectTransform/anchorMin : Vector2'
@@ -440,6 +445,8 @@ MonoBehaviour:
   - 'UnityEngine.UI.Text/hideFlags : HideFlags'
   ModelPaths:
   - 'ListTemplate@Game.ListDataItem/Value1 : String'
+  - 'ListTemplate@Game.ListDataItem/Value2 : String'
+  ModelConvertMethods: []
 --- !u!1 &1328248875146340
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,17 +547,20 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 114228761365730418}
@@ -760,17 +770,20 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 114182304955171118}
@@ -816,7 +829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &224410645118039934
 RectTransform:
   m_ObjectHideFlags: 0
@@ -966,7 +979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19dca5f0e9718d249bb1a4846d5a89c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewModelPath: 'ListTest@Game.ListTestViewModel/ItemDatas : ObservableList`1'
+  ViewModelPath: 'Game.ListTestViewModel/ItemDatas : ObservableList`1'
   TemplatePath: Game.ListDataItem
   ListView: {fileID: 114658438433693270}
 --- !u!1 &1842043183358230
@@ -1060,7 +1073,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e09e41216fc56645974c70d2147071d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Key: ListTest
   ViewModelPath: Game.ListTestViewModel
   ViewModelClasses:
   - Game.MainFrameTabItem
@@ -1080,14 +1092,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c3ac5a211b59e48a515b839897d5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewModelClass: Game.ListTestView
+  ViewControllerClass: Game.ListTestView
   ViewModels:
   - {fileID: 114045921339988382}
   EventBindings:
   - {fileID: 114992921540807136}
   - {fileID: 114978262467175254}
   - {fileID: 114003455922827214}
-  ViewModelClasses:
+  ViewControllerClasses:
   - Game.FrameView
   - Game.ListTestView
   - Game.LoginView
@@ -1195,6 +1207,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsListTemplate: 1
   ViewPath: 'UnityEngine.UI.ImageReplace/SpriteName : String'
+  IsDataConvert: 0
+  DataConverterMethodPath: 
   ViewModelPath: 'ListTemplate@Game.ListDataItem/Value2 : String'
   ViewPaths:
   - 'UnityEngine.RectTransform/anchorMin : Vector2'
@@ -1253,3 +1267,4 @@ MonoBehaviour:
   ModelPaths:
   - 'ListTemplate@Game.ListDataItem/Value1 : String'
   - 'ListTemplate@Game.ListDataItem/Value2 : String'
+  ModelConvertMethods: []

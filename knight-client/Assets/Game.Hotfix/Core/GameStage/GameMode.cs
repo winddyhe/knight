@@ -30,7 +30,7 @@ namespace Knight.Hotfix.Core
         /// </summary>
         public void InitData()
         {
-            //设置GameStageManager
+            // 设置GameStageManager
             this.GSM = GameStageManager.Instance;
             // 构建GameStages
             this.GSM.gameStages = new Dict<int, GameStage>();

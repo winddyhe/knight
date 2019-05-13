@@ -103,9 +103,7 @@ namespace Knight.Hotfix.Core
         {
             for (int i = 0; i < taskList.Count; i++)
             {
-                #pragma warning disable 4014
-                taskList[i].Run_Async();
-                #pragma warning restore 4014
+                taskList[i].Run_Async().WarpErrors();
             }
 
             //等待这个索引的所有的Task执行完成后，才进入下一个索引

@@ -15,7 +15,7 @@ namespace Game
         {
         }
 
-        public Task Initialize()
+        public async Task Initialize()
         {
             mGameMode = new GameMode_World();
             GameMode.GetCurrentMode = (() =>
@@ -26,7 +26,7 @@ namespace Game
             // 开始游戏
             GameStageManager.Instance.InitGame();
             GameStageManager.Instance.StageIntialize();
-            return GameStageManager.Instance.StageRunning();
+            await GameStageManager.Instance.StageRunning();
         }
     }
 }

@@ -37,12 +37,12 @@ namespace Knight.Framework.Hotfix
             return default(T);
         }
 
-        public virtual object Invoke(HotfixObject rHotfixObj, string rMethodName, params object[] rArgs)
+        public virtual object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
         {
             return null;
         }
 
-        public virtual object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
+        public virtual object Invoke(HotfixObject rHotfixObj, string rMethodName, params object[] rArgs)
         {
             return null;
         }

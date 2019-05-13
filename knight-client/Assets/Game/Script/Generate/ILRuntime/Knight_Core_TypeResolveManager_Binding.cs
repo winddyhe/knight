@@ -14,15 +14,15 @@ using ILRuntime.CLR.Utils;
 
 namespace ILRuntime.Runtime.Generated
 {
-    unsafe class System_Reflection_Assembly_Binding
+    unsafe class Knight_Core_TypeResolveManager_Binding
     {
         public static void Register(ILRuntime.Runtime.Enviorment.AppDomain app)
         {
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
             MethodBase method;
             Type[] args;
-            Type type = typeof(System.Reflection.Assembly);
-            args = new Type[]{};
+            Type type = typeof(Knight.Core.TypeResolveManager);
+            args = new Type[]{typeof(System.String)};
             method = type.GetMethod("GetTypes", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, GetTypes_0);
 
@@ -34,13 +34,17 @@ namespace ILRuntime.Runtime.Generated
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Reflection.Assembly instance_of_this_method = (System.Reflection.Assembly)typeof(System.Reflection.Assembly).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.String @rAssemblyName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = instance_of_this_method.GetTypes();
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            Knight.Core.TypeResolveManager instance_of_this_method = (Knight.Core.TypeResolveManager)typeof(Knight.Core.TypeResolveManager).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.GetTypes(@rAssemblyName);
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }

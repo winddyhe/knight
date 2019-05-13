@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Knight.Core;
-using System.Collections;
+﻿using Knight.Core;
 using NaughtyAttributes;
-using System.Threading.Tasks;
-using System.Threading;
-using UnityFx.Async;
 
 namespace UnityEngine.UI
 {
@@ -13,39 +7,22 @@ namespace UnityEngine.UI
     [ExecuteInEditMode]
     public class ImageReplace : MonoBehaviour
     {
-        private class LoadRequest : AsyncRequest<LoadRequest>
-        {
-            private string              mSpriteName;
-
-            public LoadRequest(string rSpriteName)
-            {
-                this.mSpriteName = rSpriteName;
-            }
-        }
-
         [SerializeField][ReadOnly]
         private string                  mSpriteName;
         public  Image                   Image;
-
-        private LoadRequest             mLoadRequest;
 
         private void Awake()
         {
             this.Image = this.gameObject.ReceiveComponent<Image>();
             if (this.Image && this.Image.sprite)
+            {
                 this.mSpriteName = this.Image.sprite.name;
-            this.mLoadRequest = new LoadRequest(this.mSpriteName);
+            }
         }
 
         private void OnDestroy()
         {
-            this.Stop();
-        }
-
-        public void Stop()
-        {
-            if (this.mLoadRequest != null)
-                this.mLoadRequest.Stop();
+            UIAtlasManager.Instance.UnloadSprite(this.mSpriteName);
         }
         
         public string SpriteName
@@ -63,13 +40,7 @@ namespace UnityEngine.UI
                     this.Image.sprite = null;
                     return;
                 }
-                if (this.mLoadRequest != null)
-                {
-                    this.mLoadRequest.Stop();
-
-                    this.mLoadRequest = new LoadRequest(this.mSpriteName);
-                    this.mLoadRequest.Start(LoadSprite_Async(this.mLoadRequest));
-                }
+                this.LoadSprite(this.mSpriteName);
             }
         }
 
@@ -78,26 +49,21 @@ namespace UnityEngine.UI
             UIAtlasManager.Instance.UnloadSprite(this.mSpriteName);
         }
 
-        private IEnumerator LoadSprite_Async(LoadRequest rRequest)
+        private void LoadSprite(string rSpriteName)
         {
             if (string.IsNullOrEmpty(this.mSpriteName))
             {
                 this.Image.sprite = null;
-                rRequest.SetResult(rRequest);
-                yield break;
+                return;
             }
-
             var rLoadRequest = UIAtlasManager.Instance.LoadSprite(this.mSpriteName);
-            yield return rLoadRequest;
-
-            if (rLoadRequest == null || rLoadRequest.Result == null || rLoadRequest.Result.Sprite == null)
+            if (rLoadRequest == null || rLoadRequest.Sprite == null)
             {
                 Debug.LogErrorFormat("not find sprite: {0}", this.SpriteName);
                 this.Image.sprite = null;
-                rRequest.SetResult(rRequest);
-                yield break;
+                return;
             }
-            this.Image.sprite = rLoadRequest.Result.Sprite;
+            this.Image.sprite = rLoadRequest.Sprite;
         }
     }
 }

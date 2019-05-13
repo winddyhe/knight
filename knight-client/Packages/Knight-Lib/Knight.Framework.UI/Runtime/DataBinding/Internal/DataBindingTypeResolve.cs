@@ -28,17 +28,27 @@ namespace UnityEngine.UI
                     var rDataSource = prop.PropOwner as ViewModelDataSource;
                     if (rDataSource != null)
                     {
-                        return string.Format("{0}@{1}/{2} : {3}", rDataSource.Key, prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
+                        return string.Format("{0}/{1} : {2}", prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
                     }
                     else
                     {
                         return string.Format("ListTemplate@{0}/{1} : {2}", prop.ViewModelType.FullName, prop.MemberName, prop.Member.PropertyType.Name);
                     }
                 });
-
             return new List<string>(rBindableMembers);
         }
-        
+
+        public static List<string> GetAllConvertMethodPaths(List<BindableMember<MethodInfo>> rViewModelMethods)
+        {
+            var rBindableMembers = rViewModelMethods
+                .Where(method => method != null)
+                .Select(method =>
+                {
+                    return string.Format("{0}/{1}", method.ViewModelType.FullName, method.MemberName);
+                });
+            return new List<string>(rBindableMembers);
+        }
+
         public static List<string> GetListItemAllViewModelPaths(IEnumerable<BindableMember<PropertyInfo>> rViewModelProps)
         {
             var rBindableMembers = rViewModelProps
@@ -159,6 +169,63 @@ namespace UnityEngine.UI
                            !string.IsNullOrEmpty(ds.TemplatePath))
                     .SelectMany(ds =>
                     {
+                        if (ds == null) return null;
+                        var rType = TypeResolveManager.Instance.GetType(ds.TemplatePath);
+                        if (rType == null) return null;
+                        return rType?
+                                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                                .Select(prop => new BindableMember<PropertyInfo>(ds, prop, rType));
+                    })
+                    ?.Where(prop => prop != null &&
+                                    prop.Member.PropertyType.Equals(rViewPropType) &&
+                                    ((prop.Member.GetSetMethod(false) != null &&
+                                      prop.Member.GetGetMethod(false) != null &&
+                                      prop.Member.GetCustomAttributes(typeof(DataBindingAttribute), true).Any()
+                                     ) ||
+                                     (prop.Member.GetGetMethod(false) != null &&
+                                      prop.Member.GetCustomAttributes(typeof(DataBindingRelatedAttribute), true).Any()
+                                     )
+                                    )
+                          );
+            }
+            else
+            {
+                rBindableMembers = rGo.GetComponentsInParent<ViewModelDataSource>(true)
+                    .Where(ds => ds != null &&
+                                 !string.IsNullOrEmpty(ds.ViewModelPath))
+                    .SelectMany(ds =>
+                    {
+                        var rType = TypeResolveManager.Instance.GetType(ds.ViewModelPath);
+                        return rType?
+                                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                                .Select(prop => new BindableMember<PropertyInfo>(ds, prop, rType));
+                    })
+                    .Where(prop => prop != null && 
+                                   prop.Member.PropertyType.Equals(rViewPropType) &&
+                                   ((prop.Member.GetSetMethod(false) != null &&
+                                     prop.Member.GetGetMethod(false) != null &&
+                                     prop.Member.GetCustomAttributes(typeof(DataBindingAttribute), true).Any()
+                                    ) ||
+                                    (prop.Member.GetGetMethod(false) != null &&
+                                     prop.Member.GetCustomAttributes(typeof(DataBindingRelatedAttribute), true).Any()
+                                    )
+                                   )
+                          );
+            }
+            return rBindableMembers;
+        }
+
+        public static IEnumerable<BindableMember<PropertyInfo>> GetViewModelProperties(GameObject rGo, Type rViewPropType, Type rViewModelType, bool bIsList)
+        {
+            IEnumerable<BindableMember<PropertyInfo>> rBindableMembers = null;
+            if (bIsList)
+            {
+                rBindableMembers = rGo.GetComponentsInParent<ViewModelDataSourceTemplate>(true)
+                    .Where(ds => ds != null &&
+                           !string.IsNullOrEmpty(ds.ViewModelPath) &&
+                           !string.IsNullOrEmpty(ds.TemplatePath))
+                    .SelectMany(ds =>
+                    {
                         var rType = TypeResolveManager.Instance.GetType(ds.TemplatePath);
                         return rType?
                                 .GetProperties(BindingFlags.Instance | BindingFlags.Public)
@@ -166,18 +233,21 @@ namespace UnityEngine.UI
                     })
                     .Where(prop => prop != null &&
                                    prop.Member.PropertyType.Equals(rViewPropType) &&
-                                   prop.Member.GetSetMethod(false) != null &&
-                                   prop.Member.GetGetMethod(false) != null &&
-                                   !ViewComponentBlackList.Contains(prop.ViewModelType) &&
-                                   prop.Member.GetCustomAttributes(typeof(DataBindingAttribute), true).Any()
+                                   ((prop.Member.GetSetMethod(false) != null &&
+                                     prop.Member.GetGetMethod(false) != null &&
+                                     prop.Member.GetCustomAttributes(typeof(DataBindingAttribute), true).Any()
+                                    ) ||
+                                    (prop.Member.GetGetMethod(false) != null &&
+                                     prop.Member.GetCustomAttributes(typeof(DataBindingRelatedAttribute), true).Any()
+                                    )
+                                   )
                           );
             }
             else
             {
                 rBindableMembers = rGo.GetComponentsInParent<ViewModelDataSource>(true)
                     .Where(ds => ds != null &&
-                                 !string.IsNullOrEmpty(ds.ViewModelPath) &&
-                                 !string.IsNullOrEmpty(ds.Key))
+                                 !string.IsNullOrEmpty(ds.ViewModelPath))
                     .SelectMany(ds =>
                     {
                         var rType = TypeResolveManager.Instance.GetType(ds.ViewModelPath);
@@ -187,15 +257,59 @@ namespace UnityEngine.UI
                     })
                     .Where(prop => prop != null &&
                                    prop.Member.PropertyType.Equals(rViewPropType) &&
-                                   prop.Member.GetSetMethod(false) != null &&
-                                   prop.Member.GetGetMethod(false) != null &&
-                                   !ViewComponentBlackList.Contains(prop.ViewModelType) &&
-                                   prop.Member.GetCustomAttributes(typeof(DataBindingAttribute), true).Any()
+                                   ((prop.Member.GetSetMethod(false) != null &&
+                                     prop.Member.GetGetMethod(false) != null &&
+                                     prop.Member.GetCustomAttributes(typeof(DataBindingAttribute), true).Any()
+                                    ) ||
+                                    (prop.Member.GetGetMethod(false) != null &&
+                                     prop.Member.GetCustomAttributes(typeof(DataBindingRelatedAttribute), true).Any()
+                                    )
+                                   )
                           );
             }
             return rBindableMembers;
         }
 
+        public static IEnumerable<BindableMember<MethodInfo>> GetViewModelConvertMethods(Type rViewPropType, bool bIsList)
+        {
+            IEnumerable<BindableMember<MethodInfo>> rBindableMembers = null;
+            if (bIsList)
+            {
+                rBindableMembers = TypeResolveManager.Instance.GetAllTypes(true)
+                    .Where(type => type != null &&
+                           type.GetCustomAttributes(typeof(DataBindingConvertAttribute), true).Any())
+                    .SelectMany(type =>
+                    {
+                        return type?
+                                .GetMethods(ReflectionAssist.flags_method_static)
+                                .Select(method => new BindableMember<MethodInfo>(null, method, type));
+                    })
+                    .Where(method => method != null &&
+                                     method.Member.GetParameters().Length == 1 &&
+                                     method.Member.ReturnType.Equals(rViewPropType) &&
+                                     method.Member.GetCustomAttributes(false).Any(attr => (attr as DataBindingConvertAttribute) != null)
+                    );
+            }
+            else
+            {
+                rBindableMembers = TypeResolveManager.Instance.GetAllTypes(true)
+                    .Where(type => type != null &&
+                           type.GetCustomAttributes(typeof(DataBindingConvertAttribute), true).Any())
+                    .SelectMany(type =>
+                    {
+                        return type?
+                                .GetMethods(ReflectionAssist.flags_method_static)
+                                .Select(method => new BindableMember<MethodInfo>(null, method, type));
+                    })
+                    .Where(method => method != null &&
+                                     method.Member.GetParameters().Length == 1 &&
+                                     method.Member.ReturnType.Equals(rViewPropType) &&
+                                     method.Member.GetCustomAttributes(false).Any(attr => (attr as DataBindingConvertAttribute) != null)
+                    );
+            }
+            return rBindableMembers;
+        }
+        
         public static IEnumerable<BindableMember<PropertyInfo>> GetListItemViewModelProperties(GameObject rGo, Type rViewPropType)
         { 
             var rBindableMembers = rGo.GetComponentsInParent<ViewModelDataSourceTemplate>(true)
@@ -214,10 +328,14 @@ namespace UnityEngine.UI
                 .DefaultIfEmpty()
                 .Where(prop => prop != null &&
                                 prop.Member.PropertyType.Equals(rViewPropType) &&
-                                prop.Member.GetSetMethod(false) != null &&
-                                prop.Member.GetGetMethod(false) != null &&
-                                !ViewComponentBlackList.Contains(prop.ViewModelType) &&
-                                prop.Member.GetCustomAttributes(typeof(DataBindingAttribute), true).Any()
+                                ((prop.Member.GetSetMethod(false) != null &&
+                                  prop.Member.GetGetMethod(false) != null &&
+                                  prop.Member.GetCustomAttributes(typeof(DataBindingAttribute), true).Any()
+                                 ) ||
+                                 (prop.Member.GetGetMethod(false) != null &&
+                                  prop.Member.GetCustomAttributes(typeof(DataBindingRelatedAttribute), true).Any()
+                                 )
+                                )
                        )
                 .DefaultIfEmpty();
 
@@ -228,8 +346,7 @@ namespace UnityEngine.UI
         {
             var rBindableMembers = rGo.GetComponentsInParent<ViewModelDataSource>(true)
                 .Where(ds => ds != null &&
-                       !string.IsNullOrEmpty(ds.ViewModelPath) &&
-                       !string.IsNullOrEmpty(ds.Key))
+                       !string.IsNullOrEmpty(ds.ViewModelPath))
                 .SelectMany(ds =>
                 {
                     var rType = TypeResolveManager.Instance.GetType(ds.ViewModelPath);
@@ -247,10 +364,14 @@ namespace UnityEngine.UI
                         prop != null &&
                         rPropType.IsGenericType &&
                         typeof(IList).IsAssignableFrom(rPropType.GetGenericTypeDefinition()) &&
-                        prop.Member.GetSetMethod(false) != null &&
-                        prop.Member.GetGetMethod(false) != null &&
-                        !ViewComponentBlackList.Contains(prop.ViewModelType) &&
-                        prop.Member.GetCustomAttributes(typeof(DataBindingAttribute), true).Any();
+                        ((prop.Member.GetSetMethod(false) != null &&
+                          prop.Member.GetGetMethod(false) != null &&
+                          prop.Member.GetCustomAttributes(typeof(DataBindingAttribute), true).Any()
+                         ) ||
+                         (prop.Member.GetGetMethod(false) != null &&
+                          prop.Member.GetCustomAttributes(typeof(DataBindingRelatedAttribute), true).Any()
+                         )
+                        );
                 }
             )
             .DefaultIfEmpty();
@@ -329,10 +450,10 @@ namespace UnityEngine.UI
         {
             var rBindableEvents = new List<string>();
 
-            var rViewModelContainer = rGo.GetComponentInParent<ViewModelContainer>();
+            var rViewModelContainer = rGo.GetComponentInParent<ViewControllerContainer>();
             if (rViewModelContainer == null) return rBindableEvents.ToArray();
 
-            var rViewModelType = TypeResolveManager.Instance.GetType(rViewModelContainer.ViewModelClass);
+            var rViewModelType = TypeResolveManager.Instance.GetType(rViewModelContainer.ViewControllerClass);
             var rAllMethods = rViewModelType.GetMethods(ReflectionAssist.flags_method_inst);
             for (int i = 0; i < rAllMethods.Length; i++)
             {
@@ -342,7 +463,7 @@ namespace UnityEngine.UI
                 var rDataBindingAttr = rAttrs[0] as DataBindingAttribute;
                 if (rDataBindingAttr == null) continue;
 
-                rBindableEvents.Add(string.Format("{0}/{1}", rViewModelContainer.ViewModelClass, rAllMethods[i].Name));
+                rBindableEvents.Add(string.Format("{0}/{1}", rViewModelContainer.ViewControllerClass, rAllMethods[i].Name));
             }
             return rBindableEvents.ToArray();
         }

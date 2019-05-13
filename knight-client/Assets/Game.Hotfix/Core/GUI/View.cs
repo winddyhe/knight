@@ -21,17 +21,18 @@ namespace Knight.Hotfix.Core
             PageOverlap,
         }
         
-        public string               GUID                = "";
-        public string               ViewName            = "";
-        public State                CurState            = State.Fixing;
-        public bool                 IsBackCache         = false;
+        public string                   GUID                = "";
+        public string                   ViewName            = "";
+        public State                    CurState            = State.Fixing;
+        public bool                     IsBackCache         = false;
 
-        public GameObject           GameObject;
+        public GameObject               GameObject;
         
-        public ViewModelContainer   ViewModelContainer;
-        public ViewController       ViewController;
+        public ViewControllerContainer  ViewModelContainer;
+        public ViewController           ViewController;
+        public ViewModel                DefaultViewModel;
 
-        public bool                 IsActived
+        public bool                     IsActived
         {
             get { return this.GameObject.activeSelf;        }
             set { this.GameObject.SetActive(value);         }
@@ -60,14 +61,14 @@ namespace Knight.Hotfix.Core
         /// </summary>
         private async Task InitializeViewModel()
         {
-            this.ViewModelContainer = this.GameObject.GetComponent<ViewModelContainer>();
+            this.ViewModelContainer = this.GameObject.GetComponent<ViewControllerContainer>();
             if (this.ViewModelContainer == null)
             {
                 Debug.LogErrorFormat("Prefab {0} has not ViewContainer Component..", this.ViewName);
                 return;
             }
 
-            var rType = Type.GetType(this.ViewModelContainer.ViewModelClass);
+            var rType = Type.GetType(this.ViewModelContainer.ViewControllerClass);
             if (rType == null)
             {
                 Debug.LogErrorFormat("Can not find ViewModel Type: {0}", rType);

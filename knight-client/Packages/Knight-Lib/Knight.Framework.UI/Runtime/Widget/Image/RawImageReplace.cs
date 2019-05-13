@@ -1,9 +1,5 @@
 ﻿using Knight.Core;
 using NaughtyAttributes;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace UnityEngine.UI
 {
@@ -11,33 +7,22 @@ namespace UnityEngine.UI
     [ExecuteInEditMode]
     public class RawImageReplace : MonoBehaviour
     {
-        private class LoadRequest : AsyncRequest<LoadRequest>
-        {
-            private string              mSpriteName;
-
-            public LoadRequest(string rSpriteName)
-            {
-                this.mSpriteName = rSpriteName;
-            }
-        }
-
         [SerializeField][ReadOnly]
         private string                  mSpriteName;
         public  RawImage                RawImage;
-
-        private LoadRequest             mLoadRequest;
         
         private void Awake()
         {
             this.RawImage = this.gameObject.ReceiveComponent<RawImage>();
-            this.mSpriteName = this.RawImage.texture.name;
-            this.mLoadRequest = new LoadRequest(this.mSpriteName);
+            if (this.RawImage && this.RawImage.texture)
+            {
+                this.mSpriteName = this.RawImage.texture.name;
+            }
         }
 
         private void OnDestroy()
         {
-            if (this.mLoadRequest != null)
-                this.mLoadRequest.Stop();
+            this.UnloadSprite();
         }
 
         public string SpriteName
@@ -56,13 +41,7 @@ namespace UnityEngine.UI
                     this.RawImage.texture = null;
                     return;
                 }
-                if (CoroutineManager.Instance != null)
-                {
-                    this.mLoadRequest.Stop();
-
-                    this.mLoadRequest = new LoadRequest(this.mSpriteName);
-                    this.mLoadRequest.Start(LoadSprite_Async(this.mLoadRequest));
-                }
+                this.LoadSprite(this.mSpriteName);
             }
         }
 
@@ -71,26 +50,21 @@ namespace UnityEngine.UI
             UIAtlasManager.Instance.UnloadSprite(this.mSpriteName);
         }
 
-        private IEnumerator LoadSprite_Async(LoadRequest rRequest)
+        private void LoadSprite(string rSpriteName)
         {
             if (string.IsNullOrEmpty(this.mSpriteName))
             {
                 this.RawImage.texture = null;
-                rRequest.SetResult(rRequest);
-                yield break;
+                return;
             }
 
             var rLoadRequest = UIAtlasManager.Instance.LoadSprite(this.mSpriteName);
-            yield return rLoadRequest;
-            
-            if (rLoadRequest == null || rLoadRequest.Result == null || rLoadRequest.Result.Texture == null)
+            if (rLoadRequest == null || rLoadRequest.Texture == null)
             {
                 Debug.LogErrorFormat("not find sprite: {0}", this.mSpriteName);
-                rRequest.SetResult(rRequest);
-                yield break;
+                return;
             }
-            this.RawImage.texture = rLoadRequest.Result.Texture;
-            rRequest.SetResult(rRequest);
+            this.RawImage.texture = rLoadRequest.Texture;
         }
     }
 }

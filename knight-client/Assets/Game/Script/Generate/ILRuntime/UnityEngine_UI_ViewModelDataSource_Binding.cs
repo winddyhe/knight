@@ -26,9 +26,6 @@ namespace ILRuntime.Runtime.Generated
             field = type.GetField("ViewModelPath", flag);
             app.RegisterCLRFieldGetter(field, get_ViewModelPath_0);
             app.RegisterCLRFieldSetter(field, set_ViewModelPath_0);
-            field = type.GetField("Key", flag);
-            app.RegisterCLRFieldGetter(field, get_Key_1);
-            app.RegisterCLRFieldSetter(field, set_Key_1);
 
 
         }
@@ -42,14 +39,6 @@ namespace ILRuntime.Runtime.Generated
         static void set_ViewModelPath_0(ref object o, object v)
         {
             ((UnityEngine.UI.ViewModelDataSource)o).ViewModelPath = (System.String)v;
-        }
-        static object get_Key_1(ref object o)
-        {
-            return ((UnityEngine.UI.ViewModelDataSource)o).Key;
-        }
-        static void set_Key_1(ref object o, object v)
-        {
-            ((UnityEngine.UI.ViewModelDataSource)o).Key = (System.String)v;
         }
 
 

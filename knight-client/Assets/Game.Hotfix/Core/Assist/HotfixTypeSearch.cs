@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System;
+using Knight.Core;
 
 namespace Knight.Hotfix.Core
 {
@@ -49,39 +50,38 @@ namespace Knight.Hotfix.Core
         private HotfixTypeSearchCore()
         {
             var rTypeSearchSubClasses = new List<KeyValuePair<Type, Type>>();
-            foreach (var rAssembly in AppDomain.CurrentDomain.GetAssemblies())
+
+            foreach (var rType in TypeResolveManager.Instance.GetTypes("Game.Hotfix"))
             {
-                foreach (var rType in rAssembly.GetTypes())
+                if (typeof(HotfixTypeSearchBase).IsAssignableFrom(rType) &&
+                    typeof(HotfixTypeSearchFull<,>) != rType &&
+                    typeof(HotfixTypeSearchDefault<>) != rType &&
+                    typeof(HotfixTypeSearchBase) != rType)
                 {
-                    if (typeof(HotfixTypeSearchBase).IsAssignableFrom(rType) &&
-                        typeof(HotfixTypeSearchFull<,>) != rType &&
-                        typeof(HotfixTypeSearchDefault<>) != rType &&
-                        typeof(HotfixTypeSearchBase) != rType)
-                    {
-                        //Console.WriteLine(rType);
-                        var rSearchType = GetNoPublicField<Type>(rType.HotfixSearchBaseTo(typeof(HotfixTypeSearchBase)), "_Type");
-                        var rIgnoreType = GetNoPublicField<Type>(rType.HotfixSearchBaseTo(typeof(HotfixTypeSearchBase)), "_IgnoreAttributeType");
-                        if (null != rSearchType && null != rIgnoreType)
-                            rTypeSearchSubClasses.Add(new KeyValuePair<Type, Type>(rSearchType as Type, rIgnoreType));
-                    }
+                    var rSearchType = GetNoPublicField<Type>(rType.HotfixSearchBaseTo(typeof(HotfixTypeSearchBase)), "_Type");
+                    var rIgnoreType = GetNoPublicField<Type>(rType.HotfixSearchBaseTo(typeof(HotfixTypeSearchBase)), "_IgnoreAttributeType");
+                    if (null != rSearchType && null != rIgnoreType)
+                        rTypeSearchSubClasses.Add(new KeyValuePair<Type, Type>(rSearchType as Type, rIgnoreType));
                 }
             }
-            foreach (var rAssembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                foreach (var rType in rAssembly.GetTypes())
-                {
 
-                    foreach (var rTypeSearchSubClass in rTypeSearchSubClasses)
+            foreach (var rType in TypeResolveManager.Instance.GetTypes("Game.Hotfix"))
+            {
+                foreach (var rTypeSearchSubClass in rTypeSearchSubClasses)
+                {
+                    if (rTypeSearchSubClass.Key.IsAssignableFrom(rType) &&
+                        !rType.HotfixIsApplyAttr(rTypeSearchSubClass.Value, true))
                     {
-                        if (rTypeSearchSubClass.Key.IsAssignableFrom(rType) &&
-                            !rType.HotfixIsApplyAttr(rTypeSearchSubClass.Value, true))
+                        var rTypeList = ReceiveTypeList(rTypeSearchSubClass.Key);
+                        if (!rTypeList.Contains(rType))
                         {
-                            ReceiveTypeList(rTypeSearchSubClass.Key).Add(rType);
+                            rTypeList.Add(rType);
                         }
                     }
                 }
             }
         }
+
         protected T GetNoPublicField<T>(Type rType, string name, T rDefault = default(T))
         {
             var rFieldInfo = rType.GetField(name, BindingFlags.Static|BindingFlags.NonPublic);
@@ -90,6 +90,7 @@ namespace Knight.Hotfix.Core
 
             return (T)rFieldInfo.GetValue(null);
         }
+
         protected List<Type> ReceiveTypeList(Type rType)
         {
             if (!mSearchTypes.ContainsKey(rType))

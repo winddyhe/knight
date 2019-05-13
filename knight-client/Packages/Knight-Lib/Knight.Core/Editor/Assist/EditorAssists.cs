@@ -8,6 +8,7 @@ using UnityEditor;
 using System;
 using Object = UnityEngine.Object;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Knight.Core.Editor
 {
@@ -89,7 +90,7 @@ namespace Knight.Core.Editor
                 UtilTool.SafeExecute(rLoadCompleted, null);
                 yield break;
             }
-            var rABManifestRequest = rABRequest.assetBundle.LoadAssetAsync<AssetBundleManifest>(rManifestPath);
+            var rABManifestRequest = rABRequest.assetBundle.LoadAssetAsync<AssetBundleManifest>("AssetBundleManifest");
             yield return rABManifestRequest;
             if (rABManifestRequest.asset == null)
             {

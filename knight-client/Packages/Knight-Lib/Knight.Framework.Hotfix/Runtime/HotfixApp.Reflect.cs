@@ -49,18 +49,18 @@ namespace Knight.Framework.Hotfix
             return (T)Activator.CreateInstance(mApp.GetType(rTypeName), rArgs);
         }
 
-        public override object Invoke(HotfixObject rHotfixObj, string rMethodName, params object[] rArgs)
-        {
-            if (mApp == null) return null;
-            Type rObjType = mApp.GetType(rHotfixObj.TypeName);
-            return ReflectionAssist.MethodMember(rHotfixObj.Object, rMethodName, ReflectionAssist.flags_method_inst, rArgs);
-        }
-
         public override object Invoke(object rObj, string rTypeName, string rMethodName, params object[] rArgs)
         {
             if (mApp == null) return null;
             Type rObjType = rObj.GetType();
             return ReflectionAssist.MethodMember(rObj, rMethodName, ReflectionAssist.flags_method_inst, rArgs);
+        }
+
+        public override object Invoke(HotfixObject rHotfixObj, string rMethodName, params object[] rArgs)
+        {
+            if (mApp == null) return null;
+            Type rObjType = mApp.GetType(rHotfixObj.TypeName);
+            return ReflectionAssist.MethodMember(rHotfixObj.Object, rMethodName, ReflectionAssist.flags_method_inst, rArgs);
         }
 
         public override object InvokeParent(HotfixObject rHotfixObj, string rParentType, string rMethodName, params object[] rArgs)

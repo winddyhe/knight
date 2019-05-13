@@ -34,13 +34,18 @@ namespace Knight.Core
 
         public Dict<int, Event>             mEvents;
 
-        private EventManager()
+        protected EventManager()
         {
         }
 
         public void Initialize()
         {
             this.mEvents = new Dict<int, Event>();
+        }
+
+        public bool Contains(int nMsgCode)
+        {
+            return this.mEvents.ContainsKey(nMsgCode);
         }
 
         public void Binding(int nMsgCode, Action<EventArg> rEventCallback)

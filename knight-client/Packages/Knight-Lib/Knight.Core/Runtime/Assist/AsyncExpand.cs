@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityFx.Async;
 
@@ -50,7 +51,7 @@ namespace Knight.Core
         }
     }
 
-    public class WaitAsync
+    public static class WaitAsync
     {
         public class WaitForEndOfFrameRequest : AsyncRequest<WaitForEndOfFrameRequest>
         {
@@ -88,6 +89,11 @@ namespace Knight.Core
         {
             yield return new WaitForSeconds(rRequest.Time);
             rRequest.SetResult(rRequest);
+        }
+
+        public static async void WarpErrors(this Task rTask)
+        {
+            await rTask;
         }
     }
 }

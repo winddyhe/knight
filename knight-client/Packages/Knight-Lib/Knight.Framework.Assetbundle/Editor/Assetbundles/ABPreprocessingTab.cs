@@ -71,6 +71,8 @@ namespace AssetBundleBrowser
 
                 for (int i = 0; i < mEntryDatas.Count; i++)
                 {
+                    if (mEntryDatas[i].Entry == null) continue;
+
                     using (var space2 = new EditorGUILayout.VerticalScope("TextField"))
                     {
                         using (var space3 = new EditorGUILayout.HorizontalScope())
@@ -106,7 +108,9 @@ namespace AssetBundleBrowser
                                 }
                             }
 
-                            var rABPath = mEntryDatas[i].Entry.assetResPath.Replace(ABBuilder.ABAssetPrefixRoot, ABBuilder.ABPrefixRoot).ToLower();
+                            if (mEntryDatas[i].Entry == null) continue;
+
+                            var rABPath = mEntryDatas[i].Entry.assetResPath?.Replace(ABBuilder.ABAssetPrefixRoot, ABBuilder.ABPrefixRoot).ToLower();
                             if (mEntryDatas[i].Entry.assetSrcType == ABEntry.AssetSourceType.File)
                             {
                                 mEntryDatas[i].Entry.abName = rABPath.Replace(Path.GetExtension(rABPath), "");

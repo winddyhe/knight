@@ -18,8 +18,8 @@ namespace Knight.Framework.AssetBundles.Editor
             string rTextureRoot = "Assets/Game/GameAsset/GUI/Textures";
             string rAtlasRoot = rTextureRoot + "/Atlas";
             string rConfigRoot = rTextureRoot + "/Config";
+            string rFullBGRoot  = rTextureRoot + "/FullBG";
             //string rIconsRoot   = rTextureRoot + "/Icons";
-            //string rFullBGRoot  = rTextureRoot + "/FullBG";
 
             // 生成所有的Atlas
             DirectoryInfo rDirInfo = new DirectoryInfo(rAtlasRoot);
@@ -44,19 +44,19 @@ namespace Knight.Framework.AssetBundles.Editor
             }
 
             // 生成FullBG
-            //var rFullBGUIAtlas = GetAtlas(rConfigRoot + "/config_fullbg.asset");
-            //rFullBGUIAtlas.ABName = "game/ui/fullbg";
-            //rFullBGUIAtlas.Mode = UIAtlasMode.FullBG;
-            //rFullBGUIAtlas.Sprites = new List<string>();
-            //string[] rFullBGGUIDs = AssetDatabase.FindAssets("t:Texture", new string[] { rFullBGRoot });
-            //for (int i = 0; i < rFullBGGUIDs.Length; i++)
-            //{
-            //    string rTexPath = AssetDatabase.GUIDToAssetPath(rFullBGGUIDs[i]);
-            //    rFullBGUIAtlas.Sprites.Add(Path.GetFileNameWithoutExtension(rTexPath));
-            //}
-            //EditorUtility.SetDirty(rFullBGUIAtlas);
-            //AssetDatabase.SaveAssets();
-            //AssetDatabase.Refresh();
+            var rFullBGUIAtlas = GetAtlas(rConfigRoot + "/config_fullbg.asset");
+            rFullBGUIAtlas.ABName = "game/gui/textures/fullbg";
+            rFullBGUIAtlas.Mode = UIAtlasMode.FullBG;
+            rFullBGUIAtlas.Sprites = new List<string>();
+            string[] rFullBGGUIDs = AssetDatabase.FindAssets("t:Texture", new string[] { rFullBGRoot });
+            for (int i = 0; i < rFullBGGUIDs.Length; i++)
+            {
+                string rTexPath = AssetDatabase.GUIDToAssetPath(rFullBGGUIDs[i]);
+                rFullBGUIAtlas.Sprites.Add(Path.GetFileNameWithoutExtension(rTexPath));
+            }
+            EditorUtility.SetDirty(rFullBGUIAtlas);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
 
             // 生成icons
             //var rIconsUIAtlas = GetAtlas(rConfigRoot + "/config_icons.asset");
@@ -70,9 +70,8 @@ namespace Knight.Framework.AssetBundles.Editor
             //    rIconsUIAtlas.Sprites.Add(Path.GetFileNameWithoutExtension(rTexPath));
             //}
             //EditorUtility.SetDirty(rIconsUIAtlas);
-
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+            //AssetDatabase.SaveAssets();
+            //AssetDatabase.Refresh();
         }
 
         private static UIAtlas GetAtlas(string rPath)

@@ -1,15 +1,16 @@
 {
   "dependencies": {
-    "com.unity.package-manager-ui": "2.0.7",
+    "com.unity.package-manager-ui": "2.1.2",
     "knight.core": "file:./Knight-Lib/Knight.Core",
     "knight.framework.assetbundle": "file:./Knight-Lib/Knight.Framework.Assetbundle",
     "knight.framework.graphics": "file:./Knight-Lib/Knight.Framework.Graphics",
     "knight.framework.hotfix": "file:./Knight-Lib/Knight.Framework.Hotfix",
     "knight.framework.input": "file:./Knight-Lib/Knight.Framework.Input",
     "knight.framework.network": "file:./Knight-Lib/Knight.Framework.Network",
+    "knight.framework.tinymode": "file:./Knight-Lib/Knight.Framework.TinyMode",
     "knight.framework.tweening": "file:./Knight-Lib/Knight.Framework.Tweening",
     "knight.framework.ui": "file:./Knight-Lib/Knight.Framework.UI",
-	"knight.framework.tinymode": "file:./Knight-Lib/Knight.Framework.TinyMode",
+    "nuget.mono-cecil": "0.1.6-preview",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.assetbundle": "1.0.0",

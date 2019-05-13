@@ -31,11 +31,11 @@ namespace UnityEngine.UI
         /// <summary>
         /// 异步加载UI
         /// </summary>
-        public async Task<LoaderRequest> LoadUI(string rViewName)
+        public LoaderRequest LoadUI(string rViewName)
         {
             LoaderRequest rRequest = new LoaderRequest(rViewName);
             string rUIABPath = "game/gui/prefabs/" + rRequest.ViewName.ToLower() + ".ab";
-            var rAssetRequest = await AssetLoader.Instance.LoadAssetAsync(rUIABPath, rRequest.ViewName, AssetLoader.Instance.IsSumilateMode_GUI());
+            var rAssetRequest = AssetLoader.Instance.LoadAsset(rUIABPath, rRequest.ViewName, AssetLoader.Instance.IsSumilateMode_GUI());
             if (rAssetRequest.Asset != null)
             {
                 rRequest.ViewPrefabGo = rAssetRequest.Asset as GameObject;

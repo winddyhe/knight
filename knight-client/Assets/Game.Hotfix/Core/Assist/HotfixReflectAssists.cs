@@ -20,6 +20,16 @@ namespace Knight.Hotfix.Core
 
         public static readonly Type[]       empty_types     =   new Type[0];
 
+        public static object Construct(string rTypeName, params object[] param)
+        {
+            var rType = Type.GetType(rTypeName);
+            var rParamType = new Type[param.Length];
+            for (int nIndex = 0; nIndex < param.Length; ++nIndex)
+                rParamType[nIndex] = param[nIndex].GetType();
+            var rConstructor = rType.GetConstructor(rParamType);
+            return rConstructor.Invoke(param);
+        }
+
         public static object Construct(Type rType, params object[] param)
         {
             var rParamType = new Type[param.Length];

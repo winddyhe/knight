@@ -45,8 +45,9 @@ namespace Knight.Framework.Hotfix
             // 编辑器下的HotfixDebug模式直接加载DLL文件，方便做断点调试
             if (HotfixManager.Instance.IsHotfixDebugMode())
             {
-                rDLLPath = HotfixManager.HotfixDebugDllDir + rRequest.ModuleName + ".dll";
-                rPDBPath = HotfixManager.HotfixDebugDllDir + rRequest.ModuleName + ".pdb";
+                // Game.Hotfix
+                rDLLPath = HotfixManager.HotfixDebugDllDir + $"Game.Hotfix.dll";
+                rPDBPath = HotfixManager.HotfixDebugDllDir + $"Game.Hotfix.pdb";
 
                 Debug.Log("---Simulate load hotfix dll: " + rDLLPath);
                 rRequest.DLLPath = rDLLPath;

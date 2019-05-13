@@ -23,20 +23,31 @@ namespace ILRuntime.Runtime.Generated
             Type[] args;
             Type type = typeof(UnityEngine.UI.ViewModelDataSourceArray);
 
+            field = type.GetField("HasInitData", flag);
+            app.RegisterCLRFieldGetter(field, get_HasInitData_0);
+            app.RegisterCLRFieldSetter(field, set_HasInitData_0);
             field = type.GetField("ItemTemplateGo", flag);
-            app.RegisterCLRFieldGetter(field, get_ItemTemplateGo_0);
-            app.RegisterCLRFieldSetter(field, set_ItemTemplateGo_0);
+            app.RegisterCLRFieldGetter(field, get_ItemTemplateGo_1);
+            app.RegisterCLRFieldSetter(field, set_ItemTemplateGo_1);
 
 
         }
 
 
 
-        static object get_ItemTemplateGo_0(ref object o)
+        static object get_HasInitData_0(ref object o)
+        {
+            return ((UnityEngine.UI.ViewModelDataSourceArray)o).HasInitData;
+        }
+        static void set_HasInitData_0(ref object o, object v)
+        {
+            ((UnityEngine.UI.ViewModelDataSourceArray)o).HasInitData = (System.Boolean)v;
+        }
+        static object get_ItemTemplateGo_1(ref object o)
         {
             return ((UnityEngine.UI.ViewModelDataSourceArray)o).ItemTemplateGo;
         }
-        static void set_ItemTemplateGo_0(ref object o, object v)
+        static void set_ItemTemplateGo_1(ref object o, object v)
         {
             ((UnityEngine.UI.ViewModelDataSourceArray)o).ItemTemplateGo = (UnityEngine.GameObject)v;
         }

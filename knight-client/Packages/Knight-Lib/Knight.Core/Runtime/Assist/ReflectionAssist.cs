@@ -45,6 +45,15 @@ namespace Knight.Core
             return rConstructorInfo.Invoke(null);
         }
 
+        public static object Construct(Type rType, params object[] param)
+        {
+            var rParamType = new Type[param.Length];
+            for (int nIndex = 0; nIndex < param.Length; ++nIndex)
+                rParamType[nIndex] = param[nIndex].GetType();
+            ConstructorInfo rConstructorInfo = rType.GetConstructor(rParamType);
+            return rConstructorInfo.Invoke(param);
+        }
+
         public static object Construct(Type rType, Type[] rTypes, params object[] rParams)
         {
             ConstructorInfo rConstructorInfo = GetConstructorInfo(flags_all, rType, rTypes);
@@ -80,20 +89,6 @@ namespace Knight.Core
         public static object TypeConvert(Type rType, string rValueStr)
         {
             return Convert.ChangeType(rValueStr, rType);
-        }
-
-        public static Type FindType(string rTypeName)
-        {
-            var rAllAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            for (int i = 0; i < rAllAssemblies.Length; i++)
-            {
-                var rType = rAllAssemblies[i].GetType(rTypeName);
-                if (rType != null)
-                {
-                    return rType;
-                }
-            }
-            return null;
         }
     }
 }
