@@ -7,8 +7,10 @@ using System.Collections;
 using UnityEditor;
 using System.IO;
 using System.Text.RegularExpressions;
+using Knight.Core.Editor;
+using System.Collections.Generic;
 
-namespace Knight.Framework.Editor
+namespace Knight.Framework.AssetBundles.Editor
 {
     /// <summary>
     /// 资源预处理类
@@ -85,6 +87,43 @@ namespace Knight.Framework.Editor
 
         static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
+            var rAllAssets = new List<string>(importedAssets);
+            rAllAssets.AddRange(deletedAssets);
+            rAllAssets.AddRange(movedAssets);
+
+            int nCount = 0;
+            for (int i = 0; i < rAllAssets.Count; i++)
+            {
+                if (!rAllAssets[i].Contains("Assets/Game/GameAsset")) continue;
+                nCount++;
+            }
+            if (nCount == 0) return;
+
+            var rABEntryConfig = EditorAssists.ReceiveAsset<ABEntryConfig>(ABBuilder.ABEntryConfigPath);
+            nCount = 0;
+            for (int i = 0; i < rAllAssets.Count; i++)
+            {
+                if (!rAllAssets[i].Contains("Assets/Game/GameAsset")) continue;
+                var rABEntry = rABEntryConfig.ABEntries.Find((rItem) => { return rAllAssets[i].Contains(rItem.assetResPath); });
+                if (rABEntry == null) continue;
+                nCount++;
+            }
+
+            ABBuilder.Instance.UpdateAllAssetsABLabels(ABBuilder.ABEntryConfigPath);
+
+            for (int i = 0; i < movedAssets.Length; ++i)
+            {
+                var assetPath = movedAssets[i];
+                if (assetPath.StartsWith("Assets/Game/GameAsset/GUI/Textures"))
+                {
+                    var ai = AssetImporter.GetAtPath(assetPath);
+                    if (ai != null)
+                    {
+                        ai.SaveAndReimport();
+                    }
+                    return;
+                }
+            }
         }
     }
 }
