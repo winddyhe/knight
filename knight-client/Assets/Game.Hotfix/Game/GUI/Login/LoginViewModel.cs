@@ -9,29 +9,9 @@ namespace Game
     [DataBinding]
     public class LoginViewModel : ViewModel
     {
-        private string      mAccountName    = "Test111";
-        private string      mPassword       = "xxxxxxx";
-
         [DataBinding]
-        public  string      AccountName
-        {
-            get { return mAccountName;  }
-            set
-            {
-                mAccountName = value;
-                this.PropChanged("AccountName");
-            }
-        }
-
+        public  string      AccountName { get; set; }
         [DataBinding]
-        public  string      Password
-        {
-            get { return mPassword;     }
-            set
-            {
-                mPassword = value;
-                this.PropChanged("Password");
-            }
-        }
+        public  string      Password    { get; set; }
     }
 }

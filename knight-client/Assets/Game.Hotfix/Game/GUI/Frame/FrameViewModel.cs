@@ -12,53 +12,18 @@ namespace Game
     [DataBinding]
     public class MainFrameTabItem : ViewModel
     {
-        private string                  mName;
-
         [DataBinding]
-        public  string  Name
-        {
-            get { return mName;     }
-            set { mName = value;    }
-        }
+        public  string                  Name            { get; set; }
     }
 
     [DataBinding]
     public class FrameViewModel : ViewModel
     {
-        private string                  mPlayerName;
-        private string                  mCoinCount;
-
-        private List<MainFrameTabItem>  mMainFrameTab;
-
         [DataBinding]
-        public  string  PlayerName
-        {
-            get { return mPlayerName;               }
-            set
-            {
-                mPlayerName = value;
-                this.PropChanged("PlayerName");
-            }
-        }
+        public string                   PlayerName      { get; set; }
         [DataBinding]
-        public string   CoinCount
-        {
-            get { return mCoinCount;                }
-            set
-            {
-                mCoinCount = value;
-                this.PropChanged("CoinCount");
-            }
-        }
+        public string                   CoinCount       { get; set; }
         [DataBinding]
-        public List<MainFrameTabItem>   MainFrameTab
-        {
-            get { return mMainFrameTab;             }
-            set
-            {
-                mMainFrameTab = value;
-                this.PropChanged("MainFrameTab");
-            }
-        }
+        public List<MainFrameTabItem>   MainFrameTab    { get; set; }
     }
 }
