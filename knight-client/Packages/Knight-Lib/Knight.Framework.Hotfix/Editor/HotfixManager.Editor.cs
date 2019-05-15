@@ -35,8 +35,8 @@ namespace Knight.Framework.Hotfix.Editor
         {
             ViewModelInjectEditor.Inject();
 
-            string rInjectDLLRootPath = "Library/ScriptAssemblies/Game.Hotfix.Inject.dll";
-            string rInjectPDBRootPath = "Library/ScriptAssemblies/Game.Hotfix.Inject.pdb";
+            string rInjectDLLRootPath = "Library/ScriptAssemblies/Game.Hotfix.dll";
+            string rInjectPDBRootPath = "Library/ScriptAssemblies/Game.Hotfix.pdb";
 
             string rNewDLLRootPath = HotfixManager.HotfixDllDir + "KnightHotfix.bytes";
             string rNewPDBRootPath = HotfixManager.HotfixDllDir + "KnightHotfix_PDB.bytes";

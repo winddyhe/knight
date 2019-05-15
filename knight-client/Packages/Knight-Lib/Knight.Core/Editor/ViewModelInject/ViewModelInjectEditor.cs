@@ -12,7 +12,6 @@ namespace Knight.Core.Editor
     public class ViewModelInjectEditor
     {
         private static string           mDLLPath    = "Library/ScriptAssemblies/Game.Hotfix.dll";
-        private static string           mDLLNewPath = "Library/ScriptAssemblies/Game.Hotfix.Inject.dll";
 
         private static TypeReference    mObjType    = null;
 
@@ -23,7 +22,7 @@ namespace Knight.Core.Editor
             try
             {
                 // 取Assetmbly
-                var readerParameters = new ReaderParameters { ReadSymbols = true };
+                var readerParameters = new ReaderParameters { ReadSymbols = true, ReadWrite = true };
                 rAssembly = AssemblyDefinition.ReadAssembly(mDLLPath, readerParameters);
 
                 var rViewModelDataBindingTypes = rAssembly.MainModule
@@ -45,7 +44,7 @@ namespace Knight.Core.Editor
                     }
                 }
                 var rWriteParameters = new WriterParameters { WriteSymbols = true };
-                rAssembly.Write(mDLLNewPath, rWriteParameters);
+                rAssembly.Write(rWriteParameters);
                 rAssembly.Dispose();
             }
             catch (Exception e)
