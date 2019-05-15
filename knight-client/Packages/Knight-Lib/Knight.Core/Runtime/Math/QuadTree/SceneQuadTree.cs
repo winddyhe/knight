@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Knight.Framework.TinyMode
+namespace Knight.Core.Math
 {
     public class SceneQuadTreeNode
     {
