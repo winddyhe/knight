@@ -6,7 +6,7 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 
 它包含了一个完整的资源管理模块（打包、下载、加载、版本管理），一个基于ILRuntime的C#热更模块，一个基于MVVM的UI框架（支持热更新）以及其他基础功能的支持。
 
-本框架将会持续更新，后期会不断修改和完善框架中的内容。目前使用最新的Unity版本为Unity2018.3.11f1。
+本框架将会持续更新，后期会不断修改和完善框架中的内容。目前使用的Unity版本为Unity2019.1.2f1。
 目前Master分支中将所有的模块全部移到Packages里面去了，并使用PackageManager来管理他们，以实现使用时可随时插拔。
 ![knight的框架结构](https://github.com/winddyhe/knight/blob/master/Doc/res/images/img_1.png)
 ### 更新日志（2019/5/13）
