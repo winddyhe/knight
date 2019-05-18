@@ -279,10 +279,18 @@ namespace Knight.Framework.AssetBundles
                 }
                 else
                 {
-                    yield return UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(
-                        rRequest.AssetName, new LoadSceneParameters() { loadSceneMode = rRequest.SceneMode });
+                    string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
+                    if (rAssetPaths.Length == 0)
+                    {
+                        Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                        yield break;
+                    }
 
-                    string rSceneName = Path.GetFileNameWithoutExtension(rRequest.AssetName);
+                    var rSceneAssetPath = rAssetPaths[0];
+                    yield return UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(
+                        rSceneAssetPath, new LoadSceneParameters() { loadSceneMode = rRequest.SceneMode });
+
+                    string rSceneName = Path.GetFileNameWithoutExtension(rSceneAssetPath);
                     rRequest.Scene = SceneManager.GetSceneByName(rSceneName);
                     SceneManager.SetActiveScene(rRequest.Scene);
                 }
@@ -461,10 +469,18 @@ namespace Knight.Framework.AssetBundles
                 }
                 else
                 {
+                    string[] rAssetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(rAssetLoadEntry.ABName, rRequest.AssetName);
+                    if (rAssetPaths.Length == 0)
+                    {
+                        Debug.LogError("---There is no asset with name \"" + rRequest.AssetName + "\" in " + rAssetLoadEntry.ABName);
+                        return;
+                    }
+
+                    var rSceneAssetPath = rAssetPaths[0];
                     UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(
-                        rRequest.AssetName, new LoadSceneParameters() { loadSceneMode = rRequest.SceneMode });
+                        rSceneAssetPath, new LoadSceneParameters() { loadSceneMode = rRequest.SceneMode });
                     
-                    string rSceneName = Path.GetFileNameWithoutExtension(rRequest.AssetName);
+                    string rSceneName = Path.GetFileNameWithoutExtension(rSceneAssetPath);
                     rRequest.Scene = SceneManager.GetSceneByName(rSceneName);
                     SceneManager.SetActiveScene(rRequest.Scene);
                 }

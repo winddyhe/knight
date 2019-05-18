@@ -49,7 +49,7 @@ namespace Knight.Core
         public AssetLoaderRequest(string rPath, string rAssetName, LoadSceneMode rSceneMode, bool bIsDependence, bool bIsSimulate)
         {
             this.Path               = rPath;
-            this.AssetName          = "Assets/" + rPath.Replace(".ab", "") + ".unity";
+            this.AssetName          = rAssetName;
             this.IsScene            = true;
             this.SceneMode          = rSceneMode;
             this.IsSimulate         = bIsSimulate;
