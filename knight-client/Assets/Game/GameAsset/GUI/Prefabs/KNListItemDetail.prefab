@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6387159627491456541}
   - component: {fileID: 7975676714955480436}
   - component: {fileID: 2663087260812162640}
+  - component: {fileID: 13062415283234345}
+  - component: {fileID: 9146288441761190082}
   m_Layer: 5
   m_Name: KNListItemDetail
   m_TagString: Untagged
@@ -54,7 +56,8 @@ MonoBehaviour:
   ViewControllerClass: Game.ListTestItemDetailView
   ViewModels:
   - {fileID: 2663087260812162640}
-  EventBindings: []
+  EventBindings:
+  - {fileID: 2081497052620659263}
   ViewControllerClasses:
   - Game.FrameView
   - Game.ListTestItemDetailView
@@ -79,6 +82,29 @@ MonoBehaviour:
   - Game.ListDataItem
   - Game.ListTestViewModel
   - Game.Account
+--- !u!222 &13062415283234345
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2896808377237658537}
+  m_CullTransparentMesh: 0
+--- !u!114 &9146288441761190082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2896808377237658537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a1674cf4507a2d49983f35dfdacbbaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
 --- !u!1 &4781461092070248739
 GameObject:
   m_ObjectHideFlags: 0
