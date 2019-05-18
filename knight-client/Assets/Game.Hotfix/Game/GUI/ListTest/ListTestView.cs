@@ -50,6 +50,7 @@ namespace Game
         protected void OnListItem_Clicked(int nIndex, EventArg rEventArg)
         {
             Debug.LogError($"Item {nIndex} clicked.. {this.ListTest.ItemDatas[nIndex].Value1}");
+            FrameManager.Instance.OpenPopupUI("KNListItemDetail", this.ListTest.ItemDatas[nIndex]);
         }
     }
 }
