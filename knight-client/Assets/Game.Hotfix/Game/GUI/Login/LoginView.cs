@@ -10,6 +10,12 @@ namespace Game
 {
     public class LoginView : ViewController
     {
+        protected override async Task OnInitialize()
+        {
+            await base.OnInitialize();
+            Account.Instance.PlayerName = "Winddy";
+        }
+
         [DataBinding]
         private void OnBtnButton_Clicked(EventArg rEventArg)
         {
@@ -17,7 +23,8 @@ namespace Game
             ViewManager.Instance.CloseView(this.GUID);
 
             // @TODO: 账户数据通过网络初始化
-            Account.Instance.Initialize();
+            Account.Instance.PlayerName = "Winddy";
+            Account.Instance.CoinCount = 33344444;
 
             World.Instance.Initialize().WarpErrors();
         }

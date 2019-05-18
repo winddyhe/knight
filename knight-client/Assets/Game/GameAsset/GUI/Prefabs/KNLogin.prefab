@@ -307,13 +307,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e09e41216fc56645974c70d2147071d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewModelPath: Game.LoginViewModel
+  ViewModelPath: Game.Account
   ViewModelClasses:
   - Game.MainFrameTabItem
   - Game.FrameViewModel
   - Game.ListDataItem
   - Game.ListTestViewModel
-  - Game.LoginViewModel
+  - Game.Account
 --- !u!1 &1260681225219154
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,7 +816,7 @@ MonoBehaviour:
   ViewPath: 'UnityEngine.UI.InputField/text : String'
   IsDataConvert: 0
   DataConverterMethodPath: 
-  ViewModelPath: 'Game.LoginViewModel/AccountName : String'
+  ViewModelPath: 'Game.Account/PlayerName : String'
   ViewPaths:
   - 'UnityEngine.RectTransform/anchorMin : Vector2'
   - 'UnityEngine.RectTransform/anchorMax : Vector2'
@@ -902,8 +902,7 @@ MonoBehaviour:
   - 'UnityEngine.UI.InputField/name : String'
   - 'UnityEngine.UI.InputField/hideFlags : HideFlags'
   ModelPaths:
-  - 'Game.LoginViewModel/AccountName : String'
-  - 'Game.LoginViewModel/Password : String'
+  - 'Game.Account/PlayerName : String'
   ModelConvertMethods: []
 --- !u!1 &1782840533356690
 GameObject:
@@ -1455,7 +1454,7 @@ MonoBehaviour:
   ViewPath: 'UnityEngine.UI.InputField/text : String'
   IsDataConvert: 0
   DataConverterMethodPath: 
-  ViewModelPath: 'Game.LoginViewModel/AccountName : String'
+  ViewModelPath: 'Game.Account/PlayerName : String'
   ViewPaths:
   - 'UnityEngine.RectTransform/anchorMin : Vector2'
   - 'UnityEngine.RectTransform/anchorMax : Vector2'
@@ -1541,8 +1540,7 @@ MonoBehaviour:
   - 'UnityEngine.UI.InputField/name : String'
   - 'UnityEngine.UI.InputField/hideFlags : HideFlags'
   ModelPaths:
-  - 'Game.LoginViewModel/AccountName : String'
-  - 'Game.LoginViewModel/Password : String'
+  - 'Game.Account/PlayerName : String'
   ModelConvertMethods: []
   EventPath: UnityEngine.UI.InputField/onValueChanged
   EventPaths:

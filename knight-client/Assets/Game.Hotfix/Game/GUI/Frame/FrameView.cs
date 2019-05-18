@@ -24,8 +24,6 @@ namespace Game
             this.mPrevIndex = 0;
 
             var rMainFrame = ViewModelManager.Instance.ReceiveViewModel<FrameViewModel>();
-            rMainFrame.PlayerName = Account.Instance.PlayerName;
-            rMainFrame.CoinCount  = LogicUtilTool.ToCountString(Account.Instance.CoinCount);
 
             rMainFrame.MainFrameTab = new List<MainFrameTabItem>()
             {

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace Game
 {
+    [DataBindingConvert]
     public static class LogicUtilTool
     {
+        [DataBindingConvert]
         public static string ToCountString(int nCount)
         {
             if (nCount >= 10000)

@@ -20,10 +20,6 @@ namespace Game
     public class FrameViewModel : ViewModel
     {
         [DataBinding]
-        public string                   PlayerName      { get; set; }
-        [DataBinding]
-        public string                   CoinCount       { get; set; }
-        [DataBinding]
         public List<MainFrameTabItem>   MainFrameTab    { get; set; }
     }
 }

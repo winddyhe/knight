@@ -1079,7 +1079,7 @@ MonoBehaviour:
   - Game.FrameViewModel
   - Game.ListDataItem
   - Game.ListTestViewModel
-  - Game.LoginViewModel
+  - Game.Account
 --- !u!114 &114378334475452186
 MonoBehaviour:
   m_ObjectHideFlags: 0
