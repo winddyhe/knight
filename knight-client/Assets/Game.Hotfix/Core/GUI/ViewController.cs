@@ -507,7 +507,6 @@ namespace Knight.Hotfix.Core
         {
             foreach (var rPair in this.ViewModels)
             {
-                rPair.Value.PropChangedHandler = null;
                 rPair.Value = null;
             }
             this.ViewModels.Clear();
