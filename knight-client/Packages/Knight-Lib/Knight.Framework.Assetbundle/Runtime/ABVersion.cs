@@ -32,7 +32,7 @@ namespace Knight.Framework.AssetBundles
         [SBIgnore][JsonIgnore]
         public string[]                     Dependencies { get { return D; } set { D = value; } }
     }
-
+    
     public partial class ABVersion : SerializerBinary
     {
         public class LoaderRequest
@@ -54,6 +54,7 @@ namespace Knight.Framework.AssetBundles
         public static string                ABVersion_File_MD5     = "ABVersion_MD5.Bin";
 
         public Dict<string, ABVersionEntry> Entries;
+        public Dict<string, string>         AssetMaps;
 
         public ABVersionEntry GetEntry(string rABName)
         {

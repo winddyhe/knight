@@ -21,13 +21,13 @@ namespace Knight.Core.Serializer.Editor
         [MenuItem("Tools/Serializer/Auto CS Generate...")]
         public static void CodeGenerate()
         {
-            string rGeneratePathRoot = "Assets/Framework/Generate/SerializerBinary/";
-            SerializerBinaryEditor.Instance.Analysis(rGeneratePathRoot, "Framework", (rText, fProgress) => EditorUtility.DisplayProgressBar("AutoCSGenerate", rText, fProgress));
+            string rGeneratePathRoot = "Packages/Knight-Lib/Knight.Framework.Assetbundle/Runtime/SerializerBinary/";
+            SerializerBinaryEditor.Instance.Analysis(rGeneratePathRoot, "Framework.AssetBundle", (rText, fProgress) => EditorUtility.DisplayProgressBar("AutoCSGenerate", rText, fProgress));
 
             rGeneratePathRoot = "Assets/Game/Script/Generate/SerializerBinary/";
             SerializerBinaryEditor.Instance.Analysis(rGeneratePathRoot, "Game", (rText, fProgress)=> EditorUtility.DisplayProgressBar("AutoCSGenerate", rText, fProgress));
             EditorUtility.ClearProgressBar();
-
+            
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 

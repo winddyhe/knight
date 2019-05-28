@@ -63,5 +63,35 @@ namespace Knight.Framework.Serializer
 			return rResult;
 		}
 
+		public static void Serialize(this BinaryWriter rWriter, Dict<string, string> value)
+		{
+			var bValid = (null != value);
+			rWriter.Serialize(bValid);
+			if (!bValid) return;
+
+			rWriter.Serialize(value.Count);
+			foreach(var rPair in value)
+			{
+				rWriter.Serialize(rPair.Key);
+				rWriter.Serialize(rPair.Value);
+			}
+		}
+
+		public static Dict<string, string> Deserialize(this BinaryReader rReader, Dict<string, string> value)
+		{
+			var bValid = rReader.Deserialize(default(bool));
+			if (!bValid) return null;
+
+			var nCount  = rReader.Deserialize(default(int));
+			var rResult = new Dict<string, string>();
+			for (int nIndex = 0; nIndex < nCount; ++ nIndex)
+			{
+				var rKey   = rReader.Deserialize(string.Empty);
+				var rValue = rReader.Deserialize(string.Empty);
+				rResult.Add(rKey, rValue);
+			}
+			return rResult;
+		}
+
 	}
 }

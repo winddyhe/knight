@@ -96,7 +96,6 @@ namespace Knight.Core.Serializer.Editor
 
             this.GUID = AssetDatabase.AssetPathToGUID(FilePath);
             this.MD5  = UtilTool.GetMD5String(this.StringBuilder.ToString());
-            this.NeedReimport = false;
 
             if (string.IsNullOrEmpty(this.GUID) ||
                 !File.Exists(CSMD5Path + this.GUID) ||
@@ -106,12 +105,7 @@ namespace Knight.Core.Serializer.Editor
                 this.NeedReimport = true;
                 UtilTool.WriteAllText(this.FilePath, this.StringBuilder.ToString());
             }
-
-            if (this.NeedReimport)
-                AssetDatabase.ImportAsset(this.FilePath);
-
-            this.GUID = AssetDatabase.AssetPathToGUID(this.FilePath);
-            UtilTool.WriteAllText(CSMD5Path + this.GUID, this.MD5);
+            AssetDatabase.ImportAsset(this.FilePath);
         }
 
         public virtual void WriteHead()

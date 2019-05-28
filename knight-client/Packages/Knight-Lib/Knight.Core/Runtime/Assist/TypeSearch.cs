@@ -52,33 +52,44 @@ namespace Knight.Core
             var rTypeSearchSubClasses = new List<KeyValuePair<Type, Type>>();
             foreach (var rAssembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                foreach (var rType in rAssembly.GetTypes())
+                try
                 {
-                    if (typeof(TypeSearchBase).IsAssignableFrom(rType) &&
-                        typeof(TypeSearchFull<,>) != rType &&
-                        typeof(TypeSearchDefault<>) != rType &&
-                        typeof(TypeSearchBase) != rType )
+                    foreach (var rType in rAssembly.GetTypes())
                     {
-                        var rSearchType = GetNoPublicField<Type>(rType.SearchBaseTo(typeof(TypeSearchBase)), "_Type");
-                        var rIgnoreType = GetNoPublicField<Type>(rType.SearchBaseTo(typeof(TypeSearchBase)), "_IgnoreAttributeType");
-                        if (null != rSearchType && null != rIgnoreType)
-                            rTypeSearchSubClasses.Add(new KeyValuePair<Type, Type>(rSearchType as Type, rIgnoreType));
+                        if (typeof(TypeSearchBase).IsAssignableFrom(rType) &&
+                            typeof(TypeSearchFull<,>) != rType &&
+                            typeof(TypeSearchDefault<>) != rType &&
+                            typeof(TypeSearchBase) != rType)
+                        {
+                            var rSearchType = GetNoPublicField<Type>(rType.SearchBaseTo(typeof(TypeSearchBase)), "_Type");
+                            var rIgnoreType = GetNoPublicField<Type>(rType.SearchBaseTo(typeof(TypeSearchBase)), "_IgnoreAttributeType");
+                            if (null != rSearchType && null != rIgnoreType)
+                                rTypeSearchSubClasses.Add(new KeyValuePair<Type, Type>(rSearchType as Type, rIgnoreType));
+                        }
                     }
+                }
+                catch (Exception)
+                {
                 }
             }
             foreach (var rAssembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                foreach (var rType in rAssembly.GetTypes())
+                try
                 {
-                    
-                    foreach(var rTypeSearchSubClass in rTypeSearchSubClasses)
+                    foreach (var rType in rAssembly.GetTypes())
                     {
-                        if (rTypeSearchSubClass.Key.IsAssignableFrom(rType) && 
-                            !rType.IsApplyAttr(rTypeSearchSubClass.Value, true))
+                        foreach (var rTypeSearchSubClass in rTypeSearchSubClasses)
                         {
-                            ReceiveTypeList(rTypeSearchSubClass.Key).Add(rType);
+                            if (rTypeSearchSubClass.Key.IsAssignableFrom(rType) &&
+                                !rType.IsApplyAttr(rTypeSearchSubClass.Value, true))
+                            {
+                                ReceiveTypeList(rTypeSearchSubClass.Key).Add(rType);
+                            }
                         }
                     }
+                }
+                catch (Exception)
+                {
                 }
             }
         }
