@@ -14,13 +14,11 @@ namespace Knight.Framework.AssetBundles
 		{
 			base.Serialize(rWriter);
 			rWriter.Serialize(this.Entries);
-			rWriter.Serialize(this.AssetMaps);
 		}
 		public override void Deserialize(BinaryReader rReader)
 		{
 			base.Deserialize(rReader);
 			this.Entries = rReader.Deserialize(this.Entries);
-			this.AssetMaps = rReader.Deserialize(this.AssetMaps);
 		}
 	}
 }
