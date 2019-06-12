@@ -187,6 +187,7 @@ namespace AssetBundleBrowser
                 EditorGUILayout.LabelField(m_TargetContent, rValueContent);
 
                 var tgt = ABBuilder.Instance.CurBuildPlatform;
+                m_UserData.m_BuildTarget = (int)tgt; 
                 m_UserData.m_OutputPath = ABBuilder.Instance.GetPathPrefix_Assetbundle();
             }
 
