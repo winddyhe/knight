@@ -31,8 +31,8 @@ namespace Game.Test
             mNetTest = new MessageTestObject();
             await mNetTest.Initialize();
 
-            string rDLLPath = "Assets/StreamingAssets/Temp/Libs/KnightHotfix.dll";
-            string rPDBPath = "Assets/StreamingAssets/Temp/Libs/KnightHotfix.pdb";
+            string rDLLPath = "Library/ScriptAssemblies/Game.Hotfix.dll";
+            string rPDBPath = "Library/ScriptAssemblies/Game.Hotfix.pdb";
             HotfixManager.Instance.InitApp(rDLLPath, rPDBPath);
 
             NetworkClient.Instance.Initialize(NetworkProtocol.TCP);
