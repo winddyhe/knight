@@ -33,4 +33,9 @@ namespace Knight.Core
             CoroutineManager.Instance.Stop(this.Handler);
         }
     }
+
+    public class CoroutineBoolRequest : CoroutineRequest<CoroutineBoolRequest>
+    {
+        public bool Result;
+    }
 }

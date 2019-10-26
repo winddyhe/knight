@@ -139,6 +139,8 @@ namespace Knight.Core
             {
                 TypeResolveManager.Instance.Initialize();
                 TypeResolveManager.Instance.AddAssembly("Game");
+                TypeResolveManager.Instance.AddAssembly("Game.Editor");
+                TypeResolveManager.Instance.AddAssembly("Framework.AssetBundle.Editor");
                 TypeResolveManager.Instance.AddAssembly("Tests");
                 TypeResolveManager.Instance.AddAssembly("KnightHotfix", true);
             }

@@ -244,7 +244,7 @@ namespace Knight.Core.WindJson
             }
             else
             {
-                Debug.LogError("Json grammar error!");
+                Debug.LogError($"Json grammar error! Json: {this.originData}.");
             }
         }
 
@@ -455,6 +455,10 @@ namespace Knight.Core.WindJson
                     rRootNode = new JsonData((ushort)rObject);
                 else
                     Debug.LogError(string.Format("Type = {0}, 不支持序列化的变量类型!", rObject.GetType()));
+            }
+            else if (rType.IsEnum)
+            {
+                rRootNode = new JsonData((int)rObject);
             }
             return rRootNode;
         }

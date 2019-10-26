@@ -4,5 +4,5 @@ folderAsset: yes
 DefaultImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  assetBundleName: game/config/gameconfig/binary
+  assetBundleVariant: ab

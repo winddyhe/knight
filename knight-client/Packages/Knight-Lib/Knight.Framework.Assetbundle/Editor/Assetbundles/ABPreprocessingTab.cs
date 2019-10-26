@@ -9,6 +9,8 @@ using UnityEditor;
 using Knight.Core.Editor;
 using Knight.Framework.AssetBundles.Editor;
 using System.IO;
+using Knight.Core.WindJson;
+using Knight.Core;
 
 namespace AssetBundleBrowser
 {
@@ -147,7 +149,7 @@ namespace AssetBundleBrowser
             if (GUILayout.Button("Save"))
             {
                 mABEntryConfig = ToEntryConfig(mEntryDatas);
-                EditorUtility.SetDirty(mABEntryConfig);
+                this.SaveEntryConfig(mABEntryConfig);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
             }
@@ -155,6 +157,13 @@ namespace AssetBundleBrowser
             {
                 ABBuilder.Instance.UpdateAllAssetsABLabels(ABBuilder.ABEntryConfigPath);
             }
+        }
+
+        private void SaveEntryConfig(ABEntryConfig rABEntryConfig)
+        {
+            var rJsonNode = JsonParser.ToJsonNode(rABEntryConfig);
+            var rJsonStr = rJsonNode.ToString();
+            UtilTool.WriteAllText(ABBuilder.ABEntryConfigPath, rJsonStr);
         }
 
         public List<EntryData> ToEntryDatas(ABEntryConfig rEntryConfig)

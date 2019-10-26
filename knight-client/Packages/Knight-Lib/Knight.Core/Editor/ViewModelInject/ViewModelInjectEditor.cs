@@ -79,14 +79,12 @@ namespace Knight.Core.Editor
             if (rPropChangedMethod == null) return;
             if (rNeedInjectPropertySetMethod == null) return;
 
-            var rInsertPoint = rNeedInjectPropertySetMethod.Body.Instructions[2];
+            var rInsertPoint = rNeedInjectPropertySetMethod.Body.Instructions[rNeedInjectPropertySetMethod.Body.Instructions.Count - 1];
             var rProcessor = rNeedInjectPropertySetMethod.Body.GetILProcessor();
-
-            // 顺序是反的
-            rProcessor.InsertAfter(rInsertPoint, rProcessor.Create(OpCodes.Nop));
-            rProcessor.InsertAfter(rInsertPoint, rProcessor.Create(OpCodes.Call, rPropChangedMethod));
-            rProcessor.InsertAfter(rInsertPoint, rProcessor.Create(OpCodes.Ldstr, rPropertyName));
-            rProcessor.InsertAfter(rInsertPoint, rProcessor.Create(OpCodes.Ldarg_0));
+            
+            rProcessor.InsertBefore(rInsertPoint, rProcessor.Create(OpCodes.Ldarg_0));
+            rProcessor.InsertBefore(rInsertPoint, rProcessor.Create(OpCodes.Ldstr, rPropertyName));
+            rProcessor.InsertBefore(rInsertPoint, rProcessor.Create(OpCodes.Call, rPropChangedMethod));
         }
     }
 }

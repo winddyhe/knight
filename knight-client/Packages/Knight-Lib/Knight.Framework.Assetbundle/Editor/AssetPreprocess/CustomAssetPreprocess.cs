@@ -103,6 +103,7 @@ namespace Knight.Framework.AssetBundles.Editor
             nCount = 0;
             for (int i = 0; i < rAllAssets.Count; i++)
             {
+                if (rABEntryConfig.ABEntries == null) continue;
                 if (!rAllAssets[i].Contains("Assets/Game/GameAsset")) continue;
                 var rABEntry = rABEntryConfig.ABEntries.Find((rItem) => { return rAllAssets[i].Contains(rItem.assetResPath); });
                 if (rABEntry == null) continue;

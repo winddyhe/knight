@@ -67,6 +67,10 @@ namespace Knight.Core
             }
         }
 
+        public class IEnumeratorRequest : AsyncRequest<IEnumeratorRequest>
+        {
+        }
+
         public static IAsyncOperation<WaitForEndOfFrameRequest> WaitForEndOfFrame()
         {
             var rRequest = new WaitForEndOfFrameRequest();

@@ -153,5 +153,30 @@ namespace Knight.Core
         {
             return this.mInnerList.GetEnumerator();
         }
+
+        public T Find(Predicate<T> match)
+        {
+            return this.mInnerList.Find(match);
+        }
+
+        public void Sort(Comparison<T> comparison)
+        {
+            this.mInnerList.Sort(comparison);
+        }
+
+        public List<T> FindAll(Predicate<T> match)
+        {
+            return this.mInnerList.FindAll(match);
+        }
+
+        public void AddRange(IEnumerable<T> rItems)
+        {
+            this.mInnerList.AddRange(rItems);
+        }
+
+        public List<T> ToList()
+        {
+            return new List<T>(this.mInnerList);
+        }
     }
 }

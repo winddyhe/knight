@@ -257,7 +257,13 @@ namespace Knight.Core
                 pCurrent++;
             }
 
-            if (nState != lastState) temp = "";
+            if (nState != lastState)
+            {
+                if (pCurrent < originData.Length)
+                    temp = "";
+                else
+                    end = pCurrent;
+            }
 
             return temp;
         }

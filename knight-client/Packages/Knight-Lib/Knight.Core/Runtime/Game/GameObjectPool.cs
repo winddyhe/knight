@@ -39,10 +39,15 @@ namespace Knight.Core
             this.mRootGo = UtilTool.CreateGameObject(rPoolName);
             this.mRootGo.SetActive(false);
             this.mRootGo.transform.position = new Vector3(0, 1000, 0);
-            
+
+            var rInitAllocGos = new List<GameObject>();
             for (int i = 0; i < rInitCount; i++)
             {
-                this.mObjectPool.Alloc();
+                rInitAllocGos.Add(this.mObjectPool.Alloc());
+            }
+            for (int i = 0; i < rInitAllocGos.Count; i++)
+            {
+                this.mObjectPool.Free(rInitAllocGos[i]);
             }
         }
 
@@ -54,15 +59,22 @@ namespace Knight.Core
             this.mRootGo = rRootGo;
             this.mRootGo.SetActive(false);
 
+            var rInitAllocGos = new List<GameObject>();
             for (int i = 0; i < rInitCount; i++)
             {
-                this.mObjectPool.Alloc();
+                rInitAllocGos.Add(this.mObjectPool.Alloc());
+            }
+            for (int i = 0; i < rInitAllocGos.Count; i++)
+            {
+                this.mObjectPool.Free(rInitAllocGos[i]);
             }
         }
 
         public GameObject Alloc()
         {
-            return this.mObjectPool.Alloc();
+            var rGo = this.mObjectPool.Alloc();
+            rGo.transform.SetParent(null, false);
+            return rGo;
         }
 
         public void Free(GameObject rGo)

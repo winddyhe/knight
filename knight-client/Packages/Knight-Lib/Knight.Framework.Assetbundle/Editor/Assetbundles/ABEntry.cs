@@ -10,13 +10,13 @@ using System.IO;
 using System;
 using Object = UnityEngine.Object;
 using Knight.Core;
+using Knight.Core.WindJson;
 
 namespace Knight.Framework.AssetBundles.Editor
 {
     /// <summary>
     /// 一个资源包项
     /// </summary>
-    [System.Serializable]
     public class ABEntry
     {
         /// <summary>
@@ -33,23 +33,23 @@ namespace Knight.Framework.AssetBundles.Editor
         /// <summary>
         /// 资源包名
         /// </summary>
-        public string           abName;
+        public string           abName = "";
         /// <summary>
         /// 资源包的后缀名
         /// </summary>
-        public string           abVariant;
+        public string           abVariant = "";
         /// <summary>
         /// 资源包的原始路径
         /// </summary>
-        public string           assetResPath;
+        public string           assetResPath = "";
         /// <summary>
         /// 需要的资源类型，比如如果是预制件那么应该为 "t:Prefab"
         /// </summary>
-        public string           assetType;
+        public string           assetType = "";
         /// <summary>
         /// 需要过滤的资源
         /// </summary>
-        public List<string>     filerAssets;
+        public List<string>     filerAssets = new List<string>();
         /// <summary>
         /// 原始资源的类型
         /// </summary>
@@ -57,15 +57,16 @@ namespace Knight.Framework.AssetBundles.Editor
         /// <summary>
         /// 资源的类名
         /// </summary>
-        public string           abClassName;
+        public string           abClassName = "";
         /// <summary>
         /// 最原始的资源路径
         /// </summary>
-        public string           abOriginalResPath;
+        public string           abOriginalResPath = "";
 
         /// <summary>
         /// 资源包名，包含后缀
         /// </summary>
+        [JsonIgnore]
         public string           ABFullName { get { return abName + "." + abVariant; } }
 
         public AssetBundleBuild[] ToABBuild()

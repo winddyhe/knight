@@ -9,6 +9,7 @@ using System;
 using Object = UnityEngine.Object;
 using System.Collections.Generic;
 using System.IO;
+using Knight.Core.WindJson;
 
 namespace Knight.Core.Editor
 {
@@ -50,18 +51,21 @@ namespace Knight.Core.Editor
             }
         }
 
-        public static T ReceiveAsset<T>(string rAssetPath) where T : ScriptableObject
+        public static T ReceiveAsset<T>(string rAssetPath) where T : new()
         {
-            var rObj = AssetDatabase.LoadAssetAtPath<T>(rAssetPath) as T;
-            if (rObj == null)
+            if (!File.Exists(rAssetPath))
             {
-                rObj = ScriptableObject.CreateInstance(typeof(T)) as T;
-                AssetDatabase.CreateAsset(rObj, rAssetPath);
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-                rObj = AssetDatabase.LoadAssetAtPath<T>(rAssetPath) as T;
+                var rJsonNode = new JsonClass();
+                var rJsonStr = rJsonNode.ToString();
+                UtilTool.WriteAllText(rAssetPath, rJsonStr);
+                return new T();
             }
-            return rObj;
+            else
+            {
+                var rJsonStr = File.ReadAllText(rAssetPath);
+                var rJsonNode = JsonParser.Parse(rJsonStr);
+                return rJsonNode.ToObject<T>();
+            }
         }
 
         public static List<string> GetAssetPaths(string rSearch, string[] rPaths)

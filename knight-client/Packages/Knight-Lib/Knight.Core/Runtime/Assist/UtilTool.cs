@@ -188,7 +188,7 @@ namespace Knight.Core
 
         public static string GetParentPath(string rPath)
         {
-            return Path.GetDirectoryName(rPath);
+            return Path.GetDirectoryName(rPath).Replace("\\", "/");
         }
 
         public static bool PathIsSame(string rPath1, string rPath2)
@@ -335,6 +335,19 @@ namespace Knight.Core
                 var rChildTrans = rTrans.GetChild(i);
                 GetComponentsInChildrenUtilOrigin(rComps, rOriginCompType, rChildTrans);
             }
+        }
+
+        public static Transform GetChildTransformByName(Transform rTransRoot, string rName)
+        {
+            var rAllTrans = rTransRoot.GetComponentsInChildren<Transform>(true);
+            for (int i = 0; i < rAllTrans.Length; i++)
+            {
+                if (rAllTrans[i].name.Equals(rName))
+                {
+                    return rAllTrans[i];
+                }
+            }
+            return null;
         }
 
         public static Color ToColor(int r, int g, int b, int a)

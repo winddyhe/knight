@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Knight.Framework.AssetBundles.Editor
 {
-    public class ABEntryConfig : ScriptableObject
+    public class ABEntryConfig
     {
         public List<ABEntry> ABEntries;
     }

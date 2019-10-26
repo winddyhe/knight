@@ -197,8 +197,8 @@ namespace Knight.Core.WindJson
 
         public bool CastBool(string value)
         {
-            if (value == "false" || value == "true")
-                return value == "false" ? false : true;
+            if (value.ToLower() == "false" || value.ToLower() == "true")
+                return value.ToLower() == "false" ? false : true;
             else
                 return CastInt(value) == 0 ? false : true;
         }
@@ -210,6 +210,7 @@ namespace Knight.Core.WindJson
             if (int.TryParse(value, out re)) return re;
 
             //如果不是数字，而是字符串，直接转换为enum
+            type = ITypeRedirect.GetRedirectType(type);
             return Enum.Parse(type, value, true);
         }
     }
@@ -280,7 +281,7 @@ namespace Knight.Core.WindJson
                 jsonStr += list[i].ToString();
                 jsonStr += ",";
             }
-			jsonStr += list.Count == 0 ? "" : list[list.Count - 1].ToString();
+			jsonStr += (list.Count == 0 || list[Count-1] == null) ? "" : list[list.Count - 1].ToString();
             jsonStr += "]";
             return jsonStr;
         }
@@ -458,7 +459,8 @@ namespace Knight.Core.WindJson
             int i = 0;
             foreach (var rItem in dict)
             {
-                jsonStr += "\"" + rItem.Key + "\":" + rItem.Value.ToString();
+                var rValue = rItem.Value == null ? "" : rItem.Value.ToString();
+                jsonStr += "\"" + rItem.Key + "\":" + rValue;
                 if (i < Count - 1) jsonStr += ",";
                 i++;
             }
@@ -584,59 +586,71 @@ namespace Knight.Core.WindJson
     public class JsonData : JsonNode
     {
         private string value;
+        private Type   type;
 
         public JsonData(string v)
         {
+            type = v.GetType();
             value = v;
         }
 
         public JsonData(float v)
         {
+            type = v.GetType();
             AsFloat = v;
         }
 
         public JsonData(double v)
         {
+            type = v.GetType();
             AsDouble = v;
         }
 
         public JsonData(int v)
         {
+            type = v.GetType();
             AsInt = v;
         }
 
         public JsonData(uint v)
         {
+            type = v.GetType();
             AsUint = v;
         }
 
         public JsonData(long v)
         {
+            type = v.GetType();
             AsLong = v;
         }
 
         public JsonData(ulong v)
         {
+            type = v.GetType();
             AsUlong = v;
         }
 
         public JsonData(bool v)
         {
+            type = v.GetType();
             AsBool = v;
         }
 
         public JsonData(byte v)
         {
+            type = v.GetType();
             AsByte = v;
         }
 
         public JsonData(short v)
         {
+            type = v.GetType();
             AsShort = v;
         }
 
         public JsonData(ushort v)
         {
+            type = v.GetType();
             AsUShort = v;
         }
 
@@ -648,7 +662,10 @@ namespace Knight.Core.WindJson
 
         public override string ToString()
         {
-            return "\"" + value.ToString() + "\"";
+            if (type.Equals(typeof(string)))
+                return "\"" + value.ToString() + "\"";
+            else
+                return value.ToString();
         }
 
         public override List<string> Keys
@@ -669,6 +686,7 @@ namespace Knight.Core.WindJson
         public override object ToObject(Type rType)
         {
             rType = ITypeRedirect.GetRedirectType(rType);
+            type = rType;
             if (rType.IsPrimitive)
             {
                 if (rType == typeof(int))
@@ -718,6 +736,8 @@ namespace Knight.Core.WindJson
             }
             else if (rType == typeof(string))
             {
+                if (string.IsNullOrEmpty(this.value))
+                    return "";
                 return this.value;
             }
             Debug.LogErrorFormat("{0}不是基础类型，不能解析成为JsonData !", this.value);

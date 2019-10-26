@@ -33,7 +33,7 @@ namespace Knight.Framework.AssetBundles.Editor
         /// <summary>
         /// 资源包配置文件路径
         /// </summary>
-        public static string ABEntryConfigPath      = "Assets/Game.Editor/Editor/Assetbundle_Settings.asset";
+        public static string ABEntryConfigPath      = "Assets/Game.Editor/Editor/Assetbundle_Settings.json";
         
         /// <summary>
         /// 资源包的前缀
