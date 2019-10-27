@@ -28,9 +28,9 @@ namespace Game.Test
             Assert.AreEqual(rDict1["xxx2"].A2, 20000000000);
             Assert.AreEqual(rDict1["xxx3"].A3, "XXX3");
 
-            LogAssert.Expect(LogType.Log, "1, 10000000000, XXX1");
-            LogAssert.Expect(LogType.Log, "2, 20000000000, XXX2");
-            LogAssert.Expect(LogType.Log, "3, 30000000000, XXX3");
+            //LogAssert.Expect(LogType.Log, "1, 10000000000, XXX1");
+            //LogAssert.Expect(LogType.Log, "2, 20000000000, XXX2");
+            //LogAssert.Expect(LogType.Log, "3, 30000000000, XXX3");
 
             foreach (var rPair in rDict1)
             {
