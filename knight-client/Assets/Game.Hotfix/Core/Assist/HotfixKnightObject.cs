@@ -9,7 +9,7 @@ namespace Knight.Hotfix.Core
     public interface IHotfixKnightObject : IDisposable
     {
         Task Initialize();
-        void Update();
+        void Update(float fDeltaTime);
     }
 
     public class KnightEvent
@@ -78,7 +78,7 @@ namespace Knight.Hotfix.Core
             }
         }
 
-        public virtual void Update()
+        public virtual void Update(float fDeltaTime)
         {
         }
 
@@ -102,10 +102,10 @@ namespace Knight.Hotfix.Core
             await this.OnInitialize();
         }
 
-        public sealed override void Update()
+        public sealed override void Update(float fDeltaTime)
         {
-            base.Update();
-            this.OnUpdate();
+            base.Update(fDeltaTime);
+            this.OnUpdate(fDeltaTime);
         }
 
         public sealed override void Dispose()
@@ -120,7 +120,7 @@ namespace Knight.Hotfix.Core
         {
         }
 
-        protected virtual void OnUpdate()
+        protected virtual void OnUpdate(float fDeltaTime)
         {
         }
 

@@ -33,8 +33,9 @@ namespace Game
 
         public void Update()
         {
+            float fDeltaTime = Time.deltaTime;
             // UI的模块更新逻辑
-            ViewManager.Instance.Update();
+            ViewManager.Instance.Update(fDeltaTime);
         }
     }
 }

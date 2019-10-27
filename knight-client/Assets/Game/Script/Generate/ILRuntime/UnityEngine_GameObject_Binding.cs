@@ -70,20 +70,6 @@ namespace ILRuntime.Runtime.Generated
                     }
                 }
             }
-            args = new Type[]{typeof(UnityEngine.UI.EventBinding)};
-            if (genericMethods.TryGetValue("GetComponentsInChildren", out lst))
-            {
-                foreach(var m in lst)
-                {
-                    if(m.MatchGenericParameters(args, typeof(UnityEngine.UI.EventBinding[]), typeof(System.Boolean)))
-                    {
-                        method = m.MakeGenericMethod(args);
-                        app.RegisterCLRMethodRedirection(method, GetComponentsInChildren_4);
-
-                        break;
-                    }
-                }
-            }
             args = new Type[]{typeof(UnityEngine.UI.ViewModelDataSourceTab)};
             if (genericMethods.TryGetValue("GetComponentsInChildren", out lst))
             {
@@ -92,7 +78,7 @@ namespace ILRuntime.Runtime.Generated
                     if(m.MatchGenericParameters(args, typeof(UnityEngine.UI.ViewModelDataSourceTab[]), typeof(System.Boolean)))
                     {
                         method = m.MakeGenericMethod(args);
-                        app.RegisterCLRMethodRedirection(method, GetComponentsInChildren_5);
+                        app.RegisterCLRMethodRedirection(method, GetComponentsInChildren_4);
 
                         break;
                     }
@@ -104,6 +90,20 @@ namespace ILRuntime.Runtime.Generated
                 foreach(var m in lst)
                 {
                     if(m.MatchGenericParameters(args, typeof(UnityEngine.UI.ViewModelDataSourceArray[]), typeof(System.Boolean)))
+                    {
+                        method = m.MakeGenericMethod(args);
+                        app.RegisterCLRMethodRedirection(method, GetComponentsInChildren_5);
+
+                        break;
+                    }
+                }
+            }
+            args = new Type[]{typeof(UnityEngine.UI.EventBinding)};
+            if (genericMethods.TryGetValue("GetComponentsInChildren", out lst))
+            {
+                foreach(var m in lst)
+                {
+                    if(m.MatchGenericParameters(args, typeof(UnityEngine.UI.EventBinding[]), typeof(System.Boolean)))
                     {
                         method = m.MakeGenericMethod(args);
                         app.RegisterCLRMethodRedirection(method, GetComponentsInChildren_6);
@@ -201,7 +201,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.GameObject instance_of_this_method = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = instance_of_this_method.GetComponentsInChildren<UnityEngine.UI.EventBinding>(@includeInactive);
+            var result_of_this_method = instance_of_this_method.GetComponentsInChildren<UnityEngine.UI.ViewModelDataSourceTab>(@includeInactive);
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
@@ -219,7 +219,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.GameObject instance_of_this_method = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = instance_of_this_method.GetComponentsInChildren<UnityEngine.UI.ViewModelDataSourceTab>(@includeInactive);
+            var result_of_this_method = instance_of_this_method.GetComponentsInChildren<UnityEngine.UI.ViewModelDataSourceArray>(@includeInactive);
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
@@ -237,7 +237,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.GameObject instance_of_this_method = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = instance_of_this_method.GetComponentsInChildren<UnityEngine.UI.ViewModelDataSourceArray>(@includeInactive);
+            var result_of_this_method = instance_of_this_method.GetComponentsInChildren<UnityEngine.UI.EventBinding>(@includeInactive);
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }

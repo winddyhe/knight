@@ -110,9 +110,9 @@ namespace Knight.Hotfix.Core
             this.ViewController?.Hide();
         }
 
-        public void Update()
+        public void Update(float fDeltaTime)
         {
-            this.ViewController?.Update();
+            this.ViewController?.Update(fDeltaTime);
         }
         
         public void Dispose()

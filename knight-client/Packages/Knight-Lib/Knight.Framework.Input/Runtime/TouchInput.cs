@@ -75,7 +75,7 @@ namespace Knight.Framework.Input
         {
             get
             {
-#if UNITY_EDITOR && !INPUT_EDITOR_REMOTE_DEBUG
+#if (UNITY_EDITOR && !INPUT_EDITOR_REMOTE_DEBUG) || UNITY_STANDALONE
                 return this.touchCount;
 #else
                 this.touchCount = UnityEngine.Input.touchCount;
@@ -86,7 +86,7 @@ namespace Knight.Framework.Input
         
         public TouchObject GetTouch(int nTouchIndex)
         {
-#if UNITY_EDITOR && !INPUT_EDITOR_REMOTE_DEBUG
+#if (UNITY_EDITOR && !INPUT_EDITOR_REMOTE_DEBUG) || UNITY_STANDALONE
             if (nTouchIndex == 0)
                 return this.mouseTouchMonitor.TouchObj;
             else
@@ -103,7 +103,7 @@ namespace Knight.Framework.Input
 
         void Update()
         {
-#if UNITY_EDITOR && !INPUT_EDITOR_REMOTE_DEBUG
+#if (UNITY_EDITOR && !INPUT_EDITOR_REMOTE_DEBUG) || UNITY_STANDALONE
             if (UnityEngine.Input.GetMouseButton(0))
                 this.touchCount = 1;
             else

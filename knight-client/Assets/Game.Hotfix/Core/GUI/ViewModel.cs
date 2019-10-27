@@ -20,21 +20,29 @@ namespace Knight.Hotfix.Core
 
         public void Initialize()
         {
+            this.mPropMaps.Clear();
+
             var rType = this.GetType();
             foreach (var rPropInfo in rType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
                 var rAttribute = rPropInfo.GetCustomAttribute<DataBindingRelatedAttribute>();
                 if (rAttribute == null) continue;
 
-                if (!string.IsNullOrEmpty(rAttribute.RelatedProp))
+                if (rAttribute.RelatedProps != null)
                 {
-                    List<string> rProps = null;
-                    if (!this.mPropMaps.TryGetValue(rAttribute.RelatedProp, out rProps))
+                    if (string.IsNullOrEmpty(rAttribute.RelatedProps)) continue;
+
+                    var rRelatedProps = rAttribute.RelatedProps.Split(',');
+                    for (int i = 0; i < rRelatedProps.Length; i++)
                     {
-                        rProps = new List<string>();
-                        this.mPropMaps.Add(rAttribute.RelatedProp, rProps);
+                        List<string> rProps = null;
+                        if (!this.mPropMaps.TryGetValue(rRelatedProps[i].Trim(), out rProps))
+                        {
+                            rProps = new List<string>();
+                            this.mPropMaps.Add(rRelatedProps[i].Trim(), rProps);
+                        }
+                        rProps.Add(rPropInfo.Name);
                     }
-                    rProps.Add(rPropInfo.Name);
                 }
             }
         }

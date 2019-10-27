@@ -16,11 +16,11 @@ namespace UnityEngine.UI
     [AttributeUsage(AttributeTargets.Property)]
     public class DataBindingRelatedAttribute : Attribute
     {
-        public string RelatedProp;
+        public string RelatedProps;
 
-        public DataBindingRelatedAttribute(string rRelatedProp)
+        public DataBindingRelatedAttribute(string rRelatedProps)
         {
-            this.RelatedProp = rRelatedProp;
+            this.RelatedProps = rRelatedProps;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Knight.Hotfix.Core
         public void DataBindingConnect(ViewControllerContainer rViewControllerContainer)
         {
             if (rViewControllerContainer == null) return;
-            
+
             // 把Event绑定到ViewController里面
             this.BindingEvents(rViewControllerContainer);
             
@@ -62,9 +62,44 @@ namespace Knight.Hotfix.Core
                 ViewModel rViewModel = rMemberBinding.ViewModelProp.PropertyOwner as ViewModel;
                 if (rViewModel != null)
                 {
-                    rViewModel.PropChangedHandler -= rMemberBinding.ViewModelPropertyWatcher.PropertyChanged;
+                    if (rMemberBinding)
+                        rViewModel.PropChangedHandler -= rMemberBinding.ViewModelPropertyWatcher.PropertyChanged;
                 }
-                rMemberBinding.OnDestroy();
+                if (rMemberBinding)
+                    rMemberBinding.OnDestroy();
+            }
+
+            var rListViewModelDataSources = UtilTool.GetComponentsInChildrenUtilOrigin<ViewModelDataSourceList>(rViewControllerContainer);
+            for (int i = 0; i < rListViewModelDataSources.Count; i++)
+            {
+                var rViewModelDataSource = rListViewModelDataSources[i];
+                ViewModel rViewModel = rViewModelDataSource.ViewModelProp.PropertyOwner as ViewModel;
+                if (rViewModel != null)
+                {
+                    rViewModel.PropChangedHandler -= rViewModelDataSource.ViewModelPropertyWatcher.PropertyChanged;
+                }
+            }
+
+            var rTabViewModelDataSources = rViewControllerContainer.gameObject.GetComponentsInChildren<ViewModelDataSourceTab>(true);
+            for (int i = 0; i < rTabViewModelDataSources.Length; i++)
+            {
+                var rViewModelDataSource = rTabViewModelDataSources[i];
+                ViewModel rViewModel = rViewModelDataSource.ViewModelProp.PropertyOwner as ViewModel;
+                if (rViewModel != null)
+                {
+                    rViewModel.PropChangedHandler -= rViewModelDataSource.ViewModelPropertyWatcher.PropertyChanged;
+                }
+            }
+
+            var rArrayViewModelDataSources = rViewControllerContainer.gameObject.GetComponentsInChildren<ViewModelDataSourceArray>(true);
+            for (int i = 0; i < rArrayViewModelDataSources.Length; i++)
+            {
+                var rViewModelDataSource = rArrayViewModelDataSources[i];
+                ViewModel rViewModel = rViewModelDataSource.ViewModelProp.PropertyOwner as ViewModel;
+                if (rViewModel != null)
+                {
+                    rViewModel.PropChangedHandler -= rViewModelDataSource.ViewModelPropertyWatcher.PropertyChanged;
+                }
             }
 
             var rAllEventBindings = rViewControllerContainer.gameObject.GetComponentsInChildren<EventBinding>(true);
@@ -109,7 +144,7 @@ namespace Knight.Hotfix.Core
             for (int i = 0; i < rViewControllerContainer.EventBindings.Count; i++)
             {
                 var rEventBinding = rViewControllerContainer.EventBindings[i];
-                if (rEventBinding.IsListTemplate) continue;
+                if (!rEventBinding || rEventBinding.IsListTemplate) continue;
                 
                 var bResult = HotfixDataBindingTypeResolve.MakeViewModelDataBindingEvent(this, rEventBinding);
                 if (!bResult)
@@ -133,20 +168,20 @@ namespace Knight.Hotfix.Core
                 rMemberBinding.ViewProp = DataBindingTypeResolve.MakeViewDataBindingProperty(rMemberBinding.gameObject, rMemberBinding.ViewPath);
                 if (rMemberBinding.ViewProp == null)
                 {
-                    Debug.LogErrorFormat("View Path: {0} error..", rMemberBinding.ViewPath);
+                    Debug.LogErrorFormat("View Path: {0},{1} error..", rMemberBinding, rMemberBinding.ViewPath);
                     return;
                 }
                 
                 rMemberBinding.ViewModelProp = HotfixDataBindingTypeResolve.MakeViewModelDataBindingProperty(rMemberBinding.ViewModelPath);
                 if (rMemberBinding.ViewModelProp == null)
                 {
-                    Debug.LogErrorFormat("View Model Path: {0} error..", rMemberBinding.ViewModelPath);
+                    Debug.LogErrorFormat("View Model Path: {0},{1} error..", rMemberBinding, rMemberBinding.ViewModelPath);
                     return;
                 }
                 ViewModel rViewModel = this.GetViewModel(rMemberBinding.ViewModelProp.PropertyOwnerKey);
                 if (rViewModel == null)
                 {
-                    Debug.LogErrorFormat("View Model: {0} error..", rMemberBinding.ViewModelPath);
+                    Debug.LogErrorFormat("View Model: {0},{1} error..", rMemberBinding, rMemberBinding.ViewModelPath);
                     return;
                 }
 
@@ -251,7 +286,7 @@ namespace Knight.Hotfix.Core
             }
             else
             {
-                Debug.LogError($"ViewModel {rViewModelDataSource.ViewModelPath} getValue is null..");
+                Debug.LogError($"ViewModel {rViewModelDataSource.name}, {rViewModelDataSource.ViewModelPath} getValue is null..");
             }
         }
 
@@ -261,6 +296,7 @@ namespace Knight.Hotfix.Core
             
             var rListItem = rListObj[nIndex] as ViewModel;
             if (rListItem == null) return;
+            rListItem.Initialize();
             
             var rAllEventBindings = rTrans.GetComponentsInChildren<EventBinding>(true);
             for (int i = 0; i < rAllEventBindings.Length; i++)
@@ -290,7 +326,7 @@ namespace Knight.Hotfix.Core
                 }
                 if (rMemberBinding.ViewProp == null)
                 {
-                    Debug.LogErrorFormat("List template View Path: {0} error..", rMemberBinding.ViewPath);
+                    Debug.LogErrorFormat("List template View Path: {0} {1} error..", rMemberBinding, rMemberBinding.ViewPath);
                     return;
                 }
 
@@ -299,7 +335,7 @@ namespace Knight.Hotfix.Core
                     rMemberBinding.ViewModelProp = HotfixDataBindingTypeResolve.MakeViewModelDataBindingProperty(rMemberBinding.ViewModelPath);
                     if (rMemberBinding.ViewModelProp == null)
                     {
-                        Debug.LogErrorFormat("View Model Path: {0} error..", rMemberBinding.ViewModelPath);
+                        Debug.LogErrorFormat("View Model {0} Path: {1} error..", rMemberBinding.name, rMemberBinding.ViewModelPath);
                         return;
                     }
                 }
@@ -410,6 +446,8 @@ namespace Knight.Hotfix.Core
 
                 for (int i = 0; i < nListCount; i++)
                 {
+                    if (!rViewModelDataSource.ItemTemplateGo) continue;
+
                     GameObject rItemInstGo = GameObject.Instantiate(rViewModelDataSource.ItemTemplateGo);
                     rItemInstGo.SetActive(true);
                     rItemInstGo.name = "list_" + i;
@@ -499,7 +537,7 @@ namespace Knight.Hotfix.Core
             await base.OnInitialize();
         }
 
-        protected override void OnUpdate()
+        protected override void OnUpdate(float fDeltaTime)
         {
         }
 

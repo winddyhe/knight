@@ -55,7 +55,7 @@ namespace UnityEngine.UI
             UIAtlas rSearchAtlas = this.SearchAtlas(rSpriteName);
             if (rSearchAtlas == null) return null;
 
-            SpriteRequest rRequest = new SpriteRequest(rSearchAtlas.ABName, rSpriteName);
+            SpriteRequest rRequest = new SpriteRequest(rSearchAtlas.ABName.ToLower(), rSpriteName);
             if (rSearchAtlas.Mode == UIAtlasMode.Atlas)
             {
                 return LoadSprite_AtlasMode_Sync(rRequest);
@@ -79,15 +79,16 @@ namespace UnityEngine.UI
             string rABPath = rSearchAtlas.ABName;
             if (rSearchAtlas.Mode == UIAtlasMode.FullBG)
             {
-                rABPath = rSearchAtlas.ABName + "/" + rSpriteName.ToLower() + ".ab";
+                rABPath = rSearchAtlas.ABName.ToLower() + "/" + rSpriteName.ToLower() + ".ab";
             }
             AssetLoader.Instance.UnloadAsset(rABPath);
         }
 
+        private Vector4 mTempBorder = new Vector4(0, 0, 1, 1);
         private SpriteRequest LoadSprite_AtlasMode_Sync(SpriteRequest rSpriteRequest)
         {
             bool bIsSumilate = AssetLoader.Instance.IsSumilateMode_GUI();
-            var rLoadRequest = AssetLoader.Instance.LoadAsset(rSpriteRequest.Path, rSpriteRequest.AssetName, bIsSumilate);
+            var rLoadRequest = AssetLoader.Instance.LoadAsset(rSpriteRequest.Path.ToLower(), rSpriteRequest.AssetName, bIsSumilate);
 
             if (rLoadRequest.Asset == null)
             {
@@ -100,14 +101,16 @@ namespace UnityEngine.UI
             else
             {
                 Texture2D rTex2D = rLoadRequest.Asset as Texture2D;
-                rSpriteRequest.Sprite = Sprite.Create(rTex2D, new Rect(0, 0, rTex2D.width, rTex2D.height), new Vector2(0.5f, 0.5f));
+                var rRect = new Rect(0, 0, rTex2D.width, rTex2D.height);
+                rSpriteRequest.Sprite = Sprite.Create(rTex2D, rRect, new Vector2(0.5f, 0.5f), 100, 1, SpriteMeshType.Tight, mTempBorder);
+                rSpriteRequest.Sprite.name = rSpriteRequest.AssetName;
             }
             return rSpriteRequest;
         }
 
         private SpriteRequest LoadSprite_FullBGMode_Sync(SpriteRequest rSpriteRequest)
         {
-            string rABPath = rSpriteRequest.Path + "/" + rSpriteRequest.AssetName.ToLower() + ".ab";
+            string rABPath = rSpriteRequest.Path.ToLower() + "/" + rSpriteRequest.AssetName.ToLower() + ".ab";
 
             var rLoadRequest = AssetLoader.Instance.LoadAsset(rABPath, rSpriteRequest.AssetName, AssetLoader.Instance.IsSumilateMode_GUI());
             if (rLoadRequest == null || rLoadRequest.Asset == null)
@@ -120,12 +123,17 @@ namespace UnityEngine.UI
 
         private SpriteRequest LoadSprite_IconsMode_Sync(SpriteRequest rSpriteRequest)
         {
-            var rLoadRequest = AssetLoader.Instance.LoadAsset(rSpriteRequest.Path, rSpriteRequest.AssetName, AssetLoader.Instance.IsSumilateMode_GUI());
+            bool bIsSumilate = AssetLoader.Instance.IsSumilateMode_GUI();
+            var rLoadRequest = AssetLoader.Instance.LoadAsset(rSpriteRequest.Path.ToLower(), rSpriteRequest.AssetName, bIsSumilate);
             if (rLoadRequest == null || rLoadRequest.Asset == null)
             {
                 return null;
             }
-            rSpriteRequest.Sprite = rLoadRequest.Asset as Sprite;
+            
+            Texture2D rTex2D = rLoadRequest.Asset as Texture2D;
+            rSpriteRequest.Sprite = Sprite.Create(rTex2D, new Rect(0, 0, rTex2D.width, rTex2D.height), new Vector2(0.5f, 0.5f), 100, 1, SpriteMeshType.Tight, mTempBorder);
+            rSpriteRequest.Sprite.name = rSpriteRequest.AssetName;
+
             return rSpriteRequest;
         }
 

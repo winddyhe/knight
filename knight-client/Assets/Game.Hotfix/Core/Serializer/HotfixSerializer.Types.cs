@@ -4,6 +4,7 @@
 //======================================================================
 using System;
 using System.IO;
+using UnityEngine;
 
 namespace Knight.Hotfix.Core
 {
@@ -85,6 +86,17 @@ namespace Knight.Hotfix.Core
                 rValue.Serialize(rWriter);
             }
         }
+        public static void Serialize(this BinaryWriter rWriter, Vector3 rValue)
+        {
+            bool bValid = null != rValue;
+            rWriter.Serialize(bValid);
+            if (bValid)
+            {
+                rWriter.Serialize(rValue.x);
+                rWriter.Serialize(rValue.y);
+                rWriter.Serialize(rValue.z);
+            }
+        }
     }
 
     /// <summary>
@@ -92,7 +104,7 @@ namespace Knight.Hotfix.Core
     /// </summary>
     public static class SerializerBinaryDeserialize
     {
-        public static T Deserialize<T>(this BinaryReader rReader, T value)
+        public static T Deserialize<T>(this BinaryReader rReader, T rValue)
             where T : HotfixSerializerBinary
         {
             bool bValid = rReader.Deserialize(false);
@@ -114,6 +126,18 @@ namespace Knight.Hotfix.Core
             var rInstance = HotfixReflectAssists.TConstruct<T>(Type.GetType(rFullName));
             rInstance.Deserialize(rReader);
             return rInstance;
+        }
+        public static Vector3 Deserialize(this BinaryReader rReader, Vector3 rValue)
+        {
+            bool bValid = rReader.ReadBoolean();
+            if (!bValid)
+                return Vector3.zero;
+
+            Vector3 rVec3 = Vector3.zero;
+            rVec3.x = rReader.ReadSingle();
+            rVec3.y = rReader.ReadSingle();
+            rVec3.z = rReader.ReadSingle();
+            return rVec3;
         }
     }
 }

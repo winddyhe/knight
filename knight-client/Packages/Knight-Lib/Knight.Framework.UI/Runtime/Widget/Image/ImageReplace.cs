@@ -11,6 +11,8 @@ namespace UnityEngine.UI
         private string                  mSpriteName;
         public  Image                   Image;
 
+        public  bool                    IsNativeSize;
+
         private void Awake()
         {
             this.Image = this.gameObject.ReceiveComponent<Image>();
@@ -22,7 +24,7 @@ namespace UnityEngine.UI
 
         private void OnDestroy()
         {
-            UIAtlasManager.Instance.UnloadSprite(this.mSpriteName);
+            //UIAtlasManager.Instance.UnloadSprite(this.mSpriteName);
         }
         
         public string SpriteName
@@ -40,7 +42,13 @@ namespace UnityEngine.UI
                     this.Image.sprite = null;
                     return;
                 }
+                this.Image.sprite = null;
                 this.LoadSprite(this.mSpriteName);
+
+                if (this.IsNativeSize)
+                {
+                    this.Image.SetNativeSize();
+                }
             }
         }
 

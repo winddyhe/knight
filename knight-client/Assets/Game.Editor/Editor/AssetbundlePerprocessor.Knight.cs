@@ -13,7 +13,7 @@ namespace Game.Editor
 {
     public class ABEntryProcessor_GameConfig : ABEntryProcessor
     {
-        public string HotfixDllPath = "Assets/Game/GameAsset/Hotfix/Libs/KnightHotfixModule.bytes";
+        public string HotfixDllPath = "Assets/Game/GameAsset/Hotfix/Libs/KnightHotfix.bytes";
 
         public override void PreprocessAssets()
         {

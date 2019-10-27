@@ -23,44 +23,44 @@ namespace ILRuntime.Runtime.Generated
             Type[] args;
             Type type = typeof(UnityEngine.UI.ViewModelDataSourceTemplate);
 
-            field = type.GetField("ViewModelPath", flag);
-            app.RegisterCLRFieldGetter(field, get_ViewModelPath_0);
-            app.RegisterCLRFieldSetter(field, set_ViewModelPath_0);
             field = type.GetField("ViewModelProp", flag);
-            app.RegisterCLRFieldGetter(field, get_ViewModelProp_1);
-            app.RegisterCLRFieldSetter(field, set_ViewModelProp_1);
+            app.RegisterCLRFieldGetter(field, get_ViewModelProp_0);
+            app.RegisterCLRFieldSetter(field, set_ViewModelProp_0);
             field = type.GetField("ViewModelPropertyWatcher", flag);
-            app.RegisterCLRFieldGetter(field, get_ViewModelPropertyWatcher_2);
-            app.RegisterCLRFieldSetter(field, set_ViewModelPropertyWatcher_2);
+            app.RegisterCLRFieldGetter(field, get_ViewModelPropertyWatcher_1);
+            app.RegisterCLRFieldSetter(field, set_ViewModelPropertyWatcher_1);
+            field = type.GetField("ViewModelPath", flag);
+            app.RegisterCLRFieldGetter(field, get_ViewModelPath_2);
+            app.RegisterCLRFieldSetter(field, set_ViewModelPath_2);
 
 
         }
 
 
 
-        static object get_ViewModelPath_0(ref object o)
-        {
-            return ((UnityEngine.UI.ViewModelDataSourceTemplate)o).ViewModelPath;
-        }
-        static void set_ViewModelPath_0(ref object o, object v)
-        {
-            ((UnityEngine.UI.ViewModelDataSourceTemplate)o).ViewModelPath = (System.String)v;
-        }
-        static object get_ViewModelProp_1(ref object o)
+        static object get_ViewModelProp_0(ref object o)
         {
             return ((UnityEngine.UI.ViewModelDataSourceTemplate)o).ViewModelProp;
         }
-        static void set_ViewModelProp_1(ref object o, object v)
+        static void set_ViewModelProp_0(ref object o, object v)
         {
             ((UnityEngine.UI.ViewModelDataSourceTemplate)o).ViewModelProp = (UnityEngine.UI.DataBindingProperty)v;
         }
-        static object get_ViewModelPropertyWatcher_2(ref object o)
+        static object get_ViewModelPropertyWatcher_1(ref object o)
         {
             return ((UnityEngine.UI.ViewModelDataSourceTemplate)o).ViewModelPropertyWatcher;
         }
-        static void set_ViewModelPropertyWatcher_2(ref object o, object v)
+        static void set_ViewModelPropertyWatcher_1(ref object o, object v)
         {
             ((UnityEngine.UI.ViewModelDataSourceTemplate)o).ViewModelPropertyWatcher = (UnityEngine.UI.DataBindingPropertyWatcher)v;
+        }
+        static object get_ViewModelPath_2(ref object o)
+        {
+            return ((UnityEngine.UI.ViewModelDataSourceTemplate)o).ViewModelPath;
+        }
+        static void set_ViewModelPath_2(ref object o, object v)
+        {
+            ((UnityEngine.UI.ViewModelDataSourceTemplate)o).ViewModelPath = (System.String)v;
         }
 
 

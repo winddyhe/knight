@@ -20,6 +20,10 @@ namespace Knight.Framework.Tweening
         Color,
         CanvasAlpha,
         Delay,
+        ImageAmount,
+        RectTransPos,
+        RectTransPosX,
+        RectTransPosY,
     }
 
     [System.Serializable]
@@ -45,7 +49,13 @@ namespace Knight.Framework.Tweening
 
         public Color                StartCol = Color.white;
         public Color                EndCol = Color.white;
+
+        public Vector3              DefultVector3;
+        public float                DefultFloat;
+        public Color                DefultColor;
         
+        public Action               SetDefultValue;
+        public Action               SetPlayStartValue;
         public Tweener              Tweener;
     }
     
@@ -60,18 +70,41 @@ namespace Knight.Framework.Tweening
         public List<TweeningAction> Actions;
 
         private int                 mAnimationCount;
+
+        private bool                mIsPlay;
+
+        public bool                 IsPlay
+        {
+            get { return this.mIsPlay; }
+            set {
+                this.mIsPlay = value;
+                if(this.mIsPlay)
+                {
+                    this.Stop();
+                    this.CreateActionTweeners();
+                    this.Play();
+                }
+                else
+                {
+                    this.Stop();
+                    this.CreateActionTweeners();
+                }
+            }
+        }
         
         private void CreateActionTweeners()
         {
             mAnimationCount = 0;
             for (int i = 0; i < this.Actions.Count; i++)
             {
+                Actions[i].SetDefultValue?.Invoke();
                 TweeningAnimationFactory.CreateTweenBehaviour(Actions[i] , this.gameObject);
                 this.SetUpTweener(Actions[i]);
                 if (this.Actions[i].Tweener != null)
                 {
                     this.Actions[i].Tweener.onComplete = this.nextAnimation;
                 }
+                Actions[i].SetDefultValue?.Invoke();
             }
             if (IsAutoExecute)
             {
@@ -82,7 +115,7 @@ namespace Knight.Framework.Tweening
         public void Play()
         {
             if (this.Actions == null || this.Actions.Count == 0) return;
-            this.Actions[mAnimationCount].Tweener.Play();
+            this.Actions[mAnimationCount].Tweener.Restart();
         }
 
         public void Stop()
@@ -127,15 +160,18 @@ namespace Knight.Framework.Tweening
 
         private void nextAnimation()
         {
-
             this.mAnimationCount++;
             if (this.mAnimationCount == this.Actions.Count)
             {
+                this.mAnimationCount = 0;
                 if (this.IsLoopAnimator)
                     this.CreateActionTweeners();
             }
             else if (this.Actions[mAnimationCount].Tweener != null)
+            {
+                this.Actions[mAnimationCount].SetPlayStartValue?.Invoke();
                 this.Actions[mAnimationCount].Tweener.Play();
+            }
             else
                 this.nextAnimation();
         }

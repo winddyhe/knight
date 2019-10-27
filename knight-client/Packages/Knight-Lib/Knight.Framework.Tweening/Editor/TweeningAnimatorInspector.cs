@@ -20,6 +20,7 @@ namespace Knight.Framework.Tweening.Editor
         protected GUIContent            mLoopCountContent;
         protected GUIContent            mDurationContent;
         protected GUIContent            mTimeCureveContent;
+        protected GUIContent            mDefaultContent;
         protected GUIContent            mStartContent;
         protected GUIContent            mEndContent;
 
@@ -30,6 +31,7 @@ namespace Knight.Framework.Tweening.Editor
             this.mLoopCountContent = new GUIContent("Count");
             this.mDurationContent = new GUIContent("Duration: ");
             this.mTimeCureveContent = new GUIContent("TimeCurve: ");
+            this.mDefaultContent = new GUIContent("Default: ");
             this.mStartContent = new GUIContent("Start: ");
             this.mEndContent = new GUIContent("End: ");
 
@@ -179,6 +181,7 @@ namespace Knight.Framework.Tweening.Editor
                 var rActionType = (TweeningActionType)rTypeProp.enumValueIndex;
                 SerializedProperty rStartProp = null;
                 SerializedProperty rEndProp = null;
+                SerializedProperty rDefualtProp = null;
                 switch (rActionType)
                 {
                     case TweeningActionType.Position:
@@ -186,34 +189,49 @@ namespace Knight.Framework.Tweening.Editor
                     case TweeningActionType.Rotate:
                     case TweeningActionType.LocalRotate:
                     case TweeningActionType.LocalScale:
+                    case TweeningActionType.RectTransPos:
                         rStartProp = rElementProp.FindPropertyRelative("StartV3");
                         rEndProp = rElementProp.FindPropertyRelative("EndV3");
+                        rDefualtProp = rElementProp.FindPropertyRelative("DefultVector3");
                         break;
                     case TweeningActionType.Color:
                         rStartProp = rElementProp.FindPropertyRelative("StartCol");
                         rEndProp = rElementProp.FindPropertyRelative("EndCol");
+                        rDefualtProp = rElementProp.FindPropertyRelative("DefultColor");
                         break;
                     case TweeningActionType.CanvasAlpha:
+                    case TweeningActionType.ImageAmount:
+                    case TweeningActionType.RectTransPosX:
+                    case TweeningActionType.RectTransPosY:
                         rStartProp = rElementProp.FindPropertyRelative("StartF");
                         rEndProp = rElementProp.FindPropertyRelative("EndF");
+                        rDefualtProp = rElementProp.FindPropertyRelative("DefultFloat");
                         break;
                 }
                 if (rStartProp != null)
                 {
                     // 画矩形背景
-                    var rTmpRect = new Rect(rRect.x + 25, rRect.y + 20 * 5 + 48, 350, 40);
+                    var rTmpRect = new Rect(rRect.x + 25, rRect.y + 20 * 5 + 48, 350, 60);
                     EditorGUI.DrawRect(rTmpRect, new Color(0.2f, 0.2f, 0.2f, 0.2f));
-                    // 第6行 画Start Prop
+                    // 第6行 画Default Prop
                     rCurRect = rRect;
                     rCurRect.y += 20 * 5 + 50;
                     rCurRect.x += 25;
                     rCurRect.width = 280;
                     rCurRect.height = 16;
                     EditorGUIUtility.labelWidth = 70;
-                    EditorGUI.PropertyField(rCurRect, rStartProp, this.mStartContent);
-                    // 第7行 画End Prop
+                    EditorGUI.PropertyField(rCurRect, rDefualtProp, this.mDefaultContent);
+                    // 第7行 画Start Prop
                     rCurRect = rRect;
                     rCurRect.y += 20 * 6 + 50;
+                    rCurRect.x += 25;
+                    rCurRect.width = 280;
+                    rCurRect.height = 16;
+                    EditorGUIUtility.labelWidth = 70;
+                    EditorGUI.PropertyField(rCurRect, rStartProp, this.mStartContent);
+                    // 第8行 画End Prop
+                    rCurRect = rRect;
+                    rCurRect.y += 20 * 7 + 50;
                     rCurRect.x += 25;
                     rCurRect.width = 280;
                     rCurRect.height = 16;
@@ -243,9 +261,12 @@ namespace Knight.Framework.Tweening.Editor
                     case TweeningActionType.LocalScale:
                     case TweeningActionType.Color:
                     case TweeningActionType.CanvasAlpha:
-                        return 194;
+                    case TweeningActionType.ImageAmount:
+                    case TweeningActionType.RectTransPosX:
+                    case TweeningActionType.RectTransPosY:
+                        return 214;
                 }
-                return 154f;
+                return 174f;
             }
             else
             {

@@ -23,22 +23,22 @@ namespace ILRuntime.Runtime.Generated
             Type[] args;
             Type type = typeof(UnityEngine.UI.DataBindingRelatedAttribute);
 
-            field = type.GetField("RelatedProp", flag);
-            app.RegisterCLRFieldGetter(field, get_RelatedProp_0);
-            app.RegisterCLRFieldSetter(field, set_RelatedProp_0);
+            field = type.GetField("RelatedProps", flag);
+            app.RegisterCLRFieldGetter(field, get_RelatedProps_0);
+            app.RegisterCLRFieldSetter(field, set_RelatedProps_0);
 
 
         }
 
 
 
-        static object get_RelatedProp_0(ref object o)
+        static object get_RelatedProps_0(ref object o)
         {
-            return ((UnityEngine.UI.DataBindingRelatedAttribute)o).RelatedProp;
+            return ((UnityEngine.UI.DataBindingRelatedAttribute)o).RelatedProps;
         }
-        static void set_RelatedProp_0(ref object o, object v)
+        static void set_RelatedProps_0(ref object o, object v)
         {
-            ((UnityEngine.UI.DataBindingRelatedAttribute)o).RelatedProp = (System.String)v;
+            ((UnityEngine.UI.DataBindingRelatedAttribute)o).RelatedProps = (System.String)v;
         }
 
 

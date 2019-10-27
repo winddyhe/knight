@@ -46,7 +46,11 @@ namespace Knight.Framework.Hotfix
             mDLLMS = (rDLLBytes != null) ? new MemoryStream(rDLLBytes) : null;
             mPDBMS = (rPDBBytes != null) ? new MemoryStream(rPDBBytes) : null;
 
+#if UNITY_IOS
+            mApp.LoadAssembly(mDLLMS);
+#else
             mApp.LoadAssembly(mDLLMS, mPDBMS, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
+#endif
 
             // 启用调试
             if (this.mApp.DebugService != null)

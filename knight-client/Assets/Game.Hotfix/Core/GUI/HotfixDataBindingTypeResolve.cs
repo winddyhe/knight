@@ -30,7 +30,8 @@ namespace Knight.Hotfix.Core
             rViewModelProperty.Property = Type.GetType(rViewModelClassName)?.GetProperty(rViewModelPropName);
             if (rViewModelProperty.Property == null)
             {
-                Debug.LogError("ViewModelClass: " + rViewModelPath + " get property error." + rViewModelClassName + ", " + rViewModelPropName);
+                Debug.LogError("ViewModelClass: " + rViewModelPath + " get property error.");
+                return null;
             }
             return rViewModelProperty;
         }
@@ -68,7 +69,7 @@ namespace Knight.Hotfix.Core
             }
             else
             {
-                Debug.LogErrorFormat("Can not find Method: {0} in ViewController.", rEventBinding.ViewModelMethod);
+                Debug.LogErrorFormat("Can not find Method: {0},{1} in ViewController.", rEventBinding, rEventBinding.ViewModelMethod);
                 return false;
             }
             return true;

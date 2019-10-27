@@ -10,15 +10,17 @@ namespace Knight.Hotfix.Core
 {
     public static class HotfixReflectAssists
     {
-        public static readonly BindingFlags flags_common    =   BindingFlags.Instance    |
-                                                                BindingFlags.SetField    | BindingFlags.GetField |
-                                                                BindingFlags.GetProperty | BindingFlags.SetProperty;
+        public static readonly BindingFlags flags_common            =   BindingFlags.Instance    |
+                                                                        BindingFlags.SetField    | BindingFlags.GetField |
+                                                                        BindingFlags.GetProperty | BindingFlags.SetProperty;
 
-        public static readonly BindingFlags flags_public    =   flags_common | BindingFlags.Public;
-        public static readonly BindingFlags flags_nonpublic =   flags_common | BindingFlags.NonPublic;
-        public static readonly BindingFlags flags_all       =   flags_common | BindingFlags.Public | BindingFlags.NonPublic;
+        public static readonly BindingFlags flags_public            =   flags_common | BindingFlags.Public;
+        public static readonly BindingFlags flags_nonpublic         =   flags_common | BindingFlags.NonPublic;
+        public static readonly BindingFlags flags_all               =   flags_common | BindingFlags.Public | BindingFlags.NonPublic;
+        public static readonly BindingFlags flags_method            =   BindingFlags.Instance | BindingFlags.Public | BindingFlags.InvokeMethod;
+        public static readonly BindingFlags flags_method_private    =   BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.InvokeMethod;
 
-        public static readonly Type[]       empty_types     =   new Type[0];
+        public static readonly Type[]       empty_types             =   new Type[0];
 
         public static object Construct(string rTypeName, params object[] param)
         {
@@ -67,7 +69,8 @@ namespace Knight.Hotfix.Core
         {
             if (rObject == null) return null;
             Type rType = rObject.GetType();
-            return rType.InvokeMember(rMemberName, rBindFlags, null, rObject, rParams);
+            var rMethodInfo = rType.GetMethod(rMemberName);
+            return rMethodInfo.Invoke(rObject, rParams);
         }
 
         public static object TypeConvert(Type rType, string rValueStr)

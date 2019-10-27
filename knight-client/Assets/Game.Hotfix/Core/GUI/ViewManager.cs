@@ -54,14 +54,14 @@ namespace Knight.Hotfix.Core
             this.mCurFixedViews = new IndexedDict<string, View>();
         }
 
-        public void Update()
+        public void Update(float fDeltaTime)
         {
             if (this.mCurPageViews != null)
             {
                 var rCurViewKeys = mCurPageViews.Keys;
                 for (int i = 0; i < rCurViewKeys.Count; i++)
                 {
-                    this.mCurPageViews[rCurViewKeys[i]].Update();
+                    this.mCurPageViews[rCurViewKeys[i]].Update(fDeltaTime);
                 }
             }
             if (this.mCurFixedViews != null)
@@ -69,7 +69,7 @@ namespace Knight.Hotfix.Core
                 var rCurViewKeys = this.mCurFixedViews.Keys;
                 for (int i = 0; i < rCurViewKeys.Count; i++)
                 {
-                    this.mCurFixedViews[rCurViewKeys[i]].Update();
+                    this.mCurFixedViews[rCurViewKeys[i]].Update(fDeltaTime);
                 }
             }
         }
@@ -119,12 +119,12 @@ namespace Knight.Hotfix.Core
             return await OpenViewAsync(rViewName, rViewState, rViewModel, rOpenCompleted);
         }
 
-        public void Open(string rViewName, View.State rViewState, ViewModel rViewModel, Action<View> rOpenCompleted = null)
+        public void Open(string rViewName, View.State rViewState, ViewModel rViewModel = null, Action<View> rOpenCompleted = null)
         {
             this.OpenAsync(rViewName, rViewState, rViewModel, rOpenCompleted).WarpErrors();
         }
 
-        private async Task<View> OpenViewAsync(string rViewName, View.State rViewState, ViewModel rViewModel, Action<View> rOpenCompleted)
+        private async Task<View> OpenViewAsync(string rViewName, View.State rViewState, ViewModel rViewModel = null, Action<View> rOpenCompleted = null)
         {
             var rLoaderRequest = UIAssetLoader.Instance.LoadUI(rViewName);
             return await OpenView(rViewName, rLoaderRequest.ViewPrefabGo, rViewState, rViewModel, rOpenCompleted);
@@ -133,13 +133,13 @@ namespace Knight.Hotfix.Core
         /// <summary>
         /// 移除顶层View
         /// </summary>
-        public void Pop(Action rCloseComplted = null)
+        public void Pop(Action rCloseCompleted = null)
         {
             // 得到顶层结点
             CKeyValuePair<string, View> rTopNode = this.mCurPageViews.Last();
             if (rTopNode == null)
             {
-                UtilTool.SafeExecute(rCloseComplted);
+                UtilTool.SafeExecute(rCloseCompleted);
                 return;
             }
 
@@ -148,7 +148,7 @@ namespace Knight.Hotfix.Core
 
             if (rView == null)
             {
-                UtilTool.SafeExecute(rCloseComplted);
+                UtilTool.SafeExecute(rCloseCompleted);
                 return;
             }
 
@@ -156,7 +156,7 @@ namespace Knight.Hotfix.Core
             this.mCurPageViews.Remove(rViewGUID);
             rView.Close();
             DestroyView(rView);
-            UtilTool.SafeExecute(rCloseComplted);
+            UtilTool.SafeExecute(rCloseCompleted);
         }
 
         public void CloseAllPageViews()
@@ -202,7 +202,9 @@ namespace Knight.Hotfix.Core
             {
                 if (rView.CurState == View.State.Frame)
                     this.mCurFrameViews.Remove(rViewGUID);
-                else if (rView.CurState == View.State.PageSwitch || rView.CurState == View.State.PageSwitch)
+                else if (rView.CurState == View.State.PageSwitch || 
+						 rView.CurState == View.State.PageSwitch ||
+						 rView.CurState == View.State.Popup)
                     this.mCurPageViews.Remove(rViewGUID);
             }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Knight.Core;
+using Knight.Framework.Hotfix;
 using UnityEngine.UI;
 
 namespace Knight.Hotfix.Core

@@ -73,6 +73,8 @@ namespace UnityEngine.UI
     
         public UnityEventBinder(UnityEventBase rUnityEvent, Action<EventArg> rAction)
         {
+            if (rUnityEvent == null) return;
+
             this.mUnityEvent = (UnityEvent<T0>)rUnityEvent;
             this.mAction     = rAction;
 
@@ -100,6 +102,8 @@ namespace UnityEngine.UI
 
         public UnityEventBinder(UnityEventBase rUnityEvent, Action<EventArg> rAction)
         {
+            if (rUnityEvent == null) return;
+
             this.mUnityEvent = (UnityEvent<T0, T1>)rUnityEvent;
             this.mAction     = rAction;
 
@@ -127,6 +131,8 @@ namespace UnityEngine.UI
 
         public UnityEventBinder(UnityEventBase rUnityEvent, Action<EventArg> rAction)
         {
+            if (rUnityEvent == null) return;
+
             this.mUnityEvent = (UnityEvent<T0, T1, T2>)rUnityEvent;
             this.mAction = rAction;
 
@@ -154,6 +160,8 @@ namespace UnityEngine.UI
 
         public UnityEventBinder(UnityEventBase rUnityEvent, Action<EventArg> rAction)
         {
+            if (rUnityEvent == null) return;
+
             this.mUnityEvent = (UnityEvent<T0, T1, T2, T3>)rUnityEvent;
             this.mAction = rAction;
 

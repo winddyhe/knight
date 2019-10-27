@@ -152,9 +152,18 @@ namespace Knight.Framework.AssetBundles.Editor
             {
                 string rDirPath = rSubDirs[i].FullName;
                 string rRootPath = System.Environment.CurrentDirectory + "\\";
+#if UNITY_EDITOR_OSX
+                rRootPath = rRootPath.Replace("\\", "/");
+#endif
                 rDirPath = rDirPath.Replace(rRootPath, "").Replace("\\", "/");
 
                 string rFileName = Path.GetFileNameWithoutExtension(rDirPath);
+                if (rFileName.Length == 0)
+                {
+                    //may be hidden folder like .svn
+                    continue;
+                }
+
                 if (filerAssets != null && filerAssets.FindIndex((item) => { return rFileName.Contains(item); }) >= 0) continue;
 
                 AssetBundleBuild rABB = new AssetBundleBuild();
@@ -218,7 +227,26 @@ namespace Knight.Framework.AssetBundles.Editor
             ABEntryProcessor rEntryProcessor = null;
 
             Type rType = Type.GetType(rABEntry.abClassName);
-            if (rType == null) 
+            if (rType == null)
+            {
+                var rAllAssembies = System.AppDomain.CurrentDomain.GetAssemblies();
+                for (int i = 0; i < rAllAssembies.Length; i++)
+                {
+                    if (rAllAssembies[i].GetName().Name.Equals("Game.Editor"))
+                    {
+                        var rAllTypes = rAllAssembies[i].GetTypes();
+                        for (int j = 0; j < rAllTypes.Length; j++)
+                        {
+                            if (rAllTypes[j].FullName.Equals(rABEntry.abClassName))
+                            {
+                                rType = rAllTypes[j];
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (rType == null)
                 rEntryProcessor = new ABEntryProcessor();
             else
                 rEntryProcessor = ReflectionAssist.Construct(rType) as ABEntryProcessor;

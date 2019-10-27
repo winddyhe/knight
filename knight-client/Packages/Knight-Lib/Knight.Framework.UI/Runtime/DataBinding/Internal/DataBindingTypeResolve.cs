@@ -358,7 +358,7 @@ namespace UnityEngine.UI
                 })
                 .DefaultIfEmpty()
                 .Where(prop => {
-                    if (prop == null) return false;
+                    if (prop == null || prop.Member == null) return false;
                     var rPropType = ITypeRedirect.GetRedirectType(prop.Member.PropertyType);
                     return 
                         prop != null &&

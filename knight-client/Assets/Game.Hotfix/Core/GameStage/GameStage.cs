@@ -45,9 +45,14 @@ namespace Knight.Hotfix.Core
         public async Task Run_Async()  
         {
             isCompleted = false;
-
-            await OnRun_Async();
-    
+            try
+            {
+                await OnRun_Async();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
             isCompleted = true;
         }
     

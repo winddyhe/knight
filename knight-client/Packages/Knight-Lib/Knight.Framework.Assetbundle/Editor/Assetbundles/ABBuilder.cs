@@ -92,7 +92,11 @@ namespace Knight.Framework.AssetBundles.Editor
 
             // 开始打包
             var rNewABManifest = BuildPipeline.BuildAssetBundles(rABPath, rABBList.ToArray(), rOptions, (BuildTarget)CurBuildPlatform);
-            
+            if (rNewABManifest == null)
+            {
+                Debug.Log("BuildPipeline.BuildAssetBundles() return null, " + rABPath);
+                return;
+            }
             // 生成新的版本文件
             var rNewABVersion = ABVersionEditor.CreateVersion(rABPath, rOldABVersion, rNewABManifest);
             rNewABVersion.SaveInEditor(rABPath);

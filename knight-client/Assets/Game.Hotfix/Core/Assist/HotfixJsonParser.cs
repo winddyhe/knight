@@ -19,6 +19,11 @@ namespace Knight.Hotfix.Core
             return JsonParser.Parse(rJsonText);
         }
 
+        public static object ToObject(Type rType, JsonNode rJsonNode)
+        {
+            return JsonParser.ToObject(rJsonNode, rType);
+        }
+
         public static T ToObject<T>(JsonNode rJsonNode)
         {
             return (T)JsonParser.ToObject(rJsonNode, typeof(T));

@@ -92,6 +92,20 @@ namespace ILRuntime.Runtime.Generated
                 }
             }
             args = new Type[]{typeof(System.String), typeof(System.Collections.Generic.List<System.String>)};
+            if (genericMethods.TryGetValue("Clear", out lst))
+            {
+                foreach(var m in lst)
+                {
+                    if(m.MatchGenericParameters(args, typeof(void), typeof(Knight.Core.Dict<System.String, System.Collections.Generic.List<System.String>>)))
+                    {
+                        method = m.MakeGenericMethod(args);
+                        app.RegisterCLRMethodRedirection(method, Clear_4);
+
+                        break;
+                    }
+                }
+            }
+            args = new Type[]{typeof(System.String), typeof(System.Collections.Generic.List<System.String>)};
             if (genericMethods.TryGetValue("TryGetValue", out lst))
             {
                 foreach(var m in lst)
@@ -99,7 +113,7 @@ namespace ILRuntime.Runtime.Generated
                     if(m.MatchGenericParameters(args, typeof(System.Boolean), typeof(Knight.Core.Dict<System.String, System.Collections.Generic.List<System.String>>), typeof(System.String), typeof(System.Collections.Generic.List<System.String>).MakeByRefType()))
                     {
                         method = m.MakeGenericMethod(args);
-                        app.RegisterCLRMethodRedirection(method, TryGetValue_4);
+                        app.RegisterCLRMethodRedirection(method, TryGetValue_5);
 
                         break;
                     }
@@ -113,7 +127,7 @@ namespace ILRuntime.Runtime.Generated
                     if(m.MatchGenericParameters(args, typeof(System.Boolean), typeof(Knight.Core.Dict<System.Int32, System.Action<ILRuntime.Runtime.Intepreter.ILTypeInstance>>), typeof(System.Int32), typeof(System.Action<ILRuntime.Runtime.Intepreter.ILTypeInstance>).MakeByRefType()))
                     {
                         method = m.MakeGenericMethod(args);
-                        app.RegisterCLRMethodRedirection(method, TryGetValue_5);
+                        app.RegisterCLRMethodRedirection(method, TryGetValue_6);
 
                         break;
                     }
@@ -127,7 +141,7 @@ namespace ILRuntime.Runtime.Generated
                     if(m.MatchGenericParameters(args, typeof(System.Boolean), typeof(Knight.Core.Dict<System.Int32, System.Action<ILRuntime.Runtime.Intepreter.ILTypeInstance>>), typeof(System.Int32)))
                     {
                         method = m.MakeGenericMethod(args);
-                        app.RegisterCLRMethodRedirection(method, Remove_6);
+                        app.RegisterCLRMethodRedirection(method, Remove_7);
 
                         break;
                     }
@@ -343,7 +357,23 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* TryGetValue_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Clear_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            Knight.Core.Dict<System.String, System.Collections.Generic.List<System.String>> @rDict = (Knight.Core.Dict<System.String, System.Collections.Generic.List<System.String>>)typeof(Knight.Core.Dict<System.String, System.Collections.Generic.List<System.String>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            Knight.Core.DictExpand.Clear<System.String, System.Collections.Generic.List<System.String>>(@rDict);
+
+            return __ret;
+        }
+
+        static StackObject* TryGetValue_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -425,7 +455,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* TryGetValue_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryGetValue_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -507,7 +537,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Remove_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Remove_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

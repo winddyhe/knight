@@ -73,21 +73,21 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.String), typeof(System.Reflection.BindingFlags), typeof(System.Reflection.Binder), typeof(System.Object), typeof(System.Object[])};
             method = type.GetMethod("InvokeMember", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, InvokeMember_16);
-            args = new Type[]{};
-            method = type.GetMethod("get_BaseType", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_BaseType_17);
-            args = new Type[]{typeof(System.Type), typeof(System.Type)};
-            method = type.GetMethod("op_Inequality", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, op_Inequality_18);
-            args = new Type[]{typeof(System.String), typeof(System.Reflection.BindingFlags)};
-            method = type.GetMethod("GetField", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetField_19);
-            args = new Type[]{typeof(System.String), typeof(System.Reflection.BindingFlags)};
-            method = type.GetMethod("GetProperty", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetProperty_20);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("GetMethod", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetMethod_21);
+            app.RegisterCLRMethodRedirection(method, GetMethod_17);
+            args = new Type[]{};
+            method = type.GetMethod("get_BaseType", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_BaseType_18);
+            args = new Type[]{typeof(System.Type), typeof(System.Type)};
+            method = type.GetMethod("op_Inequality", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, op_Inequality_19);
+            args = new Type[]{typeof(System.String), typeof(System.Reflection.BindingFlags)};
+            method = type.GetMethod("GetField", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetField_20);
+            args = new Type[]{typeof(System.String), typeof(System.Reflection.BindingFlags)};
+            method = type.GetMethod("GetProperty", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetProperty_21);
             args = new Type[]{typeof(System.Reflection.BindingFlags)};
             method = type.GetMethod("GetMethods", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, GetMethods_22);
@@ -448,7 +448,26 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* get_BaseType_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetMethod_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.String @name = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Type instance_of_this_method = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.GetMethod(@name);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* get_BaseType_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -463,7 +482,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* op_Inequality_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* op_Inequality_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -485,7 +504,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetField_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetField_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -508,7 +527,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetProperty_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetProperty_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -527,25 +546,6 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.GetProperty(@name, @bindingAttr);
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* GetMethod_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.String @name = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Type instance_of_this_method = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.GetMethod(@name);
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }

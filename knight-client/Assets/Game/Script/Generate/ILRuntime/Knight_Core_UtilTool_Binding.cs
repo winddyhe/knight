@@ -53,12 +53,12 @@ namespace ILRuntime.Runtime.Generated
                     }
                 }
             }
-            args = new Type[]{typeof(UnityEngine.UI.MemberBindingAbstract)};
+            args = new Type[]{typeof(UnityEngine.UI.ViewModelDataSourceList)};
             if (genericMethods.TryGetValue("GetComponentsInChildrenUtilOrigin", out lst))
             {
                 foreach(var m in lst)
                 {
-                    if(m.MatchGenericParameters(args, typeof(System.Collections.Generic.List<UnityEngine.UI.MemberBindingAbstract>), typeof(UnityEngine.Component)))
+                    if(m.MatchGenericParameters(args, typeof(System.Collections.Generic.List<UnityEngine.UI.ViewModelDataSourceList>), typeof(UnityEngine.Component)))
                     {
                         method = m.MakeGenericMethod(args);
                         app.RegisterCLRMethodRedirection(method, GetComponentsInChildrenUtilOrigin_2);
@@ -67,12 +67,12 @@ namespace ILRuntime.Runtime.Generated
                     }
                 }
             }
-            args = new Type[]{typeof(UnityEngine.UI.ViewModelDataSourceList)};
+            args = new Type[]{typeof(UnityEngine.UI.MemberBindingAbstract)};
             if (genericMethods.TryGetValue("GetComponentsInChildrenUtilOrigin", out lst))
             {
                 foreach(var m in lst)
                 {
-                    if(m.MatchGenericParameters(args, typeof(System.Collections.Generic.List<UnityEngine.UI.ViewModelDataSourceList>), typeof(UnityEngine.Component)))
+                    if(m.MatchGenericParameters(args, typeof(System.Collections.Generic.List<UnityEngine.UI.MemberBindingAbstract>), typeof(UnityEngine.Component)))
                     {
                         method = m.MakeGenericMethod(args);
                         app.RegisterCLRMethodRedirection(method, GetComponentsInChildrenUtilOrigin_3);
@@ -139,7 +139,7 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            var result_of_this_method = Knight.Core.UtilTool.GetComponentsInChildrenUtilOrigin<UnityEngine.UI.MemberBindingAbstract>(@rComp);
+            var result_of_this_method = Knight.Core.UtilTool.GetComponentsInChildrenUtilOrigin<UnityEngine.UI.ViewModelDataSourceList>(@rComp);
 
             object obj_result_of_this_method = result_of_this_method;
             if(obj_result_of_this_method is CrossBindingAdaptorType)
@@ -160,7 +160,7 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            var result_of_this_method = Knight.Core.UtilTool.GetComponentsInChildrenUtilOrigin<UnityEngine.UI.ViewModelDataSourceList>(@rComp);
+            var result_of_this_method = Knight.Core.UtilTool.GetComponentsInChildrenUtilOrigin<UnityEngine.UI.MemberBindingAbstract>(@rComp);
 
             object obj_result_of_this_method = result_of_this_method;
             if(obj_result_of_this_method is CrossBindingAdaptorType)

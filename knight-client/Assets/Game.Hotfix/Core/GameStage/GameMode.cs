@@ -7,6 +7,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using Knight.Core;
+using System.Threading.Tasks;
 
 namespace Knight.Hotfix.Core
 {
@@ -39,21 +40,23 @@ namespace Knight.Hotfix.Core
             this.OnBuildStages();
         }
 
-        public void Update()
+        public void Update(float fDeltaTime)
         {
-            this.OnUpdate();
+            this.OnUpdate(fDeltaTime);
         }
 
-        public void Destroy()
+        public async Task Destroy()
         {
-            this.OnDestroy();
+            await this.OnDestroy();
         }
         
         protected virtual void OnBuildStages() { }
 
-        protected virtual void OnUpdate()      { }
+        protected virtual void OnUpdate(float fDeltaTime)      { }
 
-        protected virtual void OnDestroy()     { }
+#pragma warning disable 1998
+        protected virtual async Task OnDestroy()     { } 
+#pragma warning restore 1998
 
         public void AddGameStage(int nIndex, params StageTask[] rStageTasks)
         {
