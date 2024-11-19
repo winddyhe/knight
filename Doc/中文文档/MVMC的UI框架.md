@@ -1,15 +1,16 @@
-# WindUI模块
-* WindUI是一个轻量级的MVVM UI框架，实现数据逻辑和显示逻辑完全分离。
-* 开发者只需要关心数据和界面的绑定，以及实现数据逻辑即可自动驱动UI的显示逻辑。
-* 提供了一个基于UGUI的图集管理模块。UIAtlasManager
+# MVMC的UI框架
+* 该框架是一个轻量级的基于MVVM数据绑定的UI框架，实现逻辑数据和显示数据完全分离。其中又融合了MVC数据和逻辑分离的思想，形成了一套独有的MVMC的UI框架。
+* 开发者只需要关心数据和界面的绑定，以及实现逻辑数据即可自动驱动UI的显示。
+* 在控制器ViewController中实现界面ViewModel和数据Model的交互逻辑，以实现数据和逻辑的分离。
+* 针对UI的层级、打开关闭的处理，提供了一个ViewManager管理器，并加入缓存界面信息和回退的功能。
+* 提供了一个基于UGUI的图集管理模块：UIAtlasManager。
 * 提供了一系列的常用的UGUI扩展组件。
 
 ## UI数据绑定
-### ViewModel容器(ViewModelContainer)
+### ViewModel容器(View)
 * ![ui_1](https://github.com/winddyhe/knight/blob/master/Doc/res/images/ui_1.png)
-* 每一个UI预制件中拥有一个ViewModel容器脚本(ViewModelContainer)，他的ViewModelClass变量在热更新端对应一个类，在实例化这个UI的时候会创建一个ViewModelContaner对象出来。
-* ViewModels列表，存储了多个ViewModelDataSource对象。
-* EventBindings列表，储存多个事件绑定脚本对象。
+* 每一个UI预制件中拥有一个ViewModel容器脚本(继承View的脚本)，这个脚本是在预制件保存时自动生成的数据绑定的代码，彻底避免了通过反射的数据绑定方式。
+* 在初始化预制件时，会调用View.Initialize(ViewController)和View.Bind()来进行绑定View控制器和ViewModel的数据绑定。
 
 ### ViewModel数据源(ViewModelDataSource)
 * ![ui_2](https://github.com/winddyhe/knight/blob/master/Doc/res/images/ui_2.png)
@@ -34,56 +35,85 @@
 * ViewModelMethod：自动找出ViewModel中的所有包含绑定标签的方法。
 
 ### 热更新逻辑端
-* 热更新端逻辑类、属性变量‘方法加上DataBinding属性标签，就可以在Inspector下添加。
-* LoginView中的变量添加HotfixBinding属性标签，就可以自动绑定ViewModelContainer中对应的ViewModel值。
+* 热更新端逻辑类、属性变量方法加上DataBinding属性标签，就可以在Inspector下添加。
+* 此外还提供了DataBindingReleated属性，可以方便的使用相对依赖变量，例如NameRelatedTest1变量，如果Name值变化了，NameRelatedTest1也会相应的通知到UI界面层的显示。
+* PlayerViewController中的变量添加ViewModelKey属性标签，就可以自动绑定ViewModelContainer中对应的ViewModel值。
+* 在PlayerViewController中标记某个方法的属性为DataBindingEvent，表示可以在Inspector下该方法可以作为事件绑定的方法。
 
 ```C#
     [DataBinding]
-    public class LoginViewModel : ViewModel
+    public partial class PlayerViewModel : ViewModel    
     {
-        private string      mAccountName    = "Test111";
-        private string      mPassword       = "xxxxxxx";
-
+        // Data Binding
         [DataBinding]
-        public  string      AccountName
-        {
-            get { return mAccountName;  }
-            set
-            {
-                mAccountName = value;
-                this.PropChanged("AccountName");
-            }
-        }
-
+        public string Name { get; set; }
         [DataBinding]
-        public  string      Password
-        {
-            get { return mPassword;     }
-            set
-            {
-                mPassword = value;
-                this.PropChanged("Password");
-            }
-        }
+        public int Level { get; set; }
+        [DataBinding]
+        public int Exp { get; set; }
+        [DataBinding]
+        public int Coin { get; set; }
+        [DataBinding]
+        public string Password { get; set; }
+
+        // Related Binding with single property
+        [DataBindingRelated("Name")]
+        public string NameRelatedTest1 => this.Name + "_RelatedTest1";
+
+        // Related Binding with multiple properties
+        [DataBindingRelated("Level, Exp")]
+        public string LevelRelatedTest1 => (this.Level + this.Exp).ToString();
+        
+        // List Binding
+        [DataBinding]
+        public List<PlayerTestItem> TestList { get; set; }
     }
 	
-	public class LoginView : ViewController
+    public class PlayerViewController : ViewController
     {
-        [HotfixBinding("Login")]
-        public LoginViewModel   ViewModel;
+        [ViewModelKey("Test1")]
+        public PlayerViewModel Test1;
+        [ViewModelKey("Test2")]
+        public PlayerViewModel Test2;
 
-        protected override void OnOpening()
+        protected override async UniTask OnOpen()
+        {
+            await base.OnOpen();
+
+            this.Test1.Name = "Test444.";
+            this.Test1.Level = 100;
+            this.Test1.Exp =200;
+            this.Test1.Coin = 300;
+
+            var rPlayerTestItems = new List<PlayerTestItem>();
+            for (int i = 0; i < 100; i++)
+            {
+                var rPlayerTestItem = new PlayerTestItem();
+                rPlayerTestItem.Test1 = $"Test1-{i}";
+                rPlayerTestItem.Test2 = $"Test2-{i}";
+                rPlayerTestItems.Add(rPlayerTestItem);
+            }
+            this.Test1.TestList = rPlayerTestItems;
+        }
+
+        protected override void OnClose()
         {
         }
-        
-        protected override void OnUpdate()
+
+        [DataBindingEvent(false)]
+        public void OnBtnEnter_Clicked()
         {
+            this.Test1.TestList[4].Test1 = this.Test1.Name;
+            this.Test1.Exp = 400;
+            LogManager.LogError($"OnBtnEnter_Clicked Test..{this.Test2.Password}, {this.Test1.Name}");
+            ViewManager.Instance.Close(this.View.GUID);
+            HotfixBattle.Instance.Initialize().WrapErrors();
         }
 
-        [DataBinding]
-        private void OnBtnButton_Clicked()
+        [DataBindingEvent(true)]
+        public void OnListBtnComfirmClicked(int nIndex)
         {
-            ViewManager.Instance.Open("KNListTest", View.State.Dispatch);
+            LogManager.LogError($"OnListButton_Clicked Test..{nIndex}, {this.Test1.TestList[nIndex].Test1}");
         }
     }
 ```
