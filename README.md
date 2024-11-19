@@ -8,11 +8,13 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 
 本框架目前以提升性能和易用性为目的，已经重构了大部分以前的设计。目前使用的Unity版本为Unity6000.0.26f1。
 目前Master分支中将所有的模块全部移到Packages里面去了，并使用PackageManager来管理他们，以实现使用时可随时插拔。
-![knight的框架结构](https://github.com/winddyhe/knight/blob/master/Doc/res/images/img_1.png)
+
+  ![knight的框架结构](https://github.com/winddyhe/knight/blob/master/Doc/res/images/img_1.png)
 
 ### 编辑器运行游戏
 * 使用编辑器模拟Assetbundle资源模式运行，无需打包Assetbundle。找到路径Assets/Game.Editor/Assetbundle/ABSimulateConfig.asset文件，选中他勾选IsDevelopMode、IsHotfixABMode、和SimulateType选择Everything。
-![knight编辑器模拟模式](https://github.com/winddyhe/knight/blob/master/Doc/res/images/img_2.png)
+
+  ![knight编辑器模拟模式](https://github.com/winddyhe/knight/blob/master/Doc/res/images/img_2.png)
 * 打开Assets/Game/Scene/Game.unity场景，点Play运行游戏Demo。
 
 ### 主要功能介绍
