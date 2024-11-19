@@ -36,14 +36,14 @@
 * 框架中采用协程处理资源包的异步加载。通过递归调用来加载资源包的依赖项。
 * 框架中Cache Assetbundle对象 + 引用计数 + Unload(true)的方式进行资源加载管理，这种方式能够明确的卸载掉某个资源。
 * 统一底层的资源加载、卸载接口：
-```
-IAssetLoader Interface
-public AssetLoaderRequest<T> LoadAssetAsync<T>(string rAssetPath, string rAssetName, bool bIsSimulate) where T : Object;
-public AssetLoaderRequest<T> LoadAllAssetAsync<T>(string rAssetPath, bool bIsSimulate) where T : Object;
-public AssetLoaderRequest<T> LoadSceneAsync<T>(string rAssetPath, string rAssetName, LoadSceneMode rSceneMode, bool bIsSimulate) where T : Object;
-public AssetLoaderRequest<T> LoadAllSceneAsync<T>(string rAssetPath, bool bIsSimulate) where T : Object;
-public void Unload<T>(AssetLoaderRequest<T> rRequest) where T : Object;
-```
+  ```C#
+  IAssetLoader Interface
+  public AssetLoaderRequest<T> LoadAssetAsync<T>(string rAssetPath, string rAssetName, bool bIsSimulate) where T : Object;
+  public AssetLoaderRequest<T> LoadAllAssetAsync<T>(string rAssetPath, bool bIsSimulate) where T : Object;
+  public AssetLoaderRequest<T> LoadSceneAsync<T>(string rAssetPath, string rAssetName, LoadSceneMode rSceneMode, bool bIsSimulate) where T : Object;
+  public AssetLoaderRequest<T> LoadAllSceneAsync<T>(string rAssetPath, bool bIsSimulate) where T : Object;
+  public void Unload<T>(AssetLoaderRequest<T> rRequest) where T : Object;
+  ```
 * 提供了在Editor中使用UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName和UnityEditor.AssetDatabase.LoadMainAssetAtPath API来模拟资源包的加载。这样在Editor中资源发生改变了就不再需要重新Build资源包就能够得到正确的结果了。
 * 通过设置文件Assets/Game.Editor/Assetbundle/ABSimulateConfig.asset文件，选中他勾选IsDevelopMode、IsHotfixABMode、和SimulateType选择不同类型的资源模拟。
 
