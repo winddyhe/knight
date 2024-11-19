@@ -19,19 +19,20 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 
 ### 主要功能介绍
 * [框架结构](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84.md)
-* [Assetbundle资源模块](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/Assetbundle%E8%B5%84%E6%BA%90%E6%A8%A1%E5%9D%97.md)
-* [hybridclr热更新模块](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/ILRuntime%E7%83%AD%E6%9B%B4%E6%96%B0%E6%A8%A1%E5%9D%97.md)
-* [MVMC的UI模块](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/WindUI.md)
-* [GameConfig配置模块](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B8%B8%E6%88%8F%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE.md)
+* [Assetbundle资源管理](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/Assetbundle%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.md)
+* [hybridclr热更新](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/hybridclr%E7%83%AD%E6%9B%B4%E6%96%B0.md)
+* [MVMC的UI框架](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/MVMC%E7%9A%84UI%E6%A1%86%E6%9E%B6.md)
+* [GameConfig配置](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/GameConfig%E9%85%8D%E7%BD%AE.md)
 
 ### 插件(感谢以下插件和框架对knight的底层功能的支持)
 * hybridclr: 是一个特性完整、零成本、高性能、低内存的Unity全平台原生c#热更新解决方案。 地址：https://github.com/focus-creative-games/hybridclr
 * NaughtyAttributes: 一个脚本Inspector UI扩展库，通过Attribute标签来实现的Editor扩展。地址：https://github.com/dbrizov/NaughtyAttributes
 * UniTask: 一个为Unity集成的一个0GC的高性能的async/await库。地址：https://github.com/Cysharp/UniTask
 * protobuf: google开源的一个二进制序列化库，用于网络协议解析。地址：https://github.com/protocolbuffers/protobuf
-* TouchSocket: 是一个功能强大且易于使用的.NET 网络通信框架，适用于C#、VB.Net 和 F#等语言。它提供了多种通信模块，包括TCP、UDP、SSL、WebSocket、Modbus等。支持解决TCP黏包分包问题和UDP大数据包分片组合问题。框架支持多种协议模板，快速实现固定包头、固定长度和区间字符等数据报文解析。地址：https://github.com/RRQM/TouchSocket
+* TouchSocket: 是一个功能强大且易于使用的.NET 网络通信框架。支持解决TCP黏包分包问题和UDP大数据包分片组合问题。框架支持多种协议模板，快速实现固定包头、固定长度和区间字符等数据报文解析。地址：https://github.com/RRQM/TouchSocket
 * Nino: 一个高性能的二进制序列化库。地址：https://github.com/JasonXuDeveloper/Nino
 * FancyScrollView: 一个UI无限循环列表库。地址：https://github.com/setchi/FancyScrollView
+* UnityIngameDebugConsole: 一个用于运行时显示log的工具。地址：https://github.com/yasirkula/UnityIngameDebugConsole
 
 ### 联系方式
 * Email: hgplan@126.com 
