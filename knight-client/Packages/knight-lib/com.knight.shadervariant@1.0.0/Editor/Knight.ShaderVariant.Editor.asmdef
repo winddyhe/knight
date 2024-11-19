@@ -1,0 +1,25 @@
+{
+    "name": "Knight.ShaderVariant.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:93d87884d11b2f34695bd1f92f3dcb57",
+        "GUID:478a2357cc57436488a56e564b08d223"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.nuget.newtonsoft-json",
+            "expression": "",
+            "define": ""
+        }
+    ],
+    "noEngineReferences": false
+}

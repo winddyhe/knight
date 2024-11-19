@@ -1,0 +1,277 @@
+{
+	"shaderHashCache":{
+		"UI/Default":{
+			"hash":"cd2d795a515989a12cf525a36ee53700"
+		},
+		"Hidden/BlitCopy":{
+			"hash":"cd2d795a515989a12cf525a36ee53700"
+		},
+		"Skybox/Procedural":{
+			"hash":"cd2d795a515989a12cf525a36ee53700"
+		},
+		"Hidden/Internal-GUITextureClip":{
+			"hash":"cd2d795a515989a12cf525a36ee53700"
+		},
+		"Hidden/Internal-GUITextureClipText":{
+			"hash":"cd2d795a515989a12cf525a36ee53700"
+		},
+		"Hidden/Internal-GUITexture":{
+			"hash":"cd2d795a515989a12cf525a36ee53700"
+		},
+		"Hidden/Internal-GUITextureBlit":{
+			"hash":"cd2d795a515989a12cf525a36ee53700"
+		},
+		"Hidden/Internal-GUIRoundedRect":{
+			"hash":"cd2d795a515989a12cf525a36ee53700"
+		},
+		"Hidden/Internal-GUIRoundedRectWithColorPerBorder":{
+			"hash":"cd2d795a515989a12cf525a36ee53700"
+		},
+		"Hidden/Internal-UIRAtlasBlitCopy":{
+			"hash":"cd2d795a515989a12cf525a36ee53700"
+		},
+		"Hidden/UIElements/EditorUIE":{
+			"hash":"cd2d795a515989a12cf525a36ee53700"
+		},
+		"Hidden/TextCore/Distance Field SSD":{
+			"hash":"cd2d795a515989a12cf525a36ee53700"
+		},
+		"Hidden/Universal Render Pipeline/CopyDepth":{
+			"hash":"c657c0421eaf63bc7081c5a223086fe5"
+		},
+		"Hidden/Universal Render Pipeline/LutBuilderLdr":{
+			"hash":"efeb25728d75aa6183576ff9a0bbd784"
+		},
+		"Hidden/Universal Render Pipeline/UberPost":{
+			"hash":"bb015172e4b681f7a40b383b6a5f9dac"
+		},
+		"Hidden/Universal Render Pipeline/FallbackError":{
+			"hash":"663ee6620b3b14de24797f2df77b8f9a"
+		},
+		"Hidden/Universal/CoreBlit":{
+			"hash":"508c569a49875d07e990456918606920"
+		},
+		"Universal Render Pipeline/Lit":{
+			"hash":"1936f9e677ec6c487b4a76cbf9a384fe"
+		},
+		"Axiu/EffectsShader":{
+			"hash":"709dea9623f990df9e234933f243aff8"
+		},
+		"Shader Graphs/GraphicMeshCircle":{
+			"hash":"cf4b9b1b09acc53d9047847e3304d328"
+		},
+		"Shader Graphs/KnightLit":{
+			"hash":"c257a478d9780d38f1bfb9cf68213a79"
+		},
+		"Shader Graphs/GraphicMeshRect":{
+			"hash":"029b681ecde0337b5d91b212747ac9b2"
+		},
+		"Shader Graphs/GraphicMeshFan":{
+			"hash":"378f3358c3f85a36c8d115f39bf45016"
+		},
+		"Hidden/Core/FallbackError":{
+			"hash":"fd26f413b131d70d49bce49cc3d737fe"
+		},
+		"TextMeshPro/Mobile/Distance Field":{
+			"hash":"5d3b3aa640a57bc91040273884075334"
+		}
+	},
+	"validCache":{
+		"UI/Default;cd2d795a515989a12cf525a36ee53700;Normal;":{
+			"shaderHash":"cd2d795a515989a12cf525a36ee53700",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/BlitCopy;cd2d795a515989a12cf525a36ee53700;Normal;":{
+			"shaderHash":"cd2d795a515989a12cf525a36ee53700",
+			"validSet":[
+				""
+			]
+		},
+		"Skybox/Procedural;cd2d795a515989a12cf525a36ee53700;Normal;":{
+			"shaderHash":"cd2d795a515989a12cf525a36ee53700",
+			"validSet":[
+				"_SUNDISK_SIMPLE"
+			]
+		},
+		"Hidden/Internal-GUITextureClip;cd2d795a515989a12cf525a36ee53700;Normal;":{
+			"shaderHash":"cd2d795a515989a12cf525a36ee53700",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/Internal-GUITextureClipText;cd2d795a515989a12cf525a36ee53700;Normal;":{
+			"shaderHash":"cd2d795a515989a12cf525a36ee53700",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/Internal-GUITexture;cd2d795a515989a12cf525a36ee53700;Normal;":{
+			"shaderHash":"cd2d795a515989a12cf525a36ee53700",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/Internal-GUITextureBlit;cd2d795a515989a12cf525a36ee53700;Normal;":{
+			"shaderHash":"cd2d795a515989a12cf525a36ee53700",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/Internal-GUIRoundedRect;cd2d795a515989a12cf525a36ee53700;Normal;":{
+			"shaderHash":"cd2d795a515989a12cf525a36ee53700",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/Internal-GUIRoundedRectWithColorPerBorder;cd2d795a515989a12cf525a36ee53700;Normal;":{
+			"shaderHash":"cd2d795a515989a12cf525a36ee53700",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/Internal-UIRAtlasBlitCopy;cd2d795a515989a12cf525a36ee53700;Normal;":{
+			"shaderHash":"cd2d795a515989a12cf525a36ee53700",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/UIElements/EditorUIE;cd2d795a515989a12cf525a36ee53700;Normal;":{
+			"shaderHash":"cd2d795a515989a12cf525a36ee53700",
+			"validSet":[
+				"UIE_FORCE_GAMMA"
+			]
+		},
+		"Hidden/TextCore/Distance Field SSD;cd2d795a515989a12cf525a36ee53700;Normal;":{
+			"shaderHash":"cd2d795a515989a12cf525a36ee53700",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/Universal Render Pipeline/CopyDepth;c657c0421eaf63bc7081c5a223086fe5;Normal;":{
+			"shaderHash":"c657c0421eaf63bc7081c5a223086fe5",
+			"validSet":[
+				"_OUTPUT_DEPTH"
+			]
+		},
+		"Hidden/Universal Render Pipeline/LutBuilderLdr;efeb25728d75aa6183576ff9a0bbd784;Normal;":{
+			"shaderHash":"efeb25728d75aa6183576ff9a0bbd784",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/Universal Render Pipeline/UberPost;bb015172e4b681f7a40b383b6a5f9dac;Normal;":{
+			"shaderHash":"bb015172e4b681f7a40b383b6a5f9dac",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/Universal Render Pipeline/FallbackError;663ee6620b3b14de24797f2df77b8f9a;Normal;":{
+			"shaderHash":"663ee6620b3b14de24797f2df77b8f9a",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/Universal/CoreBlit;508c569a49875d07e990456918606920;Normal;":{
+			"shaderHash":"508c569a49875d07e990456918606920",
+			"validSet":[
+				"",
+				"BLIT_DECODE_HDR"
+			]
+		},
+		"Universal Render Pipeline/Lit;1936f9e677ec6c487b4a76cbf9a384fe;ScriptableRenderPipeline;":{
+			"shaderHash":"1936f9e677ec6c487b4a76cbf9a384fe",
+			"validSet":[
+				"",
+				"_FORWARD_PLUS;_MAIN_LIGHT_SHADOWS",
+				"_FORWARD_PLUS;_MAIN_LIGHT_SHADOWS;LIGHTMAP_ON"
+			]
+		},
+		"Universal Render Pipeline/Lit;1936f9e677ec6c487b4a76cbf9a384fe;ShadowCaster;":{
+			"shaderHash":"1936f9e677ec6c487b4a76cbf9a384fe",
+			"validSet":[
+				"",
+				"INSTANCING_ON"
+			]
+		},
+		"Axiu/EffectsShader;709dea9623f990df9e234933f243aff8;Normal;":{
+			"shaderHash":"709dea9623f990df9e234933f243aff8",
+			"validSet":[
+				"",
+				"_FRESNEL_ADD"
+			]
+		},
+		"Shader Graphs/GraphicMeshCircle;cf4b9b1b09acc53d9047847e3304d328;Normal;":{
+			"shaderHash":"cf4b9b1b09acc53d9047847e3304d328",
+			"validSet":[
+				""
+			]
+		},
+		"Shader Graphs/GraphicMeshCircle;cf4b9b1b09acc53d9047847e3304d328;ScriptableRenderPipeline;":{
+			"shaderHash":"cf4b9b1b09acc53d9047847e3304d328",
+			"validSet":[
+				""
+			]
+		},
+		"Shader Graphs/KnightLit;c257a478d9780d38f1bfb9cf68213a79;ScriptableRenderPipeline;":{
+			"shaderHash":"c257a478d9780d38f1bfb9cf68213a79",
+			"validSet":[
+				"",
+				"_FORWARD_PLUS;_MAIN_LIGHT_SHADOWS"
+			]
+		},
+		"Shader Graphs/KnightLit;c257a478d9780d38f1bfb9cf68213a79;ShadowCaster;":{
+			"shaderHash":"c257a478d9780d38f1bfb9cf68213a79",
+			"validSet":[
+				"",
+				"INSTANCING_ON"
+			]
+		},
+		"Shader Graphs/GraphicMeshRect;029b681ecde0337b5d91b212747ac9b2;Normal;":{
+			"shaderHash":"029b681ecde0337b5d91b212747ac9b2",
+			"validSet":[
+				""
+			]
+		},
+		"Shader Graphs/GraphicMeshRect;029b681ecde0337b5d91b212747ac9b2;ScriptableRenderPipeline;":{
+			"shaderHash":"029b681ecde0337b5d91b212747ac9b2",
+			"validSet":[
+				""
+			]
+		},
+		"Shader Graphs/GraphicMeshRect;029b681ecde0337b5d91b212747ac9b2;ShadowCaster;":{
+			"shaderHash":"029b681ecde0337b5d91b212747ac9b2",
+			"validSet":[
+				"",
+				"INSTANCING_ON"
+			]
+		},
+		"Shader Graphs/GraphicMeshFan;378f3358c3f85a36c8d115f39bf45016;Normal;":{
+			"shaderHash":"378f3358c3f85a36c8d115f39bf45016",
+			"validSet":[
+				""
+			]
+		},
+		"Shader Graphs/GraphicMeshFan;378f3358c3f85a36c8d115f39bf45016;ScriptableRenderPipeline;":{
+			"shaderHash":"378f3358c3f85a36c8d115f39bf45016",
+			"validSet":[
+				""
+			]
+		},
+		"Hidden/Core/FallbackError;fd26f413b131d70d49bce49cc3d737fe;Normal;":{
+			"shaderHash":"fd26f413b131d70d49bce49cc3d737fe",
+			"validSet":[
+				""
+			]
+		},
+		"TextMeshPro/Mobile/Distance Field;5d3b3aa640a57bc91040273884075334;Normal;":{
+			"shaderHash":"5d3b3aa640a57bc91040273884075334",
+			"validSet":[
+				"",
+				"OUTLINE_ON",
+				"OUTLINE_ON;UNDERLAY_ON"
+			]
+		}
+	}
+}

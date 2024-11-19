@@ -1,0 +1,26 @@
+{
+  "101": {
+    "ID": 101,
+    "ActorType": 1,
+    "Name": "DaJi_001",
+    "PrefabABPath": "Role/Prefabs/DaJi_001.unity",
+    "ModelScale": 10000,
+    "NormalSkillIntervalTime": 1000,
+    "NormalSkills": [
+      101001,
+      101002
+    ]
+  },
+  "102": {
+    "ID": 102,
+    "ActorType": 2,
+    "Name": "Enemy_001",
+    "PrefabABPath": "Role/Prefabs/Enemy_001.unity",
+    "ModelScale": 10000,
+    "NormalSkillIntervalTime": 1000,
+    "NormalSkills": [
+      101001,
+      101002
+    ]
+  }
+}

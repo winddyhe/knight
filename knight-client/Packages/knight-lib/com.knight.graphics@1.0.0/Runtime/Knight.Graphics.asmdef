@@ -1,0 +1,16 @@
+{
+    "name": "Knight.Graphics",
+    "rootNamespace": "",
+    "references": [
+        "GUID:defeacb187ddea2448db82b087168e92"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

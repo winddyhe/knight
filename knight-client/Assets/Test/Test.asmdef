@@ -1,0 +1,24 @@
+{
+    "name": "Test",
+    "rootNamespace": "",
+    "references": [
+        "GUID:59f6770f7492c42ff827a64ac010ac49",
+        "GUID:edb9a6bafdcb94c42ba0f396557616a4",
+        "GUID:defeacb187ddea2448db82b087168e92",
+        "GUID:46cea87a6e7567d40b73cb8dd24187a1",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:dc1997b77ec3988479508ad953ed7a9f"
+    ],
+    "includePlatforms": [
+        "Editor",
+        "PS4"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

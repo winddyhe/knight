@@ -1,0 +1,13 @@
+﻿{
+  "ExcelPath": "./../../../Excels",
+  "JsonPath": "./../../../../../knight-client/Assets/GameAssets/Config/GameConfig/Json",
+  "ConfigCodePath": "./../../../../../knight-client/Assets/Game.Config/GameConfig/Generate",
+  "ConfigBattleCodePath": "./../../../../../knight-client/Assets/Game.Battle/BattleConfig/Generate/Config",
+  "ConfigBattleConvertPath": "./../../../../../knight-client/Assets/Game.Hotfix/Generate/Config",
+  "BattleExcelNames": [
+    "Unit",
+    "SkillAsset",
+    "Skill",
+    "Stage"
+  ]
+}

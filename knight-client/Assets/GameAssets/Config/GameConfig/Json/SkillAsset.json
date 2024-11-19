@@ -1,0 +1,14 @@
+{
+  "DaJi_001_101": {
+    "ID": "DaJi_001_101",
+    "SkillEffectName": "Effect/Prefabs/DaJi_001_101/DaJi_001_101.unity",
+    "SkillTimelineName": "DaJi_001_101",
+    "SkillScriptName": "DaJi_001_101"
+  },
+  "DaJi_001_102": {
+    "ID": "DaJi_001_102",
+    "SkillEffectName": "Effect/Prefabs/DaJi_001_101/DaJi_001_101.unity",
+    "SkillTimelineName": "DaJi_001_102",
+    "SkillScriptName": "DaJi_001_101"
+  }
+}

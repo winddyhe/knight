@@ -1,0 +1,33 @@
+{
+    "name": "Game.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cc9f84536118066458cf3a1c6c4ad728",
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:f06555f75b070af458a003d92f9efb00",
+        "GUID:02f771204943f4a40949438e873e3eff",
+        "GUID:7f206f3a933f7044db1b9bd461e238cf",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:defeacb187ddea2448db82b087168e92",
+        "GUID:59f6770f7492c42ff827a64ac010ac49",
+        "GUID:220ca5dcfdd74de4ea5ab1b2cc684aa4",
+        "GUID:c9d5dd2cf8ffa1241baab7db01a779b1",
+        "GUID:52b6d71ad83672e46ae4aa18f450f5ff",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:2cee37acb6d447e44aa623f85b99d539",
+        "GUID:1a669ce11bdeb724aadb7b05e6f5a8db",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:3b6b1a54ff456c0448fec674448240b6"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

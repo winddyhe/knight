@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:ScrollView focusable="true" nested-interaction-kind="StopScrolling" style="height: 500px; min-height: 500px; max-height: 500px;">
+        <ui:Label tabindex="-1" text="Assetbundle Label Config :" display-tooltip-when-elided="true" style="padding-bottom: 3px;" />
+        <ui:ListView focusable="true" name="ABBuildEntryList" show-border="true" reorderable="true" horizontal-scrolling="false" show-alternating-row-backgrounds="ContentOnly" virtualization-method="DynamicHeight" show-foldout-header="false" show-add-remove-footer="false" reorder-mode="Animated" show-bound-collection-size="false" selection-type="Single" style="flex-direction: column; padding-bottom: 0; margin-bottom: 0;" />
+    </ui:ScrollView>
+    <ui:Button text="Add" display-tooltip-when-elided="true" name="AddButton" />
+    <ui:Button text="Save" display-tooltip-when-elided="true" name="SaveButton" />
+</ui:UXML>

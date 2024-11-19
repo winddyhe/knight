@@ -1,18 +1,27 @@
 {
     "name": "Game",
+    "rootNamespace": "",
     "references": [
-        "Core",
-        "Framework.AssetBundle",
-        "Framework.Hotfix",
-        "Framework.UI",
-        "Framework.Network"
+        "GUID:f06555f75b070af458a003d92f9efb00",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:defeacb187ddea2448db82b087168e92",
+        "GUID:1a669ce11bdeb724aadb7b05e6f5a8db",
+        "GUID:c9d5dd2cf8ffa1241baab7db01a779b1",
+        "GUID:709ec92aa4fe94e49a8eefd9e4eb06f9",
+        "GUID:7f206f3a933f7044db1b9bd461e238cf",
+        "GUID:c8f9cedbf8b7a714ba684e08ea740820",
+        "GUID:edb9a6bafdcb94c42ba0f396557616a4"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll"
+    ],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

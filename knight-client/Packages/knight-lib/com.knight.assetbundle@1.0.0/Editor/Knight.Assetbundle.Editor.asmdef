@@ -1,0 +1,22 @@
+{
+    "name": "Knight.Assetbundle.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c9d5dd2cf8ffa1241baab7db01a779b1",
+        "GUID:defeacb187ddea2448db82b087168e92",
+        "GUID:1a669ce11bdeb724aadb7b05e6f5a8db",
+        "GUID:3b6b1a54ff456c0448fec674448240b6",
+        "GUID:2cee37acb6d447e44aa623f85b99d539"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

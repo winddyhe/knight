@@ -1,0 +1,24 @@
+{
+  "name": "com.unity.mathematics",
+  "displayName": "Mathematics",
+  "version": "1.3.2",
+  "unity": "2021.3",
+  "description": "Unity's C# SIMD math library providing vector types and math functions with a shader like syntax.",
+  "keywords": [
+    "unity"
+  ],
+  "dependencies": {},
+  "_upm": {
+    "changelog": "### Fixed\n* Fixed `math.hash` crash when using IL2CPP builds on Arm 32 bit devices.\n* Fixed obsolete method usage warnings for `MatrixDrawer.CanCacheInspectorGUI` and `PrimitiveVectorDrawer.CanCacheInspectorGUI` in UNITY_2023_2_OR_NEWER.\n* Updated minimum editor version to 2021.3"
+  },
+  "upmCi": {
+    "footprint": "b042b81635a78aedbbb0caa0956e24bc5f8fa91a"
+  },
+  "documentationUrl": "https://docs.unity3d.com/Packages/com.unity.mathematics@1.3/manual/index.html",
+  "repository": {
+    "url": "https://github.com/Unity-Technologies/Unity.Mathematics.git",
+    "type": "git",
+    "revision": "1695a8503482a3131be78cc26308a93f82c05b04"
+  },
+  "_fingerprint": "8017b507cc74bf0a1dd14b18aa860569f807314d"
+}

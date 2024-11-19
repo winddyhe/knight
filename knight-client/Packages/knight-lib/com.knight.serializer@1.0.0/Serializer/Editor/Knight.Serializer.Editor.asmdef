@@ -1,0 +1,19 @@
+{
+    "name": "Knight.Serializer.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:defeacb187ddea2448db82b087168e92",
+        "GUID:2cee37acb6d447e44aa623f85b99d539"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

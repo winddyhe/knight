@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <uie:Toolbar>
+        <uie:ToolbarButton text="Label Config" display-tooltip-when-elided="true" name="LabelConfigButton" style="width: 50%; justify-content: center; -unity-text-align: upper-center;" />
+        <uie:ToolbarButton text="Builder" display-tooltip-when-elided="true" name="BuilderButton" style="width: 50%; -unity-text-align: upper-center;" />
+    </uie:Toolbar>
+    <ui:GroupBox name="LabelConfigPanel" />
+    <ui:GroupBox name="BuilderPanel" />
+</ui:UXML>

@@ -1,0 +1,36 @@
+{
+  "Entries": {
+    "ee52b37ad9e5e51e61e69d34e966eec2": {
+      "ABPath": "ee52b37ad9e5e51e61e69d34e966eec2",
+      "ABVaraint": "ab",
+      "Dependencies": [
+        "0c467b4386848c97514986e6c641e7eb"
+      ],
+      "MD5": "F7EA25BB4BEED8EE91118BF0988405A8",
+      "Version": 1,
+      "Size": 116487,
+      "IsAssetBundle": true,
+      "IsDeleteAB": false
+    },
+    "d19a6f6d89fd70956f8a80f25d4bf684": {
+      "ABPath": "d19a6f6d89fd70956f8a80f25d4bf684",
+      "ABVaraint": "ab",
+      "Dependencies": [],
+      "MD5": "B8EEE7CA0C0A31874638534EC4864016",
+      "Version": 1,
+      "Size": 162754,
+      "IsAssetBundle": true,
+      "IsDeleteAB": false
+    },
+    "1f632a90cca139d8b3f28d63bf0c5c81.mp4": {
+      "ABPath": "1f632a90cca139d8b3f28d63bf0c5c81.mp4",
+      "ABVaraint": "mp4",
+      "Dependencies": [],
+      "MD5": "8D75F22E3D1F6C0E0A553DC93CA5D507",
+      "Version": 0,
+      "Size": 854067,
+      "IsAssetBundle": false,
+      "IsDeleteAB": false
+    }
+  }
+}

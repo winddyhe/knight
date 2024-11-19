@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!200 &20000000
+ShaderVariantCollection:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: KnightLit
+  m_Shaders:
+  - first: {fileID: -6465566751694194690, guid: e88e9d9613ffa554c82d0df2e0917039, type: 3}
+    second:
+      variants:
+      - keywords: DOTS_INSTANCING_ON
+        passType: 8
+      - keywords: INSTANCING_ON
+        passType: 8
+      - keywords: DOTS_INSTANCING_ON _FORWARD_PLUS _MAIN_LIGHT_SHADOWS
+        passType: 13

@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:Foldout text="Foldout" name="ItemRoot" focusable="false" value="false" toggle-on-label-click="true" style="align-self: stretch; align-items: stretch; flex-direction: column; margin-top: 3px; margin-bottom: 5px;">
+        <ui:GroupBox name="GroupBox" style="align-items: stretch; justify-content: space-around; align-self: stretch; display: flex; visibility: visible; overflow: visible; flex-direction: row; flex-wrap: nowrap; translate: 0 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; padding-right: 1px;">
+            <ui:EnumField label="ABBuildType" type="Knight.Framework.Assetbundle.ABBuildType, Knight.Assetbundle" name="ABBuildType" style="justify-content: center; align-items: flex-start; align-self: center; flex-direction: row; flex-wrap: wrap; width: 80%;" />
+            <ui:Button text="Set" display-tooltip-when-elided="true" name="ResetButton" style="width: 4%; justify-content: space-around; align-self: center; translate: 0 0;" />
+            <ui:Button text="Del" display-tooltip-when-elided="true" name="DelButton" style="width: 4%; justify-content: space-around; align-self: center; translate: 0 0;" />
+            <ui:Button text="⬆" display-tooltip-when-elided="true" name="UpButton" style="width: 4%; justify-content: space-around; align-self: center; translate: 0 0;" />
+            <ui:Button text="⬇" display-tooltip-when-elided="true" name="DownButton" style="width: 4%; justify-content: space-around; align-self: center; translate: 0 0;" />
+        </ui:GroupBox>
+        <ui:TextField picking-mode="Ignore" label="ResPath" usage-hints="None" password="false" readonly="false" is-delayed="false" name="ResPathText" class="unity-text-field" style="align-items: center; justify-content: space-around; align-self: stretch; flex-direction: row; flex-wrap: nowrap; width: auto;" />
+        <ui:TextField picking-mode="Ignore" label="OriginResPath" usage-hints="None" password="false" readonly="false" is-delayed="false" name="OriginResPathText" class="unity-text-field" style="align-items: center; justify-content: space-around; align-self: stretch; flex-direction: row; flex-wrap: nowrap; width: auto;" />
+        <ui:TextField picking-mode="Ignore" label="ABName" usage-hints="None" password="false" readonly="false" is-delayed="false" name="ABNameText" class="unity-text-field" style="align-items: center; justify-content: flex-start; align-self: auto; flex-direction: row;" />
+        <ui:TextField picking-mode="Ignore" label="ABAliasSuffix" usage-hints="None" password="false" readonly="false" is-delayed="false" name="ABAliasSuffixText" class="unity-text-field" style="align-items: center; justify-content: flex-start; align-self: auto; flex-direction: row;" />
+        <ui:TextField picking-mode="Ignore" label="ABVariant" usage-hints="None" password="false" readonly="false" is-delayed="false" name="ABVariantText" class="unity-text-field" style="align-items: center; justify-content: flex-start; align-self: auto; flex-direction: row;" />
+        <ui:TextField picking-mode="Ignore" label="FilterType" usage-hints="None" password="false" readonly="false" is-delayed="false" name="FilterTypeText" class="unity-text-field" style="align-items: center; justify-content: flex-start; align-self: auto; flex-direction: row;" />
+        <ui:TextField picking-mode="Ignore" label="FilterPattern" usage-hints="None" password="false" readonly="false" is-delayed="false" name="FilterPatternText" class="unity-text-field" style="align-items: center; justify-content: flex-start; align-self: auto; flex-direction: row;" />
+        <ui:TextField picking-mode="Ignore" label="ABBuildPreprocessor" usage-hints="None" password="false" readonly="false" is-delayed="false" name="ABBuildPreprocessorText" class="unity-text-field" style="align-items: center; justify-content: flex-start; align-self: auto; flex-direction: row;" />
+        <ui:Toggle label="IsAssetbundle" name="IsAssetbundle" />
+        <ui:Toggle label="IsNeedAssetList" name="IsNeedAssetList" />
+    </ui:Foldout>
+</ui:UXML>

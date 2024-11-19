@@ -1,6 +1,29 @@
-﻿<linker>  
-  <assembly fullname="Core" preserve="all"/>
-  <assembly fullname="Framework" preserve="all"/>
-  <assembly fullname="Game" preserve="all"/>
-  <assembly fullname="UnityEngine" preserve="all"/>
+﻿<linker>
+	<assembly fullname="Knight.Core" preserve="all"/>
+	<assembly fullname="Knight.Assetbundle" preserve="all"/>
+	<assembly fullname="Knight.Hotfix" preserve="all"/>
+	<assembly fullname="Knight.EntitiesContent" preserve="all"/>
+	<assembly fullname="Knight.Mathematics.Fixed" preserve="all"/>
+	<assembly fullname="Knight.Timeline" preserve="all"/>
+	<assembly fullname="Knight.UI" preserve="all"/>
+	<assembly fullname="Knight.Core.Unity" preserve="all"/>
+	<assembly fullname="FancyScrollView" preserve="all"/>
+	<assembly fullname="UniTask" preserve="all"/>
+	<assembly fullname="Game" preserve="all"/>
+	<assembly fullname="Game.Battle" preserve="all"/>
+	<assembly fullname="Game.Config" preserve="all"/>
+	<assembly fullname="UnityEngine" preserve="all"/>
+	<assembly fullname="UnityEngine.UI" preserve="all"/>
+	<assembly fullname="UnityEngine.UIModule" preserve="all"/>
+	<assembly fullname="UnityEngine.PropertiesModule" preserve="all"/>
+	<assembly fullname="UnityEngine.AnimationModule" preserve="all"/>
+	<assembly fullname="UnityEngine.Events" preserve="all"/>
+	<assembly fullname="Unity.Timeline" preserve="all"/>
+	<assembly fullname="System">
+		<type fullname="System.ComponentModel.TypeConverter" preserve="all" />
+	</assembly>
+	<assembly fullname="System.Core">
+        <type fullname="System.Linq.Expressions.Interpreter.LightLambda" preserve="all" />
+    </assembly>
+	<assembly fullname="Newtonsoft.Json" preserve="all"/>
 </linker>

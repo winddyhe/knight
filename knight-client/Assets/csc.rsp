@@ -1,5 +1,9 @@
+-langVersion:10
 -unsafe
 -nowarn:0168
 -nowarn:0219
 -nowarn:0414
 -nowarn:0649
+-define:ENABLE_LOG_RELEASE
+-define:ENABLE_DEBUG_WARNING
+-define:ENABLE_DEBUG_ERROR

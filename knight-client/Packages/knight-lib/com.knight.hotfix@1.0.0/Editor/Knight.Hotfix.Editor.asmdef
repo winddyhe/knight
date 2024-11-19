@@ -1,0 +1,21 @@
+{
+    "name": "Knight.Hotfix.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:709ec92aa4fe94e49a8eefd9e4eb06f9",
+        "GUID:13ba8ce62aa80c74598530029cb2d649",
+        "GUID:2373f786d14518f44b0f475db77ba4de",
+        "GUID:defeacb187ddea2448db82b087168e92"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

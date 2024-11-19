@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a86fc4c2e03a3e64d874ccc1b73a2a0b, type: 3}
+  m_Name: ABBuilderConfig
+  m_EditorClassIdentifier: 
+  ABBuildEntries:
+  - ABBuildType: 1
+    ABName: game/config/gameconfig/binary
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/Config/GameConfig/Binary
+    FilterType: t:TextAsset
+    FilterPattern: 
+    ABBuildPreprocessor: Game.Editor.ABBuildPreprocessor_GameConfig
+    IsAssetBundle: 1
+    IsNeedAssetList: 0
+  - ABBuildType: 2
+    ABName: game/gui/prefabs
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/GUI/Prefabs
+    FilterType: t:Prefab
+    FilterPattern: 
+    ABBuildPreprocessor: Knight.Framework.Assetbundle.Editor.ABBuildPreprocessorDefault
+    IsAssetBundle: 1
+    IsNeedAssetList: 0
+  - ABBuildType: 3
+    ABName: game/gui/tmp/fonts
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/GUI/TMP/Fonts
+    FilterType: 
+    FilterPattern: 
+    ABBuildPreprocessor: Knight.Framework.Assetbundle.Editor.ABBuildPreprocessorDefault
+    IsAssetBundle: 1
+    IsNeedAssetList: 0
+  - ABBuildType: 1
+    ABName: game/gui/tmp/spriteassets
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/GUI/TMP/SpriteAssets
+    FilterType: t:TextAsset t:TMP_SpriteAsset t:Texture2D
+    FilterPattern: 
+    ABBuildPreprocessor: Knight.Framework.Assetbundle.Editor.ABBuildPreprocessorDefault
+    IsAssetBundle: 1
+    IsNeedAssetList: 0
+  - ABBuildType: 1
+    ABName: game/gui/textures/config
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/GUI/Textures/Config
+    FilterType: 
+    FilterPattern: 
+    ABBuildPreprocessor: Knight.Framework.Assetbundle.Editor.ABBuildPreprocessorDefault
+    IsAssetBundle: 1
+    IsNeedAssetList: 0
+  - ABBuildType: 3
+    ABName: game/gui/textures/atlas
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/GUI/Textures/Atlas
+    FilterType: t:Texture2D
+    FilterPattern: 
+    ABBuildPreprocessor: Knight.Framework.Assetbundle.Editor.ABBuildPreprocessorDefault
+    IsAssetBundle: 1
+    IsNeedAssetList: 1
+  - ABBuildType: 2
+    ABName: game/gui/textures/fullbg
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/GUI/Textures/FullBG
+    FilterType: t:Texture2D
+    FilterPattern: 
+    ABBuildPreprocessor: Knight.Framework.Assetbundle.Editor.ABBuildPreprocessorDefault
+    IsAssetBundle: 1
+    IsNeedAssetList: 1
+  - ABBuildType: 3
+    ABName: game/gui/textures/icons
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/GUI/Textures/Icons
+    FilterType: 
+    FilterPattern: 
+    ABBuildPreprocessor: ABBuildPreprocessorDefault
+    IsAssetBundle: 1
+    IsNeedAssetList: 1
+  - ABBuildType: 1
+    ABName: game/gui/materials
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/GUI/Materials
+    FilterType: 
+    FilterPattern: 
+    ABBuildPreprocessor: Knight.Framework.Assetbundle.Editor.ABBuildPreprocessorDefault
+    IsAssetBundle: 1
+    IsNeedAssetList: 0
+  - ABBuildType: 1
+    ABName: game/gui/config
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/GUI/Config
+    FilterType: 
+    FilterPattern: 
+    ABBuildPreprocessor: Knight.Framework.Assetbundle.Editor.ABBuildPreprocessorDefault
+    IsAssetBundle: 1
+    IsNeedAssetList: 0
+  - ABBuildType: 1
+    ABName: game/urp/settings
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/URP/Settings
+    FilterType: 
+    FilterPattern: 
+    ABBuildPreprocessor: Knight.Framework.Assetbundle.Editor.ABBuildPreprocessorDefault
+    IsAssetBundle: 1
+    IsNeedAssetList: 0
+  - ABBuildType: 1
+    ABName: game/urp/shaders
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/URP/Shaders
+    FilterType: 
+    FilterPattern: 
+    ABBuildPreprocessor: Game.Editor.ABBuildPreprocessor_Shader
+    IsAssetBundle: 1
+    IsNeedAssetList: 0
+  - ABBuildType: 2
+    ABName: game/video
+    ABAliasSuffix: 
+    ABVariant: mp4
+    ResPath: Assets/GameAssets/Video
+    FilterType: 
+    FilterPattern: 
+    ABBuildPreprocessor: Knight.Framework.Assetbundle.Editor.ABBuildPreprocessorDefault
+    IsAssetBundle: 0
+    IsNeedAssetList: 0
+  - ABBuildType: 1
+    ABName: game/hotfix/libs
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/Hotfix/Libs
+    FilterType: t:TextAsset
+    FilterPattern: 
+    ABBuildPreprocessor: Knight.Framework.Assetbundle.Editor.ABBuildPreprocessorDefault
+    IsAssetBundle: 1
+    IsNeedAssetList: 0
+  - ABBuildType: 1
+    ABName: game/hotfix/aotasms
+    ABAliasSuffix: 
+    ABVariant: ab
+    ResPath: Assets/GameAssets/Hotfix/AOTAsms
+    FilterType: t:TextAsset
+    FilterPattern: 
+    ABBuildPreprocessor: Knight.Framework.Assetbundle.Editor.ABBuildPreprocessorDefault
+    IsAssetBundle: 1
+    IsNeedAssetList: 0

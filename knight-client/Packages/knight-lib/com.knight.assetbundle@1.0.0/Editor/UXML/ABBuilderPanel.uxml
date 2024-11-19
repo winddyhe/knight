@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:Label tabindex="-1" text="Assetbundle Builder :" display-tooltip-when-elided="true" style="padding-right: 3px; margin-right: 0; margin-left: 3px; margin-bottom: 5px;" />
+    <ui:TextField picking-mode="Ignore" label="Platform Target :" name="TargetText" readonly="true" />
+    <ui:GroupBox style="margin-left: 0; margin-right: 3px; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; -unity-text-align: middle-left;">
+        <ui:TextField picking-mode="Ignore" label="Output path :" name="OutputPathText" readonly="true" style="justify-content: space-around; align-items: stretch; align-self: center; width: 100%; margin-left: 0; padding-left: 3px; margin-right: 3px;" />
+    </ui:GroupBox>
+    <ui:Toggle label="Clear Folder :" name="ClearFolderToggle" />
+    <ui:Toggle label="Copy Streaming :" name="CopyStreamingToggle" />
+    <ui:EnumField label="BuildPackageType:" type="Knight.Framework.Assetbundle.Editor.ABPackageType, Knight.Assetbundle.Editor" name="BuildPackageTypeEnum" />
+    <ui:Button text="Build" display-tooltip-when-elided="true" name="BuildButton" />
+</ui:UXML>

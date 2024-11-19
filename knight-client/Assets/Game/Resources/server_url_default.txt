@@ -1,3 +1,0 @@
-{
-	"UpdateURL": "http://127.0.0.1/Shared/unity/knight/"
-}

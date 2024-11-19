@@ -1,0 +1,20 @@
+{
+  "101001": {
+    "ID": 101001,
+    "SkillName": "DaJi_001_101",
+    "SkillCastTargetType": 1,
+    "TargetSelectCampType": 1,
+    "TargetSelectSearchType": 1,
+    "TargetSelectRadiusOrHeight": 500,
+    "TargetSelectAngleOrWidth": 0
+  },
+  "101002": {
+    "ID": 101002,
+    "SkillName": "DaJi_001_102",
+    "SkillCastTargetType": 1,
+    "TargetSelectCampType": 1,
+    "TargetSelectSearchType": 1,
+    "TargetSelectRadiusOrHeight": 500,
+    "TargetSelectAngleOrWidth": 0
+  }
+}

@@ -1,24 +1,28 @@
 {
     "name": "Game.Hotfix",
+    "rootNamespace": "",
     "references": [
-        "Core",
-        "Framework.AssetBundle",
-        "Framework.Graphics",
-        "Framework.Hotfix",
-        "Framework.Input",
-        "Framework.Network",
-        "Framework.Tweening",
-        "Framework.UI",
-        "Game"
+        "GUID:709ec92aa4fe94e49a8eefd9e4eb06f9",
+        "GUID:edb9a6bafdcb94c42ba0f396557616a4",
+        "GUID:defeacb187ddea2448db82b087168e92",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:59f6770f7492c42ff827a64ac010ac49",
+        "GUID:cc9f84536118066458cf3a1c6c4ad728",
+        "GUID:220ca5dcfdd74de4ea5ab1b2cc684aa4",
+        "GUID:1a669ce11bdeb724aadb7b05e6f5a8db",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:2cee37acb6d447e44aa623f85b99d539",
+        "GUID:3ca74d8d492aa6e46b97c120678aa213",
+        "GUID:cdaa10078c40e054097c856ed27eb8b2"
     ],
-    "optionalUnityReferences": [],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

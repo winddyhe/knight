@@ -1,0 +1,110 @@
+trackSelection = true
+refreshSearchWindowsInPlayMode = false
+fetchPreview = true
+defaultFlags = 0
+keepOpen = false
+queryFolder = "Assets"
+onBoardingDoNotAskAgain = true
+showPackageIndexes = false
+showStatusBar = false
+scopes = {
+	"last_search.83F126EB" = ""
+	"OpenInspectorPreview.83F126EB" = "0"
+	"currentGroup.83F126EB" = "asset"
+	"last_search.E8DA15E5" = ""
+	"OpenInspectorPreview.E8DA15E5" = "0"
+	"currentGroup.E8DA15E5" = "all"
+	"last_search.D24CB9E5" = ""
+	"OpenInspectorPreview.D24CB9E5" = "0"
+	"currentGroup.D24CB9E5" = null
+	"last_search.62214EDB" = ""
+	"OpenInspectorPreview.62214EDB" = "0"
+	"currentGroup.62214EDB" = "asset"
+}
+providers = {
+	adb = {
+		active = false
+		priority = 2500
+		defaultAction = null
+	}
+	asset = {
+		active = true
+		priority = 25
+		defaultAction = null
+	}
+	store = {
+		active = true
+		priority = 100
+		defaultAction = null
+	}
+	find = {
+		active = true
+		priority = 25
+		defaultAction = null
+	}
+	log = {
+		active = false
+		priority = 210
+		defaultAction = null
+	}
+	packages = {
+		active = true
+		priority = 90
+		defaultAction = null
+	}
+	performance = {
+		active = false
+		priority = 100
+		defaultAction = null
+	}
+	scene = {
+		active = true
+		priority = 50
+		defaultAction = null
+	}
+	query = {
+		active = true
+		priority = 100
+		defaultAction = null
+	}
+	profilermarkers = {
+		active = false
+		priority = 100
+		defaultAction = null
+	}
+	archetype = {
+		active = true
+		priority = 2500
+		defaultAction = null
+	}
+	journal = {
+		active = true
+		priority = 2500
+		defaultAction = null
+	}
+	presets_provider = {
+		active = false
+		priority = -10
+		defaultAction = null
+	}
+}
+objectSelectors = {
+}
+recentSearches = [
+	""
+	"h: ref=\"Assets/GameAssets/EntitiesContent\""
+	"p: t:texture"
+]
+searchItemFavorites = [
+]
+savedSearchesSortOrder = 0
+showSavedSearchPanel = false
+hideTabs = false
+expandedQueries = [
+]
+queryBuilder = false
+ignoredProperties = "id;name;classname;imagecontentshash"
+helperWidgetCurrentArea = "all"
+disabledIndexers = ""
+minIndexVariations = 2
+findProviderIndexHelper = true

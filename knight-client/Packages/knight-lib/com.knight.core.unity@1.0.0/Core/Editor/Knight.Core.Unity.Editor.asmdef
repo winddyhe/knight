@@ -1,0 +1,18 @@
+{
+    "name": "Knight.Core.Unity.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:defeacb187ddea2448db82b087168e92"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

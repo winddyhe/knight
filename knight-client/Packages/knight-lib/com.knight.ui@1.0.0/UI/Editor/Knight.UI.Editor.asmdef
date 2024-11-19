@@ -1,0 +1,23 @@
+{
+    "name": "Knight.UI.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:defeacb187ddea2448db82b087168e92",
+        "GUID:1a669ce11bdeb724aadb7b05e6f5a8db",
+        "GUID:3b6b1a54ff456c0448fec674448240b6",
+        "GUID:edb9a6bafdcb94c42ba0f396557616a4",
+        "GUID:f88fb04354076c646a4107a491394033",
+        "GUID:59f6770f7492c42ff827a64ac010ac49"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,12 @@
+{
+  "name": "com.knight.shadervariant",
+  "version": "1.0.0",
+  "displayName": "Knight.Framework.ShaderVariant",
+  "description": "This is an com.knight.shadervariant package",
+  "dependencies": {},
+  "author": {
+    "name": "winddyhe",
+    "email": "hgplan@126.com",
+	"url": "https://github.com/winddyhe/knight"
+  }
+}

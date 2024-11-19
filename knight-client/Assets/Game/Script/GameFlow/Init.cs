@@ -1,82 +1,95 @@
-﻿//======================================================================
-//        Copyright (C) 2015-2020 Winddy He. All rights reserved
-//        Email: hgplan@126.com
-//======================================================================
-using UnityEngine;
-using System.Collections;
-using Knight.Framework;
-using Knight.Core;
+﻿using Knight.Core;
+using Knight.Framework.Assetbundle;
 using Knight.Framework.Hotfix;
 using System.Threading.Tasks;
-using UnityEngine.UI;
-using Knight.Framework.AssetBundles;
-using Knight.Framework.Net;
-using UnityFx.Async;
+using UnityEngine;
+using Knight.Framework.UI;
 
 namespace Game
 {
-    /// <summary>
-    /// 游戏初始化
-    /// </summary>
-    internal class Init : MonoBehaviour
+    public class Init : MonoBehaviour
     {
-        public string HotfixABPath = "";
-        public string HotfixModule = "";
-
-        async void Start()
+        private async void Start()
         {
-            //限帧
-            Application.targetFrameRate = 30;
+            // 分辨率设置
+            RenderResolutionSetting.Initialize();
+            RenderResolutionSetting.SetResolution(720);
 
-            // 初始化事件管理器
-            EventManager.Instance.Initialize();
+            Application.runInBackground = true;
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 1000;
+            Time.fixedDeltaTime = 1.0f / 30;
 
-            // 初始化协程管理器
-            CoroutineManager.Instance.Initialize();
+            // 初始化各种数据和管理器
+            // 版本数据初始化
+            await GameVersion.Instance.Initialize();
 
+            // 平台路径初始化
+            ABPlatform.Instance.Initialize(GameVersion.Instance.HotfixUrlInfo, GameVersion.Instance.GetCdnVersion());
+
+            // 异步实例化管理器初始化
+            InstantiateManager.Instance.Initialize();
+
+            // 初始化红点管理器
+            RedPointManager.Instance.Initialize();
+
+            // 资源加载器初始化
+            AssetLoader.Instance = new ABLoaderManager();
+            AssetLoader.Instance.Initialize(
+                "Assets/Game.Editor/Editor/Assetbundle/ABSimulateConfig.asset", "Assets/Game.Editor/Editor/Assetbundle/ABBuilderConfig.asset");
+
+            // 下载器初始化
+            await ABUpdater.Instance.Initialize();
+            // 开始检测并下载资源
+            await ABUpdater.Instance.InitializeUpdate(this.UpdateCheck, this.UpdateProgress);
+
+            // 初始化热更新
+            var rDLLNames = new string[] { "Game.Config", "Game.Hotfix" };
+            HotfixManager.Instance.Initialize(rDLLNames);
+            await HotfixManager.Instance.Load("game/hotfix/libs.ab");
+            await HotfixManager.Instance.LoadAOTAsms("game/hotfix/aotasms.ab");
+
+            // 类型管理器初始化
             TypeResolveManager.Instance.Initialize();
-
             TypeResolveManager.Instance.AddAssembly("Game");
-            TypeResolveManager.Instance.AddAssembly("Game.Hotfix" , true);
+            TypeResolveManager.Instance.AddAssembly("Game.Config", true);
+            TypeResolveManager.Instance.AddAssembly("Game.Hotfix", true);
 
-            // 初始化热更新模块
-            HotfixRegister.Register();
-            HotfixManager.Instance.Initialize();
-
-            // 初始化UI模块
-            UIRoot.Instance.Initialize();
-
-            // 初始化加载进度条
-            GameLoading.Instance.LoadingView = LoadingView_Knight.Instance;
-            GameLoading.Instance.StartLoading(0.5f, "游戏初始化阶段，开始加载资源...");
-
-            //异步初始化代码
-            await Start_Async();
+            // 开始主逻辑初始化
+            await MainLogic.Instance.Initialize(); 
         }
 
-
-        private async Task Start_Async()
+        public void Update()
         {
-            // 平台初始化
-            await ABPlatform.Instance.Initialize();
+            InstantiateManager.Instance?.Update();
+            RedPointManager.Instance?.Update();
+            AssetLoader.Instance?.Update();
+            MainLogic.Instance?.Update(Time.deltaTime);
+        }
 
-            // 资源下载模块初始化
-            await ABUpdater.Instance.Initialize();
+        public void LateUpdate()
+        {
+            MainLogic.Instance?.LateUpdate(Time.deltaTime);
+        }
 
-            // 初始化资源加载模块
-            AssetLoader.Instance = new ABLoader();
-            AssetLoader.Instance.Initialize();
+        private void OnDestroy()
+        {
+            MainLogic.Instance?.Destroy();
+        }
 
-            GameLoading.Instance.Hide();
-            GameLoading.Instance.StartLoading(1.0f, "游戏初始化阶段，开始加载资源...");
+#pragma warning disable 1998
+        private async Task<bool> UpdateCheck(int nFileCount, long nTotalSize)
+        {
+            LogManager.LogRelease($"Total Update File Count: {nFileCount}, Total Update File Size: {nTotalSize}");
+            return true;
+        }
+#pragma warning restore 1998
 
-            // 加载热更新代码资源
-            await HotfixManager.Instance.Load(this.HotfixABPath, this.HotfixModule);
-
-            // 开始热更新端的游戏主逻辑
-            await HotfixGameMainLogic.Instance.Initialize();
-
-            Debug.Log("End init..");
+        private void UpdateProgress(long nTatalSize, long nCurDownloadSize, long nABSize, float fUpdateProgress)
+        {
+            var fTotalProgress = (double)(nCurDownloadSize + (nABSize * fUpdateProgress)) / (double)nTatalSize;
+            LogManager.LogRelease("TotalProgress: " + fTotalProgress);
         }
     }
 }
