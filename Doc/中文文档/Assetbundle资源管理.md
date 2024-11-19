@@ -1,9 +1,8 @@
 # Assetbundle资源管理
 
 ## 资源打包
-* ![改造后的AssetbundleBrowser](https://github.com/winddyhe/knight/blob/master/Doc/res/images/assetbundlebrowser_improved.png)
-* 改造官方的AssetbundleBrowser打包工具，将其打包接口替换为自己的。
-* 在工具上添加了一个为资源分类的配置Tab页。给资源在逻辑上分成不同的类别，通过配置能够很方便的进行资源分类。
+![改造后的AssetbundleBrowser](https://github.com/winddyhe/knight/blob/master/Doc/res/images/assetbundlebrowser_improved.png)
+* 自定义资源标签配置工具，给资源在逻辑上分成不同的类别，通过配置能够很方便的进行资源分类。
 * 在项目后期优化阶段将体会到资源区分类别的好处，这样能够让不同的功能、不同模块的资源之间相互没有关联。能够方便的控制资源包的粒度，减少资源包的依赖项。
 * 资源分类中需要注意的一个问题是处理好在不同的AB包中重用的资源，可以将他们分类成独立的资源包。
 
@@ -24,10 +23,12 @@
 8. 整个下载过程完成后，将Server的版本MD5码保存到Persistent空间中，如果下载过程终端则不保存版本MD5码。
 9. 最后将比较Persitent空间和StreamingAssets空间中的版本文件最终生成用于资源加载的版本信息数据对象ABLoaderVersion。（比较两个空间下单个资源包版本号较大的作为最终使用的资源包路径。）
 10. 完成更新下载流程。
+
 ### Server空间上的增量更新包的生成
 * 每次打包资源的时，将会资源打包的增量信息，保存在资源包文件夹的History中。
-* 提供了一个增量资源包提取工具Tools/AssetBundle/AssetBundle History，用来提取从某个版本开始的所有的增量资源包。
-* ![AssetbundleHistory](https://github.com/winddyhe/knight/blob/master/Doc/res/images/assetbundle_histroy.png)
+* 在打包工具页面提供了一个增量资源包Build功能，选择BuildPackageType为HotfixPackage，用来提取从某个版本开始的所有的增量资源包。
+
+  ![AssetbundleHistory](https://github.com/winddyhe/knight/blob/master/Doc/res/images/assetbundle_histroy.png)
 
 ## 资源的加载
 * 框架中建议采用的资源加载方式是 LZ4 + Assetbundle.LoadFromFileAsync。这种加载方案目前是AssetBundle加载中最优的，能够最大程度的节省加载时间和内存分配。
@@ -36,10 +37,14 @@
 * 框架中Cache Assetbundle对象 + 引用计数 + Unload(true)的方式进行资源加载管理，这种方式能够明确的卸载掉某个资源。
 * 统一底层的资源加载、卸载接口：
 ```
-ABLoader Class
-public LoaderRequest LoadAsset(string rAssetbundleName, string rAssetName, bool bIsSimulate)
-public void UnloadAsset(string rAssetbundleName)
+IAssetLoader Interface
+public AssetLoaderRequest<T> LoadAssetAsync<T>(string rAssetPath, string rAssetName, bool bIsSimulate) where T : Object;
+public AssetLoaderRequest<T> LoadAllAssetAsync<T>(string rAssetPath, bool bIsSimulate) where T : Object;
+public AssetLoaderRequest<T> LoadSceneAsync<T>(string rAssetPath, string rAssetName, LoadSceneMode rSceneMode, bool bIsSimulate) where T : Object;
+public AssetLoaderRequest<T> LoadAllSceneAsync<T>(string rAssetPath, bool bIsSimulate) where T : Object;
+public void Unload<T>(AssetLoaderRequest<T> rRequest) where T : Object;
 ```
 * 提供了在Editor中使用UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName和UnityEditor.AssetDatabase.LoadMainAssetAtPath API来模拟资源包的加载。这样在Editor中资源发生改变了就不再需要重新Build资源包就能够得到正确的结果了。
-* 通过勾选Tools/Develope Mode和Tools/Simulate Mode/xxx一键切换使用模拟加载还是正式加载，不同的资源类别可以拥有不用的加载模式。
-* ![Assetbundle模拟模式](https://github.com/winddyhe/knight/blob/master/Doc/res/images/assetbundle_simulate.png)
+* 通过设置文件Assets/Game.Editor/Assetbundle/ABSimulateConfig.asset文件，选中他勾选IsDevelopMode、IsHotfixABMode、和SimulateType选择不同类型的资源模拟。
+
+  ![Assetbundle模拟模式](https://github.com/winddyhe/knight/blob/master/Doc/res/images/img_2.png)
