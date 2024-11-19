@@ -7,7 +7,7 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 它包含了一个完整的资源管理模块（打包、下载、加载、版本管理），一个基于hybridclr的C#热更模块，一个基于MVMC的UI框架以及其他基础功能的支持。
 
 本框架目前以提升性能和易用性为目的，已经重构了大部分以前的设计。目前使用的Unity版本为Unity6000.0.26f1。
-目前Master分支中将所有的模块全部移到Packages里面去了，并使用PackageManager来管理他们，以实现使用时可随时插拔。
+目前各个模块采用Package的方式进行分隔，并使用PackageManager来管理他们，以实现使用时可随时插拔。
 
   ![knight的框架结构](https://github.com/winddyhe/knight/blob/master/Doc/res/images/img_1.png)
 
@@ -22,7 +22,7 @@ Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易�
 * [Assetbundle资源模块](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/Assetbundle%E8%B5%84%E6%BA%90%E6%A8%A1%E5%9D%97.md)
 * [hybridclr热更新模块](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/ILRuntime%E7%83%AD%E6%9B%B4%E6%96%B0%E6%A8%A1%E5%9D%97.md)
 * [UI模块](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/WindUI.md)
-* [GAmeConfig配置模块](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B8%B8%E6%88%8F%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE.md)
+* [GameConfig配置模块](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B8%B8%E6%88%8F%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE.md)
 
 ### 插件(感谢以下插件和框架对knight的底层功能的支持)
 * hybridclr: 是一个特性完整、零成本、高性能、低内存的Unity全平台原生c#热更新解决方案。 地址：https://github.com/focus-creative-games/hybridclr
