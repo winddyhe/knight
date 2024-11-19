@@ -1,6 +1,7 @@
 # knight
 Support the 996.ICU movement
 <a href="https://996.icu"><img src="https://img.shields.io/badge/link-996.icu-red.svg" alt="996.icu"></a>
+
 Knight is a GamePlay framework based on the Unity engine, offering simple and user-friendly game framework interfaces, with the aim of enabling developers to focus more on the development of game content.
 It includes a complete resource management module (packaging, downloading, loading, version management), a C# hot update module based on hybridclr, a UI framework based on MVMC, as well as support for other basic functionalities.
 The current framework aims to enhance performance and usability, and has undergone a major restructuring of previous designs. The currently used version of Unity is Unity6000.0.26f1.
@@ -15,11 +16,11 @@ Currently, each module is separated using the Package approach and managed by th
 * Open the Assets/Game/Scene/Game.unity scene, and click "Play" to run the game demo.
 
 ### Introduction to main functions
-* [Framework Architecture](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%A1%86%E6%9E%B6%E7%BB%97%E6%9E%84.md)
-* [Assetbundle Management](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/Assetbundle%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.md)
-* [hybridclr hot update](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/hybridclr%E7%83%AD%E6%9B%B4%E6%96%B0.md)
-* [MVMC's UI Framework](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/MVMC%E7%9A%84UI%E6%A1%86%E6%9E%B6.md)
-* [GameConfig configuration](https://github.com/winddyhe/knight/blob/master/Doc/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/GameConfig%E9%85%8D%E7%BD%AE.md)
+* [Framework Architecture](https://github.com/winddyhe/knight/blob/master/Doc/english-doc/FrameworkArchitecture.md)
+* [Assetbundle Management](https://github.com/winddyhe/knight/blob/master/Doc/english-doc/AssetbundleManagement.md)
+* [hybridclr hot update](https://github.com/winddyhe/knight/blob/master/Doc/english-doc/Hybridclr-HotUpdate.md)
+* [MVMC's UI Framework](https://github.com/winddyhe/knight/blob/master/Doc/english-doc/MVMC-UIFramework.md)
+* [GameConfig](https://github.com/winddyhe/knight/blob/master/Doc/english-doc/GameConfig.md)
 
 ### Plugins (Thanks to the following plugins and frameworks for supporting the underlying functionality of knight)
 * hybridclr: It is a feature-complete, zero-cost, high-performance, low-memory Unity full-platform native C# hot update solution. Address: https://github.com/focus-creative-games/hybridclr
