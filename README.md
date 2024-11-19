@@ -2,7 +2,7 @@
 支持一波996.ICU
 <a href="https://996.icu"><img src="https://img.shields.io/badge/link-996.icu-red.svg" alt="996.icu"></a>
 
-[英文](https://github.com/winddyhe/knight/blob/master/Doc/english-doc/ReadMe-En.md)
+[English Doc](https://github.com/winddyhe/knight/blob/master/Doc/english-doc/ReadMe-En.md)
 
 Knight是一个基于Unity引擎的游戏GamePlay框架，提供一些简单易用的游戏框架接口，目的让开发者更加专注于游戏内容的开发。
 
