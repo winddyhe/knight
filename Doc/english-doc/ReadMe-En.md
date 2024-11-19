@@ -2,10 +2,10 @@
 Support the 996.ICU movement
 <a href="https://996.icu"><img src="https://img.shields.io/badge/link-996.icu-red.svg" alt="996.icu"></a>
 
-Knight is a GamePlay framework based on the Unity engine, offering simple and user-friendly game framework interfaces, with the aim of enabling developers to focus more on the development of game content.
-It includes a complete resource management module (packaging, downloading, loading, version management), a C# hot update module based on hybridclr, a UI framework based on MVMC, as well as support for other basic functionalities.
-The current framework aims to enhance performance and usability, and has undergone a major restructuring of previous designs. The currently used version of Unity is Unity6000.0.26f1.
-Currently, each module is separated using the Package approach and managed by the PackageManager to achieve plug-and-play functionality at runtime.
+* Knight is a GamePlay framework based on the Unity engine, offering simple and user-friendly game framework interfaces, with the aim of enabling developers to focus more on the development of game content.
+* It includes a complete resource management module (packaging, downloading, loading, version management), a C# hot update module based on hybridclr, a UI framework based on MVMC, as well as support for other basic functionalities.
+* The current framework aims to enhance performance and usability, and has undergone a major restructuring of previous designs. The currently used version of Unity is Unity6000.0.26f1.
+* Currently, each module is separated using the Package approach and managed by the PackageManager to achieve plug-and-play functionality at runtime.
   
   ![Framework Architecture of knight](https://github.com/winddyhe/knight/blob/master/Doc/res/images/img_1.png)
 
