@@ -66,12 +66,6 @@
       "source": "local",
       "dependencies": {}
     },
-    "com.knight.timeline": {
-      "version": "file:./knight-lib/com.knight.timeline@1.0.0",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
-    },
     "com.knight.ui": {
       "version": "file:./knight-lib/com.knight.ui@1.0.0",
       "depth": 0,

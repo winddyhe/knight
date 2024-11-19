@@ -11,7 +11,6 @@
     "com.knight.protobuf": "file:./knight-lib/com.knight.protobuf@1.0.0",
     "com.knight.serializer": "file:./knight-lib/com.knight.serializer@1.0.0",
     "com.knight.shadervariant": "file:./knight-lib/com.knight.shadervariant@1.0.0",
-    "com.knight.timeline": "file:./knight-lib/com.knight.timeline@1.0.0",
     "com.knight.ui": "file:./knight-lib/com.knight.ui@1.0.0",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.burst": "1.8.18",
